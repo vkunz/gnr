@@ -18,16 +18,20 @@ IMPLEMENT_APP(GNRApp);
 
 bool GNRApp::OnInit()
 {
-    //(*AppInitialize
-    bool wxsOK = true;
-    wxInitAllImageHandlers();
-    if ( wxsOK )
-    {
-    	GNRFrame* Frame = new GNRFrame(0);
-    	Frame->Show();
-    	SetTopWindow(Frame);
-    }
-    //*)
-    return wxsOK;
-
+	//(*AppInitialize
+	bool wxsOK = true;
+	wxInitAllImageHandlers();
+	if (wxsOK)
+	{
+		GNRFrame* Frame = new GNRFrame(0);
+		Frame->Show();
+		SetTopWindow(Frame);
+	}
+	else
+	{
+		return -1;
+	}
+	//*)
+	return wxsOK;
+	
 }

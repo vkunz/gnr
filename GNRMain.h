@@ -18,29 +18,29 @@
 
 class GNRFrame: public wxFrame
 {
-    public:
+public:
 
-        GNRFrame(wxWindow* parent,wxWindowID id = -1);
-        virtual ~GNRFrame();
+	GNRFrame(wxWindow* parent,wxWindowID id = -1);
+	virtual ~GNRFrame();
+	
+private:
 
-    private:
-
-        //(*Handlers(GNRFrame)
-        void OnQuit(wxCommandEvent& event);
-        void OnAbout(wxCommandEvent& event);
-        //*)
-
-        //(*Identifiers(GNRFrame)
-        static const long idMenuQuit;
-        static const long idMenuAbout;
-        static const long ID_STATUSBAR1;
-        //*)
-
-        //(*Declarations(GNRFrame)
-        wxStatusBar* StatusBar1;
-        //*)
-
-        DECLARE_EVENT_TABLE()
+	//(*Handlers(GNRFrame)
+	void OnQuit(wxCommandEvent& event);
+	void OnAbout(wxCommandEvent& event);
+	//*)
+	
+	//(*Identifiers(GNRFrame)
+	static const long idMenuQuit;
+	static const long idMenuAbout;
+	static const long ID_STATUSBAR1;
+	//*)
+	
+	//(*Declarations(GNRFrame)
+	wxStatusBar* StatusBar1;
+	//*)
+	
+	DECLARE_EVENT_TABLE()
 };
 
 #endif // GNRMAIN_H
