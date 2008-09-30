@@ -13,13 +13,13 @@
 				<Option compiler="gcc" />
 				<Option projectLinkerOptionsRelation="2" />
 				<Compiler>
+					<Add option="-Wall" />
 					<Add option="-g" />
-					<Add option="-finput-charset=iso-8859-1" />
 					<Add option="-D__WXDEBUG__" />
-					<Add directory="Y:\WX\lib\gcc_lib\mswud" />
+					<Add directory="$(#wx)\lib\gcc_lib\mswud" />
 				</Compiler>
 				<ResourceCompiler>
-					<Add directory="Y:\WX\lib\gcc_lib\mswud" />
+					<Add directory="$(#wx)\lib\gcc_lib\mswud" />
 				</ResourceCompiler>
 				<Linker>
 					<Add library="libwxmsw28ud_core.a" />
@@ -28,7 +28,7 @@
 					<Add library="libwxzlibd.a" />
 					<Add library="libwxjpegd.a" />
 					<Add library="libwxtiffd.a" />
-					<Add directory="Y:\WX\lib\gcc_lib" />
+					<Add directory="$(#wx)\lib\gcc_lib" />
 				</Linker>
 			</Target>
 			<Target title="Release">
@@ -39,11 +39,12 @@
 				<Option projectLinkerOptionsRelation="2" />
 				<Compiler>
 					<Add option="-O2" />
+					<Add option="-Wall" />
 					<Add option="-finput-charset=iso-8859-1" />
-					<Add directory="Y:\WX\lib\gcc_lib\mswu" />
+					<Add directory="$(#wx)\lib\gcc_lib\mswu" />
 				</Compiler>
 				<ResourceCompiler>
-					<Add directory="Y:\WX\lib\gcc_lib\mswu" />
+					<Add directory="$(#wx)\lib\gcc_lib\mswu" />
 				</ResourceCompiler>
 				<Linker>
 					<Add option="-s" />
@@ -53,7 +54,7 @@
 					<Add library="libwxzlib.a" />
 					<Add library="libwxtiff.a" />
 					<Add library="libwxjpeg.a" />
-					<Add directory="Y:\WX\lib\gcc_lib" />
+					<Add directory="$(#wx)\lib\gcc_lib" />
 				</Linker>
 			</Target>
 		</Build>
@@ -65,12 +66,12 @@
 			<Add option="-D__GNUWIN32__" />
 			<Add option="-D__WXMSW__" />
 			<Add option="-DwxUSE_UNICODE" />
-			<Add directory="Y:\WX\include" />
-			<Add directory="Y:\WX\contrib\include" />
+			<Add directory="$(#wx)\include" />
+			<Add directory="$(#wx)\contrib\include" />
 			<Add directory="src\include" />
 		</Compiler>
 		<ResourceCompiler>
-			<Add directory="Y:\WX\include" />
+			<Add directory="$(#wx)\include" />
 		</ResourceCompiler>
 		<Linker>
 			<Add library="libkernel32.a" />
@@ -94,6 +95,7 @@
 		<Unit filename="src\resource.rc">
 			<Option compilerVar="WINDRES" />
 		</Unit>
+		<Unit filename="wxsmith\GNRframe.wxs" />
 		<Extensions>
 			<code_completion />
 			<envvars />
