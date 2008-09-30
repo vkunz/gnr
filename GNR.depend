@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1222776325 source:y:\projects\gnr\gnrmain.cpp
+1222776715 source:y:\projects\gnr\gnrmain.cpp
 	"GNRMain.h"
 	<wx/msgdlg.h>
 	<wx/intl.h>
