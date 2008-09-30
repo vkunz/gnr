@@ -27,10 +27,6 @@ bool GNRApp::OnInit()
 		Frame->Show();
 		SetTopWindow(Frame);
 	}
-	else
-	{
-		return -1;
-	}
 	//*)
 	return wxsOK;
 	
