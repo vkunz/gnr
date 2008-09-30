@@ -65,15 +65,17 @@ GNRFrame::GNRFrame(wxWindow* parent,wxWindowID id)
 	
 	Create(parent, id, wxEmptyString, wxDefaultPosition, wxDefaultSize, wxDEFAULT_FRAME_STYLE, _T("id"));
 	SetClientSize(wxSize(992,472));
+	
 	MenuBar1 = new wxMenuBar();
 	Menu1 = new wxMenu();
-	MenuItem1 = new wxMenuItem(Menu1, idMenuQuit, _("Quit\tAlt-F4"), _("Quit the application"), wxITEM_NORMAL);
+	MenuItem1 = new wxMenuItem(Menu1, idMenuQuit, _("&Beenden\tAlt-F4"), _("Anwendung beenden"), wxITEM_NORMAL);
 	Menu1->Append(MenuItem1);
-	MenuBar1->Append(Menu1, _("&File"));
+	MenuBar1->Append(Menu1, _("&Datei"));
 	Menu2 = new wxMenu();
-	MenuItem2 = new wxMenuItem(Menu2, idMenuAbout, _("About\tF1"), _("Show info about this application"), wxITEM_NORMAL);
+	MenuItem2 = new wxMenuItem(Menu2, idMenuAbout, _("&Über GNR...\tF1"), _("Informationen über GNR"), wxITEM_NORMAL);
 	Menu2->Append(MenuItem2);
-	MenuBar1->Append(Menu2, _("Help"));
+	MenuBar1->Append(Menu2, _("&Hilfe"));
+	
 	SetMenuBar(MenuBar1);
 	StatusBar1 = new wxStatusBar(this, ID_STATUSBAR1, 0, _T("ID_STATUSBAR1"));
 	int __wxStatusBarWidths_1[1] = { -1 };
@@ -101,5 +103,5 @@ void GNRFrame::OnQuit(wxCommandEvent& event)
 void GNRFrame::OnAbout(wxCommandEvent& event)
 {
 	wxString msg = wxbuildinfo(long_f);
-	wxMessageBox(msg, _("Welcome to..."));
+	wxMessageBox(msg, _("GNR"));
 }
