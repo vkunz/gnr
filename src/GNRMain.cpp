@@ -24,7 +24,7 @@ enum wxbuildinfoformat
 wxString wxbuildinfo(wxbuildinfoformat format)
 {
 	wxString wxbuild(wxVERSION_STRING);
-
+	
 	if (format == long_f)
 	{
 #if defined(__WXMSW__)
@@ -32,14 +32,14 @@ wxString wxbuildinfo(wxbuildinfoformat format)
 #elif defined(__UNIX__)
 		wxbuild << _T("-Linux");
 #endif
-
+		
 #if wxUSE_UNICODE
 		wxbuild << _T("-Unicode build");
 #else
 		wxbuild << _T("-ANSI build");
 #endif // wxUSE_UNICODE
 	}
-
+	
 	return wxbuild;
 }
 
@@ -62,7 +62,7 @@ GNRFrame::GNRFrame(wxWindow* parent,wxWindowID id)
 	wxMenu* Menu1;
 	wxMenuBar* MenuBar1;
 	wxMenu* Menu2;
-
+	
 	Create(parent, id, wxEmptyString, wxDefaultPosition, wxDefaultSize, wxDEFAULT_FRAME_STYLE, _T("id"));
 	SetClientSize(wxSize(992,472));
 	MenuBar1 = new wxMenuBar();
@@ -81,7 +81,7 @@ GNRFrame::GNRFrame(wxWindow* parent,wxWindowID id)
 	StatusBar1->SetFieldsCount(1,__wxStatusBarWidths_1);
 	StatusBar1->SetStatusStyles(1,__wxStatusBarStyles_1);
 	SetStatusBar(StatusBar1);
-
+	
 	Connect(idMenuQuit,wxEVT_COMMAND_MENU_SELECTED,(wxObjectEventFunction)&GNRFrame::OnQuit);
 	Connect(idMenuAbout,wxEVT_COMMAND_MENU_SELECTED,(wxObjectEventFunction)&GNRFrame::OnAbout);
 	//*)
