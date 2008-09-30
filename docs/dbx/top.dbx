@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.4//EN"
+"http://www.oasis-open.org/docbook/xml/4.4/docbookx.dtd">
+<article>
+  <title>Homepage Team X</title>
+
+  <subtitle>Template</subtitle>
+
+  <para>Diese Seite demonstriert, wie eine Team-Homepage mit Texten und
+  Bildern strukturiert werden kann. Wie Sie in den Quellen sehen können,
+  besteht die Beschreibung dieser Seite aus mehreren ASCII- und Bilddateien,
+  die in verschiedenen Verzeichnissen abgelegt sind. Die Datei "default.xml" ist
+  das Herzstück und beschreibt, wie alle diese einzelnen Teile zusammen
+  gesetzt werden. Tip: Beschränken Sie sich darauf, die Dateien "top.dbx",
+  "right.dbx" und "buttom.dbx" mit Ihren Texten zu füllen und die gewünschten
+  Bilder in die Verzeichnisse "_downloads" und "_images" einzuspielen!</para>
+  
+  <section><title>Überschrift T-1</title>
+  <para> Dieser Text ist in der Datei "top.dbx" abgelegt! </para>
+  </section>
+</article>

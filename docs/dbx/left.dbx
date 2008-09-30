@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.4//EN"
+"http://www.oasis-open.org/docbook/xml/4.4/docbookx.dtd">
+<article>
+  <section>
+    <title>Überschrift L-1</title>
+
+    <para>Der Text, der neben den Bildern erscheint, wird in der Datei
+    "left.dbx" abgelegt. Sie sollte syntaktisch (wie alle anderen dbx-Dateien
+    auch) einen gültigen DocBook-Artikel ("article") enthalten und kann
+    verschiedene Elemente aufweisen, z.B. Sektionen ("section") mit
+    Überschriften ("title") und Absätzen ("para").</para>
+
+    <itemizedlist>
+      <listitem>
+        <para>Hier sehen Sie ein Beispiel für eine Auflistung
+        ("itemizedlist")</para>
+      </listitem>
+
+      <listitem>
+        <para>mit zwei Einträgen ("listitem").</para>
+      </listitem>
+    </itemizedlist>
+
+    <para>Hier folgt ein weiterer Absatz.</para>
+  </section>
+
+  <section>
+    <title>Überschrift L-2</title>
+
+    <para>Bilder, die in den Text eingebunden werden, müssen genau 140 Pixel
+    breit sein und sollten vorzugsweise ein quadratisches Format aufweisen.
+    Sie werden im Verzeichnis "_images" abgelegt und dann links in
+    alphabetischer Reihenfolge untereinander dargestellt .</para>
+  </section>
+</article>
