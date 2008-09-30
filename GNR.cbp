@@ -26,9 +26,7 @@
 					<Add library="libwxpngd.a" />
 					<Add library="libwxzlibd.a" />
 					<Add library="libwxjpegd.a" />
-					<Add library="libwxpngd.a" />
 					<Add library="libwxtiffd.a" />
-					<Add library="libwxzlibd.a" />
 					<Add directory="Y:\WX\lib\gcc_lib" />
 				</Linker>
 			</Target>
@@ -52,23 +50,22 @@
 					<Add library="libwxpng.a" />
 					<Add library="libwxzlib.a" />
 					<Add library="libwxtiff.a" />
-					<Add library="libwxzlib.a" />
 					<Add library="libwxjpeg.a" />
-					<Add library="libwxpng.a" />
 					<Add directory="Y:\WX\lib\gcc_lib" />
 				</Linker>
 			</Target>
 		</Build>
 		<Compiler>
+			<Add option="-Wall" />
 			<Add option="-pipe" />
 			<Add option="-mthreads" />
+			<Add option='[[if (PLATFORM == PLATFORM_MSW &amp;&amp; (GetCompilerFactory().GetCompilerVersionString(_T(&quot;gcc&quot;)) &gt;= _T(&quot;4.0.0&quot;))) print(_T(&quot;-Wno-attributes&quot;));]]' />
 			<Add option="-D__GNUWIN32__" />
 			<Add option="-D__WXMSW__" />
 			<Add option="-DwxUSE_UNICODE" />
-			<Add option='[[if (PLATFORM == PLATFORM_MSW &amp;&amp; (GetCompilerFactory().GetCompilerVersionString(_T(&quot;gcc&quot;)) &gt;= _T(&quot;4.0.0&quot;))) print(_T(&quot;-Wno-attributes&quot;));]]' />
-			<Add option="-Wall" />
 			<Add directory="Y:\WX\include" />
 			<Add directory="Y:\WX\contrib\include" />
+			<Add directory="src\include" />
 		</Compiler>
 		<ResourceCompiler>
 			<Add directory="Y:\WX\include" />
@@ -88,14 +85,13 @@
 			<Add library="libwsock32.a" />
 			<Add library="libodbc32.a" />
 		</Linker>
-		<Unit filename="GNRApp.cpp" />
-		<Unit filename="GNRApp.h" />
-		<Unit filename="GNRMain.cpp" />
-		<Unit filename="GNRMain.h" />
-		<Unit filename="resource.rc">
+		<Unit filename="src\GNRApp.cpp" />
+		<Unit filename="src\GNRMain.cpp" />
+		<Unit filename="src\include\GNRApp.h" />
+		<Unit filename="src\include\GNRMain.h" />
+		<Unit filename="src\resource.rc">
 			<Option compilerVar="WINDRES" />
 		</Unit>
-		<Unit filename="wxsmith\GNRframe.wxs" />
 		<Extensions>
 			<code_completion />
 			<envvars />
