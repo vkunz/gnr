@@ -30,6 +30,6 @@ up:
 ci:
 	svn commit
 st:
-	echo $(shell svn status | grep "^M")
+	@echo $(shell svn status | grep "^M")
 clean: 
 	rm -f bin/*.o bin/GNR
