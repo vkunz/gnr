@@ -12,7 +12,6 @@
 
 //(*InternalHeaders(GNRFrame)
 #include <wx/intl.h>
-#include <wx/wx.h>
 #include <wx/string.h>
 //*)
 
@@ -27,7 +26,7 @@ enum wxbuildinfoformat
 wxString wxbuildinfo(wxbuildinfoformat format)
 {
 	wxString wxbuild(wxVERSION_STRING);
-
+	
 	if (format == long_f)
 	{
 #if defined(__WXMSW__)
@@ -35,14 +34,14 @@ wxString wxbuildinfo(wxbuildinfoformat format)
 #elif defined(__UNIX__)
 		wxbuild << _T("-Linux");
 #endif
-
+		
 #if wxUSE_UNICODE
 		wxbuild << _T("-Unicode build");
 #else
 		wxbuild << _T("-ANSI build");
 #endif // wxUSE_UNICODE
 	}
-
+	
 	return wxbuild;
 }
 
@@ -66,17 +65,19 @@ GNRFrame::GNRFrame(wxWindow* parent,wxWindowID id)
 	wxMenuItem* MenuItem2;
 	wxMenuItem* MenuItem1;
 	wxMenuItem* MenuItem4;
-	wxMenuBar* MenuBar1;
 	wxMenu* Menu1;
+	wxMenuBar* MenuBar1;
 	wxMenu* Menu2;
-
+	
 	Create(parent, id, wxEmptyString, wxDefaultPosition, wxDefaultSize, wxDEFAULT_FRAME_STYLE, _T("id"));
 	SetClientSize(wxSize(690,311));
 	MenuBar1 = new wxMenuBar();
 	Menu1 = new wxMenu();
+	MenuItem3 = new wxMenuItem(Menu1, idMenuLoad, _("&Öffnen\tAlt-O"), _("vorhandene Datei öffnen..."), wxITEM_NORMAL);
 	Menu1->Append(MenuItem3);
 	MenuItem4 = new wxMenuItem(Menu1, idMenuSave, _("&Speichern\tAlt-S"), _("Datei speichern..."), wxITEM_NORMAL);
 	Menu1->Append(MenuItem4);
+	MenuItem1 = new wxMenuItem(Menu1, idMenuQuit, _("&Schließen\tAlt-F4"), _("GNR schließen..."), wxITEM_NORMAL);
 	Menu1->Append(MenuItem1);
 	MenuBar1->Append(Menu1, _("&Datei"));
 	Menu2 = new wxMenu();
@@ -92,13 +93,9 @@ GNRFrame::GNRFrame(wxWindow* parent,wxWindowID id)
 	StatusBar1->SetFieldsCount(1,__wxStatusBarWidths_1);
 	StatusBar1->SetStatusStyles(1,__wxStatusBarStyles_1);
 	SetStatusBar(StatusBar1);
-
-	m_canvas = new TestCanvas(this, wxID_ANY, wxDefaultPosition,
-        wxSize(300, 300), wxSUNKEN_BORDER);
-
+	
 	Connect(idMenuQuit,wxEVT_COMMAND_MENU_SELECTED,(wxObjectEventFunction)&GNRFrame::OnQuit);
 	Connect(idMenuAbout,wxEVT_COMMAND_MENU_SELECTED,(wxObjectEventFunction)&GNRFrame::OnAbout);
-	Connect(idMenuLoad,wxEVT_COMMAND_MENU_SELECTED,(wxObjectEventFunction)&GNRFrame::OnFileOpen);
 	//*)
 }
 
@@ -117,22 +114,5 @@ void GNRFrame::OnAbout(wxCommandEvent& event)
 {
 	wxString msg = wxbuildinfo(long_f);
 	wxMessageBox(msg, _("GNR"));
-	wxMessageBox(msg, _("BlaBlub"));
 }
 
-
-void GNRFrame::OnRadioBox1Select(wxCommandEvent& event)
-{
-}
-void GNRFrame::OnFileOpen(wxCommandEvent& event)
-{
-	wxString filename = wxFileSelector(wxT(".obj-datei oeffnen"), wxT(""), wxT(""), wxT(""), wxT("DXF Drawing (*.dxf)|*.dxf)|All files (*.*)|*.*"), wxFD_OPEN);
-
-    wxChar* m_char = new char[filename.length() + 1];
-    strcpy(m_char, filename.wc_str());
-
-    wxMessageBox(m_char);
-
-    //m_canvas->pmodel =  glmReadOBJ(filename.c_str());
-	wxMessageBox(filename, _("Bla"));
-}

@@ -16,7 +16,7 @@
 #include <wx/statusbr.h>
 //*)
 
-#include <glm.h>
+
 
 
 #include "TestCanvas.h"
@@ -27,22 +27,20 @@ public:
 
 	GNRFrame(wxWindow* parent,wxWindowID id = -1);
 	virtual ~GNRFrame();
-
+	
 	//void SetCanvas( TestGLCanvas *canvas ) { m_canvas = canvas; }
-    //TestGLCanvas* GetCanvas() { return m_canvas; }
-
-
+	//TestGLCanvas* GetCanvas() { return m_canvas; }
+	
+	
 private:
 
 	TestCanvas* m_canvas;
-
+	
 	//(*Handlers(GNRFrame)
 	void OnQuit(wxCommandEvent& event);
 	void OnAbout(wxCommandEvent& event);
-	void OnRadioBox1Select(wxCommandEvent& event);
-	void OnFileOpen(wxCommandEvent& event);
 	//*)
-
+	
 	//(*Identifiers(GNRFrame)
 	static const long idMenuLoad;
 	static const long idMenuSave;
@@ -51,13 +49,13 @@ private:
 	static const long idMenuAbout;
 	static const long ID_STATUSBAR1;
 	//*)
-
+	
 	//(*Declarations(GNRFrame)
 	wxMenuItem* MenuItem5;
 	wxMenuItem* MenuItem3;
 	wxStatusBar* StatusBar1;
 	//*)
-
+	
 	DECLARE_EVENT_TABLE()
 };
 
