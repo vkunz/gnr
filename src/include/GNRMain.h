@@ -16,9 +16,6 @@
 #include <wx/statusbr.h>
 //*)
 
-
-
-
 #include "TestCanvas.h"
 
 class GNRFrame: public wxFrame
@@ -30,12 +27,10 @@ public:
 	
 	//void SetCanvas( TestGLCanvas *canvas ) { m_canvas = canvas; }
 	//TestGLCanvas* GetCanvas() { return m_canvas; }
-	
+	TestCanvas* m_canvas;
 	
 private:
 
-	TestCanvas* m_canvas;
-	
 	//(*Handlers(GNRFrame)
 	void OnQuit(wxCommandEvent& event);
 	void OnAbout(wxCommandEvent& event);

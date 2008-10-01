@@ -24,8 +24,10 @@ bool GNRApp::OnInit()
 	if (wxsOK)
 	{
 		GNRFrame* Frame = new GNRFrame(0);
-		Frame->Show();
+		Frame->Show(TRUE);
 		SetTopWindow(Frame);
+		Frame->m_canvas->SetCurrent();
+		Frame->m_canvas->DrawGLScene();
 	}
 	//*)
 	return wxsOK;

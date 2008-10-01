@@ -17,6 +17,7 @@ private:
 	GLData m_gldata;
 	
 	void InitGL();
+	void ResetProjectionMode();
 	
 protected:
 
@@ -25,7 +26,8 @@ public:
 	           const wxPoint& pos = wxDefaultPosition,
 	           const wxSize& size = wxDefaultSize, long style = 0,
 	           const wxString& name = wxT("TestGLCanvas"));
-	           
+	void DrawGLScene();
+	
 };
 
 

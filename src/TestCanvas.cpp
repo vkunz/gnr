@@ -1,4 +1,7 @@
 #include "TestCanvas.h"
+#include <gl/glu.h>
+#include <wx/msgdlg.h>
+#include "wx/dcclient.h"
 
 
 TestCanvas::TestCanvas(wxWindow *parent, wxWindowID id,
@@ -12,44 +15,52 @@ TestCanvas::TestCanvas(wxWindow *parent, wxWindowID id,
 	m_gldata.beginy = 0.0f;
 	m_gldata.zoom   = 45.0f;
 	
-	
+	wxPaintDC dc(this);
 	this->InitGL();
+	this->ResetProjectionMode();
+	//this->DrawGLScene();
 	
 }
 
 void TestCanvas::InitGL()
 {
-	static const GLfloat light0_pos[4]   = { -50.0f, 50.0f, 0.0f, 0.0f };
-	
-	// white light
-	static const GLfloat light0_color[4] = { 0.6f, 0.6f, 0.6f, 1.0f };
-	
-	static const GLfloat light1_pos[4]   = {  50.0f, 50.0f, 0.0f, 0.0f };
-	
-	// cold blue light
-	static const GLfloat light1_color[4] = { 0.4f, 0.4f, 1.0f, 1.0f };
-	
-	/* remove back faces */
-	glDisable(GL_CULL_FACE);
-	glEnable(GL_DEPTH_TEST);
-	
-	/* speedups */
-	glEnable(GL_DITHER);
-	glShadeModel(GL_SMOOTH);
-	glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_FASTEST);
-	glHint(GL_POLYGON_SMOOTH_HINT, GL_FASTEST);
-	
-	/* light */
-	glLightfv(GL_LIGHT0, GL_POSITION, light0_pos);
-	glLightfv(GL_LIGHT0, GL_DIFFUSE,  light0_color);
-	glLightfv(GL_LIGHT1, GL_POSITION, light1_pos);
-	glLightfv(GL_LIGHT1, GL_DIFFUSE,  light1_color);
-	glEnable(GL_LIGHT0);
-	glEnable(GL_LIGHT1);
-	glEnable(GL_LIGHTING);
-	
-	glColorMaterial(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE);
-	glEnable(GL_COLOR_MATERIAL);
+	SetCurrent();
+	glShadeModel(GL_SMOOTH);							// Enable Smooth Shading
+	glClearColor(0.0f, 0.0f, 0.0f, 0.5f);				// Black Background
+	glClearDepth(1.0f);									// Depth Buffer Setup
+	glEnable(GL_DEPTH_TEST);							// Enables Depth Testing
+	glDepthFunc(GL_LEQUAL);								// The Type Of Depth Testing To Do
+	glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);	// Really Nice Perspective Calculations
 }
 
+void TestCanvas::ResetProjectionMode()
+{
+	int w, h;
+	GetClientSize(&w, &h);
+#ifndef __WXMOTIF__
+	if (GetContext())
+#endif
+	{
+		SetCurrent();
+		glViewport(0, 0, (GLint) w, (GLint) h);
+		glMatrixMode(GL_PROJECTION);
+		glLoadIdentity();
+		gluPerspective(45.0f, (GLfloat)w/h, 1.0, 100.0);
+		glMatrixMode(GL_MODELVIEW);
+		glLoadIdentity();
+	}
+}
 
+void TestCanvas::DrawGLScene()
+{
+	SetCurrent();
+	glClearColor(0.0, 0.0, 0.0, 0.0);
+	glLoadIdentity();									// Reset The Current Modelview Matrix
+	glBegin(GL_TRIANGLES);
+	glVertex3f(0.0f, 1.0f, 0.0f);					// Top
+	glVertex3f(-1.0f,-1.0f, 0.0f);					// Bottom Left
+	glVertex3f(1.0f,-1.0f, 0.0f);					// Bottom Right
+	glEnd();											// Finished Drawing The Triangle
+	
+	SwapBuffers();
+}
