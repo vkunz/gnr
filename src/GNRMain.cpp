@@ -24,7 +24,7 @@ enum wxbuildinfoformat
 wxString wxbuildinfo(wxbuildinfoformat format)
 {
 	wxString wxbuild(wxVERSION_STRING);
-
+	
 	if (format == long_f)
 	{
 #if defined(__WXMSW__)
@@ -32,14 +32,14 @@ wxString wxbuildinfo(wxbuildinfoformat format)
 #elif defined(__UNIX__)
 		wxbuild << _T("-Linux");
 #endif
-
+		
 #if wxUSE_UNICODE
 		wxbuild << _T("-Unicode build");
 #else
 		wxbuild << _T("-ANSI build");
 #endif // wxUSE_UNICODE
 	}
-
+	
 	return wxbuild;
 }
 
@@ -62,10 +62,10 @@ GNRFrame::GNRFrame(wxWindow* parent,wxWindowID id)
 	wxMenu* Menu1;
 	wxMenuBar* MenuBar1;
 	wxMenu* Menu2;
-
+	
 	Create(parent, id, wxEmptyString, wxDefaultPosition, wxDefaultSize, wxDEFAULT_FRAME_STYLE, _T("id"));
 	SetClientSize(wxSize(992,472));
-
+	
 	MenuBar1 = new wxMenuBar();
 	Menu1 = new wxMenu();
 	MenuItem1 = new wxMenuItem(Menu1, idMenuQuit, _("&Beenden\tAlt-F4"), _("Anwendung beenden"), wxITEM_NORMAL);
@@ -75,7 +75,7 @@ GNRFrame::GNRFrame(wxWindow* parent,wxWindowID id)
 	MenuItem2 = new wxMenuItem(Menu2, idMenuAbout, _("&Über GNR...\tF1"), _("Informationen über GNR"), wxITEM_NORMAL);
 	Menu2->Append(MenuItem2);
 	MenuBar1->Append(Menu2, _("&Hilfe"));
-
+	
 	SetMenuBar(MenuBar1);
 	StatusBar1 = new wxStatusBar(this, ID_STATUSBAR1, 0, _T("ID_STATUSBAR1"));
 	int __wxStatusBarWidths_1[1] = { -1 };
@@ -83,7 +83,7 @@ GNRFrame::GNRFrame(wxWindow* parent,wxWindowID id)
 	StatusBar1->SetFieldsCount(1,__wxStatusBarWidths_1);
 	StatusBar1->SetStatusStyles(1,__wxStatusBarStyles_1);
 	SetStatusBar(StatusBar1);
-
+	
 	Connect(idMenuQuit,wxEVT_COMMAND_MENU_SELECTED,(wxObjectEventFunction)&GNRFrame::OnQuit);
 	Connect(idMenuAbout,wxEVT_COMMAND_MENU_SELECTED,(wxObjectEventFunction)&GNRFrame::OnAbout);
 	//*)
