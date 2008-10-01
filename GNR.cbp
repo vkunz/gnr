@@ -15,7 +15,6 @@
 				<Compiler>
 					<Add option="-Wall" />
 					<Add option="-g" />
-					<Add option="-finput-charset=iso-8859-1" />
 					<Add option="-D__WXDEBUG__" />
 					<Add directory="$(#wx)\lib\gcc_lib\mswud" />
 				</Compiler>
@@ -29,6 +28,7 @@
 					<Add library="libwxzlibd.a" />
 					<Add library="libwxjpegd.a" />
 					<Add library="libwxtiffd.a" />
+					<Add library="libwxmsw28ud_gl.a" />
 					<Add directory="$(#wx)\lib\gcc_lib" />
 				</Linker>
 			</Target>
@@ -55,6 +55,7 @@
 					<Add library="libwxzlib.a" />
 					<Add library="libwxtiff.a" />
 					<Add library="libwxjpeg.a" />
+					<Add library="libwxmsw28u_gl.a" />
 					<Add directory="$(#wx)\lib\gcc_lib" />
 				</Linker>
 			</Target>
@@ -88,11 +89,15 @@
 			<Add library="libcomctl32.a" />
 			<Add library="libwsock32.a" />
 			<Add library="libodbc32.a" />
+			<Add library="libopengl32.a" />
+			<Add library="libglu32.a" />
 		</Linker>
 		<Unit filename="src\GNRApp.cpp" />
 		<Unit filename="src\GNRMain.cpp" />
+		<Unit filename="src\TestCanvas.cpp" />
 		<Unit filename="src\include\GNRApp.h" />
 		<Unit filename="src\include\GNRMain.h" />
+		<Unit filename="src\include\TestCanvas.h" />
 		<Unit filename="src\resource.rc">
 			<Option compilerVar="WINDRES" />
 		</Unit>
