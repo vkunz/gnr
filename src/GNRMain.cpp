@@ -44,7 +44,10 @@ wxString wxbuildinfo(wxbuildinfoformat format)
 }
 
 //(*IdInit(GNRFrame)
+const long GNRFrame::idMenuLoad = wxNewId();
+const long GNRFrame::idMenuSave = wxNewId();
 const long GNRFrame::idMenuQuit = wxNewId();
+const long GNRFrame::idMenuHelp = wxNewId();
 const long GNRFrame::idMenuAbout = wxNewId();
 const long GNRFrame::ID_STATUSBAR1 = wxNewId();
 //*)
@@ -57,25 +60,32 @@ END_EVENT_TABLE()
 GNRFrame::GNRFrame(wxWindow* parent,wxWindowID id)
 {
 	//(*Initialize(GNRFrame)
+	wxMenuItem* MenuItem5;
 	wxMenuItem* MenuItem2;
 	wxMenuItem* MenuItem1;
+	wxMenuItem* MenuItem4;
 	wxMenu* Menu1;
+	wxMenuItem* MenuItem3;
 	wxMenuBar* MenuBar1;
 	wxMenu* Menu2;
 	
 	Create(parent, id, wxEmptyString, wxDefaultPosition, wxDefaultSize, wxDEFAULT_FRAME_STYLE, _T("id"));
 	SetClientSize(wxSize(992,472));
-	
 	MenuBar1 = new wxMenuBar();
 	Menu1 = new wxMenu();
-	MenuItem1 = new wxMenuItem(Menu1, idMenuQuit, _("&Beenden\tAlt-F4"), _("Anwendung beenden"), wxITEM_NORMAL);
+	MenuItem3 = new wxMenuItem(Menu1, idMenuLoad, _("&Öffnen\tAlt-O"), _("vorhandene Datei öffnen..."), wxITEM_NORMAL);
+	Menu1->Append(MenuItem3);
+	MenuItem4 = new wxMenuItem(Menu1, idMenuSave, _("&Speichern\tAlt-S"), _("Datei speichern..."), wxITEM_NORMAL);
+	Menu1->Append(MenuItem4);
+	MenuItem1 = new wxMenuItem(Menu1, idMenuQuit, _("&Schließen\tAlt-F4"), _("GNR schließen..."), wxITEM_NORMAL);
 	Menu1->Append(MenuItem1);
 	MenuBar1->Append(Menu1, _("&Datei"));
 	Menu2 = new wxMenu();
-	MenuItem2 = new wxMenuItem(Menu2, idMenuAbout, _("&Über GNR...\tF1"), _("Informationen über GNR"), wxITEM_NORMAL);
+	MenuItem5 = new wxMenuItem(Menu2, idMenuHelp, _("&Hilfe\tF1"), _("Hilfe zur Anwendung"), wxITEM_NORMAL);
+	Menu2->Append(MenuItem5);
+	MenuItem2 = new wxMenuItem(Menu2, idMenuAbout, _("&Über\tAlt-F1"), _("Informationen über GNR..."), wxITEM_NORMAL);
 	Menu2->Append(MenuItem2);
 	MenuBar1->Append(Menu2, _("&Hilfe"));
-	
 	SetMenuBar(MenuBar1);
 	StatusBar1 = new wxStatusBar(this, ID_STATUSBAR1, 0, _T("ID_STATUSBAR1"));
 	int __wxStatusBarWidths_1[1] = { -1 };

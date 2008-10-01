@@ -31,7 +31,10 @@ private:
 	//*)
 	
 	//(*Identifiers(GNRFrame)
+	static const long idMenuLoad;
+	static const long idMenuSave;
 	static const long idMenuQuit;
+	static const long idMenuHelp;
 	static const long idMenuAbout;
 	static const long ID_STATUSBAR1;
 	//*)

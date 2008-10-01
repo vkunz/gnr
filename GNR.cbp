@@ -103,9 +103,9 @@
 			<debugger />
 			<lib_finder disable_auto="1" />
 			<wxsmith version="1">
-				<gui name="wxWidgets" src="GNRApp.cpp" main="GNRFrame" init_handlers="necessary" language="CPP" />
+				<gui name="wxWidgets" src="src\GNRApp.cpp" main="GNRFrame" init_handlers="necessary" language="CPP" />
 				<resources>
-					<wxFrame wxs="wxsmith/GNRframe.wxs" src="GNRMain.cpp" hdr="GNRMain.h" name="GNRFrame" language="CPP" />
+					<wxFrame wxs="wxsmith/GNRframe.wxs" src="src\GNRMain.cpp" hdr="src\include\GNRMain.h" name="GNRFrame" language="CPP" />
 				</resources>
 			</wxsmith>
 		</Extensions>
