@@ -28,6 +28,7 @@ private:
 	//(*Handlers(GNRFrame)
 	void OnQuit(wxCommandEvent& event);
 	void OnAbout(wxCommandEvent& event);
+	void OnRadioBox1Select(wxCommandEvent& event);
 	//*)
 	
 	//(*Identifiers(GNRFrame)

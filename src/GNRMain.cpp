@@ -64,20 +64,20 @@ GNRFrame::GNRFrame(wxWindow* parent,wxWindowID id)
 	wxMenuItem* MenuItem2;
 	wxMenuItem* MenuItem1;
 	wxMenuItem* MenuItem4;
-	wxMenu* Menu1;
 	wxMenuItem* MenuItem3;
 	wxMenuBar* MenuBar1;
+	wxMenu* Menu1;
 	wxMenu* Menu2;
 	
 	Create(parent, id, wxEmptyString, wxDefaultPosition, wxDefaultSize, wxDEFAULT_FRAME_STYLE, _T("id"));
-	SetClientSize(wxSize(992,472));
+	SetClientSize(wxSize(690,311));
 	MenuBar1 = new wxMenuBar();
 	Menu1 = new wxMenu();
 	MenuItem3 = new wxMenuItem(Menu1, idMenuLoad, _("&Öffnen\tAlt-O"), _("vorhandene Datei öffnen..."), wxITEM_NORMAL);
 	Menu1->Append(MenuItem3);
 	MenuItem4 = new wxMenuItem(Menu1, idMenuSave, _("&Speichern\tAlt-S"), _("Datei speichern..."), wxITEM_NORMAL);
 	Menu1->Append(MenuItem4);
-	MenuItem1 = new wxMenuItem(Menu1, idMenuQuit, _("&Schließen\tAlt-F4"), _("GNR schließen..."), wxITEM_NORMAL);
+	MenuItem1 = new wxMenuItem(Menu1, idMenuQuit, _("Schließen\tAlt-F4"), _("GNR schließen..."), wxITEM_NORMAL);
 	Menu1->Append(MenuItem1);
 	MenuBar1->Append(Menu1, _("&Datei"));
 	Menu2 = new wxMenu();
@@ -114,4 +114,8 @@ void GNRFrame::OnAbout(wxCommandEvent& event)
 {
 	wxString msg = wxbuildinfo(long_f);
 	wxMessageBox(msg, _("GNR"));
+}
+
+void GNRFrame::OnRadioBox1Select(wxCommandEvent& event)
+{
 }
