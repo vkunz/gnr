@@ -21,6 +21,8 @@ enum wxbuildinfoformat
 	short_f, long_f
 };
 
+// just a comment
+
 wxString wxbuildinfo(wxbuildinfoformat format)
 {
 	wxString wxbuild(wxVERSION_STRING);
