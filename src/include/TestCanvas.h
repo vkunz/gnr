@@ -17,13 +17,21 @@ private:
 	//GLData m_gldata;
 	wxTimer* m_timer;
 	bool m_init;
-	int	mouse_x, mouse_y;		                        // The Current Position Of The Mouse
+	bool m_LMousePressed;
+	int	m_mouse_x, m_mouse_y;		                        // The Current Position Of The Mouse
+	
+	GLdouble posx, posy;
 	
 	void InitGL();
+	void Selection();
+	void getGLPos(int x, int y);
 	
 	void OnSize(wxSizeEvent & event);
-	void OnTimer(wxTimerEvent& args);
-	void Selection(wxMouseEvent &event);
+	void OnTimer(wxTimerEvent& event);
+	void OnLMouseDown(wxMouseEvent& event);
+	void OnLMouseUp(wxMouseEvent& event);
+	void OnMMouseDown(wxMouseEvent& event);
+	void OnMouseMove(wxMouseEvent& event);
 	
 	DECLARE_EVENT_TABLE();
 	

@@ -10,7 +10,10 @@ int const ID_TIMER = wxNewId();
 BEGIN_EVENT_TABLE(TestCanvas, wxGLCanvas)
 	EVT_TIMER(ID_TIMER, TestCanvas::OnTimer)
 	EVT_SIZE(TestCanvas::OnSize)
-	EVT_LEFT_DOWN(TestCanvas::Selection)
+	EVT_LEFT_DOWN(TestCanvas::OnLMouseDown)
+	EVT_LEFT_UP(TestCanvas::OnLMouseUp)
+	EVT_MIDDLE_DOWN(TestCanvas::OnMMouseDown)
+	EVT_MOTION(TestCanvas::OnMouseMove)
 END_EVENT_TABLE()
 
 TestCanvas::TestCanvas(wxWindow *parent, wxWindowID id,
@@ -27,7 +30,10 @@ TestCanvas::TestCanvas(wxWindow *parent, wxWindowID id,
 	m_init = false;     //OpenGL not initialized
 	
 	m_timer = new wxTimer(this, ID_TIMER);  //Timer to refresh the GL-Window
-	m_timer->Start(2000);                   //Timer-Intervall in ms
+	m_timer->Start(50);                   //Timer-Intervall in ms
+	
+	posx = 0.0f;
+	posy = 0.0f;
 }
 
 //!Ininitalize the OpenGL-Window
@@ -35,7 +41,7 @@ void TestCanvas::InitGL()
 {
 	SetCurrent();
 	glShadeModel(GL_SMOOTH);							// Enable Smooth Shading
-	glClearColor(0.8, 0.8, 0.8, 0.0);
+	glClearColor(0.0, 0.0, 0.0, 0.0);
 	glClearDepth(1.0f);									// Depth Buffer Setup
 	glEnable(GL_DEPTH_TEST);							// Enables Depth Testing
 	glDepthFunc(GL_LEQUAL);								// The Type Of Depth Testing To Do
@@ -67,7 +73,7 @@ void TestCanvas::DrawGLScene()
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // Clear The Scene
 	glLoadIdentity();									// Reset The Current Modelview Matrix
 	
-	glTranslatef(0.0f,0.0f,-6.0f);  					// Move
+	glTranslatef(posx,posy,-6.0f);  					// Move
 	glColor3f(1.0, 0.0, 0.0);                           // Set Color
 	glLoadName(1);
 	glPushMatrix();					    				// Push The Modelview Matrix (for naming the Object)
@@ -102,7 +108,7 @@ void TestCanvas::DrawGLScene()
 }
 
 //! Drawing The Scene
-void TestCanvas::OnTimer(wxTimerEvent& args)
+void TestCanvas::OnTimer(wxTimerEvent& event)
 {
 	//wxPaintDC dc(this);
 	SetCurrent();
@@ -116,17 +122,14 @@ void TestCanvas::OnTimer(wxTimerEvent& args)
 	SwapBuffers();
 }
 
-void TestCanvas::Selection(wxMouseEvent &event)  											// This Is Where Selection Is Done
+//! Finding out which Object has been hit
+void TestCanvas::Selection()  											// This Is Where Selection Is Done
 {
 	GLuint	buffer[512];										// Set Up A Selection Buffer
 	GLint	hits;												// The Number Of Objects That We Selected
 	
 	// The Size Of The Viewport. [0] Is <x>, [1] Is <y>, [2] Is <length>, [3] Is <width>
 	GLint	viewport[4];
-	
-	//Store Mouse-Coordinates
-	mouse_x = event.m_x;
-	mouse_y = event.m_y;
 	
 	// This Sets The Array <viewport> To The Size And Location Of The Screen Relative To The Window
 	glGetIntegerv(GL_VIEWPORT, viewport);
@@ -143,7 +146,7 @@ void TestCanvas::Selection(wxMouseEvent &event)  											// This Is Where Sel
 	glLoadIdentity();											// Resets The Matrix
 	
 	// This Creates A Matrix That Will Zoom Up To A Small Portion Of The Screen, Where The Mouse Is.
-	gluPickMatrix((GLdouble) mouse_x, (GLdouble)(viewport[3]-mouse_y), 1.0f, 1.0f, viewport);
+	gluPickMatrix((GLdouble) m_mouse_x, (GLdouble)(viewport[3]-m_mouse_y), 1.0f, 1.0f, viewport);
 	
 	// Apply The Perspective Matrix
 	gluPerspective(45.0f, (GLfloat)(viewport[2]-viewport[0])/(GLfloat)(viewport[3]-viewport[1]), 0.1f, 100.0f);
@@ -154,12 +157,12 @@ void TestCanvas::Selection(wxMouseEvent &event)  											// This Is Where Sel
 	glMatrixMode(GL_MODELVIEW);									// Select The Modelview Matrix
 	hits=glRenderMode(GL_RENDER);								// Switch To Render Mode, Find Out How Many
 	// Objects Were Drawn Where The Mouse Was
-	if (hits > 0)												// If There Were More Than 0 Hits
+	if (hits > 0)  											// If There Were More Than 0 Hits
 	{
 		int	choose = buffer[3];									// Make Our Selection The First Object
 		int depth = buffer[1];									// Store How Far Away It Is
 		
-		for (int loop = 1; loop < hits; loop++)					// Loop Through All The Detected Hits
+		for (int loop = 1; loop < hits; loop++)  				// Loop Through All The Detected Hits
 		{
 			// If This Object Is Closer To Us Than The One We Have Selected
 			if (buffer[loop*4+1] < GLuint(depth))
@@ -172,4 +175,55 @@ void TestCanvas::Selection(wxMouseEvent &event)  											// This Is Where Sel
 		str << _("Objekt ") << choose << _(" Hit");
 		wxMessageBox(str, _("GL Selection"));
 	}
+}
+
+void TestCanvas::OnLMouseDown(wxMouseEvent& event)
+{
+	m_LMousePressed = TRUE;
+}
+
+void TestCanvas::OnLMouseUp(wxMouseEvent& event)
+{
+	m_LMousePressed = false;
+}
+
+void TestCanvas::OnMMouseDown(wxMouseEvent& event)
+{
+	m_mouse_x = event.m_x;
+	m_mouse_y = event.m_y;
+	Selection();
+}
+
+
+void TestCanvas::OnMouseMove(wxMouseEvent& event)
+{
+	if (m_LMousePressed)
+	{
+		m_mouse_x = event.m_x;
+		m_mouse_y = event.m_y;
+		getGLPos(m_mouse_x, m_mouse_y);
+	}
+	
+}
+
+//! Convert Mouse-Coordinates to GL-Coordinates
+void TestCanvas::getGLPos(int x, int y)
+{
+	glPushMatrix();
+	glLoadIdentity();
+	GLdouble modelview[16], projection[16];
+	GLint viewport[4];
+	float z;
+	double zpos;
+	
+	glGetDoublev(GL_PROJECTION_MATRIX, projection);     //get the projection matrix
+	glGetDoublev(GL_MODELVIEW_MATRIX, modelview);       //get the modelview matrix
+	glGetIntegerv(GL_VIEWPORT, viewport);               //get the viewport
+	
+	//Read the window z co-ordinate (the z value on that point in unit cube)
+	glReadPixels(x, viewport[3]-y, 1, 1, GL_DEPTH_COMPONENT, GL_FLOAT, &z);
+	//Unproject the window co-ordinates to find the world co-ordinates.
+	gluUnProject(x, viewport[3]-y, z, modelview, projection, viewport, &posx, &posy, &zpos);
+	
+	glPopMatrix();
 }
