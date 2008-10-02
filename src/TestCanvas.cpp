@@ -1,5 +1,5 @@
 #include "TestCanvas.h"
-#include <gl/glu.h>
+//#include <gl/glu.h>
 #include <wx/msgdlg.h>
 #include "wx/dcclient.h"
 
@@ -56,11 +56,21 @@ void TestCanvas::DrawGLScene()
 	SetCurrent();
 	glClearColor(0.0, 0.0, 0.0, 0.0);
 	glLoadIdentity();									// Reset The Current Modelview Matrix
+	glColor3f(1.0, 0.0, 0.0);
 	glBegin(GL_TRIANGLES);
 	glVertex3f(0.0f, 1.0f, 0.0f);					// Top
 	glVertex3f(-1.0f,-1.0f, 0.0f);					// Bottom Left
 	glVertex3f(1.0f,-1.0f, 0.0f);					// Bottom Right
 	glEnd();											// Finished Drawing The Triangle
-	
+
+
+	glColor3f(0.0, 1.0, 0.0);
+	glBegin(GL_TRIANGLES);
+	glVertex3f(0.0f, 0.5f, 0.5f);
+	glVertex3f(-0.5f, -0.5f, 0.5f);
+	glVertex3f(0.5f,-0.5f, 0.5f);					// Bottom Right
+	glEnd();											// Finished Drawing The Triangle
+
+
 	SwapBuffers();
 }

@@ -12,14 +12,18 @@ GL_LIBS =-lGL -lGLU
 WX_COPTS = $(shell wx-config --cxxflags)
 WX_LOPTS = $(shell wx-config --libs gl,core,base)
 
-bin/GNR: bin/GNRApp.o bin/GNRMain.o
-	$(LD) -o $(TARGET) bin/GNRApp.o bin/GNRMain.o $(WX_LOPTS)
+bin/GNR: bin/GNRApp.o bin/GNRMain.o bin/TestCanvas.o
+	@echo ... LINKING ...
+	$(LD) -o $(TARGET) bin/GNRApp.o bin/GNRMain.o bin/TestCanvas.o $(WX_LOPTS)
 
 bin/GNRApp.o: src/GNRApp.cpp src/include/GNRApp.h
 	$(CXX) $(WX_COPTS) -c src/GNRApp.cpp -o bin/GNRApp.o
 
-bin/GNRMain.o: src/GNRApp.cpp src/include/GNRMain.h
+bin/GNRMain.o: src/GNRApp.cpp src/include/GNRMain.h src/include/TestCanvas.h
 	$(CXX) $(WX_COPTS) -c src/GNRMain.cpp -o bin/GNRMain.o
+
+bin/TestCanvas.o: src/TestCanvas.cpp src/include/TestCanvas.h
+	$(CXX) $(WX_COPTS) -c src/TestCanvas.cpp -o bin/TestCanvas.o
 
 all: $(TARGET)
 
