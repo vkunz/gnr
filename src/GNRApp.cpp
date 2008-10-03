@@ -7,18 +7,17 @@
  * License:
  **************************************************************/
 
-#include "GNRApp.h"
-
-//(*AppHeaders
-#include "GNRMain.h"
 #include <wx/image.h>
-//*)
+
+#include "GNRApp.h"
+#include "GNRMain.h"
+
 
 IMPLEMENT_APP(GNRApp);
 
 bool GNRApp::OnInit()
 {
-	//(*AppInitialize
+	// AppInitialize
 	bool wxsOK = true;
 	wxInitAllImageHandlers();
 	if (wxsOK)
@@ -27,7 +26,7 @@ bool GNRApp::OnInit()
 		Frame->Show(TRUE);
 		SetTopWindow(Frame);
 	}
-	//*)
+	//
 	return wxsOK;
-	
+
 }
