@@ -28,5 +28,5 @@ bool GNRApp::OnInit()
 	}
 	//
 	return wxsOK;
-
+	
 }

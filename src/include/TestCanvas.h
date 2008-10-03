@@ -12,32 +12,32 @@ private:
 	int	m_mouse_x, m_mouse_y;		                        // The Current Position Of The Mouse
 	GLdouble posx, posy;
 	wxTimer* m_timer;
-
-
+	
+	
 	void InitGL();
 	void Selection();
 	void getGLPos(int x, int y);
-
+	
 	void OnSize(wxSizeEvent & event);
 	void OnTimer(wxTimerEvent& event);
 	void OnLMouseDown(wxMouseEvent& event);
 	void OnLMouseUp(wxMouseEvent& event);
 	void OnMMouseDown(wxMouseEvent& event);
 	void OnMouseMove(wxMouseEvent& event);
-
+	
 	DECLARE_EVENT_TABLE();
-
+	
 protected:
 
 public:
 
-    // Ctor
+	// Ctor
 	TestCanvas(wxWindow* parent,
-               wxWindowID id = wxID_ANY,
-               const wxPoint& pos = wxDefaultPosition,
-               const wxSize& size = wxDefaultSize, long style = 0,
-               const wxString& name = wxT("TestGLCanvas"));
-
+	           wxWindowID id = wxID_ANY,
+	           const wxPoint& pos = wxDefaultPosition,
+	           const wxSize& size = wxDefaultSize, long style = 0,
+	           const wxString& name = wxT("TestGLCanvas"));
+	           
 	void DrawGLScene();
 };
 
