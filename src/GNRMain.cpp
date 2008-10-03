@@ -97,6 +97,10 @@ GNRFrame::GNRFrame(wxWindow* parent,wxWindowID id)
 	
 	Connect(idMenuQuit,wxEVT_COMMAND_MENU_SELECTED,(wxObjectEventFunction)&GNRFrame::OnQuit);
 	Connect(idMenuAbout,wxEVT_COMMAND_MENU_SELECTED,(wxObjectEventFunction)&GNRFrame::OnAbout);
+	
+#if defined(__WXDEBUG__)
+	Connect(idMenuLoad, wxEVT_COMMAND_MENU_SELECTED, (wxObjectEventFunction)&GNRFrame::OnLoad);
+#endif
 	//*)
 }
 
@@ -117,3 +121,9 @@ void GNRFrame::OnAbout(wxCommandEvent& event)
 	wxMessageBox(msg, _("GNR"));
 }
 
+#if defined(__WXDEBUG__)
+void GNRFrame::OnLoad(wxCommandEvent& event)
+{
+	wxMessageBox(wxT("This is like a new main(), I know it isnt, but I need a place where to test new Code!!!"));
+}
+#endif
