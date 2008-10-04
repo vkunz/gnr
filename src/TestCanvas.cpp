@@ -25,7 +25,7 @@ TestCanvas::TestCanvas(wxWindow *parent,
 	m_timer = new wxTimer(this, ID_TIMER);
 	
 	// Timer-Intervall in ms
-	m_timer->Start(50);
+	m_timer->Start(5);
 	
 	posx = 0.0f;
 	posy = 0.0f;
@@ -108,92 +108,37 @@ void TestCanvas::DrawGLScene()
 	// Move
 	glTranslatef(posx,posy,-6.0f);
 	
-	// Set Color
-	glColor3f(1.0, 0.0, 0.0);
-	
-	
-	glLoadName(1);
-	
-	// Push The Modelview Matrix (for naming the Object)
-	glPushMatrix();
-	
-	// Start Triangle
 	glBegin(GL_TRIANGLES);
 	
-	// Top
-	glVertex3f(0.0f, 1.0f, 0.0f);
+	glColor3f(1.0f,  0.0f,  0.0f);     /* Rot                           		*/
+	glVertex3f(0.0f,  1.0f,  0.0f);    /* oberer Punkt der Front der Pyramide	*/
+	glColor3f(0.0f,  1.0f,  0.0f);     /* gruen                         		*/
+	glVertex3f(-1.0f, -1.0f,  1.0f);   /* linker Punkt der Front der Pyramide	*/
+	glColor3f(0.0f,  0.0f,  1.0f);     /* blau		                        */
+	glVertex3f(1.0f, -1.0f,  1.0f);    /* rechter Punkt der Fornt der Pyramide      */
 	
-	// Bottom Left
-	glVertex3f(-1.0f,-1.0f, 0.0f);
+	glColor3f(1.0f,  0.0f,  0.0f);     /* Rot                           		   */
+	glVertex3f(0.0f,  1.0f,  0.0f);    /* oberer Punkt der rechten Seite der Pyramide  */
+	glColor3f(0.0f,  0.0f,  1.0f);     /* balau		                           */
+	glVertex3f(1.0f, -1.0f,  1.0f);    /* linker Punkt der rechten Seite der Pyramide  */
+	glColor3f(0.0f,  1.0f,  0.0f);     /* gruen                         		   */
+	glVertex3f(1.0f, -1.0f, -1.0f);    /* rechter Punkt der rechten Seite der Pyramide */
 	
-	// Bottom Right
-	glVertex3f(1.0f,-1.0f, 0.0f);
+	glColor3f(1.0f,  0.0f,  0.0f);     /* Rot                           		*/
+	glVertex3f(0.0f,  1.0f,  0.0f);    /* oberer Punkt der Rueckseite der Pyramide	*/
+	glColor3f(0.0f,  1.0f,  0.0f);     /* gruen                         		*/
+	glVertex3f(1.0f, -1.0f, -1.0f);    /* linker Punkt der Rueckseite der Pyramide  */
+	glColor3f(0.0f,  0.0f,  1.0f);     /* blau                                      */
+	glVertex3f(-1.0f, -1.0f, -1.0f);   /* rechter Punkt der Rueckseite der Pyaramide*/
 	
-	// Finished Drawing The Triangle
-	glEnd();
-	
-	// Pop The Modelview Matrix
-	glPopMatrix();
-	
-	// Move
-	glTranslatef(-2.0f,0.0f,0.0f);
-	
-	
-	glLoadName(2);
-	
-	
-	glPushMatrix();
-	
-	
-	glColor3f(0.0, 1.0, 0.0);
-	
-	
-	glBegin(GL_TRIANGLES);
-	
-	
-	glVertex3f(0.0f, 0.5f, 0.5f);
-	
-	
-	glVertex3f(-0.5f, -0.5f, 0.5f);
-	
-	
-	glVertex3f(0.5f,-0.5f, 0.5f);
-	
+	glColor3f(1.0f,  0.0f,  0.0f);     /* Rot                           		 */
+	glVertex3f(0.0f,  1.0f,  0.0f);    /* oberer Punkt der linken Seite der Pyramide */
+	glColor3f(0.0f,  0.0f,  1.0f);     /* blau	                                 */
+	glVertex3f(-1.0f, -1.0f, -1.0f);   /* linker Punkt der linken Seite der Pyramide */
+	glColor3f(0.0f,  1.0f,  0.0f);     /* gruen                         		 */
+	glVertex3f(-1.0f, -1.0f,  1.0f);   /* rechter Punkt der linken Seite der Pyramide*/
 	
 	glEnd();
-	
-	
-	glPopMatrix();
-	
-	// Move
-	glTranslatef(4.0f,0.0f,0.0f);
-	
-	
-	glLoadName(3);
-	
-	
-	glPushMatrix();
-	
-	
-	glColor3f(0.0, 1.0, 0.0);
-	
-	
-	glBegin(GL_TRIANGLES);
-	
-	
-	glVertex3f(0.0f, 0.5f, 0.5f);
-	
-	
-	glVertex3f(-0.5f, -0.5f, 0.5f);
-	
-	
-	glVertex3f(0.5f,-0.5f, 0.5f);
-	
-	
-	glEnd();
-	
-	
-	glPopMatrix();
 }
 
 // Drawing The Scene
