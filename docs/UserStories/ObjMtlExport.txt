@@ -1,0 +1,1 @@
+User kann ein vorhandenes Modell im .obj Format exportieren

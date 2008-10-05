@@ -8,15 +8,17 @@ class TestCanvas : public wxGLCanvas
 {
 private:
 	bool m_init;
-	bool m_LMousePressed;
+	bool m_LMousePressed, m_MouseMoved;
 	int	m_mouse_x, m_mouse_y;		                        // The Current Position Of The Mouse
-	GLdouble posx, posy;
+	GLdouble posx, posy, posz;
 	wxTimer* m_timer;
 	
 	
 	void InitGL();
 	void Selection();
 	void getGLPos(int x, int y);
+	void beginDraw();
+	void endDraw();
 	
 	void OnSize(wxSizeEvent & event);
 	void OnTimer(wxTimerEvent& event);

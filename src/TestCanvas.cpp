@@ -99,6 +99,10 @@ void TestCanvas::OnSize(wxSizeEvent & event)
 //!Painting the Objects to the GL-Window
 void TestCanvas::DrawGLScene()
 {
+	if (m_LMousePressed)
+	{
+		getGLPos(m_mouse_x, m_mouse_y);
+	}
 	// Clear The Scene
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	
@@ -231,12 +235,8 @@ void TestCanvas::OnMMouseDown(wxMouseEvent& event)
 
 void TestCanvas::OnMouseMove(wxMouseEvent& event)
 {
-	if (m_LMousePressed)
-	{
-		m_mouse_x = event.m_x;
-		m_mouse_y = event.m_y;
-		getGLPos(m_mouse_x, m_mouse_y);
-	}
+	m_mouse_x = event.m_x;
+	m_mouse_y = event.m_y;
 }
 
 //! Convert Mouse-Coordinates to GL-Coordinates

@@ -1,0 +1,1 @@
+User kann ein Modell im .obj Format laden um dieses später in der Szene zu verwenden
