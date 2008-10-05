@@ -11,7 +11,7 @@
 
 #include "GNRApp.h"
 #include "GNRMain.h"
-
+#include "TestCanvas.h"
 
 IMPLEMENT_APP(GNRApp);
 
@@ -22,7 +22,13 @@ bool GNRApp::OnInit()
 	wxInitAllImageHandlers();
 	if (wxsOK)
 	{
+		//create new GNRFrame
 		GNRFrame* Frame = new GNRFrame(0);
+		
+		//create canvas in GNRFrame
+		new TestCanvas(Frame, wxID_ANY, wxDefaultPosition, wxSize(300, 300), wxSUNKEN_BORDER, _("OpenGL"));
+		
+		//show frame
 		Frame->Show(TRUE);
 		SetTopWindow(Frame);
 	}

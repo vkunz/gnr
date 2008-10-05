@@ -68,8 +68,8 @@ GNRFrame::GNRFrame(wxWindow* parent,wxWindowID id)
 	wxMenuBar* MenuBar1;
 	wxMenu* Menu2;
 	
-	Create(parent, id, _("GNR"), wxDefaultPosition, wxDefaultSize, wxDEFAULT_FRAME_STYLE, _T("id"));
-	SetClientSize(wxSize(690,311));
+	Create(parent, id, wxEmptyString, wxDefaultPosition, wxDefaultSize, wxDEFAULT_FRAME_STYLE, _T("id"));
+	SetClientSize(wxSize(800,600));
 	MenuBar1 = new wxMenuBar();
 	Menu1 = new wxMenu();
 	MenuItem3 = new wxMenuItem(Menu1, idMenuLoad, _("&Öffnen\tAlt-O"), _("vorhandene Datei öffnen..."), wxITEM_NORMAL);
@@ -93,14 +93,8 @@ GNRFrame::GNRFrame(wxWindow* parent,wxWindowID id)
 	StatusBar1->SetStatusStyles(1,__wxStatusBarStyles_1);
 	SetStatusBar(StatusBar1);
 	
-	this->m_canvas = new TestCanvas(this, wxID_ANY, wxDefaultPosition, wxSize(300, 300), wxSUNKEN_BORDER, _("OpenGL"));
-	
 	Connect(idMenuQuit,wxEVT_COMMAND_MENU_SELECTED,(wxObjectEventFunction)&GNRFrame::OnQuit);
 	Connect(idMenuAbout,wxEVT_COMMAND_MENU_SELECTED,(wxObjectEventFunction)&GNRFrame::OnAbout);
-	
-#if defined(__WXDEBUG__)
-	Connect(idMenuLoad, wxEVT_COMMAND_MENU_SELECTED, (wxObjectEventFunction)&GNRFrame::OnLoad);
-#endif
 	//*)
 }
 

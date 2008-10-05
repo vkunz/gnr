@@ -35,6 +35,7 @@ private:
 #if defined(__WXDEBUG__)
 	void OnLoad(wxCommandEvent& event);
 #endif
+	void OnScrolledWindow1Paint(wxPaintEvent& event);
 	//*)
 	
 	//(*Identifiers(GNRFrame)

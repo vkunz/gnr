@@ -48,7 +48,7 @@ void TestCanvas::InitGL()
 	// Enable Smooth Shading
 	glShadeModel(GL_SMOOTH);
 	
-#pragma message "Missing Comment"
+	//set color for cleaning frame buffer
 	glClearColor(0.0, 0.0, 0.0, 0.0);
 	
 	// Depth Buffer Setup
@@ -63,7 +63,7 @@ void TestCanvas::InitGL()
 	// Really nice perspective calculations
 	glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);
 	
-#pragma message "Missing Comment"
+	//set color for cleaning frame buffer
 	glClearColor(0.0, 0.0, 0.0, 0.0);
 }
 
