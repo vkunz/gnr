@@ -1,0 +1,1 @@
+Es ist möglich einzelne Modelle zu skallieren. Dies wird dadurch nötig, weil das .obj Format keine Maße besitzt und deshalb die Modelle sehr groß oder sehr klein sein können, deswegen ist ein Skallierfunktion von nöten.

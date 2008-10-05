@@ -1,0 +1,2 @@
+Durch eine vordefinierte Taste ist es möglich die Kamera über die Szene wandern zu lassen. Die Bewegung ist soweit frei, dass jeder Punkt über der Szene angenommern werden kann.
+Die einzige Beschränkung ist, dass die Szene nicht von unten betrachtet werden kann. Die Kamera kann nicht unterhalb des Nullpunkts bewegt werden.

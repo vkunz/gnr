@@ -14,6 +14,7 @@
 #include <wx/frame.h>
 #include <wx/statusbr.h>
 #include <wx/splitter.h>
+#include <wx/glcanvas.h>
 
 #include "TestCanvas.h"
 #include "GNRTreePanel.h"
@@ -31,6 +32,7 @@ private:
 	GNRTreePanel* m_Panel;
 	wxSplitterWindow* m_HorizontalSplitter;
 	wxSplitterWindow* m_VerticalSplitter;
+	wxGLContext* m_glContext;
 	
 	//(*Handlers(GNRFrame)
 	void OnQuit(wxCommandEvent& event);

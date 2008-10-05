@@ -1,0 +1,1 @@
+Es ist möglich einen Raum mit Hilfe von Wand-Objekten nachzustellen. Dabei wird ein Lineal zur Verfügung gestellt, damit die richtigen Maße dargestellt werden.

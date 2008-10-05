@@ -100,8 +100,9 @@ GNRFrame::GNRFrame(wxWindow* parent,wxWindowID id)
 	this->m_HorizontalSplitter = new wxSplitterWindow(m_VerticalSplitter);
 	this->m_VerticalSplitter->SplitVertically(m_Panel, m_HorizontalSplitter);
 	
-	this->m_BottomCanvas = new TestCanvas(m_HorizontalSplitter, wxID_ANY);
-	this->m_UpperCanvas = new TestCanvas(m_HorizontalSplitter, wxID_ANY);
+	this->m_BottomCanvas = new TestCanvas(m_HorizontalSplitter, -1);
+	this->m_glContext = m_BottomCanvas->GetContext();
+	this->m_UpperCanvas = new TestCanvas(m_HorizontalSplitter, m_BottomCanvas, -1);
 	
 	this->m_HorizontalSplitter->Initialize(m_UpperCanvas);
 	this->m_HorizontalSplitter->Initialize(m_BottomCanvas);
@@ -110,6 +111,7 @@ GNRFrame::GNRFrame(wxWindow* parent,wxWindowID id)
 #if defined(__WXDEBUG__)
 	Connect(idMenuLoad, wxEVT_COMMAND_MENU_SELECTED, (wxObjectEventFunction)&GNRFrame::OnLoad);
 #endif
+	
 }
 
 GNRFrame::~GNRFrame()

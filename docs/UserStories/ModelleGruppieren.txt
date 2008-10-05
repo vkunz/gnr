@@ -1,0 +1,2 @@
+Es ist möglich einzelne Modelle zu gruppieren, damit diese als Gruppe bewegt und gedreht werden können, dadurch lassen sich bereits eingerastete Anordnungen leichter im Raum plaziert werden.
+Dies erleichtert ein Anpassen an den Raum. z. B. Tisch und Stühle.

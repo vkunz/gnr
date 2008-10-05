@@ -12,12 +12,21 @@ BEGIN_EVENT_TABLE(TestCanvas, wxGLCanvas)
 	// Only a void EVENT_TABLE is a good EVENT_TABLE
 END_EVENT_TABLE()
 
-TestCanvas::TestCanvas(wxWindow *parent,
+TestCanvas::TestCanvas(wxWindow* parent,
                        wxWindowID id,
                        const wxPoint& pos,
-                       const wxSize& size, long style,
+                       const wxSize& size,
+                       long style,
                        const wxString& name) : wxGLCanvas(parent, id, pos, size, style|wxFULL_REPAINT_ON_RESIZE, name)
 {
+	// glContex pointing nowhere
+	// m_glContext = (wxGLContext*) NULL;
+	
+	m_gllist = 0;
+	
+	// initialize GLContext
+	m_glContext = new wxGLContext(this, NULL);
+	
 	// OpenGL not initialized
 	m_init = false;
 	
@@ -27,7 +36,10 @@ TestCanvas::TestCanvas(wxWindow *parent,
 	// Timer-Intervall in ms
 	m_timer->Start(5);
 	
+	//
 	posx = 0.0f;
+	
+	//
 	posy = 0.0f;
 	
 	// Connect-methods to connect different Events with functions
@@ -38,6 +50,59 @@ TestCanvas::TestCanvas(wxWindow *parent,
 	Connect(wxEVT_MIDDLE_DOWN, (wxObjectEventFunction)&TestCanvas::OnMMouseDown);
 	Connect(wxEVT_MOTION, (wxObjectEventFunction)&TestCanvas::OnMouseMove);
 }
+
+/*TestCanvas::TestCanvas(wxWindow* parent,
+                       const wxGLContext* shared,
+                       wxWindowID id,
+                       const wxPoint& pos,
+                       const wxSize& size,
+                       long style,
+                       const wxString& name,
+                       int *attribList,
+                       const wxPalette& palette) : wxGLCanvas(parent, shared, id, pos, size, style|wxFULL_REPAINT_ON_RESIZE, name, attribList, palette)
+{
+    // glContext pointing nowhere
+    //m_glContext = (wxGLContext*) NULL;
+
+    //
+    m_gllist = 0;
+
+    //m_glContext = new wxGLContext(this, shared);
+
+    // OpenGL not initialized
+    m_init = false;
+
+    // Timer to refresh the GL-Window
+    m_timer = new wxTimer(this, ID_TIMER);
+
+    // Start timer with an interval of 5 ms
+    m_timer->Start(5);
+
+    //
+	posx = 0.0f;
+
+	//
+	posy = 0.0f;
+
+	// Connect-methods to connect different Events with functions
+	Connect(ID_TIMER, wxEVT_TIMER, (wxObjectEventFunction)&TestCanvas::OnTimer);
+	Connect(wxEVT_SIZE, (wxObjectEventFunction)&TestCanvas::OnSize);
+	Connect(wxEVT_LEFT_DOWN, (wxObjectEventFunction)&TestCanvas::OnLMouseDown);
+	Connect(wxEVT_LEFT_UP, (wxObjectEventFunction)&TestCanvas::OnLMouseUp);
+	Connect(wxEVT_MIDDLE_DOWN, (wxObjectEventFunction)&TestCanvas::OnMMouseDown);
+	Connect(wxEVT_MOTION, (wxObjectEventFunction)&TestCanvas::OnMouseMove);
+}*/
+
+TestCanvas::TestCanvas(wxWindow *parent,
+                       const TestCanvas* other,
+                       wxWindowID id, const wxPoint& pos,
+                       const wxSize& size,
+                       long style,
+                       const wxString& name) : wxGLCanvas(parent, other->GetContext(), id, pos, size, style|wxFULL_REPAINT_ON_RESIZE ,name)
+{
+	m_gllist = other->m_gllist;
+}
+
 
 // Ininitalize the OpenGL-Window
 void TestCanvas::InitGL()
@@ -76,22 +141,22 @@ void TestCanvas::OnSize(wxSizeEvent & event)
 		// Set current OpenGL Frame
 		SetCurrent();
 		
-		
+		//
 		glViewport(0, 0, (GLint) w, (GLint) h);
 		
-		
+		//
 		glMatrixMode(GL_PROJECTION);
 		
-		
+		//
 		glLoadIdentity();
 		
 		// Calculate The Aspect Ratio Of The Window
 		gluPerspective(45.0f, (GLfloat)w/h, 0.1f, 100.0f);
 		
-		
+		//
 		glMatrixMode(GL_MODELVIEW);
 		
-		
+		//
 		glLoadIdentity();
 	}
 }

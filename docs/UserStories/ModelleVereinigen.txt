@@ -1,0 +1,1 @@
+Aus einfachen geometrischen Formen können komplexe Formen geschaffen werden. Um dies zu bewerkstelligen ist es möglich Modelle, die sich "berühren" zu vereinen und dadurch ein neues Modell zu bekommm. Diese Funktion ist nicht umkehrbar.
