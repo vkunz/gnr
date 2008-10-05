@@ -20,8 +20,6 @@ enum wxbuildinfoformat
 	short_f, long_f
 };
 
-// just a comment
-
 wxString wxbuildinfo(wxbuildinfoformat format)
 {
 	wxString wxbuild(wxVERSION_STRING);
@@ -50,7 +48,7 @@ const long GNRFrame::idMenuSave = wxNewId();
 const long GNRFrame::idMenuQuit = wxNewId();
 const long GNRFrame::idMenuHelp = wxNewId();
 const long GNRFrame::idMenuAbout = wxNewId();
-const long GNRFrame::ID_STATUSBAR1 = wxNewId();
+const long GNRFrame::ID_StatusBar = wxNewId();
 //*)
 
 BEGIN_EVENT_TABLE(GNRFrame,wxFrame)
@@ -68,8 +66,8 @@ GNRFrame::GNRFrame(wxWindow* parent,wxWindowID id)
 	wxMenuBar* MenuBar1;
 	wxMenu* Menu2;
 	
-	Create(parent, id, wxEmptyString, wxDefaultPosition, wxDefaultSize, wxDEFAULT_FRAME_STYLE, _T("id"));
-	SetClientSize(wxSize(800,600));
+	Create(parent, id, _("GNR"), wxDefaultPosition, wxDefaultSize, wxDEFAULT_FRAME_STYLE, _T("id"));
+	SetClientSize(wxSize(690,311));
 	MenuBar1 = new wxMenuBar();
 	Menu1 = new wxMenu();
 	MenuItem3 = new wxMenuItem(Menu1, idMenuLoad, _("&Öffnen\tAlt-O"), _("vorhandene Datei öffnen..."), wxITEM_NORMAL);
@@ -86,7 +84,7 @@ GNRFrame::GNRFrame(wxWindow* parent,wxWindowID id)
 	Menu2->Append(MenuItem2);
 	MenuBar1->Append(Menu2, _("&Hilfe"));
 	SetMenuBar(MenuBar1);
-	StatusBar1 = new wxStatusBar(this, ID_STATUSBAR1, 0, _T("ID_STATUSBAR1"));
+	StatusBar1 = new wxStatusBar(this, ID_StatusBar, 0, _T("ID_StatusBar"));
 	int __wxStatusBarWidths_1[1] = { -1 };
 	int __wxStatusBarStyles_1[1] = { wxSB_NORMAL };
 	StatusBar1->SetFieldsCount(1,__wxStatusBarWidths_1);
@@ -96,6 +94,22 @@ GNRFrame::GNRFrame(wxWindow* parent,wxWindowID id)
 	Connect(idMenuQuit,wxEVT_COMMAND_MENU_SELECTED,(wxObjectEventFunction)&GNRFrame::OnQuit);
 	Connect(idMenuAbout,wxEVT_COMMAND_MENU_SELECTED,(wxObjectEventFunction)&GNRFrame::OnAbout);
 	//*)
+	
+	this->m_VerticalSplitter = new wxSplitterWindow(this);
+	this->m_Panel = new GNRTreePanel(m_VerticalSplitter, wxID_ANY);
+	this->m_HorizontalSplitter = new wxSplitterWindow(m_VerticalSplitter);
+	this->m_VerticalSplitter->SplitVertically(m_Panel, m_HorizontalSplitter);
+	
+	this->m_BottomCanvas = new TestCanvas(m_HorizontalSplitter, wxID_ANY);
+	this->m_UpperCanvas = new TestCanvas(m_HorizontalSplitter, wxID_ANY);
+	
+	this->m_HorizontalSplitter->Initialize(m_UpperCanvas);
+	this->m_HorizontalSplitter->Initialize(m_BottomCanvas);
+	this->m_HorizontalSplitter->SplitHorizontally(m_UpperCanvas, m_BottomCanvas);
+	
+#if defined(__WXDEBUG__)
+	Connect(idMenuLoad, wxEVT_COMMAND_MENU_SELECTED, (wxObjectEventFunction)&GNRFrame::OnLoad);
+#endif
 }
 
 GNRFrame::~GNRFrame()

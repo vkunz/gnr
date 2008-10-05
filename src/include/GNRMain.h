@@ -10,13 +10,13 @@
 #ifndef GNRMAIN_H
 #define GNRMAIN_H
 
-//(*Headers(GNRFrame)
 #include <wx/menu.h>
 #include <wx/frame.h>
 #include <wx/statusbr.h>
-//*)
+#include <wx/splitter.h>
 
 #include "TestCanvas.h"
+#include "GNRTreePanel.h"
 
 class GNRFrame: public wxFrame
 {
@@ -26,7 +26,11 @@ public:
 	virtual ~GNRFrame();
 	
 private:
-	TestCanvas* m_canvas;
+	TestCanvas* m_BottomCanvas;
+	TestCanvas* m_UpperCanvas;
+	GNRTreePanel* m_Panel;
+	wxSplitterWindow* m_HorizontalSplitter;
+	wxSplitterWindow* m_VerticalSplitter;
 	
 	//(*Handlers(GNRFrame)
 	void OnQuit(wxCommandEvent& event);
@@ -44,7 +48,7 @@ private:
 	static const long idMenuQuit;
 	static const long idMenuHelp;
 	static const long idMenuAbout;
-	static const long ID_STATUSBAR1;
+	static const long ID_StatusBar;
 	//*)
 	
 	//(*Declarations(GNRFrame)
