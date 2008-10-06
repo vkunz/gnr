@@ -97,6 +97,7 @@
 			<Option target="Debug" />
 		</Unit>
 		<Unit filename="src\GNRMain.cpp" />
+		<Unit filename="src\GNRObject.cpp" />
 		<Unit filename="src\GNRTreePanel.cpp" />
 		<Unit filename="src\TestCanvas.cpp" />
 		<Unit filename="src\include\GNRApp.h" />
@@ -104,8 +105,11 @@
 			<Option target="Debug" />
 		</Unit>
 		<Unit filename="src\include\GNRMain.h" />
+		<Unit filename="src\include\GNRObject.h" />
 		<Unit filename="src\include\GNRTreePanel.h" />
 		<Unit filename="src\include\TestCanvas.h" />
+		<Unit filename="src\include\md5.h" />
+		<Unit filename="src\md5.cpp" />
 		<Unit filename="src\resource.rc">
 			<Option compilerVar="WINDRES" />
 		</Unit>

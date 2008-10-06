@@ -13,7 +13,6 @@
 
 #include "GNRMain.h"
 
-
 //helper functions
 enum wxbuildinfoformat
 {
@@ -141,10 +140,43 @@ void GNRFrame::OnAbout(wxCommandEvent& event)
 
 #if defined(__WXDEBUG__)
 #include <wx/log.h>
+#include <wx/filedlg.h>
+#include <string.h>
+
+#include "md5.h"
 
 void GNRFrame::OnLoad(wxCommandEvent& event)
 {
-	wxMessageBox(wxT("This is like a new main(), I know it isnt, but I need a place where to test new Code!!!"));
-	wxLogMessage(wxT("Test"));
+	//wxMessageBox(wxT("This is like a new main(), I know it isnt, but I need a place where to test new Code!!!"));
+	
+	/*// create a wxString TestString
+	wxString bla = wxT("teststring");
+	
+	// convert to std::string because of MD5String
+	std::string tmp = std::string(bla.mb_str());
+	
+	// get result
+	tmp = MD5String(tmp);
+	
+	// convert back to wxString
+	bla = wxString(tmp.c_str(), wxConvUTF8);
+	
+	// publish
+	wxMessageBox(bla);*/
+	
+	// param: DialogTitle, dont' know, pre-define filename, dont know, extensions
+	wxString filename = wxFileSelector(wxT("Open a File to calc MD5-Hash"), wxT(""), wxT("blub"), wxT("next"), wxT("All files (*.*)|*.*"), wxFD_OPEN);
+	
+	// convert to std::string because of MD5File
+	std::string tmp2 = std::string(filename.mb_str());
+	
+	// get result
+	tmp2 = MD5File(tmp2);
+	
+	// convert back to wxString
+	filename = wxString(tmp2.c_str(), wxConvUTF8);
+	
+	// publish
+	wxMessageBox(filename);
 }
 #endif
