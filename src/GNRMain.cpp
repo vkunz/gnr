@@ -23,7 +23,7 @@ enum wxbuildinfoformat
 wxString wxbuildinfo(wxbuildinfoformat format)
 {
 	wxString wxbuild(wxVERSION_STRING);
-
+	
 	if (format == long_f)
 	{
 #if defined(__WXMSW__)
@@ -31,14 +31,14 @@ wxString wxbuildinfo(wxbuildinfoformat format)
 #elif defined(__UNIX__)
 		wxbuild << _T("-Linux");
 #endif
-
+		
 #if wxUSE_UNICODE
 		wxbuild << _T("-Unicode build");
 #else
 		wxbuild << _T("-ANSI build");
 #endif // wxUSE_UNICODE
 	}
-
+	
 	return wxbuild;
 }
 
@@ -65,7 +65,7 @@ GNRFrame::GNRFrame(wxWindow* parent,wxWindowID id)
 	wxMenu* Menu1;
 	wxMenuBar* MenuBar1;
 	wxMenu* Menu2;
-
+	
 	Create(parent, wxID_ANY, _("GNR - 3D Einrichtungsplaner"), wxDefaultPosition, wxDefaultSize, wxDEFAULT_FRAME_STYLE, _T("wxID_ANY"));
 	SetClientSize(wxSize(800,600));
 	SetMinSize(wxSize(640,480));
@@ -93,33 +93,33 @@ GNRFrame::GNRFrame(wxWindow* parent,wxWindowID id)
 	StatusBar1->SetStatusStyles(1,__wxStatusBarStyles_1);
 	SetStatusBar(StatusBar1);
 	Center();
-
+	
 	Connect(idMenuQuit,wxEVT_COMMAND_MENU_SELECTED,(wxObjectEventFunction)&GNRFrame::OnQuit);
 	Connect(idMenuAbout,wxEVT_COMMAND_MENU_SELECTED,(wxObjectEventFunction)&GNRFrame::OnAbout);
 	//*)
-
+	
 	this->m_VerticalSplitter = new wxSplitterWindow(this, -1, wxPoint(0,0), wxDefaultSize, wxSP_3D|wxRAISED_BORDER);
 	this->m_VerticalSplitter->SetMinimumPaneSize(200);
-
+	
 	this->m_Panel = new GNRTreePanel(m_VerticalSplitter, wxID_ANY);
-
+	
 	this->m_HorizontalSplitter = new wxSplitterWindow(m_VerticalSplitter, -1, wxPoint(0,0), wxDefaultSize, wxSP_3D|wxRAISED_BORDER);
 	this->m_HorizontalSplitter->SetMinimumPaneSize(200);
-
+	
 	this->m_VerticalSplitter->SplitVertically(m_Panel, m_HorizontalSplitter);
-
+	
 	this->m_BottomCanvas = new TestCanvas(m_HorizontalSplitter, -1);
 	//this->m_glContext = m_BottomCanvas->GetContext();
 	this->m_UpperCanvas = new TestCanvas(m_HorizontalSplitter, -1);
-
+	
 	this->m_HorizontalSplitter->Initialize(m_UpperCanvas);
 	this->m_HorizontalSplitter->Initialize(m_BottomCanvas);
 	this->m_HorizontalSplitter->SplitHorizontally(m_UpperCanvas, m_BottomCanvas);
-
+	
 #if defined(__WXDEBUG__)
 	Connect(idMenuLoad, wxEVT_COMMAND_MENU_SELECTED, (wxObjectEventFunction)&GNRFrame::OnLoad);
 #endif
-
+	
 }
 
 GNRFrame::~GNRFrame()

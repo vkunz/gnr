@@ -35,10 +35,9 @@ private:
 	// track which object is selected
 	void Selection();
 	
-	//
+	// translate Mouse-Coordinates to World-Coordinates
 	void getGLPos(int x, int y);
-	void beginDraw();
-	void endDraw();
+	
 	// execute on size-event
 	void OnSize(wxSizeEvent & event);
 	
@@ -84,7 +83,7 @@ public:
 	
 	// Ctor
 	TestCanvas(wxWindow *parent,
-	           const TestCanvas *other,
+	           const TestCanvas* other,
 	           wxWindowID id = wxID_ANY,
 	           const wxPoint& pos = wxDefaultPosition,
 	           const wxSize& size = wxDefaultSize,

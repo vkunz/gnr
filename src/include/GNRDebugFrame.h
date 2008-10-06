@@ -10,27 +10,27 @@ class wxTextCtrl;
 
 class GNRDebugFrame: public wxFrame
 {
-	public:
+public:
 
-		GNRDebugFrame(wxWindow* parent,wxWindowID id=wxID_ANY,const wxSize& size=wxDefaultSize);
-		virtual ~GNRDebugFrame();
+	GNRDebugFrame(wxWindow* parent,wxWindowID id=wxID_ANY,const wxSize& size=wxDefaultSize);
+	virtual ~GNRDebugFrame();
+	
+	//(*Declarations(GNRDebugFrame)
+	wxTextCtrl* TextCtrl;
+	//*)
+	
+protected:
 
-		//(*Declarations(GNRDebugFrame)
-		wxTextCtrl* TextCtrl;
-		//*)
+	//(*Identifiers(GNRDebugFrame)
+	static const long ID_TextCtrl;
+	//*)
+	
+private:
 
-	protected:
-
-		//(*Identifiers(GNRDebugFrame)
-		static const long ID_TextCtrl;
-		//*)
-
-	private:
-
-		//(*Handlers(GNRDebugFrame)
-		//*)
-
-		DECLARE_EVENT_TABLE()
+	//(*Handlers(GNRDebugFrame)
+	//*)
+	
+	DECLARE_EVENT_TABLE()
 };
 
 #endif

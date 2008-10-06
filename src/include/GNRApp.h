@@ -13,21 +13,21 @@
 #include <wx/app.h>
 
 #if defined(__WXDEBUG__)
-    #include <wx/log.h>
+#include <wx/log.h>
 
-    #include "GNRDebugFrame.h"
+#include "GNRDebugFrame.h"
 #endif
 
 class GNRApp : public wxApp
 {
 public:
 	virtual bool OnInit();
-
+	
 #if defined(__WXDEBUG__)
-    GNRDebugFrame* m_DebugFrame;
-    wxLog* m_Log;
+	GNRDebugFrame* m_DebugFrame;
+	wxLog* m_Log;
 #endif
-
+	
 };
 
 #endif // GNRAPP_H
