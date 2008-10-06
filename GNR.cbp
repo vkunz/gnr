@@ -93,15 +93,24 @@
 			<Add library="libglu32.a" />
 		</Linker>
 		<Unit filename="src\GNRApp.cpp" />
+		<Unit filename="src\GNRDebugFrame.cpp">
+			<Option target="Debug" />
+		</Unit>
 		<Unit filename="src\GNRMain.cpp" />
 		<Unit filename="src\GNRTreePanel.cpp" />
 		<Unit filename="src\TestCanvas.cpp" />
 		<Unit filename="src\include\GNRApp.h" />
+		<Unit filename="src\include\GNRDebugFrame.h">
+			<Option target="Debug" />
+		</Unit>
 		<Unit filename="src\include\GNRMain.h" />
 		<Unit filename="src\include\GNRTreePanel.h" />
 		<Unit filename="src\include\TestCanvas.h" />
 		<Unit filename="src\resource.rc">
 			<Option compilerVar="WINDRES" />
+		</Unit>
+		<Unit filename="wxsmith\GNRDebugFrame.wxs">
+			<Option target="Debug" />
 		</Unit>
 		<Unit filename="wxsmith\GNRTreePanel.wxs" />
 		<Unit filename="wxsmith\GNRframe.wxs" />
@@ -114,7 +123,8 @@
 				<gui name="wxWidgets" src="src\GNRApp.cpp" main="GNRFrame" init_handlers="necessary" language="CPP" />
 				<resources>
 					<wxFrame wxs="wxsmith/GNRframe.wxs" src="src\GNRMain.cpp" hdr="src\include\GNRMain.h" name="GNRFrame" language="CPP" />
-					<wxPanel wxs="wxsmith/GNRTreePanel.wxs" src="GNRTreePanel.cpp" hdr="GNRTreePanel.h" fwddecl="1" name="GNRTreePanel" language="CPP" />
+					<wxPanel wxs="wxsmith/GNRTreePanel.wxs" src="src\GNRTreePanel.cpp" hdr="src\include\GNRTreePanel.h" fwddecl="1" name="GNRTreePanel" language="CPP" />
+					<wxFrame wxs="wxsmith/GNRDebugFrame.wxs" src="src\GNRDebugFrame.cpp" hdr="src\include\GNRDebugFrame.h" fwddecl="1" name="GNRDebugFrame" language="CPP" />
 				</resources>
 			</wxsmith>
 		</Extensions>

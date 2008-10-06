@@ -24,12 +24,27 @@ bool GNRApp::OnInit()
 	{
 		//create new GNRFrame
 		GNRFrame* Frame = new GNRFrame(0);
-		
+
 		//show frame
 		Frame->Show(TRUE);
 		SetTopWindow(Frame);
+
+#if defined(__WXDEBUG__)
+	#include <wx/log.h>
+		
+	// Create DebugFrame
+	m_DebugFrame = new GNRDebugFrame(0);
+	m_DebugFrame->Show(true);
+
+	// Create a new Log
+	m_Log = new wxLogTextCtrl(m_DebugFrame->TextCtrl);
+	
+	// Set actuals Log
+	m_Log->SetActiveTarget(m_Log);
+#endif
+
 	}
 	//
 	return wxsOK;
-	
+
 }
