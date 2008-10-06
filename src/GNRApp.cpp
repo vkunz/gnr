@@ -13,6 +13,10 @@
 #include "GNRMain.h"
 #include "TestCanvas.h"
 
+#if defined(__WXDEBUG__)
+    #include "GNRDebugFrame.h"
+#endif
+
 IMPLEMENT_APP(GNRApp);
 
 bool GNRApp::OnInit()
@@ -30,17 +34,15 @@ bool GNRApp::OnInit()
 		SetTopWindow(Frame);
 
 #if defined(__WXDEBUG__)
-	#include <wx/log.h>
-		
-	// Create DebugFrame
-	m_DebugFrame = new GNRDebugFrame(0);
-	m_DebugFrame->Show(true);
+        // Create DebugFrame
+        m_DebugFrame = new GNRDebugFrame(0);
+        m_DebugFrame->Show(true);
 
-	// Create a new Log
-	m_Log = new wxLogTextCtrl(m_DebugFrame->TextCtrl);
-	
-	// Set actuals Log
-	m_Log->SetActiveTarget(m_Log);
+        // Create a new Log
+        m_Log = new wxLogTextCtrl(m_DebugFrame->TextCtrl);
+
+        // Set actuals Log
+        m_Log->SetActiveTarget(m_Log);
 #endif
 
 	}
