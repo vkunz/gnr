@@ -42,12 +42,16 @@ TestCanvas::TestCanvas(wxWindow* parent,
 	// TEMP-Values just for testing
 	posx = 0.0f;
 	posy = 0.0f;
+	posz = -6.0f;
+	zcoord = 0;
 	
 	// Connect-methods to connect different Events with functions
 	Connect(ID_TIMER, wxEVT_TIMER, (wxObjectEventFunction)&TestCanvas::OnTimer);
 	Connect(wxEVT_SIZE, (wxObjectEventFunction)&TestCanvas::OnSize);
 	Connect(wxEVT_LEFT_DOWN, (wxObjectEventFunction)&TestCanvas::OnLMouseDown);
 	Connect(wxEVT_LEFT_UP, (wxObjectEventFunction)&TestCanvas::OnLMouseUp);
+	Connect(wxEVT_RIGHT_DOWN, (wxObjectEventFunction)&TestCanvas::OnRMouseDown);
+	Connect(wxEVT_RIGHT_UP, (wxObjectEventFunction)&TestCanvas::OnRMouseUp);
 	Connect(wxEVT_MIDDLE_DOWN, (wxObjectEventFunction)&TestCanvas::OnMMouseDown);
 	Connect(wxEVT_MOTION, (wxObjectEventFunction)&TestCanvas::OnMouseMove);
 }
@@ -169,7 +173,7 @@ void TestCanvas::DrawGLScene()
 	glLoadIdentity();
 	
 	// Move
-	glTranslatef(posx,posy,-6.0f);
+	glTranslatef(posx,posy,posz);
 	
 	glBegin(GL_TRIANGLES);
 	glColor3f(1.0f,  0.0f,  0.0f);     /* Rot                           		*/
@@ -274,12 +278,26 @@ void TestCanvas::Selection()  											// This Is Where Selection Is Done
 
 void TestCanvas::OnLMouseDown(wxMouseEvent& event)
 {
-	m_LMousePressed = TRUE;
+	m_mouse_x = event.m_x;
+	m_mouse_y = event.m_y;
+	m_LMousePressed = true;
 }
 
 void TestCanvas::OnLMouseUp(wxMouseEvent& event)
 {
 	m_LMousePressed = false;
+}
+
+void TestCanvas::OnRMouseDown(wxMouseEvent& event)
+{
+	m_mouse_x = event.m_x;
+	m_mouse_y = event.m_y;
+	m_RMousePressed = true;
+}
+
+void TestCanvas::OnRMouseUp(wxMouseEvent& event)
+{
+	m_RMousePressed = false;
 }
 
 void TestCanvas::OnMMouseDown(wxMouseEvent& event)
@@ -297,6 +315,17 @@ void TestCanvas::OnMouseMove(wxMouseEvent& event)
 		m_mouse_x = event.m_x;
 		m_mouse_y = event.m_y;
 		getGLPos(m_mouse_x, m_mouse_y);
+	}
+	else if (m_RMousePressed)
+	{
+		wxString str;
+		float abzug = (event.m_y - m_mouse_y)/10.0;
+		posz = posz - abzug;
+#if defined (__WXDEBUG__)
+		str << abzug << _("\t") << posz;
+		wxLogMessage(str);
+#endif
+		m_mouse_y = event.m_y;
 	}
 }
 

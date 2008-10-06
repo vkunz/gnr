@@ -10,11 +10,12 @@ private:
 	// attributes
 	// stores value, if OGL ist initialized
 	bool m_init;
-	bool m_LMousePressed, m_MouseMoved;
-	// stores value, if left mouse button is pressed
+	// stores value, if left/right mouse button is pressed
+	bool m_LMousePressed, m_RMousePressed;
 	
 	// The Current Position Of The Mouse
 	int	m_mouse_x, m_mouse_y;
+	int zcoord;
 	
 	//
 	GLdouble posx, posy, posz;
@@ -49,6 +50,12 @@ private:
 	
 	// execute on left-mouse released event
 	void OnLMouseUp(wxMouseEvent& event);
+	
+	// execute on right-mouse pressed event
+	void OnRMouseDown(wxMouseEvent& event);
+	
+	// execute on right-mouse released event
+	void OnRMouseUp(wxMouseEvent& event);
 	
 	// execute on right-mouse pressed event
 	void OnMMouseDown(wxMouseEvent& event);
