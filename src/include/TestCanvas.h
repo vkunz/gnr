@@ -12,7 +12,6 @@ private:
 	bool m_init;
 	bool m_LMousePressed, m_MouseMoved;
 	// stores value, if left mouse button is pressed
-	bool m_LMousePressed;
 	
 	// The Current Position Of The Mouse
 	int	m_mouse_x, m_mouse_y;

@@ -66,8 +66,10 @@ GNRFrame::GNRFrame(wxWindow* parent,wxWindowID id)
 	wxMenuBar* MenuBar1;
 	wxMenu* Menu2;
 	
-	Create(parent, id, _("GNR"), wxDefaultPosition, wxDefaultSize, wxDEFAULT_FRAME_STYLE, _T("id"));
-	SetClientSize(wxSize(690,311));
+	Create(parent, wxID_ANY, _("GNR - 3D Einrichtungsplaner"), wxDefaultPosition, wxDefaultSize, wxDEFAULT_FRAME_STYLE, _T("wxID_ANY"));
+	SetClientSize(wxSize(800,600));
+	SetMinSize(wxSize(640,480));
+	SetFocus();
 	MenuBar1 = new wxMenuBar();
 	Menu1 = new wxMenu();
 	MenuItem3 = new wxMenuItem(Menu1, idMenuLoad, _("&Öffnen\tAlt-O"), _("vorhandene Datei öffnen..."), wxITEM_NORMAL);
@@ -90,14 +92,20 @@ GNRFrame::GNRFrame(wxWindow* parent,wxWindowID id)
 	StatusBar1->SetFieldsCount(1,__wxStatusBarWidths_1);
 	StatusBar1->SetStatusStyles(1,__wxStatusBarStyles_1);
 	SetStatusBar(StatusBar1);
+	Center();
 	
 	Connect(idMenuQuit,wxEVT_COMMAND_MENU_SELECTED,(wxObjectEventFunction)&GNRFrame::OnQuit);
 	Connect(idMenuAbout,wxEVT_COMMAND_MENU_SELECTED,(wxObjectEventFunction)&GNRFrame::OnAbout);
 	//*)
 	
 	this->m_VerticalSplitter = new wxSplitterWindow(this);
+	this->m_VerticalSplitter->SetMinimumPaneSize(200);
+	
 	this->m_Panel = new GNRTreePanel(m_VerticalSplitter, wxID_ANY);
+	
 	this->m_HorizontalSplitter = new wxSplitterWindow(m_VerticalSplitter);
+	this->m_HorizontalSplitter->SetMinimumPaneSize(200);
+	
 	this->m_VerticalSplitter->SplitVertically(m_Panel, m_HorizontalSplitter);
 	
 	this->m_BottomCanvas = new TestCanvas(m_HorizontalSplitter, -1);
