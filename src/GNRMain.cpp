@@ -98,12 +98,12 @@ GNRFrame::GNRFrame(wxWindow* parent,wxWindowID id)
 	Connect(idMenuAbout,wxEVT_COMMAND_MENU_SELECTED,(wxObjectEventFunction)&GNRFrame::OnAbout);
 	//*)
 	
-	this->m_VerticalSplitter = new wxSplitterWindow(this);
+	this->m_VerticalSplitter = new wxSplitterWindow(this, -1, wxPoint(0,0), wxDefaultSize, wxSP_3D|wxRAISED_BORDER);
 	this->m_VerticalSplitter->SetMinimumPaneSize(200);
 	
 	this->m_Panel = new GNRTreePanel(m_VerticalSplitter, wxID_ANY);
 	
-	this->m_HorizontalSplitter = new wxSplitterWindow(m_VerticalSplitter);
+	this->m_HorizontalSplitter = new wxSplitterWindow(m_VerticalSplitter, -1, wxPoint(0,0), wxDefaultSize, wxSP_3D|wxRAISED_BORDER);
 	this->m_HorizontalSplitter->SetMinimumPaneSize(200);
 	
 	this->m_VerticalSplitter->SplitVertically(m_Panel, m_HorizontalSplitter);
