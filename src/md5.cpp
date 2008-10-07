@@ -38,6 +38,7 @@
 
 #include <sstream>
 #include <iomanip>
+#include <wx/string.h>
 
 #include "md5.h"
 
@@ -71,12 +72,12 @@ static unsigned char PADDING[64] =
 std::string PrintMD5(uchar md5Digest[16])
 {
 	std::ostringstream md5Str;
-	
+
 	md5Str.setf(std::ios_base::hex|std::ios_base::uppercase,std::ios_base::basefield);
-	
+
 	for (int nCount = 0; nCount < 16; nCount++)
 		md5Str << std::setfill('0') << std::setw(2) << static_cast<int>(md5Digest[nCount]);
-		
+
 	return md5Str.str();
 }
 
@@ -86,12 +87,12 @@ std::string MD5String(std::string& str)
 {
 	int nLen = str.size();
 	md5 alg;
-	
+
 	alg.Update((uchar*)str.c_str(), (uint4)nLen);
 	alg.Finalize();
-	
+
 	return PrintMD5(alg.Digest());
-	
+
 }
 
 // MD5File: Performs the MD5 algorithm on a file (binar or text),
@@ -102,33 +103,68 @@ std::string MD5File(std::string& filename)
 	md5 alg;
 	int nLen;
 	unsigned char chBuffer[1024];
-	
+
 	file = fopen(filename.c_str(), "rb");
-	
+
 	try
 	{
 		memset(chBuffer, 0, 1024);
-		
+
 		if (file != NULL)
 		{
 			while (nLen = fread(chBuffer, 1, 1024, file))
 			{
 				alg.Update(chBuffer, nLen);
 			}
-			
+
 			alg.Finalize();
-			
+
 			fclose(file);
-			
+
 			return PrintMD5(alg.Digest());
 		}
 	}
 	catch (...)
 	{
-	
+
 	}
-	
+
 	return ""; // failed
+}
+
+
+// calculates the MD5 Hash of a wxString
+// result is a wxString
+wxString MD5wxString(wxString& str)
+{
+    // convert wxString to std::string
+    std::string strConv = std::string(str.mb_str());
+
+    // perform the MD5 algorithm
+    strConv = MD5String(strConv);
+
+    // convert std::string to wxString
+    str = wxString(strConv.c_str(), wxConvUTF8);
+
+    // return result as wxString
+    return str;
+}
+
+// calculates the MD5 Hash of a File
+// result is a wxString
+wxString MD5wxFile(wxString& filename)
+{
+    // convert wxString to std::string
+    std::string strConv = std::string(filename.mb_str());
+
+    // perform the MD5 algorithm
+    strConv = MD5File(strConv);
+
+    // convert std::string to wxString
+    filename = wxString(strConv.c_str(), wxConvUTF8);
+
+    // return result as wxString
+    return filename;
 }
 
 // md5::Init
@@ -136,7 +172,7 @@ std::string MD5File(std::string& filename)
 void md5::Init()
 {
 	memset(m_Count, 0, 2 * sizeof(uint4));
-	
+
 	m_State[0] = 0x67452301;
 	m_State[1] = 0xefcdab89;
 	m_State[2] = 0x98badcfe;
@@ -150,32 +186,32 @@ void md5::Init()
 void md5::Update(uchar* chInput, uint4 nInputLen)
 {
 	uint4 i, index, partLen;
-	
+
 	// Compute number of bytes mod 64
 	index = (uint4)((m_Count[0] >> 3) & 0x3F);
-	
+
 	// Update number of bits
 	if ((m_Count[0] += (nInputLen << 3)) < (nInputLen << 3))
 		m_Count[1]++;
-		
+
 	m_Count[1] += (nInputLen >> 29);
-	
+
 	partLen = 64 - index;
-	
+
 	// Transform as many times as possible.
 	if (nInputLen >= partLen)
 	{
 		memcpy(&m_Buffer[index], chInput, partLen);
 		Transform(m_Buffer);
-		
+
 		for (i = partLen; i + 63 < nInputLen; i += 64)
 			Transform(&chInput[i]);
-			
+
 		index = 0;
 	}
 	else
 		i = 0;
-		
+
 	// Buffer remaining input
 	memcpy(&m_Buffer[index], &chInput[i], nInputLen-i);
 }
@@ -187,21 +223,21 @@ void md5::Finalize()
 {
 	uchar bits[8];
 	uint4 index, padLen;
-	
+
 	// Save number of bits
 	Encode(bits, m_Count, 8);
-	
+
 	// Pad out to 56 mod 64
 	index = (uint4)((m_Count[0] >> 3) & 0x3f);
 	padLen = (index < 56) ? (56 - index) : (120 - index);
 	Update(PADDING, padLen);
-	
+
 	// Append length (before padding)
 	Update(bits, 8);
-	
+
 	// Store state in digest
 	Encode(m_Digest, m_State, 16);
-	
+
 	memset(m_Count, 0, 2 * sizeof(uint4));
 	memset(m_State, 0, 4 * sizeof(uint4));
 	memset(m_Buffer,0, 64 * sizeof(uchar));
@@ -212,9 +248,9 @@ void md5::Finalize()
 void md5::Transform(uchar* block)
 {
 	uint4 a = m_State[0], b = m_State[1], c = m_State[2], d = m_State[3], x[16];
-	
+
 	Decode(x, block, 64);
-	
+
 	// Round 1
 	FF(a, b, c, d, x[ 0], S11, 0xd76aa478);
 	FF(d, a, b, c, x[ 1], S12, 0xe8c7b756);
@@ -232,7 +268,7 @@ void md5::Transform(uchar* block)
 	FF(d, a, b, c, x[13], S12, 0xfd987193);
 	FF(c, d, a, b, x[14], S13, 0xa679438e);
 	FF(b, c, d, a, x[15], S14, 0x49b40821);
-	
+
 // Round 2
 	GG(a, b, c, d, x[ 1], S21, 0xf61e2562);
 	GG(d, a, b, c, x[ 6], S22, 0xc040b340);
@@ -250,7 +286,7 @@ void md5::Transform(uchar* block)
 	GG(d, a, b, c, x[ 2], S22, 0xfcefa3f8);
 	GG(c, d, a, b, x[ 7], S23, 0x676f02d9);
 	GG(b, c, d, a, x[12], S24, 0x8d2a4c8a);
-	
+
 	// Round 3
 	HH(a, b, c, d, x[ 5], S31, 0xfffa3942);
 	HH(d, a, b, c, x[ 8], S32, 0x8771f681);
@@ -268,7 +304,7 @@ void md5::Transform(uchar* block)
 	HH(d, a, b, c, x[12], S32, 0xe6db99e5);
 	HH(c, d, a, b, x[15], S33, 0x1fa27cf8);
 	HH(b, c, d, a, x[ 2], S34, 0xc4ac5665);
-	
+
 	// Round 4
 	II(a, b, c, d, x[ 0], S41, 0xf4292244);
 	II(d, a, b, c, x[ 7], S42, 0x432aff97);
@@ -286,12 +322,12 @@ void md5::Transform(uchar* block)
 	II(d, a, b, c, x[11], S42, 0xbd3af235);
 	II(c, d, a, b, x[ 2], S43, 0x2ad7d2bb);
 	II(b, c, d, a, x[ 9], S44, 0xeb86d391);
-	
+
 	m_State[0] += a;
 	m_State[1] += b;
 	m_State[2] += c;
 	m_State[3] += d;
-	
+
 	memset(x, 0, sizeof(x));
 }
 
@@ -301,7 +337,7 @@ void md5::Transform(uchar* block)
 void md5::Encode(uchar* dest, uint4* src, uint4 nLength)
 {
 	uint4 i, j;
-	
+
 	for (i = 0, j = 0; j < nLength; i++, j += 4)
 	{
 		dest[j] = (uchar)(src[i] & 0xff);
@@ -317,7 +353,7 @@ void md5::Encode(uchar* dest, uint4* src, uint4 nLength)
 void md5::Decode(uint4* dest, uchar* src, uint4 nLength)
 {
 	uint4 i, j;
-	
+
 	for (i = 0, j = 0; j < nLength; i++, j += 4)
 	{
 		dest[i] = ((uint4)src[j]) | (((uint4)src[j+1])<<8) |
