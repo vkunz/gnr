@@ -14,6 +14,21 @@ GNRPoint::GNRPoint(float x, float y, float z)
 	this->m_z = z;
 }
 
+float GNRPoint::getX()
+{
+	return this->m_x;
+}
+
+float GNRPoint::getY()
+{
+	return this->m_y;
+}
+
+float GNRPoint::getZ()
+{
+	return this->m_z;
+}
+
 // dtor
 GNRPoint::~GNRPoint()
 {

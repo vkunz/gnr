@@ -33,6 +33,11 @@ TestCanvas::TestCanvas(wxWindow* parent,
 	// OpenGL not initialized
 	m_init = false;
 	
+	// Mouse-Pressed = false
+	m_LMousePressed = false;
+	m_MMousePressed = false;
+	m_RMousePressed = false;
+	
 	// Timer to refresh the GL-Window
 	m_timer = new wxTimer(this, ID_TIMER);
 	
@@ -53,6 +58,7 @@ TestCanvas::TestCanvas(wxWindow* parent,
 	Connect(wxEVT_RIGHT_DOWN, (wxObjectEventFunction)&TestCanvas::OnRMouseDown);
 	Connect(wxEVT_RIGHT_UP, (wxObjectEventFunction)&TestCanvas::OnRMouseUp);
 	Connect(wxEVT_MIDDLE_DOWN, (wxObjectEventFunction)&TestCanvas::OnMMouseDown);
+	Connect(wxEVT_MIDDLE_UP, (wxObjectEventFunction)&TestCanvas::OnMMouseUp);
 	Connect(wxEVT_MOTION, (wxObjectEventFunction)&TestCanvas::OnMouseMove);
 }
 
@@ -146,19 +152,15 @@ void TestCanvas::OnSize(wxSizeEvent & event)
 		//
 		glViewport(0, 0, (GLint) w, (GLint) h);
 		
-		//
+		// Load and Reset Projection
 		glMatrixMode(GL_PROJECTION);
-		
-		//
 		glLoadIdentity();
 		
 		// Calculate The Aspect Ratio Of The Window
 		gluPerspective(45.0f, (GLfloat)w/h, 0.1f, 100.0f);
 		
-		//
+		// Load and Reset Modelview
 		glMatrixMode(GL_MODELVIEW);
-		
-		//
 		glLoadIdentity();
 	}
 }
@@ -174,6 +176,12 @@ void TestCanvas::DrawGLScene()
 	
 	// Move
 	glTranslatef(posx,posy,posz);
+	
+	glColor3f(1.0, 1.0, 0.0);
+	glBegin(GL_LINES);
+	glVertex2f(firstPoint.getX(),firstPoint.getY());
+	glVertex2f(secPoint.getX(),secPoint.getY());
+	glEnd();
 	
 	glBegin(GL_TRIANGLES);
 	glColor3f(1.0f,  0.0f,  0.0f);     /* Rot                           		*/
@@ -278,8 +286,10 @@ void TestCanvas::Selection()  											// This Is Where Selection Is Done
 
 void TestCanvas::OnLMouseDown(wxMouseEvent& event)
 {
+	// store mouse coordinates
 	m_mouse_x = event.m_x;
 	m_mouse_y = event.m_y;
+	
 	m_LMousePressed = true;
 }
 
@@ -288,10 +298,28 @@ void TestCanvas::OnLMouseUp(wxMouseEvent& event)
 	m_LMousePressed = false;
 }
 
-void TestCanvas::OnRMouseDown(wxMouseEvent& event)
+void TestCanvas::OnMMouseDown(wxMouseEvent& event)
 {
+	//store mouse coordinates
 	m_mouse_x = event.m_x;
 	m_mouse_y = event.m_y;
+	
+	firstPoint = secPoint = getGLPos(m_mouse_x, m_mouse_y);
+	m_MMousePressed = true;
+	//Selection();
+}
+
+void TestCanvas::OnMMouseUp(wxMouseEvent& event)
+{
+	m_MMousePressed = false;
+}
+
+void TestCanvas::OnRMouseDown(wxMouseEvent& event)
+{
+	//store mouse coordinates
+	m_mouse_x = event.m_x;
+	m_mouse_y = event.m_y;
+	
 	m_RMousePressed = true;
 }
 
@@ -300,44 +328,38 @@ void TestCanvas::OnRMouseUp(wxMouseEvent& event)
 	m_RMousePressed = false;
 }
 
-void TestCanvas::OnMMouseDown(wxMouseEvent& event)
-{
-	m_mouse_x = event.m_x;
-	m_mouse_y = event.m_y;
-	Selection();
-}
-
-
 void TestCanvas::OnMouseMove(wxMouseEvent& event)
 {
 	if (m_LMousePressed)
 	{
 		m_mouse_x = event.m_x;
 		m_mouse_y = event.m_y;
-		getGLPos(m_mouse_x, m_mouse_y);
+		// read out world coordinates
+		GNRPoint glPoint = getGLPos(m_mouse_x, m_mouse_y);
+		posx = glPoint.getX();
+		posy = glPoint.getY();
+	}
+	else if (m_MMousePressed)
+	{
+		secPoint = getGLPos(event.m_x, event.m_y);
 	}
 	else if (m_RMousePressed)
 	{
-		wxString str;
-		float abzug = (event.m_y - m_mouse_y)/10.0;
-		posz = posz - abzug;
-#if defined (__WXDEBUG__)
-		str << abzug << _("\t") << posz;
-		wxLogMessage(str);
-#endif
+		// zoom in-out the scene
+		posz = posz - (event.m_y - m_mouse_y)/10.0;
 		m_mouse_y = event.m_y;
 	}
 }
 
 // Convert Mouse-Coordinates to GL-Coordinates
-void TestCanvas::getGLPos(int x, int y)
+GNRPoint TestCanvas::getGLPos(int x, int y)
 {
 	glPushMatrix();
 	glLoadIdentity();
 	GLdouble modelview[16], projection[16];
 	GLint viewport[4];
 	float z;
-	double zpos;
+	double xpos, ypos, zpos;
 	
 	glGetDoublev(GL_PROJECTION_MATRIX, projection);     //get the projection matrix
 	glGetDoublev(GL_MODELVIEW_MATRIX, modelview);       //get the modelview matrix
@@ -346,6 +368,8 @@ void TestCanvas::getGLPos(int x, int y)
 	//Read the window z co-ordinate (the z value on that point in unit cube)
 	glReadPixels(x, viewport[3]-y, 1, 1, GL_DEPTH_COMPONENT, GL_FLOAT, &z);
 	//Unproject the window co-ordinates to find the world co-ordinates.
-	gluUnProject(x, viewport[3]-y, 0.982732, modelview, projection, viewport, &posx, &posy, &zpos);
+	gluUnProject(x, viewport[3]-y, 0.982732, modelview, projection, viewport, &xpos, &ypos, &zpos);
 	glPopMatrix();
+	GNRPoint glPoint(xpos, ypos, zpos);
+	return glPoint;
 }

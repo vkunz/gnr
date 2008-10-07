@@ -4,6 +4,8 @@
 #include <wx/glcanvas.h>
 #include <wx/timer.h>
 
+#include "GNRPoint.h"
+
 class TestCanvas : public wxGLCanvas
 {
 private:
@@ -11,14 +13,18 @@ private:
 	// stores value, if OGL ist initialized
 	bool m_init;
 	// stores value, if left/right mouse button is pressed
-	bool m_LMousePressed, m_RMousePressed;
+	bool m_LMousePressed, m_MMousePressed, m_RMousePressed;
 	
 	// The Current Position Of The Mouse
 	int	m_mouse_x, m_mouse_y;
 	int zcoord;
 	
-	//
-	GLdouble posx, posy, posz;
+	// test for drawing
+	GNRPoint firstPoint;
+	GNRPoint secPoint;
+	
+	// just some test-values
+	float posx, posy, posz;
 	
 	// Timer to refresh the GL-Window
 	wxTimer* m_timer;
@@ -37,7 +43,7 @@ private:
 	void Selection();
 	
 	// translate Mouse-Coordinates to World-Coordinates
-	void getGLPos(int x, int y);
+	GNRPoint getGLPos(int x, int y);
 	
 	// execute on size-event
 	void OnSize(wxSizeEvent & event);
@@ -52,13 +58,16 @@ private:
 	void OnLMouseUp(wxMouseEvent& event);
 	
 	// execute on right-mouse pressed event
+	void OnMMouseDown(wxMouseEvent& event);
+	
+	//execute on right-mouse released event
+	void OnMMouseUp(wxMouseEvent& event);
+	
+	// execute on right-mouse pressed event
 	void OnRMouseDown(wxMouseEvent& event);
 	
 	// execute on right-mouse released event
 	void OnRMouseUp(wxMouseEvent& event);
-	
-	// execute on right-mouse pressed event
-	void OnMMouseDown(wxMouseEvent& event);
 	
 	// execute on right-mouse released event
 	void OnMouseMove(wxMouseEvent& event);

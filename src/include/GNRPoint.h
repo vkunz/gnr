@@ -8,6 +8,11 @@ public:
 	GNRPoint();
 	GNRPoint(float x, float y, float z);
 	
+	// return value
+	float getX();
+	float getY();
+	float getZ();
+	
 	// dtor
 	virtual ~GNRPoint();
 	
@@ -20,7 +25,7 @@ private:
 	// stores the y-value relative to zero
 	float m_y;
 	
-	// stores the z-vylue relative to zer
+	// stores the z-value relative to zer
 	float m_z;
 };
 
