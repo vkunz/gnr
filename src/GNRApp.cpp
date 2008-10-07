@@ -26,13 +26,6 @@ bool GNRApp::OnInit()
 	wxInitAllImageHandlers();
 	if (wxsOK)
 	{
-		//create new GNRFrame
-		GNRFrame* Frame = new GNRFrame(0);
-		
-		//show frame
-		Frame->Show(TRUE);
-		SetTopWindow(Frame);
-		
 #if defined(__WXDEBUG__)
 		// Create DebugFrame
 		m_DebugFrame = new GNRDebugFrame(0);
@@ -45,6 +38,12 @@ bool GNRApp::OnInit()
 		m_Log->SetActiveTarget(m_Log);
 #endif
 		
+		//create new GNRFrame
+		GNRFrame* Frame = new GNRFrame(0);
+		
+		//show frame
+		Frame->Show(TRUE);
+		SetTopWindow(Frame);
 	}
 	//
 	return wxsOK;
