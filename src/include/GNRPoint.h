@@ -20,6 +20,16 @@ public:
 	void setY(float y);
 	void setZ(float z);
 	
+	float deltaX(GNRPoint* point);
+	float deltaY(GNRPoint* point);
+	float deltaZ(GNRPoint* point);
+	
+	GNRPoint  operator  + (const GNRPoint& p2) const;
+	GNRPoint  operator  - (const GNRPoint& p2) const;
+	GNRPoint& operator  = (const GNRPoint& p2);
+	GNRPoint& operator += (const GNRPoint& p2);
+	GNRPoint& operator -= (const GNRPoint& p2);
+	
 	// dtor
 	virtual ~GNRPoint();
 	
