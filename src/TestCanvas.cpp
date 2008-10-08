@@ -361,14 +361,22 @@ GNRPoint TestCanvas::getGLPos(int x, int y)
 	float z;
 	double xpos, ypos, zpos;
 	
-	glGetDoublev(GL_PROJECTION_MATRIX, projection);     //get the projection matrix
 	glGetDoublev(GL_MODELVIEW_MATRIX, modelview);       //get the modelview matrix
+	glGetDoublev(GL_PROJECTION_MATRIX, projection);     //get the projection matrix
 	glGetIntegerv(GL_VIEWPORT, viewport);               //get the viewport
 	
 	//Read the window z co-ordinate (the z value on that point in unit cube)
-	glReadPixels(x, viewport[3]-y, 1, 1, GL_DEPTH_COMPONENT, GL_FLOAT, &z);
+	glReadPixels((int)x, (int)(viewport[3]-y), 1, 1, GL_DEPTH_COMPONENT, GL_FLOAT, &z);
 	//Unproject the window co-ordinates to find the world co-ordinates.
-	gluUnProject(x, viewport[3]-y, 0.982732, modelview, projection, viewport, &xpos, &ypos, &zpos);
+	gluUnProject((double)x, (double)(viewport[3]-y), (double)z, modelview, projection, viewport, &xpos, &ypos, &zpos);
+	
+	//debug start
+	wxString msg;
+	msg << _("2D x=") << x << _("\ty=") << y << _("\tz=") << z;
+	msg << _("\t|\t3D x=") << xpos << _("\ty=") << ypos << _("\tz=") << zpos;
+	wxLogMessage(msg);
+	//debug end
+	
 	glPopMatrix();
 	GNRPoint glPoint(xpos, ypos, zpos);
 	return glPoint;
