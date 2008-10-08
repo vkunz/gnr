@@ -45,10 +45,16 @@ TestCanvas::TestCanvas(wxWindow* parent,
 	m_timer->Start(40);
 	
 	// TEMP-Values just for testing
-	posx = 0.0f;
-	posy = 0.0f;
+	posx = -2.0f;
+	posy = -2.0f;
 	posz = -6.0f;
 	zcoord = 0;
+	
+	phix = 0.0f;
+	phiy = 0.0f;
+	
+	zfar  = 1000.0f;
+	znear = 1.0f;
 	
 	// Connect-methods to connect different Events with functions
 	Connect(ID_TIMER, wxEVT_TIMER, (wxObjectEventFunction)&TestCanvas::OnTimer);
@@ -157,7 +163,7 @@ void TestCanvas::OnSize(wxSizeEvent & event)
 		glLoadIdentity();
 		
 		// Calculate The Aspect Ratio Of The Window
-		gluPerspective(45.0f, (GLfloat)w/h, 0.1f, 100.0f);
+		gluPerspective(45.0f, (GLfloat)w/h, znear, zfar);
 		
 		// Load and Reset Modelview
 		glMatrixMode(GL_MODELVIEW);
@@ -176,6 +182,8 @@ void TestCanvas::DrawGLScene()
 	
 	// Move
 	glTranslatef(posx,posy,posz);
+	glRotatef(phix,1.0f,0.0f,0.0f);
+	glRotatef(phiy,0.0f,1.0f,0.0f);
 	
 	glColor3f(1.0, 1.0, 0.0);
 	glBegin(GL_LINES);
@@ -256,7 +264,7 @@ void TestCanvas::Selection()  											// This Is Where Selection Is Done
 	gluPickMatrix((GLdouble) m_mouse_x, (GLdouble)(viewport[3]-m_mouse_y), 1.0f, 1.0f, viewport);
 	
 	// Apply The Perspective Matrix
-	gluPerspective(45.0f, (GLfloat)(viewport[2]-viewport[0])/(GLfloat)(viewport[3]-viewport[1]), 0.1f, 100.0f);
+	gluPerspective(45.0f, (GLfloat)(viewport[2]-viewport[0])/(GLfloat)(viewport[3]-viewport[1]), znear, zfar);
 	glMatrixMode(GL_MODELVIEW);									// Select The Modelview Matrix
 	DrawGLScene();												// Render The Targets To The Selection Buffer
 	glMatrixMode(GL_PROJECTION);								// Select The Projection Matrix
@@ -332,21 +340,27 @@ void TestCanvas::OnMouseMove(wxMouseEvent& event)
 {
 	if (m_LMousePressed)
 	{
+		posz = posz - (float)(m_mouse_y - event.m_y)/10.0;
+		posx = posx - (float)(m_mouse_x - event.m_x)/360.0*fabs(posz);
+		
 		m_mouse_x = event.m_x;
 		m_mouse_y = event.m_y;
-		// read out world coordinates
-		GNRPoint glPoint = getGLPos(m_mouse_x, m_mouse_y);
-		posx = glPoint.getX();
-		posy = glPoint.getY();
 	}
 	else if (m_MMousePressed)
 	{
-		secPoint = getGLPos(event.m_x, event.m_y);
+		int w, h;
+		GetClientSize(&w, &h);
+		
+		phiy  = 720.0*((float)event.m_x/(float)w);
+		phix  = 720.0*((float)event.m_y/(float)h);
 	}
 	else if (m_RMousePressed)
 	{
 		// zoom in-out the scene
-		posz = posz - (event.m_y - m_mouse_y)/10.0;
+		posy = posy - (event.m_y - m_mouse_y)/300.0*fabs(posz);
+		posx = posx - (m_mouse_x - event.m_x)/300.0*fabs(posz);
+		
+		m_mouse_x = event.m_x;
 		m_mouse_y = event.m_y;
 	}
 }
@@ -371,12 +385,12 @@ GNRPoint TestCanvas::getGLPos(int x, int y)
 	//Unproject the window co-ordinates to find the world co-ordinates.
 	gluUnProject((double)x, (double)(viewport[3]-y), (double)z, modelview, projection, viewport, &xpos, &ypos, &zpos);
 	
-	//debug start
+#if defined(__WXDEBUG__)
 	wxString msg;
 	msg << _("2D x=") << x << _("\ty=") << y << _("\tz=") << z;
 	msg << _("\t|\t3D x=") << xpos << _("\ty=") << ypos << _("\tz=") << zpos;
 	wxLogMessage(msg);
-	//debug end
+#endif
 	
 	glPopMatrix();
 	GNRPoint glPoint(xpos, ypos, zpos);

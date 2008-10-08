@@ -25,6 +25,8 @@ private:
 	
 	// just some test-values
 	float posx, posy, posz;
+	float phix, phiy, phiz, angle;
+	float zfar, znear;
 	
 	// Timer to refresh the GL-Window
 	wxTimer* m_timer;
