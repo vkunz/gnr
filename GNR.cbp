@@ -93,20 +93,30 @@
 			<Add library="libglu32.a" />
 		</Linker>
 		<Unit filename="src\GNRApp.cpp" />
+		<Unit filename="src\GNRAssembly.cpp" />
+		<Unit filename="src\GNRAssemblyPart.cpp" />
 		<Unit filename="src\GNRDebugFrame.cpp">
 			<Option target="Debug" />
 		</Unit>
 		<Unit filename="src\GNRMain.cpp" />
-		<Unit filename="src\GNRObject.cpp" />
+		<Unit filename="src\GNRMaterialFile.cpp" />
+		<Unit filename="src\GNRObjectFile.cpp" />
+		<Unit filename="src\GNRPoint.cpp" />
+		<Unit filename="src\GNRPoly.cpp" />
 		<Unit filename="src\GNRPoint.cpp" />
 		<Unit filename="src\GNRTreePanel.cpp" />
 		<Unit filename="src\TestCanvas.cpp" />
 		<Unit filename="src\include\GNRApp.h" />
+		<Unit filename="src\include\GNRAssembly.h" />
+		<Unit filename="src\include\GNRAssemblyPart.h" />
 		<Unit filename="src\include\GNRDebugFrame.h">
 			<Option target="Debug" />
 		</Unit>
 		<Unit filename="src\include\GNRMain.h" />
-		<Unit filename="src\include\GNRObject.h" />
+		<Unit filename="src\include\GNRMaterialFile.h" />
+		<Unit filename="src\include\GNRObjectFile.h" />
+		<Unit filename="src\include\GNRPoint.h" />
+		<Unit filename="src\include\GNRPoly.h" />
 		<Unit filename="src\include\GNRPoint.h" />
 		<Unit filename="src\include\GNRTreePanel.h" />
 		<Unit filename="src\include\TestCanvas.h" />

@@ -1,6 +1,8 @@
 #ifndef _GNRPOINT_H_
 #define _GNRPOINT_H_
 
+#include <wx/string.h>
+
 class GNRPoint
 {
 public:
@@ -15,6 +17,9 @@ public:
 	
 	// dtor
 	virtual ~GNRPoint();
+	
+	// return attributes
+	wxString ToString();
 	
 protected:
 

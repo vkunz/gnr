@@ -5,7 +5,7 @@
 // ctor
 GNRPoly::GNRPoly()
 {
-	m_ptrListPoly = new wxList<GNRPoint>;
+
 }
 
 // dtor
@@ -14,7 +14,21 @@ GNRPoly::~GNRPoly()
 	// do nothing
 }
 
-void GNRPoly::AddPoint(float x, float y, float z)
+void GNRPoly::addVertex(int iPoint)
 {
+	this->m_ListOfInteger.push_back(iPoint);
+}
 
+wxString GNRPoly::ToString()
+{
+	wxString tmp;
+	std::list<int>::iterator it;
+	
+	for (it = this->m_ListOfInteger.begin(); it != m_ListOfInteger.end(); it++)
+	{
+		tmp << *it;
+		tmp << wxT("\t");
+	}
+	
+	return tmp;
 }

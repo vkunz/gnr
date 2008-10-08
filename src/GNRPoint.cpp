@@ -34,3 +34,17 @@ GNRPoint::~GNRPoint()
 {
 	// do nothing
 }
+
+wxString GNRPoint::ToString()
+{
+	wxString tmp;
+	
+	tmp << wxT("x-Wert: ");
+	tmp << this->m_x;
+	tmp << wxT("\ty-Wert: ");
+	tmp << this->m_y;
+	tmp << wxT("\tz-Wert: ");
+	tmp << this->m_z;
+	
+	return tmp;
+}

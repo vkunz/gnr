@@ -367,6 +367,7 @@ GNRPoint TestCanvas::getGLPos(int x, int y)
 	
 	//Read the window z co-ordinate (the z value on that point in unit cube)
 	glReadPixels((int)x, (int)(viewport[3]-y), 1, 1, GL_DEPTH_COMPONENT, GL_FLOAT, &z);
+	
 	//Unproject the window co-ordinates to find the world co-ordinates.
 	gluUnProject((double)x, (double)(viewport[3]-y), (double)z, modelview, projection, viewport, &xpos, &ypos, &zpos);
 	

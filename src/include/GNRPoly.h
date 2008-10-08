@@ -1,7 +1,7 @@
 #ifndef _GNRPOLY_H_
 #define _GNRPOLY_H_
 
-#include <wx/list.h>
+#include <list>
 
 #include "GNRPoint.h"
 
@@ -15,14 +15,15 @@ public:
 	virtual ~GNRPoly();
 	
 	// functions
-	void AddPoint(float x, float y, float z);
+	void addVertex(int iPoint);
+	wxString ToString();
 	
 protected:
 
 private:
 
 	// Pointer of a List of GNRPoints
-	wxList<GNRPoint>* m_ptrListPoly;
+	std::list<int> m_ListOfInteger;
 };
 
 #endif // _GNRPOLY_H_
