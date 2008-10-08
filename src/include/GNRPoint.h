@@ -15,6 +15,11 @@ public:
 	float getY();
 	float getZ();
 	
+	// setter
+	void setX(float x);
+	void setY(float y);
+	void setZ(float z);
+	
 	// dtor
 	virtual ~GNRPoint();
 	

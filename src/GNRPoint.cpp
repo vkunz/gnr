@@ -29,6 +29,21 @@ float GNRPoint::getZ()
 	return this->m_z;
 }
 
+void GNRPoint::setX(float x)
+{
+	this->m_x = x;
+}
+
+void GNRPoint::setY(float y)
+{
+	this->m_y = y;
+}
+
+void GNRPoint::setZ(float z)
+{
+	this->m_z = z;
+}
+
 // dtor
 GNRPoint::~GNRPoint()
 {
