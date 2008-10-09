@@ -18,6 +18,14 @@ public:
 	              const wxSize& size = wxDefaultSize,
 	              long style = 0,
 	              const wxString& name = wxT("GNRGL3DCanvas"));
+	GNRGL3DCanvas(wxWindow* parent,
+	              wxGLContext* sharedContext,
+	              wxWindowID id = wxID_ANY,
+	              const wxPoint& pos = wxDefaultPosition,
+	              const wxSize& size = wxDefaultSize,
+	              long style = 0,
+	              const wxString& name = _("GNRGL3DCanvas"));
+	              
 	~GNRGL3DCanvas() {}
 	
 };

@@ -41,8 +41,6 @@ bool GNRApp::OnInit()
 		//create new GNRFrame
 		GNRFrame* Frame = new GNRFrame(0);
 		
-		//show frame
-		Frame->Show(TRUE);
 		SetTopWindow(Frame);
 	}
 	//

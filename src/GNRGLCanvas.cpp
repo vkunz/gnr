@@ -12,6 +12,23 @@ GNRGLCanvas::GNRGLCanvas(wxWindow* parent, wxWindowID id, const wxPoint& pos, co
 	m_timer = new wxTimer(this, ID_TIMER);
 	m_timer->Start(40);
 	
+	connectEvents();
+	
+}
+
+GNRGLCanvas::GNRGLCanvas(wxWindow* parent, wxGLContext* sharedContext, wxWindowID id, const wxPoint& pos, const wxSize& size,
+                         long style, const wxString& name) : wxGLCanvas(parent, sharedContext, id, pos, size, style, name)
+{
+
+	// Timer to refresh the GL-Window
+	m_timer = new wxTimer(this, ID_TIMER);
+	m_timer->Start(40);
+	
+	connectEvents();
+}
+
+void GNRGLCanvas::connectEvents()
+{
 	// Connect-methods to connect different Events with functions
 	Connect(ID_TIMER, wxEVT_TIMER, (wxObjectEventFunction)&GNRGLCanvas::OnTimer);
 	Connect(wxEVT_SIZE, (wxObjectEventFunction)&GNRGLCanvas::OnResize);

@@ -14,6 +14,8 @@ private:
 	void draw();
 	void prepareDraw();
 	
+	void connectEvents();
+	
 	void OnTimer(wxTimerEvent* event);
 	
 protected:
@@ -35,6 +37,13 @@ public:
 	            const wxSize& size = wxDefaultSize,
 	            long style = 0,
 	            const wxString& name = wxT("GNRGLCanvas"));
+	GNRGLCanvas(wxWindow* parent,
+	            wxGLContext* sharedContext,
+	            wxWindowID id = wxID_ANY,
+	            const wxPoint& pos = wxDefaultPosition,
+	            const wxSize& size = wxDefaultSize,
+	            long style = 0,
+	            const wxString& name = _("GNRGLCanvas"));
 	            
 	virtual ~GNRGLCanvas();
 	

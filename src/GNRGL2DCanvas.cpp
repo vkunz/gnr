@@ -12,6 +12,12 @@ GNRGL2DCanvas::GNRGL2DCanvas(wxWindow* parent, wxWindowID id, const wxPoint& pos
 	initGL();
 }
 
+GNRGL2DCanvas::GNRGL2DCanvas(wxWindow* parent, wxGLContext* sharedContext, wxWindowID id, const wxPoint& pos, const wxSize& size,
+                             long style, const wxString& name) : GNRGLCanvas(parent, sharedContext, id, pos, size, style, name)
+{
+	initGL();
+}
+
 void GNRGL2DCanvas::initGL()
 {
 	// set current GL-Frame
@@ -42,7 +48,7 @@ void GNRGL2DCanvas::OnResize(wxSizeEvent* event)
 	glViewport(0, 0, m_window_x, m_window_y);
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
-	glOrtho(-40, 40, 30, -30, ZNEAR, ZFAR);
+	glOrtho(m_window_x*(-0.1), m_window_x*(0.1), m_window_y*(0.1), m_window_y*(-0.1), ZNEAR, ZFAR);
 	
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();

@@ -147,7 +147,10 @@ GNRFrame::GNRFrame(wxWindow* parent, wxWindowID id)
 	
 	//create two canvas panels
 	this->m_UpperCanvas  = new GNRGL2DCanvas(m_HorizontalSplitter_right, -1);
-	this->m_BottomCanvas = new GNRGL3DCanvas(m_HorizontalSplitter_right, -1);
+	//show frame
+	this->Show(true);
+	wxGLContext* commonCtxt = m_UpperCanvas->GetContext();
+	this->m_BottomCanvas = new GNRGL3DCanvas(m_HorizontalSplitter_right, commonCtxt, -1);
 	
 	//initialize top an bottom canvas
 	this->m_HorizontalSplitter_right->Initialize(m_UpperCanvas);

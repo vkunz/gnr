@@ -12,6 +12,12 @@ GNRGL3DCanvas::GNRGL3DCanvas(wxWindow* parent, wxWindowID id, const wxPoint& pos
 	initGL();
 }
 
+GNRGL3DCanvas::GNRGL3DCanvas(wxWindow* parent, wxGLContext* sharedContext, wxWindowID id, const wxPoint& pos, const wxSize& size,
+                             long style, const wxString& name) : GNRGLCanvas(parent, sharedContext, id, pos, size, style, name)
+{
+	initGL();
+}
+
 void GNRGL3DCanvas::initGL()
 {
 	// set current GL-Frame
