@@ -94,9 +94,7 @@
 		</Linker>
 		<Unit filename="src\GNRApp.cpp" />
 		<Unit filename="src\GNRAssembly.cpp" />
-		<Unit filename="src\GNRDebugFrame.cpp">
-			<Option target="Debug" />
-		</Unit>
+		<Unit filename="src\GNRDebugFrame.cpp" />
 		<Unit filename="src\GNRFace.cpp" />
 		<Unit filename="src\GNRGL2DCanvas.cpp" />
 		<Unit filename="src\GNRGL3DCanvas" />
@@ -106,6 +104,7 @@
 		<Unit filename="src\GNRMaterial.cpp" />
 		<Unit filename="src\GNRMaterialImport.cpp" />
 		<Unit filename="src\GNRModelsPanel.cpp" />
+		<Unit filename="src\GNRMouse.cpp" />
 		<Unit filename="src\GNRObjectImport.cpp" />
 		<Unit filename="src\GNRTreePanel.cpp" />
 		<Unit filename="src\GNRVertex.cpp" />
@@ -125,6 +124,7 @@
 		<Unit filename="src\include\GNRMaterial.h" />
 		<Unit filename="src\include\GNRMaterialImport.h" />
 		<Unit filename="src\include\GNRModelsPanel.h" />
+		<Unit filename="src\include\GNRMouse.h" />
 		<Unit filename="src\include\GNRObjectImport.h" />
 		<Unit filename="src\include\GNRTreePanel.h" />
 		<Unit filename="src\include\GNRVertex.h" />
