@@ -192,6 +192,9 @@ void GNRFrame::OnLoad(wxCommandEvent& event)
 	//wxMessageBox(wxT("This is like a new main(), I know it isnt, but I need a place where to test new Code!!!"));
 	wxString filename = wxFileSelector(wxT("Select OBJ-File..."), wxT(""), wxT(""), wxT(""), wxT("OBJ-Files (*.obj)|*.obj"));
 	
-	GNRObjectImport bla(filename);
+	if (!filename.IsEmpty())
+	{
+		GNRObjectImport object_importer(filename);
+	}
 }
 #endif
