@@ -48,7 +48,7 @@ void GNRGL2DCanvas::OnResize(wxSizeEvent& event)
 	glViewport(0, 0, m_window_x, m_window_y);
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
-	glOrtho(m_window_x*(-0.1), m_window_x*(0.1), m_window_y*(0.1), m_window_y*(-0.1), ZNEAR, ZFAR);
+	setPerspective();
 	
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
@@ -58,4 +58,9 @@ void GNRGL2DCanvas::setCamera()
 {
 	// set camera-position
 	gluLookAt(0,15,0,0,1,0,0,0,1);
+}
+
+void GNRGL2DCanvas::setPerspective()
+{
+	glOrtho(m_window_x*(-0.1), m_window_x*(0.1), m_window_y*(0.1), m_window_y*(-0.1), ZNEAR, ZFAR);
 }

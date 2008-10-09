@@ -28,6 +28,7 @@ void GNRGL3DCanvas::initGL()
 	// alizing 3D models
 	glShadeModel(GL_SMOOTH);
 	
+	glClearDepth(1.0f);
 	glEnable(GL_DEPTH_TEST);
 	glDepthFunc(GL_LEQUAL);
 	
@@ -56,8 +57,7 @@ void GNRGL3DCanvas::OnResize(wxSizeEvent& event)
 	// Load and Reset Modelview
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
-	// Calculate The Aspect Ratio Of The Window
-	gluPerspective(45.0f, (float)m_window_x / (float)m_window_y, ZNEAR, ZFAR);
+	setPerspective();
 	
 	// Load and Reset Modelview
 	glMatrixMode(GL_MODELVIEW);
@@ -67,4 +67,10 @@ void GNRGL3DCanvas::OnResize(wxSizeEvent& event)
 void GNRGL3DCanvas::setCamera()
 {
 	// nothing do to
+}
+
+void GNRGL3DCanvas::setPerspective()
+{
+	// Calculate The Aspect Ratio Of The Window
+	gluPerspective(45.0f, (float)m_window_x / (float)m_window_y, ZNEAR, ZFAR);
 }

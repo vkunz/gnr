@@ -89,6 +89,7 @@ void GNRGLCanvas::draw()
 
 void GNRGLCanvas::selection()
 {
+	SetCurrent();
 	// Finding out which Object has been hit
 	GLuint	buffer[512];										// Set Up A Selection Buffer
 	GLint	hits;												// The Number Of Objects That We Selected
@@ -111,12 +112,13 @@ void GNRGLCanvas::selection()
 	glLoadIdentity();											// Resets The Matrix
 	
 	// This Creates A Matrix That Will Zoom Up To A Small Portion Of The Screen, Where The Mouse Is.
-	gluPickMatrix((GLdouble) m_mouse_x, (GLdouble)(viewport[3]-m_mouse_y), 2.0f, 2.0f, viewport);
+	gluPickMatrix((GLdouble) m_mouse_x, (GLdouble)(viewport[3]-m_mouse_y), 1.0f, 1.0f, viewport);
 	
 	// Apply The Perspective Matrix
-	gluPerspective(45.0f, (float)m_window_x / (float)m_window_y, ZNEAR, ZFAR);
+	setPerspective();
 	glMatrixMode(GL_MODELVIEW);									// Select The Modelview Matrix
 	prepareDraw();
+	setCamera();
 	draw();												// Render The Targets To The Selection Buffer
 	glMatrixMode(GL_PROJECTION);								// Select The Projection Matrix
 	glPopMatrix();												// Pop The Projection Matrix

@@ -8,6 +8,7 @@ class GNRGL2DCanvas : public GNRGLCanvas
 private:
 	void initGL();
 	void setCamera();
+	void setPerspective();
 	
 	void OnResize(wxSizeEvent& event);
 	

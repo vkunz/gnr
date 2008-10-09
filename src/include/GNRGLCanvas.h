@@ -30,6 +30,7 @@ protected:
 	virtual void initGL() = 0;
 	
 	virtual void setCamera() = 0;
+	virtual void setPerspective() = 0;
 	
 	virtual void OnResize(wxSizeEvent& event) = 0;
 	
