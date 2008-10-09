@@ -7,7 +7,6 @@
 		<focused>1</focused>
 		<minsize>640,480</minsize>
 		<id_arg>0</id_arg>
-		<handler function="OnClose" entry="EVT_CLOSE" />
 		<object class="wxMenuBar" variable="MenuBar1" member="no">
 			<object class="wxMenu" variable="Menu1" member="no">
 				<label>&amp;Datei</label>
@@ -47,6 +46,58 @@
 			<fields>1</fields>
 			<widths>-1</widths>
 			<styles>wxSB_NORMAL</styles>
+		</object>
+		<object class="wxToolBar" name="ID_TOOLBAR1" variable="ToolBar1" member="yes">
+			<object class="tool" name="btn_room_new" variable="ToolBarItem1" member="yes">
+				<label>Raum erstellen</label>
+				<bitmap stock_id="wxART_NEW" stock_client="wxART_TOOLBAR" />
+				<tooltip>Raum erstellen</tooltip>
+				<longhelp>Raum erstellen</longhelp>
+			</object>
+			<object class="tool" name="btn_room_open" variable="ToolBarItem2" member="yes">
+				<label>Raum öffnen</label>
+				<bitmap stock_id="wxART_FOLDER_OPEN" />
+				<tooltip>Raum öffnen</tooltip>
+				<longhelp>Raum öffnen</longhelp>
+			</object>
+			<object class="tool" name="btn_room_save" variable="ToolBarItem3" member="yes">
+				<label>Raum speichern</label>
+				<bitmap stock_id="wxART_FILE_SAVE" />
+				<tooltip>Raum speichern</tooltip>
+				<longhelp>Raum speichern</longhelp>
+			</object>
+			<object class="separator" />
+			<object class="tool" name="btn_undo" variable="ToolBarItem4" member="yes">
+				<label>Rückgängig</label>
+				<bitmap stock_id="wxART_UNDO" />
+				<tooltip>Rückgängig</tooltip>
+				<longhelp>Rückgängig</longhelp>
+			</object>
+			<object class="tool" name="btn_redo" variable="ToolBarItem5" member="yes">
+				<label>Wiederherstellen</label>
+				<bitmap stock_id="wxART_REDO" />
+				<tooltip>Wiederherstellen</tooltip>
+				<longhelp>Wiederherstellen</longhelp>
+			</object>
+			<object class="separator" />
+			<object class="tool" name="btn_move_xy" variable="ToolBarItem6" member="yes">
+				<label>Verschieben in X-Y-Richtung</label>
+				<bitmap>Y:\PROJECTS\GNR\src\resources\buttons\lc_arrowshapes.quad-arrow.png</bitmap>
+				<tooltip>Verschieben in X-Y-Richtung</tooltip>
+				<longhelp>Verschieben in X-Y-Richtung</longhelp>
+			</object>
+			<object class="tool" name="btn_move_xz" variable="ToolBarItem7" member="yes">
+				<label>Verschieben in X-Z-Richtung</label>
+				<bitmap>Y:\PROJECTS\GNR\src\resources\buttons\lc_arrowshapes.up-right-arrow.png</bitmap>
+				<tooltip>Verschieben in X-Z-Richtung</tooltip>
+				<longhelp>Verschieben in X-Z-Richtung</longhelp>
+			</object>
+			<object class="tool" name="btn_rotate_xy" variable="ToolBarItem8" member="yes">
+				<label>Rotieren auf X-Y-Achsen</label>
+				<bitmap>Y:\PROJECTS\GNR\src\resources\buttons\lc_arrowshapes.circular-arrow.png</bitmap>
+				<tooltip>Rotieren auf X-Y-Achsen</tooltip>
+				<longhelp>Rotieren auf X-Y-Achsen</longhelp>
+			</object>
 		</object>
 	</object>
 </wxsmith>

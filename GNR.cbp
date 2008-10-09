@@ -101,6 +101,7 @@
 		<Unit filename="src\GNRMain.cpp" />
 		<Unit filename="src\GNRMaterial.cpp" />
 		<Unit filename="src\GNRMaterialImport.cpp" />
+		<Unit filename="src\GNRModelsPanel.cpp" />
 		<Unit filename="src\GNRObjectImport.cpp" />
 		<Unit filename="src\GNRTreePanel.cpp" />
 		<Unit filename="src\GNRVertex.cpp" />
@@ -116,6 +117,7 @@
 		<Unit filename="src\include\GNRMain.h" />
 		<Unit filename="src\include\GNRMaterial.h" />
 		<Unit filename="src\include\GNRMaterialImport.h" />
+		<Unit filename="src\include\GNRModelsPanel.h" />
 		<Unit filename="src\include\GNRObjectImport.h" />
 		<Unit filename="src\include\GNRTreePanel.h" />
 		<Unit filename="src\include\GNRVertex.h" />

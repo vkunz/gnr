@@ -15,6 +15,7 @@
 #include <wx/statusbr.h>
 #include <wx/splitter.h>
 #include <wx/glcanvas.h>
+#include <wx/toolbar.h>
 
 #include "TestCanvas.h"
 #include "GNRTreePanel.h"
@@ -54,12 +55,30 @@ private:
 	static const long idMenuHelp;
 	static const long idMenuAbout;
 	static const long ID_StatusBar;
+	static const long btn_room_new;
+	static const long btn_room_open;
+	static const long btn_room_save;
+	static const long btn_undo;
+	static const long btn_redo;
+	static const long btn_move_xy;
+	static const long btn_move_xz;
+	static const long btn_rotate_xy;
+	static const long ID_TOOLBAR1;
 	//*)
 	
 	//(*Declarations(GNRFrame)
+	wxToolBarToolBase* ToolBarItem4;
+	wxToolBar* ToolBar1;
+	wxToolBarToolBase* ToolBarItem3;
 	wxMenuItem* MenuItem5;
+	wxToolBarToolBase* ToolBarItem6;
+	wxToolBarToolBase* ToolBarItem1;
 	wxMenuItem* MenuItem3;
 	wxStatusBar* StatusBar1;
+	wxToolBarToolBase* ToolBarItem5;
+	wxToolBarToolBase* ToolBarItem8;
+	wxToolBarToolBase* ToolBarItem2;
+	wxToolBarToolBase* ToolBarItem7;
 	//*)
 	
 	DECLARE_EVENT_TABLE()
