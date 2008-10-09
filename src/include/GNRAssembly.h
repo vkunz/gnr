@@ -41,7 +41,7 @@ private:
 	std::string m_MD5Hash;
 	
 	// stores the subordinates
-	std::list<GNRAssembly> m_LAssembly;
+	std::list<GNRAssembly*> m_LAssembly;
 	
 	// stores the faces
 	std::list<GNRFace> m_LFace;
