@@ -3,7 +3,7 @@
 "http://www.oasis-open.org/docbook/xml/4.4/docbookx.dtd">
 <article>
   <section>
-    <title>Überschrift B-1</title>
+    <title>Überschrift Bottom</title>
 
     <para>Hier geht es jetzt mit der Datei "buttom.dbx" weiter. Derzeit wird
     nicht das komplette DokBook-Format unterstützt, aber einige wichtige
@@ -39,23 +39,5 @@
         </tbody>
       </tgroup>
     </table>
-  </section>
-
-  <section>
-    <title>Überschrift B-2</title>
-
-    <para>Schließlich können Sie auch eine Liste mit Links darstellen:</para>
-
-    <itemizedlist role="linklist">
-      <listitem>
-        <para><ulink url="http://dict.leo.org">LEO (English-German
-        Dictionary)</ulink></para>
-      </listitem>
-
-      <listitem>
-        <para><ulink url="http://de.wikipedia.org">Wikipedia (freie
-        Enzyklopädie)</ulink></para>
-      </listitem>
-    </itemizedlist>
   </section>
 </article>
