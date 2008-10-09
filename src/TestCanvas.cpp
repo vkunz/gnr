@@ -361,7 +361,7 @@ void TestCanvas::OnMouseMove(wxMouseEvent& event)
 }
 
 // Convert Mouse-Coordinates to GL-Coordinates
-GNRPoint TestCanvas::getGLPos(int x, int y)
+GNRVertex TestCanvas::getGLPos(int x, int y)
 {
 	glPushMatrix();
 	glLoadIdentity();
@@ -384,10 +384,10 @@ GNRPoint TestCanvas::getGLPos(int x, int y)
 	wxString msg;
 	msg << _("2D x=") << x << _("\ty=") << y << _("\tz=") << z;
 	msg << _("\t|\t3D x=") << xpos << _("\ty=") << ypos << _("\tz=") << zpos;
-	wxLogMessage(msg);
+	//wxLogMessage(msg);
 #endif
 	
 	glPopMatrix();
-	GNRPoint glPoint(xpos, ypos, zpos);
+	GNRVertex glPoint(xpos, ypos, zpos);
 	return glPoint;
 }

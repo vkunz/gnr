@@ -131,7 +131,9 @@ GNRFrame::GNRFrame(wxWindow* parent, wxWindowID id)
 	this->m_HorizontalSplitter_right->SplitHorizontally(m_UpperCanvas, m_BottomCanvas);
 	
 #if defined(__WXDEBUG__)
+	
 	Connect(idMenuLoad, wxEVT_COMMAND_MENU_SELECTED, (wxObjectEventFunction)&GNRFrame::OnLoad);
+	
 #endif
 	
 }
@@ -159,13 +161,13 @@ void GNRFrame::OnAbout(wxCommandEvent& event)
 #include <string.h>
 
 #include "md5.h"
-#include "GNRObjectFile.h"
+#include "GNRObjectImport.h"
 
 void GNRFrame::OnLoad(wxCommandEvent& event)
 {
 	//wxMessageBox(wxT("This is like a new main(), I know it isnt, but I need a place where to test new Code!!!"));
 	wxString filename = wxFileSelector(wxT("Select OBJ-File..."), wxT(""), wxT(""), wxT(""), wxT("OBJ-Files (*.obj)|*.obj"));
 	
-	GNRObjectFile bla(filename);
+	GNRObjectImport bla(filename);
 }
 #endif

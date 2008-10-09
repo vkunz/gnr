@@ -4,7 +4,7 @@
 #include <wx/glcanvas.h>
 #include <wx/timer.h>
 
-#include "GNRPoint.h"
+#include "GNRVertex.h"
 
 class TestCanvas : public wxGLCanvas
 {
@@ -21,8 +21,8 @@ private:
 	int zcoord;
 	
 	// test for drawing
-	GNRPoint firstPoint;
-	GNRPoint secPoint;
+	GNRVertex firstPoint;
+	GNRVertex secPoint;
 	
 	// just some test-values
 	float posx, posy, posz;
@@ -47,7 +47,7 @@ private:
 	void Selection();
 	
 	// translate Mouse-Coordinates to World-Coordinates
-	GNRPoint getGLPos(int x, int y);
+	GNRVertex getGLPos(int x, int y);
 	
 	// execute on size-event
 	void OnSize(wxSizeEvent & event);

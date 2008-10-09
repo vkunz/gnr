@@ -1,7 +1,11 @@
 #ifndef _GNRASSEMBLY_H_
 #define _GNRASSEMBLY_H_
 
-#include <wx/string.h>
+#include <list>
+#include <string>
+
+#include "GNRFace.h"
+#include "GNRVertex.h"
 
 class GNRAssembly
 {
@@ -12,6 +16,9 @@ public:
 protected:
 
 private:
+	// stores the AssemblyTitle
+	std::string m_AssemblyTitle;
+	
 	// stores the offset of the x-axis relative to the zero-point
 	float m_xOffset;
 	
@@ -30,11 +37,23 @@ private:
 	// stores the rotation relative to the z-axis
 	float m_rho;
 	
-	// stores the groupid
-	unsigned int m_groupid;
-	
 	// stores the MD5-Hash of the content of the .obj-File
-	wxString m_MD5Hash;
+	std::string m_MD5Hash;
+	
+	// stores the subordinates
+	std::list<GNRAssembly> m_LAssembly;
+	
+	// stores the faces
+	std::list<GNRFace> m_LFace;
+	
+	// stores the normales
+	std::list<GNRVertex> m_LNormales;
+	
+	// stores the vertex
+	std::list<GNRVertex> m_LVertex;
+	
+	// stores the AssemblyID
+	int m_AssemblyID;
 };
 
 #endif // _GNRASSEMBLY_H_
