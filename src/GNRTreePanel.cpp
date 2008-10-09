@@ -18,8 +18,8 @@ END_EVENT_TABLE()
 GNRTreePanel::GNRTreePanel(wxWindow* parent,wxWindowID id)
 {
 	//(*Initialize(GNRTreePanel)
-	Create(parent, id, wxDefaultPosition, wxSize(640,480), wxTAB_TRAVERSAL, _T("id"));
-	TreeCtrl1 = new wxTreeCtrl(this, ID_TREECTRL1, wxPoint(0,0), wxDefaultSize, wxTR_DEFAULT_STYLE, wxDefaultValidator, _T("ID_TREECTRL1"));
+	Create(parent, id, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL, _T("id"));
+	//TreeCtrl1 = new wxTreeCtrl(this, ID_TREECTRL1, wxDefaultPosition, wxDefaultSize, wxTR_DEFAULT_STYLE, wxDefaultValidator, _T("ID_TREECTRL1"));
 	//*)
 }
 

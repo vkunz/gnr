@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<wxsmith>
+	<object class="wxPanel" name="GNRModelsPanel">
+		<size>640,480</size>
+		<id_arg>0</id_arg>
+		<object class="wxGrid" name="ID_GRID1" variable="Grid1" member="yes">
+			<pos>0,0</pos>
+		</object>
+	</object>
+</wxsmith>
