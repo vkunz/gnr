@@ -7,19 +7,19 @@
 
 GNRMouse::GNRMouse()
 {
-	Init(1.0f, 1000.0f);
+	Init();
 }
 
 GNRMouse::GNRMouse(float m_znear, float m_zfar)
 {
-	Init(m_znear, m_zfar);
+	Init();
 }
 
 GNRMouse::~GNRMouse()
 {
 }
 
-void GNRMouse::Init(float m_znear, float m_zfar)
+void GNRMouse::Init()
 {
 	in_use = false;
 	
@@ -28,9 +28,6 @@ void GNRMouse::Init(float m_znear, float m_zfar)
 	phix   = phix_old = 0.0f;
 	phiy   = phiy_old = 0.0f;
 	phiz   = angle    = 0.0f;
-	
-	zfar   = m_zfar;
-	znear  = m_znear;
 }
 
 bool GNRMouse::GetControl(wxMouseEvent& event)

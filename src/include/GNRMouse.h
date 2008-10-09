@@ -29,7 +29,6 @@ private:
 	float posx, posy, posz;
 	float phix, phiy, phiz, angle;
 	float phix_old, phiy_old;
-	float zfar, znear;
 	
 	//pointer to assembly
 	GNRAssembly* my_object;
@@ -45,9 +44,11 @@ protected:
 	//action for moving asembly in XZ (default)
 	void ObjectMoveXZ(wxMouseEvent& event);
 	
+	//init method
+	void Init();
+	
 public:
 
-	void Init(float m_zfar, float m_znear);
 	bool IsInUse()
 	{
 		return in_use;
