@@ -3,6 +3,8 @@
 
 //(*Headers(GNRTreePanel)
 #include <wx/panel.h>
+class wxTreeCtrl;
+class wxTreeEvent;
 //*)
 
 class GNRTreePanel: public wxPanel
@@ -13,11 +15,13 @@ public:
 	virtual ~GNRTreePanel();
 	
 	//(*Declarations(GNRTreePanel)
+	wxTreeCtrl* TreeCtrl1;
 	//*)
 	
 protected:
 
 	//(*Identifiers(GNRTreePanel)
+	static const long ID_TREECTRL1;
 	//*)
 	
 private:

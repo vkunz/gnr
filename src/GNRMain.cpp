@@ -97,23 +97,38 @@ GNRFrame::GNRFrame(wxWindow* parent, wxWindowID id)
 	Connect(idMenuAbout,wxEVT_COMMAND_MENU_SELECTED,(wxObjectEventFunction)&GNRFrame::OnAbout);
 	//*)
 	
+	//main splitter window
 	this->m_VerticalSplitter = new wxSplitterWindow(this, -1, wxPoint(0,0), wxDefaultSize, wxSP_3D|wxRAISED_BORDER);
 	this->m_VerticalSplitter->SetMinimumPaneSize(200);
 	
-	this->m_Panel = new GNRTreePanel(m_VerticalSplitter, wxID_ANY);
+	//create splitter for left panel with tree and models
+	this->m_HorizontalSplitter_left = new wxSplitterWindow(m_VerticalSplitter, -1, wxPoint(0,0), wxDefaultSize, wxSP_3D|wxRAISED_BORDER);
+	this->m_HorizontalSplitter_left->SetMinimumPaneSize(200);
 	
-	this->m_HorizontalSplitter = new wxSplitterWindow(m_VerticalSplitter, -1, wxPoint(0,0), wxDefaultSize, wxSP_3D|wxRAISED_BORDER);
-	this->m_HorizontalSplitter->SetMinimumPaneSize(200);
+	//create tree and models panel
+	this->m_TreePanel   = new GNRTreePanel(m_HorizontalSplitter_left, wxID_ANY);
+	this->m_ModelsPanel = new GNRModelsPanel(m_HorizontalSplitter_left, wxID_ANY);
 	
-	this->m_VerticalSplitter->SplitVertically(m_Panel, m_HorizontalSplitter);
+	//initialize tree (top) and models (bottom)
+	this->m_HorizontalSplitter_left->Initialize(m_TreePanel);
+	this->m_HorizontalSplitter_left->Initialize(m_ModelsPanel);
+	this->m_HorizontalSplitter_left->SplitHorizontally(m_TreePanel, m_ModelsPanel);
 	
-	this->m_BottomCanvas = new TestCanvas(m_HorizontalSplitter, -1);
-	//this->m_glContext = m_BottomCanvas->GetContext();
-	this->m_UpperCanvas = new TestCanvas(m_HorizontalSplitter, -1);
+	//create splitter for right panel with two canvas
+	this->m_HorizontalSplitter_right = new wxSplitterWindow(m_VerticalSplitter, -1, wxPoint(0,0), wxDefaultSize, wxSP_3D|wxRAISED_BORDER);
+	this->m_HorizontalSplitter_right->SetMinimumPaneSize(200);
 	
-	this->m_HorizontalSplitter->Initialize(m_UpperCanvas);
-	this->m_HorizontalSplitter->Initialize(m_BottomCanvas);
-	this->m_HorizontalSplitter->SplitHorizontally(m_UpperCanvas, m_BottomCanvas);
+	//split left and right splitters
+	this->m_VerticalSplitter->SplitVertically(m_HorizontalSplitter_left, m_HorizontalSplitter_right);
+	
+	//create two canvas panels
+	this->m_BottomCanvas = new TestCanvas(m_HorizontalSplitter_right, -1);
+	this->m_UpperCanvas  = new TestCanvas(m_HorizontalSplitter_right, -1);
+	
+	//initialize top an bottom canvas
+	this->m_HorizontalSplitter_right->Initialize(m_UpperCanvas);
+	this->m_HorizontalSplitter_right->Initialize(m_BottomCanvas);
+	this->m_HorizontalSplitter_right->SplitHorizontally(m_UpperCanvas, m_BottomCanvas);
 	
 #if defined(__WXDEBUG__)
 	Connect(idMenuLoad, wxEVT_COMMAND_MENU_SELECTED, (wxObjectEventFunction)&GNRFrame::OnLoad);

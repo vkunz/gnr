@@ -352,7 +352,6 @@ void TestCanvas::OnMouseMove(wxMouseEvent& event)
 	}
 	else if (m_RMousePressed)
 	{
-		// zoom in-out the scene
 		posy -= (float)(event.m_y - m_mouse_y)/300.0*fabs(posz);
 		posx -= (float)(m_mouse_x - event.m_x)/300.0*fabs(posz);
 		

@@ -18,6 +18,7 @@
 
 #include "TestCanvas.h"
 #include "GNRTreePanel.h"
+#include "GNRModelsPanel.h"
 
 class GNRFrame: public wxFrame
 {
@@ -29,8 +30,10 @@ public:
 private:
 	TestCanvas* m_BottomCanvas;
 	TestCanvas* m_UpperCanvas;
-	GNRTreePanel* m_Panel;
-	wxSplitterWindow* m_HorizontalSplitter;
+	GNRTreePanel* m_TreePanel;
+	GNRModelsPanel* m_ModelsPanel;
+	wxSplitterWindow* m_HorizontalSplitter_left;
+	wxSplitterWindow* m_HorizontalSplitter_right;
 	wxSplitterWindow* m_VerticalSplitter;
 	wxGLContext* m_glContext;
 	
