@@ -10,24 +10,28 @@ private:
 	// Timer to refresh the GL-Window
 	wxTimer* m_timer;
 	
+	int m_mouse_x, m_mouse_y;
+	
+	void connectEvents();
+	
 	// Drawing the GL-Scene
 	void draw();
 	void prepareDraw();
 	
-	void connectEvents();
+	void selection();
 	
-	void OnTimer(wxTimerEvent* event);
+	void OnLMouseDown(wxMouseEvent& event);
+	void OnLMouseUp(wxMouseEvent& event);
+	void OnTimer(wxTimerEvent& event);
 	
 protected:
 	int m_window_x, m_window_y;
 	
-	// Main initialisation of the GL-Engine
 	virtual void initGL() = 0;
 	
 	virtual void setCamera() = 0;
 	
-	// Event-Functions
-	virtual void OnResize(wxSizeEvent* event) = 0;
+	virtual void OnResize(wxSizeEvent& event) = 0;
 	
 public:
 	// constructor

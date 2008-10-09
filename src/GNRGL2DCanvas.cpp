@@ -37,7 +37,7 @@ void GNRGL2DCanvas::initGL()
 	glLoadIdentity();
 }
 
-void GNRGL2DCanvas::OnResize(wxSizeEvent* event)
+void GNRGL2DCanvas::OnResize(wxSizeEvent& event)
 {
 	// set current GL-Frame
 	SetCurrent();

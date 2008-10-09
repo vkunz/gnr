@@ -42,7 +42,7 @@ void GNRGL3DCanvas::initGL()
 	glLoadIdentity();
 }
 
-void GNRGL3DCanvas::OnResize(wxSizeEvent* event)
+void GNRGL3DCanvas::OnResize(wxSizeEvent& event)
 {
 	// set current GL-Frame
 	SetCurrent();
@@ -51,7 +51,7 @@ void GNRGL3DCanvas::OnResize(wxSizeEvent* event)
 	GetClientSize(&m_window_x, &m_window_y);
 	
 	// set viewport with resolution
-	glViewport(0, 0, m_window_x, m_window_y);
+	glViewport(0, 0, (GLint) m_window_x, (GLint) m_window_y);
 	
 	// Load and Reset Modelview
 	glMatrixMode(GL_PROJECTION);

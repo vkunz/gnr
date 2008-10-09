@@ -151,6 +151,7 @@ GNRFrame::GNRFrame(wxWindow* parent, wxWindowID id)
 	this->Show(true);
 	wxGLContext* commonCtxt = m_UpperCanvas->GetContext();
 	this->m_BottomCanvas = new GNRGL3DCanvas(m_HorizontalSplitter_right, commonCtxt, -1);
+	//this->m_BottomCanvas = new TestCanvas(m_HorizontalSplitter_right, -1);
 	
 	//initialize top an bottom canvas
 	this->m_HorizontalSplitter_right->Initialize(m_UpperCanvas);

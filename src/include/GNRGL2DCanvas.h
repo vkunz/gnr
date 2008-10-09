@@ -9,7 +9,7 @@ private:
 	void initGL();
 	void setCamera();
 	
-	void OnResize(wxSizeEvent* event);
+	void OnResize(wxSizeEvent& event);
 	
 public:
 	GNRGL2DCanvas(wxWindow* parent,
