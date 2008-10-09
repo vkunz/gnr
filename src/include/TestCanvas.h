@@ -17,6 +17,7 @@ private:
 	
 	// The Current Position Of The Mouse
 	int	m_mouse_x, m_mouse_y;
+	int window_w, window_h;
 	int zcoord;
 	
 	// test for drawing
@@ -26,6 +27,7 @@ private:
 	// just some test-values
 	float posx, posy, posz;
 	float phix, phiy, phiz, angle;
+	float phix_old, phiy_old;
 	float zfar, znear;
 	
 	// Timer to refresh the GL-Window

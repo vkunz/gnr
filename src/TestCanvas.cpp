@@ -42,11 +42,11 @@ TestCanvas::TestCanvas(wxWindow* parent,
 	m_timer = new wxTimer(this, ID_TIMER);
 	
 	// Timer-Intervall in ms
-	m_timer->Start(40);
+	m_timer->Start(20);
 	
 	// TEMP-Values just for testing
-	posx = -2.0f;
-	posy = -2.0f;
+	posx = 0.0f;
+	posy = 0.0f;
 	posz = -6.0f;
 	zcoord = 0;
 	
@@ -55,6 +55,8 @@ TestCanvas::TestCanvas(wxWindow* parent,
 	
 	zfar  = 1000.0f;
 	znear = 1.0f;
+	
+	GetClientSize(&window_w, &window_h);
 	
 	// Connect-methods to connect different Events with functions
 	Connect(ID_TIMER, wxEVT_TIMER, (wxObjectEventFunction)&TestCanvas::OnTimer);
@@ -148,22 +150,22 @@ void TestCanvas::InitGL()
 
 void TestCanvas::OnSize(wxSizeEvent & event)
 {
-	int w, h;
-	GetClientSize(&w, &h);
+	GetClientSize(&window_w, &window_h);
+	
 	if (GetContext())
 	{
 		// Set current OpenGL Frame
 		SetCurrent();
 		
 		//
-		glViewport(0, 0, (GLint) w, (GLint) h);
+		glViewport(0, 0, (GLint) window_w, (GLint) window_h);
 		
 		// Load and Reset Projection
 		glMatrixMode(GL_PROJECTION);
 		glLoadIdentity();
 		
 		// Calculate The Aspect Ratio Of The Window
-		gluPerspective(45.0f, (GLfloat)w/h, znear, zfar);
+		gluPerspective(45.0f, (GLfloat)window_w/window_h, znear, zfar);
 		
 		// Load and Reset Modelview
 		glMatrixMode(GL_MODELVIEW);
@@ -294,7 +296,6 @@ void TestCanvas::Selection()  											// This Is Where Selection Is Done
 
 void TestCanvas::OnLMouseDown(wxMouseEvent& event)
 {
-	// store mouse coordinates
 	m_mouse_x = event.m_x;
 	m_mouse_y = event.m_y;
 	
@@ -308,13 +309,12 @@ void TestCanvas::OnLMouseUp(wxMouseEvent& event)
 
 void TestCanvas::OnMMouseDown(wxMouseEvent& event)
 {
-	//store mouse coordinates
+	phiy_old = phiy;
+	phix_old = phix;
 	m_mouse_x = event.m_x;
 	m_mouse_y = event.m_y;
 	
-	firstPoint = secPoint = getGLPos(m_mouse_x, m_mouse_y);
 	m_MMousePressed = true;
-	//Selection();
 }
 
 void TestCanvas::OnMMouseUp(wxMouseEvent& event)
@@ -324,7 +324,6 @@ void TestCanvas::OnMMouseUp(wxMouseEvent& event)
 
 void TestCanvas::OnRMouseDown(wxMouseEvent& event)
 {
-	//store mouse coordinates
 	m_mouse_x = event.m_x;
 	m_mouse_y = event.m_y;
 	
@@ -340,25 +339,22 @@ void TestCanvas::OnMouseMove(wxMouseEvent& event)
 {
 	if (m_LMousePressed)
 	{
-		posz = posz - (float)(m_mouse_y - event.m_y)/10.0;
-		posx = posx - (float)(m_mouse_x - event.m_x)/360.0*fabs(posz);
+		posz -= (float)(m_mouse_y - event.m_y)/10.0;
+		posx -= (float)(m_mouse_x - event.m_x)/360.0*fabs(posz);
 		
 		m_mouse_x = event.m_x;
 		m_mouse_y = event.m_y;
 	}
 	else if (m_MMousePressed)
 	{
-		int w, h;
-		GetClientSize(&w, &h);
-		
-		phiy  = 720.0*((float)event.m_x/(float)w);
-		phix  = 720.0*((float)event.m_y/(float)h);
+		phiy  = phiy_old + 720.0*((float)(m_mouse_x - event.m_x)/(float)window_w);
+		phix  = phix_old + 720.0*((float)(m_mouse_y - event.m_y)/(float)window_h);
 	}
 	else if (m_RMousePressed)
 	{
 		// zoom in-out the scene
-		posy = posy - (event.m_y - m_mouse_y)/300.0*fabs(posz);
-		posx = posx - (m_mouse_x - event.m_x)/300.0*fabs(posz);
+		posy -= (float)(event.m_y - m_mouse_y)/300.0*fabs(posz);
+		posx -= (float)(m_mouse_x - event.m_x)/300.0*fabs(posz);
 		
 		m_mouse_x = event.m_x;
 		m_mouse_y = event.m_y;
