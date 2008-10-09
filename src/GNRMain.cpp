@@ -110,9 +110,9 @@ GNRFrame::GNRFrame(wxWindow* parent, wxWindowID id)
 	ToolBarItem4 = ToolBar1->AddTool(btn_undo, _("Rückgängig"), wxArtProvider::GetBitmap(wxART_MAKE_ART_ID_FROM_STR(_T("wxART_UNDO")),wxART_TOOLBAR), wxNullBitmap, wxITEM_NORMAL, _("Rückgängig"), _("Rückgängig"));
 	ToolBarItem5 = ToolBar1->AddTool(btn_redo, _("Wiederherstellen"), wxArtProvider::GetBitmap(wxART_MAKE_ART_ID_FROM_STR(_T("wxART_REDO")),wxART_TOOLBAR), wxNullBitmap, wxITEM_NORMAL, _("Wiederherstellen"), _("Wiederherstellen"));
 	ToolBar1->AddSeparator();
-	ToolBarItem6 = ToolBar1->AddTool(btn_move_xy, _("Verschieben in X-Y-Richtung"), wxBitmap(wxImage(_T("Y:\\PROJECTS\\GNR\\src\\resources\\buttons\\lc_arrowshapes.quad-arrow.png"))), wxNullBitmap, wxITEM_NORMAL, _("Verschieben in X-Y-Richtung"), _("Verschieben in X-Y-Richtung"));
-	ToolBarItem7 = ToolBar1->AddTool(btn_move_xz, _("Verschieben in X-Z-Richtung"), wxBitmap(wxImage(_T("Y:\\PROJECTS\\GNR\\src\\resources\\buttons\\lc_arrowshapes.up-right-arrow.png"))), wxNullBitmap, wxITEM_NORMAL, _("Verschieben in X-Z-Richtung"), _("Verschieben in X-Z-Richtung"));
-	ToolBarItem8 = ToolBar1->AddTool(btn_rotate_xy, _("Rotieren auf X-Y-Achsen"), wxBitmap(wxImage(_T("Y:\\PROJECTS\\GNR\\src\\resources\\buttons\\lc_arrowshapes.circular-arrow.png"))), wxNullBitmap, wxITEM_NORMAL, _("Rotieren auf X-Y-Achsen"), _("Rotieren auf X-Y-Achsen"));
+	ToolBarItem6 = ToolBar1->AddTool(btn_move_xy, _("Verschieben in X-Y-Richtung"), wxBitmap(wxImage(_T("src/resources/buttons/lc_arrowshapes.quad-arrow.png"))), wxNullBitmap, wxITEM_NORMAL, _("Verschieben in X-Y-Richtung"), _("Verschieben in X-Y-Richtung"));
+	ToolBarItem7 = ToolBar1->AddTool(btn_move_xz, _("Verschieben in X-Z-Richtung"), wxBitmap(wxImage(_T("src/resources/buttons/lc_arrowshapes.up-right-arrow.png"))), wxNullBitmap, wxITEM_NORMAL, _("Verschieben in X-Z-Richtung"), _("Verschieben in X-Z-Richtung"));
+	ToolBarItem8 = ToolBar1->AddTool(btn_rotate_xy, _("Rotieren auf X-Y-Achsen"), wxBitmap(wxImage(_T("src/resources/buttons/lc_arrowshapes.circular-arrow.png"))), wxNullBitmap, wxITEM_NORMAL, _("Rotieren auf X-Y-Achsen"), _("Rotieren auf X-Y-Achsen"));
 	ToolBar1->Realize();
 	SetToolBar(ToolBar1);
 	Center();
