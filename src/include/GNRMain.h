@@ -18,6 +18,8 @@
 #include <wx/toolbar.h>
 
 #include "TestCanvas.h"
+#include "GNRGL2DCanvas.h"
+#include "GNRGL3DCanvas.h"
 #include "GNRTreePanel.h"
 #include "GNRModelsPanel.h"
 
@@ -29,8 +31,8 @@ public:
 	virtual ~GNRFrame();
 	
 private:
-	TestCanvas* m_BottomCanvas;
-	TestCanvas* m_UpperCanvas;
+	GNRGL2DCanvas* m_UpperCanvas;
+	GNRGL3DCanvas* m_BottomCanvas;
 	GNRTreePanel* m_TreePanel;
 	GNRModelsPanel* m_ModelsPanel;
 	wxSplitterWindow* m_HorizontalSplitter_left;
