@@ -152,14 +152,12 @@ void GNRGLCanvas::selection()
 
 void GNRGLCanvas::OnLMouseDown(wxMouseEvent& event)
 {
-	m_mouse_x = event.m_x;
-	m_mouse_y = event.m_y;
-	selection();
+	//GNRMouse::GetControl(event);
 }
 
 void GNRGLCanvas::OnLMouseUp(wxMouseEvent& event)
 {
-
+	//GNRMouse::DropControl(event);
 }
 
 GNRGLCanvas::~GNRGLCanvas() {}
