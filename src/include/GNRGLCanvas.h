@@ -18,6 +18,7 @@
 class GNRGLCanvas : public wxGLCanvas
 {
 private:
+
 	// Timer to refresh the GL-Window
 	wxTimer* m_timer;
 	

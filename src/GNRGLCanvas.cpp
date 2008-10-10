@@ -123,11 +123,25 @@ void GNRGLCanvas::draw()
 	glLoadName(1);
 	glPushMatrix();
 	
+	glBegin(GL_POLYGON);
+	glColor3f(1.0f,  0.0f,  0.0f);
+	glVertex3f(0.0f,  1.0f,  0.0f);
+	
+	glColor3f(1.0f,  1.0f,  0.0f);
+	glVertex3f(-1.0f, -1.0f,  1.0f);
+	
+	glColor3f(1.0f,  0.0f,  1.0f);
+	glVertex3f(0.0f, -1.0f,  0.0f);
+	
+	glColor3f(0.0f,  1.0f,  1.0f);
+	glVertex3f(1.0f, -1.0f,  1.0f);
+	glEnd();
+	
 	glBegin(GL_TRIANGLES);
-	glColor3f(1.0f,  0.0f,  0.0f);     /* Rot                           		*/
-	glVertex3f(0.0f,  1.0f,  0.0f);    /* oberer Punkt der Front der Pyramide	*/
-	glVertex3f(-1.0f, -1.0f,  1.0f);   /* linker Punkt der Front der Pyramide	*/
-	glVertex3f(1.0f, -1.0f,  1.0f);    /* rechter Punkt der Fornt der Pyramide      */
+	glColor3f(0.0f,  0.0f,  1.0f);
+	glVertex3f(0.0f,  -1.0f,  0.0f);
+	glVertex3f(-1.0f, -1.0f,  1.0f);
+	glVertex3f(1.0f, -1.0f,  1.0f);
 	
 	glColor3f(0.0f,  1.0f,  0.0f);     /* gruen                         		*/
 	glVertex3f(0.0f,  1.0f,  0.0f);    /* oberer Punkt der rechten Seite der Pyramide  */
@@ -235,6 +249,7 @@ int GNRGLCanvas::selection(int mouse_x, int mouse_y)
 void GNRGLCanvas::OnLMouseDown(wxMouseEvent& event)
 {
 	selection(event.m_x, event.m_y);
+	//GNRMouse::getControl(event);
 }
 
 /**
@@ -244,7 +259,7 @@ void GNRGLCanvas::OnLMouseDown(wxMouseEvent& event)
  */
 void GNRGLCanvas::OnLMouseUp(wxMouseEvent& event)
 {
-	//GNRMouse::DropControl(event);
+	//GNRMouse::dropControl(event);
 }
 
 /**
@@ -254,7 +269,7 @@ void GNRGLCanvas::OnLMouseUp(wxMouseEvent& event)
  */
 void GNRGLCanvas::OnMouseMove(wxMouseEvent& event)
 {
-
+	//GNRMouse::ObjectTransform(event);
 }
 
 /**
@@ -264,7 +279,7 @@ void GNRGLCanvas::OnMouseMove(wxMouseEvent& event)
  */
 void GNRGLCanvas::OnLeaveWindow(wxMouseEvent& event)
 {
-
+	//GNRMouse::dropControl(event);
 }
 
 /**

@@ -97,7 +97,6 @@
 		<Unit filename="src\GNRDebugFrame.cpp" />
 		<Unit filename="src\GNRFace.cpp" />
 		<Unit filename="src\GNRGL2DCanvas.cpp" />
-		<Unit filename="src\GNRGL3DCanvas" />
 		<Unit filename="src\GNRGL3DCanvas.cpp" />
 		<Unit filename="src\GNRGLCanvas.cpp" />
 		<Unit filename="src\GNRMain.cpp" />
