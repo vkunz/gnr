@@ -254,6 +254,11 @@ void GNRGLCanvas::OnLMouseDown(wxMouseEvent& event)
 {
 	selection(event.m_x, event.m_y);
 	//GNRMouse::getControl(event);
+#if defined(__WXDEBUG__)
+	wxString msg;
+	msg << _("OnLMouseDown x=") << event.m_x << _(" y=") << event.m_y;
+	wxLogMessage(msg);
+#endif
 }
 
 /**
@@ -264,6 +269,11 @@ void GNRGLCanvas::OnLMouseDown(wxMouseEvent& event)
 void GNRGLCanvas::OnLMouseUp(wxMouseEvent& event)
 {
 	//GNRMouse::dropControl(event);
+#if defined(__WXDEBUG__)
+	wxString msg;
+	msg << _("OnLMouseUp x=") << event.m_x << _(" y=") << event.m_y;
+	wxLogMessage(msg);
+#endif
 }
 
 /**
@@ -274,6 +284,11 @@ void GNRGLCanvas::OnLMouseUp(wxMouseEvent& event)
 void GNRGLCanvas::OnMouseMove(wxMouseEvent& event)
 {
 	//GNRMouse::ObjectTransform(event);
+#if defined(__WXDEBUG__)
+	wxString msg;
+	msg << _("OnMouseMove x=") << event.m_x << _(" y=") << event.m_y;
+	wxLogMessage(msg);
+#endif
 }
 
 /**
@@ -284,6 +299,11 @@ void GNRGLCanvas::OnMouseMove(wxMouseEvent& event)
 void GNRGLCanvas::OnLeaveWindow(wxMouseEvent& event)
 {
 	//GNRMouse::dropControl(event);
+#if defined(__WXDEBUG__)
+	wxString msg;
+	msg << _("OnLeaveWindow x=") << event.m_x << _(" y=") << event.m_y;
+	wxLogMessage(msg);
+#endif
 }
 
 /**
