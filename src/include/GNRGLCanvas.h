@@ -1,3 +1,14 @@
+/* vim: set expandtab sw=4 ts=4 sts=4: */
+/**
+ * defines the glcanvas base class
+ * @name        GNRGLCanvas.h
+ * @date        2008-10-09
+ * @author		Konstantin Balabin  <k.balabin@googlemail.com>
+ * @author		Patrick Kracht      <patrick.kracht@googlemail.com>
+ * @author		Thorsten Moll       <thorsten.moll@googlemail.com>
+ * @author		Valentin Kunz       <athostr@googlemail.com>
+ */
+
 #ifndef _GNRGLCANVAS_H_
 #define _GNRGLCANVAS_H_
 
@@ -10,18 +21,18 @@ private:
 	// Timer to refresh the GL-Window
 	wxTimer* m_timer;
 	
-	int m_mouse_x, m_mouse_y;
-	
 	void connectEvents();
 	
 	// Drawing the GL-Scene
 	void draw();
 	void prepareDraw();
 	
-	void selection();
+	int selection(int mouse_x, int mouse_y);
 	
 	void OnLMouseDown(wxMouseEvent& event);
 	void OnLMouseUp(wxMouseEvent& event);
+	void OnMouseMove(wxMouseEvent& event);
+	void OnLeaveWindow(wxMouseEvent& event);
 	void OnTimer(wxTimerEvent& event);
 	
 protected:

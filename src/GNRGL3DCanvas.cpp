@@ -5,6 +5,16 @@
 #define ZNEAR 0.1f
 #define ZFAR 1000.0f
 
+/**
+ * constructor of GNRGL3DCanvas
+ * @param       wxWindow*       Parent-Window
+ * @param       wxWindowID      Window-ID
+ * @param       wxPoint         Window-Position of the Canvas
+ * @param       wxSize          Window-Size of the Canvas
+ * @param       long            Window-Style
+ * @param       wxString        Window-Name
+ * @access      public
+ */
 GNRGL3DCanvas::GNRGL3DCanvas(wxWindow* parent, wxWindowID id, const wxPoint& pos, const wxSize& size, long style, const wxString& name)
 		:GNRGLCanvas(parent, id, pos, size, style, name)
 {
@@ -12,12 +22,27 @@ GNRGL3DCanvas::GNRGL3DCanvas(wxWindow* parent, wxWindowID id, const wxPoint& pos
 	initGL();
 }
 
+/**
+ * constructor of GNRGL3DCanvas
+ * @param       wxWindow*       Parent-Window
+ * @param       wxGLContext*    Used GLContext for common Context
+ * @param       wxWindowID      Window-ID
+ * @param       wxPoint         Window-Position of the Canvas
+ * @param       wxSize          Window-Size of the Canvas
+ * @param       long            Window-Style
+ * @param       wxString        Window-Name
+ * @access      public
+ */
 GNRGL3DCanvas::GNRGL3DCanvas(wxWindow* parent, wxGLContext* sharedContext, wxWindowID id, const wxPoint& pos, const wxSize& size,
                              long style, const wxString& name) : GNRGLCanvas(parent, sharedContext, id, pos, size, style, name)
 {
 	initGL();
 }
 
+/**
+ * does the initialization for the 3D canvas
+ * @access      private
+ */
 void GNRGL3DCanvas::initGL()
 {
 	// set current GL-Frame
@@ -43,6 +68,11 @@ void GNRGL3DCanvas::initGL()
 	glLoadIdentity();
 }
 
+/**
+ * does the adjustment of the canvas for the 3D canvas
+ * @param       wxSizeEvent*        Size-Event of the current canvas
+ * @access      private
+ */
 void GNRGL3DCanvas::OnResize(wxSizeEvent& event)
 {
 	// set current GL-Frame
@@ -64,11 +94,19 @@ void GNRGL3DCanvas::OnResize(wxSizeEvent& event)
 	glLoadIdentity();
 }
 
+/**
+ * sets the camera-position for the 3D scene
+ * @access      private
+ */
 void GNRGL3DCanvas::setCamera()
 {
 	// nothing do to
 }
 
+/**
+ * sets the perspective for the 3D scene
+ * @access      private
+ */
 void GNRGL3DCanvas::setPerspective()
 {
 	// Calculate The Aspect Ratio Of The Window

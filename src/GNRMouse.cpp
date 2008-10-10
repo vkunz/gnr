@@ -78,66 +78,72 @@ bool GNRMouse::GetControl(wxMouseEvent& event)
  * @param       wxMouseEvent    mouse event of current frame
  * @access      public
  */
-void GNRMouse::DropControl(wxMouseEvent& event)
+<<<<<<< .mine
+bool GNRMouse::DropControl(wxMouseEvent& event)
 {
-	//set in use false
-	in_use = false;
-	return !in_use;
-}
-
-/**
- * transforming selected object on mouse event
- * @param       wxMouseEvent    mouse event of current frame
- * @access      public
- */
-void GNRMouse::ObjectTransform(wxMouseEvent& event)
-{
-	switch (status)
+	=======
+	    void GNRMouse::DropControl(wxMouseEvent& event)
 	{
-	case MOVEXZ:
-		ObjectMoveXZ(event);
-		break;
-	case MOVEXY:
-		ObjectMoveXY(event);
-		break;
-	case ROTATE:
-		ObjectRotate(event);
-		break;
-	default:
-		ObjectMoveXZ(event);
-		break;
+		>>>>>>> .r91
+		//set in use false
+		in_use = false;
+		return !in_use;
 	}
-}
-
-/**
- * rotate the object on XY axis
- * @param       wxMouseEvent    mouse event of current frame
- * @access      protected
- */
-void GNRMouse::ObjectRotate(wxMouseEvent& event)
-{
-	phiy  = phiy_old + 720.0*((float)(m_mouse_x - event.m_x)/(float)window_w);
-	phix  = phix_old + 720.0*((float)(m_mouse_y - event.m_y)/(float)window_h);
-}
-
-/**
- * move the object in XY dimension
- * @param       wxMouseEvent    mouse event of current frame
- * @access      protected
- */
-void GNRMouse::ObjectMoveXY(wxMouseEvent& event)
-{
-	posx -= (float)(m_mouse_x - event.m_x)/300.0*fabs(posz);
-	posy -= (float)(event.m_y - m_mouse_y)/300.0*fabs(posz);
-}
-
-/**
- * move the object in XZ dimension
- * @param       wxMouseEvent    mouse event of current frame
- * @access      protected
- */
-void GNRMouse::ObjectMoveXZ(wxMouseEvent& event)
-{
-	posx -= (float)(m_mouse_x - event.m_x)/360.0*fabs(posz);
-	posz -= (float)(m_mouse_y - event.m_y)/10.0;
-}
+	
+	/**
+	 * transforming selected object on mouse event
+	 * @param       wxMouseEvent    mouse event of current frame
+	 * @access      public
+	 */
+	void GNRMouse::ObjectTransform(wxMouseEvent& event)
+	{
+		switch (status)
+		{
+		case MOVEXZ:
+			ObjectMoveXZ(event);
+			break;
+		case MOVEXY:
+			ObjectMoveXY(event);
+			break;
+		case ROTATE:
+			ObjectRotate(event);
+			break;
+		default:
+			ObjectMoveXZ(event);
+			break;
+		}
+	}
+	
+	/**
+	 * rotate the object on XY axis
+	 * @param       wxMouseEvent    mouse event of current frame
+	 * @access      protected
+	 */
+	void GNRMouse::ObjectRotate(wxMouseEvent& event)
+	{
+		phiy  = phiy_old + 720.0*((float)(m_mouse_x - event.m_x)/(float)window_w);
+		phix  = phix_old + 720.0*((float)(m_mouse_y - event.m_y)/(float)window_h);
+	}
+	
+	/**
+	 * move the object in XY dimension
+	 * @param       wxMouseEvent    mouse event of current frame
+	 * @access      protected
+	 */
+	void GNRMouse::ObjectMoveXY(wxMouseEvent& event)
+	{
+		posx -= (float)(m_mouse_x - event.m_x)/300.0*fabs(posz);
+		posy -= (float)(event.m_y - m_mouse_y)/300.0*fabs(posz);
+	}
+	
+	/**
+	 * move the object in XZ dimension
+	 * @param       wxMouseEvent    mouse event of current frame
+	 * @access      protected
+	 */
+	void GNRMouse::ObjectMoveXZ(wxMouseEvent& event)
+	{
+		posx -= (float)(m_mouse_x - event.m_x)/360.0*fabs(posz);
+		posz -= (float)(m_mouse_y - event.m_y)/10.0;
+	}
+	
