@@ -21,7 +21,6 @@
 /**
  * constructor of GNRMouse
  * @access      public
- * @author      patrick.kracht
  */
 GNRMouse::GNRMouse()
 {
@@ -31,7 +30,6 @@ GNRMouse::GNRMouse()
 /**
  * destructor of GNRMouse
  * @access      public
- * @author      patrick.kracht
  */
 GNRMouse::~GNRMouse()
 {
@@ -40,7 +38,6 @@ GNRMouse::~GNRMouse()
 /**
  * init method for setting up the mouse controller
  * @access      protected
- * @author      patrick.kracht
  */
 void GNRMouse::Init()
 {
@@ -58,7 +55,6 @@ void GNRMouse::Init()
  * @param       wxMouseEvent    mouse event of current frame
  * @return      boolean         status of get action
  * @access      public
- * @author      patrick.kracht
  */
 bool GNRMouse::GetControl(wxMouseEvent& event)
 {
@@ -82,7 +78,6 @@ bool GNRMouse::GetControl(wxMouseEvent& event)
  * @param       wxMouseEvent    mouse event of current frame
  * @return      boolean         status of drop action
  * @access      public
- * @author      patrick.kracht
  */
 bool GNRMouse::DropControl(wxMouseEvent& event)
 {
@@ -95,7 +90,6 @@ bool GNRMouse::DropControl(wxMouseEvent& event)
  * transforming selected object on mouse event
  * @param       wxMouseEvent    mouse event of current frame
  * @access      public
- * @author      patrick.kracht
  */
 void GNRMouse::ObjectTransform(wxMouseEvent& event)
 {
@@ -120,7 +114,6 @@ void GNRMouse::ObjectTransform(wxMouseEvent& event)
  * rotate the object on XY axis
  * @param       wxMouseEvent    mouse event of current frame
  * @access      protected
- * @author      patrick.kracht
  */
 void GNRMouse::ObjectRotate(wxMouseEvent& event)
 {
@@ -132,7 +125,6 @@ void GNRMouse::ObjectRotate(wxMouseEvent& event)
  * move the object in XY dimension
  * @param       wxMouseEvent    mouse event of current frame
  * @access      protected
- * @author      patrick.kracht
  */
 void GNRMouse::ObjectMoveXY(wxMouseEvent& event)
 {
@@ -144,7 +136,6 @@ void GNRMouse::ObjectMoveXY(wxMouseEvent& event)
  * move the object in XZ dimension
  * @param       wxMouseEvent    mouse event of current frame
  * @access      protected
- * @author      patrick.kracht
  */
 void GNRMouse::ObjectMoveXZ(wxMouseEvent& event)
 {
