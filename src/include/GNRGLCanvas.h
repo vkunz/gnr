@@ -30,6 +30,11 @@ private:
 	
 	int selection(int mouse_x, int mouse_y);
 	
+	void OnMMouseDown(wxMouseEvent& event);
+	void OnMMouseUp(wxMouseEvent& event);
+	void OnRMouseDown(wxMouseEvent& event);
+	void OnRMouseUp(wxMouseEvent& event);
+	void OnLMouseDblClick(wxMouseEvent& event);
 	void OnLMouseDown(wxMouseEvent& event);
 	void OnLMouseUp(wxMouseEvent& event);
 	void OnMouseMove(wxMouseEvent& event);

@@ -76,6 +76,11 @@ GNRGLCanvas::GNRGLCanvas(wxWindow* parent, wxGLContext* sharedContext, wxWindowI
 void GNRGLCanvas::connectEvents()
 {
 	// Connect-methods to connect different Events with functions
+	Connect(wxEVT_MIDDLE_DOWN, (wxObjectEventFunction)&GNRGLCanvas::OnMMouseDown);
+	Connect(wxEVT_MIDDLE_UP, (wxObjectEventFunction)&GNRGLCanvas::OnMMouseUp);
+	Connect(wxEVT_RIGHT_DOWN, (wxObjectEventFunction)&GNRGLCanvas::OnRMouseDown);
+	Connect(wxEVT_RIGHT_UP, (wxObjectEventFunction)&GNRGLCanvas::OnRMouseUp);
+	Connect(wxEVT_LEFT_DCLICK, (wxObjectEventFunction)&GNRGLCanvas::OnLMouseDblClick);
 	Connect(wxEVT_LEFT_DOWN, (wxObjectEventFunction)&GNRGLCanvas::OnLMouseDown);
 	Connect(wxEVT_LEFT_UP, (wxObjectEventFunction)&GNRGLCanvas::OnLMouseUp);
 	Connect(wxEVT_LEAVE_WINDOW, (wxObjectEventFunction)&GNRGLCanvas::OnLeaveWindow);
@@ -245,6 +250,39 @@ int GNRGLCanvas::selection(int mouse_x, int mouse_y)
 }
 
 /**
+ * fetches the Middle-Mouse-Pressed event
+ * @param       wxMouseEvent    Mouse-Event of current canvas
+ * @access      private
+ */
+void GNRGLCanvas::OnMMouseDown(wxMouseEvent& event)
+{
+	Connect(wxEVT_MOTION, (wxObjectEventFunction)&GNRGLCanvas::OnMouseMove);
+	selection(event.m_x, event.m_y);
+	//GNRMouse::getControl(event);
+#if defined(__ATHOS_DEBUG__)
+	wxString msg;
+	msg << _("OnMMouseDown x=") << event.m_x << _(" y=") << event.m_y;
+	wxLogMessage(msg);
+#endif
+}
+
+/**
+ * fetches the Middle-Mouse-Up event
+ * @param       wxMouseEvent    Mouse-Event of current canvas
+ * @access      private
+ */
+void GNRGLCanvas::OnMMouseUp(wxMouseEvent& event)
+{
+	Disconnect(wxEVT_MOTION, (wxObjectEventFunction)&GNRGLCanvas::OnMouseMove);
+	//GNRMouse::dropControl(event);
+#if defined(__ATHOS_DEBUG__)
+	wxString msg;
+	msg << _("OnMMouseUp x=") << event.m_x << _(" y=") << event.m_y;
+	wxLogMessage(msg);
+#endif
+}
+
+/**
  * fetches the Left-Mouse-Pressed event
  * @param       wxMouseEvent    Mouse-Event of current canvas
  * @access      private
@@ -278,6 +316,39 @@ void GNRGLCanvas::OnLMouseUp(wxMouseEvent& event)
 }
 
 /**
+ * fetches the right-Mouse-Pressed event
+ * @param       wxMouseEvent    Mouse-Event of current canvas
+ * @access      private
+ */
+void GNRGLCanvas::OnRMouseDown(wxMouseEvent& event)
+{
+	Disconnect(wxEVT_MOTION, (wxObjectEventFunction)&GNRGLCanvas::OnMouseMove);
+	selection(event.m_x, event.m_y);
+	//GNRMouse::getControl(event);
+#if defined(__ATHOS_DEBUG__)
+	wxString msg;
+	msg << _("OnRMouseDown x=") << event.m_x << _(" y=") << event.m_y;
+	wxLogMessage(msg);
+#endif
+}
+
+/**
+ * fetches the right-Mouse-Up event
+ * @param       wxMouseEvent    Mouse-Event of current canvas
+ * @access      private
+ */
+void GNRGLCanvas::OnRMouseUp(wxMouseEvent& event)
+{
+	Disconnect(wxEVT_MOTION, (wxObjectEventFunction)&GNRGLCanvas::OnMouseMove);
+	//GNRMouse::dropControl(event);
+#if defined(__ATHOS_DEBUG__)
+	wxString msg;
+	msg << _("OnRMouseUp x=") << event.m_x << _(" y=") << event.m_y;
+	wxLogMessage(msg);
+#endif
+}
+
+/**
  * fetches the Mouse-Move event
  * @param       wxMouseEvent    Mouse-Event of current canvas
  * @access      private
@@ -304,6 +375,21 @@ void GNRGLCanvas::OnLeaveWindow(wxMouseEvent& event)
 #if defined(__ATHOS_DEBUG__)
 	wxString msg;
 	msg << _("OnLeaveWindow x=") << event.m_x << _(" y=") << event.m_y;
+	wxLogMessage(msg);
+#endif
+}
+
+/**
+ * fetches the double click event
+ * @param       wxMouseEvent    Mouse-Event of current canvas
+ * @access      private
+ */
+void GNRGLCanvas::OnLMouseDblClick(wxMouseEvent& event)
+{
+	//GNRMouse::dropControl(event);
+#if defined(__ATHOS_DEBUG__)
+	wxString msg;
+	msg << _("OnLMouseDblClick x=") << event.m_x << _(" y=") << event.m_y;
 	wxLogMessage(msg);
 #endif
 }
