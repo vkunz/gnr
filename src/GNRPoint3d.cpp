@@ -12,14 +12,14 @@
 #include "GNRPoint3d.h"
 #include "GNRVertex.h"
 
-GNRPoint3d::GNRPoint3d(GNRVertex *p_coord, GNRVertex *p_norm, GNRVertex *p_text)
+GNRPoint3d::GNRPoint3d(GNRVertex* p_coord, GNRVertex* p_norm, GNRVertex* p_text)
 {
 	m_coord = new GNRVertex(*p_coord);
 	m_norm = new GNRVertex(*p_norm);
 	m_text = new GNRVertex(*p_text);
 }
 
-GNRPoint3d::GNRPoint3d(const GNRPoint3d &p3d)
+GNRPoint3d::GNRPoint3d(const GNRPoint3d& p3d)
 {
 	m_coord = new GNRVertex(*p3d.m_coord);
 	m_norm = new GNRVertex(*p3d.m_norm);
@@ -41,3 +41,10 @@ const GNRVertex* GNRPoint3d::getText() const
 	return m_text;
 }
 
+wxString GNRPoint3d::ToString()
+{
+	wxString msg;
+	msg << wxT("Vertex: ") << this->m_coord->ToString() << wxT("Normale: ") << this->m_norm->ToString() << wxT("Textur: ") << this->m_text->ToString();
+	
+	return msg;
+}

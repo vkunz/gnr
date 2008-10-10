@@ -19,7 +19,7 @@ GNRVertex::GNRVertex()
 	this->m_z = 0.0;
 }
 
-GNRVertex::GNRVertex(double x, double y, double z)
+GNRVertex::GNRVertex(float x, float y, float z)
 {
 	this->m_x = x;
 	this->m_y = y;

@@ -21,7 +21,7 @@ class GNRVertex
 public:
 	// ctor
 	GNRVertex();
-	GNRVertex(double x, double y, double z);
+	GNRVertex(float x, float y, float z);
 	GNRVertex(const GNRVertex& v);
 	
 	// dtor

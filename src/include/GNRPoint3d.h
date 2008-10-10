@@ -6,10 +6,10 @@
 class GNRPoint3d
 {
 private:
+	// attributes
 	GNRVertex* m_coord;
 	GNRVertex* m_norm;
 	GNRVertex* m_text;
-	
 protected:
 
 public:
@@ -21,6 +21,9 @@ public:
 	const GNRVertex* getCoord() const;
 	const GNRVertex* getNorm() const;
 	const GNRVertex* getText() const;
+	
+	// functions
+	wxString ToString();
 };
 
 #endif // _GNRPOINT3D_H_

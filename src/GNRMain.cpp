@@ -199,12 +199,10 @@ void GNRFrame::OnLoad(wxCommandEvent& event)
 	wxString filename = wxFileSelector(wxT("Select OBJ-File..."), wxT(""), wxT(""), wxT(""), wxT("OBJ-Files (*.obj)|*.obj"));
 	
 	
-	//this->m_RootAssembly->m_LAssembly->push_back();
-	
-	
 	if (!filename.IsEmpty())
 	{
 		GNRObjectImport object_importer(filename);
+		this->m_RootAssembly.addChildAssembly(object_importer.GetAssembly());
 	}
 }
 

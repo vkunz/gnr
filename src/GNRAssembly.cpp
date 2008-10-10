@@ -13,6 +13,10 @@
 
 #include "GNRAssembly.h"
 
+#if defined(__ATHOS_DEBUG__)
+#include <wx/log.h>
+#endif
+
 // ctor
 GNRAssembly::GNRAssembly()
 {
@@ -83,6 +87,11 @@ void GNRAssembly::setTheta(const float theta)
 	m_phi = theta;
 }
 
+void GNRAssembly::setAssemblyTitle(const std::string str)
+{
+	this->m_AssemblyTitle = str;
+}
+
 void GNRAssembly::draw() const
 {
 	// draw the children
@@ -98,8 +107,12 @@ void GNRAssembly::draw() const
 	}
 }
 
-void GNRAssembly::addFace(const GNRFace& newface)
+void GNRAssembly::addFace(const GNRFace newface)
 {
 	m_faces.push_back(newface);
 }
 
+void GNRAssembly::addChildAssembly(GNRAssembly* assembly)
+{
+	this->m_parts.push_back(assembly);
+}

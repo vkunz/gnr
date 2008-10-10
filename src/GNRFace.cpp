@@ -16,6 +16,10 @@
 #include "GNRVertex.h"
 #include <GL/gl.h>
 
+#if defined(__ATHOS_DEBUG__)
+#include <wx/log.h>
+#endif
+
 // ctor
 GNRFace::GNRFace()
 {
@@ -30,12 +34,21 @@ GNRFace::~GNRFace()
 
 void GNRFace::addGNRPoint3d(const GNRPoint3d* point)
 {
-
+	this->m_points.push_back(*point);
 }
 
 wxString GNRFace::ToString()
 {
-	return wxT("");
+	wxString msg;
+	
+	std::list<GNRPoint3d>::iterator it;
+	
+	for (it = m_points.begin(); it != m_points.end(); it++)
+	{
+		msg << it->ToString();
+	}
+	
+	return msg;
 }
 
 void GNRFace::draw() const

@@ -32,10 +32,10 @@ public:
 	virtual void createFace(wxString str) = 0;
 	
 	// creates a new Vertex
-	virtual void createVertex(wxString str) = 0;
+	virtual void addVertex(wxString str) = 0;
 	
 	// parse the file
-	virtual void parse(wxString filename) = 0;
+	virtual void parse() = 0;
 };
 
 #endif // _GNRIMPORTFILE_H_

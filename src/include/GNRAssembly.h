@@ -1,8 +1,8 @@
 /* vim: set expandtab sw=4 ts=4 sts=4: */
 /**
  * GNRAssembly
- * @name        GNRAssembly.h
- * @date        2008-10-05
+ * @name                GNRAssembly.h
+ * @date                2008-10-05
  * @author		Konstantin Balabin  <k.balabin@googlemail.com>
  * @author		Patrick Kracht      <patrick.kracht@googlemail.com>
  * @author		Thorsten Moll       <thorsten.moll@googlemail.com>
@@ -26,7 +26,8 @@ public:
 	
 	void draw() const;
 	
-	void addFace(const GNRFace &newface);
+	void addFace(const GNRFace newface);
+	void addChildAssembly(GNRAssembly* assembly);
 	
 	float getX() const;
 	float getY() const;
@@ -43,6 +44,8 @@ public:
 	void setPhi(const float phi);
 	void setRho(const float rho);
 	void setTheta(const float theta);
+	
+	void setAssemblyTitle(const std::string str);
 	
 protected:
 

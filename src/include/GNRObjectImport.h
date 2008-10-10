@@ -44,12 +44,14 @@ protected:
 
 private:
 	// attributes
+	// vector of all vertex
+	std::vector<GNRVertex> m_VVertex;
 	
-	// list of GNRAssembly
-	std::list<GNRAssembly> m_LAssembly;
+	// list of all vertex normals
+	std::vector<GNRVertex> m_VNormal;
 	
-	// stores data if first part
-	bool isFirstPart;
+	// list of all vertex textures
+	std::vector<GNRVertex> m_VTexture;
 	
 	// pointer to GNRAssembly
 	GNRAssembly* m_ptrAssembly;
@@ -58,20 +60,23 @@ private:
 	wxString m_filename;
 	
 	// functions
-	// parse the file
-	void parse(wxString filename);
+	// create Normal
+	void addNormal(wxString str);
+	
+	// create Texture
+	void addTexture(wxString str);
 	
 	// create Vertex
-	void createVertex(wxString str);
-	
-	// create Face
-	void createFace(wxString str);
+	void addVertex(wxString str);
 	
 	// create Assembly
 	void createAssembly(wxString str);
 	
-	// create Normal
-	void createNormal(wxString str);
+	// create Face
+	void createFace(wxString str);
+	
+	// parse the file
+	void parse();
 };
 
 #endif // _GNROBJECTIMPORT_H_
