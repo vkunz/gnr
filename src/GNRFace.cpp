@@ -41,14 +41,14 @@ wxString GNRFace::ToString()
 void GNRFace::draw() const
 {
 	glBegin(GL_POLYGON);
-		for (std::list<GNRPoint3d>::const_iterator it = m_points.begin(); it != m_points.end(); ++it)
-		{
-			const GNRVertex *v = NULL; 
-			v = it->getNorm();
-			glNormal3f(v->getX(), v->getY(), v->getZ());
-
-			v = it->getCoord();
-			glVertex3f(v->getX(), v->getY(), v->getZ());
-		}
+	for (std::list<GNRPoint3d>::const_iterator it = m_points.begin(); it != m_points.end(); ++it)
+	{
+		const GNRVertex *v = NULL;
+		v = it->getNorm();
+		glNormal3f(v->getX(), v->getY(), v->getZ());
+		
+		v = it->getCoord();
+		glVertex3f(v->getX(), v->getY(), v->getZ());
+	}
 	glEnd();
 }

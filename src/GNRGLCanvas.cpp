@@ -78,7 +78,6 @@ void GNRGLCanvas::connectEvents()
 	// Connect-methods to connect different Events with functions
 	Connect(wxEVT_LEFT_DOWN, (wxObjectEventFunction)&GNRGLCanvas::OnLMouseDown);
 	Connect(wxEVT_LEFT_UP, (wxObjectEventFunction)&GNRGLCanvas::OnLMouseUp);
-	Connect(wxEVT_MOTION, (wxObjectEventFunction)&GNRGLCanvas::OnMouseMove);
 	Connect(wxEVT_LEAVE_WINDOW, (wxObjectEventFunction)&GNRGLCanvas::OnLeaveWindow);
 	Connect(wxEVT_SIZE, (wxObjectEventFunction)&GNRGLCanvas::OnResize);
 	Connect(ID_TIMER, wxEVT_TIMER, (wxObjectEventFunction)&GNRGLCanvas::OnTimer);
@@ -252,6 +251,7 @@ int GNRGLCanvas::selection(int mouse_x, int mouse_y)
  */
 void GNRGLCanvas::OnLMouseDown(wxMouseEvent& event)
 {
+	Connect(wxEVT_MOTION, (wxObjectEventFunction)&GNRGLCanvas::OnMouseMove);
 	selection(event.m_x, event.m_y);
 	//GNRMouse::getControl(event);
 #if defined(__WXDEBUG__)
@@ -268,6 +268,7 @@ void GNRGLCanvas::OnLMouseDown(wxMouseEvent& event)
  */
 void GNRGLCanvas::OnLMouseUp(wxMouseEvent& event)
 {
+	Disconnect(wxEVT_MOTION, (wxObjectEventFunction)&GNRGLCanvas::OnMouseMove);
 	//GNRMouse::dropControl(event);
 #if defined(__WXDEBUG__)
 	wxString msg;
@@ -298,6 +299,7 @@ void GNRGLCanvas::OnMouseMove(wxMouseEvent& event)
  */
 void GNRGLCanvas::OnLeaveWindow(wxMouseEvent& event)
 {
+	Disconnect(wxEVT_MOTION, (wxObjectEventFunction)&GNRGLCanvas::OnMouseMove);
 	//GNRMouse::dropControl(event);
 #if defined(__WXDEBUG__)
 	wxString msg;

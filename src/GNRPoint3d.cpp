@@ -38,6 +38,6 @@ const GNRVertex* GNRPoint3d::getNorm() const
 
 const GNRVertex* GNRPoint3d::getText() const
 {
-	return m_text; 
+	return m_text;
 }
 
