@@ -86,9 +86,9 @@ bool GNRMouse::GetControl(GNRAssembly* object, wxMouseEvent& event)
 	my_object = object;
 	
 	//store old rotation values
-	phi_old   = my_object->m_phi;
-	theta_old = my_object->m_theta;
-	rho_old   = my_object->m_rho;
+	phi_old   = my_object->getPhi();
+	theta_old = my_object->getTheta();
+	rho_old   = my_object->getRho();
 	
 	//store actual mouse coords on control
 	m_mouse_x = event.m_x;
@@ -142,8 +142,8 @@ void GNRMouse::ObjectTransform(wxMouseEvent& event)
  */
 void GNRMouse::ObjectRotate(wxMouseEvent& event)
 {
-	my_object->m_phi    = phi_old   + 720.0*((float)(m_mouse_y - event.m_y)/(float)window_h);
-	my_object->m_theta  = theta_old + 720.0*((float)(m_mouse_x - event.m_x)/(float)window_w);
+	my_object->setPhi(phi_old + 720.0*((float)(m_mouse_y - event.m_y)/(float)window_h));
+	my_object->setTheta(theta_old + 720.0*((float)(m_mouse_x - event.m_x)/(float)window_w));
 }
 
 /**
@@ -153,8 +153,8 @@ void GNRMouse::ObjectRotate(wxMouseEvent& event)
  */
 void GNRMouse::ObjectMoveXY(wxMouseEvent& event)
 {
-	my_object->m_xOffset -= (float)(m_mouse_x - event.m_x)/300.0*fabs(my_object->m_yOffset);
-	my_object->m_yOffset -= (float)(event.m_y - m_mouse_y)/300.0*fabs(my_object->m_yOffset);
+	my_object->setX(my_object->getX() - (float)(m_mouse_x - event.m_x)/300.0*fabs(my_object->getZ()));
+	my_object->setY(my_object->getY() - (float)(event.m_y - m_mouse_y)/300.0*fabs(my_object->getZ()));
 }
 
 /**
@@ -164,6 +164,6 @@ void GNRMouse::ObjectMoveXY(wxMouseEvent& event)
  */
 void GNRMouse::ObjectMoveXZ(wxMouseEvent& event)
 {
-	my_object->m_xOffset -= (float)(m_mouse_x - event.m_x)/360.0*fabs(my_object->m_yOffset);
-	my_object->m_zOffset -= (float)(m_mouse_y - event.m_y)/10.0;
+	my_object->setX(my_object->getX() - (float)(m_mouse_x - event.m_x)/360.0*fabs(my_object->getZ()));
+	my_object->setZ(my_object->getZ() - (float)(m_mouse_y - event.m_y)/10.0);
 }

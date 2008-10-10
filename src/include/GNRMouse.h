@@ -26,10 +26,10 @@ private:
 	enum { MOVEXZ = 0, MOVEXY, ROTATE };
 	int status;                         //action to perform with event
 	bool in_use;                        //remember usage of this controller
-	int	m_mouse_x, m_mouse_y;           //old mouse coords on initialized dragging
-	int window_w, window_h;             //window dimensions of actual frame
+	int	m_mouse_x, m_mouse_y;           //old mouse coords (x,y) on frame
+	int window_w, window_h;             //window dimensions of actual frame (width,height)
 	float phi_old, theta_old, rho_old;  //old copy of previous object params (x,y,z-rotation)
-	GNRAssembly* my_object;             //pointer to assembly
+	GNRAssembly* my_object;             //pointer to assembly object
 	
 protected:
 
