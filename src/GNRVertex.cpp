@@ -12,6 +12,77 @@
 #include "GNRVertex.h"
 
 // ctor
+GNRVertex::GNRVertex()
+{
+	this->m_x = 0.0;
+	this->m_y = 0.0;
+	this->m_z = 0.0;
+}
+
+GNRVertex::GNRVertex(double x, double y, double z)
+{
+	this->m_x = x;
+	this->m_y = y;
+	this->m_z = z;
+}
+
+GNRVertex::GNRVertex(const GNRVertex& v)
+{
+	this->m_x = v.m_x;
+	this->m_y = v.m_y;
+	this->m_z = v.m_z;
+}
+
+// dtor
+GNRVertex::~GNRVertex()
+{
+	// do nothing
+}
+
+const float GNRVertex::getX() const
+{
+	return this->m_x;
+}
+
+const float GNRVertex::getY() const
+{
+	return this->m_y;
+}
+
+const float GNRVertex::getZ() const
+{
+	return this->m_z;
+}
+
+void GNRVertex::setX(float x)
+{
+	this->m_x = x;
+}
+
+void GNRVertex::setY(float y)
+{
+	this->m_y = y;
+}
+
+void GNRVertex::setZ(float z)
+{
+	this->m_z = z;
+}
+
+float GNRVertex::deltaX(GNRVertex* point)
+{
+	return (double)(this->m_x - point->m_x);
+}
+
+float GNRVertex::deltaY(GNRVertex* point)
+{
+	return (double)(this->m_y - point->m_y);
+}
+
+float GNRVertex::deltaZ(GNRVertex* point)
+{
+	return (double)(this->m_z - point->m_z);
+}
 
 // operator overload
 GNRVertex  GNRVertex::operator  + (const GNRVertex& p2) const

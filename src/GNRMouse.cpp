@@ -62,7 +62,7 @@ void GNRMouse::init()
 	status = MOVEXZ;
 	
 	//initialize with default values
-	SetWindow(640,480);
+	setWindow(640,480);
 }
 
 /**
@@ -173,7 +173,7 @@ void GNRMouse::ObjectMoveXZ(wxMouseEvent& event)
  * @return      boolean         status of usage
  * @access      public
  */
-bool GNRMouse::inUse()
+bool GNRMouse::isInUse()
 {
 	return in_use;
 }

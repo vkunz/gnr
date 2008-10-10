@@ -9,12 +9,14 @@
  * @author		Valentin Kunz       <athostr@googlemail.com>
  */
 
+#include <list>
+
 #include "GNRAssembly.h"
 
 // ctor
 GNRAssembly::GNRAssembly()
 {
-} 
+}
 
 // dtor
 GNRAssembly::~GNRAssembly()
@@ -51,17 +53,17 @@ void GNRAssembly::setZ(const float z)
 	m_zOffset = z;
 }
 
-float GNRAssembly::getPhi const
+float GNRAssembly::getPhi() const
 {
 	return m_phi;
 }
 
-float GNRAssembly::getRho const
+float GNRAssembly::getRho() const
 {
 	return m_rho;
 }
 
-float GNRAssembly::getTheta const
+float GNRAssembly::getTheta() const
 {
 	return m_theta;
 }
@@ -84,15 +86,20 @@ void GNRAssembly::setTheta(const float theta)
 void GNRAssembly::draw() const
 {
 	// draw the children
-	for (list<GNRAssembly*>::const_iterator it = m_parts.begin(); it != m_parts.end(); ++it)
-		it->draw;
-
+	for (std::list<GNRAssembly*>::const_iterator it = m_parts.begin(); it != m_parts.end(); ++it)
+	{
+		(*it)->draw();
+	}
+	
 	// draw myself
-	for (list<GNRFace>::const_iterator it = m_faces.begin(); it != m_faces.end(); ++it)
-		it->draw;
+	for (std::list<GNRFace>::const_iterator it = m_faces.begin(); it != m_faces.end(); ++it)
+	{
+		//it->draw();
+	}
 }
 
-void addFace(const Face &newface) {
-	 m_faces.push_back(newface);
+void GNRAssembly::addFace(const GNRFace& newface)
+{
+	m_faces.push_back(newface);
 }
 

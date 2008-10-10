@@ -97,6 +97,7 @@
 		<Unit filename="src\GNRDebugFrame.cpp" />
 		<Unit filename="src\GNRFace.cpp" />
 		<Unit filename="src\GNRGL2DCanvas.cpp" />
+		<Unit filename="src\GNRGL3DCanvas" />
 		<Unit filename="src\GNRGL3DCanvas.cpp" />
 		<Unit filename="src\GNRGLCanvas.cpp" />
 		<Unit filename="src\GNRMain.cpp" />
@@ -111,7 +112,9 @@
 		<Unit filename="src\TestCanvas.cpp" />
 		<Unit filename="src\include\GNRApp.h" />
 		<Unit filename="src\include\GNRAssembly.h" />
-		<Unit filename="src\include\GNRDebugFrame.h" />
+		<Unit filename="src\include\GNRDebugFrame.h">
+			<Option target="Debug" />
+		</Unit>
 		<Unit filename="src\include\GNRExportFile.h" />
 		<Unit filename="src\include\GNRFace.h" />
 		<Unit filename="src\include\GNRGL2DCanvas.h" />

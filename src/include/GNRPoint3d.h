@@ -1,28 +1,24 @@
 #ifndef _GNRPOINT3D_H_
 #define _GNRPOINT3D_H_
 
+#include "GNRVertex.h"
+
 class GNRPoint3d
 {
 private:
 	GNRVertex* m_coord;
 	GNRVertex* m_norm;
 	
+protected:
+
 public:
-	GNRPoint3d(GNRVertex *p_coord, GNRVertex *p_norm);
-	GNRPoint3d(const GNRPoint3d& p3d)
-	{
-		m_coord = new GNRVertex(p3d.m_coord);
-		m_norm = new GNRVertex(p3d.m_norm);
-	}
+	// ctor
+	GNRPoint3d(GNRVertex* p_coord, GNRVertex* norm);
+	GNRPoint3d(const GNRPoint3d& p3d);
 	
-	const Vertex* getCoord() const
-	{
-		return m_coord;
-	}
-	const Vertex* getNorm() const
-	{
-		return m_norm;
-	}
+	// getter
+	const GNRVertex* getCoord() const;
+	const GNRVertex* getNorm() const;
 };
 
 #endif // _GNRPOINT3D_H_

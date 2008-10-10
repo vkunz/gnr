@@ -190,7 +190,6 @@ void GNRObjectImport::createFace(wxString str)
 	while (tok.HasMoreTokens())
 	{
 		tok.GetNextToken().ToLong(&tmp);
-		poly.addVertex(tmp);
 	}
 	
 	// push GNRPoly-Object to vector

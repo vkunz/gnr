@@ -28,11 +28,11 @@ public:
 	
 	// functions
 	void addGNRPoint3d(const GNRPoint3d* point);
-
-	void draw const();
-
+	
+	void draw() const;
+	
 	wxString ToString();
-
+	
 protected:
 
 private:

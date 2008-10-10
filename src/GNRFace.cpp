@@ -26,26 +26,17 @@ GNRFace::~GNRFace()
 	// do nothing
 }
 
-void GNRFace::addVertex(int iPoint)
-{
-	this->m_ListOfInteger.push_back(iPoint);
-}
-
-void GNRPoint3d::addGNRPoint3d(const GNRPoint3d* point)
+void GNRFace::addGNRPoint3d(const GNRPoint3d* point)
 {
 
 }
 
 wxString GNRFace::ToString()
 {
-	wxString tmp;
-	std::list<int>::iterator it;
-	
-	for (it = this->m_ListOfInteger.begin(); it != m_ListOfInteger.end(); it++)
-	{
-		tmp << *it;
-		tmp << wxT("\t");
-	}
-	
-	return tmp;
+
+}
+
+void GNRFace::draw() const
+{
+
 }

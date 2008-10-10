@@ -43,7 +43,7 @@ public:
 	GNRMouse();
 	virtual ~GNRMouse();
 	void setWindow(int width, int height);
-	bool getControl(wxMouseEvent& event);
+	bool getControl(GNRAssembly* object, wxMouseEvent& event);
 	void dropControl(wxMouseEvent& event);
 	void ObjectTransform(wxMouseEvent& event);
 	bool isInUse();
