@@ -18,26 +18,30 @@ class GNRVertex
 {
 public:
 	// ctor
-	GNRVertex(double x, double y, double z) : m_x(x), m_y(y), m_z(z)
-			GNRVertex(const GNRVertex& v) : m_x(v.m_x), m_y(v.m_y), m_z(v.m_z) { }
-	GNRVertex(const GNRVertex* p_v) : this(*p_v);
-	
+	GNRVertex(float x, float y, float z) : m_x(x), m_y(y), m_z(z)
+	GNRVertex(const GNRVertex& v) : m_x(v.m_x), m_y(v.m_y), m_z(v.m_z) { }
+	GNRVertex(const GNRVertex* p_v) {
+		m_x = p_v->m_x;
+		m_y = p_v->m_y;
+		m_z = p_v->m_z;
+	}
+
 	// dtor
 	virtual ~GNRVertex();
 	
 	// return value
-	double getX();
-	double getY();
-	double getZ();
+	const float getX() const { return m_x; }
+	const float getY() const { return m_y; }
+	const float getZ() const { return m_z; }
 	
 	// setter
-	void setX(double x);
-	void setY(double y);
-	void setZ(double z);
+	void setX(const float x) { m_x = x; }
+	void setY(const float y) { m_y = y; }
+	void setZ(const float z) { m_z = z; }
 	
-	double deltaX(GNRVertex* point);
-	double deltaY(GNRVertex* point);
-	double deltaZ(GNRVertex* point);
+	float deltaX(GNRVertex* point) { return m_x - point.x; }
+	float deltaY(GNRVertex* point) { return m_y - point.y; }
+	float deltaZ(GNRVertex* point) { return m_z - point.z; }
 	
 	GNRVertex  operator  + (const GNRVertex& p2) const;
 	GNRVertex  operator  - (const GNRVertex& p2) const;
@@ -52,13 +56,13 @@ protected:
 
 private:
 	// stores the x-value relative to zero
-	double m_x;
+	float m_x;
 	
 	// stores the y-value relative to zero
-	double m_y;
+	float m_y;
 	
 	// stores the z-value relative to zer
-	double m_z;
+	float m_z;
 };
 
 #endif // _GNRVERTEX_H_

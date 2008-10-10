@@ -52,16 +52,10 @@ private:
 	std::string m_MD5Hash;
 	
 	// stores the subordinates
-	std::list<GNRAssembly*> m_LAssembly;
+	std::list<GNRAssembly*> m_parts;
 	
 	// stores the faces
-	std::list<GNRFace> m_LFace;
-	
-	// stores the normales
-	std::list<GNRVertex> m_LNormales;
-	
-	// stores the vertex
-	std::list<GNRVertex> m_LVertex;
+	std::list<GNRFace> m_faces;
 	
 	// stores the AssemblyID
 	int m_AssemblyID;

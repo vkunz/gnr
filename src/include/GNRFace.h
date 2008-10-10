@@ -35,7 +35,7 @@ protected:
 private:
 
 	// Pointer of a List of GNRPoints
-	std::list<GNRPoint3d> m_ListOfInteger;
+	std::list<GNRPoint3d> m_points;
 };
 
 #endif // _GNRFACE_H_
