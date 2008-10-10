@@ -15,7 +15,7 @@
 #include "GNRMain.h"
 #include "TestCanvas.h"
 
-#if defined(__WXDEBUG__)
+#if defined(__ATHOS_DEBUG__)
 #include "GNRDebugFrame.h"
 #endif
 
@@ -30,7 +30,7 @@ bool GNRApp::OnInit()
 	
 	if (wxsOK)
 	{
-#if defined(__WXDEBUG__)
+#if defined(__ATHOS_DEBUG__)
 		// Create DebugFrame
 		m_DebugFrame = new GNRDebugFrame(0);
 		m_DebugFrame->Show(true);

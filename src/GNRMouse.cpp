@@ -16,7 +16,7 @@
 
 #include "GNRAssembly.h"
 
-#if defined(__WXDEBUG__)
+#if defined(__ATHOS_DEBUG__)
 #include <wx/log.h>
 #endif
 

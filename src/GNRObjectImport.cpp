@@ -17,7 +17,7 @@
 #include "GNRVertex.h"
 #include "GNRFace.h"
 
-#if defined(__WXDEBUG__)
+#if defined(__ATHOS_DEBUG__)
 #include <wx/log.h>
 #endif
 
@@ -37,7 +37,7 @@ GNRObjectImport::GNRObjectImport()
  */
 GNRObjectImport::GNRObjectImport(wxString filename)
 {
-#if defined(__WXDEBUG__)
+#if defined(__ATHOS_DEBUG__)
 
 	wxLogMessage(wxT("ObjectFileCreated"));
 	
@@ -80,7 +80,7 @@ void GNRObjectImport::parse(wxString filename)
 	
 	file.Open();
 	
-#if defined(__WXDEBUG__)
+#if defined(__ATHOS_DEBUG__)
 	
 	wxLogMessage(wxT("File opened"));
 	
@@ -121,7 +121,7 @@ void GNRObjectImport::parse(wxString filename)
 	//this->m_LAssemblyPart.push_back(*m_ptrAssemblyPart);
 	//delete this->m_ptrAssemblyPart;
 	
-#if defined(__WXDEBUG__)
+#if defined(__ATHOS_DEBUG__)
 	
 	wxLogMessage(wxT("Hier fertig mit einlesen"));
 	// iterator to walk through

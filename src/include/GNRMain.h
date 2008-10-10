@@ -48,7 +48,7 @@ private:
 	void OnQuit(wxCommandEvent& event);
 	void OnAbout(wxCommandEvent& event);
 	
-#if defined(__WXDEBUG__)
+#if defined(__ATHOS_DEBUG__)
 	void OnLoad(wxCommandEvent& event);
 #endif
 	void OnScrolledWindow1Paint(wxPaintEvent& event);

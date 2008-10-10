@@ -16,7 +16,7 @@
 
 #include "TestCanvas.h"
 
-#if defined(__WXDEBUG__)
+#if defined(__ATHOS_DEBUG__)
 #include <wx/log.h>
 #endif
 
@@ -391,7 +391,7 @@ GNRVertex TestCanvas::getGLPos(int x, int y)
 	//Unproject the window co-ordinates to find the world co-ordinates.
 	gluUnProject((double)x, (double)(viewport[3]-y), (double)z, modelview, projection, viewport, &xpos, &ypos, &zpos);
 	
-#if defined(__WXDEBUG__)
+#if defined(__ATHOS_DEBUG__)
 	wxString msg;
 	msg << _("2D x=") << x << _("\ty=") << y << _("\tz=") << z;
 	msg << _("\t|\t3D x=") << xpos << _("\ty=") << ypos << _("\tz=") << zpos;

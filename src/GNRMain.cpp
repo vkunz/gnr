@@ -160,8 +160,7 @@ GNRFrame::GNRFrame(wxWindow* parent, wxWindowID id)
 	this->m_HorizontalSplitter_right->Initialize(m_BottomCanvas);
 	this->m_HorizontalSplitter_right->SplitHorizontally(m_UpperCanvas, m_BottomCanvas);
 	
-#if defined(__WXDEBUG__)
-	
+#if defined(__ATHOS_DEBUG__)
 	Connect(idMenuLoad, wxEVT_COMMAND_MENU_SELECTED, (wxObjectEventFunction)&GNRFrame::OnLoad);
 	
 #endif
@@ -185,7 +184,7 @@ void GNRFrame::OnAbout(wxCommandEvent& event)
 	wxMessageBox(msg, _("GNR"));
 }
 
-#if defined(__WXDEBUG__)
+#if defined(__ATHOS_DEBUG__)
 
 #include <wx/log.h>
 #include <wx/filedlg.h>

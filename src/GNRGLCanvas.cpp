@@ -17,7 +17,7 @@
 
 #include "GNRGLCanvas.h"
 
-#if defined(__WXDEBUG__)
+#if defined(__ATHOS_DEBUG__)
 #include <wx/log.h>
 #endif
 
@@ -233,7 +233,7 @@ int GNRGLCanvas::selection(int mouse_x, int mouse_y)
 				depth = buffer[loop*4+1];
 			}
 		}
-#if defined(__WXDEBUG__)
+#if defined(__ATHOS_DEBUG__)
 		wxString msg;
 		msg << _("Objekt ") << choose << _(" Hit");
 		wxLogMessage(msg);
@@ -254,7 +254,7 @@ void GNRGLCanvas::OnLMouseDown(wxMouseEvent& event)
 	Connect(wxEVT_MOTION, (wxObjectEventFunction)&GNRGLCanvas::OnMouseMove);
 	selection(event.m_x, event.m_y);
 	//GNRMouse::getControl(event);
-#if defined(__WXDEBUG__)
+#if defined(__ATHOS_DEBUG__)
 	wxString msg;
 	msg << _("OnLMouseDown x=") << event.m_x << _(" y=") << event.m_y;
 	wxLogMessage(msg);
@@ -270,7 +270,7 @@ void GNRGLCanvas::OnLMouseUp(wxMouseEvent& event)
 {
 	Disconnect(wxEVT_MOTION, (wxObjectEventFunction)&GNRGLCanvas::OnMouseMove);
 	//GNRMouse::dropControl(event);
-#if defined(__WXDEBUG__)
+#if defined(__ATHOS_DEBUG__)
 	wxString msg;
 	msg << _("OnLMouseUp x=") << event.m_x << _(" y=") << event.m_y;
 	wxLogMessage(msg);
@@ -285,7 +285,7 @@ void GNRGLCanvas::OnLMouseUp(wxMouseEvent& event)
 void GNRGLCanvas::OnMouseMove(wxMouseEvent& event)
 {
 	//GNRMouse::ObjectTransform(event);
-#if defined(__WXDEBUG__)
+#if defined(__ATHOS_DEBUG__)
 	wxString msg;
 	msg << _("OnMouseMove x=") << event.m_x << _(" y=") << event.m_y;
 	wxLogMessage(msg);
@@ -301,7 +301,7 @@ void GNRGLCanvas::OnLeaveWindow(wxMouseEvent& event)
 {
 	Disconnect(wxEVT_MOTION, (wxObjectEventFunction)&GNRGLCanvas::OnMouseMove);
 	//GNRMouse::dropControl(event);
-#if defined(__WXDEBUG__)
+#if defined(__ATHOS_DEBUG__)
 	wxString msg;
 	msg << _("OnLeaveWindow x=") << event.m_x << _(" y=") << event.m_y;
 	wxLogMessage(msg);

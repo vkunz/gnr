@@ -12,7 +12,7 @@
 
 #include <wx/app.h>
 
-#if defined(__WXDEBUG__)
+#if defined(__ATHOS_DEBUG__)
 #include <wx/log.h>
 
 #include "GNRDebugFrame.h"
@@ -23,7 +23,7 @@ class GNRApp : public wxApp
 public:
 	virtual bool OnInit();
 	
-#if defined(__WXDEBUG__)
+#if defined(__ATHOS_DEBUG__)
 	GNRDebugFrame* m_DebugFrame;
 	wxLog* m_Log;
 #endif
