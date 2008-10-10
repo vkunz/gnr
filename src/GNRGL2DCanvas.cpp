@@ -2,19 +2,31 @@
 
 #include "GNRGL2DCanvas.h"
 
+#if defined(__WXDEBUG__)
+#include <wx/log.h>
+#endif
+
 #define ZNEAR 0.1f
 #define ZFAR 1000.0f
+
+BEGIN_EVENT_TABLE(GNRGL2DCanvas, wxGLCanvas)
+	EVT_MOUSE_EVENTS(GNRGL2DCanvas::OnMouseWheel)
+END_EVENT_TABLE()
 
 GNRGL2DCanvas::GNRGL2DCanvas(wxWindow* parent, wxWindowID id, const wxPoint& pos, const wxSize& size, long style, const wxString& name)
 		:GNRGLCanvas(parent, id, pos, size, style, name)
 {
 
+
+	m_camera_hight = 15;
 	initGL();
 }
 
 GNRGL2DCanvas::GNRGL2DCanvas(wxWindow* parent, wxGLContext* sharedContext, wxWindowID id, const wxPoint& pos, const wxSize& size,
                              long style, const wxString& name) : GNRGLCanvas(parent, sharedContext, id, pos, size, style, name)
 {
+
+	m_camera_hight = 15;
 	initGL();
 }
 
@@ -57,10 +69,19 @@ void GNRGL2DCanvas::OnResize(wxSizeEvent& event)
 void GNRGL2DCanvas::setCamera()
 {
 	// set camera-position
-	gluLookAt(0,15,0,0,1,0,0,0,1);
+	gluLookAt(0,m_camera_hight,0,0,1,0,0,0,1);
 }
 
 void GNRGL2DCanvas::setPerspective()
 {
 	glOrtho(m_window_x*(-0.1), m_window_x*(0.1), m_window_y*(0.1), m_window_y*(-0.1), ZNEAR, ZFAR);
+}
+
+void GNRGL2DCanvas::OnMouseWheel(wxMouseEvent& event)
+{
+	//int direction = event.GetWheelRotation() / event.GetWheelDelta(); //convert to a 1 or -1
+	wxLogMessage(_("MouseWheel"));
+	//event.Skip();
+	//if (wxGetKeyState(WXK_CAPITAL))
+	//capsLock is on  scrollMouse(direction, cameraCurrent);
 }

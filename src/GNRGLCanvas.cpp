@@ -2,7 +2,9 @@
 
 #include "GNRGLCanvas.h"
 
-#include <wx/msgdlg.h>
+#if defined(__WXDEBUG__)
+#include <wx/log.h>
+#endif
 
 #define ZNEAR 0.1f
 #define ZFAR 1000.0f
@@ -35,8 +37,9 @@ void GNRGLCanvas::connectEvents()
 {
 	// Connect-methods to connect different Events with functions
 	Connect(wxEVT_LEFT_DOWN, (wxObjectEventFunction)&GNRGLCanvas::OnLMouseDown);
-	Connect(ID_TIMER, wxEVT_TIMER, (wxObjectEventFunction)&GNRGLCanvas::OnTimer);
+	Connect(wxEVT_LEFT_UP, (wxObjectEventFunction)&GNRGLCanvas::OnLMouseUp);
 	Connect(wxEVT_SIZE, (wxObjectEventFunction)&GNRGLCanvas::OnResize);
+	Connect(ID_TIMER, wxEVT_TIMER, (wxObjectEventFunction)&GNRGLCanvas::OnTimer);
 }
 
 void GNRGLCanvas::OnTimer(wxTimerEvent& event)
@@ -139,9 +142,11 @@ void GNRGLCanvas::selection()
 				depth = buffer[loop*4+1];						// Store How Far Away It Is
 			}
 		}
-		wxString str;
-		str << _("Objekt ") << choose << _(" Hit");
-		wxMessageBox(str, _("GL Selection"));
+#if defined(__WXDEBUG__)
+		wxString msg;
+		msg << _("Objekt ") << choose << _(" Hit");
+		wxLogMessage(msg);
+#endif
 	}
 }
 
@@ -150,6 +155,11 @@ void GNRGLCanvas::OnLMouseDown(wxMouseEvent& event)
 	m_mouse_x = event.m_x;
 	m_mouse_y = event.m_y;
 	selection();
+}
+
+void GNRGLCanvas::OnLMouseUp(wxMouseEvent& event)
+{
+
 }
 
 GNRGLCanvas::~GNRGLCanvas() {}
