@@ -30,11 +30,15 @@ public:
 	// ctor, takes filename
 	GNRObjectImport(wxString filename);
 	
+	// dtor
+	virtual ~GNRObjectImport();
+	
+	// functions
 	// method to set the filename
 	void SetFilename(wxString filename);
 	
-	// dtor
-	virtual ~GNRObjectImport();
+	// method to return the pointer of the new obj-File Assembly
+	GNRAssembly* GetAssembly();
 	
 protected:
 
@@ -57,14 +61,17 @@ private:
 	// parse the file
 	void parse(wxString filename);
 	
-	// create and add new GNRPoint
+	// create Vertex
 	void createVertex(wxString str);
 	
-	// create face
+	// create Face
 	void createFace(wxString str);
 	
-	// create Part
+	// create Assembly
 	void createAssembly(wxString str);
+	
+	// create Normal
+	void createNormal(wxString str);
 };
 
 #endif // _GNROBJECTIMPORT_H_

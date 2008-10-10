@@ -186,6 +186,7 @@ void GNRFrame::OnAbout(wxCommandEvent& event)
 }
 
 #if defined(__WXDEBUG__)
+
 #include <wx/log.h>
 #include <wx/filedlg.h>
 #include <string.h>
@@ -198,9 +199,14 @@ void GNRFrame::OnLoad(wxCommandEvent& event)
 	//wxMessageBox(wxT("This is like a new main(), I know it isnt, but I need a place where to test new Code!!!"));
 	wxString filename = wxFileSelector(wxT("Select OBJ-File..."), wxT(""), wxT(""), wxT(""), wxT("OBJ-Files (*.obj)|*.obj"));
 	
+	
+	//this->m_RootAssembly->m_LAssembly->push_back();
+	
+	
 	if (!filename.IsEmpty())
 	{
 		GNRObjectImport object_importer(filename);
 	}
 }
+
 #endif

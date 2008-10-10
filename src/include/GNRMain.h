@@ -24,6 +24,7 @@
 #include "GNRGL3DCanvas.h"
 #include "GNRTreePanel.h"
 #include "GNRModelsPanel.h"
+#include "GNRAssembly.h"
 
 class GNRFrame: public wxFrame
 {
@@ -41,6 +42,7 @@ private:
 	wxSplitterWindow* m_HorizontalSplitter_right;
 	wxSplitterWindow* m_VerticalSplitter;
 	wxGLContext* m_glContext;
+	GNRAssembly m_RootAssembly;
 	
 	//(*Handlers(GNRFrame)
 	void OnQuit(wxCommandEvent& event);

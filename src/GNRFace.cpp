@@ -12,6 +12,7 @@
 #include <wx/list.h>
 
 #include "GNRFace.h"
+#include "GNRPoint3d.h"
 
 // ctor
 GNRFace::GNRFace()
@@ -28,6 +29,11 @@ GNRFace::~GNRFace()
 void GNRFace::addVertex(int iPoint)
 {
 	this->m_ListOfInteger.push_back(iPoint);
+}
+
+void GNRPoint3d::addGNRPoint3d(const GNRPoint3d* point)
+{
+
 }
 
 wxString GNRFace::ToString()

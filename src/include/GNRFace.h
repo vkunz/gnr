@@ -15,6 +15,7 @@
 #include <list>
 
 #include "GNRVertex.h"
+#include "GNRPoint3d.h"
 
 class GNRFace
 {
@@ -26,7 +27,7 @@ public:
 	virtual ~GNRFace();
 	
 	// functions
-	void addVertex(int iPoint);
+	void addGNRPoint3d(const GNRPoint3d* point);
 	wxString ToString();
 	
 protected:
@@ -34,7 +35,7 @@ protected:
 private:
 
 	// Pointer of a List of GNRPoints
-	std::list<int> m_ListOfInteger;
+	std::list<GNRPoint3d> m_ListOfInteger;
 };
 
 #endif // _GNRFACE_H_

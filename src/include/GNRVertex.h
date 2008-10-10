@@ -18,31 +18,32 @@ class GNRVertex
 {
 public:
 	// ctor
-	GNRVertex();
-	GNRVertex(float x, float y, float z);
+	GNRVertex(double x, double y, double z) : m_x(x), m_y(y), m_z(z)
+			GNRVertex(const GNRVertex& v) : m_x(v.m_x), m_y(v.m_y), m_z(v.m_z) { }
+	GNRVertex(const GNRVertex* p_v) : this(*p_v);
+	
+	// dtor
+	virtual ~GNRVertex();
 	
 	// return value
-	float getX();
-	float getY();
-	float getZ();
+	double getX();
+	double getY();
+	double getZ();
 	
 	// setter
-	void setX(float x);
-	void setY(float y);
-	void setZ(float z);
+	void setX(double x);
+	void setY(double y);
+	void setZ(double z);
 	
-	float deltaX(GNRVertex* point);
-	float deltaY(GNRVertex* point);
-	float deltaZ(GNRVertex* point);
+	double deltaX(GNRVertex* point);
+	double deltaY(GNRVertex* point);
+	double deltaZ(GNRVertex* point);
 	
 	GNRVertex  operator  + (const GNRVertex& p2) const;
 	GNRVertex  operator  - (const GNRVertex& p2) const;
 	GNRVertex& operator  = (const GNRVertex& p2);
 	GNRVertex& operator += (const GNRVertex& p2);
 	GNRVertex& operator -= (const GNRVertex& p2);
-	
-	// dtor
-	virtual ~GNRVertex();
 	
 	// return attributes
 	wxString ToString();
@@ -51,13 +52,13 @@ protected:
 
 private:
 	// stores the x-value relative to zero
-	float m_x;
+	double m_x;
 	
 	// stores the y-value relative to zero
-	float m_y;
+	double m_y;
 	
 	// stores the z-value relative to zer
-	float m_z;
+	double m_z;
 };
 
 #endif // _GNRVERTEX_H_
