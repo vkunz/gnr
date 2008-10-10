@@ -24,14 +24,12 @@ class GNRMouse
 private:
 
 	enum { MOVEXZ = 0, MOVEXY, ROTATE };
-	int status;                     //action to perform with event
-	bool in_use;                    //remember usage of this controller
-	int	m_mouse_x, m_mouse_y;       //old mouse coords on initialized dragging
-	int window_w, window_h;         //window dimensions of actual frame
-	float posx, posy, posz;         //x y z of the 3d canvas frame
-	float phix, phiy, phiz, angle;  //rotation and angle of object
-	float phix_old, phiy_old;       //old copy of previous object params
-	GNRAssembly* my_object;         //pointer to assembly
+	int status;                         //action to perform with event
+	bool in_use;                        //remember usage of this controller
+	int	m_mouse_x, m_mouse_y;           //old mouse coords on initialized dragging
+	int window_w, window_h;             //window dimensions of actual frame
+	float phi_old, theta_old, rho_old;  //old copy of previous object params (x,y,z-rotation)
+	GNRAssembly* my_object;             //pointer to assembly
 	
 protected:
 
@@ -44,6 +42,7 @@ public:
 
 	GNRMouse();
 	virtual ~GNRMouse();
+	void SetWindow(int width, int height);
 	bool GetControl(wxMouseEvent& event);
 	void DropControl(wxMouseEvent& event);
 	void ObjectTransform(wxMouseEvent& event);

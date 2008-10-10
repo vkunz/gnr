@@ -14,6 +14,8 @@
 #include "GNRMouse.h"
 #include <wx/math.h>
 
+#include "GNRAssembly.h"
+
 #if defined(__WXDEBUG__)
 #include <wx/log.h>
 #endif
@@ -37,39 +39,61 @@ GNRMouse::~GNRMouse()
 
 /**
  * init method for setting up the mouse controller
+ * @param       int         width of frame
+ * @param       int         height of frame
+ * @access      public
+ */
+void GNRMouse::SetWindow(int width, int height)
+{
+	window_w = width;
+	window_h = height;
+}
+
+/**
+ * init method for setting up the mouse controller
  * @access      protected
  */
 void GNRMouse::Init()
 {
+	//controller not in use
 	in_use = false;
 	
+	//set default to move XY axis
 	status = MOVEXZ;
 	
-	phix   = phix_old = 0.0f;
-	phiy   = phiy_old = 0.0f;
-	phiz   = angle    = 0.0f;
+	//initialize with default values
+	SetWindow(640,480);
 }
 
 /**
  * fetches control of mouse class
+ * @param       GNRAssembly     pointer to assembly object
  * @param       wxMouseEvent    mouse event of current frame
  * @return      boolean         status of get action
  * @access      public
  */
-bool GNRMouse::GetControl(wxMouseEvent& event)
+bool GNRMouse::GetControl(GNRAssembly* object, wxMouseEvent& event)
 {
 	//if in use return false
 	if (in_use)
 	{
 		return false;
 	}
+	//set usage true
+	in_use = true;
+	
+	//store object pointer
+	my_object = object;
+	
+	//store old rotation values
+	phi_old   = my_object->m_phi;
+	theta_old = my_object->m_theta;
+	rho_old   = my_object->m_rho;
 	
 	//store actual mouse coords on control
 	m_mouse_x = event.m_x;
 	m_mouse_y = event.m_y;
 	
-	//set usage true
-	in_use = true;
 	return true;
 }
 
@@ -78,24 +102,20 @@ bool GNRMouse::GetControl(wxMouseEvent& event)
  * @param       wxMouseEvent    mouse event of current frame
  * @access      public
  */
-<<<<<<< .mine
-bool GNRMouse::DropControl(wxMouseEvent& event)
+void GNRMouse::DropControl(wxMouseEvent& event)
 {
-	=======
-	    void GNRMouse::DropControl(wxMouseEvent& event)
-	{
-		>>>>>>> .r91
-		//set in use false
-		in_use = false;
-		return !in_use;
-	}
-	
-	/**
-	 * transforming selected object on mouse event
-	 * @param       wxMouseEvent    mouse event of current frame
-	 * @access      public
-	 */
-	void GNRMouse::ObjectTransform(wxMouseEvent& event)
+	//set in use false
+	in_use = false;
+}
+
+/**
+ * transforming selected object on mouse event
+ * @param       wxMouseEvent    mouse event of current frame
+ * @access      public
+ */
+void GNRMouse::ObjectTransform(wxMouseEvent& event)
+{
+	if (in_use)
 	{
 		switch (status)
 		{
@@ -113,37 +133,37 @@ bool GNRMouse::DropControl(wxMouseEvent& event)
 			break;
 		}
 	}
-	
-	/**
-	 * rotate the object on XY axis
-	 * @param       wxMouseEvent    mouse event of current frame
-	 * @access      protected
-	 */
-	void GNRMouse::ObjectRotate(wxMouseEvent& event)
-	{
-		phiy  = phiy_old + 720.0*((float)(m_mouse_x - event.m_x)/(float)window_w);
-		phix  = phix_old + 720.0*((float)(m_mouse_y - event.m_y)/(float)window_h);
-	}
-	
-	/**
-	 * move the object in XY dimension
-	 * @param       wxMouseEvent    mouse event of current frame
-	 * @access      protected
-	 */
-	void GNRMouse::ObjectMoveXY(wxMouseEvent& event)
-	{
-		posx -= (float)(m_mouse_x - event.m_x)/300.0*fabs(posz);
-		posy -= (float)(event.m_y - m_mouse_y)/300.0*fabs(posz);
-	}
-	
-	/**
-	 * move the object in XZ dimension
-	 * @param       wxMouseEvent    mouse event of current frame
-	 * @access      protected
-	 */
-	void GNRMouse::ObjectMoveXZ(wxMouseEvent& event)
-	{
-		posx -= (float)(m_mouse_x - event.m_x)/360.0*fabs(posz);
-		posz -= (float)(m_mouse_y - event.m_y)/10.0;
-	}
-	
+}
+
+/**
+ * rotate the object on XY axis
+ * @param       wxMouseEvent    mouse event of current frame
+ * @access      protected
+ */
+void GNRMouse::ObjectRotate(wxMouseEvent& event)
+{
+	my_object->m_phi    = phi_old   + 720.0*((float)(m_mouse_y - event.m_y)/(float)window_h);
+	my_object->m_theta  = theta_old + 720.0*((float)(m_mouse_x - event.m_x)/(float)window_w);
+}
+
+/**
+ * move the object in XY dimension
+ * @param       wxMouseEvent    mouse event of current frame
+ * @access      protected
+ */
+void GNRMouse::ObjectMoveXY(wxMouseEvent& event)
+{
+	my_object->m_xOffset -= (float)(m_mouse_x - event.m_x)/300.0*fabs(my_object->m_yOffset);
+	my_object->m_yOffset -= (float)(event.m_y - m_mouse_y)/300.0*fabs(my_object->m_yOffset);
+}
+
+/**
+ * move the object in XZ dimension
+ * @param       wxMouseEvent    mouse event of current frame
+ * @access      protected
+ */
+void GNRMouse::ObjectMoveXZ(wxMouseEvent& event)
+{
+	my_object->m_xOffset -= (float)(m_mouse_x - event.m_x)/360.0*fabs(my_object->m_yOffset);
+	my_object->m_zOffset -= (float)(m_mouse_y - event.m_y)/10.0;
+}
