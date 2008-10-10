@@ -120,6 +120,9 @@ void GNRGLCanvas::draw()
 {
 	glTranslatef(0.0f, 0.0f, -6.0f);
 	
+	glLoadName(1);
+	glPushMatrix();
+	
 	glBegin(GL_TRIANGLES);
 	glColor3f(1.0f,  0.0f,  0.0f);     /* Rot                           		*/
 	glVertex3f(0.0f,  1.0f,  0.0f);    /* oberer Punkt der Front der Pyramide	*/
@@ -141,6 +144,8 @@ void GNRGLCanvas::draw()
 	glVertex3f(-1.0f, -1.0f, -1.0f);   /* linker Punkt der linken Seite der Pyramide */
 	glVertex3f(-1.0f, -1.0f,  1.0f);   /* rechter Punkt der linken Seite der Pyramide*/
 	glEnd();
+	
+	glPopMatrix();
 }
 
 /**
@@ -153,53 +158,64 @@ void GNRGLCanvas::draw()
 int GNRGLCanvas::selection(int mouse_x, int mouse_y)
 {
 	SetCurrent();
-	// Finding out which Object has been hit
-	GLuint	buffer[512];										// Set Up A Selection Buffer
-	GLint	hits;												// The Number Of Objects That We Selected
+	// Set Up A Selection Buffer
+	GLuint	buffer[512];
+	// The Number Of Objects That We Selected
+	GLint	hits;
 	
 	// The Size Of The Viewport. [0] Is <x>, [1] Is <y>, [2] Is <length>, [3] Is <width>
 	GLint	viewport[4];
 	
 	// This Sets The Array <viewport> To The Size And Location Of The Screen Relative To The Window
 	glGetIntegerv(GL_VIEWPORT, viewport);
-	glSelectBuffer(512, buffer);								// Tell OpenGL To Use Our Array For Selection
+	// Tell OpenGL To Use Our Array For Selection
+	glSelectBuffer(512, buffer);
 	
 	// Puts OpenGL In Selection Mode. Nothing Will Be Drawn.  Object ID's and Extents Are Stored In The Buffer.
 	glRenderMode(GL_SELECT);
 	
-	glInitNames();												// Initializes The Name Stack
-	glPushName(0);												// Push 0 (At Least One Entry) Onto The Stack
+	// Initializes The Name Stack
+	glInitNames();
+	// Push 0 (At Least One Entry) Onto The Stack
+	glPushName(0);
 	
-	glMatrixMode(GL_PROJECTION);								// Selects The Projection Matrix
-	glPushMatrix();												// Push The Projection Matrix
-	glLoadIdentity();											// Resets The Matrix
+	glMatrixMode(GL_PROJECTION);
+	glPushMatrix();
+	glLoadIdentity();
 	
 	// This Creates A Matrix That Will Zoom Up To A Small Portion Of The Screen, Where The Mouse Is.
 	gluPickMatrix((GLdouble) mouse_x, (GLdouble)(viewport[3]-mouse_y), 1.0f, 1.0f, viewport);
 	
 	// Apply The Perspective Matrix
 	setPerspective();
-	glMatrixMode(GL_MODELVIEW);									// Select The Modelview Matrix
+	glMatrixMode(GL_MODELVIEW);
 	prepareDraw();
 	setCamera();
-	draw();												// Render The Targets To The Selection Buffer
-	glMatrixMode(GL_PROJECTION);								// Select The Projection Matrix
-	glPopMatrix();												// Pop The Projection Matrix
-	glMatrixMode(GL_MODELVIEW);									// Select The Modelview Matrix
-	hits=glRenderMode(GL_RENDER);								// Switch To Render Mode, Find Out How Many
-	// Objects Were Drawn Where The Mouse Was
-	if (hits > 0)  											// If There Were More Than 0 Hits
+	// Render The Targets To The Selection Buffer
+	draw();
+	glMatrixMode(GL_PROJECTION);
+	glPopMatrix();
+	glMatrixMode(GL_MODELVIEW);
+	// Switch To Render Mode, Find Out How Many Objects Were Drawn Where The Mouse Was
+	hits=glRenderMode(GL_RENDER);
+	
+	if (hits > 0)
 	{
-		int	choose = buffer[3];									// Make Our Selection The First Object
-		int depth = buffer[1];									// Store How Far Away It Is
+		// Make Our Selection The First Object
+		int	choose = buffer[3];
+		// Store How Far Away It Is
+		int depth = buffer[1];
 		
-		for (int loop = 1; loop < hits; loop++)  				// Loop Through All The Detected Hits
+		// Loop Through All The Detected Hits
+		for (int loop = 1; loop < hits; loop++)
 		{
 			// If This Object Is Closer To Us Than The One We Have Selected
 			if (buffer[loop*4+1] < GLuint(depth))
 			{
-				choose = buffer[loop*4+3];						// Select The Closer Object
-				depth = buffer[loop*4+1];						// Store How Far Away It Is
+				// Select The Closer Object
+				choose = buffer[loop*4+3];
+				// Store How Far Away It Is
+				depth = buffer[loop*4+1];
 			}
 		}
 #if defined(__WXDEBUG__)
@@ -219,44 +235,40 @@ int GNRGLCanvas::selection(int mouse_x, int mouse_y)
 void GNRGLCanvas::OnLMouseDown(wxMouseEvent& event)
 {
 	selection(event.m_x, event.m_y);
-	void GNRGLCanvas::OnLMouseDown(wxMouseEvent& event)
-	{
-		//GNRMouse::GetControl(event);
-	}
-	
-	/**
-	 * fetches the Left-Mouse-Up event
-	 * @param       wxMouseEvent    Mouse-Event of current canvas
-	 * @access      private
-	 */
-	void GNRGLCanvas::OnLMouseUp(wxMouseEvent& event)
-	{
-		//GNRMouse::DropControl(event);
-	}
-	
-	/**
-	 * fetches the Mouse-Move event
-	 * @param       wxMouseEvent    Mouse-Event of current canvas
-	 * @access      private
-	 */
-	void GNRGLCanvas::OnMouseMove(wxMouseEvent& event)
-	{
-	
-	}
-	
-	/**
-	 * fetches the Leave-Window event
-	 * @param       wxMouseEvent    Mouse-Event of current canvas
-	 * @access      private
-	 */
-	void GNRGLCanvas::OnLeaveWindow(wxMouseEvent& event)
-	{
-	
-	}
-	
-	/**
-	 * destructor of GNRGLCanvas
-	 * @access      public
-	 */
-	GNRGLCanvas::~GNRGLCanvas() {}
-	
+}
+
+/**
+ * fetches the Left-Mouse-Up event
+ * @param       wxMouseEvent    Mouse-Event of current canvas
+ * @access      private
+ */
+void GNRGLCanvas::OnLMouseUp(wxMouseEvent& event)
+{
+	//GNRMouse::DropControl(event);
+}
+
+/**
+ * fetches the Mouse-Move event
+ * @param       wxMouseEvent    Mouse-Event of current canvas
+ * @access      private
+ */
+void GNRGLCanvas::OnMouseMove(wxMouseEvent& event)
+{
+
+}
+
+/**
+ * fetches the Leave-Window event
+ * @param       wxMouseEvent    Mouse-Event of current canvas
+ * @access      private
+ */
+void GNRGLCanvas::OnLeaveWindow(wxMouseEvent& event)
+{
+
+}
+
+/**
+ * destructor of GNRGLCanvas
+ * @access      public
+ */
+GNRGLCanvas::~GNRGLCanvas() {}
