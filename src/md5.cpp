@@ -123,7 +123,7 @@ std::string MD5File(std::string& filename)
 		
 		if (file != NULL)
 		{
-			while (nLen = fread(chBuffer, 1, 1024, file))
+			while ((nLen = fread(chBuffer, 1, 1024, file)))
 			{
 				alg.Update(chBuffer, nLen);
 			}

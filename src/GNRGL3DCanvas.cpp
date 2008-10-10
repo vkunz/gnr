@@ -1,4 +1,6 @@
+#ifdef _WIN32
 #include <gl/glu.h>
+#endif
 
 #include "GNRGL3DCanvas.h"
 

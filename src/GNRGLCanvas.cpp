@@ -11,7 +11,9 @@
  * @author		Valentin Kunz       <athostr@googlemail.com>
  */
 
+#ifdef _WIN32
 #include <gl/glu.h>
+#endif
 
 #include "GNRGLCanvas.h"
 
@@ -239,6 +241,8 @@ int GNRGLCanvas::selection(int mouse_x, int mouse_y)
 #endif
 		return choose;
 	}
+// TODO THORSTEN?!
+	return 0;
 }
 
 /**
