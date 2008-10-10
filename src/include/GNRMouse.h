@@ -36,20 +36,17 @@ protected:
 	void ObjectRotate(wxMouseEvent& event);
 	void ObjectMoveXY(wxMouseEvent& event);
 	void ObjectMoveXZ(wxMouseEvent& event);
-	void Init();
+	void init();
 	
 public:
 
 	GNRMouse();
 	virtual ~GNRMouse();
-	void SetWindow(int width, int height);
-	bool GetControl(wxMouseEvent& event);
-	void DropControl(wxMouseEvent& event);
+	void setWindow(int width, int height);
+	bool getControl(wxMouseEvent& event);
+	void dropControl(wxMouseEvent& event);
 	void ObjectTransform(wxMouseEvent& event);
-	bool IsInUse()
-	{
-		return in_use;
-	};
+	bool isInUse();
 	
 };
 

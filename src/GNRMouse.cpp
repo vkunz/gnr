@@ -26,7 +26,7 @@
  */
 GNRMouse::GNRMouse()
 {
-	Init();
+	init();
 }
 
 /**
@@ -43,7 +43,7 @@ GNRMouse::~GNRMouse()
  * @param       int         height of frame
  * @access      public
  */
-void GNRMouse::SetWindow(int width, int height)
+void GNRMouse::setWindow(int width, int height)
 {
 	window_w = width;
 	window_h = height;
@@ -53,7 +53,7 @@ void GNRMouse::SetWindow(int width, int height)
  * init method for setting up the mouse controller
  * @access      protected
  */
-void GNRMouse::Init()
+void GNRMouse::init()
 {
 	//controller not in use
 	in_use = false;
@@ -72,7 +72,7 @@ void GNRMouse::Init()
  * @return      boolean         status of get action
  * @access      public
  */
-bool GNRMouse::GetControl(GNRAssembly* object, wxMouseEvent& event)
+bool GNRMouse::getControl(GNRAssembly* object, wxMouseEvent& event)
 {
 	//if in use return false
 	if (in_use)
@@ -102,7 +102,7 @@ bool GNRMouse::GetControl(GNRAssembly* object, wxMouseEvent& event)
  * @param       wxMouseEvent    mouse event of current frame
  * @access      public
  */
-void GNRMouse::DropControl(wxMouseEvent& event)
+void GNRMouse::dropControl(wxMouseEvent& event)
 {
 	//set in use false
 	in_use = false;
@@ -166,4 +166,14 @@ void GNRMouse::ObjectMoveXZ(wxMouseEvent& event)
 {
 	my_object->setX(my_object->getX() - (float)(m_mouse_x - event.m_x)/360.0*fabs(my_object->getZ()));
 	my_object->setZ(my_object->getZ() - (float)(m_mouse_y - event.m_y)/10.0);
+}
+
+/**
+ * check usage of mouse controller
+ * @return      boolean         status of usage
+ * @access      public
+ */
+bool GNRMouse::inUse()
+{
+	return in_use;
 }
