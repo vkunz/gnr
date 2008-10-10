@@ -25,7 +25,9 @@ bool GNRApp::OnInit()
 {
 	// AppInitialize
 	bool wxsOK = true;
+	
 	wxInitAllImageHandlers();
+	
 	if (wxsOK)
 	{
 #if defined(__WXDEBUG__)
