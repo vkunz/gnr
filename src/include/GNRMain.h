@@ -1,11 +1,13 @@
-/***************************************************************
- * Name:      GNRMain.h
- * Purpose:   Defines Application Frame
- * Author:    Patrick Kracht (patrick.kracht@googlemail.com)
- * Created:   2008-09-30
- * Copyright: Patrick Kracht (http://www.omega2k.de)
- * License:
- **************************************************************/
+/* vim: set expandtab sw=4 ts=4 sts=4: */
+/**
+ * GNRMain
+ * @name        GNRMain.h
+ * @date        2008-09-30
+ * @author		Konstantin Balabin  <k.balabin@googlemail.com>
+ * @author		Patrick Kracht      <patrick.kracht@googlemail.com>
+ * @author		Thorsten Moll       <thorsten.moll@googlemail.com>
+ * @author		Valentin Kunz       <athostr@googlemail.com>
+ */
 
 #ifndef GNRMAIN_H
 #define GNRMAIN_H
