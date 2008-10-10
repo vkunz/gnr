@@ -14,11 +14,85 @@
 // ctor
 GNRAssembly::GNRAssembly()
 {
-
-}
+} 
 
 // dtor
 GNRAssembly::~GNRAssembly()
 {
-	// do nothing
 }
+
+float GNRAssembly::getX() const
+{
+	return m_xOffset;
+}
+
+float GNRAssembly::getY() const
+{
+	return m_yOffset;
+}
+
+float GNRAssembly::getZ() const
+{
+	return m_zOffset;
+}
+
+void GNRAssembly::setX(const float x)
+{
+	m_xOffset = x;
+}
+
+void GNRAssembly::setY(const float y)
+{
+	m_yOffset = y;
+}
+
+void GNRAssembly::setZ(const float z)
+{
+	m_zOffset = z;
+}
+
+float GNRAssembly::getPhi const
+{
+	return m_phi;
+}
+
+float GNRAssembly::getRho const
+{
+	return m_rho;
+}
+
+float GNRAssembly::getTheta const
+{
+	return m_theta;
+}
+
+void GNRAssembly::setPhi(const float phi)
+{
+	m_phi = phi;
+}
+
+void GNRAssembly::setRho(const float rho)
+{
+	m_phi = rho;
+}
+
+void GNRAssembly::setTheta(const float theta)
+{
+	m_phi = theta;
+}
+
+void GNRAssembly::draw() const
+{
+	// draw the children
+	for (list<GNRAssembly*>::const_iterator it = m_parts.begin(); it != m_parts.end(); ++it)
+		it->draw;
+
+	// draw myself
+	for (list<GNRFace>::const_iterator it = m_faces.begin(); it != m_faces.end(); ++it)
+		it->draw;
+}
+
+void addFace(const Face &newface) {
+	 m_faces.push_back(newface);
+}
+

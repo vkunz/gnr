@@ -23,7 +23,27 @@ class GNRAssembly
 public:
 	GNRAssembly();
 	virtual ~GNRAssembly();
-	
+
+	void draw() const;
+
+	void addFace(const Face &newface);
+
+	float getX() const;
+	float getY() const;
+	float getZ() const;
+
+	void setX(const float x);
+	void setY(const float y);
+	void setX(const float z);
+
+	float getPhi() const;
+	float getRho() const;
+	float getTheta() const;
+
+	void setPhi(const float phi);
+	void setRho(const float rho);
+	void setTheta(const float theta);
+
 protected:
 
 private:
