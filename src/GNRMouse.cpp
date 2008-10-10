@@ -76,10 +76,9 @@ bool GNRMouse::GetControl(wxMouseEvent& event)
 /**
  * frees the controler for other clients
  * @param       wxMouseEvent    mouse event of current frame
- * @return      boolean         status of drop action
  * @access      public
  */
-bool GNRMouse::DropControl(wxMouseEvent& event)
+void GNRMouse::DropControl(wxMouseEvent& event)
 {
 	//set in use false
 	in_use = false;

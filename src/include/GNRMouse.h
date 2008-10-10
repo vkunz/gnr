@@ -23,102 +23,34 @@ class GNRMouse
 {
 private:
 
-	//action to do
 	enum { MOVEXZ = 0, MOVEXY, ROTATE };
-	int status;
-	
-	//remember if in use or not
-	bool in_use;
-	
-	//old mouse coords on initialized dragging
-	int	m_mouse_x, m_mouse_y;
-	
-	//window dimensions of actual frame
-	int window_w, window_h;
-	
-	//saved positions in 3d canvas frame (later stored in assembly)
-	float posx, posy, posz;
-	float phix, phiy, phiz, angle;
-	float phix_old, phiy_old;
-	
-	//pointer to assembly
-	GNRAssembly* my_object;
+	int status;                     //action to perform with event
+	bool in_use;                    //remember usage of this controller
+	int	m_mouse_x, m_mouse_y;       //old mouse coords on initialized dragging
+	int window_w, window_h;         //window dimensions of actual frame
+	float posx, posy, posz;         //x y z of the 3d canvas frame
+	float phix, phiy, phiz, angle;  //rotation and angle of object
+	float phix_old, phiy_old;       //old copy of previous object params
+	GNRAssembly* my_object;         //pointer to assembly
 	
 protected:
 
-	/**
-	 * rotate the object on XY axis
-	 * @param       wxMouseEvent    mouse event of current frame
-	 * @access      protected
-	 */
 	void ObjectRotate(wxMouseEvent& event);
-	
-	/**
-	 * move the object in XY dimension
-	 * @param       wxMouseEvent    mouse event of current frame
-	 * @access      protected
-	 */
 	void ObjectMoveXY(wxMouseEvent& event);
-	
-	/**
-	 * move the object in XZ dimension
-	 * @param       wxMouseEvent    mouse event of current frame
-	 * @access      protected
-	 */
 	void ObjectMoveXZ(wxMouseEvent& event);
-	
-	/**
-	 * init method for setting up the mouse controller
-	 * @access      protected
-	 */
 	void Init();
 	
 public:
 
-	/**
-	 * returns true if controller in use
-	 * @return      boolean         status of usage
-	 * @access      public
-	 */
+	GNRMouse();
+	virtual ~GNRMouse();
+	bool GetControl(wxMouseEvent& event);
+	void DropControl(wxMouseEvent& event);
+	void ObjectTransform(wxMouseEvent& event);
 	bool IsInUse()
 	{
 		return in_use;
 	};
-	
-	/**
-	 * fetches control of mouse class
-	 * @param       wxMouseEvent    mouse event of current frame
-	 * @return      boolean         status of get action
-	 * @access      public
-	 */
-	bool GetControl(wxMouseEvent& event);
-	
-	/**
-	 * frees the controler for other clients
-	 * @param       wxMouseEvent    mouse event of current frame
-	 * @return      boolean         status of drop action
-	 * @access      public
-	 */
-	bool DropControl(wxMouseEvent& event);
-	
-	/**
-	 * transforming selected object on mouse event
-	 * @param       wxMouseEvent    mouse event of current frame
-	 * @access      public
-	 */
-	void ObjectTransform(wxMouseEvent& event);
-	
-	/**
-	 * constructor of GNRMouse
-	 * @access      public
-	 */
-	GNRMouse();
-	
-	/**
-	 * destructor of GNRMouse
-	 * @access      public
-	 */
-	virtual ~GNRMouse();
 	
 };
 
