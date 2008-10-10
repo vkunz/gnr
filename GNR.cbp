@@ -16,6 +16,7 @@
 					<Add option="-Wall" />
 					<Add option="-g" />
 					<Add option="-D__WXDEBUG__" />
+					<Add option="-D__ATHOS_DEBUG__" />
 					<Add directory="$(#wx)\lib\gcc_lib\mswud" />
 				</Compiler>
 				<ResourceCompiler>
