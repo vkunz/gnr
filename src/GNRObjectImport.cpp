@@ -1,3 +1,14 @@
+/* vim: set expandtab sw=4 ts=4 sts=4: */
+/**
+ * obj file importer for reading and parsing obj-files
+ * @name        GNRObjectImport.cpp
+ * @date        2008-10-05
+ * @author		Konstantin Balabin  <k.balabin@googlemail.com>
+ * @author		Patrick Kracht      <patrick.kracht@googlemail.com>
+ * @author		Thorsten Moll       <thorsten.moll@googlemail.com>
+ * @author		Valentin Kunz       <athostr@googlemail.com>
+ */
+
 #include <wx/textfile.h>
 #include <wx/tokenzr.h>
 #include <wx/msgdlg.h>
@@ -10,13 +21,20 @@
 #include <wx/log.h>
 #endif
 
-// ctor
+/**
+ * constructor of GNRObjectImport
+ * @access      public
+ */
 GNRObjectImport::GNRObjectImport()
 {
 	this->isFirstPart = true;
 }
 
-// ctor
+/**
+ * constructor of GNRObjectImport
+ * @param       wxString    name of imported file
+ * @access      public
+ */
 GNRObjectImport::GNRObjectImport(wxString filename)
 {
 #if defined(__WXDEBUG__)
@@ -28,19 +46,30 @@ GNRObjectImport::GNRObjectImport(wxString filename)
 	this->parse(filename);
 }
 
-// set filename
+/**
+ * setter for importer filename
+ * @param       wxString    name of imported file
+ * @access      public
+ */
 void GNRObjectImport::SetFilename(wxString filename)
 {
 	m_filename = filename;
 }
 
-// dtor
+/**
+ * destructor of GNRObjectImport
+ * @access      public
+ */
 GNRObjectImport::~GNRObjectImport()
 {
 	// do nothing
 }
 
-// parse the .obj-File
+/**
+ * parses filename for obj statements
+ * @param       wxString    name of imported file
+ * @access      public
+ */
 void GNRObjectImport::parse(wxString filename)
 {
 	// temporary attribut
@@ -106,7 +135,11 @@ void GNRObjectImport::parse(wxString filename)
 #endif
 }
 
-
+/**
+ * create vertex from string
+ * @param       wxString    content of line to parse
+ * @access      public
+ */
 void GNRObjectImport::createVertex(wxString str)
 {
 	// tokenize the current Line to get the floats
@@ -134,6 +167,11 @@ void GNRObjectImport::createVertex(wxString str)
 	//this->m_ptrAssemblyPart->addPoint(point);
 }
 
+/**
+ * create face from string
+ * @param       wxString    content of line to parse
+ * @access      public
+ */
 void GNRObjectImport::createFace(wxString str)
 {
 	// create new GNRPoly-Object
@@ -159,6 +197,11 @@ void GNRObjectImport::createFace(wxString str)
 	//this->m_ptrAssemblyPart->addPoly(poly);
 }
 
+/**
+ * create assembly
+ * @param       wxString    content of line to parse
+ * @access      public
+ */
 void GNRObjectImport::createAssembly(wxString str)
 {
 	if (this->isFirstPart == false)
