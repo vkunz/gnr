@@ -4,6 +4,10 @@
 
 #include "GNRGL3DCanvas.h"
 
+#if defined(__ATHOS_DEBUG__)
+#include <wx/log.h>
+#endif
+
 #define ZNEAR 0.1f
 #define ZFAR 1000.0f
 
@@ -145,4 +149,13 @@ void GNRGL3DCanvas::setPerspective()
 {
 	// Calculate The Aspect Ratio Of The Window
 	gluPerspective(45.0f, (float)m_window_x / (float)m_window_y, ZNEAR, ZFAR);
+}
+
+void GNRGL3DCanvas::OnMouseWheel(wxMouseEvent& event)
+{
+#if defined(__ATHOS_DEBUG__)
+	wxString msg;
+	msg << _("OnMouseWheel, rotation: ") << event.GetWheelRotation();
+	wxLogMessage(msg);
+#endif
 }

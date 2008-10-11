@@ -36,7 +36,7 @@
 GNRGL2DCanvas::GNRGL2DCanvas(const GNRAssembly* RootAssembly, wxWindow* parent, wxWindowID id, const wxPoint& pos, const wxSize& size, long style, const wxString& name)
 		:GNRGLCanvas(RootAssembly, parent, id, pos, size, style, name)
 {
-	m_camera_hight = 15;
+	m_camera_height = 10;
 	initGL();
 }
 
@@ -54,7 +54,7 @@ GNRGL2DCanvas::GNRGL2DCanvas(const GNRAssembly* RootAssembly, wxWindow* parent, 
 GNRGL2DCanvas::GNRGL2DCanvas(const GNRAssembly* RootAssembly, wxWindow* parent, wxGLContext* sharedContext, wxWindowID id, const wxPoint& pos, const wxSize& size,
                              long style, const wxString& name) : GNRGLCanvas(RootAssembly, parent, sharedContext, id, pos, size, style, name)
 {
-	m_camera_hight = 15;
+	m_camera_height = 10;
 	initGL();
 }
 
@@ -119,7 +119,7 @@ void GNRGL2DCanvas::OnResize(wxSizeEvent& event)
 void GNRGL2DCanvas::setCamera()
 {
 	// set camera-position
-	gluLookAt(0,m_camera_hight,0,0,1,0,0,0,1);
+	gluLookAt(0,m_camera_height,0,0,1,0,0,0,1);
 }
 
 /**
@@ -128,5 +128,17 @@ void GNRGL2DCanvas::setCamera()
  */
 void GNRGL2DCanvas::setPerspective()
 {
-	glOrtho(m_window_x*(-0.1), m_window_x*(0.1), m_window_y*(0.1), m_window_y*(-0.1), ZNEAR, ZFAR);
+	gluPerspective(45.0f, (float)m_window_x / (float)m_window_y, ZNEAR, ZFAR);
+	//glOrtho(m_window_x*(-1.0f/m_camera_height), m_window_x*(1.0f/m_camera_height), m_window_y*(1.0f/m_camera_height), m_window_y*(-1.0f/m_camera_height), ZNEAR, ZFAR);
+}
+
+void GNRGL2DCanvas::OnMouseWheel(wxMouseEvent& event)
+{
+	m_camera_height += (float)event.GetWheelRotation()/720.0;
+	setPerspective();
+#if defined(__ATHOS_DEBUG__)
+	wxString msg;
+	msg << _("OnMouseWheel, rotation: ") << m_camera_height;
+	wxLogMessage(msg);
+#endif
 }

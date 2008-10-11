@@ -117,6 +117,8 @@ void GNRGLCanvas::prepareDraw()
 	// Clear the Window
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	
+	glMatrixMode(GL_MODELVIEW);
+	
 	// Reset The Current Modelview Matrix
 	glLoadIdentity();
 }
@@ -128,53 +130,6 @@ void GNRGLCanvas::prepareDraw()
 void GNRGLCanvas::draw()
 {
 	m_RootAssembly->draw();
-	
-//	glTranslatef(0.0f, 0.0f, -6.0f);
-//
-//	glLoadName(1);
-//	glPushMatrix();
-//
-//	glBegin(GL_POLYGON);
-//	{
-//		glColor3f(1.0f,  0.0f,  0.0f);
-//		glVertex3f(0.0f,  1.0f,  0.0f);
-//
-//		glColor3f(1.0f,  1.0f,  0.0f);
-//		glVertex3f(-1.0f, -1.0f,  1.0f);
-//
-//		glColor3f(1.0f,  0.0f,  1.0f);
-//		glVertex3f(0.0f, -1.0f,  0.0f);
-//
-//		glColor3f(0.0f,  1.0f,  1.0f);
-//		glVertex3f(1.0f, -1.0f,  1.0f);
-//	}
-//	glEnd();
-//
-//	glBegin(GL_TRIANGLES);
-//	{
-//		glColor3f(0.0f,  0.0f,  1.0f);
-//		glVertex3f(0.0f,  -1.0f,  0.0f);
-//		glVertex3f(-1.0f, -1.0f,  1.0f);
-//		glVertex3f(1.0f, -1.0f,  1.0f);
-//
-//		glColor3f(0.0f,  1.0f,  0.0f);     /* gruen                         		*/
-//		glVertex3f(0.0f,  1.0f,  0.0f);    /* oberer Punkt der rechten Seite der Pyramide  */
-//		glVertex3f(1.0f, -1.0f,  1.0f);    /* linker Punkt der rechten Seite der Pyramide  */
-//		glVertex3f(1.0f, -1.0f, -1.0f);    /* rechter Punkt der rechten Seite der Pyramide */
-//
-//		glColor3f(0.0f,  0.0f,  1.0f);     /* blau		                           */
-//		glVertex3f(0.0f,  1.0f,  0.0f);    /* oberer Punkt der Rueckseite der Pyramide	*/
-//		glVertex3f(1.0f, -1.0f, -1.0f);    /* linker Punkt der Rueckseite der Pyramide  */
-//		glVertex3f(-1.0f, -1.0f, -1.0f);   /* rechter Punkt der Rueckseite der Pyaramide*/
-//
-//		glColor3f(1.0f,  1.0f,  0.0f);     /* Gelb                           		 */
-//		glVertex3f(0.0f,  1.0f,  0.0f);    /* oberer Punkt der linken Seite der Pyramide */
-//		glVertex3f(-1.0f, -1.0f, -1.0f);   /* linker Punkt der linken Seite der Pyramide */
-//		glVertex3f(-1.0f, -1.0f,  1.0f);   /* rechter Punkt der linken Seite der Pyramide*/
-//	}
-//	glEnd();
-//
-//	glPopMatrix();
 }
 
 /**
@@ -234,11 +189,7 @@ int GNRGLCanvas::selection(int mouse_x, int mouse_y)
 	glMatrixMode(GL_MODELVIEW);
 	// Switch To Render Mode, Find Out How Many Objects Were Drawn Where The Mouse Was
 	hits=glRenderMode(GL_RENDER);
-#if defined(__ATHOS_DEBUG__)
-	wxString msg;
-	msg << _("> ") << hits << _(" Hits");
-	wxLogMessage(msg);
-#endif
+	
 	if (hits > 0)
 	{
 		// Make Our Selection The First Object
@@ -269,15 +220,6 @@ int GNRGLCanvas::selection(int mouse_x, int mouse_y)
 	return 0;
 }
 
-void GNRGLCanvas::OnMouseWheel(wxMouseEvent& event)
-{
-#if defined(__ATHOS_DEBUG__)
-	wxString msg;
-	msg << _("OnMouseWheel, rotation: ") << event.GetWheelRotation();
-	wxLogMessage(msg);
-#endif
-}
-
 /**
  * fetches the Middle-Mouse-Pressed event
  * @param       wxMouseEvent    Mouse-Event of current canvas
@@ -292,7 +234,6 @@ void GNRGLCanvas::OnMMouseDown(wxMouseEvent& event)
 	wxLogMessage(msg);
 #endif
 	selection(event.m_x, event.m_y);
-	wxLogMessage(_("feddisch"));
 	//GNRMouse::getControl(event);
 }
 

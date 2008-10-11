@@ -23,6 +23,7 @@ private:
 	void setPerspective();
 	
 	void OnResize(wxSizeEvent& event);
+	void OnMouseWheel(wxMouseEvent& event);
 	
 public:
 	GNRGL3DCanvas(const GNRAssembly* RootAssembly,

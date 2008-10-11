@@ -17,7 +17,7 @@
 class GNRGL2DCanvas : public GNRGLCanvas
 {
 private:
-	float m_camera_hight;
+	float m_camera_height;
 	
 	void initGL();
 	void reshape();

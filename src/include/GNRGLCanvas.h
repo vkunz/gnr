@@ -32,7 +32,6 @@ private:
 	
 	int selection(int mouse_x, int mouse_y);
 	
-	void OnMouseWheel(wxMouseEvent& event);
 	void OnMMouseDown(wxMouseEvent& event);
 	void OnMMouseUp(wxMouseEvent& event);
 	void OnRMouseDown(wxMouseEvent& event);
@@ -53,7 +52,7 @@ protected:
 	virtual void reshape() = 0;
 	virtual void setCamera() = 0;
 	virtual void setPerspective() = 0;
-	
+	virtual void OnMouseWheel(wxMouseEvent& event) = 0;
 	virtual void OnResize(wxSizeEvent& event) = 0;
 	
 public:

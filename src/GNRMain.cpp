@@ -148,7 +148,6 @@ GNRFrame::GNRFrame(wxWindow* parent, wxWindowID id)
 	this->m_VerticalSplitter->SplitVertically(m_HorizontalSplitter_left, m_HorizontalSplitter_right);
 	
 	//create two canvas panels
-	m_RootAssembly.setZ(-5.0f);
 	this->m_UpperCanvas  = new GNRGL2DCanvas(&m_RootAssembly, m_HorizontalSplitter_right, -1);
 	//show frame
 	this->Show(true);
