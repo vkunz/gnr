@@ -20,6 +20,7 @@ private:
 	float m_camera_hight;
 	
 	void initGL();
+	void reshape();
 	void setCamera();
 	void setPerspective();
 	

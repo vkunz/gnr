@@ -84,11 +84,10 @@ void GNRGL2DCanvas::initGL()
 }
 
 /**
- * does the adjustment of the canvas for the 2D canvas
- * @param       wxSizeEvent*        Size-Event of the current canvas
+ * Reshape current frame on resize
  * @access      private
  */
-void GNRGL2DCanvas::OnResize(wxSizeEvent& event)
+void GNRGL2DCanvas::reshape()
 {
 	// set current GL-Frame
 	SetCurrent();
@@ -103,6 +102,16 @@ void GNRGL2DCanvas::OnResize(wxSizeEvent& event)
 	
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
+}
+
+/**
+ * does the adjustment of the canvas for the 2D canvas
+ * @param       wxSizeEvent*        Size-Event of the current canvas
+ * @access      private
+ */
+void GNRGL2DCanvas::OnResize(wxSizeEvent& event)
+{
+	reshape();
 }
 
 /**

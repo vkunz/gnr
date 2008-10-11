@@ -47,7 +47,7 @@ protected:
 	int m_window_x, m_window_y;
 	
 	virtual void initGL() = 0;
-	
+	virtual void reshape() = 0;
 	virtual void setCamera() = 0;
 	virtual void setPerspective() = 0;
 	

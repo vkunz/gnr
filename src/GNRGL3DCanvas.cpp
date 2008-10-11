@@ -68,14 +68,37 @@ void GNRGL3DCanvas::initGL()
 	
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
+	
+//  SetCurrent();
+//
+//  glDepthFunc( GL_LEQUAL );
+//  glShadeModel( GL_SMOOTH );
+//
+//  GLfloat gray[] = { 0.35f, 0.35f, 0.35f, 1.0f };
+//  GLfloat light_pos[] = { 50.0f, 50.0f, 50.0f, 1.0f };
+//  glEnable( GL_NORMALIZE );
+//  glLightfv( GL_LIGHT0, GL_AMBIENT, gray );
+//  glLightfv( GL_LIGHT0, GL_DIFFUSE, gray );
+//  glLightfv( GL_LIGHT0, GL_POSITION, light_pos );
+//
+//  glBlendFunc( GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA );
+//
+//  glEnable( GL_LIGHTING );
+//  glEnable( GL_LIGHT0 );
+//  glEnable( GL_DEPTH_TEST );
+//  glEnable( GL_BLEND );
+//
+//  glClearColor( 0.4, 0.4, 0.4, 1.0 );
+//  glClearDepth( 1.0 );
+//  glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
+//  SwapBuffers();
 }
 
 /**
- * does the adjustment of the canvas for the 3D canvas
- * @param       wxSizeEvent*        Size-Event of the current canvas
+ * Reshape current frame on resize
  * @access      private
  */
-void GNRGL3DCanvas::OnResize(wxSizeEvent& event)
+void GNRGL3DCanvas::reshape()
 {
 	// set current GL-Frame
 	SetCurrent();
@@ -94,6 +117,16 @@ void GNRGL3DCanvas::OnResize(wxSizeEvent& event)
 	// Load and Reset Modelview
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
+}
+
+/**
+ * does the adjustment of the canvas for the 3D canvas
+ * @param       wxSizeEvent*        Size-Event of the current canvas
+ * @access      private
+ */
+void GNRGL3DCanvas::OnResize(wxSizeEvent& event)
+{
+	reshape();
 }
 
 /**
