@@ -131,39 +131,43 @@ void GNRGLCanvas::draw()
 	glPushMatrix();
 	
 	glBegin(GL_POLYGON);
-	glColor3f(1.0f,  0.0f,  0.0f);
-	glVertex3f(0.0f,  1.0f,  0.0f);
-	
-	glColor3f(1.0f,  1.0f,  0.0f);
-	glVertex3f(-1.0f, -1.0f,  1.0f);
-	
-	glColor3f(1.0f,  0.0f,  1.0f);
-	glVertex3f(0.0f, -1.0f,  0.0f);
-	
-	glColor3f(0.0f,  1.0f,  1.0f);
-	glVertex3f(1.0f, -1.0f,  1.0f);
+	{
+		glColor3f(1.0f,  0.0f,  0.0f);
+		glVertex3f(0.0f,  1.0f,  0.0f);
+		
+		glColor3f(1.0f,  1.0f,  0.0f);
+		glVertex3f(-1.0f, -1.0f,  1.0f);
+		
+		glColor3f(1.0f,  0.0f,  1.0f);
+		glVertex3f(0.0f, -1.0f,  0.0f);
+		
+		glColor3f(0.0f,  1.0f,  1.0f);
+		glVertex3f(1.0f, -1.0f,  1.0f);
+	}
 	glEnd();
 	
 	glBegin(GL_TRIANGLES);
-	glColor3f(0.0f,  0.0f,  1.0f);
-	glVertex3f(0.0f,  -1.0f,  0.0f);
-	glVertex3f(-1.0f, -1.0f,  1.0f);
-	glVertex3f(1.0f, -1.0f,  1.0f);
-	
-	glColor3f(0.0f,  1.0f,  0.0f);     /* gruen                         		*/
-	glVertex3f(0.0f,  1.0f,  0.0f);    /* oberer Punkt der rechten Seite der Pyramide  */
-	glVertex3f(1.0f, -1.0f,  1.0f);    /* linker Punkt der rechten Seite der Pyramide  */
-	glVertex3f(1.0f, -1.0f, -1.0f);    /* rechter Punkt der rechten Seite der Pyramide */
-	
-	glColor3f(0.0f,  0.0f,  1.0f);     /* blau		                           */
-	glVertex3f(0.0f,  1.0f,  0.0f);    /* oberer Punkt der Rueckseite der Pyramide	*/
-	glVertex3f(1.0f, -1.0f, -1.0f);    /* linker Punkt der Rueckseite der Pyramide  */
-	glVertex3f(-1.0f, -1.0f, -1.0f);   /* rechter Punkt der Rueckseite der Pyaramide*/
-	
-	glColor3f(1.0f,  1.0f,  0.0f);     /* Gelb                           		 */
-	glVertex3f(0.0f,  1.0f,  0.0f);    /* oberer Punkt der linken Seite der Pyramide */
-	glVertex3f(-1.0f, -1.0f, -1.0f);   /* linker Punkt der linken Seite der Pyramide */
-	glVertex3f(-1.0f, -1.0f,  1.0f);   /* rechter Punkt der linken Seite der Pyramide*/
+	{
+		glColor3f(0.0f,  0.0f,  1.0f);
+		glVertex3f(0.0f,  -1.0f,  0.0f);
+		glVertex3f(-1.0f, -1.0f,  1.0f);
+		glVertex3f(1.0f, -1.0f,  1.0f);
+		
+		glColor3f(0.0f,  1.0f,  0.0f);     /* gruen                         		*/
+		glVertex3f(0.0f,  1.0f,  0.0f);    /* oberer Punkt der rechten Seite der Pyramide  */
+		glVertex3f(1.0f, -1.0f,  1.0f);    /* linker Punkt der rechten Seite der Pyramide  */
+		glVertex3f(1.0f, -1.0f, -1.0f);    /* rechter Punkt der rechten Seite der Pyramide */
+		
+		glColor3f(0.0f,  0.0f,  1.0f);     /* blau		                           */
+		glVertex3f(0.0f,  1.0f,  0.0f);    /* oberer Punkt der Rueckseite der Pyramide	*/
+		glVertex3f(1.0f, -1.0f, -1.0f);    /* linker Punkt der Rueckseite der Pyramide  */
+		glVertex3f(-1.0f, -1.0f, -1.0f);   /* rechter Punkt der Rueckseite der Pyaramide*/
+		
+		glColor3f(1.0f,  1.0f,  0.0f);     /* Gelb                           		 */
+		glVertex3f(0.0f,  1.0f,  0.0f);    /* oberer Punkt der linken Seite der Pyramide */
+		glVertex3f(-1.0f, -1.0f, -1.0f);   /* linker Punkt der linken Seite der Pyramide */
+		glVertex3f(-1.0f, -1.0f,  1.0f);   /* rechter Punkt der linken Seite der Pyramide*/
+	}
 	glEnd();
 	
 	glPopMatrix();
@@ -202,19 +206,28 @@ int GNRGLCanvas::selection(int mouse_x, int mouse_y)
 	
 	glMatrixMode(GL_PROJECTION);
 	glPushMatrix();
-	glLoadIdentity();
-	
-	// This Creates A Matrix That Will Zoom Up To A Small Portion Of The Screen, Where The Mouse Is.
-	gluPickMatrix((GLdouble) mouse_x, (GLdouble)(viewport[3]-mouse_y), 1.0f, 1.0f, viewport);
-	
-	// Apply The Perspective Matrix
-	setPerspective();
-	glMatrixMode(GL_MODELVIEW);
-	prepareDraw();
-	setCamera();
-	// Render The Targets To The Selection Buffer
-	draw();
-	glMatrixMode(GL_PROJECTION);
+	{
+		glLoadIdentity();
+		
+		// This Creates A Matrix That Will Zoom Up To A Small Portion Of The Screen, Where The Mouse Is.
+		gluPickMatrix((GLdouble) mouse_x, (GLdouble)(viewport[3]-mouse_y), 1.0f, 1.0f, viewport);
+		
+		// Apply The Perspective Matrix
+		setPerspective();
+		glMatrixMode(GL_MODELVIEW);
+		
+		glLoadIdentity();         // Reset The Modelview Matrix
+		glPushMatrix();
+		{
+			prepareDraw();
+			setCamera();
+			// Render The Targets To The Selection Buffer
+			draw();
+		}
+		glPopMatrix();
+		
+		glMatrixMode(GL_PROJECTION);
+	}
 	glPopMatrix();
 	glMatrixMode(GL_MODELVIEW);
 	// Switch To Render Mode, Find Out How Many Objects Were Drawn Where The Mouse Was
