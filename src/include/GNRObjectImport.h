@@ -53,8 +53,11 @@ private:
 	// list of all vertex textures
 	std::vector<GNRVertex> m_VTexture;
 	
-	// pointer to GNRAssembly
+	// pointer to store address of the obj-core-GNRAssembly
 	GNRAssembly* m_ptrAssembly;
+	
+	// pointer to store address of the GNRAssembly where actual Faces are stored
+	GNRAssembly* m_ptrAssemblyActual;
 	
 	// filename to parse
 	wxString m_filename;
@@ -74,6 +77,8 @@ private:
 	
 	// create Face
 	void createFace(wxString str);
+	
+	void splitVertexNormalTexture(wxString str);
 	
 	// parse the file
 	void parse();

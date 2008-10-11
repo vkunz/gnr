@@ -28,7 +28,8 @@
  */
 GNRObjectImport::GNRObjectImport()
 {
-	this->m_ptrAssembly = new GNRAssembly();
+	m_ptrAssembly = new GNRAssembly();
+	m_ptrAssemblyActual = m_ptrAssembly;
 }
 
 /**
@@ -44,9 +45,10 @@ GNRObjectImport::GNRObjectImport(wxString filename)
 	
 #endif
 	
-	this->m_ptrAssembly = new GNRAssembly();
-	this->m_filename = filename;
-	this->parse();
+	m_ptrAssembly = new GNRAssembly();
+	m_ptrAssemblyActual = m_ptrAssembly;
+	m_filename = filename;
+	parse();
 }
 
 /**
@@ -74,7 +76,7 @@ void GNRObjectImport::SetFilename(wxString filename)
  */
 GNRAssembly* GNRObjectImport::GetAssembly()
 {
-	return this->m_ptrAssembly;
+	return m_ptrAssembly;
 }
 
 /**
@@ -106,7 +108,7 @@ void GNRObjectImport::addNormal(wxString str)
 	GNRVertex normal(x, y, z);
 	
 	// push new normal to m_VNormal
-	this->m_VNormal.push_back(normal);
+	m_VNormal.push_back(normal);
 }
 
 /**
@@ -138,7 +140,7 @@ void GNRObjectImport::addTexture(wxString str)
 	GNRVertex texture(x, y, z);
 	
 	// push new texture to m_VTexture
-	this->m_VTexture.push_back(texture);
+	m_VTexture.push_back(texture);
 }
 
 /**
@@ -170,7 +172,7 @@ void GNRObjectImport::addVertex(wxString str)
 	GNRVertex vertex(x, y, z);
 	
 	// push new vertex to m_VVertex
-	this->m_VVertex.push_back(vertex);
+	m_VVertex.push_back(vertex);
 }
 
 /**
@@ -203,7 +205,10 @@ void GNRObjectImport::createAssembly(wxString str)
 	newAssembly->setAssemblyTitle(convStr);
 	
 	// new Assembly is new child of obj-File coreAssembly
-	this->m_ptrAssembly->addChildAssembly(newAssembly);
+	m_ptrAssembly->addChildAssembly(newAssembly);
+	
+	// get address of new GNRAssembly to store faces in
+	m_ptrAssemblyActual = newAssembly;
 }
 
 /**
@@ -230,9 +235,41 @@ void GNRObjectImport::createFace(wxString str)
 	// ignore first token
 	tok.GetNextToken();
 	
-	// add all vertex
+	// add all points
 	while (tok.HasMoreTokens())
 	{
+		// tokenize every facetriple
+		//wxStringTokenizer faceTok(tok.GetNextToken(), wxT("/"));
+		
+#if defined(__ATHOS_DEBUG__)
+		/*    wxString msg;
+		
+		    wxLogMessage(wxT("Hier fängt ein Facetriple an."));
+		    while(faceTok.HasMoreTokens())
+		    {
+		        msg << wxT("Token:") << faceTok.GetNextToken() << wxT("\t");
+		        wxLogMessage(msg);
+		    }
+		    wxLogMessage(wxT("Hier endet ein Facetriple.\n\n"));
+		*/
+#endif
+		/*
+		switch (faceTok.CountTokens())
+		{
+		    // case if only a vertex is given
+		    case 1:
+		        wxLogMessage(wxT("nur ein vertex"));
+		        break;
+		    // case if a vertex and a normal are given
+		    case 2:
+		        wxLogMessage(wxT("face und normal"));
+		        break;
+		    // case if a vertex, a normal and a texture are given
+		    case 3:
+		        wxLogMessage(wxT("face, normal und textur"));
+		        break;
+		}*/
+		
 		// get count of the first tripple
 		tok.GetNextToken().ToLong(&tmp);
 		
@@ -246,16 +283,27 @@ void GNRObjectImport::createFace(wxString str)
 		face.addGNRPoint3d(&point);
 	}
 	
-#if defined(__ATHOS_DEBUG__)
-	
-	wxString msg;
-	
-	msg << wxT("neuer Face hier: ") << face.ToString();
-	wxLogMessage(msg);
-	
-#endif
-	
-	this->m_ptrAssembly->addFace(face);
+	// add new Face to actual GNRAssembly
+	m_ptrAssemblyActual->addFace(face);
+}
+
+void GNRObjectImport::splitVertexNormalTexture(wxString str)
+{
+	switch ((wxChar)str[1])
+	{
+		// found vertex
+	case ' ':
+		addVertex(str);
+		break;
+		// found normal
+	case 'n':
+		addNormal(str);
+		break;
+		// found texture
+	case 't':
+		addTexture(str);
+		break;
+	}
 }
 
 /**
@@ -289,29 +337,21 @@ void GNRObjectImport::parse()
 		case '#':
 			break;
 		case 'v':
-			if (curLine[1] == ' ')
-			{
-				this->addVertex(curLine);
-			}
-			else if (curLine[1] == 'n')
-			{
-				this->addNormal(curLine);
-			}
-			else if (curLine[1] == 't')
-			{
-				this->addTexture(curLine);
-			}
+			splitVertexNormalTexture(curLine);
 			break;
+			// found face
 		case 'f':
-			this->createFace(curLine);
+			createFace(curLine);
 			break;
-		case 's':
-			break;
+			//case 's':
+			//break;
+			// found new object
 		case 'o':
-			this->createAssembly(curLine);
+			createAssembly(curLine);
 			break;
+			// found new group/object
 		case 'g':
-			this->createAssembly(curLine);
+			createAssembly(curLine);
 			break;
 		default:
 			break;
@@ -324,28 +364,6 @@ void GNRObjectImport::parse()
 #if defined(__ATHOS_DEBUG__)
 	
 	wxLogMessage(wxT("Hier fertig mit einlesen"));
-	
-	std::vector<GNRVertex>::iterator itv;
-	std::vector<GNRVertex>::iterator itn;
-	std::vector<GNRVertex>::iterator itt;
-	
-	wxLogMessage(wxT("Vertex-Vector: "));
-	for (itv = m_VVertex.begin(); itv != m_VVertex.end(); itv++)
-	{
-		wxLogMessage(itv->ToString());
-	}
-	
-	wxLogMessage(wxT("Normalen-Vector: "));
-	for (itn = m_VNormal.begin(); itn != m_VNormal.end(); itn++)
-	{
-		wxLogMessage(itn->ToString());
-	}
-	
-	wxLogMessage(wxT("Texturen-Vector: "));
-	for (itt = m_VTexture.begin(); itt != m_VTexture.end(); itt++)
-	{
-		wxLogMessage(itt->ToString());
-	}
 	
 #endif
 }
