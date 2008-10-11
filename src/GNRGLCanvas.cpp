@@ -36,11 +36,12 @@ int const ID_TIMER = wxNewId();
  * @param       wxString        Window-Name
  * @access      public
  */
-GNRGLCanvas::GNRGLCanvas(wxWindow* parent, wxWindowID id, const wxPoint& pos, const wxSize& size, long style, const wxString& name)
+GNRGLCanvas::GNRGLCanvas(const GNRAssembly* RootAssembly, wxWindow* parent, wxWindowID id, const wxPoint& pos, const wxSize& size, long style, const wxString& name)
 		: wxGLCanvas(parent, id, pos, size, style|wxFULL_REPAINT_ON_RESIZE, name)
 {
 
 	// Timer to refresh the GL-Window
+	m_RootAssembly = RootAssembly;
 	m_timer = new wxTimer(this, ID_TIMER);
 	m_timer->Start(40);
 	
@@ -58,11 +59,12 @@ GNRGLCanvas::GNRGLCanvas(wxWindow* parent, wxWindowID id, const wxPoint& pos, co
  * @param       wxString        Window-Name
  * @access      public
  */
-GNRGLCanvas::GNRGLCanvas(wxWindow* parent, wxGLContext* sharedContext, wxWindowID id, const wxPoint& pos, const wxSize& size,
+GNRGLCanvas::GNRGLCanvas(const GNRAssembly* RootAssembly, wxWindow* parent, wxGLContext* sharedContext, wxWindowID id, const wxPoint& pos, const wxSize& size,
                          long style, const wxString& name) : wxGLCanvas(parent, sharedContext, id, pos, size, style, name)
 {
 
 	// Timer to refresh the GL-Window
+	m_RootAssembly = RootAssembly;
 	m_timer = new wxTimer(this, ID_TIMER);
 	m_timer->Start(40);
 	
@@ -125,52 +127,54 @@ void GNRGLCanvas::prepareDraw()
  */
 void GNRGLCanvas::draw()
 {
-	glTranslatef(0.0f, 0.0f, -6.0f);
+	m_RootAssembly->draw();
 	
-	glLoadName(1);
-	glPushMatrix();
-	
-	glBegin(GL_POLYGON);
-	{
-		glColor3f(1.0f,  0.0f,  0.0f);
-		glVertex3f(0.0f,  1.0f,  0.0f);
-		
-		glColor3f(1.0f,  1.0f,  0.0f);
-		glVertex3f(-1.0f, -1.0f,  1.0f);
-		
-		glColor3f(1.0f,  0.0f,  1.0f);
-		glVertex3f(0.0f, -1.0f,  0.0f);
-		
-		glColor3f(0.0f,  1.0f,  1.0f);
-		glVertex3f(1.0f, -1.0f,  1.0f);
-	}
-	glEnd();
-	
-	glBegin(GL_TRIANGLES);
-	{
-		glColor3f(0.0f,  0.0f,  1.0f);
-		glVertex3f(0.0f,  -1.0f,  0.0f);
-		glVertex3f(-1.0f, -1.0f,  1.0f);
-		glVertex3f(1.0f, -1.0f,  1.0f);
-		
-		glColor3f(0.0f,  1.0f,  0.0f);     /* gruen                         		*/
-		glVertex3f(0.0f,  1.0f,  0.0f);    /* oberer Punkt der rechten Seite der Pyramide  */
-		glVertex3f(1.0f, -1.0f,  1.0f);    /* linker Punkt der rechten Seite der Pyramide  */
-		glVertex3f(1.0f, -1.0f, -1.0f);    /* rechter Punkt der rechten Seite der Pyramide */
-		
-		glColor3f(0.0f,  0.0f,  1.0f);     /* blau		                           */
-		glVertex3f(0.0f,  1.0f,  0.0f);    /* oberer Punkt der Rueckseite der Pyramide	*/
-		glVertex3f(1.0f, -1.0f, -1.0f);    /* linker Punkt der Rueckseite der Pyramide  */
-		glVertex3f(-1.0f, -1.0f, -1.0f);   /* rechter Punkt der Rueckseite der Pyaramide*/
-		
-		glColor3f(1.0f,  1.0f,  0.0f);     /* Gelb                           		 */
-		glVertex3f(0.0f,  1.0f,  0.0f);    /* oberer Punkt der linken Seite der Pyramide */
-		glVertex3f(-1.0f, -1.0f, -1.0f);   /* linker Punkt der linken Seite der Pyramide */
-		glVertex3f(-1.0f, -1.0f,  1.0f);   /* rechter Punkt der linken Seite der Pyramide*/
-	}
-	glEnd();
-	
-	glPopMatrix();
+//	glTranslatef(0.0f, 0.0f, -6.0f);
+//
+//	glLoadName(1);
+//	glPushMatrix();
+//
+//	glBegin(GL_POLYGON);
+//	{
+//		glColor3f(1.0f,  0.0f,  0.0f);
+//		glVertex3f(0.0f,  1.0f,  0.0f);
+//
+//		glColor3f(1.0f,  1.0f,  0.0f);
+//		glVertex3f(-1.0f, -1.0f,  1.0f);
+//
+//		glColor3f(1.0f,  0.0f,  1.0f);
+//		glVertex3f(0.0f, -1.0f,  0.0f);
+//
+//		glColor3f(0.0f,  1.0f,  1.0f);
+//		glVertex3f(1.0f, -1.0f,  1.0f);
+//	}
+//	glEnd();
+//
+//	glBegin(GL_TRIANGLES);
+//	{
+//		glColor3f(0.0f,  0.0f,  1.0f);
+//		glVertex3f(0.0f,  -1.0f,  0.0f);
+//		glVertex3f(-1.0f, -1.0f,  1.0f);
+//		glVertex3f(1.0f, -1.0f,  1.0f);
+//
+//		glColor3f(0.0f,  1.0f,  0.0f);     /* gruen                         		*/
+//		glVertex3f(0.0f,  1.0f,  0.0f);    /* oberer Punkt der rechten Seite der Pyramide  */
+//		glVertex3f(1.0f, -1.0f,  1.0f);    /* linker Punkt der rechten Seite der Pyramide  */
+//		glVertex3f(1.0f, -1.0f, -1.0f);    /* rechter Punkt der rechten Seite der Pyramide */
+//
+//		glColor3f(0.0f,  0.0f,  1.0f);     /* blau		                           */
+//		glVertex3f(0.0f,  1.0f,  0.0f);    /* oberer Punkt der Rueckseite der Pyramide	*/
+//		glVertex3f(1.0f, -1.0f, -1.0f);    /* linker Punkt der Rueckseite der Pyramide  */
+//		glVertex3f(-1.0f, -1.0f, -1.0f);   /* rechter Punkt der Rueckseite der Pyaramide*/
+//
+//		glColor3f(1.0f,  1.0f,  0.0f);     /* Gelb                           		 */
+//		glVertex3f(0.0f,  1.0f,  0.0f);    /* oberer Punkt der linken Seite der Pyramide */
+//		glVertex3f(-1.0f, -1.0f, -1.0f);   /* linker Punkt der linken Seite der Pyramide */
+//		glVertex3f(-1.0f, -1.0f,  1.0f);   /* rechter Punkt der linken Seite der Pyramide*/
+//	}
+//	glEnd();
+//
+//	glPopMatrix();
 }
 
 /**
@@ -210,29 +214,31 @@ int GNRGLCanvas::selection(int mouse_x, int mouse_y)
 		glLoadIdentity();
 		
 		// This Creates A Matrix That Will Zoom Up To A Small Portion Of The Screen, Where The Mouse Is.
-		gluPickMatrix((GLdouble) mouse_x, (GLdouble)(viewport[3]-mouse_y), 1.0f, 1.0f, viewport);
+		gluPickMatrix((GLdouble) mouse_x, (GLdouble)(viewport[3]-mouse_y), 5.0f, 5.0f, viewport);
 		
 		// Apply The Perspective Matrix
 		setPerspective();
 		glMatrixMode(GL_MODELVIEW);
 		
-		glLoadIdentity();         // Reset The Modelview Matrix
-		glPushMatrix();
-		{
-			prepareDraw();
-			setCamera();
-			// Render The Targets To The Selection Buffer
-			draw();
-		}
-		glPopMatrix();
+		// Reset The Modelview Matrix
+		glLoadIdentity();
 		
+		prepareDraw();
+		setCamera();
+		draw();
+		
+		// Select The Projection Matrix
 		glMatrixMode(GL_PROJECTION);
 	}
 	glPopMatrix();
 	glMatrixMode(GL_MODELVIEW);
 	// Switch To Render Mode, Find Out How Many Objects Were Drawn Where The Mouse Was
 	hits=glRenderMode(GL_RENDER);
-	
+#if defined(__ATHOS_DEBUG__)
+	wxString msg;
+	msg << _("> ") << hits << _(" Hits");
+	wxLogMessage(msg);
+#endif
 	if (hits > 0)
 	{
 		// Make Our Selection The First Object
@@ -280,13 +286,14 @@ void GNRGLCanvas::OnMouseWheel(wxMouseEvent& event)
 void GNRGLCanvas::OnMMouseDown(wxMouseEvent& event)
 {
 	Connect(wxEVT_MOTION, (wxObjectEventFunction)&GNRGLCanvas::OnMouseMove);
-	selection(event.m_x, event.m_y);
-	//GNRMouse::getControl(event);
 #if defined(__ATHOS_DEBUG__)
 	wxString msg;
 	msg << _("OnMMouseDown x=") << event.m_x << _(" y=") << event.m_y;
 	wxLogMessage(msg);
 #endif
+	selection(event.m_x, event.m_y);
+	wxLogMessage(_("feddisch"));
+	//GNRMouse::getControl(event);
 }
 
 /**

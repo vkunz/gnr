@@ -28,13 +28,15 @@ private:
 	void OnResize(wxSizeEvent& event);
 	
 public:
-	GNRGL2DCanvas(wxWindow* parent,
+	GNRGL2DCanvas(const GNRAssembly* RootAssembly,
+	              wxWindow* parent,
 	              wxWindowID id = wxID_ANY,
 	              const wxPoint& pos = wxDefaultPosition,
 	              const wxSize& size = wxDefaultSize,
 	              long style = 0,
 	              const wxString& name = wxT("GNRGL2DCanvas"));
-	GNRGL2DCanvas(wxWindow* parent,
+	GNRGL2DCanvas(const GNRAssembly* RootAssembly,
+	              wxWindow* parent,
 	              wxGLContext* sharedContext,
 	              wxWindowID id = wxID_ANY,
 	              const wxPoint& pos = wxDefaultPosition,

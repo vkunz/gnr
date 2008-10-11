@@ -17,10 +17,9 @@
  * @param       wxString        Window-Name
  * @access      public
  */
-GNRGL3DCanvas::GNRGL3DCanvas(wxWindow* parent, wxWindowID id, const wxPoint& pos, const wxSize& size, long style, const wxString& name)
-		:GNRGLCanvas(parent, id, pos, size, style, name)
+GNRGL3DCanvas::GNRGL3DCanvas(const GNRAssembly* RootAssembly, wxWindow* parent, wxWindowID id, const wxPoint& pos, const wxSize& size, long style, const wxString& name)
+		:GNRGLCanvas(RootAssembly, parent, id, pos, size, style, name)
 {
-
 	initGL();
 }
 
@@ -35,8 +34,8 @@ GNRGL3DCanvas::GNRGL3DCanvas(wxWindow* parent, wxWindowID id, const wxPoint& pos
  * @param       wxString        Window-Name
  * @access      public
  */
-GNRGL3DCanvas::GNRGL3DCanvas(wxWindow* parent, wxGLContext* sharedContext, wxWindowID id, const wxPoint& pos, const wxSize& size,
-                             long style, const wxString& name) : GNRGLCanvas(parent, sharedContext, id, pos, size, style, name)
+GNRGL3DCanvas::GNRGL3DCanvas(const GNRAssembly* RootAssembly, wxWindow* parent, wxGLContext* sharedContext, wxWindowID id, const wxPoint& pos, const wxSize& size,
+                             long style, const wxString& name) : GNRGLCanvas(RootAssembly, parent, sharedContext, id, pos, size, style, name)
 {
 	initGL();
 }

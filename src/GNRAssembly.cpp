@@ -12,6 +12,7 @@
 #include <list>
 
 #include "GNRAssembly.h"
+#include <GL/gl.h>
 
 #if defined(__ATHOS_DEBUG__)
 #include <wx/log.h>
@@ -94,17 +95,28 @@ void GNRAssembly::setAssemblyTitle(const std::string str)
 
 void GNRAssembly::draw() const
 {
-	// draw the children
-	for (std::list<GNRAssembly*>::const_iterator it = m_parts.begin(); it != m_parts.end(); ++it)
-	{
-		(*it)->draw();
-	}
+	glLoadName((int)this);
 	
-	// draw myself
-	for (std::list<GNRFace>::const_iterator it = m_faces.begin(); it != m_faces.end(); ++it)
+	glPushMatrix();
 	{
-		it->draw();
+		glRotatef(m_phi, 1, 0, 0);
+		glRotatef(m_theta, 0, 1, 0);
+		glRotatef(m_rho, 0, 0, 1);
+		glTranslatef(m_xOffset, m_yOffset, m_zOffset);
+		
+		// draw myself
+		for (std::list<GNRFace>::const_iterator it = m_faces.begin(); it != m_faces.end(); ++it)
+		{
+			it->draw();
+		}
+		
+		// draw the children
+		for (std::list<GNRAssembly*>::const_iterator it = m_parts.begin(); it != m_parts.end(); ++it)
+		{
+			(*it)->draw();
+		}
 	}
+	glPopMatrix();
 }
 
 void GNRAssembly::addFace(const GNRFace newface)

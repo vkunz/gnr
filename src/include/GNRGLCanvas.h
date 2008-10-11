@@ -15,6 +15,8 @@
 #include <wx/glcanvas.h>
 #include <wx/timer.h>
 
+#include "GNRAssembly.h"
+
 class GNRGLCanvas : public wxGLCanvas
 {
 private:
@@ -45,6 +47,7 @@ private:
 	
 protected:
 	int m_window_x, m_window_y;
+	const GNRAssembly* m_RootAssembly;
 	
 	virtual void initGL() = 0;
 	virtual void reshape() = 0;
@@ -55,13 +58,15 @@ protected:
 	
 public:
 	// constructor
-	GNRGLCanvas(wxWindow* parent,
+	GNRGLCanvas(const GNRAssembly* RootAssembly,
+	            wxWindow* parent,
 	            wxWindowID id = wxID_ANY,
 	            const wxPoint& pos = wxDefaultPosition,
 	            const wxSize& size = wxDefaultSize,
 	            long style = 0,
 	            const wxString& name = wxT("GNRGLCanvas"));
-	GNRGLCanvas(wxWindow* parent,
+	GNRGLCanvas(const GNRAssembly* RootAssembly,
+	            wxWindow* parent,
 	            wxGLContext* sharedContext,
 	            wxWindowID id = wxID_ANY,
 	            const wxPoint& pos = wxDefaultPosition,

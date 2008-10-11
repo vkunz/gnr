@@ -148,11 +148,12 @@ GNRFrame::GNRFrame(wxWindow* parent, wxWindowID id)
 	this->m_VerticalSplitter->SplitVertically(m_HorizontalSplitter_left, m_HorizontalSplitter_right);
 	
 	//create two canvas panels
-	this->m_UpperCanvas  = new GNRGL2DCanvas(m_HorizontalSplitter_right, -1);
+	m_RootAssembly.setZ(-5.0f);
+	this->m_UpperCanvas  = new GNRGL2DCanvas(&m_RootAssembly, m_HorizontalSplitter_right, -1);
 	//show frame
 	this->Show(true);
 	wxGLContext* commonCtxt = m_UpperCanvas->GetContext();
-	this->m_BottomCanvas = new GNRGL3DCanvas(m_HorizontalSplitter_right, commonCtxt, -1);
+	this->m_BottomCanvas = new GNRGL3DCanvas(&m_RootAssembly, m_HorizontalSplitter_right, commonCtxt, -1);
 	//this->m_BottomCanvas = new TestCanvas(m_HorizontalSplitter_right, -1);
 	
 	//initialize top an bottom canvas
@@ -198,11 +199,10 @@ void GNRFrame::OnLoad(wxCommandEvent& event)
 	//wxMessageBox(wxT("This is like a new main(), I know it isnt, but I need a place where to test new Code!!!"));
 	wxString filename = wxFileSelector(wxT("Select OBJ-File..."), wxT(""), wxT(""), wxT(""), wxT("OBJ-Files (*.obj)|*.obj"));
 	
-	
 	if (!filename.IsEmpty())
 	{
 		GNRObjectImport object_importer(filename);
-		this->m_RootAssembly.addChildAssembly(object_importer.GetAssembly());
+		m_RootAssembly.addChildAssembly(object_importer.GetAssembly());
 	}
 }
 
