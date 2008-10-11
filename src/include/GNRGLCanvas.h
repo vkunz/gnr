@@ -40,6 +40,7 @@ private:
 	void OnLMouseUp(wxMouseEvent& event);
 	void OnMouseMove(wxMouseEvent& event);
 	void OnLeaveWindow(wxMouseEvent& event);
+	void OnEnterWindow(wxMouseEvent& event);
 	void OnTimer(wxTimerEvent& event);
 	
 protected:

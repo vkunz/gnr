@@ -85,6 +85,7 @@ void GNRGLCanvas::connectEvents()
 	Connect(wxEVT_LEFT_DOWN, (wxObjectEventFunction)&GNRGLCanvas::OnLMouseDown);
 	Connect(wxEVT_LEFT_UP, (wxObjectEventFunction)&GNRGLCanvas::OnLMouseUp);
 	Connect(wxEVT_LEAVE_WINDOW, (wxObjectEventFunction)&GNRGLCanvas::OnLeaveWindow);
+	Connect(wxEVT_ENTER_WINDOW, (wxObjectEventFunction)&GNRGLCanvas::OnEnterWindow);
 	Connect(wxEVT_SIZE, (wxObjectEventFunction)&GNRGLCanvas::OnResize);
 	Connect(ID_TIMER, wxEVT_TIMER, (wxObjectEventFunction)&GNRGLCanvas::OnTimer);
 }
@@ -250,11 +251,12 @@ int GNRGLCanvas::selection(int mouse_x, int mouse_y)
 	return 0;
 }
 
-void GNRGLCanvas::OnMouseWheel(wxMouseEvent& event) {
+void GNRGLCanvas::OnMouseWheel(wxMouseEvent& event)
+{
 #if defined(__ATHOS_DEBUG__)
-		wxString msg;
-		msg << _("OnMouseWheel, rotation: ") << event.GetWheelRotation();
-		wxLogMessage(msg);
+	wxString msg;
+	msg << _("OnMouseWheel, rotation: ") << event.GetWheelRotation();
+	wxLogMessage(msg);
 #endif
 }
 
@@ -380,10 +382,30 @@ void GNRGLCanvas::OnMouseMove(wxMouseEvent& event)
 void GNRGLCanvas::OnLeaveWindow(wxMouseEvent& event)
 {
 	Disconnect(wxEVT_MOTION, (wxObjectEventFunction)&GNRGLCanvas::OnMouseMove);
+	//UnFocus???
+	
 	//GNRMouse::dropControl(event);
 #if defined(__ATHOS_DEBUG__)
 	wxString msg;
 	msg << _("OnLeaveWindow x=") << event.m_x << _(" y=") << event.m_y;
+	wxLogMessage(msg);
+#endif
+}
+
+/**
+ * fetches the Enter-Window event
+ * @param       wxMouseEvent    Mouse-Event of current canvas
+ * @access      private
+ */
+void GNRGLCanvas::OnEnterWindow(wxMouseEvent& event)
+{
+	Disconnect(wxEVT_MOTION, (wxObjectEventFunction)&GNRGLCanvas::OnMouseMove);
+	SetFocus();
+	
+	//GNRMouse::dropControl(event);
+#if defined(__ATHOS_DEBUG__)
+	wxString msg;
+	msg << _("OnEnterWindow x=") << event.m_x << _(" y=") << event.m_y;
 	wxLogMessage(msg);
 #endif
 }
