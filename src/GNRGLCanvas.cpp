@@ -76,7 +76,6 @@ GNRGLCanvas::GNRGLCanvas(wxWindow* parent, wxGLContext* sharedContext, wxWindowI
 void GNRGLCanvas::connectEvents()
 {
 	// Connect-methods to connect different Events with functions
-	Connect(wxEVT_MOUSEWHEEL, (wxObjectEventFunction) &GNRGLCanvas::OnMouseWheel);
 	Connect(wxEVT_MIDDLE_DOWN, (wxObjectEventFunction)&GNRGLCanvas::OnMMouseDown);
 	Connect(wxEVT_MIDDLE_UP, (wxObjectEventFunction)&GNRGLCanvas::OnMMouseUp);
 	Connect(wxEVT_RIGHT_DOWN, (wxObjectEventFunction)&GNRGLCanvas::OnRMouseDown);
@@ -381,6 +380,7 @@ void GNRGLCanvas::OnMouseMove(wxMouseEvent& event)
  */
 void GNRGLCanvas::OnLeaveWindow(wxMouseEvent& event)
 {
+	Disconnect(wxEVT_MOUSEWHEEL, (wxObjectEventFunction) &GNRGLCanvas::OnMouseWheel);
 	Disconnect(wxEVT_MOTION, (wxObjectEventFunction)&GNRGLCanvas::OnMouseMove);
 	//UnFocus???
 	
@@ -399,8 +399,9 @@ void GNRGLCanvas::OnLeaveWindow(wxMouseEvent& event)
  */
 void GNRGLCanvas::OnEnterWindow(wxMouseEvent& event)
 {
-	Disconnect(wxEVT_MOTION, (wxObjectEventFunction)&GNRGLCanvas::OnMouseMove);
 	SetFocus();
+	Connect(wxEVT_MOUSEWHEEL, (wxObjectEventFunction) &GNRGLCanvas::OnMouseWheel);
+	Disconnect(wxEVT_MOTION, (wxObjectEventFunction)&GNRGLCanvas::OnMouseMove);
 	
 	//GNRMouse::dropControl(event);
 #if defined(__ATHOS_DEBUG__)
