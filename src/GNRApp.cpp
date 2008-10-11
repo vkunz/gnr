@@ -51,3 +51,14 @@ bool GNRApp::OnInit()
 	return wxsOK;
 	
 }
+
+// Code unser im Repo,
+// bugfrei seien Deine Quellen.
+// Dein Commit komme.
+// Dein Bild geschehe,
+// wie im Repo, so auch lokal.
+// Unser taegliches Bild gib uns heute,
+// Und vergib uns unsere Fehler,
+// wie auch wir vergeben dem Compiler.
+// Und fuehre uns nicht in Versuchung,
+// sondern erloese uns vom Proprietary.

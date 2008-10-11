@@ -32,9 +32,9 @@ GNRFace::~GNRFace()
 	// do nothing
 }
 
-void GNRFace::addGNRPoint3d(const GNRPoint3d* point)
+void GNRFace::addGNRPoint3d(const GNRPoint3d* p_point)
 {
-	this->m_points.push_back(*point);
+	m_points.push_back(*p_point);
 }
 
 wxString GNRFace::ToString()

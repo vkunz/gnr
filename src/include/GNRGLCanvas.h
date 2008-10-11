@@ -30,6 +30,7 @@ private:
 	
 	int selection(int mouse_x, int mouse_y);
 	
+	void OnMouseWheel(wxMouseEvent& event);
 	void OnMMouseDown(wxMouseEvent& event);
 	void OnMMouseUp(wxMouseEvent& event);
 	void OnRMouseDown(wxMouseEvent& event);

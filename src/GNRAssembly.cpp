@@ -89,7 +89,7 @@ void GNRAssembly::setTheta(const float theta)
 
 void GNRAssembly::setAssemblyTitle(const std::string str)
 {
-	this->m_AssemblyTitle = str;
+	m_AssemblyTitle = str;
 }
 
 void GNRAssembly::draw() const
@@ -103,7 +103,7 @@ void GNRAssembly::draw() const
 	// draw myself
 	for (std::list<GNRFace>::const_iterator it = m_faces.begin(); it != m_faces.end(); ++it)
 	{
-		//it->draw();
+		it->draw();
 	}
 }
 
@@ -114,5 +114,5 @@ void GNRAssembly::addFace(const GNRFace newface)
 
 void GNRAssembly::addChildAssembly(GNRAssembly* assembly)
 {
-	this->m_parts.push_back(assembly);
+	m_parts.push_back(assembly);
 }

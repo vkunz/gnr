@@ -76,6 +76,7 @@ GNRGLCanvas::GNRGLCanvas(wxWindow* parent, wxGLContext* sharedContext, wxWindowI
 void GNRGLCanvas::connectEvents()
 {
 	// Connect-methods to connect different Events with functions
+	Connect(wxEVT_MOUSEWHEEL, (wxObjectEventFunction) &GNRGLCanvas::OnMouseWheel);
 	Connect(wxEVT_MIDDLE_DOWN, (wxObjectEventFunction)&GNRGLCanvas::OnMMouseDown);
 	Connect(wxEVT_MIDDLE_UP, (wxObjectEventFunction)&GNRGLCanvas::OnMMouseUp);
 	Connect(wxEVT_RIGHT_DOWN, (wxObjectEventFunction)&GNRGLCanvas::OnRMouseDown);
@@ -247,6 +248,14 @@ int GNRGLCanvas::selection(int mouse_x, int mouse_y)
 	}
 // TODO THORSTEN?!
 	return 0;
+}
+
+void GNRGLCanvas::OnMouseWheel(wxMouseEvent& event) {
+#if defined(__ATHOS_DEBUG__)
+		wxString msg;
+		msg << _("OnMouseWheel, rotation: ") << event.GetWheelRotation();
+		wxLogMessage(msg);
+#endif
 }
 
 /**

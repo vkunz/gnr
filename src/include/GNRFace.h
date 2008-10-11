@@ -27,7 +27,7 @@ public:
 	virtual ~GNRFace();
 	
 	// functions
-	void addGNRPoint3d(const GNRPoint3d* point);
+	void addGNRPoint3d(const GNRPoint3d* p_point);
 	
 	void draw() const;
 	
