@@ -223,64 +223,101 @@ void GNRObjectImport::createFace(wxString str)
 	
 	// temporary attribut
 	long tmp;
+	wxString strFace;
+	wxString strVertex;
+	wxString strNormal;
+	wxString strTexture;
 	
 	// no normal no texture Face
-	GNRVertex* vertex;
-	GNRVertex* normal = new GNRVertex(255.0f, 0.0f, 0.0f);
-	GNRVertex* texture = new GNRVertex(255.0f, 0.0f, 0.0f);
+	GNRVertex* ptrVertex;
+	GNRVertex* ptrNormal;
+	GNRVertex* ptrTexture;
 	
-	// tokenize the current Line to get the floats
+	// vertex normals and texture vertices are optional
+	GNRVertex* ptrNormalTemporary = new GNRVertex(255.0f, 0.0f, 0.0f);
+	GNRVertex* ptrTextureTemporary = new GNRVertex(255.0f, 0.0f, 0.0f);
+	
+	// tokenize the current Line to get all face triplets
 	wxStringTokenizer tok(str, wxT(" "));
 	
 	// ignore first token
 	tok.GetNextToken();
 	
-	// add all points
+	// analyze every triple
 	while (tok.HasMoreTokens())
 	{
-		// tokenize every facetriple
-		//wxStringTokenizer faceTok(tok.GetNextToken(), wxT("/"));
+		// temporary string
+		strFace = tok.GetNextToken();
 		
-#if defined(__ATHOS_DEBUG__)
-		/*    wxString msg;
+		// get int of vertex as string
+		strVertex = strFace.BeforeFirst('/');
 		
-		    wxLogMessage(wxT("Hier fängt ein Facetriple an."));
-		    while(faceTok.HasMoreTokens())
-		    {
-		        msg << wxT("Token:") << faceTok.GetNextToken() << wxT("\t");
-		        wxLogMessage(msg);
-		    }
-		    wxLogMessage(wxT("Hier endet ein Facetriple.\n\n"));
-		*/
-#endif
-		/*
-		switch (faceTok.CountTokens())
+		// get string after first slash if available -> found vertex
+		strFace = strFace.AfterFirst('/');
+		
+		// get int of texture as string
+		strTexture = strFace.BeforeFirst('/');
+		
+		// get string after second slash if available -> found texture
+		strFace = strFace.AfterFirst('/');
+		
+		// get int of normal as string
+		strNormal = strFace.BeforeFirst('/');
+		
+		// strVertex -> long
+		strVertex.ToLong(&tmp);
+		
+		// get address of vertex
+		ptrVertex = &m_VVertex[tmp - 1];
+		
+		// strNormal -> long
+		strNormal.ToLong(&tmp);
+		
+		// get address of normal
+		ptrNormal = &m_VNormal[tmp - 1];
+		
+		// strTexture -> long
+		strTexture.ToLong(&tmp);
+		
+		// get address of texture
+		ptrTexture = &m_VTexture[tmp - 1];
+		
+		// case only vertex
+		if (strNormal == wxT("") && strTexture == wxT(""))
 		{
-		    // case if only a vertex is given
-		    case 1:
-		        wxLogMessage(wxT("nur ein vertex"));
-		        break;
-		    // case if a vertex and a normal are given
-		    case 2:
-		        wxLogMessage(wxT("face und normal"));
-		        break;
-		    // case if a vertex, a normal and a texture are given
-		    case 3:
-		        wxLogMessage(wxT("face, normal und textur"));
-		        break;
-		}*/
-		
-		// get count of the first tripple
-		tok.GetNextToken().ToLong(&tmp);
-		
-		// get address of vertex, normal, texture
-		vertex = &m_VVertex[tmp - 1];
-		
-		// create new GNRPoint3d
-		GNRPoint3d point(vertex, texture, normal);
-		
-		// add a new Point
-		face.addGNRPoint3d(&point);
+			// create GNRPoint3d
+			GNRPoint3d point(ptrVertex, ptrTextureTemporary, ptrNormalTemporary);
+			
+			// add a new Point
+			face.addGNRPoint3d(&point);
+		}
+		// case vertex and texture
+		else if (strNormal == wxT(""))
+		{
+			// create GNRPoint3d
+			GNRPoint3d point(ptrVertex, ptrTexture, ptrNormalTemporary);
+			
+			// add a new Point
+			face.addGNRPoint3d(&point);
+		}
+		// case vertex and normal
+		else if (strTexture == wxT(""))
+		{
+			// create GNRPoint3d
+			GNRPoint3d point(ptrVertex, ptrTextureTemporary, ptrNormal);
+			
+			// add a new Point
+			face.addGNRPoint3d(&point);
+		}
+		// case vertex, texture and normal
+		else
+		{
+			// create GNRPoint3d
+			GNRPoint3d  point(ptrVertex, ptrTexture, ptrNormal);
+			
+			// add a new Point
+			face.addGNRPoint3d(&point);
+		}
 	}
 	
 	// add new Face to actual GNRAssembly
@@ -343,8 +380,6 @@ void GNRObjectImport::parse()
 		case 'f':
 			createFace(curLine);
 			break;
-			//case 's':
-			//break;
 			// found new object
 		case 'o':
 			createAssembly(curLine);
