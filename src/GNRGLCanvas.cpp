@@ -300,7 +300,7 @@ void GNRGLCanvas::OnMMouseUp(wxMouseEvent& event)
 void GNRGLCanvas::OnLMouseDown(wxMouseEvent& event)
 {
 	Connect(wxEVT_MOTION, (wxObjectEventFunction)&GNRGLCanvas::OnMouseMove);
-	selection(event.m_x, event.m_y);
+	//selection(event.m_x, event.m_y); BUGGY ON LINUX!!!
 	//GNRMouse::getControl(event);
 #if defined(__ATHOS_DEBUG__)
 	wxString msg;
@@ -333,7 +333,7 @@ void GNRGLCanvas::OnLMouseUp(wxMouseEvent& event)
 void GNRGLCanvas::OnRMouseDown(wxMouseEvent& event)
 {
 	Disconnect(wxEVT_MOTION, (wxObjectEventFunction)&GNRGLCanvas::OnMouseMove);
-	selection(event.m_x, event.m_y);
+	//selection(event.m_x, event.m_y); BUGGY ON LINUX!!!
 	//GNRMouse::getControl(event);
 #if defined(__ATHOS_DEBUG__)
 	wxString msg;
