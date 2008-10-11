@@ -64,21 +64,47 @@ GNRGL2DCanvas::GNRGL2DCanvas(const GNRAssembly* RootAssembly, wxWindow* parent, 
  */
 void GNRGL2DCanvas::initGL()
 {
-	// set current GL-Frame
+//	// set current GL-Frame
+//	SetCurrent();
+//
+//	glClearColor(0.5f, 0.5f, 0.5f, 1.0f);
+//	//glEnable(GL_TEXTURE_2D);   // textures
+//	glEnable(GL_COLOR_MATERIAL);
+//	glEnable(GL_BLEND);
+//	glDisable(GL_DEPTH_TEST);
+//	glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);
+//
+//	glMatrixMode(GL_PROJECTION);
+//	glLoadIdentity();
+//
+//	glMatrixMode(GL_MODELVIEW);
+//	glLoadIdentity();
 	SetCurrent();
 	
-	glClearColor(0.5f, 0.5f, 0.5f, 1.0f);
-	//glEnable(GL_TEXTURE_2D);   // textures
-	glEnable(GL_COLOR_MATERIAL);
+	glDepthFunc(GL_LEQUAL);
+	glShadeModel(GL_SMOOTH);
+	
+	GLfloat LightAmbient[]=		{ 0.5f, 0.5f, 0.5f, 1.0f };
+	GLfloat LightDiffuse[]=		{ 1.0f, 1.0f, 1.0f, 1.0f };
+	GLfloat LightPosition[]=	{ -1.0f, -6.0f, 0.0f, 1.0f };
+	
+	glEnable(GL_NORMALIZE);
+	glLightfv(GL_LIGHT0, GL_AMBIENT, LightAmbient);
+	glLightfv(GL_LIGHT0, GL_DIFFUSE, LightDiffuse);
+	glLightfv(GL_LIGHT0, GL_POSITION, LightPosition);
+	
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	
+	glEnable(GL_LIGHTING);
+	glEnable(GL_LIGHT0);
+	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_BLEND);
-	glDisable(GL_DEPTH_TEST);
-	glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA);
 	
-	glMatrixMode(GL_PROJECTION);
-	glLoadIdentity();
+	glClearColor(0.4, 0.4, 0.4, 1.0);
+	glClearDepth(1.0);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	SwapBuffers();
 	
-	glMatrixMode(GL_MODELVIEW);
-	glLoadIdentity();
 }
 
 /**
@@ -134,7 +160,7 @@ void GNRGL2DCanvas::setPerspective()
 
 void GNRGL2DCanvas::OnMouseWheel(wxMouseEvent& event)
 {
-	m_camera_height += (float)event.GetWheelRotation()/720.0;
+	m_camera_height += 720.0 / (float)event.GetWheelRotation();
 	setPerspective();
 #if defined(__ATHOS_DEBUG__)
 	wxString msg;

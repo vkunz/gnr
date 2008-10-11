@@ -53,6 +53,8 @@ wxString GNRFace::ToString()
 
 void GNRFace::draw() const
 {
+	float materialv[] = {0.7, 0.7, 0.1, 1.0};
+	glMaterialfv(GL_FRONT, GL_DIFFUSE, materialv);
 	glBegin(GL_POLYGON);
 	for (std::list<GNRPoint3d>::const_iterator it = m_points.begin(); it != m_points.end(); ++it)
 	{
