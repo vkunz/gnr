@@ -16,6 +16,7 @@
 #endif
 
 #include "GNRGLCanvas.h"
+#include "GNRGLMouseEvent.h"
 
 #if defined(__ATHOS_DEBUG__)
 #include <wx/log.h>
@@ -263,6 +264,9 @@ void GNRGLCanvas::OnLMouseDown(wxMouseEvent& event)
 	Connect(wxEVT_MOTION, (wxObjectEventFunction)&GNRGLCanvas::OnMouseMove);
 	//selection(event.m_x, event.m_y); BUGGY ON LINUX!!!
 	//GNRMouse::getControl(event);
+	GNRGLMouseEvent myevent(EVT_GL_MOUSE_EVENT, GetId());
+	myevent.SetEventObject(this);
+	GetEventHandler()->ProcessEvent(myevent);
 #if defined(__ATHOS_DEBUG__)
 	wxString msg;
 	msg << _("OnLMouseDown x=") << event.m_x << _(" y=") << event.m_y;

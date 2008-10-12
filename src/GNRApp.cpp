@@ -12,8 +12,7 @@
 #include <wx/image.h>
 
 #include "GNRApp.h"
-#include "GNRMain.h"
-#include "TestCanvas.h"
+#include "GNRController.h"
 
 #if defined(__ATHOS_DEBUG__)
 #include "GNRDebugFrame.h"
@@ -41,11 +40,7 @@ bool GNRApp::OnInit()
 		// Set actuals Log
 		m_Log->SetActiveTarget(m_Log);
 #endif
-		
-		//create new GNRFrame
-		GNRFrame* Frame = new GNRFrame(0);
-		
-		SetTopWindow(Frame);
+		GNRController* controller = new GNRController;
 	}
 	//
 	return wxsOK;
