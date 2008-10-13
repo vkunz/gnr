@@ -1,1 +1,0 @@
-Mit einem Knopfdruch kann die aktuelle Szene mit der aktuellen Kameraeinstellung gerendert werden. Das gerenderte Bild wird dann mit Texturen ausgegeben und nicht länger als Wireframe dargestellt.

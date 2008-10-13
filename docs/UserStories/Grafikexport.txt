@@ -1,1 +1,1 @@
-Durch eine zusätliche Exportfunktion ist es möglich die aktuelle Szene mit der aktuellen Kameraeinstellung in ein gängiges Bildformat exportiert zu werden.
+Durch eine zusätliche Exportfunktion ist es möglich Bilder zu erstellen. Die Bilder sind nach einem gängigem Bildformat aufgebaut. Es wird die aktuelle Kameraeinstellung und die aktuelle Postition aller Modelle exportiert.

@@ -1,1 +1,1 @@
-Das Tool bietet einem ein Lineal, bzw. die Möglichkeit Wände zu bauen, die eine bestimme Länge haben. cm-genau.
+Im aktuellen Raum können Wände gezeichnet werden. Wände können mit einer bestimmten Länge gezeichnet werden. Es können die Dimenstionen von den Objekten angezeigt werden.

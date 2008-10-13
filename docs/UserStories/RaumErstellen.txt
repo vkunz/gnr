@@ -1,1 +1,1 @@
-User kann einen Raum nach gegebenen Maßen selbst erstellen
+Es ist möglich einen leeren Raum zu erzeugen. Danach können Wände gezeichnet und Objekte importiert werden. Der aktuelle Raum kann gesichert werden.

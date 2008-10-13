@@ -1,1 +1,1 @@
-User kann ein vorhandenes Modell frei im Raum platzieren
+Es können einzelne Objekte oder Gruppen selektiert werden. Die Objekte können durch einen Mausklick an die Maus gebunden werden. Damit ist es möglich die Objekte durch Mausbewegungen im Raum zu plazieren.

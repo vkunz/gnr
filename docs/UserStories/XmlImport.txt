@@ -1,1 +1,1 @@
-Durch ein ausgeklügeltes ImportSystem ist es möglich abgespeicherte Szenen direkt wieder herzustellen (ohne Datenverlust?)
+Durch eine Importfunktion kann die xml-Datei wieder importiert werden. Dadurch sind alle Einstellungen wieder verfügbar. Die einzelnen Objekte und Gruppen können wieder manipuliert werden.

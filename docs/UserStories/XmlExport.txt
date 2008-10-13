@@ -1,1 +1,1 @@
-User kann eine erstellte Szene zur späteren Wiederverwendung verlustlos speichern
+Durch eine Interaktion mit dem Programm wird eine xml-Datei erstellt. Diese beinhaltet die aktuelle Szene mit allen Objekten und Einstellungen. Der Export verläuft ohne Datenverlust.

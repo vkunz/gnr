@@ -1,1 +1,1 @@
-Es ist möglich, aus einfachen geometirschen Formen komplexe Modelle zu modelieren.
+Es können einfache geometrische Figuren erstellt werden. Durch verschiedene Funktionen wie vereinigen oder zu subtrahieren. Damit lassen sich komplexere Funktionen modelliert werden.

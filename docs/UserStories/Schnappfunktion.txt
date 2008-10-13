@@ -1,1 +1,1 @@
-Mit einer Schnappfunktion soll es möglich sein, Kollissionen zwischen Modellen zu erkennen und diese ggf. auf das bereits bestehende Modell zu stellen. z. B. Monitor auf Tisch stellen.
+Durch eine Schnappfunktion kann erkannt werden, ob zwei Objekte miteinander kollidieren. Dadurch ist es möglich Objekte aneinander gestellt werden.

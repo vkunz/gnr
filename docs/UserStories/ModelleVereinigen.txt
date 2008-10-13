@@ -1,1 +1,1 @@
-Aus einfachen geometrischen Formen können komplexe Formen geschaffen werden. Um dies zu bewerkstelligen ist es möglich Modelle, die sich "berühren" zu vereinen und dadurch ein neues Modell zu bekommm. Diese Funktion ist nicht umkehrbar.
+Es können Objekte einzeln selektiert werden. Sobald mehrere Objekte selektiert sind, ist es möglich diese zu einem einzigen Objekt zu vereinen. Diese Funktion ist nicht umkehrbar.

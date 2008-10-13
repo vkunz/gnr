@@ -1,1 +1,1 @@
-User kann ein Modell im .obj Format laden um dieses später in der Szene zu verwenden
+Es ist möglich Objekte aus obj-Dateien zu importieren. Dadurch werden die Objekte in der aktuellen Szene angezeigt. Die Objekte können dann durch verschiedene Funktionen manipuliert werden.

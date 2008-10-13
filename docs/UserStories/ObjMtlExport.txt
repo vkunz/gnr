@@ -1,1 +1,1 @@
-User kann ein vorhandenes Modell im .obj Format exportieren
+Es ist möglich viele obj. Dateien zu importieren. Sobald diese Objekte angeordnet sind, kann die aktuelle Szene als ein einzelnes Objekt in eine .obj-Date exportiert werden. Durch diese Funktion werden die einzelnen Objekte verschmolzen.

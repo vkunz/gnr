@@ -1,2 +1,1 @@
-Es ist möglich einzelne Modelle zu gruppieren, damit diese als Gruppe bewegt und gedreht werden können, dadurch lassen sich bereits eingerastete Anordnungen leichter im Raum plaziert werden.
-Dies erleichtert ein Anpassen an den Raum. z. B. Tisch und Stühle.
+Einzelne Objekte können selektiert werden. Sobald mehr als ein Objekt selektiert wurde, können diese zu einer Gruppe gruppiert werden. Danach ist die Gruppe als Objekt anzusehen.
