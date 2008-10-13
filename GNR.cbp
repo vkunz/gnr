@@ -95,11 +95,13 @@
 		</Linker>
 		<Unit filename="src\GNRApp.cpp" />
 		<Unit filename="src\GNRAssembly.cpp" />
+		<Unit filename="src\GNRController.cpp" />
 		<Unit filename="src\GNRDebugFrame.cpp" />
 		<Unit filename="src\GNRFace.cpp" />
 		<Unit filename="src\GNRGL2DCanvas.cpp" />
 		<Unit filename="src\GNRGL3DCanvas.cpp" />
 		<Unit filename="src\GNRGLCanvas.cpp" />
+		<Unit filename="src\GNRGLMouseEvent.cpp" />
 		<Unit filename="src\GNRMain.cpp" />
 		<Unit filename="src\GNRMaterial.cpp" />
 		<Unit filename="src\GNRMaterialImport.cpp" />
@@ -112,14 +114,14 @@
 		<Unit filename="src\TestCanvas.cpp" />
 		<Unit filename="src\include\GNRApp.h" />
 		<Unit filename="src\include\GNRAssembly.h" />
-		<Unit filename="src\include\GNRDebugFrame.h">
-			<Option target="Debug" />
-		</Unit>
+		<Unit filename="src\include\GNRController.h" />
+		<Unit filename="src\include\GNRDebugFrame.h" />
 		<Unit filename="src\include\GNRExportFile.h" />
 		<Unit filename="src\include\GNRFace.h" />
 		<Unit filename="src\include\GNRGL2DCanvas.h" />
 		<Unit filename="src\include\GNRGL3DCanvas.h" />
 		<Unit filename="src\include\GNRGLCanvas.h" />
+		<Unit filename="src\include\GNRGLMouseEvent.h" />
 		<Unit filename="src\include\GNRImportFile.h" />
 		<Unit filename="src\include\GNRMain.h" />
 		<Unit filename="src\include\GNRMaterial.h" />
