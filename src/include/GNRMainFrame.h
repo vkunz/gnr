@@ -1,7 +1,7 @@
 /* vim: set expandtab sw=4 ts=4 sts=4: */
 /**
- * GNRMain
- * @name        GNRMain.h
+ * GNRMainFrame
+ * @name        GNRMainFrame.h
  * @date        2008-09-30
  * @author		Konstantin Balabin  <k.balabin@googlemail.com>
  * @author		Patrick Kracht      <patrick.kracht@googlemail.com>
@@ -9,8 +9,8 @@
  * @author		Valentin Kunz       <athostr@googlemail.com>
  */
 
-#ifndef GNRMAIN_H
-#define GNRMAIN_H
+#ifndef GNRMainFrame_H
+#define GNRMainFrame_H
 
 #include <wx/menu.h>
 #include <wx/frame.h>
@@ -90,4 +90,4 @@ private:
 	DECLARE_EVENT_TABLE()
 };
 
-#endif // GNRMAIN_H
+#endif // GNRMainFrame_H

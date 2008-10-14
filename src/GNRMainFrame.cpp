@@ -1,7 +1,7 @@
 /* vim: set expandtab sw=4 ts=4 sts=4: */
 /**
- * GNRMain
- * @name        GNRMain.cpp
+ * GNRMainFrame
+ * @name        GNRMainFrame.cpp
  * @date        2008-09-30
  * @author		Konstantin Balabin  <k.balabin@googlemail.com>
  * @author		Patrick Kracht      <patrick.kracht@googlemail.com>
@@ -15,7 +15,7 @@
 #include <wx/artprov.h>
 #include <wx/image.h>
 
-#include "GNRMain.h"
+#include "GNRMainFrame.h"
 
 //helper functions
 enum wxbuildinfoformat

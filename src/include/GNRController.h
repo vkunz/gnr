@@ -1,7 +1,7 @@
 #ifndef _GNRCONTROLLER_H_
 #define _GNRCONTROLLER_H_
 
-#include "GNRMain.h"
+#include "GNRMainFrame.h"
 #include "GNRMouse.h"
 #include "GNRGLMouseEvent.h"
 

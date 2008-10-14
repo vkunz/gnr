@@ -102,7 +102,7 @@
 		<Unit filename="src\GNRGL3DCanvas.cpp" />
 		<Unit filename="src\GNRGLCanvas.cpp" />
 		<Unit filename="src\GNRGLMouseEvent.cpp" />
-		<Unit filename="src\GNRMain.cpp" />
+		<Unit filename="src\GNRMainFrame.cpp" />
 		<Unit filename="src\GNRMaterial.cpp" />
 		<Unit filename="src\GNRMaterialImport.cpp" />
 		<Unit filename="src\GNRModelsPanel.cpp" />
@@ -123,7 +123,7 @@
 		<Unit filename="src\include\GNRGLCanvas.h" />
 		<Unit filename="src\include\GNRGLMouseEvent.h" />
 		<Unit filename="src\include\GNRImportFile.h" />
-		<Unit filename="src\include\GNRMain.h" />
+		<Unit filename="src\include\GNRMainFrame.h" />
 		<Unit filename="src\include\GNRMaterial.h" />
 		<Unit filename="src\include\GNRMaterialImport.h" />
 		<Unit filename="src\include\GNRModelsPanel.h" />
@@ -152,7 +152,7 @@
 			<wxsmith version="1">
 				<gui name="wxWidgets" src="src\GNRApp.cpp" main="GNRFrame" init_handlers="necessary" language="CPP" />
 				<resources>
-					<wxFrame wxs="wxsmith/GNRframe.wxs" src="src\GNRMain.cpp" hdr="src\include\GNRMain.h" name="GNRFrame" language="CPP" />
+					<wxFrame wxs="wxsmith/GNRframe.wxs" src="src\GNRMainFrame.cpp" hdr="src\include\GNRMainFrame.h" name="GNRFrame" language="CPP" />
 					<wxPanel wxs="wxsmith/GNRTreePanel.wxs" src="src\GNRTreePanel.cpp" hdr="src\include\GNRTreePanel.h" fwddecl="1" name="GNRTreePanel" language="CPP" />
 					<wxFrame wxs="wxsmith/GNRDebugFrame.wxs" src="src\GNRDebugFrame.cpp" hdr="src\include\GNRDebugFrame.h" fwddecl="1" name="GNRDebugFrame" language="CPP" />
 					<wxPanel wxs="wxsmith/GNRModelsPanel.wxs" src="src/GNRModelsPanel.cpp" hdr="src/include/GNRModelsPanel.h" name="GNRModelsPanel" language="CPP" />
