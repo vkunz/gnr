@@ -14,6 +14,7 @@
 #include <gl/glu.h>
 #endif
 
+#include "GNRController.h"
 #include "GNRGL2DCanvas.h"
 
 #if defined(__ATHOS_DEBUG__)
@@ -33,8 +34,8 @@
  * @param       wxString        Window-Name
  * @access      public
  */
-GNRGL2DCanvas::GNRGL2DCanvas(const GNRAssembly* RootAssembly, wxWindow* parent, wxWindowID id, const wxPoint& pos, const wxSize& size, long style, const wxString& name)
-		:GNRGLCanvas(RootAssembly, parent, id, pos, size, style, name)
+GNRGL2DCanvas::GNRGL2DCanvas(wxWindow* parent, wxWindowID id, const wxPoint& pos, const wxSize& size, long style, const wxString& name)
+		:GNRGLCanvas(parent, id, pos, size, style, name)
 {
 	m_camera_height = 10;
 	initGL();
@@ -51,8 +52,8 @@ GNRGL2DCanvas::GNRGL2DCanvas(const GNRAssembly* RootAssembly, wxWindow* parent, 
  * @param       wxString        Window-Name
  * @access      public
  */
-GNRGL2DCanvas::GNRGL2DCanvas(const GNRAssembly* RootAssembly, wxWindow* parent, wxGLContext* sharedContext, wxWindowID id, const wxPoint& pos, const wxSize& size,
-                             long style, const wxString& name) : GNRGLCanvas(RootAssembly, parent, sharedContext, id, pos, size, style, name)
+GNRGL2DCanvas::GNRGL2DCanvas(wxWindow* parent, wxGLContext* sharedContext, wxWindowID id, const wxPoint& pos, const wxSize& size,
+                             long style, const wxString& name) : GNRGLCanvas(parent, sharedContext, id, pos, size, style, name)
 {
 	m_camera_height = 10;
 	initGL();

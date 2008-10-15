@@ -26,15 +26,13 @@ private:
 	void OnMouseWheel(wxMouseEvent& event);
 	
 public:
-	GNRGL3DCanvas(const GNRAssembly* RootAssembly,
-	              wxWindow* parent,
+	GNRGL3DCanvas(wxWindow* parent,
 	              wxWindowID id = wxID_ANY,
 	              const wxPoint& pos = wxDefaultPosition,
 	              const wxSize& size = wxDefaultSize,
 	              long style = 0,
 	              const wxString& name = wxT("GNRGL3DCanvas"));
-	GNRGL3DCanvas(const GNRAssembly* RootAssembly,
-	              wxWindow* parent,
+	GNRGL3DCanvas(wxWindow* parent,
 	              wxGLContext* sharedContext,
 	              wxWindowID id = wxID_ANY,
 	              const wxPoint& pos = wxDefaultPosition,

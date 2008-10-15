@@ -16,7 +16,6 @@
 #endif
 
 #include "GNRGLCanvas.h"
-#include "GNRGLMouseEvent.h"
 
 #if defined(__ATHOS_DEBUG__)
 #include <wx/log.h>
@@ -37,15 +36,9 @@ int const ID_TIMER = wxNewId();
  * @param       wxString        Window-Name
  * @access      public
  */
-GNRGLCanvas::GNRGLCanvas(const GNRAssembly* RootAssembly, wxWindow* parent, wxWindowID id, const wxPoint& pos, const wxSize& size, long style, const wxString& name)
+GNRGLCanvas::GNRGLCanvas(wxWindow* parent, wxWindowID id, const wxPoint& pos, const wxSize& size, long style, const wxString& name)
 		: wxGLCanvas(parent, id, pos, size, style|wxFULL_REPAINT_ON_RESIZE, name)
 {
-
-	// Timer to refresh the GL-Window
-	m_RootAssembly = RootAssembly;
-	m_timer = new wxTimer(this, ID_TIMER);
-	m_timer->Start(40);
-	
 	connectEvents();
 }
 
@@ -60,15 +53,9 @@ GNRGLCanvas::GNRGLCanvas(const GNRAssembly* RootAssembly, wxWindow* parent, wxWi
  * @param       wxString        Window-Name
  * @access      public
  */
-GNRGLCanvas::GNRGLCanvas(const GNRAssembly* RootAssembly, wxWindow* parent, wxGLContext* sharedContext, wxWindowID id, const wxPoint& pos, const wxSize& size,
+GNRGLCanvas::GNRGLCanvas(wxWindow* parent, wxGLContext* sharedContext, wxWindowID id, const wxPoint& pos, const wxSize& size,
                          long style, const wxString& name) : wxGLCanvas(parent, sharedContext, id, pos, size, style, name)
 {
-
-	// Timer to refresh the GL-Window
-	m_RootAssembly = RootAssembly;
-	m_timer = new wxTimer(this, ID_TIMER);
-	m_timer->Start(40);
-	
 	connectEvents();
 }
 
@@ -89,21 +76,6 @@ void GNRGLCanvas::connectEvents()
 	Connect(wxEVT_LEAVE_WINDOW, (wxObjectEventFunction)&GNRGLCanvas::OnLeaveWindow);
 	Connect(wxEVT_ENTER_WINDOW, (wxObjectEventFunction)&GNRGLCanvas::OnEnterWindow);
 	Connect(wxEVT_SIZE, (wxObjectEventFunction)&GNRGLCanvas::OnResize);
-	Connect(ID_TIMER, wxEVT_TIMER, (wxObjectEventFunction)&GNRGLCanvas::OnTimer);
-}
-
-/**
- * Runs every time the Timer fires an event and does the drawing of the GL-Scene
- * @param       wxTimerEvent&       Timer-Event
- * @access      private
- */
-void GNRGLCanvas::OnTimer(wxTimerEvent& event)
-{
-	prepareDraw();
-	setCamera();
-	draw();
-	glFlush();
-	SwapBuffers();
 }
 
 /**
@@ -122,15 +94,6 @@ void GNRGLCanvas::prepareDraw()
 	
 	// Reset The Current Modelview Matrix
 	glLoadIdentity();
-}
-
-/**
- * Does the real drawing
- * @access      private
- */
-void GNRGLCanvas::draw()
-{
-	m_RootAssembly->draw();
 }
 
 /**
@@ -181,7 +144,7 @@ int GNRGLCanvas::selection(int mouse_x, int mouse_y)
 		
 		prepareDraw();
 		setCamera();
-		draw();
+		//draw();
 		
 		// Select The Projection Matrix
 		glMatrixMode(GL_PROJECTION);
@@ -264,9 +227,9 @@ void GNRGLCanvas::OnLMouseDown(wxMouseEvent& event)
 	Connect(wxEVT_MOTION, (wxObjectEventFunction)&GNRGLCanvas::OnMouseMove);
 	//selection(event.m_x, event.m_y); BUGGY ON LINUX!!!
 	//GNRMouse::getControl(event);
-	GNRGLMouseEvent myevent(EVT_GL_MOUSE_EVENT, GetId());
-	myevent.SetEventObject(this);
-	GetEventHandler()->ProcessEvent(myevent);
+	//GNRGLMouseEvent myevent(EVT_GL_MOUSE_EVENT, GetId());
+	//myevent.SetEventObject(this);
+	//GetEventHandler()->ProcessEvent(myevent);
 #if defined(__ATHOS_DEBUG__)
 	wxString msg;
 	msg << _("OnLMouseDown x=") << event.m_x << _(" y=") << event.m_y;

@@ -19,19 +19,17 @@
 #include <wx/glcanvas.h>
 #include <wx/toolbar.h>
 
-#include "TestCanvas.h"
 #include "GNRGL2DCanvas.h"
 #include "GNRGL3DCanvas.h"
 #include "GNRTreePanel.h"
 #include "GNRModelsPanel.h"
 #include "GNRAssembly.h"
 
-class GNRFrame: public wxFrame
+class GNRMainFrame: public wxFrame
 {
 public:
-
-	GNRFrame(wxWindow* parent,wxWindowID id = -1);
-	virtual ~GNRFrame();
+	GNRMainFrame(wxWindow* parent,wxWindowID id = -1);
+	virtual ~GNRMainFrame();
 	
 private:
 	GNRGL2DCanvas* m_UpperCanvas;
@@ -44,7 +42,7 @@ private:
 	wxGLContext* m_glContext;
 	GNRAssembly m_RootAssembly;
 	
-	//(*Handlers(GNRFrame)
+	//(*Handlers(GNRMainFrame)
 	void OnQuit(wxCommandEvent& event);
 	void OnAbout(wxCommandEvent& event);
 	
@@ -54,7 +52,7 @@ private:
 	void OnScrolledWindow1Paint(wxPaintEvent& event);
 	//*)
 	
-	//(*Identifiers(GNRFrame)
+	//(*Identifiers(GNRMainFrame)
 	static const long idMenuLoad;
 	static const long idMenuSave;
 	static const long idMenuQuit;
@@ -72,7 +70,7 @@ private:
 	static const long ID_TOOLBAR1;
 	//*)
 	
-	//(*Declarations(GNRFrame)
+	//(*Declarations(GNRMainFrame)
 	wxToolBarToolBase* ToolBarItem4;
 	wxToolBar* ToolBar1;
 	wxToolBarToolBase* ToolBarItem3;

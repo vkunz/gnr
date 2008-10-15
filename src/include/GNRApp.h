@@ -11,23 +11,15 @@
 #define GNRAPP_H
 
 #include <wx/app.h>
-
-#if defined(__ATHOS_DEBUG__)
-#include <wx/log.h>
-
-#include "GNRDebugFrame.h"
-#endif
+#include "GNRController.h"
 
 class GNRApp : public wxApp
 {
+private:
+	GNRController* controller;
+	
 public:
 	virtual bool OnInit();
-	
-#if defined(__ATHOS_DEBUG__)
-	GNRDebugFrame* m_DebugFrame;
-	wxLog* m_Log;
-#endif
-	
 };
 
 #endif // GNRAPP_H

@@ -13,21 +13,16 @@
 #define _GNRGLCANVAS_H_
 
 #include <wx/glcanvas.h>
-#include <wx/timer.h>
 
 #include "GNRAssembly.h"
 
 class GNRGLCanvas : public wxGLCanvas
 {
 private:
-
-	// Timer to refresh the GL-Window
-	wxTimer* m_timer;
-	
 	void connectEvents();
 	
 	// Drawing the GL-Scene
-	void draw();
+	//void draw();
 	void prepareDraw();
 	
 	int selection(int mouse_x, int mouse_y);
@@ -42,12 +37,10 @@ private:
 	void OnMouseMove(wxMouseEvent& event);
 	void OnLeaveWindow(wxMouseEvent& event);
 	void OnEnterWindow(wxMouseEvent& event);
-	void OnTimer(wxTimerEvent& event);
+	//void OnTimer(wxTimerEvent& event);
 	
 protected:
 	int m_window_x, m_window_y;
-	const GNRAssembly* m_RootAssembly;
-	
 	virtual void initGL() = 0;
 	virtual void reshape() = 0;
 	virtual void setCamera() = 0;
@@ -57,15 +50,13 @@ protected:
 	
 public:
 	// constructor
-	GNRGLCanvas(const GNRAssembly* RootAssembly,
-	            wxWindow* parent,
+	GNRGLCanvas(wxWindow* parent,
 	            wxWindowID id = wxID_ANY,
 	            const wxPoint& pos = wxDefaultPosition,
 	            const wxSize& size = wxDefaultSize,
 	            long style = 0,
 	            const wxString& name = wxT("GNRGLCanvas"));
-	GNRGLCanvas(const GNRAssembly* RootAssembly,
-	            wxWindow* parent,
+	GNRGLCanvas(wxWindow* parent,
 	            wxGLContext* sharedContext,
 	            wxWindowID id = wxID_ANY,
 	            const wxPoint& pos = wxDefaultPosition,

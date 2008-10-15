@@ -12,11 +12,6 @@
 #include <wx/image.h>
 
 #include "GNRApp.h"
-#include "GNRController.h"
-
-#if defined(__ATHOS_DEBUG__)
-#include "GNRDebugFrame.h"
-#endif
 
 IMPLEMENT_APP(GNRApp);
 
@@ -29,18 +24,7 @@ bool GNRApp::OnInit()
 	
 	if (wxsOK)
 	{
-#if defined(__ATHOS_DEBUG__)
-		// Create DebugFrame
-		m_DebugFrame = new GNRDebugFrame(0);
-		m_DebugFrame->Show(true);
-		
-		// Create a new Log
-		m_Log = new wxLogTextCtrl(m_DebugFrame->TextCtrl);
-		
-		// Set actuals Log
-		m_Log->SetActiveTarget(m_Log);
-#endif
-		GNRController* controller = new GNRController;
+		controller = new GNRController();
 	}
 	//
 	return wxsOK;

@@ -45,32 +45,32 @@ wxString wxbuildinfo(wxbuildinfoformat format)
 	return wxbuild;
 }
 
-//(*IdInit(GNRFrame)
-const long GNRFrame::idMenuLoad = wxNewId();
-const long GNRFrame::idMenuSave = wxNewId();
-const long GNRFrame::idMenuQuit = wxNewId();
-const long GNRFrame::idMenuHelp = wxNewId();
-const long GNRFrame::idMenuAbout = wxNewId();
-const long GNRFrame::ID_StatusBar = wxNewId();
-const long GNRFrame::btn_room_new = wxNewId();
-const long GNRFrame::btn_room_open = wxNewId();
-const long GNRFrame::btn_room_save = wxNewId();
-const long GNRFrame::btn_undo = wxNewId();
-const long GNRFrame::btn_redo = wxNewId();
-const long GNRFrame::btn_move_xy = wxNewId();
-const long GNRFrame::btn_move_xz = wxNewId();
-const long GNRFrame::btn_rotate_xy = wxNewId();
-const long GNRFrame::ID_TOOLBAR1 = wxNewId();
+//(*IdInit(GNRMainFrame)
+const long GNRMainFrame::idMenuLoad = wxNewId();
+const long GNRMainFrame::idMenuSave = wxNewId();
+const long GNRMainFrame::idMenuQuit = wxNewId();
+const long GNRMainFrame::idMenuHelp = wxNewId();
+const long GNRMainFrame::idMenuAbout = wxNewId();
+const long GNRMainFrame::ID_StatusBar = wxNewId();
+const long GNRMainFrame::btn_room_new = wxNewId();
+const long GNRMainFrame::btn_room_open = wxNewId();
+const long GNRMainFrame::btn_room_save = wxNewId();
+const long GNRMainFrame::btn_undo = wxNewId();
+const long GNRMainFrame::btn_redo = wxNewId();
+const long GNRMainFrame::btn_move_xy = wxNewId();
+const long GNRMainFrame::btn_move_xz = wxNewId();
+const long GNRMainFrame::btn_rotate_xy = wxNewId();
+const long GNRMainFrame::ID_TOOLBAR1 = wxNewId();
 //*)
 
-BEGIN_EVENT_TABLE(GNRFrame,wxFrame)
-	//(*EventTable(GNRFrame)
+BEGIN_EVENT_TABLE(GNRMainFrame,wxFrame)
+	//(*EventTable(GNRMainFrame)
 	//*)
 END_EVENT_TABLE()
 
-GNRFrame::GNRFrame(wxWindow* parent, wxWindowID id)
+GNRMainFrame::GNRMainFrame(wxWindow* parent, wxWindowID id)
 {
-	//(*Initialize(GNRFrame)
+	//(*Initialize(GNRMainFrame)
 	wxMenuItem* MenuItem2;
 	wxMenuItem* MenuItem1;
 	wxMenuItem* MenuItem4;
@@ -119,66 +119,28 @@ GNRFrame::GNRFrame(wxWindow* parent, wxWindowID id)
 	SetToolBar(ToolBar1);
 	Center();
 	
-	Connect(idMenuQuit,wxEVT_COMMAND_MENU_SELECTED,(wxObjectEventFunction)&GNRFrame::OnQuit);
-	Connect(idMenuAbout,wxEVT_COMMAND_MENU_SELECTED,(wxObjectEventFunction)&GNRFrame::OnAbout);
+	Connect(idMenuQuit,wxEVT_COMMAND_MENU_SELECTED,(wxObjectEventFunction)&GNRMainFrame::OnQuit);
+	Connect(idMenuAbout,wxEVT_COMMAND_MENU_SELECTED,(wxObjectEventFunction)&GNRMainFrame::OnAbout);
 	//*)
 	
-	//main splitter window
-	this->m_VerticalSplitter = new wxSplitterWindow(this, -1, wxPoint(0,0), wxDefaultSize, wxSP_3D|wxRAISED_BORDER);
-	this->m_VerticalSplitter->SetMinimumPaneSize(200);
-	
-	//create splitter for left panel with tree and models
-	this->m_HorizontalSplitter_left = new wxSplitterWindow(m_VerticalSplitter, -1, wxPoint(0,0), wxDefaultSize, wxSP_3D|wxRAISED_BORDER);
-	this->m_HorizontalSplitter_left->SetMinimumPaneSize(200);
-	
-	//create tree and models panel
-	this->m_TreePanel   = new GNRTreePanel(m_HorizontalSplitter_left, wxID_ANY);
-	this->m_ModelsPanel = new GNRModelsPanel(m_HorizontalSplitter_left, wxID_ANY);
-	
-	//initialize tree (top) and models (bottom)
-	this->m_HorizontalSplitter_left->Initialize(m_TreePanel);
-	this->m_HorizontalSplitter_left->Initialize(m_ModelsPanel);
-	this->m_HorizontalSplitter_left->SplitHorizontally(m_TreePanel, m_ModelsPanel);
-	
-	//create splitter for right panel with two canvas
-	this->m_HorizontalSplitter_right = new wxSplitterWindow(m_VerticalSplitter, -1, wxPoint(0,0), wxDefaultSize, wxSP_3D|wxRAISED_BORDER);
-	this->m_HorizontalSplitter_right->SetMinimumPaneSize(200);
-	
-	//split left and right splitters
-	this->m_VerticalSplitter->SplitVertically(m_HorizontalSplitter_left, m_HorizontalSplitter_right);
-	
-	//create two canvas panels
-	this->m_UpperCanvas  = new GNRGL2DCanvas(&m_RootAssembly, m_HorizontalSplitter_right, -1);
-	//show frame
-	this->Show(true);
-	wxGLContext* commonCtxt = m_UpperCanvas->GetContext();
-	this->m_BottomCanvas = new GNRGL3DCanvas(&m_RootAssembly, m_HorizontalSplitter_right, commonCtxt, -1);
-	//this->m_BottomCanvas = new TestCanvas(m_HorizontalSplitter_right, -1);
-	
-	//initialize top an bottom canvas
-	this->m_HorizontalSplitter_right->Initialize(m_UpperCanvas);
-	this->m_HorizontalSplitter_right->Initialize(m_BottomCanvas);
-	this->m_HorizontalSplitter_right->SplitHorizontally(m_UpperCanvas, m_BottomCanvas);
-	
 #if defined(__ATHOS_DEBUG__)
-	Connect(idMenuLoad, wxEVT_COMMAND_MENU_SELECTED, (wxObjectEventFunction)&GNRFrame::OnLoad);
-	
+	Connect(idMenuLoad, wxEVT_COMMAND_MENU_SELECTED, (wxObjectEventFunction)&GNRMainFrame::OnLoad);
 #endif
 	
 }
 
-GNRFrame::~GNRFrame()
+GNRMainFrame::~GNRMainFrame()
 {
-	//(*Destroy(GNRFrame)
+	//(*Destroy(GNRMainFrame)
 	//*)
 }
 
-void GNRFrame::OnQuit(wxCommandEvent& event)
+void GNRMainFrame::OnQuit(wxCommandEvent& event)
 {
 	Close();
 }
 
-void GNRFrame::OnAbout(wxCommandEvent& event)
+void GNRMainFrame::OnAbout(wxCommandEvent& event)
 {
 	wxString msg = wxbuildinfo(long_f);
 	wxMessageBox(msg, _("GNR"));
@@ -193,7 +155,7 @@ void GNRFrame::OnAbout(wxCommandEvent& event)
 #include "md5.h"
 #include "GNRObjectImport.h"
 
-void GNRFrame::OnLoad(wxCommandEvent& event)
+void GNRMainFrame::OnLoad(wxCommandEvent& event)
 {
 	//wxMessageBox(wxT("This is like a new main(), I know it isnt, but I need a place where to test new Code!!!"));
 	wxString filename = wxFileSelector(wxT("Select OBJ-File..."), wxT(""), wxT(""), wxT(""), wxT("OBJ-Files (*.obj)|*.obj"));
