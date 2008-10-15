@@ -20,6 +20,7 @@ private:
 	
 public:
 	virtual bool OnInit();
+	virtual int OnExit();
 };
 
 #endif // GNRAPP_H

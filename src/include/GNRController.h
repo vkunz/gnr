@@ -49,13 +49,10 @@ private:
 	GNRDebugFrame* m_DebugFrame;
 	wxLog* m_Log;
 #endif
+	
 public:
 	GNRController();
 	~GNRController();
-	
-	void OnImport(wxCommandEvent& event);
-	void OnExport(wxCommandEvent& event);
-	
 };
 
 #endif // _GNRCONTROLLER_H_

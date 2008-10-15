@@ -12,8 +12,16 @@
 #include "GNRController.h"
 #include "wx/wx.h"
 
+#if defined(__ATHOS_DEBUG__)
+#include <wx/log.h>
+#endif
+
 GNRController::GNRController()
 {
+	m_RootAssembly  = new GNRAssembly();
+	m_AssemblyProxy = new GNRAssemblyProxy();
+	m_MainFrame     = new GNRMainFrame(0);
+	
 #if defined(__ATHOS_DEBUG__)
 	// Create DebugFrame
 	m_DebugFrame = new GNRDebugFrame(0);
@@ -21,10 +29,6 @@ GNRController::GNRController()
 	m_Log = new wxLogTextCtrl(m_DebugFrame->TextCtrl);
 	m_Log->SetActiveTarget(m_Log);
 #endif
-	
-	m_RootAssembly  = new GNRAssembly();
-	m_AssemblyProxy = new GNRAssemblyProxy();
-	m_MainFrame     = new GNRMainFrame(0);
 	
 	//main splitter window
 	m_VerticalSplitter = new wxSplitterWindow(m_MainFrame, -1, wxPoint(0,0), wxDefaultSize, wxSP_3D|wxRAISED_BORDER);
@@ -66,19 +70,18 @@ GNRController::GNRController()
 
 GNRController::~GNRController()
 {
-}
-
-void GNRController::OnImport(wxCommandEvent& event)
-{
-	wxString filename = wxFileSelector(wxT("Select OBJ-File..."), wxT(""), wxT(""), wxT(""), wxT("OBJ-Files (*.obj)|*.obj"));
-	
-	if (!filename.IsEmpty())
-	{
-		GNRObjectImport ObjImport(filename);
-		m_RootAssembly->addChildAssembly(ObjImport.GetAssembly());
-	}
-}
-
-void GNRController::OnExport(wxCommandEvent& event)
-{
+	delete m_Canvas3D;
+	delete m_Canvas2D;
+	delete m_HorizontalSplitter_right;
+	delete m_TreePanelMyScene;
+	delete m_TreePanelLibrary;
+	delete m_HorizontalSplitter_left;
+	delete m_VerticalSplitter;
+#if defined(__ATHOS_DEBUG__)
+	delete m_Log;
+	delete m_DebugFrame;
+#endif
+	delete m_MainFrame;
+	delete m_AssemblyProxy;
+	delete m_RootAssembly;
 }

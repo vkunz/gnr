@@ -10,10 +10,13 @@
  */
 
 #include <wx/intl.h>
-#include <wx/string.h>
 #include <wx/artprov.h>
 #include <wx/image.h>
+#include <wx/log.h>
+#include <wx/filedlg.h>
+#include <string.h>
 
+#include "GNRObjectImport.h"
 #include "GNRMainFrame.h"
 #include "GNRController.h"
 
@@ -131,8 +134,8 @@ GNRMainFrame::GNRMainFrame(wxWindow* parent, wxWindowID id)
 	Connect(idMenuAbout,wxEVT_COMMAND_MENU_SELECTED,(wxObjectEventFunction)&GNRMainFrame::OnAbout);
 	//*)
 	
-	Connect(idMenuImport,wxEVT_COMMAND_MENU_SELECTED,(wxObjectEventFunction)&GNRController::OnImport);
-	Connect(idMenuExport,wxEVT_COMMAND_MENU_SELECTED,(wxObjectEventFunction)&GNRController::OnExport);
+	Connect(idMenuImport,wxEVT_COMMAND_MENU_SELECTED,(wxObjectEventFunction)&GNRMainFrame::OnImport);
+	Connect(idMenuExport,wxEVT_COMMAND_MENU_SELECTED,(wxObjectEventFunction)&GNRMainFrame::OnExport);
 }
 
 GNRMainFrame::~GNRMainFrame()
@@ -150,4 +153,19 @@ void GNRMainFrame::OnAbout(wxCommandEvent& event)
 {
 	wxString msg = wxbuildinfo(long_f);
 	wxMessageBox(msg, _("GNR"));
+}
+
+void GNRMainFrame::OnImport(wxCommandEvent& event)
+{
+	wxString filename = wxFileSelector(wxT("Select OBJ-File..."), wxT(""), wxT(""), wxT(""), wxT("OBJ-Files (*.obj)|*.obj"));
+	
+	if (!filename.IsEmpty())
+	{
+		// TODO: EVENT_FILE_IMPORT
+	}
+	
+}
+
+void GNRMainFrame::OnExport(wxCommandEvent& event)
+{
 }

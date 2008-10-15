@@ -31,6 +31,12 @@ bool GNRApp::OnInit()
 	return wxsOK;
 }
 
+int GNRApp::OnExit()
+{
+	delete controller;
+	return 0;
+}
+
 // Code unser im Repo,
 // bugfrei seien Deine Quellen.
 // Dein Commit komme.

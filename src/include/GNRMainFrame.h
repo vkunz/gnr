@@ -32,10 +32,9 @@ private:
 	//(*Handlers(GNRMainFrame)
 	void OnQuit(wxCommandEvent& event);
 	void OnAbout(wxCommandEvent& event);
-	
-#if defined(__ATHOS_DEBUG__)
+	void OnImport(wxCommandEvent& event);
+	void OnExport(wxCommandEvent& event);
 	void OnLoad(wxCommandEvent& event);
-#endif
 	void OnScrolledWindow1Paint(wxPaintEvent& event);
 	//*)
 	
