@@ -21,13 +21,17 @@ END_EVENT_TABLE()
 
 void GNRApp::OnClose(wxCloseEvent &event)
 {
+#if defined(__ATHOS_DEBUG__)
 	wxLogMessage(_("Close"));
-	delete controller;
+#endif
+	//delete controller;
 }
 
 void GNRApp::OnGLEvent(GNRGLNotifyEvent& event)
 {
+#if defined(__ATHOS_DEBUG__)
 	wxLogMessage(_("Event"));
+#endif
 }
 
 

@@ -14,7 +14,6 @@
 #include "GNRController.h"
 #include "GNRGLNotifyEvent.h"
 
-
 class GNRApp : public wxApp
 {
 private:
