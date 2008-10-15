@@ -21,9 +21,9 @@ GNRController::GNRController()
 	m_Log = new wxLogTextCtrl(m_DebugFrame->TextCtrl);
 	m_Log->SetActiveTarget(m_Log);
 #endif
+	
 	m_RootAssembly  = new GNRAssembly();
 	m_AssemblyProxy = new GNRAssemblyProxy();
-	//m_ObjectImport  = new GNRObjectImport(); on demand!
 	m_MainFrame     = new GNRMainFrame(0);
 	
 	//main splitter window
@@ -67,5 +67,21 @@ GNRController::GNRController()
 }
 
 GNRController::~GNRController()
+{
+}
+
+void GNRController::OnImport(wxCommandEvent& event)
+{
+	wxString filename = wxFileSelector(wxT("Select OBJ-File..."), wxT(""), wxT(""), wxT(""), wxT("OBJ-Files (*.obj)|*.obj"));
+	
+	if (!filename.IsEmpty())
+	{
+		GNRObjectImport ObjImport(filename);
+		m_RootAssembly->addChildAssembly(ObjImport.GetAssembly());
+	}
+	
+}
+
+void GNRController::OnExport(wxCommandEvent& event)
 {
 }

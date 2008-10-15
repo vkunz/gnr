@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<wxsmith>
-	<object class="wxPanel" name="GNRModelsPanel">
-		<size>640,480</size>
-		<id_arg>0</id_arg>
-	</object>
-</wxsmith>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <wxsmith>
-	<object class="wxFrame" name="GNRFrame">
+	<object class="wxFrame" name="GNRMainFrame">
 		<title>GNR - 3D Einrichtungsplaner</title>
 		<centered>1</centered>
 		<size>800,600</size>
@@ -15,13 +15,23 @@
 					<accel>Alt-O</accel>
 					<help>vorhandene Datei öffnen...</help>
 				</object>
+				<object class="wxMenuItem" name="idMenuImport" variable="MenuItem6" member="no">
+					<label>&amp;Importieren</label>
+					<accel>Alt-I</accel>
+					<help>Object-Datei importieren</help>
+				</object>
+				<object class="wxMenuItem" name="idMenuExport" variable="MenuItem7" member="no">
+					<label>&amp;Exportieren</label>
+					<accel>Alt-E</accel>
+					<help>Object-Datei exportieren</help>
+				</object>
 				<object class="wxMenuItem" name="idMenuSave" variable="MenuItem4" member="no">
 					<label>&amp;Speichern</label>
 					<accel>Alt-S</accel>
 					<help>Datei speichern...</help>
 				</object>
 				<object class="wxMenuItem" name="idMenuQuit" variable="MenuItem1" member="no">
-					<label>&amp;Schließen</label>
+					<label>Schließen</label>
 					<accel>Alt-F4</accel>
 					<help>GNR schließen...</help>
 					<handler function="OnQuit" entry="EVT_MENU" />

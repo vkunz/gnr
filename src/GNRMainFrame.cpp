@@ -9,13 +9,13 @@
  * @author		Valentin Kunz       <athostr@googlemail.com>
  */
 
-#include <wx/msgdlg.h>
 #include <wx/intl.h>
 #include <wx/string.h>
 #include <wx/artprov.h>
 #include <wx/image.h>
 
 #include "GNRMainFrame.h"
+#include "GNRController.h"
 
 //helper functions
 enum wxbuildinfoformat
@@ -47,6 +47,8 @@ wxString wxbuildinfo(wxbuildinfoformat format)
 
 //(*IdInit(GNRMainFrame)
 const long GNRMainFrame::idMenuLoad = wxNewId();
+const long GNRMainFrame::idMenuImport = wxNewId();
+const long GNRMainFrame::idMenuExport = wxNewId();
 const long GNRMainFrame::idMenuSave = wxNewId();
 const long GNRMainFrame::idMenuQuit = wxNewId();
 const long GNRMainFrame::idMenuHelp = wxNewId();
@@ -71,10 +73,12 @@ END_EVENT_TABLE()
 GNRMainFrame::GNRMainFrame(wxWindow* parent, wxWindowID id)
 {
 	//(*Initialize(GNRMainFrame)
+	wxMenuItem* MenuItem7;
 	wxMenuItem* MenuItem2;
 	wxMenuItem* MenuItem1;
 	wxMenuItem* MenuItem4;
 	wxMenu* Menu1;
+	wxMenuItem* MenuItem6;
 	wxMenuBar* MenuBar1;
 	wxMenu* Menu2;
 	
@@ -86,9 +90,13 @@ GNRMainFrame::GNRMainFrame(wxWindow* parent, wxWindowID id)
 	Menu1 = new wxMenu();
 	MenuItem3 = new wxMenuItem(Menu1, idMenuLoad, _("&Öffnen\tAlt-O"), _("vorhandene Datei öffnen..."), wxITEM_NORMAL);
 	Menu1->Append(MenuItem3);
+	MenuItem6 = new wxMenuItem(Menu1, idMenuImport, _("&Importieren\tAlt-I"), _("Object-Datei importieren"), wxITEM_NORMAL);
+	Menu1->Append(MenuItem6);
+	MenuItem7 = new wxMenuItem(Menu1, idMenuExport, _("&Exportieren\tAlt-E"), _("Object-Datei exportieren"), wxITEM_NORMAL);
+	Menu1->Append(MenuItem7);
 	MenuItem4 = new wxMenuItem(Menu1, idMenuSave, _("&Speichern\tAlt-S"), _("Datei speichern..."), wxITEM_NORMAL);
 	Menu1->Append(MenuItem4);
-	MenuItem1 = new wxMenuItem(Menu1, idMenuQuit, _("&Schließen\tAlt-F4"), _("GNR schließen..."), wxITEM_NORMAL);
+	MenuItem1 = new wxMenuItem(Menu1, idMenuQuit, _("Schließen\tAlt-F4"), _("GNR schließen..."), wxITEM_NORMAL);
 	Menu1->Append(MenuItem1);
 	MenuBar1->Append(Menu1, _("&Datei"));
 	Menu2 = new wxMenu();
@@ -112,9 +120,9 @@ GNRMainFrame::GNRMainFrame(wxWindow* parent, wxWindowID id)
 	ToolBarItem4 = ToolBar1->AddTool(btn_undo, _("Rückgängig"), wxArtProvider::GetBitmap(wxART_MAKE_ART_ID_FROM_STR(_T("wxART_UNDO")),wxART_TOOLBAR), wxNullBitmap, wxITEM_NORMAL, _("Rückgängig"), _("Rückgängig"));
 	ToolBarItem5 = ToolBar1->AddTool(btn_redo, _("Wiederherstellen"), wxArtProvider::GetBitmap(wxART_MAKE_ART_ID_FROM_STR(_T("wxART_REDO")),wxART_TOOLBAR), wxNullBitmap, wxITEM_NORMAL, _("Wiederherstellen"), _("Wiederherstellen"));
 	ToolBar1->AddSeparator();
-	ToolBarItem6 = ToolBar1->AddTool(btn_move_xy, _("Verschieben in X-Y-Richtung"), wxBitmap(wxImage(_T("src/resources/buttons/lc_arrowshapes.quad-arrow.png"))), wxNullBitmap, wxITEM_NORMAL, _("Verschieben in X-Y-Richtung"), _("Verschieben in X-Y-Richtung"));
-	ToolBarItem7 = ToolBar1->AddTool(btn_move_xz, _("Verschieben in X-Z-Richtung"), wxBitmap(wxImage(_T("src/resources/buttons/lc_arrowshapes.up-right-arrow.png"))), wxNullBitmap, wxITEM_NORMAL, _("Verschieben in X-Z-Richtung"), _("Verschieben in X-Z-Richtung"));
-	ToolBarItem8 = ToolBar1->AddTool(btn_rotate_xy, _("Rotieren auf X-Y-Achsen"), wxBitmap(wxImage(_T("src/resources/buttons/lc_arrowshapes.circular-arrow.png"))), wxNullBitmap, wxITEM_NORMAL, _("Rotieren auf X-Y-Achsen"), _("Rotieren auf X-Y-Achsen"));
+	ToolBarItem6 = ToolBar1->AddTool(btn_move_xy, _("Verschieben in X-Y-Richtung"), wxBitmap(wxImage(_T("Y:\\PROJECTS\\GNR\\src\\resources\\buttons\\lc_arrowshapes.quad-arrow.png"))), wxNullBitmap, wxITEM_NORMAL, _("Verschieben in X-Y-Richtung"), _("Verschieben in X-Y-Richtung"));
+	ToolBarItem7 = ToolBar1->AddTool(btn_move_xz, _("Verschieben in X-Z-Richtung"), wxBitmap(wxImage(_T("Y:\\PROJECTS\\GNR\\src\\resources\\buttons\\lc_arrowshapes.up-right-arrow.png"))), wxNullBitmap, wxITEM_NORMAL, _("Verschieben in X-Z-Richtung"), _("Verschieben in X-Z-Richtung"));
+	ToolBarItem8 = ToolBar1->AddTool(btn_rotate_xy, _("Rotieren auf X-Y-Achsen"), wxBitmap(wxImage(_T("Y:\\PROJECTS\\GNR\\src\\resources\\buttons\\lc_arrowshapes.circular-arrow.png"))), wxNullBitmap, wxITEM_NORMAL, _("Rotieren auf X-Y-Achsen"), _("Rotieren auf X-Y-Achsen"));
 	ToolBar1->Realize();
 	SetToolBar(ToolBar1);
 	Center();
@@ -123,10 +131,8 @@ GNRMainFrame::GNRMainFrame(wxWindow* parent, wxWindowID id)
 	Connect(idMenuAbout,wxEVT_COMMAND_MENU_SELECTED,(wxObjectEventFunction)&GNRMainFrame::OnAbout);
 	//*)
 	
-#if defined(__ATHOS_DEBUG__)
-	Connect(idMenuLoad, wxEVT_COMMAND_MENU_SELECTED, (wxObjectEventFunction)&GNRMainFrame::OnLoad);
-#endif
-	
+	Connect(idMenuImport,wxEVT_COMMAND_MENU_SELECTED,(wxObjectEventFunction)&GNRController::OnImport);
+	Connect(idMenuExport,wxEVT_COMMAND_MENU_SELECTED,(wxObjectEventFunction)&GNRController::OnExport);
 }
 
 GNRMainFrame::~GNRMainFrame()
@@ -145,26 +151,3 @@ void GNRMainFrame::OnAbout(wxCommandEvent& event)
 	wxString msg = wxbuildinfo(long_f);
 	wxMessageBox(msg, _("GNR"));
 }
-
-#if defined(__ATHOS_DEBUG__)
-
-#include <wx/log.h>
-#include <wx/filedlg.h>
-#include <string.h>
-
-#include "md5.h"
-#include "GNRObjectImport.h"
-
-void GNRMainFrame::OnLoad(wxCommandEvent& event)
-{
-	//wxMessageBox(wxT("This is like a new main(), I know it isnt, but I need a place where to test new Code!!!"));
-	wxString filename = wxFileSelector(wxT("Select OBJ-File..."), wxT(""), wxT(""), wxT(""), wxT("OBJ-Files (*.obj)|*.obj"));
-	
-	if (!filename.IsEmpty())
-	{
-		//GNRObjectImport object_importer(filename);
-		//m_RootAssembly.addChildAssembly(object_importer.GetAssembly());
-	}
-}
-
-#endif

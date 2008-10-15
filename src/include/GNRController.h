@@ -14,6 +14,7 @@
 
 #include <wx/splitter.h>
 #include <wx/glcanvas.h>
+#include <wx/msgdlg.h>
 
 #include "GNRAssembly.h"
 #include "GNRAssemblyProxy.h"
@@ -51,6 +52,9 @@ private:
 public:
 	GNRController();
 	~GNRController();
+	
+	void OnImport(wxCommandEvent& event);
+	void OnExport(wxCommandEvent& event);
 	
 };
 
