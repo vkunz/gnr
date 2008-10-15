@@ -23,7 +23,7 @@ GNRController::GNRController()
 #endif
 	m_RootAssembly  = new GNRAssembly();
 	m_AssemblyProxy = new GNRAssemblyProxy();
-	m_ObjectImport  = new GNRObjectImport();
+	//m_ObjectImport  = new GNRObjectImport(); on demand!
 	m_MainFrame     = new GNRMainFrame(0);
 	
 	//main splitter window

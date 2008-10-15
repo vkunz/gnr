@@ -105,7 +105,6 @@
 		<Unit filename="src\GNRMainFrame.cpp" />
 		<Unit filename="src\GNRMaterial.cpp" />
 		<Unit filename="src\GNRMaterialImport.cpp" />
-		<Unit filename="src\GNRModelsPanel.cpp" />
 		<Unit filename="src\GNRObjectImport.cpp" />
 		<Unit filename="src\GNRPoint3d.cpp" />
 		<Unit filename="src\GNRTreePanel.cpp" />
@@ -124,7 +123,6 @@
 		<Unit filename="src\include\GNRMainFrame.h" />
 		<Unit filename="src\include\GNRMaterial.h" />
 		<Unit filename="src\include\GNRMaterialImport.h" />
-		<Unit filename="src\include\GNRModelsPanel.h" />
 		<Unit filename="src\include\GNRObjectImport.h" />
 		<Unit filename="src\include\GNRPoint3d.h" />
 		<Unit filename="src\include\GNRTreePanel.h" />
@@ -137,7 +135,6 @@
 		<Unit filename="wxsmith\GNRDebugFrame.wxs">
 			<Option target="Debug" />
 		</Unit>
-		<Unit filename="wxsmith\GNRModelsPanel.wxs" />
 		<Unit filename="wxsmith\GNRTreePanel.wxs" />
 		<Unit filename="wxsmith\GNRframe.wxs" />
 		<Extensions>
@@ -151,7 +148,6 @@
 					<wxFrame wxs="wxsmith/GNRframe.wxs" src="src\GNRMainFrame.cpp" hdr="src\include\GNRMainFrame.h" name="GNRFrame" language="CPP" />
 					<wxPanel wxs="wxsmith/GNRTreePanel.wxs" src="src\GNRTreePanel.cpp" hdr="src\include\GNRTreePanel.h" fwddecl="1" name="GNRTreePanel" language="CPP" />
 					<wxFrame wxs="wxsmith/GNRDebugFrame.wxs" src="src\GNRDebugFrame.cpp" hdr="src\include\GNRDebugFrame.h" fwddecl="1" name="GNRDebugFrame" language="CPP" />
-					<wxPanel wxs="wxsmith/GNRModelsPanel.wxs" src="src/GNRModelsPanel.cpp" hdr="src/include/GNRModelsPanel.h" name="GNRModelsPanel" language="CPP" />
 				</resources>
 			</wxsmith>
 		</Extensions>

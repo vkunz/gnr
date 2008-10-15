@@ -15,14 +15,11 @@
 #include <wx/menu.h>
 #include <wx/frame.h>
 #include <wx/statusbr.h>
-#include <wx/splitter.h>
-#include <wx/glcanvas.h>
 #include <wx/toolbar.h>
 
 #include "GNRGL2DCanvas.h"
 #include "GNRGL3DCanvas.h"
 #include "GNRTreePanel.h"
-#include "GNRModelsPanel.h"
 #include "GNRAssembly.h"
 
 class GNRMainFrame: public wxFrame
@@ -32,16 +29,6 @@ public:
 	virtual ~GNRMainFrame();
 	
 private:
-	GNRGL2DCanvas* m_UpperCanvas;
-	GNRGL3DCanvas* m_BottomCanvas;
-	GNRTreePanel* m_TreePanel;
-	GNRModelsPanel* m_ModelsPanel;
-	wxSplitterWindow* m_HorizontalSplitter_left;
-	wxSplitterWindow* m_HorizontalSplitter_right;
-	wxSplitterWindow* m_VerticalSplitter;
-	wxGLContext* m_glContext;
-	GNRAssembly m_RootAssembly;
-	
 	//(*Handlers(GNRMainFrame)
 	void OnQuit(wxCommandEvent& event);
 	void OnAbout(wxCommandEvent& event);

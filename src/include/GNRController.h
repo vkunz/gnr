@@ -12,6 +12,9 @@
 #ifndef _GNRCONTROLLER_H_
 #define _GNRCONTROLLER_H_
 
+#include <wx/splitter.h>
+#include <wx/glcanvas.h>
+
 #include "GNRAssembly.h"
 #include "GNRAssemblyProxy.h"
 #include "GNRMainFrame.h"
@@ -33,7 +36,6 @@ private:
 	GNRMainFrame* m_MainFrame;
 	GNRGL2DCanvas* m_Canvas2D;
 	GNRGL3DCanvas* m_Canvas3D;
-	GNRObjectImport* m_ObjectImport;
 	GNRTreePanel* m_TreePanelLibrary;
 	GNRTreePanel* m_TreePanelMyScene;
 	wxGLContext* commonCtxt;
@@ -41,7 +43,6 @@ private:
 	wxSplitterWindow* m_HorizontalSplitter_left;
 	wxSplitterWindow* m_HorizontalSplitter_right;
 	wxSplitterWindow* m_VerticalSplitter;
-	wxGLContext* m_glContext;
 	
 #if defined(__ATHOS_DEBUG__)
 	GNRDebugFrame* m_DebugFrame;

@@ -24,11 +24,11 @@ bool GNRApp::OnInit()
 	
 	if (wxsOK)
 	{
+		//create maincontroller
 		controller = new GNRController();
 	}
-	//
-	return wxsOK;
 	
+	return wxsOK;
 }
 
 // Code unser im Repo,

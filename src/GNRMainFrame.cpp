@@ -162,8 +162,8 @@ void GNRMainFrame::OnLoad(wxCommandEvent& event)
 	
 	if (!filename.IsEmpty())
 	{
-		GNRObjectImport object_importer(filename);
-		m_RootAssembly.addChildAssembly(object_importer.GetAssembly());
+		//GNRObjectImport object_importer(filename);
+		//m_RootAssembly.addChildAssembly(object_importer.GetAssembly());
 	}
 }
 
