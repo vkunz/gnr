@@ -66,6 +66,11 @@ GNRController::GNRController()
 	m_HorizontalSplitter_right->Initialize(m_Canvas2D); //upper
 	m_HorizontalSplitter_right->Initialize(m_Canvas3D); //lower
 	m_HorizontalSplitter_right->SplitHorizontally(m_Canvas2D, m_Canvas3D);
+	
+	//TODO IN EXTRA METHOD
+	//GNRObjectImport object_importer(_("Y:\\PROJECTS\\TEST\\Objects\\star-wars\\tie-fighter\\tie.obj"));
+	//m_RootAssembly->addChildAssembly(object_importer.GetAssembly());
+	//m_RootAssembly->setZ(-10.0f);
 }
 
 GNRController::~GNRController()
@@ -84,4 +89,17 @@ GNRController::~GNRController()
 	delete m_MainFrame;
 	delete m_AssemblyProxy;
 	delete m_RootAssembly;
+}
+
+void GNRController::glRefresh()
+{
+	//prepare and draw 2D top view of room
+	m_Canvas2D->prepareDraw();
+	m_RootAssembly->draw();
+	m_Canvas2D->glFlush();
+	
+	//prepare and draw 3D view of room
+	m_Canvas3D->prepareDraw();
+	m_RootAssembly->draw();
+	m_Canvas3D->glFlush();
 }

@@ -25,7 +25,6 @@
 GNRGL3DCanvas::GNRGL3DCanvas(wxWindow* parent, wxWindowID id, const wxPoint& pos, const wxSize& size, long style, const wxString& name)
 		:GNRGLCanvas(parent, id, pos, size, style, name)
 {
-	initGL();
 }
 
 /**
@@ -42,51 +41,6 @@ GNRGL3DCanvas::GNRGL3DCanvas(wxWindow* parent, wxWindowID id, const wxPoint& pos
 GNRGL3DCanvas::GNRGL3DCanvas(wxWindow* parent, wxGLContext* sharedContext, wxWindowID id, const wxPoint& pos, const wxSize& size,
                              long style, const wxString& name) : GNRGLCanvas(parent, sharedContext, id, pos, size, style, name)
 {
-	initGL();
-}
-
-/**
- * does the initialization for the 3D canvas
- * @access      private
- */
-void GNRGL3DCanvas::initGL()
-{
-	// set current GL-Frame
-	SetCurrent();
-	
-	glClearColor(0.5, 0.5, 0.5, 0.0);
-	
-	// enable lightning
-	glEnable(GL_LIGHTING);
-	glEnable(GL_LIGHT0);
-	
-	// Create light components
-	GLfloat ambientLight[] = { 0.2f, 0.2f, 0.2f, 1.0f };
-	GLfloat diffuseLight[] = { 0.8f, 0.8f, 0.8, 1.0f };
-	GLfloat specularLight[] = { 0.5f, 0.5f, 0.5f, 1.0f };
-	GLfloat position[] = { -1.5f, 1.0f, -4.0f, 1.0f };
-	
-	// Assign created components to GL_LIGHT0
-	glLightfv(GL_LIGHT0, GL_AMBIENT, ambientLight);
-	glLightfv(GL_LIGHT0, GL_DIFFUSE, diffuseLight);
-	glLightfv(GL_LIGHT0, GL_SPECULAR, specularLight);
-	glLightfv(GL_LIGHT0, GL_POSITION, position);
-	
-	glShadeModel(GL_SMOOTH);
-	
-	glClearDepth(1.0f);
-	glEnable(GL_DEPTH_TEST);
-	glDepthFunc(GL_LEQUAL);
-	
-	glEnable(GL_COLOR_MATERIAL);
-	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-	glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);
-	
-	glMatrixMode(GL_PROJECTION);
-	glLoadIdentity();
-	
-	glMatrixMode(GL_MODELVIEW);
-	glLoadIdentity();
 }
 
 /**

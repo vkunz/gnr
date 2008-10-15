@@ -17,7 +17,6 @@
 class GNRGL3DCanvas : public GNRGLCanvas
 {
 private:
-	void initGL();
 	void reshape();
 	void setCamera();
 	void setPerspective();

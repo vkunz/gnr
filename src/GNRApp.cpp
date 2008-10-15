@@ -1,6 +1,6 @@
 /* vim: set expandtab sw=4 ts=4 sts=4: */
 /**
- * code for application class
+ * main application is creating the main controller starting the program
  * @name        GNRApp.cpp
  * @date        2008-09-30
  * @author		Konstantin Balabin  <k.balabin@googlemail.com>
@@ -22,16 +22,17 @@ END_EVENT_TABLE()
 void GNRApp::OnClose(wxCloseEvent &event)
 {
 #if defined(__ATHOS_DEBUG__)
-	wxLogMessage(_("Close"));
+	wxLogMessage(_("GNRApp::OnClose"));
 #endif
-	//delete controller;
+	OnExit();
 }
 
 void GNRApp::OnGLEvent(GNRGLNotifyEvent& event)
 {
 #if defined(__ATHOS_DEBUG__)
-	wxLogMessage(_("Event"));
+	wxLogMessage(_("GNRApp::OnGLEvent"));
 #endif
+	controller->glRefresh(); //may be highlight (assemblypointer) ??? TODO
 }
 
 
@@ -39,15 +40,14 @@ IMPLEMENT_APP(GNRApp);
 
 bool GNRApp::OnInit()
 {
-	// AppInitialize
 	bool wxsOK = true;
 	
 	wxInitAllImageHandlers();
 	
 	if (wxsOK)
 	{
-		//create maincontroller
 		controller = new GNRController();
+		controller->glRefresh();
 	}
 	
 	return wxsOK;
@@ -55,7 +55,7 @@ bool GNRApp::OnInit()
 
 int GNRApp::OnExit()
 {
-	//delete controller;
+	delete controller;
 	return 0;
 }
 

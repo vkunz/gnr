@@ -51,6 +51,9 @@ private:
 #endif
 	
 public:
+	//starts refreshing the both canvas frames
+	void GNRController::glRefresh();
+	
 	GNRController();
 	~GNRController();
 };

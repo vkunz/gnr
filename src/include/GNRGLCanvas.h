@@ -20,13 +20,7 @@ class GNRGLCanvas : public wxGLCanvas
 {
 private:
 	void connectEvents();
-	
-	// Drawing the GL-Scene
-	//void draw();
-	void prepareDraw();
-	
 	int selection(int mouse_x, int mouse_y);
-	
 	void OnMMouseDown(wxMouseEvent& event);
 	void OnMMouseUp(wxMouseEvent& event);
 	void OnRMouseDown(wxMouseEvent& event);
@@ -41,7 +35,7 @@ private:
 	
 protected:
 	int m_window_x, m_window_y;
-	virtual void initGL() = 0;
+	void initGL();
 	virtual void reshape() = 0;
 	virtual void setCamera() = 0;
 	virtual void setPerspective() = 0;
@@ -66,6 +60,10 @@ public:
 	            
 	virtual ~GNRGLCanvas();
 	
+	// Drawing the GL-Scene
+	void prepareDraw();
+	void draw();
+	void glFlush();
 };
 
 #endif // _GNRGLCANVAS_H_
