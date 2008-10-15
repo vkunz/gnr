@@ -62,8 +62,6 @@ GNRController::GNRController()
 	m_HorizontalSplitter_right->Initialize(m_Canvas2D); //upper
 	m_HorizontalSplitter_right->Initialize(m_Canvas3D); //lower
 	m_HorizontalSplitter_right->SplitHorizontally(m_Canvas2D, m_Canvas3D);
-	
-	
 }
 
 GNRController::~GNRController()
@@ -79,7 +77,6 @@ void GNRController::OnImport(wxCommandEvent& event)
 		GNRObjectImport ObjImport(filename);
 		m_RootAssembly->addChildAssembly(ObjImport.GetAssembly());
 	}
-	
 }
 
 void GNRController::OnExport(wxCommandEvent& event)
