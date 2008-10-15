@@ -102,6 +102,7 @@
 		<Unit filename="src\GNRGL2DCanvas.cpp" />
 		<Unit filename="src\GNRGL3DCanvas.cpp" />
 		<Unit filename="src\GNRGLCanvas.cpp" />
+		<Unit filename="src\GNRGLNotifyEvent.cpp" />
 		<Unit filename="src\GNRMainFrame.cpp" />
 		<Unit filename="src\GNRMaterial.cpp" />
 		<Unit filename="src\GNRMaterialImport.cpp" />
@@ -119,6 +120,7 @@
 		<Unit filename="src\include\GNRGL2DCanvas.h" />
 		<Unit filename="src\include\GNRGL3DCanvas.h" />
 		<Unit filename="src\include\GNRGLCanvas.h" />
+		<Unit filename="src\include\GNRGLNotifyEvent.h" />
 		<Unit filename="src\include\GNRImportFile.h" />
 		<Unit filename="src\include\GNRMainFrame.h" />
 		<Unit filename="src\include\GNRMaterial.h" />
@@ -135,8 +137,8 @@
 		<Unit filename="wxsmith\GNRDebugFrame.wxs">
 			<Option target="Debug" />
 		</Unit>
-		<Unit filename="wxsmith\GNRTreePanel.wxs" />
 		<Unit filename="wxsmith\GNRMainFrame.wxs" />
+		<Unit filename="wxsmith\GNRTreePanel.wxs" />
 		<Extensions>
 			<code_completion />
 			<envvars />

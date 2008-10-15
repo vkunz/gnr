@@ -13,6 +13,24 @@
 
 #include "GNRApp.h"
 
+BEGIN_EVENT_TABLE(GNRApp, wxApp)
+	//EVT_FONT_SELECTION_CHANGED( 2457, GNRApp::OnDrawEvent )
+	EVT_GL_NOTIFY(0, GNRApp::OnGLEvent)
+	EVT_CLOSE(GNRApp::OnClose)
+END_EVENT_TABLE()
+
+void GNRApp::OnClose(wxCloseEvent &event)
+{
+	wxLogMessage(_("Close"));
+	delete controller;
+}
+
+void GNRApp::OnGLEvent(GNRGLNotifyEvent& event)
+{
+	wxLogMessage(_("Event"));
+}
+
+
 IMPLEMENT_APP(GNRApp);
 
 bool GNRApp::OnInit()
@@ -33,7 +51,7 @@ bool GNRApp::OnInit()
 
 int GNRApp::OnExit()
 {
-	delete controller;
+	//delete controller;
 	return 0;
 }
 

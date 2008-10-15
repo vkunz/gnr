@@ -12,12 +12,19 @@
 
 #include <wx/app.h>
 #include "GNRController.h"
+#include "GNRGLNotifyEvent.h"
+
 
 class GNRApp : public wxApp
 {
 private:
 	GNRController* controller;
 	
+	void OnGLEvent(GNRGLNotifyEvent& event);
+	void OnClose(wxCloseEvent &event);
+	
+	
+	DECLARE_EVENT_TABLE();
 public:
 	virtual bool OnInit();
 	virtual int OnExit();

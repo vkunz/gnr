@@ -51,51 +51,42 @@ GNRGL3DCanvas::GNRGL3DCanvas(wxWindow* parent, wxGLContext* sharedContext, wxWin
  */
 void GNRGL3DCanvas::initGL()
 {
-//	// set current GL-Frame
-//	SetCurrent();
-//
-//	glClearColor(0.5, 0.5, 0.5, 0.0);
-//
-//	// alizing 3D models
-//	glShadeModel(GL_SMOOTH);
-//
-//	glClearDepth(1.0f);
-//	glEnable(GL_DEPTH_TEST);
-//	glDepthFunc(GL_LEQUAL);
-//
-//	glEnable(GL_COLOR_MATERIAL);
-//	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-//	glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);
-//
-//	glMatrixMode(GL_PROJECTION);
-//	glLoadIdentity();
-//
-//	glMatrixMode(GL_MODELVIEW);
-//	glLoadIdentity();
-
+	// set current GL-Frame
 	SetCurrent();
 	
-	glDepthFunc(GL_LEQUAL);
-	glShadeModel(GL_SMOOTH);
+	glClearColor(0.5, 0.5, 0.5, 0.0);
 	
-	GLfloat gray[] = { 0.35f, 0.35f, 0.35f, 1.0f };
-	GLfloat light_pos[] = { 0.0f, 3.0f, 0.2f, 1.0f };
-	glEnable(GL_NORMALIZE);
-	glLightfv(GL_LIGHT0, GL_AMBIENT, gray);
-	glLightfv(GL_LIGHT0, GL_DIFFUSE, gray);
-	glLightfv(GL_LIGHT0, GL_POSITION, light_pos);
-	
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-	
+	// enable lightning
 	glEnable(GL_LIGHTING);
 	glEnable(GL_LIGHT0);
-	glEnable(GL_DEPTH_TEST);
-	glEnable(GL_BLEND);
 	
-	glClearColor(0.4, 0.4, 0.4, 1.0);
-	glClearDepth(1.0);
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	SwapBuffers();
+	// Create light components
+	GLfloat ambientLight[] = { 0.2f, 0.2f, 0.2f, 1.0f };
+	GLfloat diffuseLight[] = { 0.8f, 0.8f, 0.8, 1.0f };
+	GLfloat specularLight[] = { 0.5f, 0.5f, 0.5f, 1.0f };
+	GLfloat position[] = { -1.5f, 1.0f, -4.0f, 1.0f };
+	
+	// Assign created components to GL_LIGHT0
+	glLightfv(GL_LIGHT0, GL_AMBIENT, ambientLight);
+	glLightfv(GL_LIGHT0, GL_DIFFUSE, diffuseLight);
+	glLightfv(GL_LIGHT0, GL_SPECULAR, specularLight);
+	glLightfv(GL_LIGHT0, GL_POSITION, position);
+	
+	glShadeModel(GL_SMOOTH);
+	
+	glClearDepth(1.0f);
+	glEnable(GL_DEPTH_TEST);
+	glDepthFunc(GL_LEQUAL);
+	
+	glEnable(GL_COLOR_MATERIAL);
+	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+	glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);
+	
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+	
+	glMatrixMode(GL_MODELVIEW);
+	glLoadIdentity();
 }
 
 /**
