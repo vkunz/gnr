@@ -50,9 +50,9 @@ wxString wxbuildinfo(wxbuildinfoformat format)
 
 //(*IdInit(GNRMainFrame)
 const long GNRMainFrame::idMenuLoad = wxNewId();
+const long GNRMainFrame::idMenuSave = wxNewId();
 const long GNRMainFrame::idMenuImport = wxNewId();
 const long GNRMainFrame::idMenuExport = wxNewId();
-const long GNRMainFrame::idMenuSave = wxNewId();
 const long GNRMainFrame::idMenuQuit = wxNewId();
 const long GNRMainFrame::idMenuHelp = wxNewId();
 const long GNRMainFrame::idMenuAbout = wxNewId();
@@ -90,15 +90,15 @@ GNRMainFrame::GNRMainFrame(wxWindow* parent, wxWindowID id)
 	SetFocus();
 	MenuBar1 = new wxMenuBar();
 	Menu1 = new wxMenu();
-	MenuItem3 = new wxMenuItem(Menu1, idMenuLoad, _("&Öffnen\tAlt-O"), _("vorhandene Datei öffnen..."), wxITEM_NORMAL);
+	MenuItem3 = new wxMenuItem(Menu1, idMenuLoad, _("XML &Öffnen\tAlt-O"), _("vorhandene Datei öffnen..."), wxITEM_NORMAL);
 	Menu1->Append(MenuItem3);
-	MenuItem6 = new wxMenuItem(Menu1, idMenuImport, _("&Importieren\tAlt-I"), _("Object-Datei importieren"), wxITEM_NORMAL);
-	Menu1->Append(MenuItem6);
-	MenuItem7 = new wxMenuItem(Menu1, idMenuExport, _("&Exportieren\tAlt-E"), _("Object-Datei exportieren"), wxITEM_NORMAL);
-	Menu1->Append(MenuItem7);
-	MenuItem4 = new wxMenuItem(Menu1, idMenuSave, _("&Speichern\tAlt-S"), _("Datei speichern..."), wxITEM_NORMAL);
+	MenuItem4 = new wxMenuItem(Menu1, idMenuSave, _("XML &Speichern\tAlt-S"), _("Datei speichern..."), wxITEM_NORMAL);
 	Menu1->Append(MenuItem4);
-	MenuItem1 = new wxMenuItem(Menu1, idMenuQuit, _("Schließen\tAlt-F4"), _("GNR schließen..."), wxITEM_NORMAL);
+	MenuItem6 = new wxMenuItem(Menu1, idMenuImport, _("OBJ &Importieren\tAlt-I"), _("Object-Datei importieren"), wxITEM_NORMAL);
+	Menu1->Append(MenuItem6);
+	MenuItem7 = new wxMenuItem(Menu1, idMenuExport, _("OBJ &Exportieren\tAlt-E"), _("Object-Datei exportieren"), wxITEM_NORMAL);
+	Menu1->Append(MenuItem7);
+	MenuItem1 = new wxMenuItem(Menu1, idMenuQuit, _("GNR Schließen\tAlt-F4"), _("GNR schließen..."), wxITEM_NORMAL);
 	Menu1->Append(MenuItem1);
 	MenuBar1->Append(Menu1, _("&Datei"));
 	Menu2 = new wxMenu();

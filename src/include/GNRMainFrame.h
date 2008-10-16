@@ -42,9 +42,9 @@ private:
 	
 	//(*Identifiers(GNRMainFrame)
 	static const long idMenuLoad;
+	static const long idMenuSave;
 	static const long idMenuImport;
 	static const long idMenuExport;
-	static const long idMenuSave;
 	static const long idMenuQuit;
 	static const long idMenuHelp;
 	static const long idMenuAbout;

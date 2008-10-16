@@ -11,27 +11,27 @@
 			<object class="wxMenu" variable="Menu1" member="no">
 				<label>&amp;Datei</label>
 				<object class="wxMenuItem" name="idMenuLoad" variable="MenuItem3" member="yes">
-					<label>&amp;Öffnen</label>
+					<label>XML &amp;Öffnen</label>
 					<accel>Alt-O</accel>
 					<help>vorhandene Datei öffnen...</help>
 				</object>
+				<object class="wxMenuItem" name="idMenuSave" variable="MenuItem4" member="no">
+					<label>XML &amp;Speichern</label>
+					<accel>Alt-S</accel>
+					<help>Datei speichern...</help>
+				</object>
 				<object class="wxMenuItem" name="idMenuImport" variable="MenuItem6" member="no">
-					<label>&amp;Importieren</label>
+					<label>OBJ &amp;Importieren</label>
 					<accel>Alt-I</accel>
 					<help>Object-Datei importieren</help>
 				</object>
 				<object class="wxMenuItem" name="idMenuExport" variable="MenuItem7" member="no">
-					<label>&amp;Exportieren</label>
+					<label>OBJ &amp;Exportieren</label>
 					<accel>Alt-E</accel>
 					<help>Object-Datei exportieren</help>
 				</object>
-				<object class="wxMenuItem" name="idMenuSave" variable="MenuItem4" member="no">
-					<label>&amp;Speichern</label>
-					<accel>Alt-S</accel>
-					<help>Datei speichern...</help>
-				</object>
 				<object class="wxMenuItem" name="idMenuQuit" variable="MenuItem1" member="no">
-					<label>Schließen</label>
+					<label>GNR Schließen</label>
 					<accel>Alt-F4</accel>
 					<help>GNR schließen...</help>
 					<handler function="OnQuit" entry="EVT_MENU" />

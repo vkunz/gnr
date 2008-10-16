@@ -54,15 +54,15 @@ GNRController::~GNRController()
 void GNRController::initFrames()
 {
 	//main splitter window
-	m_VerticalSplitter = new wxSplitterWindow(m_MainFrame, -1, wxPoint(0,0), wxDefaultSize, wxSP_3D|wxRAISED_BORDER);
+	m_VerticalSplitter = new wxSplitterWindow(m_MainFrame, -1, wxPoint(0,0), wxDefaultSize, wxSP_3D|wxSP_NO_XP_THEME);
 	m_VerticalSplitter->SetMinimumPaneSize(200);
 	
 	//create splitter for left panel with tree and models
-	m_HorizontalSplitter_left = new wxSplitterWindow(m_VerticalSplitter, -1, wxPoint(0,0), wxDefaultSize, wxSP_3D|wxRAISED_BORDER);
+	m_HorizontalSplitter_left = new wxSplitterWindow(m_VerticalSplitter, -1, wxPoint(0,0), wxDefaultSize, wxSP_3D|wxSP_NO_XP_THEME);
 	m_HorizontalSplitter_left->SetMinimumPaneSize(200);
 	
 	//create splitter for right panel with two canvas
-	m_HorizontalSplitter_right = new wxSplitterWindow(m_VerticalSplitter, -1, wxPoint(0,0), wxDefaultSize, wxSP_3D|wxRAISED_BORDER);
+	m_HorizontalSplitter_right = new wxSplitterWindow(m_VerticalSplitter, -1, wxPoint(0,0), wxDefaultSize, wxSP_3D|wxSP_NO_XP_THEME);
 	m_HorizontalSplitter_right->SetMinimumPaneSize(200);
 	
 	//show mainframe
@@ -98,6 +98,8 @@ void GNRController::initFrames()
 	GNRObjectImport object_importer(_("Y:\\PROJECTS\\TEST\\Objects\\star-wars\\tie-fighter\\tie.obj"));
 	m_RootAssembly->addChildAssembly(object_importer.GetAssembly());
 	m_RootAssembly->setZ(-10.0f);
+	
+	glRefresh();
 }
 
 void GNRController::updateSplitters()
