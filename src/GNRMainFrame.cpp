@@ -69,7 +69,7 @@ const long GNRMainFrame::ID_TOOLBAR1 = wxNewId();
 //*)
 
 BEGIN_EVENT_TABLE(GNRMainFrame,wxFrame)
-	EVT_CLOSE(GNRMainFrame::OnClose)
+	
 END_EVENT_TABLE()
 
 GNRMainFrame::GNRMainFrame(wxWindow* parent, wxWindowID id)
@@ -167,13 +167,4 @@ void GNRMainFrame::OnImport(wxCommandEvent& event)
 
 void GNRMainFrame::OnExport(wxCommandEvent& event)
 {
-}
-
-void GNRMainFrame::OnClose(wxCloseEvent &event)
-{
-#if defined(__ATHOS_DEBUG__)
-	wxLogMessage(_("Close"));
-#endif
-	//delete controller;
-	event.Skip();
 }

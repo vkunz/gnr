@@ -67,21 +67,3 @@ void GNRGL3DCanvas::OnMouseWheel(wxMouseEvent& event)
 	wxLogMessage(msg);
 #endif
 }
-
-/**
- * fetches ResizeEvent; reshape does specific Canvas adjustment;
- * event for redrawing
- * @param       wxSizeEvent    Size-Event of current canvas
- * @access      private
- */
-void GNRGL3DCanvas::OnResize(wxSizeEvent& event)
-{
-	//get canvas-size
-	reshape();
-	
-	// Event for Redrawing the Canvases
-	GNRNotifyEvent myevent(wxEVT_COMMAND_GNR_NOTIFY);
-	myevent.setGNREventType(GLRefresh);
-	myevent.SetEventObject(this);
-	GetEventHandler()->ProcessEvent(myevent);
-}

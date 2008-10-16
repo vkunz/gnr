@@ -23,7 +23,6 @@ private:
 	void setPerspective();
 	
 	void OnMouseWheel(wxMouseEvent& event);
-	void OnResize(wxSizeEvent& event);
 	
 public:
 	GNRGL2DCanvas(wxWindow* parent,

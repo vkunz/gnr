@@ -30,6 +30,8 @@ private:
 	void OnMouseMove(wxMouseEvent& event);
 	void OnLeaveWindow(wxMouseEvent& event);
 	void OnEnterWindow(wxMouseEvent& event);
+	void OnResize(wxSizeEvent& event);
+	void OnPaint(wxPaintEvent& event);
 	
 protected:
 	int m_window_x, m_window_y;
@@ -42,7 +44,6 @@ protected:
 	virtual void setCamera() = 0;
 	virtual void setPerspective() = 0;
 	virtual void OnMouseWheel(wxMouseEvent& event) = 0;
-	virtual void OnResize(wxSizeEvent& event) = 0;
 	
 public:
 	// constructor

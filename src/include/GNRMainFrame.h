@@ -37,7 +37,6 @@ private:
 	void OnExport(wxCommandEvent& event);
 	void OnLoad(wxCommandEvent& event);
 	void OnScrolledWindow1Paint(wxPaintEvent& event);
-	void OnClose(wxCloseEvent &event);
 	//*)
 	
 	//(*Identifiers(GNRMainFrame)

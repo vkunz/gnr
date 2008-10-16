@@ -78,6 +78,7 @@ void GNRGLCanvas::connectEvents()
 	Connect(wxEVT_LEAVE_WINDOW, (wxObjectEventFunction)&GNRGLCanvas::OnLeaveWindow);
 	Connect(wxEVT_ENTER_WINDOW, (wxObjectEventFunction)&GNRGLCanvas::OnEnterWindow);
 	Connect(wxEVT_SIZE, (wxObjectEventFunction)&GNRGLCanvas::OnResize);
+	Connect(wxEVT_PAINT,(wxObjectEventFunction)&GNRGLCanvas::OnPaint);
 }
 
 /**
@@ -161,10 +162,6 @@ void GNRGLCanvas::prepareDraw()
 	
 	// Clear the Window
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	
-	//bugfix: checking later
-	GetClientSize(&m_window_x, &m_window_y);
-	glViewport(0, 0, (GLint) m_window_x, (GLint) m_window_y);
 	
 	glMatrixMode(GL_MODELVIEW);
 	
@@ -429,6 +426,20 @@ void GNRGLCanvas::OnLMouseDblClick(wxMouseEvent& event)
 }
 
 /**
+ * fetches ResizeEvent; event for redrawing
+ * @param       wxSizeEvent    Size-Event of current canvas
+ * @access      private
+ */
+void GNRGLCanvas::OnResize(wxSizeEvent& event)
+{
+	//get canvas-size
+	GetClientSize(&m_window_x, &m_window_y);
+	
+	// Adjust Viewport, ...
+	reshape();
+}
+
+/**
  * Reshape current frame on resize; adjust Viewport
  * @access      private
  */
@@ -438,7 +449,6 @@ void GNRGLCanvas::reshape()
 	SetCurrent();
 	
 	// set viewport with resolution
-	GetClientSize(&m_window_x, &m_window_y);
 	glViewport(0, 0, (GLint) m_window_x, (GLint) m_window_y);
 	
 	// Load and Reset Modelview
@@ -449,6 +459,20 @@ void GNRGLCanvas::reshape()
 	// Load and Reset Modelview
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
+}
+
+/**
+ * Canvas needs to be redrawn; Send Event to Redraw Canvases
+ * @access      private
+ */
+void GNRGLCanvas::OnPaint(wxPaintEvent& event)
+{
+	// Event for Redrawing the Canvases
+	GNRNotifyEvent myevent(wxEVT_COMMAND_GNR_NOTIFY);
+	myevent.setGNREventType(GLRefresh);
+	myevent.SetEventObject(this);
+	GetEventHandler()->ProcessEvent(myevent);
+	event.Skip();
 }
 
 /**
