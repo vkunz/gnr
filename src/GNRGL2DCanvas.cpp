@@ -66,13 +66,24 @@ void GNRGL2DCanvas::setCamera()
 	gluLookAt(0,m_camera_height,0,0,1,0,0,0,1);
 }
 
-/** * sets the perspective for the 2D scene
+/**
+ * sets the perspective for the 2D scene
  * @access private
  */
 void GNRGL2DCanvas::setPerspective()
 {
 	gluPerspective(45.0f, (float)m_window_x / (float)m_window_y, ZNEAR, ZFAR);
 	//glOrtho(m_window_x*(-1.0f/m_camera_height), m_window_x*(1.0f/m_camera_height), m_window_y*(1.0f/m_camera_height), m_window_y*(-1.0f/m_camera_height), ZNEAR, ZFAR);
+}
+
+/**
+ * Returns the Canvas-ID
+ * @return  int     Canvas-ID
+ * @access private
+ */
+int GNRGL2DCanvas::getCanvasID()
+{
+	return 2;
 }
 
 void GNRGL2DCanvas::OnMouseWheel(wxMouseEvent& event)

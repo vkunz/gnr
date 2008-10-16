@@ -59,6 +59,16 @@ void GNRGL3DCanvas::setPerspective()
 	gluPerspective(45.0f, (float)m_window_x / (float)m_window_y, ZNEAR, ZFAR);
 }
 
+/**
+ * Returns the Canvas-ID
+ * @return  int     Canvas-ID
+ * @access private
+ */
+int GNRGL3DCanvas::getCanvasID()
+{
+	return 3;
+}
+
 void GNRGL3DCanvas::OnMouseWheel(wxMouseEvent& event)
 {
 #if defined(__ATHOS_DEBUG__)

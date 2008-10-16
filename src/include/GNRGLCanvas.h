@@ -44,6 +44,7 @@ protected:
 	virtual void setCamera() = 0;
 	virtual void setPerspective() = 0;
 	virtual void OnMouseWheel(wxMouseEvent& event) = 0;
+	virtual int getCanvasID() = 0;
 	
 public:
 	// constructor

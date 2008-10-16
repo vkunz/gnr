@@ -28,7 +28,7 @@ void GNRApp::OnGLEvent(GNRGLNotifyEvent& event)
 #if defined(__ATHOS_DEBUG__)
 	wxLogMessage(_("GNRApp::OnGLEvent"));
 #endif
-	//TODO
+	controller->processGLMouse(event);
 }
 
 IMPLEMENT_APP(GNRApp);

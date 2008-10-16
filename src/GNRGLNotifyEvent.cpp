@@ -13,3 +13,33 @@ wxEvent* GNRGLNotifyEvent::Clone() const
 {
 	return new GNRGLNotifyEvent(*this);
 }
+
+void GNRGLNotifyEvent::setCanvasID(int id)
+{
+	canvasID = id;
+}
+
+int GNRGLNotifyEvent::getCanvasID()
+{
+	return canvasID;
+}
+
+void GNRGLNotifyEvent::setSelectedObj(int obj)
+{
+	selectedObj = obj;
+}
+
+int GNRGLNotifyEvent::getSelectedObj()
+{
+	return selectedObj;
+}
+
+wxMouseEvent GNRGLNotifyEvent::getMouseEvent()
+{
+	return event;
+}
+
+void GNRGLNotifyEvent::setMouseEvent(wxMouseEvent event)
+{
+	this->event = event;
+}

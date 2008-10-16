@@ -296,16 +296,15 @@ void GNRGLCanvas::OnMMouseUp(wxMouseEvent& event)
  */
 void GNRGLCanvas::OnLMouseDown(wxMouseEvent& event)
 {
-	Connect(wxEVT_MOTION, (wxObjectEventFunction)&GNRGLCanvas::OnMouseMove);
-	//selection(event.m_x, event.m_y); BUGGY ON LINUX!!!
+	// send Event to handle Mouse
 	GNRGLNotifyEvent myevent(wxEVT_COMMAND_GL_NOTIFY);
+	myevent.setMouseEvent(event);
+	myevent.setCanvasID(getCanvasID());
+	myevent.setSelectedObj(selection(event.m_x, event.m_y));
 	myevent.SetEventObject(this);
 	GetEventHandler()->ProcessEvent(myevent);
-#if defined(__ATHOS_DEBUG__)
-	wxString msg;
-	msg << _("OnLMouseDown x=") << event.m_x << _(" y=") << event.m_y;
-	wxLogMessage(msg);
-#endif
+	
+	Connect(wxEVT_MOTION, (wxObjectEventFunction)&GNRGLCanvas::OnMouseMove);
 }
 
 /**
@@ -364,12 +363,13 @@ void GNRGLCanvas::OnRMouseUp(wxMouseEvent& event)
  */
 void GNRGLCanvas::OnMouseMove(wxMouseEvent& event)
 {
-	//GNRMouse::ObjectTransform(event);
-#if defined(__ATHOS_DEBUG__)
-	wxString msg;
-	msg << _("OnMouseMove x=") << event.m_x << _(" y=") << event.m_y;
-	wxLogMessage(msg);
-#endif
+	// send Event to handle Mouse
+	GNRGLNotifyEvent myevent(wxEVT_COMMAND_GL_NOTIFY);
+	myevent.setMouseEvent(event);
+	myevent.setCanvasID(getCanvasID());
+	myevent.setSelectedObj(selection(event.m_x, event.m_y));
+	myevent.SetEventObject(this);
+	GetEventHandler()->ProcessEvent(myevent);
 }
 
 /**

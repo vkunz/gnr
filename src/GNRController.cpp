@@ -125,3 +125,28 @@ void GNRController::glRefresh()
 	m_RootAssembly->draw();
 	m_Canvas3D->endDraw();
 }
+
+void GNRController::processGLMouse(GNRGLNotifyEvent& event)
+{
+	//Abarbeitung des Events
+#if defined(__ATHOS_DEBUG__)
+	wxString str;
+	str << _("Canvas:") << event.getCanvasID();
+	wxLogMessage(str);
+	str.clear();
+	if (event.getMouseEvent().ButtonDown())
+	{
+		wxLogMessage(_("ButtonPressed"));
+		wxString str;
+		str << _("Button: ") << event.getMouseEvent().GetButton() << _(" SelectedObj:") << event.getSelectedObj();
+		wxLogMessage(str);
+	}
+	else
+	{
+		wxLogMessage(_("MouseMove"));
+		wxString str;
+		str << _("x:") << event.getMouseEvent().m_x;
+		wxLogMessage(str);
+	}
+#endif
+}

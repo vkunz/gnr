@@ -23,6 +23,7 @@
 #include "GNRGL3DCanvas.h"
 #include "GNRObjectImport.h"
 #include "GNRTreePanel.h"
+#include "GNRGLNotifyEvent.h"
 
 #if defined(__ATHOS_DEBUG__)
 #include <wx/log.h>
@@ -57,6 +58,7 @@ public:
 	//starts refreshing the both canvas frames
 	void glRefresh();
 	void initFrames();
+	void processGLMouse(GNRGLNotifyEvent& event);
 	
 	GNRController();
 	~GNRController();

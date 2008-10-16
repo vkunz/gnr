@@ -19,6 +19,7 @@ class GNRGL3DCanvas : public GNRGLCanvas
 private:
 	void setCamera();
 	void setPerspective();
+	int getCanvasID();
 	
 	void OnMouseWheel(wxMouseEvent& event);
 	

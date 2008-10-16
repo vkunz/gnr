@@ -13,6 +13,12 @@ public:
 	GNRGLNotifyEvent(wxEventType commandType = wxEVT_NULL, int id = 0);
 	GNRGLNotifyEvent(const GNRGLNotifyEvent& event);
 	virtual wxEvent* Clone() const;
+	void setCanvasID(int id);
+	void setSelectedObj(int obj);
+	void setMouseEvent(wxMouseEvent event);
+	int getCanvasID();
+	int getSelectedObj();
+	wxMouseEvent getMouseEvent();
 	DECLARE_DYNAMIC_CLASS(GNRGLNotifyEvent);
 };
 
