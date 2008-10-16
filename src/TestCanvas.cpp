@@ -12,7 +12,7 @@
 #include <wx/dcclient.h>
 #include <wx/msgdlg.h>
 #include <wx/string.h>
-#include <gl/glu.h>
+#include <GL/glu.h>
 
 #include "TestCanvas.h"
 
