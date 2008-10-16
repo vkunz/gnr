@@ -35,7 +35,7 @@ private:
 	GNRAssembly* m_RootAssembly;
 	GNRAssemblyProxy* m_AssemblyProxy;
 	GNRMainFrame* m_MainFrame;
-	GNRGL3DCanvas* m_Canvas2D;
+	GNRGL2DCanvas* m_Canvas2D;
 	GNRGL3DCanvas* m_Canvas3D;
 	GNRTreePanel* m_TreePanelLibrary;
 	GNRTreePanel* m_TreePanelMyScene;

@@ -15,14 +15,11 @@
 #include <wx/glcanvas.h>
 
 #include "GNRAssembly.h"
+#include "GNRNotifyEvent.h"
 
 class GNRGLCanvas : public wxGLCanvas
 {
 private:
-	void initGL();
-	void reshape();
-	void connectEvents();
-	int selection(int mouse_x, int mouse_y);
 	void OnMMouseDown(wxMouseEvent& event);
 	void OnMMouseUp(wxMouseEvent& event);
 	void OnRMouseDown(wxMouseEvent& event);
@@ -33,14 +30,19 @@ private:
 	void OnMouseMove(wxMouseEvent& event);
 	void OnLeaveWindow(wxMouseEvent& event);
 	void OnEnterWindow(wxMouseEvent& event);
-	void OnResize(wxSizeEvent& event);
 	
 protected:
 	int m_window_x, m_window_y;
 	
+	void initGL();
+	void connectEvents();
+	void reshape();
+	int selection(int mouse_x, int mouse_y);
+	
 	virtual void setCamera() = 0;
 	virtual void setPerspective() = 0;
 	virtual void OnMouseWheel(wxMouseEvent& event) = 0;
+	virtual void OnResize(wxSizeEvent& event) = 0;
 	
 public:
 	// constructor

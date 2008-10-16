@@ -52,7 +52,7 @@ GNRController::GNRController()
 	m_HorizontalSplitter_right->SetMinimumPaneSize(200);
 	
 	//create two canvas panels
-	m_Canvas2D = new GNRGL3DCanvas(m_HorizontalSplitter_right, -1);
+	m_Canvas2D = new GNRGL2DCanvas(m_HorizontalSplitter_right, -1);
 	//show mainframe
 	m_MainFrame->Show(true);
 	//shared context

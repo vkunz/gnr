@@ -27,12 +27,15 @@ void GNRApp::OnGNREvent(GNRNotifyEvent& event)
 	if (event.getGNREventType() == GLRefresh2D)
 	{
 #if defined(__ATHOS_DEBUG__)
-		wxLogMessage(_("GNRApp::OnGNREvent-GLRefresh"));
+		wxLogMessage(_("GNRApp::OnGNREvent-GLRefresh2D"));
 #endif
 		controller->glRefresh2D();
 	}
 	else if (event.getGNREventType() == GLRefresh3D)
 	{
+#if defined(__ATHOS_DEBUG__)
+		wxLogMessage(_("GNRApp::OnGNREvent-GLRefresh3D"));
+#endif
 		controller->glRefresh3D();
 	}
 }

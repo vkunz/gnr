@@ -162,6 +162,10 @@ void GNRGLCanvas::prepareDraw()
 	// Clear the Window
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	
+	//bugfix: checking later
+	GetClientSize(&m_window_x, &m_window_y);
+	glViewport(0, 0, (GLint) m_window_x, (GLint) m_window_y);
+	
 	glMatrixMode(GL_MODELVIEW);
 	
 	// Reset The Current Modelview Matrix
@@ -425,26 +429,6 @@ void GNRGLCanvas::OnLMouseDblClick(wxMouseEvent& event)
 }
 
 /**
- * fetches ResizeEvent; reshape does specific Canvas adjustment;
- * event for redrawing
- * @param       wxSizeEvent    Size-Event of current canvas
- * @access      private
- */
-void GNRGLCanvas::OnResize(wxSizeEvent& event)
-{
-	//get canvas-size
-	GetClientSize(&m_window_x, &m_window_y);
-	
-	reshape();
-	
-	// Event for Redrawing the Canvases
-	GNRNotifyEvent myevent(wxEVT_COMMAND_GNR_NOTIFY);
-	myevent.setGNREventType(GLRefresh2D);
-	myevent.SetEventObject(this);
-	GetEventHandler()->ProcessEvent(myevent);
-}
-
-/**
  * Reshape current frame on resize; adjust Viewport
  * @access      private
  */
@@ -454,6 +438,7 @@ void GNRGLCanvas::reshape()
 	SetCurrent();
 	
 	// set viewport with resolution
+	GetClientSize(&m_window_x, &m_window_y);
 	glViewport(0, 0, (GLint) m_window_x, (GLint) m_window_y);
 	
 	// Load and Reset Modelview
