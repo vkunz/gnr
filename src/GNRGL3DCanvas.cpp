@@ -81,7 +81,7 @@ void GNRGL3DCanvas::OnResize(wxSizeEvent& event)
 	
 	// Event for Redrawing the Canvases
 	GNRNotifyEvent myevent(wxEVT_COMMAND_GNR_NOTIFY);
-	myevent.setGNREventType(GLRefresh3D);
+	myevent.setGNREventType(GLRefresh);
 	myevent.SetEventObject(this);
 	GetEventHandler()->ProcessEvent(myevent);
 }

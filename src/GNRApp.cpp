@@ -14,30 +14,13 @@
 #include "GNRApp.h"
 
 BEGIN_EVENT_TABLE(GNRApp, wxApp)
-	EVT_GNR_NOTIFY(0, GNRApp::OnGNREvent)
-	EVT_GL_NOTIFY(0, GNRApp::OnGLEvent)
+	EVT_GNR_NOTIFY(0, GNRApp::OnGNREvent)   //global event for redraw...
+	EVT_GL_NOTIFY(0, GNRApp::OnGLEvent)     //event for mouse and move...
 END_EVENT_TABLE()
 
 void GNRApp::OnGNREvent(GNRNotifyEvent& event)
 {
-	// controller not yet initialized
-	if (m_controllerInit == false)
-		return;
-		
-	if (event.getGNREventType() == GLRefresh2D)
-	{
-#if defined(__ATHOS_DEBUG__)
-		wxLogMessage(_("GNRApp::OnGNREvent-GLRefresh2D"));
-#endif
-		controller->glRefresh2D();
-	}
-	else if (event.getGNREventType() == GLRefresh3D)
-	{
-#if defined(__ATHOS_DEBUG__)
-		wxLogMessage(_("GNRApp::OnGNREvent-GLRefresh3D"));
-#endif
-		controller->glRefresh3D();
-	}
+	controller->glRefresh();
 }
 
 void GNRApp::OnGLEvent(GNRGLNotifyEvent& event)
@@ -45,7 +28,7 @@ void GNRApp::OnGLEvent(GNRGLNotifyEvent& event)
 #if defined(__ATHOS_DEBUG__)
 	wxLogMessage(_("GNRApp::OnGLEvent"));
 #endif
-	//controller->glRefresh(); //may be highlight (assemblypointer) ??? TODO
+	//TODO
 }
 
 IMPLEMENT_APP(GNRApp);
@@ -58,17 +41,11 @@ bool GNRApp::OnInit()
 	
 	if (wxsOK)
 	{
-		m_controllerInit = false;
 		controller = new GNRController();
-		m_controllerInit = true;
+		controller->initFrames();
 	}
 	
 	return wxsOK;
-}
-
-int GNRApp::OnExit()
-{
-
 }
 
 // Code unser im Repo,

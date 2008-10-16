@@ -3,7 +3,7 @@
 
 #include "wx/event.h"
 
-enum eventType {GLRefresh2D, GLRefresh3D};
+enum eventType {GLRefresh};
 
 class GNRNotifyEvent : public wxNotifyEvent
 {

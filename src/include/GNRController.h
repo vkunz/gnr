@@ -46,6 +46,7 @@ private:
 	wxSplitterWindow* m_VerticalSplitter;
 	
 	int m_init;
+	void updateSplitters();
 	
 #if defined(__ATHOS_DEBUG__)
 	GNRDebugFrame* m_DebugFrame;
@@ -54,8 +55,8 @@ private:
 	
 public:
 	//starts refreshing the both canvas frames
-	void glRefresh2D();
-	void glRefresh3D();
+	void glRefresh();
+	void initFrames();
 	
 	GNRController();
 	~GNRController();
