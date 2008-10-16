@@ -35,7 +35,7 @@ private:
 	GNRAssembly* m_RootAssembly;
 	GNRAssemblyProxy* m_AssemblyProxy;
 	GNRMainFrame* m_MainFrame;
-	GNRGL2DCanvas* m_Canvas2D;
+	GNRGL3DCanvas* m_Canvas2D;
 	GNRGL3DCanvas* m_Canvas3D;
 	GNRTreePanel* m_TreePanelLibrary;
 	GNRTreePanel* m_TreePanelMyScene;
@@ -45,6 +45,8 @@ private:
 	wxSplitterWindow* m_HorizontalSplitter_right;
 	wxSplitterWindow* m_VerticalSplitter;
 	
+	int m_init;
+	
 #if defined(__ATHOS_DEBUG__)
 	GNRDebugFrame* m_DebugFrame;
 	wxLog* m_Log;
@@ -52,7 +54,8 @@ private:
 	
 public:
 	//starts refreshing the both canvas frames
-	void glRefresh();
+	void glRefresh2D();
+	void glRefresh3D();
 	
 	GNRController();
 	~GNRController();

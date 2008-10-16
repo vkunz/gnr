@@ -13,15 +13,14 @@
 #define _GNRGL3DCANVAS_H_
 
 #include "GNRGLCanvas.h"
+#include "GNRNotifyEvent.h"
 
 class GNRGL3DCanvas : public GNRGLCanvas
 {
 private:
-	void reshape();
 	void setCamera();
 	void setPerspective();
 	
-	void OnResize(wxSizeEvent& event);
 	void OnMouseWheel(wxMouseEvent& event);
 	
 public:

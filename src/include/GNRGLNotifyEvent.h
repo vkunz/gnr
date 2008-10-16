@@ -8,6 +8,7 @@ class GNRGLNotifyEvent : public wxNotifyEvent
 private:
 	wxMouseEvent event;
 	int selectedObj;
+	int canvasID;
 public:
 	GNRGLNotifyEvent(wxEventType commandType = wxEVT_NULL, int id = 0);
 	GNRGLNotifyEvent(const GNRGLNotifyEvent& event);

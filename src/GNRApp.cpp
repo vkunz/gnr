@@ -14,17 +14,27 @@
 #include "GNRApp.h"
 
 BEGIN_EVENT_TABLE(GNRApp, wxApp)
-	//EVT_FONT_SELECTION_CHANGED( 2457, GNRApp::OnDrawEvent )
+	EVT_GNR_NOTIFY(0, GNRApp::OnGNREvent)
 	EVT_GL_NOTIFY(0, GNRApp::OnGLEvent)
-	EVT_CLOSE(GNRApp::OnClose)
 END_EVENT_TABLE()
 
-void GNRApp::OnClose(wxCloseEvent &event)
+void GNRApp::OnGNREvent(GNRNotifyEvent& event)
 {
+	// controller not yet initialized
+	if (m_controllerInit == false)
+		return;
+		
+	if (event.getGNREventType() == GLRefresh2D)
+	{
 #if defined(__ATHOS_DEBUG__)
-	wxLogMessage(_("GNRApp::OnClose"));
+		wxLogMessage(_("GNRApp::OnGNREvent-GLRefresh"));
 #endif
-	OnExit();
+		controller->glRefresh2D();
+	}
+	else if (event.getGNREventType() == GLRefresh3D)
+	{
+		controller->glRefresh3D();
+	}
 }
 
 void GNRApp::OnGLEvent(GNRGLNotifyEvent& event)
@@ -32,9 +42,8 @@ void GNRApp::OnGLEvent(GNRGLNotifyEvent& event)
 #if defined(__ATHOS_DEBUG__)
 	wxLogMessage(_("GNRApp::OnGLEvent"));
 #endif
-	controller->glRefresh(); //may be highlight (assemblypointer) ??? TODO
+	//controller->glRefresh(); //may be highlight (assemblypointer) ??? TODO
 }
-
 
 IMPLEMENT_APP(GNRApp);
 
@@ -46,8 +55,9 @@ bool GNRApp::OnInit()
 	
 	if (wxsOK)
 	{
+		m_controllerInit = false;
 		controller = new GNRController();
-		controller->glRefresh();
+		m_controllerInit = true;
 	}
 	
 	return wxsOK;
@@ -55,8 +65,7 @@ bool GNRApp::OnInit()
 
 int GNRApp::OnExit()
 {
-	delete controller;
-	return 0;
+
 }
 
 // Code unser im Repo,

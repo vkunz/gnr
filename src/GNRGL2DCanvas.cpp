@@ -14,7 +14,6 @@
 #include <gl/glu.h>
 #endif
 
-#include "GNRController.h"
 #include "GNRGL2DCanvas.h"
 
 #if defined(__ATHOS_DEBUG__)
@@ -58,37 +57,6 @@ GNRGL2DCanvas::GNRGL2DCanvas(wxWindow* parent, wxGLContext* sharedContext, wxWin
 }
 
 /**
- * Reshape current frame on resize
- * @access      private
- */
-void GNRGL2DCanvas::reshape()
-{
-	// set current GL-Frame
-	SetCurrent();
-	
-	//get canvas-size
-	GetClientSize(&m_window_x, &m_window_y);
-	
-	glViewport(0, 0, m_window_x, m_window_y);
-	glMatrixMode(GL_PROJECTION);
-	glLoadIdentity();
-	setPerspective();
-	
-	glMatrixMode(GL_MODELVIEW);
-	glLoadIdentity();
-}
-
-/**
- * does the adjustment of the canvas for the 2D canvas
- * @param       wxSizeEvent*        Size-Event of the current canvas
- * @access      private
- */
-void GNRGL2DCanvas::OnResize(wxSizeEvent& event)
-{
-	reshape();
-}
-
-/**
  * sets the camera-position for the 2D scene
  * @access      private
  */
@@ -98,9 +66,8 @@ void GNRGL2DCanvas::setCamera()
 	gluLookAt(0,m_camera_height,0,0,1,0,0,0,1);
 }
 
-/**
- * sets the perspective for the 2D scene
- * @access      private
+/** * sets the perspective for the 2D scene
+ * @access private
  */
 void GNRGL2DCanvas::setPerspective()
 {

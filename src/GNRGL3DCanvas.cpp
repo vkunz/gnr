@@ -2,7 +2,6 @@
 #include <gl/glu.h>
 #endif
 
-#include "GNRController.h"
 #include "GNRGL3DCanvas.h"
 
 #if defined(__ATHOS_DEBUG__)
@@ -44,41 +43,6 @@ GNRGL3DCanvas::GNRGL3DCanvas(wxWindow* parent, wxGLContext* sharedContext, wxWin
 }
 
 /**
- * Reshape current frame on resize
- * @access      private
- */
-void GNRGL3DCanvas::reshape()
-{
-	// set current GL-Frame
-	SetCurrent();
-	
-	//get canvas-size
-	GetClientSize(&m_window_x, &m_window_y);
-	
-	// set viewport with resolution
-	glViewport(0, 0, (GLint) m_window_x, (GLint) m_window_y);
-	
-	// Load and Reset Modelview
-	glMatrixMode(GL_PROJECTION);
-	glLoadIdentity();
-	setPerspective();
-	
-	// Load and Reset Modelview
-	glMatrixMode(GL_MODELVIEW);
-	glLoadIdentity();
-}
-
-/**
- * does the adjustment of the canvas for the 3D canvas
- * @param       wxSizeEvent*        Size-Event of the current canvas
- * @access      private
- */
-void GNRGL3DCanvas::OnResize(wxSizeEvent& event)
-{
-	reshape();
-}
-
-/**
  * sets the camera-position for the 3D scene
  * @access      private
  */
@@ -87,13 +51,11 @@ void GNRGL3DCanvas::setCamera()
 	// nothing do to
 }
 
-/**
- * sets the perspective for the 3D scene
- * @access      private
+/** * sets the perspective for the 3D scene
+ * @access private
  */
 void GNRGL3DCanvas::setPerspective()
 {
-	// Calculate The Aspect Ratio Of The Window
 	gluPerspective(45.0f, (float)m_window_x / (float)m_window_y, ZNEAR, ZFAR);
 }
 

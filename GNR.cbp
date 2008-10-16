@@ -106,6 +106,7 @@
 		<Unit filename="src\GNRMainFrame.cpp" />
 		<Unit filename="src\GNRMaterial.cpp" />
 		<Unit filename="src\GNRMaterialImport.cpp" />
+		<Unit filename="src\GNRNotifyEvent.cpp" />
 		<Unit filename="src\GNRObjectImport.cpp" />
 		<Unit filename="src\GNRPoint3d.cpp" />
 		<Unit filename="src\GNRTreePanel.cpp" />
@@ -125,6 +126,7 @@
 		<Unit filename="src\include\GNRMainFrame.h" />
 		<Unit filename="src\include\GNRMaterial.h" />
 		<Unit filename="src\include\GNRMaterialImport.h" />
+		<Unit filename="src\include\GNRNotifyEvent.h" />
 		<Unit filename="src\include\GNRObjectImport.h" />
 		<Unit filename="src\include\GNRPoint3d.h" />
 		<Unit filename="src\include\GNRTreePanel.h" />

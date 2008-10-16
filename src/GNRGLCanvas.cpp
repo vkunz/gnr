@@ -16,6 +16,7 @@
 #endif
 
 #include "GNRGLCanvas.h"
+#include "GNRNotifyEvent.h"
 #include "GNRGLNotifyEvent.h"
 
 #if defined(__ATHOS_DEBUG__)
@@ -24,8 +25,6 @@
 
 #define ZNEAR 0.1f
 #define ZFAR 1000.0f
-
-int const ID_TIMER = wxNewId();
 
 /**
  * constructor of GNRGLCanvas
@@ -145,8 +144,9 @@ void GNRGLCanvas::initGL()
  * flush the buffer to screen
  * @access      public
  */
-void GNRGLCanvas::glFlush()
+void GNRGLCanvas::endDraw()
 {
+	//glFlush();
 	SwapBuffers();
 }
 
@@ -162,27 +162,9 @@ void GNRGLCanvas::prepareDraw()
 	// Clear the Window
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	
-	glClearColor(0.5, 0.5, 0.5, 0.0);
-	glClearDepth(1.0f);	// Depth Buffer Setup
-	glEnable(GL_DEPTH_TEST); // Enables Depth Testing
-	glDepthFunc(GL_LEQUAL); // The Type Of Depth Testing To Do
-	glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);
-	
-	glEnable(GL_COLOR_MATERIAL);
-	
-	int topleft_x = 0;
-	int topleft_y = 0;
-	int bottomrigth_x;
-	int bottomrigth_y;
-	GetClientSize(&bottomrigth_x, &bottomrigth_y);
-	
-	glViewport(topleft_x, topleft_y, bottomrigth_x-topleft_x, bottomrigth_y-topleft_y);
-	glMatrixMode(GL_PROJECTION);
-	glLoadIdentity();
-	
-	float ratio_w_h = (float)(bottomrigth_x-topleft_x)/(float)(bottomrigth_y-topleft_y);
-	gluPerspective(45 /*view angle*/, ratio_w_h, 0.1 /*clip close*/, 200 /*clip far*/);
 	glMatrixMode(GL_MODELVIEW);
+	
+	// Reset The Current Modelview Matrix
 	glLoadIdentity();
 }
 
@@ -270,7 +252,6 @@ int GNRGLCanvas::selection(int mouse_x, int mouse_y)
 #endif
 		return choose;
 	}
-// TODO THORSTEN?!
 	return 0;
 }
 
@@ -317,7 +298,6 @@ void GNRGLCanvas::OnLMouseDown(wxMouseEvent& event)
 	Connect(wxEVT_MOTION, (wxObjectEventFunction)&GNRGLCanvas::OnMouseMove);
 	//selection(event.m_x, event.m_y); BUGGY ON LINUX!!!
 	GNRGLNotifyEvent myevent(wxEVT_COMMAND_GL_NOTIFY);
-	//wxFontSelectorCtrlEvent myevent(wxEVT_COMMAND_FONT_SELECTION_CHANGED, 2457);
 	myevent.SetEventObject(this);
 	GetEventHandler()->ProcessEvent(myevent);
 #if defined(__ATHOS_DEBUG__)
@@ -442,6 +422,48 @@ void GNRGLCanvas::OnLMouseDblClick(wxMouseEvent& event)
 	msg << _("OnLMouseDblClick x=") << event.m_x << _(" y=") << event.m_y;
 	wxLogMessage(msg);
 #endif
+}
+
+/**
+ * fetches ResizeEvent; reshape does specific Canvas adjustment;
+ * event for redrawing
+ * @param       wxSizeEvent    Size-Event of current canvas
+ * @access      private
+ */
+void GNRGLCanvas::OnResize(wxSizeEvent& event)
+{
+	//get canvas-size
+	GetClientSize(&m_window_x, &m_window_y);
+	
+	reshape();
+	
+	// Event for Redrawing the Canvases
+	GNRNotifyEvent myevent(wxEVT_COMMAND_GNR_NOTIFY);
+	myevent.setGNREventType(GLRefresh2D);
+	myevent.SetEventObject(this);
+	GetEventHandler()->ProcessEvent(myevent);
+}
+
+/**
+ * Reshape current frame on resize; adjust Viewport
+ * @access      private
+ */
+void GNRGLCanvas::reshape()
+{
+	// set current GL-Frame
+	SetCurrent();
+	
+	// set viewport with resolution
+	glViewport(0, 0, (GLint) m_window_x, (GLint) m_window_y);
+	
+	// Load and Reset Modelview
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+	setPerspective();
+	
+	// Load and Reset Modelview
+	glMatrixMode(GL_MODELVIEW);
+	glLoadIdentity();
 }
 
 /**

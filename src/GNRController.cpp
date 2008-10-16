@@ -51,11 +51,8 @@ GNRController::GNRController()
 	m_HorizontalSplitter_right = new wxSplitterWindow(m_VerticalSplitter, -1, wxPoint(0,0), wxDefaultSize, wxSP_3D|wxRAISED_BORDER);
 	m_HorizontalSplitter_right->SetMinimumPaneSize(200);
 	
-	//split left and right splitters
-	m_VerticalSplitter->SplitVertically(m_HorizontalSplitter_left, m_HorizontalSplitter_right);
-	
 	//create two canvas panels
-	m_Canvas2D = new GNRGL2DCanvas(m_HorizontalSplitter_right, -1);
+	m_Canvas2D = new GNRGL3DCanvas(m_HorizontalSplitter_right, -1);
 	//show mainframe
 	m_MainFrame->Show(true);
 	//shared context
@@ -66,6 +63,12 @@ GNRController::GNRController()
 	m_HorizontalSplitter_right->Initialize(m_Canvas2D); //upper
 	m_HorizontalSplitter_right->Initialize(m_Canvas3D); //lower
 	m_HorizontalSplitter_right->SplitHorizontally(m_Canvas2D, m_Canvas3D);
+	
+	//split left and right splitters
+	m_VerticalSplitter->Initialize(m_HorizontalSplitter_left); //upper
+	m_VerticalSplitter->Initialize(m_HorizontalSplitter_right); //lower
+	m_VerticalSplitter->SplitVertically(m_HorizontalSplitter_left, m_HorizontalSplitter_right);
+	
 	
 	//TODO IN EXTRA METHOD
 	//GNRObjectImport object_importer(_("Y:\\PROJECTS\\TEST\\Objects\\star-wars\\tie-fighter\\tie.obj"));
@@ -91,15 +94,18 @@ GNRController::~GNRController()
 	delete m_RootAssembly;
 }
 
-void GNRController::glRefresh()
+void GNRController::glRefresh2D()
 {
 	//prepare and draw 2D top view of room
 	m_Canvas2D->prepareDraw();
 	m_RootAssembly->draw();
-	m_Canvas2D->glFlush();
-	
+	m_Canvas2D->endDraw();
+}
+
+void GNRController::glRefresh3D()
+{
 	//prepare and draw 3D view of room
 	m_Canvas3D->prepareDraw();
 	m_RootAssembly->draw();
-	m_Canvas3D->glFlush();
+	m_Canvas3D->endDraw();
 }

@@ -30,12 +30,14 @@ public:
 	
 private:
 	//(*Handlers(GNRMainFrame)
+	void OnResize(wxMouseEvent& event);
 	void OnQuit(wxCommandEvent& event);
 	void OnAbout(wxCommandEvent& event);
 	void OnImport(wxCommandEvent& event);
 	void OnExport(wxCommandEvent& event);
 	void OnLoad(wxCommandEvent& event);
 	void OnScrolledWindow1Paint(wxPaintEvent& event);
+	void OnClose(wxCloseEvent &event);
 	//*)
 	
 	//(*Identifiers(GNRMainFrame)
