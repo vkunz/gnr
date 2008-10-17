@@ -87,12 +87,6 @@ void GNRGLCanvas::connectEvents()
  */
 void GNRGLCanvas::initGL()
 {
-#if defined(__ATHOS_DEBUG__)
-	wxString msg;
-	msg << _("GNRGLCanvas::initGL()");
-	wxLogMessage(msg);
-#endif
-	
 	// Create light components
 	GLfloat ambientLight[] = { 0.2f, 0.2f, 0.2f, 1.0f };
 	GLfloat diffuseLight[] = { 0.8f, 0.8f, 0.8, 1.0f };
@@ -178,7 +172,7 @@ void GNRGLCanvas::prepareDraw()
  * @return      int     GL-Object-ID
  * @access      private
  */
-int GNRGLCanvas::selection(int mouse_x, int mouse_y)
+int GNRGLCanvas::selection(GNRAssembly* rootAssembly, int mouse_x, int mouse_y)
 {
 	SetCurrent();
 	// Set Up A Selection Buffer
@@ -208,7 +202,7 @@ int GNRGLCanvas::selection(int mouse_x, int mouse_y)
 		glLoadIdentity();
 		
 		// This Creates A Matrix That Will Zoom Up To A Small Portion Of The Screen, Where The Mouse Is.
-		gluPickMatrix((GLdouble) mouse_x, (GLdouble)(viewport[3]-mouse_y), 5.0f, 5.0f, viewport);
+		gluPickMatrix((GLdouble) mouse_x, (GLdouble)(viewport[3]-mouse_y), 1.0f, 1.0f, viewport);
 		
 		// Apply The Perspective Matrix
 		setPerspective();
@@ -217,9 +211,9 @@ int GNRGLCanvas::selection(int mouse_x, int mouse_y)
 		// Reset The Modelview Matrix
 		glLoadIdentity();
 		
-		prepareDraw();
+		//prepareDraw();
 		setCamera();
-		//draw();
+		rootAssembly->draw();
 		
 		// Select The Projection Matrix
 		glMatrixMode(GL_PROJECTION);
@@ -248,11 +242,6 @@ int GNRGLCanvas::selection(int mouse_x, int mouse_y)
 				depth = buffer[loop*4+1];
 			}
 		}
-#if defined(__ATHOS_DEBUG__)
-		wxString msg;
-		msg << _("Objekt ") << choose << _(" Hit");
-		wxLogMessage(msg);
-#endif
 		return choose;
 	}
 	return 0;
@@ -269,7 +258,6 @@ void GNRGLCanvas::OnLMouseDown(wxMouseEvent& event)
 	GNRGLNotifyEvent myevent(wxEVT_COMMAND_GL_NOTIFY);
 	myevent.setMouseEvent(event);
 	myevent.setCanvasID(getCanvasID());
-	myevent.setSelectedObj(selection(event.m_x, event.m_y));
 	myevent.SetEventObject(this);
 	GetEventHandler()->ProcessEvent(myevent);
 	

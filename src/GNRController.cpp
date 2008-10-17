@@ -95,7 +95,7 @@ void GNRController::initFrames()
 	m_VerticalSplitter->SplitVertically(m_HorizontalSplitter_left, m_HorizontalSplitter_right);
 	
 	//TODO IN EXTRA METHOD, (TEST FOR LIGHTS WITH TIE FIGHTER)
-	GNRObjectImport object_importer(_("data/tie-fighter/tie.obj"));
+	GNRObjectImport object_importer(_("data/computer/apple-ibook-2001.obj"));
 	m_RootAssembly->addChildAssembly(object_importer.GetAssembly());
 	m_RootAssembly->setZ(-10.0f);
 	
@@ -135,15 +135,42 @@ void GNRController::processGLMouse(GNRGLNotifyEvent& event)
 {
 	if (event.getMouseEvent().ButtonDown())
 	{
-		m_AssemblyProxy->setWindow(event);
-		m_AssemblyProxy->getControl(event);
+		int selectedAssemblyID, m_x, m_y;
+		
+		//get mouse coords
+		m_x = event.getMouseEvent().m_x;
+		m_y = event.getMouseEvent().m_y;
+		selectedAssemblyID = 0;
+		
+		//if from 2D canvas, redraw only this one
+		if (event.getCanvasID() == 2)
+		{
+			selectedAssemblyID = m_Canvas2D->selection(m_RootAssembly,m_x,m_y);
+		}
+		else
+		{
+			selectedAssemblyID = m_Canvas3D->selection(m_RootAssembly,m_x,m_y);
+		}
+		
+#if defined(__ATHOS_DEBUG__)
+		wxString msg;
+		msg << event.getCanvasID() << _("D:") << _(" ID=") << selectedAssemblyID << _(" X=") << m_x << _(" Y=") << m_y;
+		wxLogMessage(msg);
+#endif
+		
+		if (selectedAssemblyID > 0)
+		{
+			m_AssemblyProxy->setAssembly((GNRAssembly*)selectedAssemblyID);
+			m_AssemblyProxy->setWindow(event);
+			m_AssemblyProxy->getControl(event);
+		}
 	}
-	else if (event.getMouseEvent().Moving())
+	else if (event.getMouseEvent().ButtonUp())
 	{
-		m_AssemblyProxy->ObjectTransform(event);
+		m_AssemblyProxy->dropControl(event);
 	}
 	else
 	{
-		m_AssemblyProxy->dropControl(event);
+		m_AssemblyProxy->ObjectTransform(event);
 	}
 }

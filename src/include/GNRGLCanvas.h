@@ -39,7 +39,6 @@ protected:
 	void initGL();
 	void connectEvents();
 	void reshape();
-	int selection(int mouse_x, int mouse_y);
 	
 	virtual void setCamera() = 0;
 	virtual void setPerspective() = 0;
@@ -68,6 +67,7 @@ public:
 	void prepareDraw();
 	void draw();
 	void endDraw();
+	int  selection(GNRAssembly* rootAssembly, int mouse_x, int mouse_y);
 };
 
 #endif // _GNRGLCANVAS_H_

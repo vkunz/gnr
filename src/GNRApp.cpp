@@ -25,10 +25,8 @@ void GNRApp::OnGNREvent(GNRNotifyEvent& event)
 
 void GNRApp::OnGLEvent(GNRGLNotifyEvent& event)
 {
-#if defined(__ATHOS_DEBUG__)
-	wxLogMessage(_("GNRApp::OnGLEvent"));
-#endif
 	controller->processGLMouse(event);
+	controller->glRefresh();
 }
 
 IMPLEMENT_APP(GNRApp);

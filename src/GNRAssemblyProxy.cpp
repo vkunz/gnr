@@ -60,6 +60,20 @@ void GNRAssemblyProxy::init()
 	
 	//set default to move XY axis
 	status = MOVEXZ;
+	
+	//my_object to null pointer
+	my_object = NULL;
+}
+
+/**
+ * set assembly pointer
+ * @param       GNRAssembly     pointer to assembly object
+ * @access      public
+ */
+void GNRAssemblyProxy::setAssembly(GNRAssembly* assembly)
+{
+	//store object pointer
+	my_object = (GNRAssembly*) assembly;
 }
 
 /**
@@ -79,13 +93,15 @@ bool GNRAssemblyProxy::getControl(GNRGLNotifyEvent& event)
 	//set usage true
 	in_use = true;
 	
-	//store object pointer
-	my_object = (GNRAssembly*) event.getSelectedObj();
-	
 	//store old rotation values
 	phi_old   = my_object->getPhi();
 	theta_old = my_object->getTheta();
 	rho_old   = my_object->getRho();
+	
+	//store old rotation values
+	ass_x = my_object->getX();
+	ass_y = my_object->getY();
+	ass_z = my_object->getZ();
 	
 	//store actual mouse coords on control
 	m_mouse_x = event.getMouseEvent().m_x;
@@ -150,8 +166,8 @@ void GNRAssemblyProxy::ObjectRotate(GNRGLNotifyEvent& event)
  */
 void GNRAssemblyProxy::ObjectMoveXY(GNRGLNotifyEvent& event)
 {
-	my_object->setX(my_object->getX() - (float)(m_mouse_x - event.getMouseEvent().m_x)/300.0*fabs(my_object->getZ()));
-	my_object->setY(my_object->getY() - (float)(event.getMouseEvent().m_y - m_mouse_y)/300.0*fabs(my_object->getZ()));
+	my_object->setX(my_object->getX() - (float)(m_mouse_x - event.getMouseEvent().m_x)/300.0*fabs(ass_z));
+	my_object->setY(my_object->getY() - (float)(event.getMouseEvent().m_y - m_mouse_y)/300.0*fabs(ass_z));
 }
 
 /**
@@ -161,8 +177,9 @@ void GNRAssemblyProxy::ObjectMoveXY(GNRGLNotifyEvent& event)
  */
 void GNRAssemblyProxy::ObjectMoveXZ(GNRGLNotifyEvent& event)
 {
-	my_object->setX(my_object->getX() - (float)(m_mouse_x - event.getMouseEvent().m_x)/360.0*fabs(my_object->getZ()));
-	my_object->setZ(my_object->getZ() - (float)(m_mouse_y - event.getMouseEvent().m_y)/10.0);
+	ass_z = ass_z - (float)(m_mouse_y - event.getMouseEvent().m_y)/10.0;
+	my_object->setX(ass_x - (float)(m_mouse_x - event.getMouseEvent().m_x)/360.0*fabs(ass_z));
+	my_object->setZ(ass_z);
 }
 
 /**
