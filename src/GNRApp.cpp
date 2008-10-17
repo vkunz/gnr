@@ -15,7 +15,7 @@
 
 BEGIN_EVENT_TABLE(GNRApp, wxApp)
 	EVT_GNR_NOTIFY(0, GNRApp::OnGNREvent)   //global event for redraw...
-	EVT_GL_NOTIFY(0, GNRApp::OnGLEvent)     //event for mouse and move...
+	EVT_GL_NOTIFY(0, GNRApp::OnGLEvent)     //event for mouse and move in GL...
 END_EVENT_TABLE()
 
 void GNRApp::OnGNREvent(GNRNotifyEvent& event)
@@ -31,6 +31,9 @@ void GNRApp::OnGNREvent(GNRNotifyEvent& event)
 		break;
 	case OBJImport:
 		controller->OBJImport(event.GetString());
+		break;
+	case ToolbarChange:
+		controller->toggleToolbar(event);
 		break;
 	}
 }

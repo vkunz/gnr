@@ -61,7 +61,7 @@ public:
 	void processGLMouse(GNRGLNotifyEvent& event);
 	void XMLOpen(wxString filename);
 	void OBJImport(wxString filename);
-	
+	void toggleToolbar(wxNotifyEvent& event);
 	
 	GNRController();
 	~GNRController();

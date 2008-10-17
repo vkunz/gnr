@@ -167,10 +167,11 @@ void GNRGLCanvas::prepareDraw()
 
 /**
  * Checks which GL-Object has been selected by the mouse in the GL-Scene
- * @param       int     Mouse-X-Coordinate
- * @param       int     Mouse-Y-Coordinate
- * @return      int     GL-Object-ID
- * @access      private
+ * @param       GNRAssembly*    RootAssembly
+ * @param       int             Mouse-X-Coordinate
+ * @param       int             Mouse-Y-Coordinate
+ * @return      int             GL-Object-ID
+ * @access      public
  */
 int GNRGLCanvas::selection(GNRAssembly* rootAssembly, int mouse_x, int mouse_y)
 {

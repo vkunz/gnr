@@ -37,6 +37,9 @@ private:
 	void OnExport(wxCommandEvent& event);
 	void OnLoad(wxCommandEvent& event);
 	void OnScrolledWindow1Paint(wxPaintEvent& event);
+	void OnToolbarMoveXY(wxCommandEvent& event);
+	void OnToolbarMoveXZ(wxCommandEvent& event);
+	void OnToolbarRotateXY(wxCommandEvent& event);
 	//*)
 	
 	//(*Identifiers(GNRMainFrame)

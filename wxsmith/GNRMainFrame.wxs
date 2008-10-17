@@ -63,6 +63,7 @@
 				<bitmap stock_id="wxART_NEW" stock_client="wxART_TOOLBAR" />
 				<tooltip>Raum erstellen</tooltip>
 				<longhelp>Raum erstellen</longhelp>
+				<radio>1</radio>
 			</object>
 			<object class="tool" name="btn_room_open" variable="ToolBarItem2" member="yes">
 				<label>Raum öffnen</label>

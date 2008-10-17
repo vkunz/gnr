@@ -192,3 +192,19 @@ void GNRController::OBJImport(wxString filename)
 	// return pointer to new object
 	m_RootAssembly->addChildAssembly(ObjFileImport.GetAssembly());
 }
+
+void GNRController::toggleToolbar(wxNotifyEvent& event)
+{
+	switch (event.GetInt())
+	{
+	case 1:
+		wxLogDebug(_("MoveXY"));
+		break;
+	case 2:
+		wxLogDebug(_("MoveXZ"));
+		break;
+	case 3:
+		wxLogDebug(_("RotateXY"));
+		break;
+	}
+}

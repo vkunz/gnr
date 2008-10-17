@@ -67,7 +67,7 @@ public:
 	void prepareDraw();
 	void draw();
 	void endDraw();
-	int  selection(GNRAssembly* rootAssembly, int mouse_x, int mouse_y);
+	int selection(GNRAssembly* rootAssembly, int mouse_x, int mouse_y);
 };
 
 #endif // _GNRGLCANVAS_H_

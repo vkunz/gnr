@@ -73,7 +73,9 @@ const long GNRMainFrame::ID_TOOLBAR1 = wxNewId();
 //*)
 
 BEGIN_EVENT_TABLE(GNRMainFrame,wxFrame)
-	
+	EVT_MENU(btn_move_xy, GNRMainFrame::OnToolbarMoveXY)
+	EVT_MENU(btn_move_xz, GNRMainFrame::OnToolbarMoveXZ)
+	EVT_MENU(btn_rotate_xy, GNRMainFrame::OnToolbarRotateXY)
 END_EVENT_TABLE()
 
 GNRMainFrame::GNRMainFrame(wxWindow* parent, wxWindowID id)
@@ -119,7 +121,7 @@ GNRMainFrame::GNRMainFrame(wxWindow* parent, wxWindowID id)
 	StatusBar1->SetStatusStyles(1,__wxStatusBarStyles_1);
 	SetStatusBar(StatusBar1);
 	ToolBar1 = new wxToolBar(this, ID_TOOLBAR1, wxDefaultPosition, wxDefaultSize, wxTB_HORIZONTAL|wxNO_BORDER, _T("ID_TOOLBAR1"));
-	ToolBarItem1 = ToolBar1->AddTool(btn_room_new, _("Raum erstellen"), wxArtProvider::GetBitmap(wxART_MAKE_ART_ID_FROM_STR(_T("wxART_NEW")),wxART_TOOLBAR), wxNullBitmap, wxITEM_NORMAL, _("Raum erstellen"), _("Raum erstellen"));
+	ToolBarItem1 = ToolBar1->AddTool(btn_room_new, _("Raum erstellen"), wxArtProvider::GetBitmap(wxART_MAKE_ART_ID_FROM_STR(_T("wxART_NEW")),wxART_TOOLBAR), wxNullBitmap, wxITEM_RADIO, _("Raum erstellen"), _("Raum erstellen"));
 	ToolBarItem2 = ToolBar1->AddTool(btn_room_open, _("Raum öffnen"), wxArtProvider::GetBitmap(wxART_MAKE_ART_ID_FROM_STR(_T("wxART_FOLDER_OPEN")),wxART_TOOLBAR), wxNullBitmap, wxITEM_NORMAL, _("Raum öffnen"), _("Raum öffnen"));
 	ToolBarItem3 = ToolBar1->AddTool(btn_room_save, _("Raum speichern"), wxArtProvider::GetBitmap(wxART_MAKE_ART_ID_FROM_STR(_T("wxART_FILE_SAVE")),wxART_TOOLBAR), wxNullBitmap, wxITEM_NORMAL, _("Raum speichern"), _("Raum speichern"));
 	ToolBar1->AddSeparator();
@@ -192,4 +194,31 @@ void GNRMainFrame::OnLoad(wxCommandEvent& WXUNUSED(event))
 		
 		GetEventHandler()->ProcessEvent(gnrevent);
 	}
+}
+
+void GNRMainFrame::OnToolbarMoveXY(wxCommandEvent& event)
+{
+	GNRNotifyEvent myevent(wxEVT_COMMAND_GNR_NOTIFY);
+	myevent.setGNREventType(ToolbarChange);
+	myevent.SetEventObject(this);
+	myevent.SetInt(1);
+	GetEventHandler()->ProcessEvent(myevent);
+}
+
+void GNRMainFrame::OnToolbarMoveXZ(wxCommandEvent& event)
+{
+	GNRNotifyEvent myevent(wxEVT_COMMAND_GNR_NOTIFY);
+	myevent.setGNREventType(ToolbarChange);
+	myevent.SetEventObject(this);
+	myevent.SetInt(2);
+	GetEventHandler()->ProcessEvent(myevent);
+}
+
+void GNRMainFrame::OnToolbarRotateXY(wxCommandEvent& event)
+{
+	GNRNotifyEvent myevent(wxEVT_COMMAND_GNR_NOTIFY);
+	myevent.setGNREventType(ToolbarChange);
+	myevent.SetEventObject(this);
+	myevent.SetInt(3);
+	GetEventHandler()->ProcessEvent(myevent);
 }
