@@ -9,6 +9,7 @@ private:
 	wxMouseEvent event;
 	int selectedObj;
 	int canvasID;
+	int win_x, win_y;
 public:
 	GNRGLNotifyEvent(wxEventType commandType = wxEVT_NULL, int id = 0);
 	GNRGLNotifyEvent(const GNRGLNotifyEvent& event);
@@ -16,9 +17,12 @@ public:
 	void setCanvasID(int id);
 	void setSelectedObj(int obj);
 	void setMouseEvent(wxMouseEvent event);
+	void setWindowSize(int x, int y);
 	int getCanvasID();
 	int getSelectedObj();
 	wxMouseEvent getMouseEvent();
+	int getWinX();
+	int getWinY();
 	DECLARE_DYNAMIC_CLASS(GNRGLNotifyEvent);
 };
 

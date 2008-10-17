@@ -46,3 +46,19 @@ void GNRGLNotifyEvent::setMouseEvent(wxMouseEvent event)
 {
 	this->event = event;
 }
+
+void GNRGLNotifyEvent::setWindowSize(int x, int y)
+{
+	win_x = x;
+	win_y = y;
+}
+
+int GNRGLNotifyEvent::getWinX()
+{
+	return win_x;
+}
+
+int GNRGLNotifyEvent::getWinY()
+{
+	return win_y;
+}

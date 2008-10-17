@@ -126,6 +126,11 @@ void GNRController::glRefresh()
 	m_Canvas3D->endDraw();
 }
 
+/**
+ * fetches the double click event
+ * @param       wxMouseEvent    Mouse-Event of current canvas
+ * @access      private
+ */
 void GNRController::processGLMouse(GNRGLNotifyEvent& event)
 {
 	if (event.getMouseEvent().ButtonDown())
