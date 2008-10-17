@@ -39,8 +39,6 @@ GNRAssemblyProxy::~GNRAssemblyProxy()
 
 /**
  * init method for setting up the mouse controller
- * @param       int         width of frame
- * @param       int         height of frame
  * @access      public
  */
 void GNRAssemblyProxy::setWindow(GNRGLNotifyEvent& event)
@@ -48,6 +46,18 @@ void GNRAssemblyProxy::setWindow(GNRGLNotifyEvent& event)
 	window_w = event.getWinX();
 	window_h = event.getWinY();
 }
+
+/**
+ * init method for setting up the mouse controller
+ * @param       int         width of frame
+ * @param       int         height of frame
+ * @access      public
+ */
+void GNRAssemblyProxy::setDirection(int dir)
+{
+	status = dir;
+}
+
 
 /**
  * init method for setting up the mouse controller
@@ -59,7 +69,7 @@ void GNRAssemblyProxy::init()
 	in_use = false;
 	
 	//set default to move XY axis
-	status = MOVEXZ;
+	status = MOVEXY;
 	
 	//my_object to null pointer
 	my_object = NULL;
@@ -166,8 +176,8 @@ void GNRAssemblyProxy::ObjectRotate(GNRGLNotifyEvent& event)
  */
 void GNRAssemblyProxy::ObjectMoveXY(GNRGLNotifyEvent& event)
 {
-	my_object->setX(ass_x - (float)(m_mouse_x - event.getMouseEvent().m_x)/300.0*fabs(ass_z));
-	my_object->setY(ass_y - (float)(event.getMouseEvent().m_y - m_mouse_y)/300.0*fabs(ass_z));
+	my_object->setX(ass_x - (float)((1.0f+fabs(ass_z))*(m_mouse_x - event.getMouseEvent().m_x)/50.0f));
+	my_object->setY(ass_y - (float)((1.0f+fabs(ass_z))*(event.getMouseEvent().m_y - m_mouse_y)/50.0f));
 }
 
 /**
@@ -177,8 +187,8 @@ void GNRAssemblyProxy::ObjectMoveXY(GNRGLNotifyEvent& event)
  */
 void GNRAssemblyProxy::ObjectMoveXZ(GNRGLNotifyEvent& event)
 {
-	my_object->setZ(ass_z - (float)(m_mouse_y - event.getMouseEvent().m_y)/15.0);
-	my_object->setX(ass_x - (float)(fabs(my_object->getZ())*(m_mouse_x - event.getMouseEvent().m_x)/240.0));
+	my_object->setZ(ass_z - (float)(m_mouse_y - event.getMouseEvent().m_y)/13.0f);
+	my_object->setX(ass_x - (float)((1.0f+fabs(my_object->getZ())*2.0f)*(m_mouse_x - event.getMouseEvent().m_x)/100.0f));
 }
 
 /**

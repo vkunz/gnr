@@ -96,8 +96,11 @@ void GNRController::initFrames()
 	
 	//TODO IN EXTRA METHOD, (TEST FOR LIGHTS WITH TIE FIGHTER)
 	GNRObjectImport object_importer(_("data/computer/apple-ibook-2001.obj"));
-	m_RootAssembly->addChildAssembly(object_importer.GetAssembly());
-	m_RootAssembly->setZ(-6.0f);
+	
+	GNRAssembly* test = object_importer.GetAssembly();
+	test->setZ(-6.0f);
+	
+	m_RootAssembly->addChildAssembly(test);
 	
 	glRefresh();
 }

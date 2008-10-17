@@ -49,6 +49,7 @@ public:
 	bool getControl(GNRGLNotifyEvent& event);
 	void dropControl(GNRGLNotifyEvent& event);
 	void ObjectTransform(GNRGLNotifyEvent& event);
+	void setDirection(int dir);
 	bool isInUse();
 	
 };
