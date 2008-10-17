@@ -45,8 +45,8 @@ GNRAssemblyProxy::~GNRAssemblyProxy()
  */
 void GNRAssemblyProxy::setWindow(GNRGLNotifyEvent& event)
 {
-	window_w = event.getWindowSize().win_x;
-	window_h = event.getWindowSize().win_y;
+	window_w = event.getWinX();
+	window_h = event.getWinY();
 }
 
 /**
