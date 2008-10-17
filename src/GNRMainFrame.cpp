@@ -126,9 +126,9 @@ GNRMainFrame::GNRMainFrame(wxWindow* parent, wxWindowID id)
 	ToolBarItem4 = ToolBar1->AddTool(btn_undo, _("Rückgängig"), wxArtProvider::GetBitmap(wxART_MAKE_ART_ID_FROM_STR(_T("wxART_UNDO")),wxART_TOOLBAR), wxNullBitmap, wxITEM_NORMAL, _("Rückgängig"), _("Rückgängig"));
 	ToolBarItem5 = ToolBar1->AddTool(btn_redo, _("Wiederherstellen"), wxArtProvider::GetBitmap(wxART_MAKE_ART_ID_FROM_STR(_T("wxART_REDO")),wxART_TOOLBAR), wxNullBitmap, wxITEM_NORMAL, _("Wiederherstellen"), _("Wiederherstellen"));
 	ToolBar1->AddSeparator();
-	ToolBarItem6 = ToolBar1->AddTool(btn_move_xy, _("Verschieben in X-Y-Richtung"), wxIcon(quad_arrow_xpm), wxNullBitmap, wxITEM_NORMAL, _("Verschieben in X-Y-Richtung"), _("Verschieben in X-Y-Richtung"));
-	ToolBarItem7 = ToolBar1->AddTool(btn_move_xz, _("Verschieben in X-Z-Richtung"), wxIcon(right_arrow_xpm), wxNullBitmap, wxITEM_NORMAL, _("Verschieben in X-Z-Richtung"), _("Verschieben in X-Z-Richtung"));
-	ToolBarItem8 = ToolBar1->AddTool(btn_rotate_xy, _("Rotieren auf X-Y-Achsen"), wxIcon(circular_arrow_xpm), wxNullBitmap, wxITEM_NORMAL, _("Rotieren auf X-Y-Achsen"), _("Rotieren auf X-Y-Achsen"));
+	ToolBarItem6 = ToolBar1->AddTool(btn_move_xy, _("Verschieben in X-Y-Richtung"), wxBitmap(wxImage(_T("src\\resources\\buttons\\lc_arrowshapes.quad-arrow.png"))), wxNullBitmap, wxITEM_RADIO, _("Verschieben in X-Y-Richtung"), _("Verschieben in X-Y-Richtung"));
+	ToolBarItem7 = ToolBar1->AddTool(btn_move_xz, _("Verschieben in X-Z-Richtung"), wxBitmap(wxImage(_T("src\\resources\\buttons\\lc_arrowshapes.up-right-arrow.png"))), wxNullBitmap, wxITEM_RADIO, _("Verschieben in X-Z-Richtung"), _("Verschieben in X-Z-Richtung"));
+	ToolBarItem8 = ToolBar1->AddTool(btn_rotate_xy, _("Rotieren auf X-Y-Achsen"), wxBitmap(wxImage(_T("src\\resources\\buttons\\lc_arrowshapes.circular-arrow.png"))), wxNullBitmap, wxITEM_RADIO, _("Rotieren auf X-Y-Achsen"), _("Rotieren auf X-Y-Achsen"));
 	ToolBar1->Realize();
 	SetToolBar(ToolBar1);
 	Center();
@@ -139,6 +139,9 @@ GNRMainFrame::GNRMainFrame(wxWindow* parent, wxWindowID id)
 	
 	Connect(idMenuImport,wxEVT_COMMAND_MENU_SELECTED,(wxObjectEventFunction)&GNRMainFrame::OnImport);
 	Connect(idMenuExport,wxEVT_COMMAND_MENU_SELECTED,(wxObjectEventFunction)&GNRMainFrame::OnExport);
+	
+	// Connects "Menü->Datei->XML Öffnen" with GNRMainFrame::OnLoad
+	Connect(idMenuLoad,wxEVT_COMMAND_MENU_SELECTED,(wxObjectEventFunction)&GNRMainFrame::OnLoad);
 }
 
 GNRMainFrame::~GNRMainFrame()
@@ -160,15 +163,33 @@ void GNRMainFrame::OnAbout(wxCommandEvent& event)
 
 void GNRMainFrame::OnImport(wxCommandEvent& event)
 {
-	wxString filename = wxFileSelector(wxT("Select OBJ-File..."), wxT(""), wxT(""), wxT(""), wxT("OBJ-Files (*.obj)|*.obj"));
+	wxString filename = wxFileSelector(wxT("Datei wählen..."), wxT(""), wxT(""), wxT(""), wxT("Obj-Datei (*.obj)|*.obj"));
 	
 	if (!filename.IsEmpty())
 	{
-		// TODO: EVENT_FILE_IMPORT
+		GNRNotifyEvent gnrevent(wxEVT_COMMAND_GNR_NOTIFY);
+		gnrevent.setGNREventType(OBJImport);
+		gnrevent.SetString(filename);
+		
+		GetEventHandler()->ProcessEvent(gnrevent);
 	}
-	
 }
 
 void GNRMainFrame::OnExport(wxCommandEvent& event)
 {
+	wxMessageBox(wxT("Not implemented yet."));
+}
+
+void GNRMainFrame::OnLoad(wxCommandEvent& WXUNUSED(event))
+{
+	wxString filename = wxFileSelector(wxT("Datei wählen..."), wxT(""), wxT(""), wxT(""), wxT("OAX-Datei (*.oax)|*.oax|OPXDatei (*.opx)|*.opx"));
+	
+	if (!filename.IsEmpty())
+	{
+		GNRNotifyEvent gnrevent(wxEVT_COMMAND_GNR_NOTIFY);
+		gnrevent.setGNREventType(XMLOpen);
+		gnrevent.SetString(filename);
+		
+		GetEventHandler()->ProcessEvent(gnrevent);
+	}
 }

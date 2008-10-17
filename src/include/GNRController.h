@@ -59,6 +59,9 @@ public:
 	void glRefresh();
 	void initFrames();
 	void processGLMouse(GNRGLNotifyEvent& event);
+	void XMLOpen(wxString filename);
+	void OBJImport(wxString filename);
+	
 	
 	GNRController();
 	~GNRController();

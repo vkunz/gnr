@@ -95,18 +95,21 @@
 				<bitmap>src\resources\buttons\lc_arrowshapes.quad-arrow.png</bitmap>
 				<tooltip>Verschieben in X-Y-Richtung</tooltip>
 				<longhelp>Verschieben in X-Y-Richtung</longhelp>
+				<radio>1</radio>
 			</object>
 			<object class="tool" name="btn_move_xz" variable="ToolBarItem7" member="yes">
 				<label>Verschieben in X-Z-Richtung</label>
 				<bitmap>src\resources\buttons\lc_arrowshapes.up-right-arrow.png</bitmap>
 				<tooltip>Verschieben in X-Z-Richtung</tooltip>
 				<longhelp>Verschieben in X-Z-Richtung</longhelp>
+				<radio>1</radio>
 			</object>
 			<object class="tool" name="btn_rotate_xy" variable="ToolBarItem8" member="yes">
 				<label>Rotieren auf X-Y-Achsen</label>
 				<bitmap>src\resources\buttons\lc_arrowshapes.circular-arrow.png</bitmap>
 				<tooltip>Rotieren auf X-Y-Achsen</tooltip>
 				<longhelp>Rotieren auf X-Y-Achsen</longhelp>
+				<radio>1</radio>
 			</object>
 		</object>
 	</object>

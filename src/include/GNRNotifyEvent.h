@@ -3,7 +3,7 @@
 
 #include "wx/event.h"
 
-enum eventType {GLRefresh};
+enum eventType {GLRefresh, XMLOpen, OBJImport};
 
 class GNRNotifyEvent : public wxNotifyEvent
 {
@@ -21,7 +21,6 @@ public:
 typedef void (wxEvtHandler::*GNRNotifyEventFunction)(GNRNotifyEvent&);
 
 // GNRGLNotify events and macros for handling them
-
 BEGIN_DECLARE_EVENT_TYPES()
 DECLARE_EVENT_TYPE(wxEVT_COMMAND_GNR_NOTIFY, 803)
 END_DECLARE_EVENT_TYPES()

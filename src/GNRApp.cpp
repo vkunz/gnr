@@ -20,7 +20,19 @@ END_EVENT_TABLE()
 
 void GNRApp::OnGNREvent(GNRNotifyEvent& event)
 {
-	controller->glRefresh();
+
+	switch (event.getGNREventType())
+	{
+	case XMLOpen:
+		controller->XMLOpen(event.GetString());
+		break;
+	case GLRefresh:
+		controller->glRefresh();
+		break;
+	case OBJImport:
+		controller->OBJImport(event.GetString());
+		break;
+	}
 }
 
 void GNRApp::OnGLEvent(GNRGLNotifyEvent& event)

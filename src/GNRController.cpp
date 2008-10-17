@@ -177,3 +177,18 @@ void GNRController::processGLMouse(GNRGLNotifyEvent& event)
 		m_AssemblyProxy->ObjectTransform(event);
 	}
 }
+
+void GNRController::XMLOpen(wxString filename)
+{
+	wxLogDebug(wxT("Hier angekommen"));
+	wxLogDebug(filename);
+}
+
+void GNRController::OBJImport(wxString filename)
+{
+	// generate new Importer, parse file
+	GNRObjectImport ObjFileImport(filename);
+	
+	// return pointer to new object
+	m_RootAssembly->addChildAssembly(ObjFileImport.GetAssembly());
+}
