@@ -133,8 +133,12 @@ void GNRController::processGLMouse(GNRGLNotifyEvent& event)
 		m_AssemblyProxy->setWindow(event);
 		m_AssemblyProxy->getControl(event);
 	}
-	else
+	else if (event.getMouseEvent().Moving())
 	{
 		m_AssemblyProxy->ObjectTransform(event);
+	}
+	else
+	{
+		m_AssemblyProxy->dropControl(event);
 	}
 }
