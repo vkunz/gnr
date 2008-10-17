@@ -18,6 +18,7 @@
 #include <wx/timer.h>
 
 #include "GNRAssembly.h"
+#include "GNRGLNotifyEvent.h"
 
 class GNRAssemblyProxy
 {
@@ -33,19 +34,19 @@ private:
 	
 protected:
 
-	void ObjectRotate(wxMouseEvent& event);
-	void ObjectMoveXY(wxMouseEvent& event);
-	void ObjectMoveXZ(wxMouseEvent& event);
+	void ObjectRotate(GNRGLNotifyEvent& event);
+	void ObjectMoveXY(GNRGLNotifyEvent& event);
+	void ObjectMoveXZ(GNRGLNotifyEvent& event);
 	void init();
 	
 public:
 
 	GNRAssemblyProxy();
 	virtual ~GNRAssemblyProxy();
-	void setWindow(int width, int height);
-	bool getControl(GNRAssembly* object, wxMouseEvent& event);
-	void dropControl(wxMouseEvent& event);
-	void ObjectTransform(wxMouseEvent& event);
+	void setWindow(GNRGLNotifyEvent& event);
+	bool getControl(GNRGLNotifyEvent& event);
+	void dropControl(GNRGLNotifyEvent& event);
+	void ObjectTransform(GNRGLNotifyEvent& event);
 	bool isInUse();
 	
 };
