@@ -166,8 +166,8 @@ void GNRAssemblyProxy::ObjectRotate(GNRGLNotifyEvent& event)
  */
 void GNRAssemblyProxy::ObjectMoveXY(GNRGLNotifyEvent& event)
 {
-	my_object->setX(my_object->getX() - (float)(m_mouse_x - event.getMouseEvent().m_x)/300.0*fabs(ass_z));
-	my_object->setY(my_object->getY() - (float)(event.getMouseEvent().m_y - m_mouse_y)/300.0*fabs(ass_z));
+	my_object->setX(ass_x - (float)(m_mouse_x - event.getMouseEvent().m_x)/300.0*fabs(ass_z));
+	my_object->setY(ass_y - (float)(event.getMouseEvent().m_y - m_mouse_y)/300.0*fabs(ass_z));
 }
 
 /**
@@ -177,9 +177,8 @@ void GNRAssemblyProxy::ObjectMoveXY(GNRGLNotifyEvent& event)
  */
 void GNRAssemblyProxy::ObjectMoveXZ(GNRGLNotifyEvent& event)
 {
-	ass_z = ass_z - (float)(m_mouse_y - event.getMouseEvent().m_y)/10.0;
-	my_object->setX(ass_x - (float)(m_mouse_x - event.getMouseEvent().m_x)/360.0*fabs(ass_z));
-	my_object->setZ(ass_z);
+	my_object->setZ(ass_z - (float)(m_mouse_y - event.getMouseEvent().m_y)/15.0);
+	my_object->setX(ass_x - (float)(fabs(my_object->getZ())*(m_mouse_x - event.getMouseEvent().m_x)/240.0));
 }
 
 /**
