@@ -5,7 +5,10 @@ IMPLEMENT_DYNAMIC_CLASS(GNRGLNotifyEvent, wxNotifyEvent)
 
 
 GNRGLNotifyEvent::GNRGLNotifyEvent(wxEventType commandType, int id)
-		: wxNotifyEvent(commandType, id) {}
+		: wxNotifyEvent(commandType, id)
+{
+	selectedObj = 0;
+}
 
 GNRGLNotifyEvent::GNRGLNotifyEvent(const GNRGLNotifyEvent& event): wxNotifyEvent(event) {}
 

@@ -95,7 +95,7 @@ void GNRController::initFrames()
 	m_VerticalSplitter->SplitVertically(m_HorizontalSplitter_left, m_HorizontalSplitter_right);
 	
 	//TODO IN EXTRA METHOD, (TEST FOR LIGHTS WITH TIE FIGHTER)
-	GNRObjectImport object_importer(_("Y:\\PROJECTS\\TEST\\Objects\\star-wars\\tie-fighter\\tie.obj"));
+	GNRObjectImport object_importer(_("D:\\HS\\TI5\\Projekt\\3D-Models\\star-wars\\tie-fighter\\tie.obj"));
 	m_RootAssembly->addChildAssembly(object_importer.GetAssembly());
 	m_RootAssembly->setZ(-10.0f);
 	
