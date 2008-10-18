@@ -48,16 +48,28 @@ void GNRAssemblyProxy::setWindow(GNRGLNotifyEvent& event)
 }
 
 /**
- * init method for setting up the mouse controller
- * @param       int         width of frame
- * @param       int         height of frame
+ * set moving direction
+ * @param       int         direction xy, xz or rotation
  * @access      public
  */
 void GNRAssemblyProxy::setDirection(int dir)
 {
-	status = dir;
+	switch (dir)
+	{
+	case MOVEXZ:
+		status = MOVEXZ;
+		break;
+	case MOVEXY:
+		status = MOVEXY;
+		break;
+	case ROTATE:
+		status = ROTATE;
+		break;
+	default:
+		status = MOVEXZ;
+		break;
+	}
 }
-
 
 /**
  * init method for setting up the mouse controller
