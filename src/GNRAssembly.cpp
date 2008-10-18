@@ -99,10 +99,10 @@ void GNRAssembly::draw() const
 	
 	glPushMatrix();
 	{
+		glTranslatef(m_xOffset, m_yOffset, m_zOffset);
 		glRotatef(m_phi, 1, 0, 0);
 		glRotatef(m_theta, 0, 1, 0);
 		glRotatef(m_rho, 0, 0, 1);
-		glTranslatef(m_xOffset, m_yOffset, m_zOffset);
 		
 		// draw myself
 		for (std::list<GNRFace>::const_iterator it = m_faces.begin(); it != m_faces.end(); ++it)

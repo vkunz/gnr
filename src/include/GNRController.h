@@ -33,6 +33,8 @@
 class GNRController
 {
 private:
+
+	enum { MOVEXZ = 0, MOVEXY, ROTATE };
 	GNRAssembly* m_RootAssembly;
 	GNRAssemblyProxy* m_AssemblyProxy;
 	GNRMainFrame* m_MainFrame;
