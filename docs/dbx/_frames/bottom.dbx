@@ -34,7 +34,7 @@
 					<para><ulink url="http://argouml.tigris.org/">ArgoUML, OpenSource UML modeling tool</ulink></para>
 				</listitem>
 			</itemizedlist>
-			<title>Manuals und Tutorials</title>
+			<title>Books, Manuals und Tutorials</title>
 			<itemizedlist role="linklist">
 				<listitem>
 					<para><ulink url="http://docs.wxwidgets.org/trunk/">wxWidgets 2.9.0, C++ Cross-Platform GUI Toolkit</ulink></para>
@@ -45,6 +45,9 @@
 				<listitem>
 					<para><ulink url="http://www.fileformat.info/format/wavefrontobj/">Wavefront OBJ File Format Summary</ulink></para>
 				</listitem>
+				<listitem>
+					<para><ulink url="http://books.google.de/books?id=CyMsvtgnq0QC">Cross-Platform GUI Programming with wxWidgets</ulink></para>
+				</listitem>
 			</itemizedlist>
 			<title>Genutzte Web-Services</title>
 			<itemizedlist role="linklist">
@@ -53,6 +56,9 @@
 				</listitem>
 				<listitem>
 					<para><ulink url="http://groups.google.de/">Google Groups</ulink></para>
+				</listitem>
+				<listitem>
+					<para><ulink url="http://books.google.de/">Google Books</ulink></para>
 				</listitem>
 			</itemizedlist>
 		</section>
