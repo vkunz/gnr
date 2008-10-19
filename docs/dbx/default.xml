@@ -1,31 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<webseite 
-		layout="border"
-		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-		xsi:noNamespaceSchemaLocation="http://www.hs-ulm.de/_schema/0.9/presentation/webseite.xsd">
-<inhalt position="top">
-	<docbook>
-		<include src="top.dbx"></include>
-	</docbook>
-</inhalt>
-<inhalt position="left">
-	<docbook>
-		<include src="left.dbx"></include>
-	</docbook>
-</inhalt>
-<inhalt position="right">
-	<docbook>
-		<include src="right.dbx"></include>
-	</docbook>	
-</inhalt>
-<inhalt position="bottom">
-	<docbook>
-		<include src="bottom.dbx"></include>
-	</docbook>
-</inhalt>
-<navigation>
-	<referenzen>
-		<include src="_links/*.url"/>
-	</referenzen>
-</navigation>	
+<webseite layout="border" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.hs-ulm.de/_schema/0.9/presentation/webseite.xsd">
+	<inhalt position="top">
+		<docbook>
+			<include src="top.dbx"></include>
+		</docbook>
+	</inhalt>
+	<inhalt position="left">
+		<docbook>
+			<include src="left.dbx"></include>
+		</docbook>
+	</inhalt>
+	<inhalt position="right">
+		<docbook>
+			<include src="right.dbx"></include>
+		</docbook>	
+	</inhalt>
+	<inhalt position="bottom">
+		<docbook>
+			<include src="bottom.dbx"></include>
+		</docbook>
+	</inhalt>
 </webseite>

@@ -2,19 +2,12 @@
 <!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.4//EN"
 "http://www.oasis-open.org/docbook/xml/4.4/docbookx.dtd">
 <article role="webpage">
-  <articleinfo>
-    <date>09.10.2008</date>
-    <author>
-      <surname>Kracht</surname>
-      <firstname>Patrick</firstname>
-    </author>
-  </articleinfo>
-  <title>Projekt-Homepage Team 1</title>
-  <subtitle>3D Raumplaner</subtitle>
-  <abstract>
-    <para>In diesem Dokument werden sämtliche Elemente, die in Docbook für den
-    Webauftritt der Hochschule Ulm erlaubt sind, verwendet. Daher eignet sich
-    dieses Dokument als optimale Referenz für eigene Dokumente (dies ist
-    übrigens der "abstract").</para>
-  </abstract>
+	<articleinfo>
+	<date>09.10.2008</date>
+		<author>
+			<surname>Kracht</surname>
+			<firstname>Patrick</firstname>
+		</author>
+	</articleinfo>
+	<title>Projekt-Homepage Team 1</title>
 </article>

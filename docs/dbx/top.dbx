@@ -1,20 +1,96 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.4//EN"
 "http://www.oasis-open.org/docbook/xml/4.4/docbookx.dtd">
-<article>
-  <articleinfo>
-    <date>09.10.2008</date>
-    <author>
-      <surname>Kracht</surname>
-      <firstname>Patrick</firstname>
-    </author>
-  </articleinfo>
-  <title>Projekt-Homepage Team 1</title>
-  <subtitle>3D Raumplaner</subtitle>
-  <abstract>
-    <para>In diesem Dokument werden sämtliche Elemente, die in Docbook für den
-    Webauftritt der Hochschule Ulm erlaubt sind, verwendet. Daher eignet sich
-    dieses Dokument als optimale Referenz für eigene Dokumente (dies ist
-    übrigens der "abstract").</para>
-  </abstract>
+<article role="webpage">
+	<articleinfo>
+	<date>09.10.2008</date>
+		<author>
+			<surname>Kracht</surname>
+			<firstname>Patrick</firstname>
+		</author>
+	</articleinfo>
+	<section>
+		<title>Projekt-Homepage Team 1</title>
+		<section>
+			<title>Zeitraum: 29.09.2008 - 10.11.2008</title>
+		</section>
+		<subtitle>3D Raumplaner</subtitle>
+		<para>Aufgabe ist es, in knapp sechs Wochen einen Raumplaner zu 
+		entwickeln, der folgende Anforderungen erfüllt:</para>
+		<itemizedlist>
+			<listitem>
+				<para>Grafische Modellierung von Räumen und 
+				Einrichtungskomponenten</para>
+			</listitem>
+			<listitem>
+				<para>Realistische 3D-Darstellung</para>
+			</listitem>
+			<listitem>
+				<para>Visuelles Platzieren von Einrichtungsgegenständen 
+				bei freier Wahl des Beobachterstandpunkts</para>
+			</listitem>
+			<listitem>
+				<para>Intelligente Modellierungsunterstützung durch 
+				Schnappfunktionen</para>
+			</listitem>
+			<listitem>
+				<para>Verfügbarkeit geeigneter Messwerkzeuge zur exakt 
+				maßstabsgerechten Modellierung</para>
+			</listitem>
+			<listitem>
+				<para>Einlesen und Abspeichern von Einrichtungskomponenten 
+				im .obj/.mtl-Format</para>
+			</listitem>
+			<listitem>
+				<para>Verlustfreie Speicherung eines Modells in einem 
+				proprietärenXML-Format</para>
+			</listitem>
+			<listitem>
+				<para>Export eines Modells im .obj/.mtl-Format</para>
+			</listitem>
+			<listitem>
+				<para>Export von 3D-Darstellungen in gängigen 
+				Grafikformaten</para>
+			</listitem>
+			<listitem>
+				<para>Standardisierte Schnittstelle zum Austausch 
+				von Modellen und Ansichtsinformationen</para>
+			</listitem>
+		</itemizedlist>
+	</section>
+	<section>
+		<title>Unser Team</title>
+		<para>Unser Team besteht leider nur aus vier Studenten der 
+		Technischen Informatik, die ihr Möglichstes tun, um mithalten 
+		zu können.</para>
+		<table>
+			<title>Team-Mitglieder</title>
+			<tgroup cols="2">
+				<thead>
+					<row>
+						<entry>Name</entry>
+						<entry>Aufgaben</entry>
+					</row>
+				</thead>
+				<tbody>
+					<row>
+						<entry>Kracht, Patrick</entry>
+						<entry>Projekt Manager</entry>
+					</row>
+					<row>
+						<entry>Kunz, Valentin</entry>
+						<entry>Programmer, Developer, Problem-Solver</entry>
+					</row>
+					<row>
+						<entry>Moll, Thorsten</entry>
+						<entry>Programmer, Developer, OpenGL-Specialist</entry>
+					</row>
+					<row>
+						<entry>Balabin, Konstantin</entry>
+						<entry>Programmer, Developer, Assembly-Master</entry>
+					</row>
+				</tbody>
+			</tgroup>
+		</table>
+	</section>
 </article>

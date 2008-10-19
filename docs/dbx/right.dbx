@@ -1,36 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.4//EN"
 "http://www.oasis-open.org/docbook/xml/4.4/docbookx.dtd">
-<article>
-  <section>
-    <title>Überschrift Right</title>
-
-    <para>Der Text, der neben den Bildern erscheint, wird in der Datei
-    "right.dbx" abgelegt. Sie sollte syntaktisch (wie alle anderen dbx-Dateien
-    auch) einen gültigen DocBook-Artikel ("article") enthalten und kann
-    verschiedene Elemente aufweisen, z.B. Sektionen ("section") mit
-    Überschriften ("title") und Absätzen ("para").</para>
-
-    <itemizedlist>
-      <listitem>
-        <para>Hier sehen Sie ein Beispiel für eine Auflistung
-        ("itemizedlist")</para>
-      </listitem>
-
-      <listitem>
-        <para>mit zwei Einträgen ("listitem").</para>
-      </listitem>
-    </itemizedlist>
-
-    <para>Hier folgt ein weiterer Absatz.</para>
-  </section>
-
-  <section>
-    <title>Überschrift R-2</title>
-
-    <para>Bilder, die in den Text eingebunden werden, müssen genau 140 Pixel
-    breit sein und sollten vorzugsweise ein quadratisches Format aufweisen.
-    Sie werden im Verzeichnis "_images" abgelegt und dann links in
-    alphabetischer Reihenfolge untereinander dargestellt .</para>
-  </section>
+<article role="webpage">
+	<articleinfo>
+	<date>09.10.2008</date>
+		<author>
+			<surname>Kracht</surname>
+			<firstname>Patrick</firstname>
+		</author>
+	</articleinfo>
+	<section>
+		<title>Unser Fortschritt</title>
+		<section>
+			<title>30.09.2008</title>
+			<para>Aller Anfang ist schwer! Darum haben wir uns zunächst auf 
+			die Suche gemacht, was es denn vergleichbares im Web zu finden gibt:
+			Home Sweet 3D. Ein OpenSource Java Programm, das eigentlich sehr
+			gut auf die beschriebenen Anforderungen passt - leider in der falschen
+			Programmiersprache.</para>
+		</section>
+	</section>
 </article>

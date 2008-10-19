@@ -1,43 +1,45 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.4//EN"
 "http://www.oasis-open.org/docbook/xml/4.4/docbookx.dtd">
-<article>
-  <section>
-    <title>Überschrift Bottom</title>
-
-    <para>Hier geht es jetzt mit der Datei "buttom.dbx" weiter. Derzeit wird
-    nicht das komplette DokBook-Format unterstützt, aber einige wichtige
-    Features schon, zum Beispiel <emphasis role="bold">Fettdruck</emphasis>
-    und <emphasis role="italic">Kursivdruck</emphasis>.</para>
-
-    <para>Eine einfache Tabelle können Sie wie folgt erstellen:</para>
-
-    <table>
-      <title>Tabellenüberschrift</title>
-
-      <tgroup cols="2">
-        <thead>
-          <row>
-            <entry>Spaltenüberschrift 1</entry>
-
-            <entry>Spaltenüberschrift 2</entry>
-          </row>
-        </thead>
-
-        <tbody>
-          <row>
-            <entry>Eintrag 1</entry>
-
-            <entry>Eintrag 2</entry>
-          </row>
-
-          <row>
-            <entry>Eintrag 3</entry>
-
-            <entry>Eintrag 4</entry>
-          </row>
-        </tbody>
-      </tgroup>
-    </table>
-  </section>
+<article role="webpage">
+	<articleinfo>
+	<date>09.10.2008</date>
+		<author>
+			<surname>Kracht</surname>
+			<firstname>Patrick</firstname>
+		</author>
+	</articleinfo>
+	<section>
+		<title>Quellen und Anhang</title>
+		<para>Tool-Boxes</para>
+		<itemizedlist role="linklist">
+			<listitem>
+				<para><ulink url="http://www.codeblocks.org/downloads/binaries">Code::Blocks 8.02!</ulink></para>
+			</listitem>
+			<listitem>
+				<para><ulink url="http://gcc.gnu.org/">GCC, the GNU Compiler Collection</ulink></para>
+			</listitem>
+			<listitem>
+				<para><ulink url="http://www.mingw.org/">MinGW, minimalist GNU for Windows</ulink></para>
+			</listitem>
+		</itemizedlist>
+		<para>Manuals / Tutorials</para>
+		<itemizedlist role="linklist">
+			<listitem>
+				<para><ulink url="http://docs.wxwidgets.org/trunk/">wxWidgets 2.9.0, C++ Cross-Platform GUI Toolkit</ulink></para>
+			</listitem>
+			<listitem>
+				<para><ulink url="http://www.glprogramming.com/red/">OpenGL Programming Guide</ulink></para>
+			</listitem>
+		</itemizedlist>
+		<para>Web-Services</para>
+		<itemizedlist role="linklist">
+			<listitem>
+				<para><ulink url="http://code.google.com/">Google Code</ulink></para>
+			</listitem>
+			<listitem>
+				<para><ulink url="http://groups.google.de/">Google Groups</ulink></para>
+			</listitem>
+		</itemizedlist>
+	</section>
 </article>
