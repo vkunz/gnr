@@ -14,7 +14,7 @@
 		<section>
 			<title>30.09.2008</title>
 			<para>Aller Anfang ist schwer! Darum haben wir uns zunächst auf 
-			die Suche gemacht, was es denn vergleichbares im Web zu finden gibt:
+			die Suche gemacht, was es denn Vergleichbares im Web zu finden gibt:
 			Home Sweet 3D! Ein OpenSource Java Programm, das eigentlich sehr
 			gut auf die beschriebenen Anforderungen passt: Leider in der falschen
 			Programmiersprache. Das Layout und der Funktionsumfang sollte aber für 
@@ -67,10 +67,10 @@
 			<para>Aktuelle Hürden:</para>
 			<itemizedlist>
 				<listitem>
-					<para>Realisierung eines passenden Controllers für das OpenGL und die Frames</para>
+					<para>Realisierung eines passenden Controllers für OpenGL und die Frames</para>
 				</listitem>
 				<listitem>
-					<para>Komplettes Redesign der internen Struktur und Klassen</para>
+					<para>Komplettes Re-Design der internen Struktur und Klassen</para>
 				</listitem>
 			</itemizedlist>
 			<title>15.10.2008</title>
@@ -96,6 +96,18 @@
 			<para>Der Controller läuft jetzt endlich wie gewünscht! Durch den Umbau haben wir viel an
 			Flexibilität wiedergewonnen und können jetzt schon mehrere Objekte importieren. Auch das
 			Verschieben und Drehen der Importe ist jetzt möglich - wenn auch noch etwas fehlerhaft.</para>
+			<para>Derzeit auf der TODO-Liste:</para>
+			<itemizedlist>
+				<listitem>
+					<para>Implementierung des TreeViews für die Objekt-Bibliothek und der Szenerie</para>
+				</listitem>
+				<listitem>
+					<para>Einbau eines Bemaßungssystems für die importierten Objekte</para>
+				</listitem>
+				<listitem>
+					<para>Darstellung der Lichter und Oberflächen in OpenGL verbessern</para>
+				</listitem>
+			</itemizedlist>
 		</section>
 	</section>
 </article>

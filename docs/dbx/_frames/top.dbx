@@ -14,9 +14,9 @@
 		<para>Zeitraum des Projekts vom 29.09.2008 bis 10.11.2008</para>
 		<subtitle>Das Vorgehensmodell - XP</subtitle>
 		<para>Unser gewähltes Vorgehensmodell - <ulink url="http://de.wikipedia.org/wiki/Extreme_Programming">Extreme-Programming</ulink> im eigentlichen Sinne - lässt
-		keine detaillierte Planung vorausgehen. Es ist vielmehr eine agile Programmiermethode, 
+		keine detaillierte Planung vorausgehen. Es ist vielmehr eine agile Programmiermethode 
 		die bevorstehende Aufgabe zu lösen. Leider ist unser Team etwas klein geraten, was uns 
-		im Punkt "Risikomanagement" dazu gezwungen hat möglichst schnelle - wenn auch nur
+		im Punkt "Risikomanagement" dazu gezwungen hat, möglichst schnelle - wenn auch nur
 		suboptimale - Lösungen zu finden und weiter zu verfolgen.</para>
 		<para>Im Laufe des Projekts sind auf diese Weise recht brauchbare Ansätze entstanden, 
 		wobei wir auf der anderen Seite auch enorme Probleme an manchen Stellen produziert haben. 
@@ -51,7 +51,7 @@
 			</listitem>
 			<listitem>
 				<para>Verlustfreie Speicherung eines Modells in einem 
-				proprietärenXML-Format</para>
+				proprietären XML-Format</para>
 			</listitem>
 			<listitem>
 				<para>Export eines Modells im .obj/.mtl-Format</para>
@@ -106,7 +106,7 @@
 				<tbody>
 					<row>
 						<entry>Kracht, Patrick</entry>
-						<entry>Projekt Manager, Developer, Programming Assistant, HP</entry>
+						<entry>Projekt Manager, Developer, Programming Assistant, WEB</entry>
 					</row>
 					<row>
 						<entry>Kunz, Valentin</entry>
