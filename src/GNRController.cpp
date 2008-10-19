@@ -21,7 +21,9 @@ GNRController::GNRController()
 	//create root assembly, proxy and mainframe
 	m_RootAssembly  = new GNRAssembly();
 	m_AssemblyProxy = new GNRAssemblyProxy();
+	m_GLCamera      = new GNRGLCamera();
 	m_MainFrame     = new GNRMainFrame(0);
+	m_AssemblyProxy->setGLCamera(m_GLCamera);
 	
 #if defined(__ATHOS_DEBUG__)
 	// Create DebugFrame
@@ -125,6 +127,7 @@ void GNRController::glRefresh()
 	
 	//prepare and draw 3D view of room
 	m_Canvas3D->prepareDraw();
+	m_GLCamera->Render();
 	m_RootAssembly->draw();
 	m_Canvas3D->endDraw();
 }
@@ -138,32 +141,40 @@ void GNRController::processGLMouse(GNRGLNotifyEvent& event)
 {
 	if (event.getMouseEvent().ButtonDown())
 	{
-		int selectedAssemblyID, m_x, m_y;
-		
-		//get mouse coords
-		m_x = event.getMouseEvent().m_x;
-		m_y = event.getMouseEvent().m_y;
-		selectedAssemblyID = 0;
-		
-		//if from 2D canvas, redraw only this one
-		if (event.getCanvasID() == 2)
+		if (event.getMouseEvent().ButtonIsDown(1))
 		{
-			selectedAssemblyID = m_Canvas2D->selection(m_RootAssembly,m_x,m_y);
-		}
-		else
-		{
-			selectedAssemblyID = m_Canvas3D->selection(m_RootAssembly,m_x,m_y);
-		}
-		
+			int selectedAssemblyID, m_x, m_y;
+			
+			//get mouse coords
+			m_x = event.getMouseEvent().m_x;
+			m_y = event.getMouseEvent().m_y;
+			selectedAssemblyID = 0;
+			
+			//if from 2D canvas, redraw only this one
+			if (event.getCanvasID() == 2)
+			{
+				selectedAssemblyID = m_Canvas2D->selection(m_RootAssembly, NULL, m_x, m_y);
+			}
+			else
+			{
+				selectedAssemblyID = m_Canvas3D->selection(m_RootAssembly, m_GLCamera, m_x, m_y);
+			}
+			
 #if defined(__ATHOS_DEBUG__)
-		wxString msg;
-		msg << event.getCanvasID() << _("D:") << _(" ID=") << selectedAssemblyID << _(" X=") << m_x << _(" Y=") << m_y;
-		wxLogMessage(msg);
+			wxString msg;
+			msg << event.getCanvasID() << _("D:") << _(" ID=") << selectedAssemblyID << _(" X=") << m_x << _(" Y=") << m_y;
+			wxLogMessage(msg);
 #endif
-		
-		if (selectedAssemblyID > 0)
+			
+			if (selectedAssemblyID > 0)
+			{
+				m_AssemblyProxy->setAssembly((GNRAssembly*)selectedAssemblyID);
+				m_AssemblyProxy->setWindow(event);
+				m_AssemblyProxy->getControl(event);
+			}
+		}
+		else if (event.getMouseEvent().ButtonIsDown(2))
 		{
-			m_AssemblyProxy->setAssembly((GNRAssembly*)selectedAssemblyID);
 			m_AssemblyProxy->setWindow(event);
 			m_AssemblyProxy->getControl(event);
 		}

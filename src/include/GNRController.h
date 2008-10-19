@@ -37,6 +37,7 @@ private:
 	enum { MOVEXZ = 0, MOVEXY, ROTATE };
 	GNRAssembly* m_RootAssembly;
 	GNRAssemblyProxy* m_AssemblyProxy;
+	GNRGLCamera* m_GLCamera;
 	GNRMainFrame* m_MainFrame;
 	GNRGL2DCanvas* m_Canvas2D;
 	GNRGL3DCanvas* m_Canvas3D;

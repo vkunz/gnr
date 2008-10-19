@@ -48,7 +48,8 @@ GNRGL3DCanvas::GNRGL3DCanvas(wxWindow* parent, wxGLContext* sharedContext, wxWin
  */
 void GNRGL3DCanvas::setCamera()
 {
-	// nothing do to
+	// set camera-position
+	//gluLookAt(0, 3, 3, 0, 0, 0, 0, 1, 0);
 }
 
 /** * sets the perspective for the 3D scene

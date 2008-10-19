@@ -15,6 +15,7 @@
 #include <wx/glcanvas.h>
 
 #include "GNRAssembly.h"
+#include "GNRGLCamera.h"
 #include "GNRNotifyEvent.h"
 
 class GNRGLCanvas : public wxGLCanvas
@@ -67,7 +68,7 @@ public:
 	void prepareDraw();
 	void draw();
 	void endDraw();
-	int selection(GNRAssembly* rootAssembly, int mouse_x, int mouse_y);
+	int selection(GNRAssembly* rootAssembly, GNRGLCamera* camera, int mouse_x, int mouse_y);
 };
 
 #endif // _GNRGLCANVAS_H_

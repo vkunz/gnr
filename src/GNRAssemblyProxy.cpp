@@ -118,15 +118,17 @@ bool GNRAssemblyProxy::getControl(GNRGLNotifyEvent& event)
 	//set usage true
 	in_use = true;
 	
-	//store old rotation values
-	phi_old   = my_object->getPhi();
-	theta_old = my_object->getTheta();
-	rho_old   = my_object->getRho();
-	
-	//store old rotation values
-	ass_x = my_object->getX();
-	ass_y = my_object->getY();
-	ass_z = my_object->getZ();
+	//store old position + rotation values
+	if (event.getMouseEvent().ButtonDown(1))
+	{
+		old_x = my_object->getX();
+		old_y = my_object->getY();
+		old_z = my_object->getZ();
+		
+		phi_old   = my_object->getPhi();
+		theta_old = my_object->getTheta();
+		rho_old   = my_object->getRho();
+	}
 	
 	//store actual mouse coords on control
 	m_mouse_x = event.getMouseEvent().m_x;
@@ -171,6 +173,12 @@ void GNRAssemblyProxy::ObjectTransform(GNRGLNotifyEvent& event)
 			break;
 		}
 	}
+	if (event.getMouseEvent().ButtonIsDown(2))
+	{
+		// moving the camera needs to update mouse-coordinates every mouse-move event
+		m_mouse_x = event.getMouseEvent().GetX();
+		m_mouse_y = event.getMouseEvent().GetY();
+	}
 }
 
 /**
@@ -190,8 +198,18 @@ void GNRAssemblyProxy::ObjectRotate(GNRGLNotifyEvent& event)
 	msg << _(", setTheta=") << (theta_old + 720.0f*((float)(m_mouse_x - event.getMouseEvent().m_x)/(float)window_w));
 	wxLogMessage(msg);
 #endif
-	my_object->setTheta(theta_old + 720.0f*((float)(m_mouse_x - event.getMouseEvent().m_x)/(float)window_w));
-	my_object->setRho(rho_old + 720.0f*((float)(m_mouse_y - event.getMouseEvent().m_y)/(float)window_h));
+	if (event.getMouseEvent().ButtonIsDown(1))
+	{
+		// rotate a single object
+		my_object->setTheta(theta_old + 720.0f*((float)(m_mouse_x - event.getMouseEvent().m_x)/(float)window_w));
+		my_object->setRho(rho_old + 720.0f*((float)(m_mouse_y - event.getMouseEvent().m_y)/(float)window_h));
+	}
+	else if (event.getMouseEvent().ButtonIsDown(2))
+	{
+		// rotate the whole scene (by using the camera-class)
+		m_glcamera->RotateX((float)(m_mouse_y - event.getMouseEvent().GetY())/-5.0f);
+		m_glcamera->RotateY((float)(m_mouse_x - event.getMouseEvent().GetX())/-5.0f);
+	}
 }
 
 /**
@@ -201,8 +219,18 @@ void GNRAssemblyProxy::ObjectRotate(GNRGLNotifyEvent& event)
  */
 void GNRAssemblyProxy::ObjectMoveXY(GNRGLNotifyEvent& event)
 {
-	my_object->setX(ass_x - (float)((1.0f+fabs(ass_z))*(m_mouse_x - event.getMouseEvent().m_x)/50.0f));
-	my_object->setY(ass_y - (float)((1.0f+fabs(ass_z))*(event.getMouseEvent().m_y - m_mouse_y)/50.0f));
+	if (event.getMouseEvent().ButtonIsDown(1))
+	{
+		// Moving a single object
+		my_object->setX(old_x - (float)((1.0f+fabs(old_z))*(m_mouse_x - event.getMouseEvent().m_x)/50.0f));
+		my_object->setY(old_y - (float)((1.0f+fabs(old_z))*(event.getMouseEvent().m_y - m_mouse_y)/50.0f));
+	}
+	else if (event.getMouseEvent().ButtonIsDown(2))
+	{
+		// Moving the whole scene (by using the camera-class)
+		m_glcamera->MoveUpward((float)(m_mouse_y - event.getMouseEvent().GetY())/-20.0f);
+		m_glcamera->StrafeRight((float)(m_mouse_x - event.getMouseEvent().GetX())/20.0f);
+	}
 }
 
 /**
@@ -212,8 +240,18 @@ void GNRAssemblyProxy::ObjectMoveXY(GNRGLNotifyEvent& event)
  */
 void GNRAssemblyProxy::ObjectMoveXZ(GNRGLNotifyEvent& event)
 {
-	my_object->setZ(ass_z - (float)(m_mouse_y - event.getMouseEvent().m_y)/13.0f);
-	my_object->setX(ass_x - (float)((1.0f+fabs(my_object->getZ())*2.0f)*(m_mouse_x - event.getMouseEvent().m_x)/100.0f));
+	if (event.getMouseEvent().ButtonIsDown(1))
+	{
+		// Moving a single object
+		my_object->setZ(old_z - (float)(m_mouse_y - event.getMouseEvent().m_y)/13.0f);
+		my_object->setX(old_x - (float)((1.0f+fabs(my_object->getZ())*2.0f)*(m_mouse_x - event.getMouseEvent().m_x)/100.0f));
+	}
+	else if (event.getMouseEvent().ButtonIsDown(2))
+	{
+		// Moving the whole scene (by using the camera-class)
+		m_glcamera->MoveForward((float)(m_mouse_y - event.getMouseEvent().GetY())/15.0f);
+		m_glcamera->StrafeRight((float)(m_mouse_x - event.getMouseEvent().GetX())/20.0f);
+	}
 }
 
 /**
@@ -224,4 +262,10 @@ void GNRAssemblyProxy::ObjectMoveXZ(GNRGLNotifyEvent& event)
 bool GNRAssemblyProxy::isInUse()
 {
 	return in_use;
+}
+
+
+void GNRAssemblyProxy::setGLCamera(GNRGLCamera* camera)
+{
+	m_glcamera = camera;
 }

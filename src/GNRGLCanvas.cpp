@@ -105,7 +105,7 @@ void GNRGLCanvas::initGL()
 	// set current GL-Frame
 	SetCurrent();
 	
-	glClearColor(0.5, 0.5, 0.5, 0.0);
+	glClearColor(0.7, 0.7, 0.7, 0.0);
 	
 	// Assign created components to GL_LIGHT0
 	glLightfv(GL_LIGHT0, GL_AMBIENT, ambientLight);
@@ -163,6 +163,15 @@ void GNRGLCanvas::prepareDraw()
 	glLoadIdentity();
 	
 	setCamera();
+	
+	/*glColor3f(1.0f, 0.0f, 0.0f);
+	glBegin(GL_QUADS);
+	    glVertex3f(-40.0f, 0.0f, -40.0f);
+	    glVertex3f(-40.0f, 0.0f, -2.0f);
+	    glVertex3f(40.0f, 0.0f, -2.0f);
+	    glVertex3f(40.0f, 0.0f, -40.0f);
+	glEnd();*/
+	
 }
 
 /**
@@ -173,7 +182,7 @@ void GNRGLCanvas::prepareDraw()
  * @return      int             GL-Object-ID
  * @access      public
  */
-int GNRGLCanvas::selection(GNRAssembly* rootAssembly, int mouse_x, int mouse_y)
+int GNRGLCanvas::selection(GNRAssembly* rootAssembly, GNRGLCamera* camera, int mouse_x, int mouse_y)
 {
 	SetCurrent();
 	// Set Up A Selection Buffer
@@ -214,6 +223,10 @@ int GNRGLCanvas::selection(GNRAssembly* rootAssembly, int mouse_x, int mouse_y)
 		
 		//prepareDraw();
 		setCamera();
+		if (camera != NULL)
+		{
+			camera->Render();
+		}
 		rootAssembly->draw();
 		
 		// Select The Projection Matrix
@@ -291,7 +304,15 @@ void GNRGLCanvas::OnLMouseUp(wxMouseEvent& event)
  */
 void GNRGLCanvas::OnMMouseDown(wxMouseEvent& event)
 {
-	// nothing has do be done yet
+	// send Event to handle Mouse
+	GNRGLNotifyEvent myevent(wxEVT_COMMAND_GL_NOTIFY);
+	myevent.setMouseEvent(event);
+	myevent.setCanvasID(getCanvasID());
+	myevent.SetEventObject(this);
+	myevent.setWindowSize(m_window_x, m_window_y);
+	GetEventHandler()->ProcessEvent(myevent);
+	
+	Connect(wxEVT_MOTION, (wxObjectEventFunction)&GNRGLCanvas::OnMouseMove);
 }
 
 /**
@@ -301,7 +322,14 @@ void GNRGLCanvas::OnMMouseDown(wxMouseEvent& event)
  */
 void GNRGLCanvas::OnMMouseUp(wxMouseEvent& event)
 {
-	// nothing has do be done yet
+	Disconnect(wxEVT_MOTION, (wxObjectEventFunction)&GNRGLCanvas::OnMouseMove);
+	
+	// send Event to handle Mouse
+	GNRGLNotifyEvent myevent(wxEVT_COMMAND_GL_NOTIFY);
+	myevent.setMouseEvent(event);
+	myevent.setCanvasID(getCanvasID());
+	myevent.SetEventObject(this);
+	GetEventHandler()->ProcessEvent(myevent);
 }
 
 /**

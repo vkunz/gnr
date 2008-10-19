@@ -63,7 +63,7 @@ GNRGL2DCanvas::GNRGL2DCanvas(wxWindow* parent, wxGLContext* sharedContext, wxWin
 void GNRGL2DCanvas::setCamera()
 {
 	// set camera-position
-	gluLookAt(0,m_camera_height,0,0,1,0,0,0,-1);
+	gluLookAt(0, m_camera_height, 0, 0, 0, 0, 0, 0, -1);
 }
 
 /**

@@ -18,6 +18,7 @@
 #include <wx/timer.h>
 
 #include "GNRAssembly.h"
+#include "GNRGLCamera.h"
 #include "GNRGLNotifyEvent.h"
 
 class GNRAssemblyProxy
@@ -30,8 +31,9 @@ private:
 	int	m_mouse_x, m_mouse_y;           //old mouse coords (x,y) on frame
 	int window_w, window_h;             //window dimensions of actual frame (width,height)
 	float phi_old, theta_old, rho_old;  //old copy of previous object params (x,y,z-rotation)
-	float ass_x, ass_y, ass_z;          //old copy of previous object params (x,y,z-coords)
+	float old_x, old_y, old_z;          //old copy of previous object params (x,y,z-coords)
 	GNRAssembly* my_object;             //pointer to assembly object
+	GNRGLCamera* m_glcamera;                 //pointer to camera object
 	
 protected:
 
@@ -45,6 +47,7 @@ public:
 	GNRAssemblyProxy();
 	virtual ~GNRAssemblyProxy();
 	void setAssembly(GNRAssembly* assembly);
+	void setGLCamera(GNRGLCamera* camera);
 	void setWindow(GNRGLNotifyEvent& event);
 	bool getControl(GNRGLNotifyEvent& event);
 	void dropControl(GNRGLNotifyEvent& event);

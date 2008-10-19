@@ -101,6 +101,7 @@
 		<Unit filename="src\GNRFace.cpp" />
 		<Unit filename="src\GNRGL2DCanvas.cpp" />
 		<Unit filename="src\GNRGL3DCanvas.cpp" />
+		<Unit filename="src\GNRGLCamera.cpp" />
 		<Unit filename="src\GNRGLCanvas.cpp" />
 		<Unit filename="src\GNRGLNotifyEvent.cpp" />
 		<Unit filename="src\GNRMainFrame.cpp" />
@@ -120,6 +121,7 @@
 		<Unit filename="src\include\GNRFace.h" />
 		<Unit filename="src\include\GNRGL2DCanvas.h" />
 		<Unit filename="src\include\GNRGL3DCanvas.h" />
+		<Unit filename="src\include\GNRGLCamera.h" />
 		<Unit filename="src\include\GNRGLCanvas.h" />
 		<Unit filename="src\include\GNRGLNotifyEvent.h" />
 		<Unit filename="src\include\GNRImportFile.h" />
