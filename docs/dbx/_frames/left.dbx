@@ -13,56 +13,61 @@
 		<title>Vorschau</title>
 		<para>Hier kann die Entwicklung unseres Programms vom ersten Byte bis zum aktuellen 
 		Stand verfolgt werden. Begonnen haben wir mit einer optischen Vorlage durch das
-		OpenSource Java-Programm "Home Sweet 3D" von <ulink url="http://sweethome3d.sourceforge.net/download.html">eTeks</ulink></para>
+		OpenSource Java-Programm "Home Sweet 3D" von <ulink url="http://sweethome3d.sourceforge.net/download.html">eTeks</ulink>.
+		<ulink url="http://www.hs-ulm.de/upload/rlunde/projti5/Team1/_downloads/vorbild.jpg">Abb.1</ulink></para>
 		<mediaobject>
 			<imageobject>
 				<imagedata fileref="_images/vorbild_small.img?s=200" align="left" />
 			</imageobject>
 			<caption>
-				<para>Unser Vorbild: "Home Sweet 3D"</para>
+				<para>Abb.1: Das Vorbild: "Home Sweet 3D"</para>
 			</caption>
 		</mediaobject>
 		<para>Die ersten Schritte mit wxWidgets ermöglichen schon eine kleine
-		minimalistische GUI. Der erste Grundstein für unser Projekt ist gelegt.</para>
+		minimalistische GUI. Der erste Grundstein für unser Projekt ist gelegt.
+		<ulink url="http://www.hs-ulm.de/upload/rlunde/projti5/Team1/_downloads/prototyp_0.jpg">Abb.2</ulink></para>
 		<mediaobject>
 			<imageobject>
 				<imagedata fileref="_images/prototyp_0_small.img?s=200" align="left" />
 			</imageobject>
 			<caption>
-				<para>Der erste Prototyp - die GUI</para>
+				<para>Abb.2: Der erste Prototyp - die GUI</para>
 			</caption>
 		</mediaobject>
 		<para>Die ersten Tests mit dem GLCanvas. Die Objekte erscheinen noch
-		etwas dimensionslos, da Licht und Schatten noch Fremdwörter sind.</para>
+		etwas dimensionslos, da Licht und Schatten noch Fremdwörter sind.
+		<ulink url="http://www.hs-ulm.de/upload/rlunde/projti5/Team1/_downloads/prototyp_1.jpg">Abb.3</ulink></para>
 		<mediaobject>
 			<imageobject>
 				<imagedata fileref="_images/prototyp_1_small.img?s=200" align="left" />
 			</imageobject>
 			<caption>
-				<para>Die erste OpenGL-Canvas</para>
+				<para>Abb.3: Die erste OpenGL-Canvas</para>
 			</caption>
 		</mediaobject>
 		<para>Das wxGLCanvas bietet schon die Möglichkeit 3D-Formen darzustellen. Hier
 		ein kleiner Prototyp mit einer bunten Pyramide, wobei die beiden Frames noch
-		für sich stehen. Die nächste Version sollte den sogenannten Shard-Context-Modus
-		nutzen.</para>
+		für sich stehen. Die nächste Version sollte den sogenannten Shared Context Modus
+		unterstützen.
+		<ulink url="http://www.hs-ulm.de/upload/rlunde/projti5/Team1/_downloads/prototyp_2.jpg">Abb.4</ulink></para>
 		<mediaobject>
 			<imageobject>
 				<imagedata fileref="_images/prototyp_2_small.img?s=200" align="left" />
 			</imageobject>
 			<caption>
-				<para>Erste Anzeige - wxGLCanvas</para>
+				<para>Abb.4: Erste Anzeige - wxGLCanvas</para>
 			</caption>
 		</mediaobject>
 		<para>Der OBJ-Importer funktioniert schon einmal rudimentär. Wie im Screenshot 
 		(hoffentlich) zu erkennen ist, wurde hier ein iMac im OBJ-Format importiert und
-		zerlegt. Das obere Frame zeigt die Ansicht von oben, das untere die 3D-Darstellung.</para>
+		zerlegt. Das obere Frame zeigt die Ansicht von oben, das untere die 3D-Darstellung.
+		<ulink url="http://www.hs-ulm.de/upload/rlunde/projti5/Team1/_downloads/prototyp_3.jpg">Abb.5</ulink></para>
 		<mediaobject>
 			<imageobject>
 				<imagedata fileref="_images/prototyp_3_small.img?s=200" align="left" />
 			</imageobject>
 			<caption>
-				<para>OBJ-Import funktioniert</para>
+				<para>Abb.5: OBJ-Import funktioniert</para>
 			</caption>
 		</mediaobject>
 	</section>

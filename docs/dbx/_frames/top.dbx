@@ -11,11 +11,19 @@
 	</articleinfo>
 	<section>
 		<title>Projekt-Homepage Team 1</title>
-		<section>
-			<title>Zeitraum: 29.09.2008 - 10.11.2008</title>
-		</section>
+		<para>Zeitraum des Projekts vom 29.09.2008 bis 10.11.2008</para>
+		<subtitle>Das Vorgehensmodell - XP</subtitle>
+		<para>Unser gewähltes Vorgehensmodell - <ulink url="http://de.wikipedia.org/wiki/Extreme_Programming">Extreme-Programming</ulink> im eigentlichen Sinne - lässt
+		keine detaillierte Planung vorausgehen. Es ist vielmehr eine agile Programmiermethode, 
+		die bevorstehende Aufgabe zu lösen. Leider ist unser Team etwas klein geraten, was uns 
+		im Punkt "Risikomanagement" dazu gezwungen hat möglichst schnelle - wenn auch nur
+		suboptimale - Lösungen zu finden und weiter zu verfolgen.</para>
+		<para>Im Laufe des Projekts sind auf diese Weise recht brauchbare Ansätze entstanden, 
+		wobei wir auf der anderen Seite auch enorme Probleme an manchen Stellen produziert haben. 
+		Diese Fehler während der eigentlichen Entwicklung zu beseitigen ist dabei die größte 
+		Herausforderung.</para>
 		<subtitle>3D Raumplaner</subtitle>
-		<para>Aufgabe ist es, in knapp sechs Wochen einen Raumplaner zu 
+		<para>Unsere Aufgabe ist es nun - in knapp sechs Wochen - einen Raumplaner zu 
 		entwickeln, der folgende Anforderungen erfüllt:</para>
 		<itemizedlist>
 			<listitem>
@@ -59,35 +67,58 @@
 		</itemizedlist>
 	</section>
 	<section>
+		<title>Die Vorbereitungen</title>
+		<section>
+			<para>Uns allen ist es nicht erspart geblieben, die Semesterferien vollständig 
+			zur "Beschaffung finanzieller Mittel" und zur Wahl des geeigneten Praktikumsplatzes
+			zu nutzen. Zu Beginn des Semesters am 29.09.2008 startete die erste Phase:</para>
+			<subtitle>Einarbeitung und erste Experimente!</subtitle>
+			<para>Wir haben uns schon zu Beginn des Projekts auf <ulink url="http://www.codeblocks.org/downloads/binaries">Code::Blocks 8.02</ulink> als
+			IDE geeinigt, da wir der alle Meinung sind, dass manche OpenSource Programme
+			ein guter Ersatz für teils sehr kostspielige Alternativen sind. Zudem sollte
+			unser Programm auch auf Linux portierbar sein, da unser Entwickler Konstantin
+			Balabin unter keinen Umständen auf Windows wechseln wollte. Durch den Einsatz
+			von <ulink url="http://docs.wxwidgets.org/trunk/">wxWidgets</ulink> (bzw. GTK unter Linux) 
+			und dem geeigneten Makefile für den <ulink url="http://gcc.gnu.org/">GNU Compiler</ulink> sollte
+			das kein Problem darstellen.</para>
+			<para>Die Aufteilung unseres Teams ist eher dynamischer Natur. Das bedeutet,
+			dass jeder wenigstens rudimentäre Kenntnisse von der Technik der anderen Mitglieder
+			haben sollte - was nicht immer einfach ist. Gerade WX in Kombination mit OpenGL,
+			wie wir es eingesetzt haben, scheint nicht gerade trivial zu sein. Die kommenden Wochen
+			werden sehr viel Zeit in Anspruch nehmen...</para>
+		</section>
+	</section>
+	<section>
 		<title>Unser Team</title>
-		<para>Unser Team besteht leider nur aus vier Studenten der 
-		Technischen Informatik, die ihr Möglichstes tun, um mithalten 
-		zu können.</para>
+		<para>Unser Team besteht nur aus vier Studenten der Technischen Informatik, 
+		die ihr Möglichstes tun, um mit den anderen Gruppen mithalten zu können. Die
+		Aufteilung und Spezialisierung der einzelnen Team-Mitglieder entstand sozusagen
+		"on-the-fly", da wir uns sehr schnell in die neue Materie einarbeiten mussten.</para>
 		<table>
 			<title>Team-Mitglieder</title>
 			<tgroup cols="2">
 				<thead>
 					<row>
-						<entry>Name</entry>
-						<entry>Aufgaben</entry>
+						<entry>Nachname, Vorname</entry>
+						<entry>Aufgaben, Spezialisierung</entry>
 					</row>
 				</thead>
 				<tbody>
 					<row>
 						<entry>Kracht, Patrick</entry>
-						<entry>Projekt Manager</entry>
+						<entry>Projekt Manager, Developer, Programming Assistant, HP</entry>
 					</row>
 					<row>
 						<entry>Kunz, Valentin</entry>
-						<entry>Programmer, Developer, Problem-Solver</entry>
+						<entry>Programmer, Developer, Problem Solver, OBJ/MTL</entry>
 					</row>
 					<row>
 						<entry>Moll, Thorsten</entry>
-						<entry>Programmer, Developer, OpenGL-Specialist</entry>
+						<entry>Programmer, Developer, OpenGL Specialist, Events</entry>
 					</row>
 					<row>
 						<entry>Balabin, Konstantin</entry>
-						<entry>Programmer, Developer, Assembly-Master</entry>
+						<entry>Programmer, Developer, Assembly Master, Spike Solutions</entry>
 					</row>
 				</tbody>
 			</tgroup>

@@ -20,4 +20,13 @@
 			<include src="_frames/bottom.dbx"></include>
 		</docbook>
 	</inhalt>
+	<navigation>
+		<referenzen>
+			<include src="_downloads/vorbild.jpg"></include>
+			<include src="_downloads/prototyp_0.jpg"></include>
+			<include src="_downloads/prototyp_1.jpg"></include>
+			<include src="_downloads/prototyp_2.jpg"></include>
+			<include src="_downloads/prototyp_3.jpg"></include>
+		</referenzen>
+	</navigation>	
 </webseite>

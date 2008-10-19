@@ -10,36 +10,51 @@
 		</author>
 	</articleinfo>
 	<section>
+		<title>Fazit</title>
+		<para>Positives und Negatives folgt...</para>
+	</section>
+	<section>
 		<title>Quellen und Anhang</title>
-		<para>Tool-Boxes</para>
-		<itemizedlist role="linklist">
-			<listitem>
-				<para><ulink url="http://www.codeblocks.org/downloads/binaries">Code::Blocks 8.02!</ulink></para>
-			</listitem>
-			<listitem>
-				<para><ulink url="http://gcc.gnu.org/">GCC, the GNU Compiler Collection</ulink></para>
-			</listitem>
-			<listitem>
-				<para><ulink url="http://www.mingw.org/">MinGW, minimalist GNU for Windows</ulink></para>
-			</listitem>
-		</itemizedlist>
-		<para>Manuals / Tutorials</para>
-		<itemizedlist role="linklist">
-			<listitem>
-				<para><ulink url="http://docs.wxwidgets.org/trunk/">wxWidgets 2.9.0, C++ Cross-Platform GUI Toolkit</ulink></para>
-			</listitem>
-			<listitem>
-				<para><ulink url="http://www.glprogramming.com/red/">OpenGL Programming Guide</ulink></para>
-			</listitem>
-		</itemizedlist>
-		<para>Web-Services</para>
-		<itemizedlist role="linklist">
-			<listitem>
-				<para><ulink url="http://code.google.com/">Google Code</ulink></para>
-			</listitem>
-			<listitem>
-				<para><ulink url="http://groups.google.de/">Google Groups</ulink></para>
-			</listitem>
-		</itemizedlist>
+		<section>
+			<title>Verwendete Tools und Bibliotheken</title>
+			<itemizedlist role="linklist">
+				<listitem>
+					<para><ulink url="http://www.codeblocks.org/downloads/binaries">Code::Blocks 8.02, OpenSource C++ IDE</ulink></para>
+				</listitem>
+				<listitem>
+					<para><ulink url="http://gcc.gnu.org/">GCC, GNU Compiler Collection</ulink></para>
+				</listitem>
+				<listitem>
+					<para><ulink url="http://www.mingw.org/">MinGW, minimale WIN32 spezifische Headers und Bibliotheken</ulink></para>
+				</listitem>
+				<listitem>
+					<para><ulink url="http://www.projity.com/">OpenProj, OpenSource Alternative zu Microsoft Project</ulink></para>
+				</listitem>
+				<listitem>
+					<para><ulink url="http://argouml.tigris.org/">ArgoUML, OpenSource UML modeling tool</ulink></para>
+				</listitem>
+			</itemizedlist>
+			<title>Manuals und Tutorials</title>
+			<itemizedlist role="linklist">
+				<listitem>
+					<para><ulink url="http://docs.wxwidgets.org/trunk/">wxWidgets 2.9.0, C++ Cross-Platform GUI Toolkit</ulink></para>
+				</listitem>
+				<listitem>
+					<para><ulink url="http://www.glprogramming.com/red/">OpenGL Programming Guide</ulink></para>
+				</listitem>
+				<listitem>
+					<para><ulink url="http://www.fileformat.info/format/wavefrontobj/">Wavefront OBJ File Format Summary</ulink></para>
+				</listitem>
+			</itemizedlist>
+			<title>Genutzte Web-Services</title>
+			<itemizedlist role="linklist">
+				<listitem>
+					<para><ulink url="http://code.google.com/">Google Code</ulink></para>
+				</listitem>
+				<listitem>
+					<para><ulink url="http://groups.google.de/">Google Groups</ulink></para>
+				</listitem>
+			</itemizedlist>
+		</section>
 	</section>
 </article>
