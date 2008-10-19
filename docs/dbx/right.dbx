@@ -15,9 +15,86 @@
 			<title>30.09.2008</title>
 			<para>Aller Anfang ist schwer! Darum haben wir uns zunächst auf 
 			die Suche gemacht, was es denn vergleichbares im Web zu finden gibt:
-			Home Sweet 3D. Ein OpenSource Java Programm, das eigentlich sehr
-			gut auf die beschriebenen Anforderungen passt - leider in der falschen
-			Programmiersprache.</para>
+			Home Sweet 3D! Ein OpenSource Java Programm, das eigentlich sehr
+			gut auf die beschriebenen Anforderungen passt: Leider in der falschen
+			Programmiersprache. Das Layout und der Funktionsumfang sollte aber für 
+			den Anfang als Vorbild genügen.</para>
+			<para>Als nächstes stehen auf der Tagesordnung:</para>
+			<itemizedlist>
+				<listitem>
+					<para>Einarbeitung in wxWidgets</para>
+				</listitem>
+				<listitem>
+					<para>Einarbeitung in OpenGL mit wxWidgets</para>
+				</listitem>
+				<listitem>
+					<para>Tests von Strukturen und Möglichkeiten</para>
+				</listitem>
+			</itemizedlist>
+			<title>05.10.2008</title>
+			<para>Die letzten Tage waren sehr anstrengend! Jede Menge neue Möglichkeiten
+			und Probleme. Die ersten Prototypen sind optisch noch nicht sehr ansprechend,
+			aber uns wird langsam die Tragweite - unserer Entscheidung mit wxWidgets und OpenGL
+			zu arbeiten - in immer größerem Umfang bewusst. Es wartet noch sehr viel Arbeit
+			auf uns...</para>
+			<para>Pläne für das weitere Vorgehen:</para>
+			<itemizedlist>
+				<listitem>
+					<para>OpenGL zu verstehen und gezielt einzusetzen</para>
+				</listitem>
+				<listitem>
+					<para>Entwicklung einer Oberfläche um weitere Tests zu erleichtern</para>
+				</listitem>
+			</itemizedlist>
+			<title>09.10.2008</title>
+			<para>Die erste Woche ist wie im Fluge vergangen und wir sind wieder ein paar
+			Schritte weiter. Die Möglichkeiten, die uns das OpenGL bietet sind Segen und Fluch
+			zugleich. Wir haben es endlich geschafft eine Interaktion von Benutzer und OpenGL
+			zu realisieren. Unsere erste Anzeige zeigt schon eine 3-dimensionale Pyramide, die 
+			sich verschieben und drehen lässt.</para>
+			<para>Probleme die es zu Lösen gilt:</para>
+			<itemizedlist>
+				<listitem>
+					<para>Events der OpenGL-Frames zielgerichtet abzufangen und zu verarbeiten</para>
+				</listitem>
+				<listitem>
+					<para>Ideen sammeln, um die interne OBJ-Repräsentation zu ermöglichen</para>
+				</listitem>
+			</itemizedlist>
+			<title>12.10.2008</title>
+			<para>Nach längeren Diskussionen und Problemen mit der internen Struktur unseres Projekts 
+			haben wir uns entschlossen unser Konzept grundlegend zu verändern.</para>
+			<para>Aktuelle Hürden:</para>
+			<itemizedlist>
+				<listitem>
+					<para>Realisierung eines passenden Controllers für das OpenGL und die Frames</para>
+				</listitem>
+				<listitem>
+					<para>Komplettes Redesign der internen Struktur und Klassen</para>
+				</listitem>
+			</itemizedlist>
+			<title>15.10.2008</title>
+			<para>Zwei Wochen sind ins Land gegangen und wir haben unseren ersten Tiefpunkt erreicht. 
+			Unser Programm ist jetzt auf dem Weg eine komplett neue Struktur zu bekommen. Nach kleinen 
+			Differenzen innerhalb der Gruppe konnte aber trotzdem das neue Konzept (teils) erfolgreich 
+			umgesetzt werden. Wir haben jedoch die Möglichkeit verloren, unsere Objekte verschieben 
+			oder drehen zu können...</para>
+			<para>Ausblicke für die nächste Version:</para>
+			<itemizedlist>
+				<listitem>
+					<para>Komplette Integration des Controllers</para>
+				</listitem>
+				<listitem>
+					<para>Umbau der Steuerung über die Maus als Proxy für die Objekte</para>
+				</listitem>
+				<listitem>
+					<para>OpenGL mit Licht und Schatten</para>
+				</listitem>
+			</itemizedlist>
+			<title>17.10.2008</title>
+			<para>Der Controller läuft jetzt endlich wie gewünscht! Durch den Umbau haben wir viel an
+			Flexibilität wiedergewonnen und können jetzt schon mehrere Objekte importieren. Auch das
+			Verschieben und Drehen der Importe ist jetzt möglich - wenn auch noch etwas fehlerhaft.</para>
 		</section>
 	</section>
 </article>
