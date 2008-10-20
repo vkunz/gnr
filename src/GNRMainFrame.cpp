@@ -121,7 +121,7 @@ GNRMainFrame::GNRMainFrame(wxWindow* parent, wxWindowID id)
 	StatusBar1->SetStatusStyles(1,__wxStatusBarStyles_1);
 	SetStatusBar(StatusBar1);
 	ToolBar1 = new wxToolBar(this, ID_TOOLBAR1, wxDefaultPosition, wxDefaultSize, wxTB_HORIZONTAL|wxNO_BORDER, _T("ID_TOOLBAR1"));
-	ToolBarItem1 = ToolBar1->AddTool(btn_room_new, _("Raum erstellen"), wxArtProvider::GetBitmap(wxART_MAKE_ART_ID_FROM_STR(_T("wxART_NEW")),wxART_TOOLBAR), wxNullBitmap, wxITEM_RADIO, _("Raum erstellen"), _("Raum erstellen"));
+	ToolBarItem1 = ToolBar1->AddTool(btn_room_new, _("Raum erstellen"), wxArtProvider::GetBitmap(wxART_MAKE_ART_ID_FROM_STR(_T("wxART_NEW")),wxART_TOOLBAR), wxNullBitmap, wxITEM_NORMAL, _("Raum erstellen"), _("Raum erstellen"));
 	ToolBarItem2 = ToolBar1->AddTool(btn_room_open, _("Raum öffnen"), wxArtProvider::GetBitmap(wxART_MAKE_ART_ID_FROM_STR(_T("wxART_FOLDER_OPEN")),wxART_TOOLBAR), wxNullBitmap, wxITEM_NORMAL, _("Raum öffnen"), _("Raum öffnen"));
 	ToolBarItem3 = ToolBar1->AddTool(btn_room_save, _("Raum speichern"), wxArtProvider::GetBitmap(wxART_MAKE_ART_ID_FROM_STR(_T("wxART_FILE_SAVE")),wxART_TOOLBAR), wxNullBitmap, wxITEM_NORMAL, _("Raum speichern"), _("Raum speichern"));
 	ToolBar1->AddSeparator();

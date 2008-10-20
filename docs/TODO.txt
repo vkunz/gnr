@@ -28,3 +28,4 @@ Mitarbeiter:	Kracht, Patrick
 * Bibliothek für verwendete Objekte in der Szenerie
 * Realistische 3D-Darstellung
 * Verlustfreie Speicherung von Räumen im OAX/OPX Format
+* Platzierung von Objekten im 2D-Fenster verbessern
