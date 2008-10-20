@@ -291,12 +291,17 @@ int GNRGLCanvas::selection(GNRAssembly* rootAssembly, GNRGLCamera* camera, int m
  */
 void GNRGLCanvas::OnLMouseDown(wxMouseEvent& event)
 {
+
+	GNRVertex glcoords_min = getGLPos(0, 0);
+	GNRVertex glcoords_max = getGLPos(m_window_x, m_window_y);
+	
 	// send Event to handle Mouse
 	GNRGLNotifyEvent myevent(wxEVT_COMMAND_GL_NOTIFY);
 	myevent.setMouseEvent(event);
 	myevent.setCanvasID(getCanvasID());
 	myevent.SetEventObject(this);
 	myevent.setWindowSize(m_window_x, m_window_y);
+	myevent.setWorldSize(glcoords_max.getX() - glcoords_min.getX(), glcoords_max.getY() - glcoords_min.getY());
 	GetEventHandler()->ProcessEvent(myevent);
 	
 	Connect(wxEVT_MOTION, (wxObjectEventFunction)&GNRGLCanvas::OnMouseMove);
@@ -363,6 +368,7 @@ void GNRGLCanvas::OnMMouseUp(wxMouseEvent& event)
 void GNRGLCanvas::OnRMouseDown(wxMouseEvent& event)
 {
 	// nothing has do be done yet
+	
 }
 
 /**
@@ -490,6 +496,36 @@ void GNRGLCanvas::OnPaint(wxPaintEvent& event)
 	myevent.SetEventObject(this);
 	GetEventHandler()->ProcessEvent(myevent);
 	event.Skip();
+}
+
+// Convert Mouse-Coordinates to GL-Coordinates
+GNRVertex GNRGLCanvas::getGLPos(int x, int y)
+{
+	glPushMatrix();
+	GLdouble modelview[16], projection[16];
+	GLint viewport[4];
+	float z;
+	double xpos, ypos, zpos;
+	
+	glGetDoublev(GL_MODELVIEW_MATRIX, modelview);       //get the modelview matrix
+	glGetDoublev(GL_PROJECTION_MATRIX, projection);     //get the projection matrix
+	glGetIntegerv(GL_VIEWPORT, viewport);               //get the viewport
+	
+	//Read the window z co-ordinate (the z value on that point in unit cube)
+	glReadPixels((int)x, (int)(viewport[3]-y), 1, 1, GL_DEPTH_COMPONENT, GL_FLOAT, &z);
+	
+	//Unproject the window co-ordinates to find the world co-ordinates.
+	gluUnProject((double)x, (double)viewport[3]-y, (double)z, modelview, projection, viewport, &xpos, &ypos, &zpos);
+	
+	glPopMatrix();
+	
+	wxString str;
+	str << _("glPos:\tx:") << xpos << _("\ty:") << ypos << _("\tz:") << zpos << _("\tz:") << z;
+	wxLogDebug(str);
+	
+	// return world coordinates
+	GNRVertex glcoords(xpos, ypos, zpos);
+	return glcoords;
 }
 
 /**

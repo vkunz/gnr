@@ -1,7 +1,7 @@
 /* vim: set expandtab sw=4 ts=4 sts=4: */
 /**
  * defines the mouse controller class
- * @name        GNRAssemblyProxy.h
+ * @name        GNRAssemblyTranslater.h
  * @date        2008-10-09
  * @author		Konstantin Balabin  <k.balabin@googlemail.com>
  * @author		Patrick Kracht      <patrick.kracht@googlemail.com>
@@ -9,8 +9,8 @@
  * @author		Valentin Kunz       <athostr@googlemail.com>
  */
 
-#ifndef _GNRAssemblyProxy_H_
-#define _GNRAssemblyProxy_H_
+#ifndef _GNRAssemblyTranslater_H_
+#define _GNRAssemblyTranslater_H_
 
 #include <wx/dcclient.h>
 #include <wx/msgdlg.h>
@@ -21,7 +21,7 @@
 #include "GNRGLCamera.h"
 #include "GNRGLNotifyEvent.h"
 
-class GNRAssemblyProxy
+class GNRAssemblyTranslater
 {
 private:
 
@@ -44,8 +44,8 @@ protected:
 	
 public:
 
-	GNRAssemblyProxy();
-	virtual ~GNRAssemblyProxy();
+	GNRAssemblyTranslater();
+	virtual ~GNRAssemblyTranslater();
 	void setAssembly(GNRAssembly* assembly);
 	void setGLCamera(GNRGLCamera* camera);
 	void setWindow(GNRGLNotifyEvent& event);
@@ -57,4 +57,4 @@ public:
 	
 };
 
-#endif // _GNRAssemblyProxy_H_
+#endif // _GNRAssemblyTranslater_H_

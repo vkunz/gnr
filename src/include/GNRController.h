@@ -17,7 +17,7 @@
 #include <wx/msgdlg.h>
 
 #include "GNRAssembly.h"
-#include "GNRAssemblyProxy.h"
+#include "GNRAssemblyTranslater.h"
 #include "GNRMainFrame.h"
 #include "GNRGL2DCanvas.h"
 #include "GNRGL3DCanvas.h"
@@ -36,7 +36,7 @@ private:
 
 	enum { MOVEXZ = 0, MOVEXY, ROTATE };
 	GNRAssembly* m_RootAssembly;
-	GNRAssemblyProxy* m_AssemblyProxy;
+	GNRAssemblyTranslater* m_AssemblyTranslater;
 	GNRGLCamera* m_GLCamera;
 	GNRMainFrame* m_MainFrame;
 	GNRGL2DCanvas* m_Canvas2D;

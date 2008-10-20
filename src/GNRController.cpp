@@ -19,11 +19,11 @@
 GNRController::GNRController()
 {
 	//create root assembly, proxy and mainframe
-	m_RootAssembly  = new GNRAssembly();
-	m_AssemblyProxy = new GNRAssemblyProxy();
-	m_GLCamera      = new GNRGLCamera();
-	m_MainFrame     = new GNRMainFrame(0);
-	m_AssemblyProxy->setGLCamera(m_GLCamera);
+	m_RootAssembly      = new GNRAssembly();
+	m_AssemblyTranslater= new GNRAssemblyTranslater();
+	m_GLCamera          = new GNRGLCamera();
+	m_MainFrame         = new GNRMainFrame(0);
+	m_AssemblyTranslater->setGLCamera(m_GLCamera);
 	
 #if defined(__ATHOS_DEBUG__)
 	// Create DebugFrame
@@ -49,7 +49,7 @@ GNRController::~GNRController()
 	delete m_DebugFrame;
 #endif
 	delete m_MainFrame;
-	delete m_AssemblyProxy;
+	delete m_AssemblyTranslater;
 	delete m_RootAssembly;
 }
 
@@ -159,24 +159,25 @@ void GNRController::processGLMouse(GNRGLNotifyEvent& event)
 			
 			if (selectedAssemblyID > 0)
 			{
-				m_AssemblyProxy->setAssembly((GNRAssembly*)selectedAssemblyID);
-				m_AssemblyProxy->setWindow(event);
-				m_AssemblyProxy->getControl(event);
+				m_AssemblyTranslater->setAssembly((GNRAssembly*)selectedAssemblyID);
+				m_AssemblyTranslater->setWindow(event);
+				m_AssemblyTranslater->getControl(event);
 			}
 		}
 		else if (event.getMouseEvent().ButtonIsDown(2))
 		{
-			m_AssemblyProxy->setWindow(event);
-			m_AssemblyProxy->getControl(event);
+			m_AssemblyTranslater->setWindow(event);
+			m_AssemblyTranslater->getControl(event);
 		}
 	}
 	else if (event.getMouseEvent().ButtonUp())
 	{
-		m_AssemblyProxy->dropControl(event);
+		m_AssemblyTranslater->dropControl(event);
 	}
 	else
 	{
-		m_AssemblyProxy->ObjectTransform(event);
+		// mouse move event
+		m_AssemblyTranslater->ObjectTransform(event);
 	}
 }
 
@@ -201,15 +202,15 @@ void GNRController::toggleToolbar(wxNotifyEvent& event)
 	{
 	case 1:
 		wxLogDebug(_("set MOVEXY"));
-		m_AssemblyProxy->setDirection(MOVEXY);
+		m_AssemblyTranslater->setDirection(MOVEXY);
 		break;
 	case 2:
 		wxLogDebug(_("set MOVEXZ"));
-		m_AssemblyProxy->setDirection(MOVEXZ);
+		m_AssemblyTranslater->setDirection(MOVEXZ);
 		break;
 	case 3:
 		wxLogDebug(_("set ROTATE"));
-		m_AssemblyProxy->setDirection(ROTATE);
+		m_AssemblyTranslater->setDirection(ROTATE);
 		break;
 	}
 }

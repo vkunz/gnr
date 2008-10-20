@@ -3,7 +3,7 @@
  * the mouse controller class implements the conversion and
  * detection of object movements calculates world coordinates
  * for the glcanvas frames
- * @name        GNRAssemblyProxy.cpp
+ * @name        GNRAssemblyTranslater.cpp
  * @date        2008-10-09
  * @author              Konstantin Balabin  <k.balabin@googlemail.com>
  * @author              Patrick Kracht      <patrick.kracht@googlemail.com>
@@ -11,7 +11,7 @@
  * @author              Valentin Kunz       <athostr@googlemail.com>
  */
 
-#include "GNRAssemblyProxy.h"
+#include "GNRAssemblyTranslater.h"
 #include <wx/math.h>
 
 #include "GNRAssembly.h"
@@ -21,19 +21,19 @@
 #endif
 
 /**
- * constructor of GNRAssemblyProxy
+ * constructor of GNRAssemblyTranslater
  * @access      public
  */
-GNRAssemblyProxy::GNRAssemblyProxy()
+GNRAssemblyTranslater::GNRAssemblyTranslater()
 {
 	init();
 }
 
 /**
- * destructor of GNRAssemblyProxy
+ * destructor of GNRAssemblyTranslater
  * @access      public
  */
-GNRAssemblyProxy::~GNRAssemblyProxy()
+GNRAssemblyTranslater::~GNRAssemblyTranslater()
 {
 }
 
@@ -41,7 +41,7 @@ GNRAssemblyProxy::~GNRAssemblyProxy()
  * init method for setting up the mouse controller
  * @access      public
  */
-void GNRAssemblyProxy::setWindow(GNRGLNotifyEvent& event)
+void GNRAssemblyTranslater::setWindow(GNRGLNotifyEvent& event)
 {
 	window_w = event.getWinX();
 	window_h = event.getWinY();
@@ -52,7 +52,7 @@ void GNRAssemblyProxy::setWindow(GNRGLNotifyEvent& event)
  * @param       int         direction xy, xz or rotation
  * @access      public
  */
-void GNRAssemblyProxy::setDirection(int dir)
+void GNRAssemblyTranslater::setDirection(int dir)
 {
 	switch (dir)
 	{
@@ -75,7 +75,7 @@ void GNRAssemblyProxy::setDirection(int dir)
  * init method for setting up the mouse controller
  * @access      protected
  */
-void GNRAssemblyProxy::init()
+void GNRAssemblyTranslater::init()
 {
 	//controller not in use
 	in_use = false;
@@ -92,7 +92,7 @@ void GNRAssemblyProxy::init()
  * @param       GNRAssembly     pointer to assembly object
  * @access      public
  */
-void GNRAssemblyProxy::setAssembly(GNRAssembly* assembly)
+void GNRAssemblyTranslater::setAssembly(GNRAssembly* assembly)
 {
 	//store object pointer
 	if ((int)assembly != 0)
@@ -108,7 +108,7 @@ void GNRAssemblyProxy::setAssembly(GNRAssembly* assembly)
  * @return      boolean         status of get action
  * @access      public
  */
-bool GNRAssemblyProxy::getControl(GNRGLNotifyEvent& event)
+bool GNRAssemblyTranslater::getControl(GNRGLNotifyEvent& event)
 {
 	//if in use return false
 	if (in_use)
@@ -142,7 +142,7 @@ bool GNRAssemblyProxy::getControl(GNRGLNotifyEvent& event)
  * @param       wxMouseEvent    mouse event of current frame
  * @access      public
  */
-void GNRAssemblyProxy::dropControl(GNRGLNotifyEvent& event)
+void GNRAssemblyTranslater::dropControl(GNRGLNotifyEvent& event)
 {
 	//set in use false
 	in_use = false;
@@ -153,7 +153,7 @@ void GNRAssemblyProxy::dropControl(GNRGLNotifyEvent& event)
  * @param       wxMouseEvent    mouse event of current frame
  * @access      public
  */
-void GNRAssemblyProxy::ObjectTransform(GNRGLNotifyEvent& event)
+void GNRAssemblyTranslater::ObjectTransform(GNRGLNotifyEvent& event)
 {
 	if (in_use)
 	{
@@ -186,7 +186,7 @@ void GNRAssemblyProxy::ObjectTransform(GNRGLNotifyEvent& event)
  * @param       wxMouseEvent    mouse event of current frame
  * @access      protected
  */
-void GNRAssemblyProxy::ObjectRotate(GNRGLNotifyEvent& event)
+void GNRAssemblyTranslater::ObjectRotate(GNRGLNotifyEvent& event)
 {
 #if defined(__ATHOS_DEBUG__)
 	wxString msg;
@@ -217,13 +217,23 @@ void GNRAssemblyProxy::ObjectRotate(GNRGLNotifyEvent& event)
  * @param       wxMouseEvent    mouse event of current frame
  * @access      protected
  */
-void GNRAssemblyProxy::ObjectMoveXY(GNRGLNotifyEvent& event)
+void GNRAssemblyTranslater::ObjectMoveXY(GNRGLNotifyEvent& event)
 {
 	if (event.getMouseEvent().ButtonIsDown(1))
 	{
 		// Moving a single object
-		my_object->setX(old_x - (float)((1.0f+fabs(old_z))*(m_mouse_x - event.getMouseEvent().m_x)/50.0f));
-		my_object->setY(old_y - (float)((1.0f+fabs(old_z))*(event.getMouseEvent().m_y - m_mouse_y)/50.0f));
+		if (event.getCanvasID() == 2)
+		{
+			// klick is from 2D canvas
+			my_object->setX(old_x - (float)((1.0f+fabs(old_z))*(m_mouse_x - event.getMouseEvent().m_x)/50.0f));
+			my_object->setY(old_y - (float)((1.0f+fabs(old_z))*(event.getMouseEvent().m_y - m_mouse_y)/50.0f));
+		}
+		else
+		{
+			// klick is from 3D canvas
+			my_object->setX(old_x - (float)((1.0f+fabs(old_z))*(m_mouse_x - event.getMouseEvent().m_x)/50.0f));
+			my_object->setY(old_y - (float)((1.0f+fabs(old_z))*(event.getMouseEvent().m_y - m_mouse_y)/50.0f));
+		}
 	}
 	else if (event.getMouseEvent().ButtonIsDown(2))
 	{
@@ -238,7 +248,7 @@ void GNRAssemblyProxy::ObjectMoveXY(GNRGLNotifyEvent& event)
  * @param       wxMouseEvent    mouse event of current frame
  * @access      protected
  */
-void GNRAssemblyProxy::ObjectMoveXZ(GNRGLNotifyEvent& event)
+void GNRAssemblyTranslater::ObjectMoveXZ(GNRGLNotifyEvent& event)
 {
 	if (event.getMouseEvent().ButtonIsDown(1))
 	{
@@ -259,13 +269,13 @@ void GNRAssemblyProxy::ObjectMoveXZ(GNRGLNotifyEvent& event)
  * @return      boolean         status of usage
  * @access      public
  */
-bool GNRAssemblyProxy::isInUse()
+bool GNRAssemblyTranslater::isInUse()
 {
 	return in_use;
 }
 
 
-void GNRAssemblyProxy::setGLCamera(GNRGLCamera* camera)
+void GNRAssemblyTranslater::setGLCamera(GNRGLCamera* camera)
 {
 	m_glcamera = camera;
 }

@@ -95,7 +95,7 @@
 		</Linker>
 		<Unit filename="src\GNRApp.cpp" />
 		<Unit filename="src\GNRAssembly.cpp" />
-		<Unit filename="src\GNRAssemblyProxy.cpp" />
+		<Unit filename="src\GNRAssemblyTranslater.cpp" />
 		<Unit filename="src\GNRController.cpp" />
 		<Unit filename="src\GNRDebugFrame.cpp" />
 		<Unit filename="src\GNRFace.cpp" />
@@ -114,7 +114,7 @@
 		<Unit filename="src\GNRVertex.cpp" />
 		<Unit filename="src\include\GNRApp.h" />
 		<Unit filename="src\include\GNRAssembly.h" />
-		<Unit filename="src\include\GNRAssemblyProxy.h" />
+		<Unit filename="src\include\GNRAssemblyTranslater.h" />
 		<Unit filename="src\include\GNRController.h" />
 		<Unit filename="src\include\GNRDebugFrame.h" />
 		<Unit filename="src\include\GNRExportFile.h" />

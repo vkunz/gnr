@@ -62,3 +62,19 @@ int GNRGLNotifyEvent::getWinY()
 {
 	return win_y;
 }
+
+void GNRGLNotifyEvent::setWorldSize(float x, float y)
+{
+	world_x = x;
+	world_y = y;
+}
+
+float GNRGLNotifyEvent::getWorldX()
+{
+	return world_x;
+}
+
+float GNRGLNotifyEvent::getWorldY()
+{
+	return world_y;
+}
