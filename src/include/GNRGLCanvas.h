@@ -40,6 +40,8 @@ protected:
 	void initGL();
 	void connectEvents();
 	void reshape();
+	void initLights();
+	void initMaterial();
 	
 	virtual void setCamera() = 0;
 	virtual void setPerspective() = 0;

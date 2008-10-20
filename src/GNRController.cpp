@@ -95,15 +95,6 @@ void GNRController::initFrames()
 	m_HorizontalSplitter_left->SplitHorizontally(m_TreePanelLibrary, m_TreePanelMyScene);
 	//split vertical (main) splitter in left and right splitter
 	m_VerticalSplitter->SplitVertically(m_HorizontalSplitter_left, m_HorizontalSplitter_right);
-	
-	//TODO IN EXTRA METHOD, (TEST FOR LIGHTS WITH TIE FIGHTER)
-	GNRObjectImport object_importer(_("data/computer/apple-ibook-2001.obj"));
-	
-	GNRAssembly* test = object_importer.GetAssembly();
-	test->setZ(-6.0f);
-	
-	m_RootAssembly->addChildAssembly(test);
-	
 	glRefresh();
 }
 

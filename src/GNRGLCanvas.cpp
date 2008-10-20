@@ -81,42 +81,63 @@ void GNRGLCanvas::connectEvents()
 	Connect(wxEVT_PAINT,(wxObjectEventFunction)&GNRGLCanvas::OnPaint);
 }
 
+void GNRGLCanvas::initLights()
+{
+	GLfloat ambientLight[] = { 0.5f, 0.2f, 0.7f, 1.0f };
+	GLfloat diffuseLight[] = { 0.8f, 0.4f, 0.4, 1.0f };
+	GLfloat specularLight[] = { 0.8f, 0.8f, 0.5f, 1.0f };
+	GLfloat positionLight[] = { 20.0f, 20.0f, 20.0f, 1.0f };
+	
+	glLightfv(GL_LIGHT0, GL_AMBIENT,  ambientLight);
+	glLightfv(GL_LIGHT0, GL_DIFFUSE,  diffuseLight);
+	glLightfv(GL_LIGHT0, GL_SPECULAR, specularLight);
+	glLightfv(GL_LIGHT0, GL_POSITION, positionLight);
+	
+	glEnable(GL_LIGHTING);
+	glEnable(GL_LIGHT0);
+}
+
+void GNRGLCanvas::initMaterial()
+{
+	GLfloat  reflexdgr;
+	GLfloat  dif[4];
+	GLfloat  spc[4];
+	GLfloat  env [4];
+	
+	env[0]=0.3f;
+	env[1]=0.2f;
+	env[2]=0.4f;
+	env[3]=1.0f;
+	dif[0]=0.6f;
+	dif[1]=0.4f;
+	dif[2]=0.8f;
+	dif[3]=1.0f;
+	spc[0]=0.9f;
+	spc[1]=0.6f;
+	spc[2]=1.0f;
+	spc[3]=1.0f;
+	
+	glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT,   env);
+	glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE,   dif);
+	glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR,  spc);
+	glMaterialfv(GL_FRONT_AND_BACK, GL_SHININESS, &reflexdgr);
+}
+
+
 /**
  * does the initialization for the 3D canvas
  * @access      protected
  */
 void GNRGLCanvas::initGL()
 {
-	// Create light components
-	GLfloat ambientLight[] = { 0.2f, 0.2f, 0.2f, 1.0f };
-	GLfloat diffuseLight[] = { 0.8f, 0.8f, 0.8, 1.0f };
-	GLfloat specularLight[] = { 0.5f, 0.5f, 0.5f, 1.0f };
-	GLfloat position[] = { 0.0f, 0.0f, 5.0f, 1.0f };
-//      GLuint	texture;
-//
-//      glBindTexture(GL_TEXTURE_2D, texture);
-//      glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_LINEAR);
-//      glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_LINEAR_MIPMAP_NEAREST);
-//      gluBuild2DMipmaps(GL_TEXTURE_2D, 3, image_size_x, image_size_y, GL_RGB, GL_UNSIGNED_BYTE, image_data);
-//
-//	    SetCurrent();
-//	    glEnable(GL_TEXTURE_2D);							// Enable Texture Mapping
-
-	// set current GL-Frame
 	SetCurrent();
 	
-	glClearColor(0.7, 0.7, 0.7, 0.0);
+	glEnable(GL_DEPTH_TEST);
+	glDepthFunc(GL_LEQUAL);
+	glClearColor(0.4, 0.4, 0.4, 0.0);
 	
-	// Assign created components to GL_LIGHT0
-	glLightfv(GL_LIGHT0, GL_AMBIENT, ambientLight);
-	glLightfv(GL_LIGHT0, GL_DIFFUSE, diffuseLight);
-	glLightfv(GL_LIGHT0, GL_SPECULAR, specularLight);
-	glLightfv(GL_LIGHT0, GL_POSITION, position);
-	glEnable(GL_LIGHT0);
-	
-	// enable lightning
-	glEnable(GL_LIGHTING);
-	glEnable(GL_LIGHT0);
+	initLights();
+	initMaterial();
 	
 	glShadeModel(GL_SMOOTH);
 	
@@ -127,6 +148,8 @@ void GNRGLCanvas::initGL()
 	glEnable(GL_COLOR_MATERIAL);
 	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 	glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);
+	
+	glEnable(GL_NORMALIZE);
 	
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();

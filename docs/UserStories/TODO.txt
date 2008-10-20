@@ -1,0 +1,30 @@
+Projekt:		Team 1
+Zeitraum:		29.09.2008 - 10.11.2008
+Mitarbeiter:	Kracht, Patrick
+				Kunz, Valentin
+				Moll, Thorsten
+				Balabin, Konstantin
+				
+				
+			- - - D O N E - - -
+
++ Importieren von OBJ/MTL Dateien in den Raum
++ Laden von Räumen im OAX/OPX Format
++ Freies Verschieben und Rotieren von Objekten
++ Freier Wahl des Beobachterstandpunkts
++ Grafische Modellierung (Komposition) von Räumen
+
+			- - - T O D O - - -
+
+- Exportieren von OBJ/MTL Dateien zum Rendern (Raytracer)
+- Grafische Modellierung von Einrichtungskomponenten
+- Intelligente Modellierungsunterstützung durch Schnappfunktionen
+- Verfügbarkeit geeigneter Messwerkzeuge zur exakt maßstabsgerechten Modellierung
+- Export von 3D-Darstellungen in gängigen Grafikformaten
+
+			- - - N E X T - - -
+
+* Bibliothek für OBJ Dateien zum Importieren per Drag'n'Drop
+* Bibliothek für verwendete Objekte in der Szenerie
+* Realistische 3D-Darstellung
+* Verlustfreie Speicherung von Räumen im OAX/OPX Format
