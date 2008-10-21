@@ -61,6 +61,7 @@ const long GNRMainFrame::idMenuQuit = wxNewId();
 const long GNRMainFrame::idMenuHelp = wxNewId();
 const long GNRMainFrame::idMenuAbout = wxNewId();
 const long GNRMainFrame::ID_StatusBar = wxNewId();
+//*)
 const long GNRMainFrame::btn_room_new = wxNewId();
 const long GNRMainFrame::btn_room_open = wxNewId();
 const long GNRMainFrame::btn_room_save = wxNewId();
@@ -69,8 +70,7 @@ const long GNRMainFrame::btn_redo = wxNewId();
 const long GNRMainFrame::btn_move_xy = wxNewId();
 const long GNRMainFrame::btn_move_xz = wxNewId();
 const long GNRMainFrame::btn_rotate_xy = wxNewId();
-const long GNRMainFrame::ID_TOOLBAR1 = wxNewId();
-//*)
+const long GNRMainFrame::ID_ToolBar = wxNewId();
 
 BEGIN_EVENT_TABLE(GNRMainFrame,wxFrame)
 	EVT_MENU(btn_move_xy, GNRMainFrame::OnToolbarMoveXY)
@@ -120,12 +120,13 @@ GNRMainFrame::GNRMainFrame(wxWindow* parent, wxWindowID id)
 	StatusBar1->SetFieldsCount(1,__wxStatusBarWidths_1);
 	StatusBar1->SetStatusStyles(1,__wxStatusBarStyles_1);
 	SetStatusBar(StatusBar1);
+	Center();
 	
 	Connect(idMenuQuit,wxEVT_COMMAND_MENU_SELECTED,(wxObjectEventFunction)&GNRMainFrame::OnQuit);
 	Connect(idMenuAbout,wxEVT_COMMAND_MENU_SELECTED,(wxObjectEventFunction)&GNRMainFrame::OnAbout);
 	//*)
 	
-	ToolBar1 = new wxToolBar(this, ID_TOOLBAR1, wxDefaultPosition, wxDefaultSize, wxTB_HORIZONTAL|wxNO_BORDER, _T("ID_TOOLBAR1"));
+	ToolBar1 = new wxToolBar(this, ID_ToolBar, wxDefaultPosition, wxDefaultSize, wxTB_HORIZONTAL|wxNO_BORDER, _T("ID_TOOLBAR1"));
 	ToolBarItem1 = ToolBar1->AddTool(btn_room_new, _("Raum erstellen"), wxArtProvider::GetBitmap(wxART_MAKE_ART_ID_FROM_STR(_T("wxART_NEW")),wxART_TOOLBAR), wxNullBitmap, wxITEM_NORMAL, _("Raum erstellen"), _("Raum erstellen"));
 	ToolBarItem2 = ToolBar1->AddTool(btn_room_open, _("Raum öffnen"), wxArtProvider::GetBitmap(wxART_MAKE_ART_ID_FROM_STR(_T("wxART_FOLDER_OPEN")),wxART_TOOLBAR), wxNullBitmap, wxITEM_NORMAL, _("Raum öffnen"), _("Raum öffnen"));
 	ToolBarItem3 = ToolBar1->AddTool(btn_room_save, _("Raum speichern"), wxArtProvider::GetBitmap(wxART_MAKE_ART_ID_FROM_STR(_T("wxART_FILE_SAVE")),wxART_TOOLBAR), wxNullBitmap, wxITEM_NORMAL, _("Raum speichern"), _("Raum speichern"));

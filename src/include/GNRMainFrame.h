@@ -37,10 +37,11 @@ private:
 	void OnExport(wxCommandEvent& event);
 	void OnLoad(wxCommandEvent& event);
 	void OnScrolledWindow1Paint(wxPaintEvent& event);
+	//*)
+	//ToolBar Button Events
 	void OnToolbarMoveXY(wxCommandEvent& event);
 	void OnToolbarMoveXZ(wxCommandEvent& event);
 	void OnToolbarRotateXY(wxCommandEvent& event);
-	//*)
 	
 	//(*Identifiers(GNRMainFrame)
 	static const long idMenuLoad;
@@ -51,6 +52,8 @@ private:
 	static const long idMenuHelp;
 	static const long idMenuAbout;
 	static const long ID_StatusBar;
+	//*)
+	//ToolBar Buttons
 	static const long btn_room_new;
 	static const long btn_room_open;
 	static const long btn_room_save;
@@ -59,23 +62,22 @@ private:
 	static const long btn_move_xy;
 	static const long btn_move_xz;
 	static const long btn_rotate_xy;
-	static const long ID_TOOLBAR1;
-	//*)
+	static const long ID_ToolBar;
 	
 	//(*Declarations(GNRMainFrame)
-	wxToolBarToolBase* ToolBarItem4;
-	wxToolBar* ToolBar1;
-	wxToolBarToolBase* ToolBarItem3;
 	wxMenuItem* MenuItem5;
-	wxToolBarToolBase* ToolBarItem6;
-	wxToolBarToolBase* ToolBarItem1;
 	wxMenuItem* MenuItem3;
 	wxStatusBar* StatusBar1;
-	wxToolBarToolBase* ToolBarItem5;
-	wxToolBarToolBase* ToolBarItem8;
-	wxToolBarToolBase* ToolBarItem2;
-	wxToolBarToolBase* ToolBarItem7;
 	//*)
+	wxToolBar* ToolBar1;
+	wxToolBarToolBase* ToolBarItem1;
+	wxToolBarToolBase* ToolBarItem2;
+	wxToolBarToolBase* ToolBarItem3;
+	wxToolBarToolBase* ToolBarItem4;
+	wxToolBarToolBase* ToolBarItem5;
+	wxToolBarToolBase* ToolBarItem6;
+	wxToolBarToolBase* ToolBarItem7;
+	wxToolBarToolBase* ToolBarItem8;
 	
 	DECLARE_EVENT_TABLE()
 };
