@@ -1,7 +1,7 @@
 #ifndef _GNRGLCAMERA_H_
 #define _GNRGLCAMERA_H_
 
-#include <GL\glu.h>		// Need to include it here because the GL* types are required
+#include <GL/glu.h>		// Need to include it here because the GL* types are required
 #define PI 3.1415926535897932384626433832795
 #define PIdiv180 (PI/180.0)
 
