@@ -31,6 +31,7 @@ void GNRApp::OnGNREvent(GNRNotifyEvent& event)
 		break;
 	case OBJImport:
 		controller->OBJImport(event.GetString());
+		controller->glRefresh();
 		break;
 	case ToolbarChange:
 		controller->toggleToolbar(event);

@@ -102,18 +102,40 @@ void GNRGLCanvas::setMatrix()
 
 void GNRGLCanvas::initLights()
 {
-	//GLfloat diffuseLight[] = { 0.8f, 0.4f, 0.4, 1.0f };
-	GLfloat ambientLight[]   = { 0.6F, 0.3F, 0.3F, 1.0F };
-	GLfloat specularLight[]  = { 0.3F, 0.3F, 0.6F, 1.0F };
-	GLfloat positionLight[]  = { 20.0F, 20.0F, 10.0F, 0.0F };
+	GLfloat light_ambient[] = { 0.0, 0.0, 0.2, 1.0 };
+	GLfloat light_diffuse[] = { 0.8, 0.8, 1.0, 1.0 };
+	GLfloat light_specular[] = { 0.8, 0.8, 1.0, 1.0 };
+	GLfloat light_position[] = { 1.0, 1.0, 1.0, 0.0 };
 	
-	glLightfv(GL_LIGHT0, GL_AMBIENT_AND_DIFFUSE,  ambientLight);
-	//glLightfv(GL_LIGHT0, GL_DIFFUSE,  diffuseLight);
-	glLightfv(GL_LIGHT0, GL_SPECULAR, specularLight);
-	glLightfv(GL_LIGHT0, GL_POSITION, positionLight);
+	glLightfv(GL_LIGHT0, GL_AMBIENT, light_ambient);
+	glLightfv(GL_LIGHT0, GL_DIFFUSE, light_diffuse);
+	glLightfv(GL_LIGHT0, GL_SPECULAR, light_specular);
+	glLightfv(GL_LIGHT0, GL_POSITION, light_position);
 	
-	glEnable(GL_LIGHTING);
+	glLightf(GL_LIGHT0, GL_CONSTANT_ATTENUATION, 2.0);
+	glLightf(GL_LIGHT0, GL_LINEAR_ATTENUATION, 1.0);
+	glLightf(GL_LIGHT0, GL_QUADRATIC_ATTENUATION, 0.5);
 	glEnable(GL_LIGHT0);
+	
+	GLfloat light1_ambient[] = { 0.6, 0.2, 0.2, 1.0 };
+	GLfloat light1_diffuse[] = { 1.0, 0.8, 0.8, 1.0 };
+	GLfloat light1_specular[] = { 1.0, 0.8, 0.8, 1.0 };
+	GLfloat light1_position[] = { -15.0, 15.0, 10.0, 1.0 };
+	GLfloat spot_direction[] = { 0.0, 0.0, 0.0 };
+	
+	glLightfv(GL_LIGHT1, GL_AMBIENT, light1_ambient);
+	glLightfv(GL_LIGHT1, GL_DIFFUSE, light1_diffuse);
+	glLightfv(GL_LIGHT1, GL_SPECULAR, light1_specular);
+	glLightfv(GL_LIGHT1, GL_POSITION, light1_position);
+	glLightf(GL_LIGHT1, GL_CONSTANT_ATTENUATION, 1.5);
+	glLightf(GL_LIGHT1, GL_LINEAR_ATTENUATION, 0.5);
+	glLightf(GL_LIGHT1, GL_QUADRATIC_ATTENUATION, 0.2);
+	
+	glLightf(GL_LIGHT1, GL_SPOT_CUTOFF, 45.0);
+	glLightfv(GL_LIGHT1, GL_SPOT_DIRECTION, spot_direction);
+	glLightf(GL_LIGHT1, GL_SPOT_EXPONENT, 2.0);
+	glEnable(GL_LIGHT1);
+	glEnable(GL_LIGHTING);
 }
 
 void GNRGLCanvas::initMaterial()
@@ -531,10 +553,11 @@ GNRVertex GNRGLCanvas::getGLPos(int x, int y)
 	gluUnProject((double)x, (double)viewport[3]-y, (double)z, modelview, projection, viewport, &xpos, &ypos, &zpos);
 	
 	glPopMatrix();
-	
+#if defined(__ATHOS_DEBUG__)
 	wxString str;
 	str << _("glPos:\tx:") << xpos << _("\ty:") << ypos << _("\tz:") << zpos << _("\tz:") << z;
 	wxLogDebug(str);
+#endif
 	
 	// return world coordinates
 	GNRVertex glcoords(xpos, ypos, zpos);
