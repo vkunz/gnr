@@ -22,8 +22,7 @@
 #include "GNRGL2DCanvas.h"
 #include "GNRGL3DCanvas.h"
 #include "GNRObjectImport.h"
-#include "GNRTreePanelLibrary.h"
-#include "GNRTreePanelMyScene.h"
+#include "GNRTreePanel.h"
 #include "GNRGLNotifyEvent.h"
 
 #if defined(__ATHOS_DEBUG__)
@@ -42,20 +41,16 @@ private:
 	GNRMainFrame* m_MainFrame;
 	GNRGL2DCanvas* m_Canvas2D;
 	GNRGL3DCanvas* m_Canvas3D;
-	GNRTreePanelLibrary* m_TreePanelLibrary;
-	GNRTreePanelMyScene* m_TreePanelMyScene;
+	GNRTreePanel* m_TreePanelLibrary;
+	GNRTreePanel* m_TreePanelMyScene;
 	wxGLContext* commonCtxt;
 	
 	wxSplitterWindow* m_HorizontalSplitter_left;
 	wxSplitterWindow* m_HorizontalSplitter_right;
 	wxSplitterWindow* m_VerticalSplitter;
 	
-	void updateSplitters();
-	void glRefresh2D();
-	void glRefresh3D();
-	
 	int m_init;
-	int m_activeCanvas;
+	void updateSplitters();
 	
 #if defined(__ATHOS_DEBUG__)
 	GNRDebugFrame* m_DebugFrame;

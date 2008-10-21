@@ -12,8 +12,11 @@
 #ifndef GNRTREEPANEL_H
 #define GNRTREEPANEL_H
 
-#include <wx/treectrl.h>
+//(*Headers(GNRTreePanel)
 #include <wx/panel.h>
+class wxTreeCtrl;
+class wxTreeEvent;
+//*)
 
 class GNRTreePanel: public wxPanel
 {
@@ -22,15 +25,20 @@ public:
 	GNRTreePanel(wxWindow* parent,wxWindowID id=wxID_ANY);
 	virtual ~GNRTreePanel();
 	
-	wxTreeCtrl* TreeCtrl;
+	//(*Declarations(GNRTreePanel)
+	wxTreeCtrl* TreeCtrl1;
+	//*)
 	
 protected:
 
-	static const long ID_TREECTRL;
+	//(*Identifiers(GNRTreePanel)
+	static const long ID_TREECTRL1;
+	//*)
 	
 private:
 
-	void OnPaint(wxPaintEvent& event);
+	//(*Handlers(GNRTreePanel)
+	//*)
 	
 	DECLARE_EVENT_TABLE()
 };

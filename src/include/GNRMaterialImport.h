@@ -25,19 +25,19 @@ using std::ifstream;
 class GNRMaterialImport
 {
 public:
-    GNRMatLib* read(const string& fname);
-
+	GNRMatLib* read(const string& fname);
+	
 private:
-    bool getData();
-    bool getName();
-    void parseData();
-
-    ifstream m_ifs;
-    string m_buf;
-
-    GNRMatLib* m_root;
-    string m_matname;
-    GNRMaterial* m_material;
+	bool getData();
+	bool getName();
+	void parseData();
+	
+	ifstream m_ifs;
+	string m_buf;
+	
+	GNRMatLib* m_root;
+	string m_matname;
+	GNRMaterial* m_material;
 };
 
 #endif // _GNRMATERIALIMPORT_H_

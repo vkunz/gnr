@@ -134,8 +134,8 @@ GNRMainFrame::GNRMainFrame(wxWindow* parent, wxWindowID id)
 	ToolBarItem4 = ToolBar1->AddTool(btn_undo, _("Rückgängig"), wxArtProvider::GetBitmap(wxART_MAKE_ART_ID_FROM_STR(_T("wxART_UNDO")),wxART_TOOLBAR), wxNullBitmap, wxITEM_NORMAL, _("Rückgängig"), _("Rückgängig"));
 	ToolBarItem5 = ToolBar1->AddTool(btn_redo, _("Wiederherstellen"), wxArtProvider::GetBitmap(wxART_MAKE_ART_ID_FROM_STR(_T("wxART_REDO")),wxART_TOOLBAR), wxNullBitmap, wxITEM_NORMAL, _("Wiederherstellen"), _("Wiederherstellen"));
 	ToolBar1->AddSeparator();
-	ToolBarItem6 = ToolBar1->AddTool(btn_move_xz, _("Verschieben in X-Z-Richtung"), wxBitmap(wxIcon(quad_arrow_xpm)), wxNullBitmap, wxITEM_RADIO, _("Verschieben in X-Z-Richtung"), _("Verschieben in X-Z-Richtung"));
-	ToolBarItem7 = ToolBar1->AddTool(btn_move_xy, _("Verschieben in X-Y-Richtung"), wxBitmap(wxIcon(right_arrow_xpm)), wxNullBitmap, wxITEM_RADIO, _("Verschieben in X-Y-Richtung"), _("Verschieben in X-Y-Richtung"));
+	ToolBarItem6 = ToolBar1->AddTool(btn_move_xy, _("Verschieben in X-Y-Richtung"), wxBitmap(wxIcon(right_arrow_xpm)), wxNullBitmap, wxITEM_RADIO, _("Verschieben in X-Y-Richtung"), _("Verschieben in X-Y-Richtung"));
+	ToolBarItem7 = ToolBar1->AddTool(btn_move_xz, _("Verschieben in X-Z-Richtung"), wxBitmap(wxIcon(quad_arrow_xpm)), wxNullBitmap, wxITEM_RADIO, _("Verschieben in X-Z-Richtung"), _("Verschieben in X-Z-Richtung"));
 	ToolBarItem8 = ToolBar1->AddTool(btn_rotate_xy, _("Rotieren auf X-Y-Achsen"), wxBitmap(wxIcon(circular_arrow_xpm)), wxNullBitmap, wxITEM_RADIO, _("Rotieren auf X-Y-Achsen"), _("Rotieren auf X-Y-Achsen"));
 	ToolBar1->Realize();
 	SetToolBar(ToolBar1);
@@ -203,7 +203,7 @@ void GNRMainFrame::OnToolbarMoveXY(wxCommandEvent& event)
 	GNRNotifyEvent myevent(wxEVT_COMMAND_GNR_NOTIFY);
 	myevent.setGNREventType(ToolbarChange);
 	myevent.SetEventObject(this);
-	myevent.SetInt(MOVEXY);
+	myevent.SetInt(1);
 	GetEventHandler()->ProcessEvent(myevent);
 }
 
@@ -212,7 +212,7 @@ void GNRMainFrame::OnToolbarMoveXZ(wxCommandEvent& event)
 	GNRNotifyEvent myevent(wxEVT_COMMAND_GNR_NOTIFY);
 	myevent.setGNREventType(ToolbarChange);
 	myevent.SetEventObject(this);
-	myevent.SetInt(MOVEXZ);
+	myevent.SetInt(2);
 	GetEventHandler()->ProcessEvent(myevent);
 }
 
@@ -221,6 +221,6 @@ void GNRMainFrame::OnToolbarRotateXY(wxCommandEvent& event)
 	GNRNotifyEvent myevent(wxEVT_COMMAND_GNR_NOTIFY);
 	myevent.setGNREventType(ToolbarChange);
 	myevent.SetEventObject(this);
-	myevent.SetInt(ROTATE);
+	myevent.SetInt(3);
 	GetEventHandler()->ProcessEvent(myevent);
 }

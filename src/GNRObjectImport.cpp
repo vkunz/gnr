@@ -25,12 +25,12 @@ GNRAssembly *GNRObjectImport::read(const string& fname)
 {
 	m_xmax = m_ymax = m_zmax = -3.4e38;
 	m_xmin = m_ymin = m_zmin = 3.4e38;
-
+	
 	m_root = new GNRAssembly("obj_root");
 	m_root->setIsRoot(true);
 	m_act = m_root;
 	m_matname = "white";
-
+	
 	// 1st pass, gather v, vt and vn
 	ifstream ifs(fname.c_str());
 	while (ifs.good())
@@ -38,7 +38,7 @@ GNRAssembly *GNRObjectImport::read(const string& fname)
 		getline(ifs, m_buf);
 		if (m_buf.size() < 2)
 			continue;
-
+			
 		switch (m_buf[0])
 		{
 		case 'v':
@@ -49,7 +49,7 @@ GNRAssembly *GNRObjectImport::read(const string& fname)
 		}
 	}
 	ifs.clear();
-
+	
 	// 2nd pass, gather f, o, g and all the rest
 	ifs.seekg(0, ifstream::beg);
 	while (ifs.good())
@@ -57,53 +57,53 @@ GNRAssembly *GNRObjectImport::read(const string& fname)
 		getline(ifs, m_buf);
 		if (m_buf.size() < 2)
 			continue;
-
+			
 		switch (m_buf[0])
 		{
-			case 'f':
-				getF();
-				break;
-			case 'g':
-			case 'o':
-				getO();
-				break;
-			case 'u':
-				getU();
-			default:
-				break;
+		case 'f':
+			getF();
+			break;
+		case 'g':
+		case 'o':
+			getO();
+			break;
+		case 'u':
+			getU();
+		default:
+			break;
 		}
 	}
 	ifs.close();
-
+	
 	float x_diff = (m_xmax - m_xmin), y_diff = (m_ymax - m_ymin), z_diff = (m_zmax - m_zmin);
-
+	
 	float max_diff = x_diff;
 	if (max_diff < y_diff)
 		max_diff = y_diff;
 	if (max_diff < z_diff)
 		max_diff = z_diff;
-
+		
 	float scale = 1.0 / max_diff;
-
+	
 	m_root->setX(-1.0*(m_xmax + m_xmin) / 2.0);
 	m_root->setY(-1.0*(m_ymax + m_ymin) / 2.0);
 	m_root->setZ(-1.0*(m_zmax + m_zmin) / 2.0);
-
+	
 	m_root->setScale(scale);
-
+	
 	return m_root;
 }
 
 void GNRObjectImport::getVs()
 {
-		char c = m_buf[1];
-		m_buf = m_buf.substr(2, string::npos);
-		if (c == ' ')
-			getV();
-		else if (c == 'n')
-			getVN();
-		else if (c == 't')
-			getVT();
+	char c = m_buf[1];
+	m_buf = m_buf.substr(2, string::npos);
+	if (c == ' ')
+		getV();
+	else if (c == 'n')
+		getVN();
+	else if (c == 't')
+		getVT();
 }
 
 void GNRObjectImport::getO()
@@ -111,7 +111,7 @@ void GNRObjectImport::getO()
 	string objname;
 	stringstream ss(m_buf.substr(2, string::npos));
 	ss >> objname;
-
+	
 	m_act = new GNRAssembly(objname);
 	m_act->setParent(m_root);
 	m_root->addPart(m_act);
@@ -122,22 +122,22 @@ void GNRObjectImport::getV()
 	float x, y, z;
 	stringstream ss(m_buf);
 	ss >> x >> y >> z;
-
+	
 	if (m_xmin > x)
 		m_xmin = x;
 	if (m_xmax < x)
 		m_xmax = x;
-
+		
 	if (m_ymin > y)
 		m_ymin = y;
 	if (m_ymax < y)
 		m_ymax = y;
-
+		
 	if (m_zmin > z)
 		m_zmin = z;
 	if (m_zmax < z)
 		m_zmax = z;
-
+		
 	GNRVertex tmp(x, y, z);
 	m_vertex.push_back(tmp);
 }
@@ -147,7 +147,7 @@ void GNRObjectImport::getVN()
 	float x, y, z;
 	stringstream ss(m_buf);
 	ss >> x >> y >> z;
-
+	
 	GNRVertex tmp(x, y, z);
 	m_normal.push_back(tmp);
 }
@@ -165,14 +165,14 @@ void GNRObjectImport::getVT()
 void GNRObjectImport::getF()
 {
 	GNRFace face(m_matname);
-
+	
 	stringstream ss(m_buf.substr(2, string::npos));
 	string token;
 	while (ss >> token)
 	{
 		stringstream tmp(token);
 		int v[3] = {0, 0, 0};
-
+		
 		int i = 0;
 		while (!tmp.eof())
 		{
@@ -186,8 +186,10 @@ void GNRObjectImport::getF()
 					i++;
 			}
 		}
-		v[0]--; v[1]--; v[2]--;
-
+		v[0]--;
+		v[1]--;
+		v[2]--;
+		
 		GNRVertex *pv = NULL, *pn = NULL;
 		GNRTCoord *pt = NULL;
 		if (v[0] != -1)

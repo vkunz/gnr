@@ -81,10 +81,6 @@ void GNRGLCanvas::connectEvents()
 	Connect(wxEVT_PAINT,(wxObjectEventFunction)&GNRGLCanvas::OnPaint);
 }
 
-/**
- * prepare viewport and set matrix
- * @access      protected
- */
 void GNRGLCanvas::setMatrix()
 {
 	GetClientSize(&m_window_x, &m_window_y);
@@ -104,43 +100,39 @@ void GNRGLCanvas::setMatrix()
 	);
 }
 
-/**
- * initialize light sources
- * @access      protected
- */
 void GNRGLCanvas::initLights()
 {
-    glEnable(GL_LIGHTING);
-    glEnable(GL_LIGHT0);
-    float lambdiff[] = { 0.3, 0.3, 0.3, 1.0 };
-    float lspec[] = { 0.2, 0.2, 0.2, 0.2, 1.0} ;
-    glLightfv(GL_LIGHT0, GL_AMBIENT_AND_DIFFUSE, lambdiff);
-    glLightfv(GL_LIGHT0, GL_SPECULAR, lspec);
-
-    glEnable(GL_NORMALIZE);
-    glEnable(GL_DEPTH_TEST);
-
+	glEnable(GL_LIGHTING);
+	glEnable(GL_LIGHT0);
+	float lambdiff[] = { 0.3, 0.3, 0.3, 1.0 };
+	float lspec[] = { 0.2, 0.2, 0.2, 0.2, 1.0} ;
+	glLightfv(GL_LIGHT0, GL_AMBIENT_AND_DIFFUSE, lambdiff);
+	glLightfv(GL_LIGHT0, GL_SPECULAR, lspec);
+	
+	glEnable(GL_NORMALIZE);
+	glEnable(GL_DEPTH_TEST);
+	
 //	GLfloat light_ambient[] = { 0.0, 0.0, 0.2, 1.0 };
 //	GLfloat light_diffuse[] = { 0.8, 0.8, 1.0, 1.0 };
 //	GLfloat light_specular[] = { 0.8, 0.8, 1.0, 1.0 };
 //	GLfloat light_position[] = { 1.0, 1.0, 1.0, 0.0 };
-	
+
 //	glLightfv(GL_LIGHT0, GL_AMBIENT, light_ambient);
 //	glLightfv(GL_LIGHT0, GL_DIFFUSE, light_diffuse);
 //	glLightfv(GL_LIGHT0, GL_SPECULAR, light_specular);
 //	glLightfv(GL_LIGHT0, GL_POSITION, light_position);
-	
+
 //	glLightf(GL_LIGHT0, GL_CONSTANT_ATTENUATION, 2.0);
 //	glLightf(GL_LIGHT0, GL_LINEAR_ATTENUATION, 1.0);
 //	glLightf(GL_LIGHT0, GL_QUADRATIC_ATTENUATION, 0.5);
 //	glEnable(GL_LIGHT0);
-	
+
 //	GLfloat light1_ambient[] = { 0.6, 0.2, 0.2, 1.0 };
 //	GLfloat light1_diffuse[] = { 1.0, 0.8, 0.8, 1.0 };
 //	GLfloat light1_specular[] = { 1.0, 0.8, 0.8, 1.0 };
 //	GLfloat light1_position[] = { -15.0, 15.0, 10.0, 1.0 };
 //	GLfloat spot_direction[] = { 0.0, 0.0, 0.0 };
-	
+
 //	glLightfv(GL_LIGHT1, GL_AMBIENT, light1_ambient);
 //	glLightfv(GL_LIGHT1, GL_DIFFUSE, light1_diffuse);
 //	glLightfv(GL_LIGHT1, GL_SPECULAR, light1_specular);
@@ -148,7 +140,7 @@ void GNRGLCanvas::initLights()
 //	glLightf(GL_LIGHT1, GL_CONSTANT_ATTENUATION, 1.5);
 //	glLightf(GL_LIGHT1, GL_LINEAR_ATTENUATION, 0.5);
 //	glLightf(GL_LIGHT1, GL_QUADRATIC_ATTENUATION, 0.2);
-	
+
 //	glLightf(GL_LIGHT1, GL_SPOT_CUTOFF, 45.0);
 //	glLightfv(GL_LIGHT1, GL_SPOT_DIRECTION, spot_direction);
 //	glLightf(GL_LIGHT1, GL_SPOT_EXPONENT, 2.0);
@@ -163,7 +155,7 @@ void GNRGLCanvas::initMaterial()
 //	GLfloat  dif[4];
 //	GLfloat  spc[4];
 //	GLfloat  env [4];
-	
+
 //	env[0]=0.3f;
 //	env[1]=0.2f;
 //	env[2]=0.4f;
@@ -176,7 +168,7 @@ void GNRGLCanvas::initMaterial()
 //	spc[1]=0.6f;
 //	spc[2]=1.0f;
 //	spc[3]=1.0f;
-//	
+//
 //	glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT,   env);
 //	glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE,   dif);
 //	glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR,  spc);
@@ -196,6 +188,7 @@ void GNRGLCanvas::initGL()
 	
 	setMatrix();
 	initLights();
+	initMaterial();
 	
 	glEnable(GL_DEPTH_TEST);
 	glShadeModel(GL_SMOOTH);
@@ -310,7 +303,6 @@ int GNRGLCanvas::selection(GNRAssembly* rootAssembly, GNRGLCamera* camera, int m
 		glMatrixMode(GL_PROJECTION);
 	}
 	glPopMatrix();
-	glPopName();
 	glMatrixMode(GL_MODELVIEW);
 	// Switch To Render Mode, Find Out How Many Objects Were Drawn Where The Mouse Was
 	hits=glRenderMode(GL_RENDER);
@@ -347,7 +339,8 @@ int GNRGLCanvas::selection(GNRAssembly* rootAssembly, GNRGLCamera* camera, int m
 void GNRGLCanvas::OnLMouseDown(wxMouseEvent& event)
 {
 
-	GNRVertex* glcoords = getGLDim(event.GetX(), event.GetY());
+	GNRVertex glcoords_min = getGLPos(0, 0);
+	GNRVertex glcoords_max = getGLPos(m_window_x, m_window_y);
 	
 	// send Event to handle Mouse
 	GNRGLNotifyEvent myevent(wxEVT_COMMAND_GL_NOTIFY);
@@ -355,7 +348,7 @@ void GNRGLCanvas::OnLMouseDown(wxMouseEvent& event)
 	myevent.setCanvasID(getCanvasID());
 	myevent.SetEventObject(this);
 	myevent.setWindowSize(m_window_x, m_window_y);
-	myevent.setWorldSize(glcoords[1].getX() - glcoords[0].getX(), glcoords[1].getY() - glcoords[0].getY());
+	myevent.setWorldSize(glcoords_max.getX() - glcoords_min.getX(), glcoords_max.getY() - glcoords_min.getY());
 	GetEventHandler()->ProcessEvent(myevent);
 	
 	Connect(wxEVT_MOTION, (wxObjectEventFunction)&GNRGLCanvas::OnMouseMove);
@@ -422,6 +415,7 @@ void GNRGLCanvas::OnMMouseUp(wxMouseEvent& event)
 void GNRGLCanvas::OnRMouseDown(wxMouseEvent& event)
 {
 	// nothing has do be done yet
+	
 }
 
 /**
@@ -551,10 +545,7 @@ void GNRGLCanvas::OnPaint(wxPaintEvent& event)
 	event.Skip();
 }
 
-/**
- * Convert Mouse-Coordinates to GL-Coordinates
- * @access      protected
- */
+// Convert Mouse-Coordinates to GL-Coordinates
 GNRVertex GNRGLCanvas::getGLPos(int x, int y)
 {
 	glPushMatrix();
@@ -571,52 +562,17 @@ GNRVertex GNRGLCanvas::getGLPos(int x, int y)
 	glReadPixels((int)x, (int)(viewport[3]-y), 1, 1, GL_DEPTH_COMPONENT, GL_FLOAT, &z);
 	
 	//Unproject the window co-ordinates to find the world co-ordinates.
-	gluUnProject(x, viewport[3]-y, z, modelview, projection, viewport, &xpos, &ypos, &zpos);
+	gluUnProject((double)x, (double)viewport[3]-y, (double)z, modelview, projection, viewport, &xpos, &ypos, &zpos);
 	
 	glPopMatrix();
+#if defined(__ATHOS_DEBUG__)
+	wxString str;
+	str << _("glPos:\tx:") << xpos << _("\ty:") << ypos << _("\tz:") << zpos << _("\tz:") << z;
+	wxLogDebug(str);
+#endif
 	
 	// return world coordinates
 	GNRVertex glcoords(xpos, ypos, zpos);
-	return glcoords;
-}
-
-/**
- * Convert Mouse-Coordinates to GL-Coordinates
- * @access      protected
- */
-GNRVertex* GNRGLCanvas::getGLDim(int x, int y)
-{
-	glPushMatrix();
-	GLdouble modelview[16], projection[16];
-	GLint viewport[4];
-	float z;
-	double xpos, ypos, zpos;
-	GNRVertex* glcoords = new GNRVertex[2];
-	
-	glGetDoublev(GL_MODELVIEW_MATRIX, modelview);       //get the modelview matrix
-	glGetDoublev(GL_PROJECTION_MATRIX, projection);     //get the projection matrix
-	glGetIntegerv(GL_VIEWPORT, viewport);               //get the viewport
-	
-	//Read the window z co-ordinate (the z value on that point in unit cube)
-	glReadPixels((int)x, (int)(viewport[3]-y), 1, 1, GL_DEPTH_COMPONENT, GL_FLOAT, &z);
-	
-	//Unproject the window co-ordinates to find the world co-ordinates.
-	gluUnProject(0, 0, z, modelview, projection, viewport, &xpos, &ypos, &zpos);
-	
-	glcoords[0].setX(xpos);
-	glcoords[0].setY(ypos);
-	glcoords[0].setZ(zpos);
-	
-	//Unproject the window co-ordinates to find the world co-ordinates.
-	gluUnProject(m_window_x, m_window_y, z, modelview, projection, viewport, &xpos, &ypos, &zpos);
-	
-	glcoords[1].setX(xpos);
-	glcoords[1].setY(ypos);
-	glcoords[1].setZ(zpos);
-	
-	glPopMatrix();
-	
-	// return world coordinates
 	return glcoords;
 }
 

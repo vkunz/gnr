@@ -39,7 +39,6 @@ GNRAssemblyTranslater::~GNRAssemblyTranslater()
 
 /**
  * init method for setting up the mouse controller
- * @param       GNRGLNotifyEvent         event from GLNotify
  * @access      public
  */
 void GNRAssemblyTranslater::setWindow(GNRGLNotifyEvent& event)
@@ -50,7 +49,7 @@ void GNRAssemblyTranslater::setWindow(GNRGLNotifyEvent& event)
 
 /**
  * set moving direction
- * @param       int         direction xz(0), xy(1) or rotation(2)
+ * @param       int         direction xy, xz or rotation
  * @access      public
  */
 void GNRAssemblyTranslater::setDirection(int dir)
@@ -67,7 +66,7 @@ void GNRAssemblyTranslater::setDirection(int dir)
 		status = ROTATE;
 		break;
 	default:
-		status = MOVEXZ;
+		status = MOVEXY;
 		break;
 	}
 }
@@ -81,8 +80,8 @@ void GNRAssemblyTranslater::init()
 	//controller not in use
 	in_use = false;
 	
-	//set default to move XZ axis
-	status = MOVEXZ;
+	//set default to move XY axis
+	status = MOVEXY;
 	
 	//my_object to null pointer
 	my_object = NULL;
@@ -104,8 +103,9 @@ void GNRAssemblyTranslater::setAssembly(GNRAssembly* assembly)
 
 /**
  * fetches control of mouse class
- * @param       GNRGLNotifyEvent    event from GLNotify
- * @return      boolean             status of get action
+ * @param       GNRAssembly     pointer to assembly object
+ * @param       wxMouseEvent    mouse event of current frame
+ * @return      boolean         status of get action
  * @access      public
  */
 bool GNRAssemblyTranslater::getControl(GNRGLNotifyEvent& event)
@@ -139,7 +139,7 @@ bool GNRAssemblyTranslater::getControl(GNRGLNotifyEvent& event)
 
 /**
  * frees the controler for other clients
- * @param       GNRGLNotifyEvent         event from GLNotify
+ * @param       wxMouseEvent    mouse event of current frame
  * @access      public
  */
 void GNRAssemblyTranslater::dropControl(GNRGLNotifyEvent& event)
@@ -150,7 +150,7 @@ void GNRAssemblyTranslater::dropControl(GNRGLNotifyEvent& event)
 
 /**
  * transforming selected object on mouse event
- * @param       GNRGLNotifyEvent         event from GLNotify
+ * @param       wxMouseEvent    mouse event of current frame
  * @access      public
  */
 void GNRAssemblyTranslater::ObjectTransform(GNRGLNotifyEvent& event)
@@ -183,7 +183,7 @@ void GNRAssemblyTranslater::ObjectTransform(GNRGLNotifyEvent& event)
 
 /**
  * rotate the object on XY axis
- * @param       GNRGLNotifyEvent         event from GLNotify
+ * @param       wxMouseEvent    mouse event of current frame
  * @access      protected
  */
 void GNRAssemblyTranslater::ObjectRotate(GNRGLNotifyEvent& event)
@@ -204,7 +204,7 @@ void GNRAssemblyTranslater::ObjectRotate(GNRGLNotifyEvent& event)
 
 /**
  * move the object in XY dimension
- * @param       GNRGLNotifyEvent         event from GLNotify
+ * @param       wxMouseEvent    mouse event of current frame
  * @access      protected
  */
 void GNRAssemblyTranslater::ObjectMoveXY(GNRGLNotifyEvent& event)
@@ -215,8 +215,8 @@ void GNRAssemblyTranslater::ObjectMoveXY(GNRGLNotifyEvent& event)
 		if (event.getCanvasID() == 2)
 		{
 			// klick is from 2D canvas
-			my_object->setX(old_x - (float)(m_mouse_x - event.getMouseEvent().m_x)/15.0f);
-			my_object->setY(old_y - (float)(m_mouse_y - event.getMouseEvent().m_y)/15.0f);
+			my_object->setX(old_x - (float)((1.0f+fabs(old_z))*(m_mouse_x - event.getMouseEvent().m_x)/50.0f));
+			my_object->setY(old_y - (float)((1.0f+fabs(old_z))*(event.getMouseEvent().m_y - m_mouse_y)/50.0f));
 		}
 		else
 		{
@@ -235,7 +235,7 @@ void GNRAssemblyTranslater::ObjectMoveXY(GNRGLNotifyEvent& event)
 
 /**
  * move the object in XZ dimension
- * @param       GNRGLNotifyEvent         event from GLNotify
+ * @param       wxMouseEvent    mouse event of current frame
  * @access      protected
  */
 void GNRAssemblyTranslater::ObjectMoveXZ(GNRGLNotifyEvent& event)
@@ -243,18 +243,8 @@ void GNRAssemblyTranslater::ObjectMoveXZ(GNRGLNotifyEvent& event)
 	if (event.getMouseEvent().ButtonIsDown(1))
 	{
 		// Moving a single object
-		if (event.getCanvasID() == 2)
-		{
-			// klick is from 2D canvas
-			my_object->setZ(old_z - (float)(m_mouse_y - event.getMouseEvent().m_y)/15.0f);
-			my_object->setX(old_x - (float)(m_mouse_x - event.getMouseEvent().m_x)/15.0f);
-		}
-		else
-		{
-			// klick is from 3D canvas
-			my_object->setZ(old_z - (float)(m_mouse_y - event.getMouseEvent().m_y)/13.0f);
-			my_object->setX(old_x - (float)((1.0f+fabs(my_object->getZ())*2.0f)*(m_mouse_x - event.getMouseEvent().m_x)/100.0f));
-		}
+		my_object->setZ(old_z - (float)(m_mouse_y - event.getMouseEvent().m_y)/13.0f);
+		my_object->setX(old_x - (float)((1.0f+fabs(my_object->getZ())*2.0f)*(m_mouse_x - event.getMouseEvent().m_x)/100.0f));
 	}
 	else if (event.getMouseEvent().ButtonIsDown(2))
 	{
@@ -274,10 +264,7 @@ bool GNRAssemblyTranslater::isInUse()
 	return in_use;
 }
 
-/**
- * set pointer to camera
- * @access      public
- */
+
 void GNRAssemblyTranslater::setGLCamera(GNRGLCamera* camera)
 {
 	m_glcamera = camera;

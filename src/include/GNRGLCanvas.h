@@ -17,7 +17,6 @@
 #include "GNRAssembly.h"
 #include "GNRGLCamera.h"
 #include "GNRNotifyEvent.h"
-#include "GNRVertex.h"
 
 class GNRGLCanvas : public wxGLCanvas
 {
@@ -42,9 +41,8 @@ protected:
 	void connectEvents();
 	void reshape();
 	void initLights();
-    void initMaterial();
+	void initMaterial();
 	GNRVertex getGLPos(int x, int y);
-	GNRVertex* getGLDim(int x, int y);
 	
 	virtual void setCamera() = 0;
 	virtual void setPerspective() = 0;
@@ -52,6 +50,7 @@ protected:
 	virtual int getCanvasID() = 0;
 	
 public:
+	// constructor
 	GNRGLCanvas(wxWindow* parent,
 	            wxWindowID id = wxID_ANY,
 	            const wxPoint& pos = wxDefaultPosition,

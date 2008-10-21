@@ -18,9 +18,6 @@ BEGIN_EVENT_TABLE(GNRApp, wxApp)
 	EVT_GL_NOTIFY(0, GNRApp::OnGLEvent)     //event for mouse and move in GL...
 END_EVENT_TABLE()
 
-/**
- * process controller actions for GNR-Events
- */
 void GNRApp::OnGNREvent(GNRNotifyEvent& event)
 {
 
@@ -28,7 +25,6 @@ void GNRApp::OnGNREvent(GNRNotifyEvent& event)
 	{
 	case XMLOpen:
 		controller->XMLOpen(event.GetString());
-		controller->glRefresh();
 		break;
 	case GLRefresh:
 		controller->glRefresh();
@@ -43,9 +39,6 @@ void GNRApp::OnGNREvent(GNRNotifyEvent& event)
 	}
 }
 
-/**
- * redirect notify event to controller
- */
 void GNRApp::OnGLEvent(GNRGLNotifyEvent& event)
 {
 	controller->processGLMouse(event);
@@ -54,9 +47,6 @@ void GNRApp::OnGLEvent(GNRGLNotifyEvent& event)
 
 IMPLEMENT_APP(GNRApp);
 
-/**
- * MAIN APP INIT
- */
 bool GNRApp::OnInit()
 {
 	bool wxsOK = true;

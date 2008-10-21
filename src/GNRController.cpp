@@ -33,10 +33,10 @@ GNRController::GNRController()
 	m_GLCamera          = new GNRGLCamera();
 	m_MainFrame         = new GNRMainFrame(0);
 	m_AssemblyTranslater->setGLCamera(m_GLCamera);
-
-    GNRMaterialImport mi;
-    mtllib = mi.read("./default.mtl");
-
+	
+	GNRMaterialImport mi;
+	mtllib = mi.read("./default.mtl");
+	
 	m_activeCanvas = 3;
 	
 #if defined(__ATHOS_DEBUG__)
@@ -49,10 +49,6 @@ GNRController::GNRController()
 	
 }
 
-/**
- * destructor
- * @access      public
- */
 GNRController::~GNRController()
 {
 	delete m_Canvas3D;
@@ -71,10 +67,6 @@ GNRController::~GNRController()
 	delete m_RootAssembly;
 }
 
-/**
- * initialize all frames needed
- * @access      public
- */
 void GNRController::initFrames()
 {
 	//main splitter window
@@ -93,8 +85,8 @@ void GNRController::initFrames()
 	m_MainFrame->Show(true);
 	
 	//create tree and models panel
-	m_TreePanelLibrary = new GNRTreePanelLibrary(m_HorizontalSplitter_left, wxID_ANY);
-	m_TreePanelMyScene = new GNRTreePanelMyScene(m_HorizontalSplitter_left, wxID_ANY);
+	m_TreePanelLibrary = new GNRTreePanel(m_HorizontalSplitter_left, wxID_ANY);
+	m_TreePanelMyScene = new GNRTreePanel(m_HorizontalSplitter_left, wxID_ANY);
 	
 	//create two canvas panels
 	m_Canvas2D = new GNRGL2DCanvas(m_HorizontalSplitter_right, -1);
@@ -120,10 +112,6 @@ void GNRController::initFrames()
 	glRefresh();
 }
 
-/**
- * update splitter dimensions
- * @access      public
- */
 void GNRController::updateSplitters()
 {
 	//update left, right and main splitter
@@ -132,46 +120,16 @@ void GNRController::updateSplitters()
 	m_VerticalSplitter->UpdateSize();
 }
 
-/**
- * refresh glcanvas frames (3d/2d)
- * @access      public
- */
 void GNRController::glRefresh()
 {
 	//update splitter dimensions
 	updateSplitters();
 	
-	if (m_activeCanvas == 3)
-	{
-		glRefresh2D();
-	}
-	
-	glRefresh3D();
-	
-	if (m_activeCanvas == 2)
-	{
-		glRefresh2D();
-	}
-}
-
-/**
- * refresh 2d canvas
- * @access      public
- */
-void GNRController::glRefresh2D()
-{
 	//prepare and draw 2D top view of room
 	m_Canvas2D->prepareDraw();
 	m_RootAssembly->draw();
 	m_Canvas2D->endDraw();
-}
-
-/**
- * refresh 2d canvas
- * @access      public
- */
-void GNRController::glRefresh3D()
-{
+	
 	//prepare and draw 3D view of room
 	m_Canvas3D->prepareDraw();
 	m_GLCamera->Render();
@@ -180,15 +138,14 @@ void GNRController::glRefresh3D()
 }
 
 /**
- * handle mouse events (buttons and movement)
- * @param       GNRGLNotifyEvent        our event
- * @access      public
+ * fetches the double click event
+ * @param       wxMouseEvent    Mouse-Event of current canvas
+ * @access      private
  */
 void GNRController::processGLMouse(GNRGLNotifyEvent& event)
 {
 	if (event.getMouseEvent().ButtonDown())
 	{
-		// mouse button pressed --> get controll of assembly
 		if (event.getMouseEvent().ButtonIsDown(1))
 		{
 			int selectedAssemblyID, m_x, m_y;
@@ -231,63 +188,41 @@ void GNRController::processGLMouse(GNRGLNotifyEvent& event)
 	{
 		m_AssemblyTranslater->dropControl(event);
 	}
-	else if (event.getMouseEvent().Entering())
+	else
 	{
-		m_activeCanvas = event.getCanvasID();
-	}
-	else if (event.getMouseEvent().Leaving())
-	{
-		m_AssemblyTranslater->dropControl(event);
-	}
-	else if (event.getMouseEvent().Dragging())
-	{
+		// mouse move event
 		m_AssemblyTranslater->ObjectTransform(event);
 	}
 }
 
-/**
- * handle xml import
- * @param       wxString        filename
- * @access      public
- */
 void GNRController::XMLOpen(wxString filename)
 {
 	wxLogDebug(wxT("Hier angekommen"));
 	wxLogDebug(filename);
 }
 
-/**
- * handle obj import
- * @param       wxString        filename
- * @access      public
- */
 void GNRController::OBJImport(wxString filename)
 {
 	GNRObjectImport oi;
-    string fname = string(filename.mb_str());
-    m_RootAssembly->addPart(oi.read(fname));
+	string fname = string(filename.mb_str());
+	m_RootAssembly->addPart(oi.read(fname));
 }
 
-/**
- * toggle toolbar button clicks and set translation direction
- * @param       wxNotifyEvent        button event
- * @access      public
- */
 void GNRController::toggleToolbar(wxNotifyEvent& event)
 {
 	switch (event.GetInt())
 	{
-	case MOVEXZ:
-		m_AssemblyTranslater->setDirection(MOVEXZ);
-		break;
-	case MOVEXY:
+	case 1:
+		wxLogDebug(_("set MOVEXY"));
 		m_AssemblyTranslater->setDirection(MOVEXY);
 		break;
-	case ROTATE:
-		m_AssemblyTranslater->setDirection(ROTATE);
-		break;
-	default:
+	case 2:
+		wxLogDebug(_("set MOVEXZ"));
 		m_AssemblyTranslater->setDirection(MOVEXZ);
+		break;
+	case 3:
+		wxLogDebug(_("set ROTATE"));
+		m_AssemblyTranslater->setDirection(ROTATE);
 		break;
 	}
 }

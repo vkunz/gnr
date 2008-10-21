@@ -17,32 +17,32 @@
 extern GNRMatLib* mtllib;
 
 GNRFace::GNRFace(const string& matname):
-    m_matname(matname)
+		m_matname(matname)
 {
 }
 
 GNRFace::GNRFace(const GNRFace& other):
-        m_matname(other.m_matname)
+		m_matname(other.m_matname)
 {
-    for (list<GNRVNT>::const_iterator it = other.m_vnt.begin(); it != other.m_vnt.end(); ++it)
-        m_vnt.push_back(*it);
+	for (list<GNRVNT>::const_iterator it = other.m_vnt.begin(); it != other.m_vnt.end(); ++it)
+		m_vnt.push_back(*it);
 }
 
 void GNRFace::addVNT(GNRVNT& vnt)
 {
-    m_vnt.push_back(vnt);
+	m_vnt.push_back(vnt);
 }
 
 void GNRFace::draw() const
 {
-    GNRMatLib::const_iterator it = mtllib->find(m_matname);
-    if (it != mtllib->end())
-        it->second.draw();
-
+	GNRMatLib::const_iterator it = mtllib->find(m_matname);
+	if (it != mtllib->end())
+		it->second.draw();
+		
 	glBegin(GL_POLYGON);
-    {
-    	for (list<GNRVNT>::const_iterator it = m_vnt.begin(); it != m_vnt.end(); ++it)
-            it->draw();
+	{
+		for (list<GNRVNT>::const_iterator it = m_vnt.begin(); it != m_vnt.end(); ++it)
+			it->draw();
 	}
 	glEnd();
 }

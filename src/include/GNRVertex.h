@@ -49,16 +49,9 @@ public:
 	
 	GNRVertex  operator  + (const GNRVertex& p2) const;
 	GNRVertex  operator  - (const GNRVertex& p2) const;
-	GNRVertex  operator  * (const float r) const;
-	GNRVertex  operator  * (const GNRVertex& p2) const;
-	GNRVertex  operator  ^(const GNRVertex& p2) const;
-	
 	GNRVertex& operator  = (const GNRVertex& p2);
 	GNRVertex& operator += (const GNRVertex& p2);
 	GNRVertex& operator -= (const GNRVertex& p2);
-	
-	float length();
-	bool normalize();
 	
 	// return attributes
 	wxString ToString();

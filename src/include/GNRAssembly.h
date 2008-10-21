@@ -29,55 +29,55 @@ class GNRAssembly
 public:
 	GNRAssembly();
 	GNRAssembly(const string &name);
-
+	
 	virtual ~GNRAssembly();
 	
-    float getX() const;
+	float getX() const;
 	float getY() const;
 	float getZ() const;
-
-    void setX(float x);
+	
+	void setX(float x);
 	void setY(float y);
 	void setZ(float z);
-
+	
 	float getPhi() const;
 	float getRho() const;
 	float getTheta() const;
-
+	
 	void setPhi(float phi);
 	void setRho(float rho);
 	void setTheta(float theta);
-
-    float getScale() const;
-    void setScale(float s);
+	
+	float getScale() const;
+	void setScale(float s);
 	
 	void addFace(const GNRFace& newface);
-
+	
 	void addPart(GNRAssembly* p_part);
 	
-    void setName(const string& name);
-    const string& getName() const;
-
-    bool getIsRoot() const;
-    void setIsRoot(bool isroot);
-
-    const GNRAssembly* getParent() const;
-    void setParent(GNRAssembly* p);
-
+	void setName(const string& name);
+	const string& getName() const;
+	
+	bool getIsRoot() const;
+	void setIsRoot(bool isroot);
+	
+	const GNRAssembly* getParent() const;
+	void setParent(GNRAssembly* p);
+	
 	void draw() const;
 	
 private:
-    float m_x, m_y, m_z;
-    float m_phi, m_theta, m_rho;
-    float m_scale;
-
-    bool m_locked, m_isWall, m_isroot;    
-    string m_name;
-
-	list<GNRFace> m_face;	
-
-    GNRAssembly* m_parent;
-    list<GNRAssembly*> m_part;
+	float m_x, m_y, m_z;
+	float m_phi, m_theta, m_rho;
+	float m_scale;
+	
+	bool m_locked, m_isWall, m_isroot;
+	string m_name;
+	
+	list<GNRFace> m_face;
+	
+	GNRAssembly* m_parent;
+	list<GNRAssembly*> m_part;
 };
 
 #endif // _GNRASSEMBLY_H_
