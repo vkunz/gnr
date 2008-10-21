@@ -39,7 +39,6 @@ public:
 	void MoveForward(GLfloat Distance);
 	void MoveUpward(GLfloat Distance);
 	void StrafeRight(GLfloat Distance);
-	
 };
 
 #endif // _GNRGLCAMERA_H_

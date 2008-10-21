@@ -17,6 +17,7 @@
 #include "GNRAssembly.h"
 #include "GNRGLCamera.h"
 #include "GNRNotifyEvent.h"
+#include "GNRVertex.h"
 
 class GNRGLCanvas : public wxGLCanvas
 {

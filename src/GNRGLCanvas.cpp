@@ -383,7 +383,6 @@ void GNRGLCanvas::OnMMouseUp(wxMouseEvent& event)
 void GNRGLCanvas::OnRMouseDown(wxMouseEvent& event)
 {
 	// nothing has do be done yet
-	
 }
 
 /**
