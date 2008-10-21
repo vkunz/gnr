@@ -28,6 +28,10 @@ BEGIN_EVENT_TABLE(GNRDebugFrame,wxFrame)
 	//*)
 END_EVENT_TABLE()
 
+/**
+ * constructor
+ * @access      public
+ */
 GNRDebugFrame::GNRDebugFrame(wxWindow* parent,wxWindowID id,const wxSize& size)
 {
 	//(*Initialize(GNRDebugFrame)
@@ -37,6 +41,10 @@ GNRDebugFrame::GNRDebugFrame(wxWindow* parent,wxWindowID id,const wxSize& size)
 	//*)
 }
 
+/**
+ * destructor
+ * @access      public
+ */
 GNRDebugFrame::~GNRDebugFrame()
 {
 	//(*Destroy(GNRDebugFrame)

@@ -20,23 +20,38 @@
 #include <wx/log.h>
 #endif
 
-// ctor
+/**
+ * constructor
+ * @access      public
+ */
 GNRFace::GNRFace()
 {
 
 }
 
-// dtor
+/**
+ * destructor
+ * @access      public
+ */
 GNRFace::~GNRFace()
 {
 	// do nothing
 }
 
+/**
+ * add 3d point to points
+ * @param       GNRPoint3d      point to add
+ * @access      public
+ */
 void GNRFace::addGNRPoint3d(const GNRPoint3d* p_point)
 {
 	m_points.push_back(*p_point);
 }
 
+/**
+ * to string method
+ * @access      public
+ */
 wxString GNRFace::ToString()
 {
 	wxString msg;
@@ -51,6 +66,10 @@ wxString GNRFace::ToString()
 	return msg;
 }
 
+/**
+ * draw whole face of vertexes as polygon
+ * @access      public
+ */
 void GNRFace::draw() const
 {
 	GLfloat mat1_ambient[]		=	{0.11f,0.06f,0.11f,1.00f};
