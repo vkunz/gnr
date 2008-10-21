@@ -61,7 +61,7 @@ void GNRFace::draw() const
 	
 	glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, mat1_diffuse);
 	glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, mat1_ambient);
-	glMaterialfv(GL_FRONT_AND_BACK, GL_EMISSION, mat1_emission);
+	//glMaterialfv(GL_FRONT_AND_BACK, GL_EMISSION, mat1_emission);
 	glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, mat1_specular);
 	glMaterialf(GL_FRONT_AND_BACK, GL_SHININESS, mat1_shininess);
 	
