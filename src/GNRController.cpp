@@ -16,6 +16,10 @@
 #include <wx/log.h>
 #endif
 
+/**
+ * constructor
+ * @access      public
+ */
 GNRController::GNRController()
 {
 	//create root assembly, proxy and mainframe
@@ -36,6 +40,10 @@ GNRController::GNRController()
 	
 }
 
+/**
+ * destructor
+ * @access      public
+ */
 GNRController::~GNRController()
 {
 	delete m_Canvas3D;
@@ -54,6 +62,10 @@ GNRController::~GNRController()
 	delete m_RootAssembly;
 }
 
+/**
+ * initialize all frames needed
+ * @access      public
+ */
 void GNRController::initFrames()
 {
 	//main splitter window
@@ -99,6 +111,10 @@ void GNRController::initFrames()
 	glRefresh();
 }
 
+/**
+ * update splitter dimensions
+ * @access      public
+ */
 void GNRController::updateSplitters()
 {
 	//update left, right and main splitter
@@ -107,6 +123,10 @@ void GNRController::updateSplitters()
 	m_VerticalSplitter->UpdateSize();
 }
 
+/**
+ * refresh glcanvas frames (3d/2d)
+ * @access      public
+ */
 void GNRController::glRefresh()
 {
 	//update splitter dimensions
@@ -125,6 +145,10 @@ void GNRController::glRefresh()
 	}
 }
 
+/**
+ * refresh 2d canvas
+ * @access      public
+ */
 void GNRController::glRefresh2D()
 {
 	//prepare and draw 2D top view of room
@@ -133,6 +157,10 @@ void GNRController::glRefresh2D()
 	m_Canvas2D->endDraw();
 }
 
+/**
+ * refresh 2d canvas
+ * @access      public
+ */
 void GNRController::glRefresh3D()
 {
 	//prepare and draw 3D view of room
@@ -142,11 +170,10 @@ void GNRController::glRefresh3D()
 	m_Canvas3D->endDraw();
 }
 
-
 /**
- * fetches the double click event
- * @param       wxMouseEvent    Mouse-Event of current canvas
- * @access      private
+ * handle mouse events (buttons and movement)
+ * @param       GNRGLNotifyEvent        our event
+ * @access      public
  */
 void GNRController::processGLMouse(GNRGLNotifyEvent& event)
 {
@@ -209,12 +236,22 @@ void GNRController::processGLMouse(GNRGLNotifyEvent& event)
 	}
 }
 
+/**
+ * handle xml import
+ * @param       wxString        filename
+ * @access      public
+ */
 void GNRController::XMLOpen(wxString filename)
 {
 	wxLogDebug(wxT("Hier angekommen"));
 	wxLogDebug(filename);
 }
 
+/**
+ * handle obj import
+ * @param       wxString        filename
+ * @access      public
+ */
 void GNRController::OBJImport(wxString filename)
 {
 	// generate new Importer, parse file
@@ -224,6 +261,11 @@ void GNRController::OBJImport(wxString filename)
 	m_RootAssembly->addChildAssembly(ObjFileImport.GetAssembly());
 }
 
+/**
+ * toggle toolbar button clicks and set translation direction
+ * @param       wxNotifyEvent        button event
+ * @access      public
+ */
 void GNRController::toggleToolbar(wxNotifyEvent& event)
 {
 	switch (event.GetInt())

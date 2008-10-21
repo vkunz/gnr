@@ -39,6 +39,7 @@ GNRAssemblyTranslater::~GNRAssemblyTranslater()
 
 /**
  * init method for setting up the mouse controller
+ * @param       GNRGLNotifyEvent         event from GLNotify
  * @access      public
  */
 void GNRAssemblyTranslater::setWindow(GNRGLNotifyEvent& event)
@@ -49,7 +50,7 @@ void GNRAssemblyTranslater::setWindow(GNRGLNotifyEvent& event)
 
 /**
  * set moving direction
- * @param       int         direction xy, xz or rotation
+ * @param       int         direction xz(0), xy(1) or rotation(2)
  * @access      public
  */
 void GNRAssemblyTranslater::setDirection(int dir)
@@ -103,9 +104,8 @@ void GNRAssemblyTranslater::setAssembly(GNRAssembly* assembly)
 
 /**
  * fetches control of mouse class
- * @param       GNRAssembly     pointer to assembly object
- * @param       wxMouseEvent    mouse event of current frame
- * @return      boolean         status of get action
+ * @param       GNRGLNotifyEvent    event from GLNotify
+ * @return      boolean             status of get action
  * @access      public
  */
 bool GNRAssemblyTranslater::getControl(GNRGLNotifyEvent& event)
@@ -139,7 +139,7 @@ bool GNRAssemblyTranslater::getControl(GNRGLNotifyEvent& event)
 
 /**
  * frees the controler for other clients
- * @param       wxMouseEvent    mouse event of current frame
+ * @param       GNRGLNotifyEvent         event from GLNotify
  * @access      public
  */
 void GNRAssemblyTranslater::dropControl(GNRGLNotifyEvent& event)
@@ -150,7 +150,7 @@ void GNRAssemblyTranslater::dropControl(GNRGLNotifyEvent& event)
 
 /**
  * transforming selected object on mouse event
- * @param       wxMouseEvent    mouse event of current frame
+ * @param       GNRGLNotifyEvent         event from GLNotify
  * @access      public
  */
 void GNRAssemblyTranslater::ObjectTransform(GNRGLNotifyEvent& event)
@@ -183,7 +183,7 @@ void GNRAssemblyTranslater::ObjectTransform(GNRGLNotifyEvent& event)
 
 /**
  * rotate the object on XY axis
- * @param       wxMouseEvent    mouse event of current frame
+ * @param       GNRGLNotifyEvent         event from GLNotify
  * @access      protected
  */
 void GNRAssemblyTranslater::ObjectRotate(GNRGLNotifyEvent& event)
@@ -204,7 +204,7 @@ void GNRAssemblyTranslater::ObjectRotate(GNRGLNotifyEvent& event)
 
 /**
  * move the object in XY dimension
- * @param       wxMouseEvent    mouse event of current frame
+ * @param       GNRGLNotifyEvent         event from GLNotify
  * @access      protected
  */
 void GNRAssemblyTranslater::ObjectMoveXY(GNRGLNotifyEvent& event)
@@ -235,7 +235,7 @@ void GNRAssemblyTranslater::ObjectMoveXY(GNRGLNotifyEvent& event)
 
 /**
  * move the object in XZ dimension
- * @param       wxMouseEvent    mouse event of current frame
+ * @param       GNRGLNotifyEvent         event from GLNotify
  * @access      protected
  */
 void GNRAssemblyTranslater::ObjectMoveXZ(GNRGLNotifyEvent& event)
@@ -274,7 +274,10 @@ bool GNRAssemblyTranslater::isInUse()
 	return in_use;
 }
 
-
+/**
+ * set pointer to camera
+ * @access      public
+ */
 void GNRAssemblyTranslater::setGLCamera(GNRGLCamera* camera)
 {
 	m_glcamera = camera;

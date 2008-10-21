@@ -56,11 +56,12 @@ void GNRFace::draw() const
 	GLfloat mat1_ambient[]		=	{0.11f,0.06f,0.11f,1.00f};
 	GLfloat mat1_diffuse[]		=	{0.43f,0.47f,0.54f,1.00f};
 	GLfloat mat1_specular[]		=	{0.33f,0.33f,0.52f,1.00f};
-	GLfloat mat1_emission[]		=	{0.00f,0.00f,0.00f,0.00f};
+	//GLfloat mat1_emission[]		=	{0.00f,0.00f,0.00f,0.00f};
 	GLfloat mat1_shininess	    =	10;
 	
 	glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, mat1_diffuse);
 	glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, mat1_ambient);
+	glMaterialfv(GL_FRONT_AND_BACK, GL_EMISSION, mat1_emission);
 	glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, mat1_specular);
 	glMaterialf(GL_FRONT_AND_BACK, GL_SHININESS, mat1_shininess);
 	
