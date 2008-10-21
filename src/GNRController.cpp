@@ -37,8 +37,6 @@ GNRController::GNRController()
 	GNRMaterialImport mi;
 	mtllib = mi.read("./default.mtl");
 	
-	m_activeCanvas = 3;
-	
 #if defined(__ATHOS_DEBUG__)
 	// Create DebugFrame
 	m_DebugFrame = new GNRDebugFrame(0);
