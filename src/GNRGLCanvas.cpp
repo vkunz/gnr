@@ -138,33 +138,6 @@ void GNRGLCanvas::initLights()
 	glEnable(GL_LIGHTING);
 }
 
-void GNRGLCanvas::initMaterial()
-{
-	//GLfloat  reflexdgr;
-	GLfloat  dif[4];
-	GLfloat  spc[4];
-	GLfloat  env [4];
-	
-	env[0]=0.3f;
-	env[1]=0.2f;
-	env[2]=0.4f;
-	env[3]=1.0f;
-	dif[0]=0.6f;
-	dif[1]=0.4f;
-	dif[2]=0.8f;
-	dif[3]=1.0f;
-	spc[0]=0.9f;
-	spc[1]=0.6f;
-	spc[2]=1.0f;
-	spc[3]=1.0f;
-	
-	glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT,   env);
-	glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE,   dif);
-	glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR,  spc);
-	//glMaterialfv(GL_FRONT_AND_BACK, GL_SHININESS, &reflexdgr);
-}
-
-
 /**
  * does the initialization for the 3D canvas
  * @access      protected
@@ -176,7 +149,6 @@ void GNRGLCanvas::initGL()
 	
 	setMatrix();
 	initLights();
-	initMaterial();
 	
 	glEnable(GL_DEPTH_TEST);
 	glShadeModel(GL_SMOOTH);

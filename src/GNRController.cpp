@@ -200,17 +200,21 @@ void GNRController::toggleToolbar(wxNotifyEvent& event)
 {
 	switch (event.GetInt())
 	{
-	case 1:
-		wxLogDebug(_("set MOVEXY"));
-		m_AssemblyTranslater->setDirection(MOVEXY);
-		break;
-	case 2:
+	case MOVEXZ:
 		wxLogDebug(_("set MOVEXZ"));
 		m_AssemblyTranslater->setDirection(MOVEXZ);
 		break;
-	case 3:
+	case MOVEXY:
+		wxLogDebug(_("set MOVEXY"));
+		m_AssemblyTranslater->setDirection(MOVEXY);
+		break;
+	case ROTATE:
 		wxLogDebug(_("set ROTATE"));
 		m_AssemblyTranslater->setDirection(ROTATE);
+		break;
+	default:
+		wxLogDebug(_("set MOVEXZ"));
+		m_AssemblyTranslater->setDirection(MOVEXZ);
 		break;
 	}
 }

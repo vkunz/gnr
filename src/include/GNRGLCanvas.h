@@ -41,7 +41,6 @@ protected:
 	void connectEvents();
 	void reshape();
 	void initLights();
-	void initMaterial();
 	GNRVertex getGLPos(int x, int y);
 	
 	virtual void setCamera() = 0;

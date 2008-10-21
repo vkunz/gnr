@@ -25,6 +25,7 @@ void GNRApp::OnGNREvent(GNRNotifyEvent& event)
 	{
 	case XMLOpen:
 		controller->XMLOpen(event.GetString());
+		controller->glRefresh();
 		break;
 	case GLRefresh:
 		controller->glRefresh();

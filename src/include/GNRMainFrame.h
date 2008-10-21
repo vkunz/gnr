@@ -25,6 +25,7 @@
 class GNRMainFrame: public wxFrame
 {
 public:
+	enum { MOVEXZ = 0, MOVEXY, ROTATE };
 	GNRMainFrame(wxWindow* parent,wxWindowID id = -1);
 	virtual ~GNRMainFrame();
 	

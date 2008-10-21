@@ -66,7 +66,7 @@ void GNRAssemblyTranslater::setDirection(int dir)
 		status = ROTATE;
 		break;
 	default:
-		status = MOVEXY;
+		status = MOVEXZ;
 		break;
 	}
 }
@@ -80,8 +80,8 @@ void GNRAssemblyTranslater::init()
 	//controller not in use
 	in_use = false;
 	
-	//set default to move XY axis
-	status = MOVEXY;
+	//set default to move XZ axis
+	status = MOVEXZ;
 	
 	//my_object to null pointer
 	my_object = NULL;
