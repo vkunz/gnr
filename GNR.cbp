@@ -111,7 +111,10 @@
 		<Unit filename="src\GNRObjectImport.cpp" />
 		<Unit filename="src\GNRPoint3d.cpp" />
 		<Unit filename="src\GNRTreePanel.cpp" />
+		<Unit filename="src\GNRTreePanelLibrary.cpp" />
+		<Unit filename="src\GNRTreePanelMyScene.cpp" />
 		<Unit filename="src\GNRVertex.cpp" />
+		<Unit filename="src\TestCanvas.cpp" />
 		<Unit filename="src\include\GNRApp.h" />
 		<Unit filename="src\include\GNRAssembly.h" />
 		<Unit filename="src\include\GNRAssemblyTranslater.h" />
@@ -132,7 +135,10 @@
 		<Unit filename="src\include\GNRObjectImport.h" />
 		<Unit filename="src\include\GNRPoint3d.h" />
 		<Unit filename="src\include\GNRTreePanel.h" />
+		<Unit filename="src\include\GNRTreePanelLibrary.h" />
+		<Unit filename="src\include\GNRTreePanelMyScene.h" />
 		<Unit filename="src\include\GNRVertex.h" />
+		<Unit filename="src\include\TestCanvas.h" />
 		<Unit filename="src\include\md5.h" />
 		<Unit filename="src\md5.cpp" />
 		<Unit filename="src\resources\circular-arrow.xpm" />
@@ -145,7 +151,6 @@
 			<Option target="Debug" />
 		</Unit>
 		<Unit filename="wxsmith\GNRMainFrame.wxs" />
-		<Unit filename="wxsmith\GNRTreePanel.wxs" />
 		<Extensions>
 			<code_completion />
 			<envvars />
@@ -155,7 +160,6 @@
 				<gui name="wxWidgets" src="src\GNRApp.cpp" main="GNRFrame" init_handlers="necessary" language="CPP" />
 				<resources>
 					<wxFrame wxs="wxsmith/GNRMainFrame.wxs" src="src\GNRMainFrame.cpp" hdr="src\include\GNRMainFrame.h" name="GNRMainFrame" language="CPP" />
-					<wxPanel wxs="wxsmith/GNRTreePanel.wxs" src="src\GNRTreePanel.cpp" hdr="src\include\GNRTreePanel.h" name="GNRTreePanel" language="CPP" />
 					<wxFrame wxs="wxsmith/GNRDebugFrame.wxs" src="src\GNRDebugFrame.cpp" hdr="src\include\GNRDebugFrame.h" name="GNRDebugFrame" language="CPP" />
 				</resources>
 			</wxsmith>
