@@ -24,7 +24,7 @@
 #endif
 
 #define ZNEAR 0.1f
-#define ZFAR 1000.0f
+#define ZFAR 10.0f
 
 /**
  * constructor of GNRGLCanvas
@@ -110,41 +110,80 @@ void GNRGLCanvas::setMatrix()
  */
 void GNRGLCanvas::initLights()
 {
-	GLfloat light_ambient[] = { 0.0, 0.0, 0.2, 1.0 };
-	GLfloat light_diffuse[] = { 0.8, 0.8, 1.0, 1.0 };
-	GLfloat light_specular[] = { 0.8, 0.8, 1.0, 1.0 };
-	GLfloat light_position[] = { 1.0, 1.0, 1.0, 0.0 };
+    glEnable(GL_LIGHTING);
+    glEnable(GL_LIGHT0);
+    float lambdiff[] = { 0.3, 0.3, 0.3, 1.0 };
+    float lspec[] = { 0.2, 0.2, 0.2, 0.2, 1.0} ;
+    glLightfv(GL_LIGHT0, GL_AMBIENT_AND_DIFFUSE, lambdiff);
+    glLightfv(GL_LIGHT0, GL_SPECULAR, lspec);
+
+    glEnable(GL_NORMALIZE);
+    glEnable(GL_DEPTH_TEST);
+
+//	GLfloat light_ambient[] = { 0.0, 0.0, 0.2, 1.0 };
+//	GLfloat light_diffuse[] = { 0.8, 0.8, 1.0, 1.0 };
+//	GLfloat light_specular[] = { 0.8, 0.8, 1.0, 1.0 };
+//	GLfloat light_position[] = { 1.0, 1.0, 1.0, 0.0 };
 	
-	glLightfv(GL_LIGHT0, GL_AMBIENT, light_ambient);
-	glLightfv(GL_LIGHT0, GL_DIFFUSE, light_diffuse);
-	glLightfv(GL_LIGHT0, GL_SPECULAR, light_specular);
-	glLightfv(GL_LIGHT0, GL_POSITION, light_position);
+//	glLightfv(GL_LIGHT0, GL_AMBIENT, light_ambient);
+//	glLightfv(GL_LIGHT0, GL_DIFFUSE, light_diffuse);
+//	glLightfv(GL_LIGHT0, GL_SPECULAR, light_specular);
+//	glLightfv(GL_LIGHT0, GL_POSITION, light_position);
 	
-	glLightf(GL_LIGHT0, GL_CONSTANT_ATTENUATION, 2.0);
-	glLightf(GL_LIGHT0, GL_LINEAR_ATTENUATION, 1.0);
-	glLightf(GL_LIGHT0, GL_QUADRATIC_ATTENUATION, 0.5);
-	glEnable(GL_LIGHT0);
+//	glLightf(GL_LIGHT0, GL_CONSTANT_ATTENUATION, 2.0);
+//	glLightf(GL_LIGHT0, GL_LINEAR_ATTENUATION, 1.0);
+//	glLightf(GL_LIGHT0, GL_QUADRATIC_ATTENUATION, 0.5);
+//	glEnable(GL_LIGHT0);
 	
-	GLfloat light1_ambient[] = { 0.6, 0.2, 0.2, 1.0 };
-	GLfloat light1_diffuse[] = { 1.0, 0.8, 0.8, 1.0 };
-	GLfloat light1_specular[] = { 1.0, 0.8, 0.8, 1.0 };
-	GLfloat light1_position[] = { -15.0, 15.0, 10.0, 1.0 };
-	GLfloat spot_direction[] = { 0.0, 0.0, 0.0 };
+//	GLfloat light1_ambient[] = { 0.6, 0.2, 0.2, 1.0 };
+//	GLfloat light1_diffuse[] = { 1.0, 0.8, 0.8, 1.0 };
+//	GLfloat light1_specular[] = { 1.0, 0.8, 0.8, 1.0 };
+//	GLfloat light1_position[] = { -15.0, 15.0, 10.0, 1.0 };
+//	GLfloat spot_direction[] = { 0.0, 0.0, 0.0 };
 	
-	glLightfv(GL_LIGHT1, GL_AMBIENT, light1_ambient);
-	glLightfv(GL_LIGHT1, GL_DIFFUSE, light1_diffuse);
-	glLightfv(GL_LIGHT1, GL_SPECULAR, light1_specular);
-	glLightfv(GL_LIGHT1, GL_POSITION, light1_position);
-	glLightf(GL_LIGHT1, GL_CONSTANT_ATTENUATION, 1.5);
-	glLightf(GL_LIGHT1, GL_LINEAR_ATTENUATION, 0.5);
-	glLightf(GL_LIGHT1, GL_QUADRATIC_ATTENUATION, 0.2);
+//	glLightfv(GL_LIGHT1, GL_AMBIENT, light1_ambient);
+//	glLightfv(GL_LIGHT1, GL_DIFFUSE, light1_diffuse);
+//	glLightfv(GL_LIGHT1, GL_SPECULAR, light1_specular);
+//	glLightfv(GL_LIGHT1, GL_POSITION, light1_position);
+//	glLightf(GL_LIGHT1, GL_CONSTANT_ATTENUATION, 1.5);
+//	glLightf(GL_LIGHT1, GL_LINEAR_ATTENUATION, 0.5);
+//	glLightf(GL_LIGHT1, GL_QUADRATIC_ATTENUATION, 0.2);
 	
-	glLightf(GL_LIGHT1, GL_SPOT_CUTOFF, 45.0);
-	glLightfv(GL_LIGHT1, GL_SPOT_DIRECTION, spot_direction);
-	glLightf(GL_LIGHT1, GL_SPOT_EXPONENT, 2.0);
-	glEnable(GL_LIGHT1);
-	glEnable(GL_LIGHTING);
+//	glLightf(GL_LIGHT1, GL_SPOT_CUTOFF, 45.0);
+//	glLightfv(GL_LIGHT1, GL_SPOT_DIRECTION, spot_direction);
+//	glLightf(GL_LIGHT1, GL_SPOT_EXPONENT, 2.0);
+//	glEnable(GL_LIGHT1);
+//	glEnable(GL_LIGHTING);
 }
+
+
+void GNRGLCanvas::initMaterial()
+{
+	//GLfloat  reflexdgr;
+//	GLfloat  dif[4];
+//	GLfloat  spc[4];
+//	GLfloat  env [4];
+	
+//	env[0]=0.3f;
+//	env[1]=0.2f;
+//	env[2]=0.4f;
+//	env[3]=1.0f;
+//	dif[0]=0.6f;
+//	dif[1]=0.4f;
+//	dif[2]=0.8f;
+//	dif[3]=1.0f;
+//	spc[0]=0.9f;
+//	spc[1]=0.6f;
+//	spc[2]=1.0f;
+//	spc[3]=1.0f;
+//	
+//	glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT,   env);
+//	glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE,   dif);
+//	glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR,  spc);
+	//glMaterialfv(GL_FRONT_AND_BACK, GL_SHININESS, &reflexdgr);
+}
+
+
 
 /**
  * does the initialization for the 3D canvas

@@ -9,396 +9,201 @@
  * @author		Valentin Kunz       <athostr@googlemail.com>
  */
 
-#include <string>
-#include <wx/textfile.h>
-#include <wx/tokenzr.h>
-#include <wx/msgdlg.h>
-
 #include "GNRObjectImport.h"
-#include "GNRVertex.h"
+#include "GNRVNT.h"
 #include "GNRFace.h"
 
-#if defined(__ATHOS_DEBUG__)
-#include <wx/log.h>
-#endif
+#include <fstream>
+#include <sstream>
+#include <string>
 
-/**
- * constructor of GNRObjectImport
- * @access      public
- */
-GNRObjectImport::GNRObjectImport()
+using std::ifstream;
+using std::stringstream;
+using std::string;
+
+GNRAssembly *GNRObjectImport::read(const string& fname)
 {
-	m_ptrAssembly = new GNRAssembly();
-	m_ptrAssemblyActual = m_ptrAssembly;
-}
+	m_xmax = m_ymax = m_zmax = -3.4e38;
+	m_xmin = m_ymin = m_zmin = 3.4e38;
 
-/**
- * constructor of GNRObjectImport
- * @param       wxString    name of imported file
- * @access      public
- */
-GNRObjectImport::GNRObjectImport(wxString filename)
-{
-#if defined(__ATHOS_DEBUG__)
+	m_root = new GNRAssembly("obj_root");
+	m_root->setIsRoot(true);
+	m_act = m_root;
+	m_matname = "white";
 
-	wxLogMessage(wxT("ObjectFileCreated"));
-	
-#endif
-	
-	m_ptrAssembly = new GNRAssembly();
-	m_ptrAssemblyActual = m_ptrAssembly;
-	m_filename = filename;
-	parse();
-}
-
-/**
- * destructor of GNRObjectImport
- * @access      public
- */
-GNRObjectImport::~GNRObjectImport()
-{
-	// do nothing
-}
-
-/**
- * setter for importer filename
- * @param       wxString    name of imported file
- * @access      public
- */
-void GNRObjectImport::SetFilename(wxString filename)
-{
-	m_filename = filename;
-}
-
-/**
- * return the pointer to the new GNRAssembly
- * @access      public
- */
-GNRAssembly* GNRObjectImport::GetAssembly()
-{
-	return m_ptrAssembly;
-}
-
-/**
- * add a new Normal to m_VNormal
- * @param       wxString    content of line to parse
- * @acess       private
- */
-void GNRObjectImport::addNormal(wxString str)
-{
-	// tokenize the current Line to get the floats
-	wxStringTokenizer tok(str, wxT(" "));
-	
-	// temporary attributes
-	double x, y, z;
-	
-	// ignore first Token
-	tok.GetNextToken();
-	
-	// get x
-	tok.GetNextToken().ToDouble(&x);
-	
-	// get y
-	tok.GetNextToken().ToDouble(&y);
-	
-	// get z
-	tok.GetNextToken().ToDouble(&z);
-	
-	// new Normal
-	GNRVertex normal(x, y, z);
-	
-	// push new normal to m_VNormal
-	m_VNormal.push_back(normal);
-}
-
-/**
- * add a new Texture to m_VTexture
- * @param       wxString    content of line to parse
- * @acess       private
- */
-void GNRObjectImport::addTexture(wxString str)
-{
-	// tokenize the current Line to get the floats
-	wxStringTokenizer tok(str, wxT(" "));
-	
-	// temporary attributes
-	double x, y, z;
-	
-	// ignore first Token
-	tok.GetNextToken();
-	
-	// get x
-	tok.GetNextToken().ToDouble(&x);
-	
-	// get y
-	tok.GetNextToken().ToDouble(&y);
-	
-	// get z
-	tok.GetNextToken().ToDouble(&z);
-	
-	// new Texture
-	GNRVertex texture(x, y, z);
-	
-	// push new texture to m_VTexture
-	m_VTexture.push_back(texture);
-}
-
-/**
- * add a new Vertex to m_VVertex
- * @param       wxString    content of line to parse
- * @access      private
- */
-void GNRObjectImport::addVertex(wxString str)
-{
-	// tokenize the current Line to get the floats
-	wxStringTokenizer tok(str, wxT(" "));
-	
-	// temporary attributes
-	double x, y, z;
-	
-	// ignore first token
-	tok.GetNextToken();
-	
-	// get x
-	tok.GetNextToken().ToDouble(&x);
-	
-	// get y
-	tok.GetNextToken().ToDouble(&y);
-	
-	// get z
-	tok.GetNextToken().ToDouble(&z);
-	
-	// new Vertex
-	GNRVertex vertex(x, y, z);
-	
-	// push new vertex to m_VVertex
-	m_VVertex.push_back(vertex);
-}
-
-/**
- * create assembly
- * @param       wxString    content of line to parse
- * @access      private
- */
-void GNRObjectImport::createAssembly(wxString str)
-{
-	// create new GNRAssemblyPart
-	GNRAssembly* newAssembly = new GNRAssembly();
-	
-	// tokenize the current Line to get the floats
-	wxStringTokenizer tok(str, wxT(" "));
-	
-	// temporary attribut
-	wxString tmp;
-	std::string convStr;
-	
-	// ignore first token
-	tok.GetNextToken();
-	
-	// get object title
-	tmp = tok.GetNextToken();
-	
-	// wxString -> std::string
-	convStr = std::string(tmp.mb_str());
-	
-	// store object title
-	newAssembly->setAssemblyTitle(convStr);
-	
-	// new Assembly is new child of obj-File coreAssembly
-	m_ptrAssembly->addChildAssembly(newAssembly);
-	
-	// get address of new GNRAssembly to store faces in
-	m_ptrAssemblyActual = newAssembly;
-}
-
-/**
- * create face from string
- * @param       wxString    content of line to parse
- * @access      public
- */
-void GNRObjectImport::createFace(wxString str)
-{
-	// create new GNRPoly-Object
-	GNRFace face;
-	
-	// temporary attribut
-	long tmp;
-	wxString strFace;
-	wxString strVertex;
-	wxString strNormal;
-	wxString strTexture;
-	
-	// no normal no texture Face
-	GNRVertex* ptrVertex;
-	GNRVertex* ptrNormal;
-	GNRVertex* ptrTexture;
-	
-	// vertex normals and texture vertices are optional
-	GNRVertex* ptrNormalTemporary = new GNRVertex(255.0f, 0.0f, 0.0f);
-	GNRVertex* ptrTextureTemporary = new GNRVertex(255.0f, 0.0f, 0.0f);
-	
-	// tokenize the current Line to get all face triplets
-	wxStringTokenizer tok(str, wxT(" "));
-	
-	// ignore first token
-	tok.GetNextToken();
-	
-	// analyze every triple
-	while (tok.HasMoreTokens())
+	// 1st pass, gather v, vt and vn
+	ifstream ifs(fname.c_str());
+	while (ifs.good())
 	{
-		// temporary string
-		strFace = tok.GetNextToken();
-		
-		// get int of vertex as string
-		strVertex = strFace.BeforeFirst('/');
-		
-		// get string after first slash if available -> found vertex
-		strFace = strFace.AfterFirst('/');
-		
-		// get int of texture as string
-		strTexture = strFace.BeforeFirst('/');
-		
-		// get string after second slash if available -> found texture
-		strFace = strFace.AfterFirst('/');
-		
-		// get int of normal as string
-		strNormal = strFace.BeforeFirst('/');
-		
-		// strVertex -> long
-		strVertex.ToLong(&tmp);
-		
-		// get address of vertex
-		ptrVertex = &m_VVertex[tmp - 1];
-		
-		// strNormal -> long
-		strNormal.ToLong(&tmp);
-		
-		// get address of normal
-		ptrNormal = &m_VNormal[tmp - 1];
-		
-		// strTexture -> long
-		strTexture.ToLong(&tmp);
-		
-		// get address of texture
-		ptrTexture = &m_VTexture[tmp - 1];
-		
-		// case only vertex
-		if (strNormal == wxT("") && strTexture == wxT(""))
-		{
-			// create GNRPoint3d
-			GNRPoint3d point(ptrVertex, ptrTextureTemporary, ptrNormalTemporary);
-			
-			// add a new Point
-			face.addGNRPoint3d(&point);
-		}
-		// case vertex and texture
-		else if (strNormal == wxT(""))
-		{
-			// create GNRPoint3d
-			GNRPoint3d point(ptrVertex, ptrTexture, ptrNormalTemporary);
-			
-			// add a new Point
-			face.addGNRPoint3d(&point);
-		}
-		// case vertex and normal
-		else if (strTexture == wxT(""))
-		{
-			// create GNRPoint3d
-			GNRPoint3d point(ptrVertex, ptrTextureTemporary, ptrNormal);
-			
-			// add a new Point
-			face.addGNRPoint3d(&point);
-		}
-		// case vertex, texture and normal
-		else
-		{
-			// create GNRPoint3d
-			GNRPoint3d  point(ptrVertex, ptrTexture, ptrNormal);
-			
-			// add a new Point
-			face.addGNRPoint3d(&point);
-		}
-	}
-	
-	// add new Face to actual GNRAssembly
-	m_ptrAssemblyActual->addFace(face);
-}
+		getline(ifs, m_buf);
+		if (m_buf.size() < 2)
+			continue;
 
-void GNRObjectImport::splitVertexNormalTexture(wxString str)
-{
-	switch ((wxChar)str[1])
-	{
-		// found vertex
-	case ' ':
-		addVertex(str);
-		break;
-		// found normal
-	case 'n':
-		addNormal(str);
-		break;
-		// found texture
-	case 't':
-		addTexture(str);
-		break;
-	}
-}
-
-/**
- * parses filename for obj statements
- * @param       wxString    name of imported file
- * @access      public
- */
-void GNRObjectImport::parse()
-{
-	// temporary attribut
-	wxString curLine;
-	
-	// generate a new filehandler
-	wxTextFile file(m_filename);
-	
-	file.Open();
-	
-#if defined(__ATHOS_DEBUG__)
-	
-	wxLogMessage(wxT("File opened"));
-	
-#endif
-	
-	curLine = file.GetFirstLine();
-	
-	while (!file.Eof())
-	{
-		switch ((wxChar)curLine[0])
+		switch (m_buf[0])
 		{
-			// comment, ignore
-		case '#':
-			break;
 		case 'v':
-			splitVertexNormalTexture(curLine);
-			break;
-			// found face
-		case 'f':
-			createFace(curLine);
-			break;
-			// found new object
-		case 'o':
-			createAssembly(curLine);
-			break;
-			// found new group/object
-		case 'g':
-			createAssembly(curLine);
+			getVs();
 			break;
 		default:
 			break;
 		}
-		
-		// get next line
-		curLine = file.GetNextLine();
 	}
-	
-#if defined(__ATHOS_DEBUG__)
-	
-	wxLogMessage(wxT("Hier fertig mit einlesen"));
-	
-#endif
+	ifs.clear();
+
+	// 2nd pass, gather f, o, g and all the rest
+	ifs.seekg(0, ifstream::beg);
+	while (ifs.good())
+	{
+		getline(ifs, m_buf);
+		if (m_buf.size() < 2)
+			continue;
+
+		switch (m_buf[0])
+		{
+			case 'f':
+				getF();
+				break;
+			case 'g':
+			case 'o':
+				getO();
+				break;
+			case 'u':
+				getU();
+			default:
+				break;
+		}
+	}
+	ifs.close();
+
+	float x_diff = (m_xmax - m_xmin), y_diff = (m_ymax - m_ymin), z_diff = (m_zmax - m_zmin);
+
+	float max_diff = x_diff;
+	if (max_diff < y_diff)
+		max_diff = y_diff;
+	if (max_diff < z_diff)
+		max_diff = z_diff;
+
+	float scale = 1.0 / max_diff;
+
+	m_root->setX(-1.0*(m_xmax + m_xmin) / 2.0);
+	m_root->setY(-1.0*(m_ymax + m_ymin) / 2.0);
+	m_root->setZ(-1.0*(m_zmax + m_zmin) / 2.0);
+
+	m_root->setScale(scale);
+
+	return m_root;
+}
+
+void GNRObjectImport::getVs()
+{
+		char c = m_buf[1];
+		m_buf = m_buf.substr(2, string::npos);
+		if (c == ' ')
+			getV();
+		else if (c == 'n')
+			getVN();
+		else if (c == 't')
+			getVT();
+}
+
+void GNRObjectImport::getO()
+{
+	string objname;
+	stringstream ss(m_buf.substr(2, string::npos));
+	ss >> objname;
+
+	m_act = new GNRAssembly(objname);
+	m_act->setParent(m_root);
+	m_root->addPart(m_act);
+}
+
+void GNRObjectImport::getV()
+{
+	float x, y, z;
+	stringstream ss(m_buf);
+	ss >> x >> y >> z;
+
+	if (m_xmin > x)
+		m_xmin = x;
+	if (m_xmax < x)
+		m_xmax = x;
+
+	if (m_ymin > y)
+		m_ymin = y;
+	if (m_ymax < y)
+		m_ymax = y;
+
+	if (m_zmin > z)
+		m_zmin = z;
+	if (m_zmax < z)
+		m_zmax = z;
+
+	GNRVertex tmp(x, y, z);
+	m_vertex.push_back(tmp);
+}
+
+void GNRObjectImport::getVN()
+{
+	float x, y, z;
+	stringstream ss(m_buf);
+	ss >> x >> y >> z;
+
+	GNRVertex tmp(x, y, z);
+	m_normal.push_back(tmp);
+}
+
+
+void GNRObjectImport::getVT()
+{
+	float x, y;
+	stringstream ss(m_buf);
+	ss >> x >> y;
+	GNRTCoord tmp(x, y);
+	m_tcoord.push_back(tmp);
+}
+
+void GNRObjectImport::getF()
+{
+	GNRFace face(m_matname);
+
+	stringstream ss(m_buf.substr(2, string::npos));
+	string token;
+	while (ss >> token)
+	{
+		stringstream tmp(token);
+		int v[3] = {0, 0, 0};
+
+		int i = 0;
+		while (!tmp.eof())
+		{
+			tmp >> v[i];
+			if (tmp.fail() && !(tmp.bad() || tmp.eof()))
+			{
+				tmp.clear();
+				char c;
+				tmp >> c;
+				if (c == '/' && i < 3)
+					i++;
+			}
+		}
+		v[0]--; v[1]--; v[2]--;
+
+		GNRVertex *pv = NULL, *pn = NULL;
+		GNRTCoord *pt = NULL;
+		if (v[0] != -1)
+			pv = new GNRVertex(m_vertex[v[0]]);
+		if (v[1] != -1)
+			pt = new GNRTCoord(m_tcoord[v[1]]);
+		if (v[2] != -1)
+			pn = new GNRVertex(m_normal[v[2]]);
+		GNRVNT vnt(pv, pn ,pt);
+		face.addVNT(vnt);
+	}
+	m_act->addFace(face);
+}
+
+void GNRObjectImport::getU()
+{
+	stringstream ss(m_buf.substr(6, string::npos));
+	ss >> m_matname;
 }

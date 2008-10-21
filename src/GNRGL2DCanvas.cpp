@@ -21,7 +21,7 @@
 #endif
 
 #define ZNEAR 0.1f
-#define ZFAR 1000.0f
+#define ZFAR 10.0f
 
 /**
  * constructor of GNRGL2DCanvas
@@ -36,7 +36,7 @@
 GNRGL2DCanvas::GNRGL2DCanvas(wxWindow* parent, wxWindowID id, const wxPoint& pos, const wxSize& size, long style, const wxString& name)
 		:GNRGLCanvas(parent, id, pos, size, style, name)
 {
-	m_camera_height = 25;
+	m_camera_height = 1;
 }
 
 /**
@@ -53,7 +53,7 @@ GNRGL2DCanvas::GNRGL2DCanvas(wxWindow* parent, wxWindowID id, const wxPoint& pos
 GNRGL2DCanvas::GNRGL2DCanvas(wxWindow* parent, wxGLContext* sharedContext, wxWindowID id, const wxPoint& pos, const wxSize& size,
                              long style, const wxString& name) : GNRGLCanvas(parent, sharedContext, id, pos, size, style, name)
 {
-	m_camera_height = 25;
+	m_camera_height = 1;
 }
 
 /**
@@ -93,7 +93,7 @@ int GNRGL2DCanvas::getCanvasID()
  */
 void GNRGL2DCanvas::OnMouseWheel(wxMouseEvent& event)
 {
-	m_camera_height += 360.0 / (float)event.GetWheelRotation();
+	m_camera_height += 3.6 / (float)event.GetWheelRotation();
 	
 	// Event for Redrawing the Canvases
 	GNRNotifyEvent myevent(wxEVT_COMMAND_GNR_NOTIFY);

@@ -42,6 +42,7 @@ protected:
 	void connectEvents();
 	void reshape();
 	void initLights();
+    void initMaterial();
 	GNRVertex getGLPos(int x, int y);
 	GNRVertex* getGLDim(int x, int y);
 	

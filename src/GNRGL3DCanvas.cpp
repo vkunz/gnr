@@ -9,7 +9,7 @@
 #endif
 
 #define ZNEAR 0.1f
-#define ZFAR 1000.0f
+#define ZFAR 10.0f
 
 /**
  * constructor of GNRGL3DCanvas

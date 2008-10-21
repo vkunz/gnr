@@ -13,75 +13,71 @@
 #define _GNRASSEMBLY_H_
 
 #include <list>
+#include <vector>
 #include <string>
 
 #include "GNRFace.h"
 #include "GNRVertex.h"
+#include "GNRTCoord.h"
+
+using std::list;
+using std::vector;
+using std::string;
 
 class GNRAssembly
 {
 public:
 	GNRAssembly();
+	GNRAssembly(const string &name);
+
 	virtual ~GNRAssembly();
 	
-	void draw() const;
-	
-	void addFace(const GNRFace newface);
-	void addChildAssembly(GNRAssembly* assembly);
-	
-	float getX() const;
+    float getX() const;
 	float getY() const;
 	float getZ() const;
-	
-	void setX(const float x);
-	void setY(const float y);
-	void setZ(const float z);
-	
+
+    void setX(float x);
+	void setY(float y);
+	void setZ(float z);
+
 	float getPhi() const;
 	float getRho() const;
 	float getTheta() const;
-	
-	void setPhi(const float phi);
-	void setRho(const float rho);
-	void setTheta(const float theta);
-	
-	void setAssemblyTitle(const std::string str);
-	
-protected:
 
+	void setPhi(float phi);
+	void setRho(float rho);
+	void setTheta(float theta);
+
+    float getScale() const;
+    void setScale(float s);
+	
+	void addFace(const GNRFace& newface);
+
+	void addPart(GNRAssembly* p_part);
+	
+    void setName(const string& name);
+    const string& getName() const;
+
+    bool getIsRoot() const;
+    void setIsRoot(bool isroot);
+
+    const GNRAssembly* getParent() const;
+    void setParent(GNRAssembly* p);
+
+	void draw() const;
+	
 private:
-	// stores the AssemblyTitle
-	std::string m_AssemblyTitle;
-	
-	// stores the offset of the x-axis relative to the zero-point
-	float m_xOffset;
-	
-	// stores the offset of the y-axis relative to the zero-point
-	float m_yOffset;
-	
-	// stores the offset of the z-axis relative to the zero-point
-	float m_zOffset;
-	
-	// stores the rotation relative to the x-asis
-	float m_phi;
-	
-	// stores the rotation relative to the y-axis
-	float m_theta;
-	
-	// stores the rotation relative to the z-axis
-	float m_rho;
-	
-	// stores the MD5-Hash of the content of the .obj-File
-	std::string m_MD5Hash;
-	
-	// stores the subordinates
-	std::list<GNRAssembly*> m_parts;
-	
-	// stores the faces
-	std::list<GNRFace> m_faces;
-	
-	// stores the AssemblyID
-	int m_AssemblyID;
+    float m_x, m_y, m_z;
+    float m_phi, m_theta, m_rho;
+    float m_scale;
+
+    bool m_locked, m_isWall, m_isroot;    
+    string m_name;
+
+	list<GNRFace> m_face;	
+
+    GNRAssembly* m_parent;
+    list<GNRAssembly*> m_part;
 };
 
 #endif // _GNRASSEMBLY_H_

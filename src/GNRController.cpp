@@ -10,11 +10,16 @@
  */
 
 #include "GNRController.h"
+#include "GNRMaterial.h"
+#include "GNRMaterialImport.h"
+
 #include "wx/wx.h"
 
 #if defined(__ATHOS_DEBUG__)
 #include <wx/log.h>
 #endif
+
+GNRMatLib* mtllib;
 
 /**
  * constructor
@@ -23,11 +28,15 @@
 GNRController::GNRController()
 {
 	//create root assembly, proxy and mainframe
-	m_RootAssembly      = new GNRAssembly();
+	m_RootAssembly      = new GNRAssembly("root");
 	m_AssemblyTranslater= new GNRAssemblyTranslater();
 	m_GLCamera          = new GNRGLCamera();
 	m_MainFrame         = new GNRMainFrame(0);
 	m_AssemblyTranslater->setGLCamera(m_GLCamera);
+
+    GNRMaterialImport mi;
+    mtllib = mi.read("./default.mtl");
+
 	m_activeCanvas = 3;
 	
 #if defined(__ATHOS_DEBUG__)
@@ -254,11 +263,9 @@ void GNRController::XMLOpen(wxString filename)
  */
 void GNRController::OBJImport(wxString filename)
 {
-	// generate new Importer, parse file
-	GNRObjectImport ObjFileImport(filename);
-	
-	// return pointer to new object
-	m_RootAssembly->addChildAssembly(ObjFileImport.GetAssembly());
+	GNRObjectImport oi;
+    string fname = string(filename.mb_str());
+    m_RootAssembly->addPart(oi.read(fname));
 }
 
 /**

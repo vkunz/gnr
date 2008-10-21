@@ -9,7 +9,7 @@
 TARGET = gnr/GNR
 
 CC = g++
-CFLAGS =-D__ATHOS_DEBUG__ -g -Wall -finput-charset=iso-8859-1#-pedantic -ansi -Wall
+CFLAGS = -finput-charset=iso-8859-1 #-Wall -pedantic -ansi
 CXX = $(CC) $(CFLAGS) -Ignr/src/include
 LD = $(CC)
 
@@ -21,7 +21,7 @@ GL_LIBS = -lGL -lGLU
 
 all: $(TARGET)
 
-$(TARGET): gnr/bin/GNRApp.o gnr/bin/GNRAssembly.o gnr/bin/GNRAssemblyTranslater.o gnr/bin/GNRController.o gnr/bin/GNRDebugFrame.o gnr/bin/GNRFace.o gnr/bin/GNRGL2DCanvas.o gnr/bin/GNRGL3DCanvas.o gnr/bin/GNRGLCamera.o gnr/bin/GNRGLCanvas.o gnr/bin/GNRGLNotifyEvent.o gnr/bin/GNRMainFrame.o gnr/bin/GNRMaterial.o gnr/bin/GNRMaterialImport.o gnr/bin/GNRNotifyEvent.o gnr/bin/GNRObjectImport.o gnr/bin/GNRPoint3d.o gnr/bin/GNRTreePanel.o gnr/bin/GNRVertex.o gnr/bin/md5.o gnr/bin/TestCanvas.o
+$(TARGET): gnr/bin/GNRApp.o gnr/bin/GNRAssembly.o gnr/bin/GNRAssemblyTranslater.o gnr/bin/GNRController.o gnr/bin/GNRDebugFrame.o gnr/bin/GNRFace.o gnr/bin/GNRGL2DCanvas.o gnr/bin/GNRGL3DCanvas.o gnr/bin/GNRGLCamera.o gnr/bin/GNRGLCanvas.o gnr/bin/GNRGLNotifyEvent.o gnr/bin/GNRMainFrame.o gnr/bin/GNRMaterial.o gnr/bin/GNRMaterialImport.o gnr/bin/GNRNotifyEvent.o gnr/bin/GNRObjectImport.o gnr/bin/GNRPoint3d.o gnr/bin/GNRTCoord.o gnr/bin/GNRTreePanel.o gnr/bin/GNRTreePanelLibrary.o gnr/bin/GNRTreePanelMyScene.o gnr/bin/GNRVertex.o gnr/bin/GNRVNT.o gnr/bin/md5.o gnr/bin/TestCanvas.o
 	@echo ... LINKING ...
 	$(LD) $(WX_LOPTS) $(GL_LIBS) $^ -o $@
 	
@@ -39,9 +39,6 @@ ci:
 	svn commit gnr
 st:
 	@echo $(shell svn status gnr | grep "^M")
-
-run: $(TARGET)
-	$(TARGET)
 
 clean: 
 	rm -f gnr/bin/*.o $(TARGET)
