@@ -50,7 +50,6 @@ protected:
 	virtual int getCanvasID() = 0;
 	
 public:
-	// constructor
 	GNRGLCanvas(wxWindow* parent,
 	            wxWindowID id = wxID_ANY,
 	            const wxPoint& pos = wxDefaultPosition,

@@ -70,6 +70,11 @@ int GNRGL3DCanvas::getCanvasID()
 	return 3;
 }
 
+/**
+ * handle mouse wheel event
+ * @param       wxMouseEvent        mouse event
+ * @access      private
+ */
 void GNRGL3DCanvas::OnMouseWheel(wxMouseEvent& event)
 {
 #if defined(__ATHOS_DEBUG__)

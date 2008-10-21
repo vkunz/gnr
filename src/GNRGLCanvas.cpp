@@ -81,6 +81,10 @@ void GNRGLCanvas::connectEvents()
 	Connect(wxEVT_PAINT,(wxObjectEventFunction)&GNRGLCanvas::OnPaint);
 }
 
+/**
+ * prepare viewport and set matrix
+ * @access      protected
+ */
 void GNRGLCanvas::setMatrix()
 {
 	GetClientSize(&m_window_x, &m_window_y);
@@ -100,6 +104,10 @@ void GNRGLCanvas::setMatrix()
 	);
 }
 
+/**
+ * initialize light sources
+ * @access      protected
+ */
 void GNRGLCanvas::initLights()
 {
 	GLfloat light_ambient[] = { 0.0, 0.0, 0.2, 1.0 };
@@ -505,7 +513,10 @@ void GNRGLCanvas::OnPaint(wxPaintEvent& event)
 	event.Skip();
 }
 
-// Convert Mouse-Coordinates to GL-Coordinates
+/**
+ * Convert Mouse-Coordinates to GL-Coordinates
+ * @access      protected
+ */
 GNRVertex GNRGLCanvas::getGLPos(int x, int y)
 {
 	glPushMatrix();
@@ -531,7 +542,10 @@ GNRVertex GNRGLCanvas::getGLPos(int x, int y)
 	return glcoords;
 }
 
-// Convert Mouse-Coordinates to GL-Coordinates
+/**
+ * Convert Mouse-Coordinates to GL-Coordinates
+ * @access      protected
+ */
 GNRVertex* GNRGLCanvas::getGLDim(int x, int y)
 {
 	glPushMatrix();
