@@ -68,6 +68,7 @@ public:
 	virtual ~GNRGLCanvas();
 	
 	// Drawing the GL-Scene
+	void setMatrix();
 	void prepareDraw();
 	void draw();
 	void endDraw();

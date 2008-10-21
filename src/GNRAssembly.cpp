@@ -80,12 +80,12 @@ void GNRAssembly::setPhi(const float phi)
 
 void GNRAssembly::setRho(const float rho)
 {
-	m_phi = rho;
+	m_rho = rho;
 }
 
 void GNRAssembly::setTheta(const float theta)
 {
-	m_phi = theta;
+	m_theta = theta;
 }
 
 void GNRAssembly::setAssemblyTitle(const std::string str)
@@ -99,10 +99,10 @@ void GNRAssembly::draw() const
 	
 	glPushMatrix();
 	{
-		glTranslatef(m_xOffset, m_yOffset, m_zOffset);
 		glRotatef(m_phi, 1, 0, 0);
 		glRotatef(m_theta, 0, 1, 0);
 		glRotatef(m_rho, 0, 0, 1);
+		glTranslatef(m_xOffset, m_yOffset, m_zOffset);
 		
 		// draw myself
 		for (std::list<GNRFace>::const_iterator it = m_faces.begin(); it != m_faces.end(); ++it)

@@ -81,15 +81,34 @@ void GNRGLCanvas::connectEvents()
 	Connect(wxEVT_PAINT,(wxObjectEventFunction)&GNRGLCanvas::OnPaint);
 }
 
+void GNRGLCanvas::setMatrix()
+{
+	GetClientSize(&m_window_x, &m_window_y);
+	float aspect = (float)m_window_x/(float)m_window_y;
+	
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+	gluPerspective(45.0, aspect, ZNEAR, ZFAR);
+	glViewport(0, 0, m_window_x, m_window_y);
+	
+	glMatrixMode(GL_MODELVIEW);
+	glLoadIdentity();
+	gluLookAt(
+	    0.0, 0.0, 2.0,
+	    0.0, 0.0, 0.0,
+	    0.0, 1.0, 0.0
+	);
+}
+
 void GNRGLCanvas::initLights()
 {
-	GLfloat ambientLight[] = { 0.5f, 0.2f, 0.7f, 1.0f };
-	GLfloat diffuseLight[] = { 0.8f, 0.4f, 0.4, 1.0f };
-	GLfloat specularLight[] = { 0.8f, 0.8f, 0.5f, 1.0f };
-	GLfloat positionLight[] = { 20.0f, 20.0f, 20.0f, 1.0f };
+	//GLfloat diffuseLight[] = { 0.8f, 0.4f, 0.4, 1.0f };
+	GLfloat ambientLight[]   = { 0.6F, 0.3F, 0.3F, 1.0F };
+	GLfloat specularLight[]  = { 0.3F, 0.3F, 0.6F, 1.0F };
+	GLfloat positionLight[]  = { 20.0F, 20.0F, 10.0F, 0.0F };
 	
-	glLightfv(GL_LIGHT0, GL_AMBIENT,  ambientLight);
-	glLightfv(GL_LIGHT0, GL_DIFFUSE,  diffuseLight);
+	glLightfv(GL_LIGHT0, GL_AMBIENT_AND_DIFFUSE,  ambientLight);
+	//glLightfv(GL_LIGHT0, GL_DIFFUSE,  diffuseLight);
 	glLightfv(GL_LIGHT0, GL_SPECULAR, specularLight);
 	glLightfv(GL_LIGHT0, GL_POSITION, positionLight);
 	
@@ -99,7 +118,7 @@ void GNRGLCanvas::initLights()
 
 void GNRGLCanvas::initMaterial()
 {
-	GLfloat  reflexdgr;
+	//GLfloat  reflexdgr;
 	GLfloat  dif[4];
 	GLfloat  spc[4];
 	GLfloat  env [4];
@@ -120,7 +139,7 @@ void GNRGLCanvas::initMaterial()
 	glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT,   env);
 	glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE,   dif);
 	glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR,  spc);
-	glMaterialfv(GL_FRONT_AND_BACK, GL_SHININESS, &reflexdgr);
+	//glMaterialfv(GL_FRONT_AND_BACK, GL_SHININESS, &reflexdgr);
 }
 
 
@@ -131,31 +150,24 @@ void GNRGLCanvas::initMaterial()
 void GNRGLCanvas::initGL()
 {
 	SetCurrent();
-	
-	glEnable(GL_DEPTH_TEST);
-	glDepthFunc(GL_LEQUAL);
 	glClearColor(0.4, 0.4, 0.4, 0.0);
 	
+	setMatrix();
 	initLights();
 	initMaterial();
 	
-	glShadeModel(GL_SMOOTH);
-	
-	glClearDepth(1.0f);
 	glEnable(GL_DEPTH_TEST);
+	glShadeModel(GL_SMOOTH);
 	glDepthFunc(GL_LEQUAL);
-	
+	glClearDepth(1.0f);
 	glEnable(GL_COLOR_MATERIAL);
-	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+	
+	glPolygonMode(GL_FRONT, GL_FILL);
+	glPolygonMode(GL_BACK, GL_LINE);
+	
 	glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);
 	
 	glEnable(GL_NORMALIZE);
-	
-	glMatrixMode(GL_PROJECTION);
-	glLoadIdentity();
-	
-	glMatrixMode(GL_MODELVIEW);
-	glLoadIdentity();
 }
 
 /**
@@ -164,6 +176,7 @@ void GNRGLCanvas::initGL()
  */
 void GNRGLCanvas::endDraw()
 {
+	setMatrix();
 	glFlush();
 	SwapBuffers();
 }

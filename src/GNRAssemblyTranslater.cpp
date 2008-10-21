@@ -188,21 +188,11 @@ void GNRAssemblyTranslater::ObjectTransform(GNRGLNotifyEvent& event)
  */
 void GNRAssemblyTranslater::ObjectRotate(GNRGLNotifyEvent& event)
 {
-#if defined(__ATHOS_DEBUG__)
-	wxString msg;
-	msg << _("ROT. dY=") << (m_mouse_y - event.getMouseEvent().m_y);
-	msg << _(", dX=") << (m_mouse_x - event.getMouseEvent().m_x);
-	msg << _(", winX=") << window_w;
-	msg << _(", winY=") << window_h;
-	msg << _(", setRho=") << (rho_old + 720.0f*((float)(m_mouse_y - event.getMouseEvent().m_y)/(float)window_h));
-	msg << _(", setTheta=") << (theta_old + 720.0f*((float)(m_mouse_x - event.getMouseEvent().m_x)/(float)window_w));
-	wxLogMessage(msg);
-#endif
 	if (event.getMouseEvent().ButtonIsDown(1))
 	{
 		// rotate a single object
+		my_object->setPhi(phi_old + 720.0f*((float)(m_mouse_y - event.getMouseEvent().m_y)/(float)window_h));
 		my_object->setTheta(theta_old + 720.0f*((float)(m_mouse_x - event.getMouseEvent().m_x)/(float)window_w));
-		my_object->setRho(rho_old + 720.0f*((float)(m_mouse_y - event.getMouseEvent().m_y)/(float)window_h));
 	}
 	else if (event.getMouseEvent().ButtonIsDown(2))
 	{
