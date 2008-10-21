@@ -49,8 +49,12 @@ private:
 	wxSplitterWindow* m_HorizontalSplitter_right;
 	wxSplitterWindow* m_VerticalSplitter;
 	
-	int m_init;
 	void updateSplitters();
+	void glRefresh2D();
+	void glRefresh3D();
+	
+	int m_init;
+	int m_activeCanvas;
 	
 #if defined(__ATHOS_DEBUG__)
 	GNRDebugFrame* m_DebugFrame;

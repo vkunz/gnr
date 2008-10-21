@@ -24,6 +24,7 @@ GNRController::GNRController()
 	m_GLCamera          = new GNRGLCamera();
 	m_MainFrame         = new GNRMainFrame(0);
 	m_AssemblyTranslater->setGLCamera(m_GLCamera);
+	m_activeCanvas = 3;
 	
 #if defined(__ATHOS_DEBUG__)
 	// Create DebugFrame
@@ -111,17 +112,36 @@ void GNRController::glRefresh()
 	//update splitter dimensions
 	updateSplitters();
 	
+	if (m_activeCanvas == 3)
+	{
+		glRefresh2D();
+	}
+	
+	glRefresh3D();
+	
+	if (m_activeCanvas == 2)
+	{
+		glRefresh2D();
+	}
+}
+
+void GNRController::glRefresh2D()
+{
 	//prepare and draw 2D top view of room
 	m_Canvas2D->prepareDraw();
 	m_RootAssembly->draw();
 	m_Canvas2D->endDraw();
-	
+}
+
+void GNRController::glRefresh3D()
+{
 	//prepare and draw 3D view of room
 	m_Canvas3D->prepareDraw();
 	m_GLCamera->Render();
 	m_RootAssembly->draw();
 	m_Canvas3D->endDraw();
 }
+
 
 /**
  * fetches the double click event
@@ -132,6 +152,7 @@ void GNRController::processGLMouse(GNRGLNotifyEvent& event)
 {
 	if (event.getMouseEvent().ButtonDown())
 	{
+		// mouse button pressed --> get controll of assembly
 		if (event.getMouseEvent().ButtonIsDown(1))
 		{
 			int selectedAssemblyID, m_x, m_y;
@@ -174,9 +195,16 @@ void GNRController::processGLMouse(GNRGLNotifyEvent& event)
 	{
 		m_AssemblyTranslater->dropControl(event);
 	}
-	else
+	else if (event.getMouseEvent().Entering())
 	{
-		// mouse move event
+		m_activeCanvas = event.getCanvasID();
+	}
+	else if (event.getMouseEvent().Leaving())
+	{
+		m_AssemblyTranslater->dropControl(event);
+	}
+	else if (event.getMouseEvent().Dragging())
+	{
 		m_AssemblyTranslater->ObjectTransform(event);
 	}
 }
@@ -201,19 +229,15 @@ void GNRController::toggleToolbar(wxNotifyEvent& event)
 	switch (event.GetInt())
 	{
 	case MOVEXZ:
-		wxLogDebug(_("set MOVEXZ"));
 		m_AssemblyTranslater->setDirection(MOVEXZ);
 		break;
 	case MOVEXY:
-		wxLogDebug(_("set MOVEXY"));
 		m_AssemblyTranslater->setDirection(MOVEXY);
 		break;
 	case ROTATE:
-		wxLogDebug(_("set ROTATE"));
 		m_AssemblyTranslater->setDirection(ROTATE);
 		break;
 	default:
-		wxLogDebug(_("set MOVEXZ"));
 		m_AssemblyTranslater->setDirection(MOVEXZ);
 		break;
 	}

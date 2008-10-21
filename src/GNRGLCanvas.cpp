@@ -263,6 +263,7 @@ int GNRGLCanvas::selection(GNRAssembly* rootAssembly, GNRGLCamera* camera, int m
 		glMatrixMode(GL_PROJECTION);
 	}
 	glPopMatrix();
+	glPopName();
 	glMatrixMode(GL_MODELVIEW);
 	// Switch To Render Mode, Find Out How Many Objects Were Drawn Where The Mouse Was
 	hits=glRenderMode(GL_RENDER);
@@ -299,8 +300,7 @@ int GNRGLCanvas::selection(GNRAssembly* rootAssembly, GNRGLCamera* camera, int m
 void GNRGLCanvas::OnLMouseDown(wxMouseEvent& event)
 {
 
-	GNRVertex glcoords_min = getGLPos(0, 0);
-	GNRVertex glcoords_max = getGLPos(m_window_x, m_window_y);
+	GNRVertex* glcoords = getGLDim(event.GetX(), event.GetY());
 	
 	// send Event to handle Mouse
 	GNRGLNotifyEvent myevent(wxEVT_COMMAND_GL_NOTIFY);
@@ -308,7 +308,7 @@ void GNRGLCanvas::OnLMouseDown(wxMouseEvent& event)
 	myevent.setCanvasID(getCanvasID());
 	myevent.SetEventObject(this);
 	myevent.setWindowSize(m_window_x, m_window_y);
-	myevent.setWorldSize(glcoords_max.getX() - glcoords_min.getX(), glcoords_max.getY() - glcoords_min.getY());
+	myevent.setWorldSize(glcoords[1].getX() - glcoords[0].getX(), glcoords[1].getY() - glcoords[0].getY());
 	GetEventHandler()->ProcessEvent(myevent);
 	
 	Connect(wxEVT_MOTION, (wxObjectEventFunction)&GNRGLCanvas::OnMouseMove);
@@ -522,17 +522,49 @@ GNRVertex GNRGLCanvas::getGLPos(int x, int y)
 	glReadPixels((int)x, (int)(viewport[3]-y), 1, 1, GL_DEPTH_COMPONENT, GL_FLOAT, &z);
 	
 	//Unproject the window co-ordinates to find the world co-ordinates.
-	gluUnProject((double)x, (double)viewport[3]-y, (double)z, modelview, projection, viewport, &xpos, &ypos, &zpos);
+	gluUnProject(x, viewport[3]-y, z, modelview, projection, viewport, &xpos, &ypos, &zpos);
 	
 	glPopMatrix();
-#if defined(__ATHOS_DEBUG__)
-	wxString str;
-	str << _("glPos:\tx:") << xpos << _("\ty:") << ypos << _("\tz:") << zpos << _("\tz:") << z;
-	wxLogDebug(str);
-#endif
 	
 	// return world coordinates
 	GNRVertex glcoords(xpos, ypos, zpos);
+	return glcoords;
+}
+
+// Convert Mouse-Coordinates to GL-Coordinates
+GNRVertex* GNRGLCanvas::getGLDim(int x, int y)
+{
+	glPushMatrix();
+	GLdouble modelview[16], projection[16];
+	GLint viewport[4];
+	float z;
+	double xpos, ypos, zpos;
+	GNRVertex* glcoords = new GNRVertex[2];
+	
+	glGetDoublev(GL_MODELVIEW_MATRIX, modelview);       //get the modelview matrix
+	glGetDoublev(GL_PROJECTION_MATRIX, projection);     //get the projection matrix
+	glGetIntegerv(GL_VIEWPORT, viewport);               //get the viewport
+	
+	//Read the window z co-ordinate (the z value on that point in unit cube)
+	glReadPixels((int)x, (int)(viewport[3]-y), 1, 1, GL_DEPTH_COMPONENT, GL_FLOAT, &z);
+	
+	//Unproject the window co-ordinates to find the world co-ordinates.
+	gluUnProject(0, 0, z, modelview, projection, viewport, &xpos, &ypos, &zpos);
+	
+	glcoords[0].setX(xpos);
+	glcoords[0].setY(ypos);
+	glcoords[0].setZ(zpos);
+	
+	//Unproject the window co-ordinates to find the world co-ordinates.
+	gluUnProject(m_window_x, m_window_y, z, modelview, projection, viewport, &xpos, &ypos, &zpos);
+	
+	glcoords[1].setX(xpos);
+	glcoords[1].setY(ypos);
+	glcoords[1].setZ(zpos);
+	
+	glPopMatrix();
+	
+	// return world coordinates
 	return glcoords;
 }
 

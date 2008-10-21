@@ -215,8 +215,8 @@ void GNRAssemblyTranslater::ObjectMoveXY(GNRGLNotifyEvent& event)
 		if (event.getCanvasID() == 2)
 		{
 			// klick is from 2D canvas
-			my_object->setX(old_x - (float)((1.0f+fabs(old_z))*(m_mouse_x - event.getMouseEvent().m_x)/50.0f));
-			my_object->setY(old_y - (float)((1.0f+fabs(old_z))*(event.getMouseEvent().m_y - m_mouse_y)/50.0f));
+			my_object->setX(old_x - (float)(m_mouse_x - event.getMouseEvent().m_x)/15.0f);
+			my_object->setY(old_y - (float)(m_mouse_y - event.getMouseEvent().m_y)/15.0f);
 		}
 		else
 		{
@@ -243,8 +243,18 @@ void GNRAssemblyTranslater::ObjectMoveXZ(GNRGLNotifyEvent& event)
 	if (event.getMouseEvent().ButtonIsDown(1))
 	{
 		// Moving a single object
-		my_object->setZ(old_z - (float)(m_mouse_y - event.getMouseEvent().m_y)/13.0f);
-		my_object->setX(old_x - (float)((1.0f+fabs(my_object->getZ())*2.0f)*(m_mouse_x - event.getMouseEvent().m_x)/100.0f));
+		if (event.getCanvasID() == 2)
+		{
+			// klick is from 2D canvas
+			my_object->setZ(old_z - (float)(m_mouse_y - event.getMouseEvent().m_y)/15.0f);
+			my_object->setX(old_x - (float)(m_mouse_x - event.getMouseEvent().m_x)/15.0f);
+		}
+		else
+		{
+			// klick is from 3D canvas
+			my_object->setZ(old_z - (float)(m_mouse_y - event.getMouseEvent().m_y)/13.0f);
+			my_object->setX(old_x - (float)((1.0f+fabs(my_object->getZ())*2.0f)*(m_mouse_x - event.getMouseEvent().m_x)/100.0f));
+		}
 	}
 	else if (event.getMouseEvent().ButtonIsDown(2))
 	{
