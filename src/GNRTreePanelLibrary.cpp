@@ -27,4 +27,3 @@ GNRTreePanelLibrary::GNRTreePanelLibrary(wxWindow* parent,wxWindowID id):GNRTree
 GNRTreePanelLibrary::~GNRTreePanelLibrary()
 {
 }
-

@@ -293,6 +293,7 @@ int GNRGLCanvas::selection(GNRAssembly* rootAssembly, GNRGLCamera* camera, int m
 		
 		//prepareDraw();
 		setCamera();
+		
 		if (camera != NULL)
 		{
 			camera->Render();

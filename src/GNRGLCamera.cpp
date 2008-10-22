@@ -72,8 +72,6 @@ float operator*(SF3dVector v, SF3dVector u)  	//dot product
 }
 
 
-
-
 /***************************************************************************************/
 
 GNRGLCamera::GNRGLCamera()

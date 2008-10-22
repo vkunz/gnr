@@ -42,4 +42,3 @@ GNRDebugFrame::~GNRDebugFrame()
 	//(*Destroy(GNRDebugFrame)
 	//*)
 }
-

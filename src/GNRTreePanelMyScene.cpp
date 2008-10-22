@@ -27,4 +27,3 @@ GNRTreePanelMyScene::GNRTreePanelMyScene(wxWindow* parent,wxWindowID id):GNRTree
 GNRTreePanelMyScene::~GNRTreePanelMyScene()
 {
 }
-
