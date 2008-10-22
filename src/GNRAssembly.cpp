@@ -144,8 +144,6 @@ void GNRAssembly::draw() const
         glRotatef(m_theta, 0, 1, 0);
         glRotatef(m_rho, 0, 0, 1);
 
-        glTranslatef(m_x, m_y, m_z);
-
         // draw myself
         for (list<GNRFace>::const_iterator it = m_face.begin(); it != m_face.end(); ++it)
         {
