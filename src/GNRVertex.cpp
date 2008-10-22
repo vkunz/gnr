@@ -10,6 +10,7 @@
  */
 
 #include "GNRVertex.h"
+#include "math.h"
 
 // ctor
 GNRVertex::GNRVertex()
@@ -103,12 +104,46 @@ GNRVertex  GNRVertex::operator  - (const GNRVertex& p2) const
 	return temp;
 }
 
+GNRVertex  GNRVertex::operator  * (const float r) const
+{
+	GNRVertex temp(*this);
+	temp.m_x *= r;
+	temp.m_y *= r;
+	temp.m_z *= r;
+	return temp;
+}
+
+/**
+ * Calculates the Cross-Product of two Vertexes
+ * @access      public
+ */
+GNRVertex GNRVertex::operator  * (const GNRVertex& p2) const
+{
+	GNRVertex temp;
+	temp.m_x = m_y*p2.m_z - m_z*p2.m_y;
+	temp.m_y = m_z*p2.m_x - m_x*p2.m_z;
+	temp.m_z = m_x*p2.m_y - m_y*p2.m_x;
+	return temp;
+}
+
+/**
+ * Calculates the Scalar-Product of two Vertexes
+ * @access      public
+ */
+GNRVertex GNRVertex::operator  ^(const GNRVertex& p2) const
+{
+	GNRVertex temp;
+	temp.m_x = m_x * p2.m_x;
+	temp.m_y = m_y * p2.m_y;
+	temp.m_z = m_z * p2.m_z;
+	return temp;
+}
+
 GNRVertex& GNRVertex::operator -= (const GNRVertex& p2)
 {
 	m_x -= p2.m_x;
 	m_y -= p2.m_y;
 	m_z -= p2.m_z;
-	
 	return *this;
 }
 
@@ -128,6 +163,24 @@ GNRVertex& GNRVertex::operator = (const GNRVertex& p2)
 	m_z = p2.m_z;
 	
 	return *this;
+}
+
+float GNRVertex::length()
+{
+	return (float)(sqrt(m_x*m_x+m_y*m_y+m_z*m_z));
+}
+
+bool GNRVertex::normalize()
+{
+	float l = length();
+	if (l == 0.0f)
+	{
+		return false;
+	}
+	m_x = m_x / l;
+	m_y = m_y / l;
+	m_z = m_z / l;
+	return true;
 }
 
 wxString GNRVertex::ToString()
