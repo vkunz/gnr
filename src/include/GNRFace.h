@@ -26,15 +26,15 @@ class GNRFace
 {
 public:
 	GNRFace(const string& matname);
-    GNRFace(const GNRFace& other);	
-
-    void addVNT(GNRVNT& vnt);
-
-    void draw() const;
-
+	GNRFace(const GNRFace& other);
+	
+	void addVNT(GNRVNT& vnt);
+	
+	void draw() const;
+	
 private:
-    list<GNRVNT> m_vnt;
-    string m_matname;
+	list<GNRVNT> m_vnt;
+	string m_matname;
 };
 
 #endif // _GNRFACE_H_

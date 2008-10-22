@@ -25,28 +25,28 @@ using std::ifstream;
 class GNRObjectImport : public GNRImportFile
 {
 public:
-    virtual GNRAssembly* read(const string& fname);
-    virtual ~GNRObjectImport();
-
+	virtual GNRAssembly* read(const string& fname);
+	virtual ~GNRObjectImport();
+	
 private:
-    void getF();
-    void getO();
-    void getU();
-    void getVs();
-    void getV();
-    void getVN();
-    void getVT();
-
-    vector<GNRVertex> m_vertex, m_normal;
-    vector<GNRTCoord> m_tcoord;
-    string m_matname;
-
-    GNRAssembly* m_root, *m_act;
-
-    ifstream m_ifs;
-    string m_buf;
-
-    float m_xmin, m_xmax, m_ymin, m_ymax, m_zmin, m_zmax;
+	void getF();
+	void getO();
+	void getU();
+	void getVs();
+	void getV();
+	void getVN();
+	void getVT();
+	
+	vector<GNRVertex> m_vertex, m_normal;
+	vector<GNRTCoord> m_tcoord;
+	string m_matname;
+	
+	GNRAssembly* m_root, *m_act;
+	
+	ifstream m_ifs;
+	string m_buf;
+	
+	float m_xmin, m_xmax, m_ymin, m_ymax, m_zmin, m_zmax;
 };
 
 #endif // _GNROBJECTIMPORT_H_

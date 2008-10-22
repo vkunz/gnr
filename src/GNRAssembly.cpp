@@ -14,32 +14,32 @@
 #include <GL/gl.h>
 
 GNRAssembly::GNRAssembly(const string& name = "unnamed"):
-    m_x(0.0), m_y(0.0), m_z(0.0), m_phi(0.0), m_theta(0.0), m_rho(0.0),
-    m_scale(1.0), m_locked(false), m_isWall(false), m_name(name), m_parent(NULL)
+		m_x(0.0), m_y(0.0), m_z(0.0), m_phi(0.0), m_theta(0.0), m_rho(0.0),
+		m_scale(1.0), m_locked(false), m_isWall(false), m_name(name), m_parent(NULL)
 {
 }
 
 GNRAssembly::~GNRAssembly()
 {
-    for (list<GNRAssembly*>::iterator it = m_part.begin(); it != m_part.end(); ++it)
-    {
-        delete *it;
-    }
+	for (list<GNRAssembly*>::iterator it = m_part.begin(); it != m_part.end(); ++it)
+	{
+		delete *it;
+	}
 }
 
 float GNRAssembly::getX() const
 {
-    return m_x;
+	return m_x;
 }
 
 float GNRAssembly::getY() const
 {
-    return m_y;
+	return m_y;
 }
 
 float GNRAssembly::getZ() const
 {
-    return m_z;
+	return m_z;
 }
 
 void GNRAssembly::setX(float x)
@@ -89,73 +89,73 @@ void GNRAssembly::setTheta(const float theta)
 
 void GNRAssembly::setScale(float s)
 {
-    m_scale = s;
+	m_scale = s;
 }
 
 const string& GNRAssembly::getName() const
 {
-    return m_name;
+	return m_name;
 }
 
 void GNRAssembly::addFace(const GNRFace& face)
 {
-    m_face.push_back(face);
+	m_face.push_back(face);
 }
 
 void GNRAssembly::addPart(GNRAssembly* p)
 {
-    m_part.push_back(p);
+	m_part.push_back(p);
 }
 
 bool GNRAssembly::getIsRoot() const
 {
-    return m_isroot;
+	return m_isroot;
 }
 
 void GNRAssembly::setIsRoot(bool isroot)
 {
-    m_isroot = isroot;
+	m_isroot = isroot;
 }
 
 const GNRAssembly* GNRAssembly::getParent() const
 {
-    return m_parent;
+	return m_parent;
 }
 
 void GNRAssembly::setParent(GNRAssembly* p)
 {
-    m_parent = p;
+	m_parent = p;
 }
 
 void GNRAssembly::draw() const
 {
-    if (m_isroot)
-    {
-        glLoadName((int)this);
-    }
-
-    glMatrixMode(GL_MODELVIEW);
-    glPushMatrix();
-    {
-        glTranslatef(m_x, m_y, m_z);
-        glScalef(m_scale, m_scale, m_scale);
-
-        glRotatef(m_phi, 1, 0, 0);
-        glRotatef(m_theta, 0, 1, 0);
-        glRotatef(m_rho, 0, 0, 1);
-
-        // draw myself
-        for (list<GNRFace>::const_iterator it = m_face.begin(); it != m_face.end(); ++it)
-        {
-            it->draw();
-        }
-
-        // draw the children
-        for (list<GNRAssembly*>::const_iterator it = m_part.begin(); it != m_part.end(); ++it)
-        {
-            (*it)->draw();
-        }
-    }
-    glPopMatrix();
+	if (m_isroot)
+	{
+		glLoadName((int)this);
+	}
+	
+	glMatrixMode(GL_MODELVIEW);
+	glPushMatrix();
+	{
+		glTranslatef(m_x, m_y, m_z);
+		glScalef(m_scale, m_scale, m_scale);
+		
+		glRotatef(m_phi, 1, 0, 0);
+		glRotatef(m_theta, 0, 1, 0);
+		glRotatef(m_rho, 0, 0, 1);
+		
+		// draw myself
+		for (list<GNRFace>::const_iterator it = m_face.begin(); it != m_face.end(); ++it)
+		{
+			it->draw();
+		}
+		
+		// draw the children
+		for (list<GNRAssembly*>::const_iterator it = m_part.begin(); it != m_part.end(); ++it)
+		{
+			(*it)->draw();
+		}
+	}
+	glPopMatrix();
 }
 

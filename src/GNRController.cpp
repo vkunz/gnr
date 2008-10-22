@@ -35,10 +35,10 @@ GNRController::GNRController()
 	m_MainFrame         = new GNRMainFrame(0);
 	m_AssemblyTranslater->setGLCamera(m_GLCamera);
 	m_activeCanvas = 3;
-
-    GNRMaterialImport mi;
-    mtllib = mi.read("./default.mtl");
-
+	
+	GNRMaterialImport mi;
+	mtllib = mi.read("./default.mtl");
+	
 #if defined(__ATHOS_DEBUG__)
 	// Create DebugFrame
 	m_DebugFrame = new GNRDebugFrame(0);
@@ -69,8 +69,8 @@ GNRController::~GNRController()
 	delete m_MainFrame;
 	delete m_AssemblyTranslater;
 	delete m_RootAssembly;
-
-    delete mtllib;
+	
+	delete mtllib;
 }
 
 /**
@@ -267,7 +267,7 @@ void GNRController::OBJImport(wxString filename)
 {
 	// generate new Importer, parse file
 	GNRObjectImport oi;
-    m_RootAssembly->addPart(oi.read((string)filename.mb_str()));
+	m_RootAssembly->addPart(oi.read((string)filename.mb_str()));
 }
 
 /**

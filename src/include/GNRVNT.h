@@ -9,11 +9,11 @@ class GNRVNT
 public:
 	GNRVNT(GNRVertex* v, GNRVertex* n, GNRTCoord* t);
 	GNRVNT(const GNRVNT& other);
-
+	
 	~GNRVNT();
-
+	
 	void draw() const;
-
+	
 private:
 	GNRVertex* m_v, *m_n;
 	GNRTCoord* m_t;
