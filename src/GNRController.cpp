@@ -271,6 +271,16 @@ void GNRController::OBJImport(wxString filename)
 }
 
 /**
+ * clean up whole world
+ * @access      public
+ */
+void GNRController::newRoom()
+{
+	delete m_RootAssembly;
+	m_RootAssembly = new GNRAssembly("scene");
+}
+
+/**
  * toggle toolbar button clicks and set translation direction
  * @param       wxNotifyEvent        button event
  * @access      public

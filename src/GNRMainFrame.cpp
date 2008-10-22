@@ -53,6 +53,7 @@ wxString wxbuildinfo(wxbuildinfoformat format)
 }
 
 //(*IdInit(GNRMainFrame)
+const long GNRMainFrame::idMenuNew = wxNewId();
 const long GNRMainFrame::idMenuLoad = wxNewId();
 const long GNRMainFrame::idMenuSave = wxNewId();
 const long GNRMainFrame::idMenuImport = wxNewId();
@@ -76,16 +77,20 @@ BEGIN_EVENT_TABLE(GNRMainFrame,wxFrame)
 	EVT_MENU(btn_move_xy, GNRMainFrame::OnToolbarMoveXY)
 	EVT_MENU(btn_move_xz, GNRMainFrame::OnToolbarMoveXZ)
 	EVT_MENU(btn_rotate_xy, GNRMainFrame::OnToolbarRotateXY)
+	EVT_MENU(btn_room_new, GNRMainFrame::OnNew)
 END_EVENT_TABLE()
 
 GNRMainFrame::GNRMainFrame(wxWindow* parent, wxWindowID id)
 {
 	//(*Initialize(GNRMainFrame)
+	wxMenuItem* MenuItem8;
 	wxMenuItem* MenuItem7;
+	wxMenuItem* MenuItem5;
 	wxMenuItem* MenuItem2;
 	wxMenuItem* MenuItem1;
 	wxMenuItem* MenuItem4;
 	wxMenu* Menu1;
+	wxMenuItem* MenuItem3;
 	wxMenuItem* MenuItem6;
 	wxMenuBar* MenuBar1;
 	wxMenu* Menu2;
@@ -96,15 +101,20 @@ GNRMainFrame::GNRMainFrame(wxWindow* parent, wxWindowID id)
 	SetFocus();
 	MenuBar1 = new wxMenuBar();
 	Menu1 = new wxMenu();
+	MenuItem8 = new wxMenuItem(Menu1, idMenuNew, _("&Neuer Raum\tAlt-N"), _("Raum leeren..."), wxITEM_NORMAL);
+	Menu1->Append(MenuItem8);
+	Menu1->AppendSeparator();
 	MenuItem3 = new wxMenuItem(Menu1, idMenuLoad, _("XML &Öffnen\tAlt-O"), _("vorhandene Datei öffnen..."), wxITEM_NORMAL);
 	Menu1->Append(MenuItem3);
 	MenuItem4 = new wxMenuItem(Menu1, idMenuSave, _("XML &Speichern\tAlt-S"), _("Datei speichern..."), wxITEM_NORMAL);
 	Menu1->Append(MenuItem4);
-	MenuItem6 = new wxMenuItem(Menu1, idMenuImport, _("OBJ &Importieren\tAlt-I"), _("Object-Datei importieren"), wxITEM_NORMAL);
+	Menu1->AppendSeparator();
+	MenuItem6 = new wxMenuItem(Menu1, idMenuImport, _("OBJ &Importieren\tAlt-I"), _("Object-Datei importieren..."), wxITEM_NORMAL);
 	Menu1->Append(MenuItem6);
-	MenuItem7 = new wxMenuItem(Menu1, idMenuExport, _("OBJ &Exportieren\tAlt-E"), _("Object-Datei exportieren"), wxITEM_NORMAL);
+	MenuItem7 = new wxMenuItem(Menu1, idMenuExport, _("OBJ &Exportieren\tAlt-E"), _("Object-Datei exportieren..."), wxITEM_NORMAL);
 	Menu1->Append(MenuItem7);
-	MenuItem1 = new wxMenuItem(Menu1, idMenuQuit, _("GNR Schließen\tAlt-F4"), _("GNR schließen..."), wxITEM_NORMAL);
+	Menu1->AppendSeparator();
+	MenuItem1 = new wxMenuItem(Menu1, idMenuQuit, _("GNR Schließen\tAlt-F4"), _("GNR beenden..."), wxITEM_NORMAL);
 	Menu1->Append(MenuItem1);
 	MenuBar1->Append(Menu1, _("&Datei"));
 	Menu2 = new wxMenu();
@@ -141,10 +151,10 @@ GNRMainFrame::GNRMainFrame(wxWindow* parent, wxWindowID id)
 	SetToolBar(ToolBar1);
 	Center();
 	
+	//own events on menu selection
 	Connect(idMenuImport,wxEVT_COMMAND_MENU_SELECTED,(wxObjectEventFunction)&GNRMainFrame::OnImport);
 	Connect(idMenuExport,wxEVT_COMMAND_MENU_SELECTED,(wxObjectEventFunction)&GNRMainFrame::OnExport);
-	
-	// Connects "Menü->Datei->XML Öffnen" with GNRMainFrame::OnLoad
+	Connect(idMenuNew,wxEVT_COMMAND_MENU_SELECTED,(wxObjectEventFunction)&GNRMainFrame::OnNew);
 	Connect(idMenuLoad,wxEVT_COMMAND_MENU_SELECTED,(wxObjectEventFunction)&GNRMainFrame::OnLoad);
 }
 
@@ -157,6 +167,15 @@ GNRMainFrame::~GNRMainFrame()
 void GNRMainFrame::OnQuit(wxCommandEvent& event)
 {
 	Close();
+}
+
+void GNRMainFrame::OnNew(wxCommandEvent& event)
+{
+	wxMessageBox(wxT("I'll tidy up your room!"));
+	
+	GNRNotifyEvent gnrevent(wxEVT_COMMAND_GNR_NOTIFY);
+	gnrevent.setGNREventType(NewRoom);
+	GetEventHandler()->ProcessEvent(gnrevent);
 }
 
 void GNRMainFrame::OnAbout(wxCommandEvent& event)

@@ -37,6 +37,10 @@ void GNRApp::OnGNREvent(GNRNotifyEvent& event)
 		controller->OBJImport(event.GetString());
 		controller->glRefresh();
 		break;
+	case NewRoom:
+		controller->newRoom();
+		controller->glRefresh();
+		break;
 	case ToolbarChange:
 		controller->toggleToolbar(event);
 		break;

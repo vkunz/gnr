@@ -66,6 +66,7 @@ public:
 	//starts refreshing the both canvas frames
 	void glRefresh();
 	void initFrames();
+	void newRoom();
 	void processGLMouse(GNRGLNotifyEvent& event);
 	void XMLOpen(wxString filename);
 	void OBJImport(wxString filename);

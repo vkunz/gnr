@@ -38,6 +38,7 @@ private:
 	void OnImport(wxCommandEvent& event);
 	void OnExport(wxCommandEvent& event);
 	void OnLoad(wxCommandEvent& event);
+	void OnNew(wxCommandEvent& event);
 	void OnScrolledWindow1Paint(wxPaintEvent& event);
 	//*)
 	//ToolBar Button Events
@@ -46,6 +47,7 @@ private:
 	void OnToolbarRotateXY(wxCommandEvent& event);
 	
 	//(*Identifiers(GNRMainFrame)
+	static const long idMenuNew;
 	static const long idMenuLoad;
 	static const long idMenuSave;
 	static const long idMenuImport;
@@ -67,8 +69,6 @@ private:
 	static const long ID_ToolBar;
 	
 	//(*Declarations(GNRMainFrame)
-	wxMenuItem* MenuItem5;
-	wxMenuItem* MenuItem3;
 	wxStatusBar* StatusBar1;
 	//*)
 	wxToolBar* ToolBar1;
