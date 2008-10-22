@@ -102,40 +102,23 @@ void GNRGLCanvas::setMatrix()
 
 void GNRGLCanvas::initLights()
 {
-	GLfloat light_ambient[] = { 0.0, 0.0, 0.2, 1.0 };
-	GLfloat light_diffuse[] = { 0.8, 0.8, 1.0, 1.0 };
-	GLfloat light_specular[] = { 0.8, 0.8, 1.0, 1.0 };
-	GLfloat light_position[] = { 1.0, 1.0, 1.0, 0.0 };
+	glEnable(GL_LIGHTING);
+
+	glEnable(GL_LIGHT0);
+
+	GLfloat light_ambient[] = { 0.2, 0.2, 0.2, 1.0 };
+	GLfloat light_diffuse[] = { 0.7, 0.7, 0.7, 1.0 };
+	GLfloat light_specular[] = { 0.8, 0.8, 0.0, 1.0 };
+	GLfloat light_position[] = { 2.0, 2.0, 2.0, 1.0 };
 	
 	glLightfv(GL_LIGHT0, GL_AMBIENT, light_ambient);
 	glLightfv(GL_LIGHT0, GL_DIFFUSE, light_diffuse);
 	glLightfv(GL_LIGHT0, GL_SPECULAR, light_specular);
 	glLightfv(GL_LIGHT0, GL_POSITION, light_position);
 	
-	glLightf(GL_LIGHT0, GL_CONSTANT_ATTENUATION, 2.0);
-	glLightf(GL_LIGHT0, GL_LINEAR_ATTENUATION, 1.0);
-	glLightf(GL_LIGHT0, GL_QUADRATIC_ATTENUATION, 0.5);
-	glEnable(GL_LIGHT0);
-	
-	GLfloat light1_ambient[] = { 0.6, 0.2, 0.2, 1.0 };
-	GLfloat light1_diffuse[] = { 1.0, 0.8, 0.8, 1.0 };
-	GLfloat light1_specular[] = { 1.0, 0.8, 0.8, 1.0 };
-	GLfloat light1_position[] = { -15.0, 15.0, 10.0, 1.0 };
-	GLfloat spot_direction[] = { 0.0, 0.0, 0.0 };
-	
-	glLightfv(GL_LIGHT1, GL_AMBIENT, light1_ambient);
-	glLightfv(GL_LIGHT1, GL_DIFFUSE, light1_diffuse);
-	glLightfv(GL_LIGHT1, GL_SPECULAR, light1_specular);
-	glLightfv(GL_LIGHT1, GL_POSITION, light1_position);
-	glLightf(GL_LIGHT1, GL_CONSTANT_ATTENUATION, 1.5);
-	glLightf(GL_LIGHT1, GL_LINEAR_ATTENUATION, 0.5);
-	glLightf(GL_LIGHT1, GL_QUADRATIC_ATTENUATION, 0.2);
-	
-	glLightf(GL_LIGHT1, GL_SPOT_CUTOFF, 45.0);
-	glLightfv(GL_LIGHT1, GL_SPOT_DIRECTION, spot_direction);
-	glLightf(GL_LIGHT1, GL_SPOT_EXPONENT, 2.0);
-	glEnable(GL_LIGHT1);
-	glEnable(GL_LIGHTING);
+//	glLightf(GL_LIGHT0, GL_CONSTANT_ATTENUATION, 2.0);
+//	glLightf(GL_LIGHT0, GL_LINEAR_ATTENUATION, 1.0);
+//	glLightf(GL_LIGHT0, GL_QUADRATIC_ATTENUATION, 0.5);
 }
 
 /**

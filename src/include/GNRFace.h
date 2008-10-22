@@ -12,33 +12,29 @@
 #ifndef _GNRFACE_H_
 #define _GNRFACE_H_
 
-#include <list>
-
 #include "GNRVertex.h"
-#include "GNRPoint3d.h"
+#include "GNRVNT.h"
+
+#include <list>
+#include <string>
+
+using std::list;
+using std::string;
+
 
 class GNRFace
 {
 public:
-	// ctor
-	GNRFace();
-	
-	// dtor
-	virtual ~GNRFace();
-	
-	// functions
-	void addGNRPoint3d(const GNRPoint3d* p_point);
-	
-	void draw() const;
-	
-	wxString ToString();
-	
-protected:
+	GNRFace(const string& matname);
+    GNRFace(const GNRFace& other);	
+
+    void addVNT(GNRVNT& vnt);
+
+    void draw() const;
 
 private:
-
-	// Pointer of a List of GNRPoints
-	std::list<GNRPoint3d> m_points;
+    list<GNRVNT> m_vnt;
+    string m_matname;
 };
 
 #endif // _GNRFACE_H_

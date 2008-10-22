@@ -36,7 +36,7 @@
 GNRGL2DCanvas::GNRGL2DCanvas(wxWindow* parent, wxWindowID id, const wxPoint& pos, const wxSize& size, long style, const wxString& name)
 		:GNRGLCanvas(parent, id, pos, size, style, name)
 {
-	m_camera_height = 25;
+	m_camera_height = 2;
 }
 
 /**
@@ -93,7 +93,7 @@ int GNRGL2DCanvas::getCanvasID()
  */
 void GNRGL2DCanvas::OnMouseWheel(wxMouseEvent& event)
 {
-	m_camera_height += 360.0 / (float)event.GetWheelRotation();
+	m_camera_height += 3.6 / (float)event.GetWheelRotation();
 	
 	// Event for Redrawing the Canvases
 	GNRNotifyEvent myevent(wxEVT_COMMAND_GNR_NOTIFY);

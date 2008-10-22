@@ -12,76 +12,41 @@
 #ifndef _GNROBJECTIMPORT_H_
 #define _GNROBJECTIMPORT_H_
 
-#include <queue>
-#include <list>
-#include <wx/string.h>
-
 #include "GNRAssembly.h"
 #include "GNRImportFile.h"
 #include "GNRVertex.h"
 #include "GNRFace.h"
 
+#include <string>
+#include <fstream>
+
+using std::ifstream;
+
 class GNRObjectImport : public GNRImportFile
 {
 public:
-	// ctor
-	GNRObjectImport();
-	
-	// ctor, takes filename
-	GNRObjectImport(wxString filename);
-	
-	// dtor
-	virtual ~GNRObjectImport();
-	
-	// functions
-	// method to set the filename
-	void SetFilename(wxString filename);
-	
-	// method to return the pointer of the new obj-File Assembly
-	GNRAssembly* GetAssembly();
-	
-protected:
+    virtual GNRAssembly* read(const string& fname);
+    virtual ~GNRObjectImport();
 
 private:
-	// attributes
-	// vector of all vertex
-	std::vector<GNRVertex> m_VVertex;
-	
-	// list of all vertex normals
-	std::vector<GNRVertex> m_VNormal;
-	
-	// list of all vertex textures
-	std::vector<GNRVertex> m_VTexture;
-	
-	// pointer to store address of the obj-core-GNRAssembly
-	GNRAssembly* m_ptrAssembly;
-	
-	// pointer to store address of the GNRAssembly where actual Faces are stored
-	GNRAssembly* m_ptrAssemblyActual;
-	
-	// filename to parse
-	wxString m_filename;
-	
-	// functions
-	// create Normal
-	void addNormal(wxString str);
-	
-	// create Texture
-	void addTexture(wxString str);
-	
-	// create Vertex
-	void addVertex(wxString str);
-	
-	// create Assembly
-	void createAssembly(wxString str);
-	
-	// create Face
-	void createFace(wxString str);
-	
-	void splitVertexNormalTexture(wxString str);
-	
-	// parse the file
-	void parse();
+    void getF();
+    void getO();
+    void getU();
+    void getVs();
+    void getV();
+    void getVN();
+    void getVT();
+
+    vector<GNRVertex> m_vertex, m_normal;
+    vector<GNRTCoord> m_tcoord;
+    string m_matname;
+
+    GNRAssembly* m_root, *m_act;
+
+    ifstream m_ifs;
+    string m_buf;
+
+    float m_xmin, m_xmax, m_ymin, m_ymax, m_zmin, m_zmax;
 };
 
 #endif // _GNROBJECTIMPORT_H_
