@@ -70,5 +70,18 @@
 				<para>Abb.5: OBJ-Import funktioniert</para>
 			</caption>
 		</mediaobject>
+		<para>Es werde Licht! Endlich klappt der OBJ-Import mit Normalen reibungslos (sofern
+		die Normalen angegeben sind - falls nicht, müssen sie noch berechnet werden). Auch
+		von der Performance sind wir restlos begeistert: Die F18_Hornet.obj mit 7.5MB lädt
+		in ein paar Sekunden und wird auch flüssig dargestellt.
+		<ulink url="http://www.hs-ulm.de/upload/rlunde/projti5/Team1/_downloads/prototyp_4.jpg">Abb.6</ulink></para>
+		<mediaobject>
+			<imageobject>
+				<imagedata fileref="_images/prototyp_4_small.img?s=200" align="left" />
+			</imageobject>
+			<caption>
+				<para>Abb.6: Licht und Schatten</para>
+			</caption>
+		</mediaobject>
 	</section>
 </article>

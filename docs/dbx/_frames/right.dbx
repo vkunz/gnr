@@ -96,7 +96,7 @@
 			<para>Der Controller läuft jetzt endlich wie gewünscht! Durch den Umbau haben wir viel an
 			Flexibilität wiedergewonnen und können jetzt schon mehrere Objekte importieren. Auch das
 			Verschieben und Drehen der Importe ist jetzt möglich - wenn auch noch etwas fehlerhaft.</para>
-			<para>Derzeit auf der TODO-Liste:</para>
+			<para>Bisheriges Vorhaben für die nächste Woche:</para>
 			<itemizedlist>
 				<listitem>
 					<para>Implementierung des TreeViews für die Objekt-Bibliothek und der Szenerie</para>
@@ -106,6 +106,25 @@
 				</listitem>
 				<listitem>
 					<para>Darstellung der Lichter und Oberflächen in OpenGL verbessern</para>
+				</listitem>
+			</itemizedlist>
+			<title>22.10.2008</title>
+			<para>Der Treeview musste noch warten, da wir einen entscheidenden Durchbruch in der OBJ-Darstellung
+			errungen haben. Lichter und Oberflächen werden jetzt korrekt dargestellt! In Kürze werden auch
+			die MTL-Daten in die Objekte eingebaut, sobald der Parser perfekt funktioniert. </para>
+			<para>TODO-Liste:</para>
+			<itemizedlist>
+				<listitem>
+					<para>Implementierung des TreeViews für die Objekt-Bibliothek und der Szenerie</para>
+				</listitem>
+				<listitem>
+					<para>Einbau eines Bemaßungssystems für die importierten Objekte</para>
+				</listitem>
+				<listitem>
+					<para>Verbesserte Kamerabewegung auf einer virtuellen Kugel um die Szene</para>
+				</listitem>
+				<listitem>
+					<para>Unterstützung der Schnittstelle zum Austausch von Modellen und Ansichtsinformationen</para>
 				</listitem>
 			</itemizedlist>
 		</section>
