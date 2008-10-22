@@ -295,8 +295,11 @@ void GNRController::toggleToolbar(wxNotifyEvent& event)
 	case MOVEXY:
 		m_AssemblyTranslater->setDirection(MOVEXY);
 		break;
-	case ROTATE:
-		m_AssemblyTranslater->setDirection(ROTATE);
+	case ROTATEXY:
+		m_AssemblyTranslater->setDirection(ROTATEXY);
+		break;
+	case ROTATEXZ:
+		m_AssemblyTranslater->setDirection(ROTATEXZ);
 		break;
 	default:
 		m_AssemblyTranslater->setDirection(MOVEXZ);

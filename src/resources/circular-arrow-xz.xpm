@@ -1,6 +1,6 @@
 /* XPM */
-static char * circular_arrow_xpm[] = {
-"24 24 75 1",
+static char * circular_arrow_xz_xpm[] = {
+"24 24 76 1",
 " 	c None",
 ".	c #2C2C2C",
 "+	c #4E4E4E",
@@ -72,10 +72,11 @@ static char * circular_arrow_xpm[] = {
 "D	c #636363",
 "E	c #707070",
 "F	c #E8E8E8",
-"G	c #5F5F5F",
-"H	c #626262",
-"I	c #414141",
-"J	c #3F3F3F",
+"G	c #181818",
+"H	c #5F5F5F",
+"I	c #626262",
+"J	c #414141",
+"K	c #3F3F3F",
 "            ..          ",
 "           +@#$         ",
 "          %&@@*=        ",
@@ -94,9 +95,9 @@ static char * circular_arrow_xpm[] = {
 "    w>    x@y      >z   ",
 "           AB           ",
 "           C@>          ",
-"           D#E          ",
-"         >>>,F>>>       ",
-"         a@!@@!@z       ",
-"         >G9@@!$        ",
-"           H@@2         ",
-"            IJ          "};
+">> >> >>>>>D#E          ",
+" >>>     >>>,F>>>       ",
+"  >     >G@!@@!@z       ",
+"  >    >>>H9@@!$        ",
+" > >   >   I@@2         ",
+">  >> >>>>> JK          "};

@@ -16,6 +16,11 @@
 #include <fstream>
 #include <sstream>
 #include <string>
+#include "wx/wx.h"
+
+#if defined(__ATHOS_DEBUG__)
+#include <wx/log.h>
+#endif
 
 using std::ifstream;
 using std::stringstream;
@@ -30,8 +35,21 @@ GNRAssembly *GNRObjectImport::read(const string& fname)
 	m_xmax = m_ymax = m_zmax = -3.4e38;
 	m_xmin = m_ymin = m_zmin = 3.4e38;
 	
+	//build base wrapper assembly
 	m_root = new GNRAssembly(fname);
 	m_root->setIsRoot(true);
+	
+	//safe root pointer
+	GNRAssembly* m_root_real = m_root;
+	
+	//create root assembly for object
+	m_root = new GNRAssembly(fname);
+	m_root->setIsRoot(false);
+	
+	//appen root assembly for object
+	m_root_real->addPart(m_root);
+	
+	//set actual root assembly
 	m_act = m_root;
 	m_matname = "white";
 	
@@ -83,9 +101,11 @@ GNRAssembly *GNRObjectImport::read(const string& fname)
 	}
 	ifs.close();
 	
-	float x_diff = (m_xmax - m_xmin), y_diff = (m_ymax - m_ymin), z_diff = (m_zmax - m_zmin);
-	
+	float x_diff = (m_xmax - m_xmin);
+	float y_diff = (m_ymax - m_ymin);
+	float z_diff = (m_zmax - m_zmin);
 	float max_diff = x_diff;
+	
 	if (max_diff < y_diff)
 	{
 		max_diff = y_diff;
@@ -97,13 +117,15 @@ GNRAssembly *GNRObjectImport::read(const string& fname)
 	
 	float scale = 1.0 / max_diff;
 	
-	m_root->setX(-1.0*(m_xmax + m_xmin) / 2.0);
-	m_root->setY(-1.0*(m_ymax + m_ymin) / 2.0);
-	m_root->setZ(-1.0*(m_zmax + m_zmin) / 2.0);
+	//scale factor 1.0 instead of scale, if glScalef before glTranslatef in assembly->draw
+	m_root->setX(-1.0*(m_xmax + m_xmin)/2.0);
+	m_root->setY(-1.0*(m_ymax + m_ymin)/2.0);
+	m_root->setZ(-1.0*(m_zmax + m_zmin)/2.0);
 	
+	//save scale for normalized cube, maximum 1
 	m_root->setScale(scale);
 	
-	return m_root;
+	return m_root_real;
 }
 
 void GNRObjectImport::getVs()

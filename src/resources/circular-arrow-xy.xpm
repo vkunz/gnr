@@ -1,5 +1,5 @@
 /* XPM */
-static char * circular_arrow_xpm[] = {
+static char * circular_arrow_xy_xpm[] = {
 "24 24 75 1",
 " 	c None",
 ".	c #2C2C2C",
@@ -94,9 +94,9 @@ static char * circular_arrow_xpm[] = {
 "    w>    x@y      >z   ",
 "           AB           ",
 "           C@>          ",
-"           D#E          ",
-"         >>>,F>>>       ",
-"         a@!@@!@z       ",
-"         >G9@@!$        ",
-"           H@@2         ",
-"            IJ          "};
+">> >>>> >> D#E          ",
+" >>>  > >>>>,F>>>       ",
+"  >    > a@!@@!@z       ",
+"  >    > >G9@@!$        ",
+" > >   >   H@@2         ",
+">  >>  >    IJ          "};

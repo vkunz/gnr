@@ -124,21 +124,21 @@ void GNRMaterial::draw() const
 	mat[1] = m_ambient.getG();
 	mat[2] = m_ambient.getB();
 	glMaterialfv(GL_FRONT, GL_AMBIENT, mat);
-//    cout << "ambient: " << mat[0] << " " << mat[1] << " " << mat[2] << endl;
+//  cout << "ambient: " << mat[0] << " " << mat[1] << " " << mat[2] << endl;
 
 	mat[0] = m_diffuse.getR();
 	mat[1] = m_diffuse.getG();
 	mat[2] = m_diffuse.getB();
 	glMaterialfv(GL_FRONT, GL_DIFFUSE, mat);
-//    cout << "diffuse: " << mat[0] << " " << mat[1] << " " << mat[2] << endl;
+//  cout << "diffuse: " << mat[0] << " " << mat[1] << " " << mat[2] << endl;
 
 	mat[0] = m_specular.getR();
 	mat[1] = m_specular.getG();
 	mat[2] = m_specular.getB();
 	glMaterialfv(GL_FRONT, GL_SPECULAR, mat);
-//    cout << "specular: " << mat[0] << " " << mat[1] << " " << mat[2] << endl;
+//  cout << "specular: " << mat[0] << " " << mat[1] << " " << mat[2] << endl;
 
 
-	glMateriali(GL_FRONT, GL_SHININESS, m_shininess);
+//	glMateriali(GL_FRONT, GL_SHININESS, m_shininess);
 }
 

@@ -35,7 +35,7 @@ class GNRController
 {
 private:
 
-	enum { MOVEXZ = 0, MOVEXY, ROTATE };
+	enum { MOVEXZ = 0, MOVEXY, ROTATEXY, ROTATEXZ };
 	GNRAssembly* m_RootAssembly;
 	GNRAssemblyTranslater* m_AssemblyTranslater;
 	GNRGLCamera* m_GLCamera;

@@ -137,9 +137,11 @@ void GNRAssembly::draw() const
 	glMatrixMode(GL_MODELVIEW);
 	glPushMatrix();
 	{
-		glTranslatef(m_x, m_y, m_z);
+		//if importer scale factor 1.0, then scale before translate
 		glScalef(m_scale, m_scale, m_scale);
+		glTranslatef(m_x, m_y, m_z);
 		
+		//rotate in object center
 		glRotatef(m_phi, 1, 0, 0);
 		glRotatef(m_theta, 0, 1, 0);
 		glRotatef(m_rho, 0, 0, 1);

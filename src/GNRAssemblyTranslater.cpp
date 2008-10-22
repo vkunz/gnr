@@ -63,8 +63,11 @@ void GNRAssemblyTranslater::setDirection(int dir)
 	case MOVEXY:
 		status = MOVEXY;
 		break;
-	case ROTATE:
-		status = ROTATE;
+	case ROTATEXY:
+		status = ROTATEXY;
+		break;
+	case ROTATEXZ:
+		status = ROTATEXZ;
 		break;
 	default:
 		status = MOVEXZ;
@@ -165,8 +168,11 @@ void GNRAssemblyTranslater::ObjectTransform(GNRGLNotifyEvent& event)
 		case MOVEXY:
 			ObjectMoveXY(event);
 			break;
-		case ROTATE:
-			ObjectRotate(event);
+		case ROTATEXY:
+			ObjectRotateXY(event);
+			break;
+		case ROTATEXZ:
+			ObjectRotateXZ(event);
 			break;
 		default:
 			ObjectMoveXZ(event);
@@ -186,13 +192,34 @@ void GNRAssemblyTranslater::ObjectTransform(GNRGLNotifyEvent& event)
  * @param       GNRGLNotifyEvent         event from GLNotify
  * @access      protected
  */
-void GNRAssemblyTranslater::ObjectRotate(GNRGLNotifyEvent& event)
+void GNRAssemblyTranslater::ObjectRotateXY(GNRGLNotifyEvent& event)
 {
 	if (event.getMouseEvent().ButtonIsDown(1))
 	{
 		// rotate a single object
 		my_object->setPhi(phi_old + 720.0f*((float)(m_mouse_y - event.getMouseEvent().m_y)/(float)window_h));
 		my_object->setTheta(theta_old + 720.0f*((float)(m_mouse_x - event.getMouseEvent().m_x)/(float)window_w));
+	}
+	else if (event.getMouseEvent().ButtonIsDown(2))
+	{
+		// rotate the whole scene (by using the camera-class)
+		m_glcamera->RotateX((float)(m_mouse_y - event.getMouseEvent().GetY())/-5.0f);
+		m_glcamera->RotateY((float)(m_mouse_x - event.getMouseEvent().GetX())/-5.0f);
+	}
+}
+
+/**
+ * rotate the object on XZ axis
+ * @param       GNRGLNotifyEvent         event from GLNotify
+ * @access      protected
+ */
+void GNRAssemblyTranslater::ObjectRotateXZ(GNRGLNotifyEvent& event)
+{
+	if (event.getMouseEvent().ButtonIsDown(1))
+	{
+		// rotate a single object
+		my_object->setPhi(phi_old + 720.0f*((float)(m_mouse_y - event.getMouseEvent().m_y)/(float)window_h));
+		my_object->setRho(rho_old + 720.0f*((float)(m_mouse_x - event.getMouseEvent().m_x)/(float)window_w));
 	}
 	else if (event.getMouseEvent().ButtonIsDown(2))
 	{

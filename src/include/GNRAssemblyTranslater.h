@@ -25,7 +25,7 @@ class GNRAssemblyTranslater
 {
 private:
 
-	enum { MOVEXZ = 0, MOVEXY, ROTATE };
+	enum { MOVEXZ = 0, MOVEXY, ROTATEXY, ROTATEXZ };
 	int status;                         //action to perform with event
 	bool in_use;                        //remember usage of this controller
 	int	m_mouse_x, m_mouse_y;           //old mouse coords (x,y) on frame
@@ -37,7 +37,8 @@ private:
 	
 protected:
 
-	void ObjectRotate(GNRGLNotifyEvent& event);
+	void ObjectRotateXY(GNRGLNotifyEvent& event);
+	void ObjectRotateXZ(GNRGLNotifyEvent& event);
 	void ObjectMoveXY(GNRGLNotifyEvent& event);
 	void ObjectMoveXZ(GNRGLNotifyEvent& event);
 	void init();

@@ -22,7 +22,8 @@
 
 #include "resources/quad-arrow.xpm"
 #include "resources/right-arrow.xpm"
-#include "resources/circular-arrow.xpm"
+#include "resources/circular-arrow-xy.xpm"
+#include "resources/circular-arrow-xz.xpm"
 
 //helper functions
 enum wxbuildinfoformat
@@ -71,12 +72,14 @@ const long GNRMainFrame::btn_redo = wxNewId();
 const long GNRMainFrame::btn_move_xy = wxNewId();
 const long GNRMainFrame::btn_move_xz = wxNewId();
 const long GNRMainFrame::btn_rotate_xy = wxNewId();
+const long GNRMainFrame::btn_rotate_xz = wxNewId();
 const long GNRMainFrame::ID_ToolBar = wxNewId();
 
 BEGIN_EVENT_TABLE(GNRMainFrame,wxFrame)
 	EVT_MENU(btn_move_xy, GNRMainFrame::OnToolbarMoveXY)
 	EVT_MENU(btn_move_xz, GNRMainFrame::OnToolbarMoveXZ)
 	EVT_MENU(btn_rotate_xy, GNRMainFrame::OnToolbarRotateXY)
+	EVT_MENU(btn_rotate_xz, GNRMainFrame::OnToolbarRotateXZ)
 	EVT_MENU(btn_room_new, GNRMainFrame::OnNew)
 END_EVENT_TABLE()
 
@@ -137,6 +140,7 @@ GNRMainFrame::GNRMainFrame(wxWindow* parent, wxWindowID id)
 	//*)
 	
 	ToolBar1 = new wxToolBar(this, ID_ToolBar, wxDefaultPosition, wxDefaultSize, wxTB_HORIZONTAL|wxNO_BORDER, _T("ID_TOOLBAR1"));
+	ToolBar1->SetToolBitmapSize(wxSize(24,24));
 	ToolBarItem1 = ToolBar1->AddTool(btn_room_new, _("Raum erstellen"), wxArtProvider::GetBitmap(wxART_MAKE_ART_ID_FROM_STR(_T("wxART_NEW")),wxART_TOOLBAR), wxNullBitmap, wxITEM_NORMAL, _("Raum erstellen"), _("Raum erstellen"));
 	ToolBarItem2 = ToolBar1->AddTool(btn_room_open, _("Raum öffnen"), wxArtProvider::GetBitmap(wxART_MAKE_ART_ID_FROM_STR(_T("wxART_FOLDER_OPEN")),wxART_TOOLBAR), wxNullBitmap, wxITEM_NORMAL, _("Raum öffnen"), _("Raum öffnen"));
 	ToolBarItem3 = ToolBar1->AddTool(btn_room_save, _("Raum speichern"), wxArtProvider::GetBitmap(wxART_MAKE_ART_ID_FROM_STR(_T("wxART_FILE_SAVE")),wxART_TOOLBAR), wxNullBitmap, wxITEM_NORMAL, _("Raum speichern"), _("Raum speichern"));
@@ -146,7 +150,8 @@ GNRMainFrame::GNRMainFrame(wxWindow* parent, wxWindowID id)
 	ToolBar1->AddSeparator();
 	ToolBarItem6 = ToolBar1->AddTool(btn_move_xz, _("Verschieben in X-Z-Richtung"), wxBitmap(wxIcon(quad_arrow_xpm)), wxNullBitmap, wxITEM_RADIO, _("Verschieben in X-Z-Richtung"), _("Verschieben in X-Z-Richtung"));
 	ToolBarItem7 = ToolBar1->AddTool(btn_move_xy, _("Verschieben in X-Y-Richtung"), wxBitmap(wxIcon(right_arrow_xpm)), wxNullBitmap, wxITEM_RADIO, _("Verschieben in X-Y-Richtung"), _("Verschieben in X-Y-Richtung"));
-	ToolBarItem8 = ToolBar1->AddTool(btn_rotate_xy, _("Rotieren auf X-Y-Achsen"), wxBitmap(wxIcon(circular_arrow_xpm)), wxNullBitmap, wxITEM_RADIO, _("Rotieren auf X-Y-Achsen"), _("Rotieren auf X-Y-Achsen"));
+	ToolBarItem8 = ToolBar1->AddTool(btn_rotate_xy, _("Rotieren auf X-Y-Achsen"), wxBitmap(wxIcon(circular_arrow_xy_xpm)), wxNullBitmap, wxITEM_RADIO, _("Rotieren auf X-Y-Achsen"), _("Rotieren auf X-Y-Achsen"));
+	ToolBarItem9 = ToolBar1->AddTool(btn_rotate_xz, _("Rotieren auf X-Z-Achsen"), wxBitmap(wxIcon(circular_arrow_xz_xpm)), wxNullBitmap, wxITEM_RADIO, _("Rotieren auf X-Z-Achsen"), _("Rotieren auf X-Z-Achsen"));
 	ToolBar1->Realize();
 	SetToolBar(ToolBar1);
 	Center();
@@ -240,6 +245,15 @@ void GNRMainFrame::OnToolbarRotateXY(wxCommandEvent& event)
 	GNRNotifyEvent myevent(wxEVT_COMMAND_GNR_NOTIFY);
 	myevent.setGNREventType(ToolbarChange);
 	myevent.SetEventObject(this);
-	myevent.SetInt(ROTATE);
+	myevent.SetInt(ROTATEXY);
+	GetEventHandler()->ProcessEvent(myevent);
+}
+
+void GNRMainFrame::OnToolbarRotateXZ(wxCommandEvent& event)
+{
+	GNRNotifyEvent myevent(wxEVT_COMMAND_GNR_NOTIFY);
+	myevent.setGNREventType(ToolbarChange);
+	myevent.SetEventObject(this);
+	myevent.SetInt(ROTATEXZ);
 	GetEventHandler()->ProcessEvent(myevent);
 }

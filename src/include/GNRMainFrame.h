@@ -26,7 +26,7 @@
 class GNRMainFrame: public wxFrame
 {
 public:
-	enum { MOVEXZ = 0, MOVEXY, ROTATE };
+	enum { MOVEXZ = 0, MOVEXY, ROTATEXY, ROTATEXZ };
 	GNRMainFrame(wxWindow* parent,wxWindowID id = -1);
 	virtual ~GNRMainFrame();
 	
@@ -45,6 +45,7 @@ private:
 	void OnToolbarMoveXY(wxCommandEvent& event);
 	void OnToolbarMoveXZ(wxCommandEvent& event);
 	void OnToolbarRotateXY(wxCommandEvent& event);
+	void OnToolbarRotateXZ(wxCommandEvent& event);
 	
 	//(*Identifiers(GNRMainFrame)
 	static const long idMenuNew;
@@ -66,6 +67,7 @@ private:
 	static const long btn_move_xy;
 	static const long btn_move_xz;
 	static const long btn_rotate_xy;
+	static const long btn_rotate_xz;
 	static const long ID_ToolBar;
 	
 	//(*Declarations(GNRMainFrame)
@@ -80,6 +82,7 @@ private:
 	wxToolBarToolBase* ToolBarItem6;
 	wxToolBarToolBase* ToolBarItem7;
 	wxToolBarToolBase* ToolBarItem8;
+	wxToolBarToolBase* ToolBarItem9;
 	
 	DECLARE_EVENT_TABLE()
 };
