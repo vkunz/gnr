@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="GNR" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Debug">
+				<Option output="bin\Debug\GNR" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj\Debug\" />
+				<Option type="0" />
+				<Option compiler="gcc" />
+				<Option projectLinkerOptionsRelation="2" />
+				<Compiler>
+					<Add option="-Wall" />
+					<Add option="-g" />
+					<Add option="-D__WXDEBUG__" />
+					<Add option="-D__ATHOS_DEBUG__" />
+					<Add directory="$(#wx)\lib\gcc_lib\mswud" />
+				</Compiler>
+				<ResourceCompiler>
+					<Add directory="$(#wx)\lib\gcc_lib\mswud" />
+				</ResourceCompiler>
+				<Linker>
+					<Add library="libwxmsw28ud_core.a" />
+					<Add library="libwxbase28ud.a" />
+					<Add library="libwxpngd.a" />
+					<Add library="libwxzlibd.a" />
+					<Add library="libwxjpegd.a" />
+					<Add library="libwxtiffd.a" />
+					<Add library="libwxmsw28ud_gl.a" />
+					<Add directory="$(#wx)\lib\gcc_lib" />
+				</Linker>
+			</Target>
+			<Target title="Release">
+				<Option output="bin\Release\GNR" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj\Release\" />
+				<Option type="0" />
+				<Option compiler="gcc" />
+				<Option projectLinkerOptionsRelation="2" />
+				<Compiler>
+					<Add option="-O2" />
+					<Add option="-Wall" />
+					<Add directory="$(#wx)\lib\gcc_lib\mswu" />
+				</Compiler>
+				<ResourceCompiler>
+					<Add directory="$(#wx)\lib\gcc_lib\mswu" />
+				</ResourceCompiler>
+				<Linker>
+					<Add option="-s" />
+					<Add library="libwxmsw28u_core.a" />
+					<Add library="libwxbase28u.a" />
+					<Add library="libwxpng.a" />
+					<Add library="libwxzlib.a" />
+					<Add library="libwxtiff.a" />
+					<Add library="libwxjpeg.a" />
+					<Add library="libwxmsw28u_gl.a" />
+					<Add directory="$(#wx)\lib\gcc_lib" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-Wall" />
+			<Add option="-pipe" />
+			<Add option="-mthreads" />
+			<Add option="-finput-charset=iso-8859-1" />
+			<Add option='[[if (PLATFORM == PLATFORM_MSW &amp;&amp; (GetCompilerFactory().GetCompilerVersionString(_T(&quot;gcc&quot;)) &gt;= _T(&quot;4.0.0&quot;))) print(_T(&quot;-Wno-attributes&quot;));]]' />
+			<Add option="-D__GNUWIN32__" />
+			<Add option="-D__WXMSW__" />
+			<Add option="-DwxUSE_UNICODE" />
+			<Add directory="$(#wx)\include" />
+			<Add directory="$(#wx)\contrib\include" />
+			<Add directory="src\include" />
+		</Compiler>
+		<ResourceCompiler>
+			<Add directory="$(#wx)\include" />
+		</ResourceCompiler>
+		<Linker>
+			<Add library="libkernel32.a" />
+			<Add library="libuser32.a" />
+			<Add library="libgdi32.a" />
+			<Add library="libwinspool.a" />
+			<Add library="libcomdlg32.a" />
+			<Add library="libadvapi32.a" />
+			<Add library="libshell32.a" />
+			<Add library="libole32.a" />
+			<Add library="liboleaut32.a" />
+			<Add library="libuuid.a" />
+			<Add library="libcomctl32.a" />
+			<Add library="libwsock32.a" />
+			<Add library="libodbc32.a" />
+			<Add library="libopengl32.a" />
+			<Add library="libglu32.a" />
+		</Linker>
+		<Unit filename="src\GNRApp.cpp" />
+		<Unit filename="src\GNRAssembly.cpp" />
+		<Unit filename="src\GNRAssemblyTranslater.cpp" />
+		<Unit filename="src\GNRController.cpp" />
+		<Unit filename="src\GNRDebugFrame.cpp" />
+		<Unit filename="src\GNRFace.cpp" />
+		<Unit filename="src\GNRGL2DCanvas.cpp" />
+		<Unit filename="src\GNRGL3DCanvas.cpp" />
+		<Unit filename="src\GNRGLCamera.cpp" />
+		<Unit filename="src\GNRGLCanvas.cpp" />
+		<Unit filename="src\GNRGLNotifyEvent.cpp" />
+		<Unit filename="src\GNRMainFrame.cpp" />
+		<Unit filename="src\GNRMaterial.cpp" />
+		<Unit filename="src\GNRMaterialImport.cpp" />
+		<Unit filename="src\GNRNotifyEvent.cpp" />
+		<Unit filename="src\GNRObjectImport.cpp" />
+		<Unit filename="src\GNRPoint3d.cpp" />
+		<Unit filename="src\GNRTreePanel.cpp" />
+		<Unit filename="src\GNRVertex.cpp" />
+		<Unit filename="src\include\GNRApp.h" />
+		<Unit filename="src\include\GNRAssembly.h" />
+		<Unit filename="src\include\GNRAssemblyTranslater.h" />
+		<Unit filename="src\include\GNRController.h" />
+		<Unit filename="src\include\GNRDebugFrame.h" />
+		<Unit filename="src\include\GNRExportFile.h" />
+		<Unit filename="src\include\GNRFace.h" />
+		<Unit filename="src\include\GNRGL2DCanvas.h" />
+		<Unit filename="src\include\GNRGL3DCanvas.h" />
+		<Unit filename="src\include\GNRGLCamera.h" />
+		<Unit filename="src\include\GNRGLCanvas.h" />
+		<Unit filename="src\include\GNRGLNotifyEvent.h" />
+		<Unit filename="src\include\GNRImportFile.h" />
+		<Unit filename="src\include\GNRMainFrame.h" />
+		<Unit filename="src\include\GNRMaterial.h" />
+		<Unit filename="src\include\GNRMaterialImport.h" />
+		<Unit filename="src\include\GNRNotifyEvent.h" />
+		<Unit filename="src\include\GNRObjectImport.h" />
+		<Unit filename="src\include\GNRPoint3d.h" />
+		<Unit filename="src\include\GNRTreePanel.h" />
+		<Unit filename="src\include\GNRVertex.h" />
+		<Unit filename="src\include\md5.h" />
+		<Unit filename="src\md5.cpp" />
+		<Unit filename="src\resources\circular-arrow.xpm" />
+		<Unit filename="src\resources\quad-arrow.xpm" />
+		<Unit filename="src\resources\resource.rc">
+			<Option compilerVar="WINDRES" />
+		</Unit>
+		<Unit filename="src\resources\right-arrow.xpm" />
+		<Unit filename="wxsmith\GNRDebugFrame.wxs">
+			<Option target="Debug" />
+		</Unit>
+		<Unit filename="wxsmith\GNRMainFrame.wxs" />
+		<Unit filename="wxsmith\GNRTreePanel.wxs" />
+		<Extensions>
+			<code_completion />
+			<envvars />
+			<debugger />
+			<lib_finder disable_auto="1" />
+			<wxsmith version="1">
+				<gui name="wxWidgets" src="src\GNRApp.cpp" main="GNRFrame" init_handlers="necessary" language="CPP" />
+				<resources>
+					<wxFrame wxs="wxsmith/GNRMainFrame.wxs" src="src\GNRMainFrame.cpp" hdr="src\include\GNRMainFrame.h" name="GNRMainFrame" language="CPP" />
+					<wxPanel wxs="wxsmith/GNRTreePanel.wxs" src="src\GNRTreePanel.cpp" hdr="src\include\GNRTreePanel.h" name="GNRTreePanel" language="CPP" />
+					<wxFrame wxs="wxsmith/GNRDebugFrame.wxs" src="src\GNRDebugFrame.cpp" hdr="src\include\GNRDebugFrame.h" name="GNRDebugFrame" language="CPP" />
+				</resources>
+			</wxsmith>
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>
