@@ -84,8 +84,8 @@ void GNRController::initFrames()
 	m_MainFrame->Show(true);
 	
 	//create tree and models panel
-	m_TreePanelLibrary = new GNRTreePanel(m_HorizontalSplitter_left, wxID_ANY);
-	m_TreePanelMyScene = new GNRTreePanel(m_HorizontalSplitter_left, wxID_ANY);
+	m_TreePanelLibrary = new GNRTreePanelLibrary(m_HorizontalSplitter_left, wxID_ANY);
+	m_TreePanelMyScene = new GNRTreePanelMyScene(m_HorizontalSplitter_left, wxID_ANY);
 	
 	//create two canvas panels
 	m_Canvas2D = new GNRGL2DCanvas(m_HorizontalSplitter_right, -1);
