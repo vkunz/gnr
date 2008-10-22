@@ -19,7 +19,8 @@
 
 #include "GNRGL2DCanvas.h"
 #include "GNRGL3DCanvas.h"
-#include "GNRTreePanel.h"
+#include "GNRTreePanelLibrary.h"
+#include "GNRTreePanelMyScene.h"
 #include "GNRAssembly.h"
 
 class GNRMainFrame: public wxFrame
