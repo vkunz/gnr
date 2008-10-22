@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<opxml standard="opxml.hs-ulm.de" version="0.1.0">
+	<projectInformation>
+		<name>ExampleProject</name>
+		<author>Athos</author>
+		<date>2008-10-22T10:02:00</date>
+	</projectInformation>
+	<data>
+		<camera>
+			<type>parallel</type>
+			<position location="0 0 0" orientation="0 0 0"/>
+		</camera>
+		<lightsources>
+			<lightsource active="true">
+				<position location="0 0 0"/>
+				<ambient color="1 1 1 1"/>
+				<diffuse color="1 1 1 1"/>
+				<specular color="1 1 1 1"/>
+				<spot angle="" orientation=""/>
+			</lightsource>
+		</lightsources>
+		<scene>
+			<assembly visible="true" location="0 0 0" orientation="0 0 0" id="31696c04-386a-4407-8f3e-c3f6e92d91ca.oax"/>
+			<assembly visible="true" location="0 0 0" orientation="0 0 0" id="31696c04-386a-4407-8f3e-c3f6e92d91cb.oax"/>
+			<assembly visible="true" location="0 0 0" orientation="0 0 0" id="31696c04-386a-4407-8f3e-c3f6e92d91cc.oax"/>
+			<assembly visible="true" location="0 0 0" orientation="0 0 0" id="31696c04-386a-4407-8f3e-c3f6e92d91cd.oax"/>
+			<group visible="true" name="">
+				<assembly visible="true" location="0 0 0" orientation="0 0 0" id="31696c04-386a-4407-8f3e-c3f6e92d91ca.oax"/>
+				<assembly visible="true" location="0 0 0" orientation="0 0 0" id="31696c04-386a-4407-8f3e-c3f6e92d91cb.oax"/>
+				<assembly visible="true" location="0 0 0" orientation="0 0 0" id="31696c04-386a-4407-8f3e-c3f6e92d91cc.oax"/>
+				<assembly visible="true" location="0 0 0" orientation="0 0 0" id="31696c04-386a-4407-8f3e-c3f6e92d91cd.oax"/>
+			</group>
+			<sphere visible="true" location="0 0 0" orientation="0 0 0">
+				<radius> </radius>
+			</sphere>
+			<cuboid visible="true" location="0 0 0" orientation="0 0 0" tag="wall">
+				<width> </width>
+				<height> </height>
+				<depth> </depth>
+			</cuboid>
+			<zylinder visible="true" location="0 0 0" orientation="0 0 0">
+				<radius> </radius>
+				<height> </height>
+			</zylinder>
+		</scene>
+	</data>
+</opxml>
