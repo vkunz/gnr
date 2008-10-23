@@ -47,7 +47,7 @@ void GNRVNT::setN(GNRVertex* n)
 	{
 		delete m_n;
 	}
-
+	
 	m_n = n;
 }
 

@@ -49,17 +49,18 @@ void GNRFace::setNormal()
 	
 	if (vp1.getN() == NULL)
 	{
-		GNRVNT vp2 = *it; ++it;
-        GNRVertex p1 = *vp1.getV(), p2 = *vp2.getV();
-
-        GNRVertex face_normal = (p1 * p2);
-        face_normal.normalize();
-
-        for (it = m_vnt.begin(); it != m_vnt.end(); ++it)
-        {
-            GNRVertex* tmp = new GNRVertex(face_normal);
-            it->setN(tmp);
-        }
+		GNRVNT vp2 = *it;
+		++it;
+		GNRVertex p1 = *vp1.getV(), p2 = *vp2.getV();
+		
+		GNRVertex face_normal = (p1 * p2);
+		face_normal.normalize();
+		
+		for (it = m_vnt.begin(); it != m_vnt.end(); ++it)
+		{
+			GNRVertex* tmp = new GNRVertex(face_normal);
+			it->setN(tmp);
+		}
 	}
 }
 

@@ -127,9 +127,9 @@ GNRAssembly *GNRObjectImport::read(const string& fname)
 	
 	//save scale for normalized cube, maximum 1
 	m_root->setScale(scale);
-
-    m_root->setNormals();
-
+	
+	m_root->setNormals();
+	
 	return m_root_real;
 }
 

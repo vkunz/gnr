@@ -11,11 +11,11 @@ public:
 	GNRVNT(const GNRVNT& other);
 	
 	~GNRVNT();
-
+	
 	const GNRVertex* getV() const;
 	const GNRVertex* getN() const;
 	const GNRTCoord* getT() const;
-
+	
 	void setV(GNRVertex* v);
 	void setN(GNRVertex* n);
 	void setT(GNRVertex* t);
