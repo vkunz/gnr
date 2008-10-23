@@ -2,7 +2,7 @@
 #
  
 g cube
- 
+usemtl green 
 v  2.0  2.0  2.0
 v  2.0  2.0  3.0
 v  2.0  3.0  2.0

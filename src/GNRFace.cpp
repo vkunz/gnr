@@ -11,6 +11,7 @@
 
 #include "GNRFace.h"
 #include "GNRMaterial.h"
+#include "GNRMaterialLibrary.h"
 
 #include <GL/gl.h>
 
@@ -19,7 +20,7 @@
 using std::cout;
 using std::endl;
 
-extern GNRMatLib* mtllib;
+extern GNRMaterialLibrary mtllib;
 
 GNRFace::GNRFace(const string& matname):
 		m_matname(matname)
@@ -42,12 +43,7 @@ void GNRFace::addVNT(GNRVNT& vnt)
 
 void GNRFace::draw() const
 {
-	GNRMatLib::const_iterator it = mtllib->find(m_matname);
-	if (it != mtllib->end())
-	{
-//        cout << m_matname << endl;
-		it->second.draw();
-	}
+	mtllib.selectMaterial(m_matname);
 	
 	glBegin(GL_POLYGON);
 	{

@@ -53,7 +53,7 @@ GNRGL2DCanvas::GNRGL2DCanvas(wxWindow* parent, wxWindowID id, const wxPoint& pos
 GNRGL2DCanvas::GNRGL2DCanvas(wxWindow* parent, wxGLContext* sharedContext, wxWindowID id, const wxPoint& pos, const wxSize& size,
                              long style, const wxString& name) : GNRGLCanvas(parent, sharedContext, id, pos, size, style, name)
 {
-	m_camera_height = 25;
+	m_camera_height = 2;
 }
 
 /**

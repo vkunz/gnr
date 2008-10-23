@@ -16,6 +16,8 @@
 #include <fstream>
 #include <sstream>
 #include <string>
+#include <limits>
+
 #include "wx/wx.h"
 
 #if defined(__ATHOS_DEBUG__)
@@ -32,8 +34,9 @@ GNRObjectImport::~GNRObjectImport()
 
 GNRAssembly *GNRObjectImport::read(const string& fname)
 {
-	m_xmax = m_ymax = m_zmax = -3.4e38;
-	m_xmin = m_ymin = m_zmin = 3.4e38;
+	m_xmin = m_ymin = m_zmin = std::numeric_limits<float>::max();
+	m_xmax = m_ymax = m_zmax = -m_xmin;
+	
 	
 	//build base wrapper assembly
 	m_root = new GNRAssembly(fname);
@@ -51,7 +54,7 @@ GNRAssembly *GNRObjectImport::read(const string& fname)
 	
 	//set actual root assembly
 	m_act = m_root;
-	m_matname = "white";
+	m_matname = "red";
 	
 	// 1st pass, gather v, vt and vn
 	ifstream ifs(fname.c_str());
@@ -115,7 +118,7 @@ GNRAssembly *GNRObjectImport::read(const string& fname)
 		max_diff = z_diff;
 	}
 	
-	float scale = 1.0 / max_diff;
+	float scale = (float)1.0 / max_diff;
 	
 	//scale factor 1.0 instead of scale, if glScalef before glTranslatef in assembly->draw
 	m_root->setX(-1.0*(m_xmax + m_xmin)/2.0);
@@ -132,17 +135,19 @@ void GNRObjectImport::getVs()
 {
 	char c = m_buf[1];
 	m_buf = m_buf.substr(2, string::npos);
-	if (c == ' ')
+	switch (c)
 	{
+	case ' ':
 		getV();
-	}
-	else if (c == 'n')
-	{
+		break;
+	case 'n':
 		getVN();
-	}
-	else if (c == 't')
-	{
+		break;
+	case 't':
 		getVT();
+		break;
+	default:
+		break;
 	}
 }
 

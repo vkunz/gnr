@@ -12,8 +12,8 @@
 #include "GNRController.h"
 #include "GNRAssembly.h"
 #include "GNRMaterial.h"
+#include "GNRMaterialLibrary.h"
 #include "GNRObjectImport.h"
-#include "GNRMaterialImport.h"
 #include "wx/wx.h"
 
 #if defined(__ATHOS_DEBUG__)
@@ -24,7 +24,7 @@
  * constructor
  * @access      public
  */
-GNRMatLib* mtllib;
+GNRMaterialLibrary mtllib;
 
 GNRController::GNRController()
 {
@@ -35,9 +35,6 @@ GNRController::GNRController()
 	m_MainFrame         = new GNRMainFrame(0);
 	m_AssemblyTranslater->setGLCamera(m_GLCamera);
 	m_activeCanvas = 3;
-	
-	GNRMaterialImport mi;
-	mtllib = mi.read("./default.mtl");
 	
 #if defined(__ATHOS_DEBUG__)
 	// Create DebugFrame
@@ -69,8 +66,6 @@ GNRController::~GNRController()
 	delete m_MainFrame;
 	delete m_AssemblyTranslater;
 	delete m_RootAssembly;
-	
-	delete mtllib;
 }
 
 /**

@@ -70,6 +70,4 @@ private:
 	float m_shininess;
 };
 
-typedef map<string, GNRMaterial> GNRMatLib;
-
 #endif // _GNRMATERIAL_H_
