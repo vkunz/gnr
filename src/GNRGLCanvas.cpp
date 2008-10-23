@@ -310,7 +310,7 @@ void GNRGLCanvas::OnLMouseDown(wxMouseEvent& event)
 	GetEventHandler()->ProcessEvent(myevent);
 	
 	Connect(wxEVT_MOTION, (wxObjectEventFunction)&GNRGLCanvas::OnMouseMove);
-	delete glcoords;
+	delete[] glcoords;
 }
 
 /**
