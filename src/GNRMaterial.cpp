@@ -14,7 +14,8 @@
 #include <GL/gl.h>
 
 #include <iostream>
-using std::cout; using std::endl;
+using std::cout;
+using std::endl;
 
 GNRColor::GNRColor(float r, float g, float b):
 		m_r(r), m_g(g), m_b(b)
@@ -118,7 +119,7 @@ void GNRMaterial::draw() const
 // While the ambient, diffuse, specular and emission material parameters
 // all have alpha components, only the diffuse alpha component is used in
 // the lighting computation.
-                                        
+
 	float mat[4];
 	mat[3] = m_alpha;
 	
@@ -128,21 +129,21 @@ void GNRMaterial::draw() const
 	glMaterialfv(GL_FRONT, GL_AMBIENT, mat);
 //    cout << mat[0] << " " << mat[1] << " " << mat[2] << endl;
 //    cout << glGetError() << endl;
-	
+
 	mat[0] = m_diffuse.getR();
 	mat[1] = m_diffuse.getG();
 	mat[2] = m_diffuse.getB();
 	glMaterialfv(GL_FRONT, GL_DIFFUSE, mat);
-    cout << mat[0] << " " << mat[1] << " " << mat[2] << endl;
+	cout << mat[0] << " " << mat[1] << " " << mat[2] << endl;
 	glGetMaterialfv(GL_FRONT, GL_DIFFUSE, mat);
-    cout << mat[0] << " " << mat[1] << " " << mat[2] << endl;
+	cout << mat[0] << " " << mat[1] << " " << mat[2] << endl;
 	
 	mat[0] = m_specular.getR();
 	mat[1] = m_specular.getG();
 	mat[2] = m_specular.getB();
 	glMaterialfv(GL_FRONT, GL_SPECULAR, mat);
 //    cout << mat[0] << " " << mat[1] << " " << mat[2] << endl;
-	
+
 	glMateriali(GL_FRONT, GL_SHININESS, m_shininess);
 }
 

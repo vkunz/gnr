@@ -107,7 +107,7 @@
 		<Unit filename="src\GNRImportFile.cpp" />
 		<Unit filename="src\GNRMainFrame.cpp" />
 		<Unit filename="src\GNRMaterial.cpp" />
-		<Unit filename="src\GNRMaterialImport.cpp" />
+		<Unit filename="src\GNRMaterialLibrary.cpp" />
 		<Unit filename="src\GNRNotifyEvent.cpp" />
 		<Unit filename="src\GNRObjectImport.cpp" />
 		<Unit filename="src\GNRTCoord.cpp" />
@@ -131,7 +131,7 @@
 		<Unit filename="src\include\GNRImportFile.h" />
 		<Unit filename="src\include\GNRMainFrame.h" />
 		<Unit filename="src\include\GNRMaterial.h" />
-		<Unit filename="src\include\GNRMaterialImport.h" />
+		<Unit filename="src\include\GNRMaterialLibrary.h" />
 		<Unit filename="src\include\GNRNotifyEvent.h" />
 		<Unit filename="src\include\GNRObjectImport.h" />
 		<Unit filename="src\include\GNRTCoord.h" />
@@ -142,14 +142,33 @@
 		<Unit filename="src\include\TestCanvas.h" />
 		<Unit filename="src\include\md5.h" />
 		<Unit filename="src\md5.cpp" />
-		<Unit filename="src\resources\circular-arrow-xy.xpm" />
-		<Unit filename="src\resources\circular-arrow-xz.xpm" />
-		<Unit filename="src\resources\circular-arrow.xpm" />
-		<Unit filename="src\resources\quad-arrow.xpm" />
+		<Unit filename="src\resources\button-canvas2d-zoom-fit.xpm" />
+		<Unit filename="src\resources\button-canvas2d-zoom-in.xpm" />
+		<Unit filename="src\resources\button-canvas2d-zoom-out.xpm" />
+		<Unit filename="src\resources\button-delete.xpm" />
+		<Unit filename="src\resources\button-draw-cube.xpm" />
+		<Unit filename="src\resources\button-draw-cylinder.xpm" />
+		<Unit filename="src\resources\button-exit.xpm" />
+		<Unit filename="src\resources\button-group-add.xpm" />
+		<Unit filename="src\resources\button-help-bulb.xpm" />
+		<Unit filename="src\resources\button-move-xy.xpm" />
+		<Unit filename="src\resources\button-move-xz.xpm" />
+		<Unit filename="src\resources\button-move.xpm" />
+		<Unit filename="src\resources\button-redo.xpm" />
+		<Unit filename="src\resources\button-room-export.xpm" />
+		<Unit filename="src\resources\button-room-new.xpm" />
+		<Unit filename="src\resources\button-room-open.xpm" />
+		<Unit filename="src\resources\button-room-save-as.xpm" />
+		<Unit filename="src\resources\button-room-save.xpm" />
+		<Unit filename="src\resources\button-snap-to-grid.xpm" />
+		<Unit filename="src\resources\button-undo.xpm" />
+		<Unit filename="src\resources\button-world-rotate-xy.xpm" />
+		<Unit filename="src\resources\button-world-rotate-xz.xpm" />
+		<Unit filename="src\resources\button-world-sphere.xpm" />
+		<Unit filename="src\resources\please-wait.xpm" />
 		<Unit filename="src\resources\resource.rc">
 			<Option compilerVar="WINDRES" />
 		</Unit>
-		<Unit filename="src\resources\right-arrow.xpm" />
 		<Unit filename="wxsmith\GNRDebugFrame.wxs">
 			<Option target="Debug" />
 		</Unit>

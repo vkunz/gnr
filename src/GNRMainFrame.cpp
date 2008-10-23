@@ -20,10 +20,20 @@
 #include "GNRMainFrame.h"
 #include "GNRController.h"
 
-#include "resources/quad-arrow.xpm"
-#include "resources/right-arrow.xpm"
-#include "resources/circular-arrow-xy.xpm"
-#include "resources/circular-arrow-xz.xpm"
+#include "resources/button-undo.xpm"
+#include "resources/button-redo.xpm"
+#include "resources/button-room-new.xpm"
+#include "resources/button-room-open.xpm"
+#include "resources/button-room-save.xpm"
+#include "resources/button-room-save-as.xpm"
+#include "resources/button-exit.xpm"
+#include "resources/button-move-xy.xpm"
+#include "resources/button-move-xz.xpm"
+#include "resources/button-world-rotate-xy.xpm"
+#include "resources/button-world-rotate-xz.xpm"
+#include "resources/button-canvas2d-zoom-in.xpm"
+#include "resources/button-canvas2d-zoom-out.xpm"
+#include "resources/button-canvas2d-zoom-fit.xpm"
 
 //helper functions
 enum wxbuildinfoformat
@@ -67,8 +77,13 @@ const long GNRMainFrame::ID_StatusBar = wxNewId();
 const long GNRMainFrame::btn_room_new = wxNewId();
 const long GNRMainFrame::btn_room_open = wxNewId();
 const long GNRMainFrame::btn_room_save = wxNewId();
+const long GNRMainFrame::btn_room_save_as = wxNewId();
+const long GNRMainFrame::btn_quit = wxNewId();
 const long GNRMainFrame::btn_undo = wxNewId();
 const long GNRMainFrame::btn_redo = wxNewId();
+const long GNRMainFrame::btn_zoom_in = wxNewId();
+const long GNRMainFrame::btn_zoom_out = wxNewId();
+const long GNRMainFrame::btn_zoom_fit = wxNewId();
 const long GNRMainFrame::btn_move_xy = wxNewId();
 const long GNRMainFrame::btn_move_xz = wxNewId();
 const long GNRMainFrame::btn_rotate_xy = wxNewId();
@@ -81,6 +96,7 @@ BEGIN_EVENT_TABLE(GNRMainFrame,wxFrame)
 	EVT_MENU(btn_rotate_xy, GNRMainFrame::OnToolbarRotateXY)
 	EVT_MENU(btn_rotate_xz, GNRMainFrame::OnToolbarRotateXZ)
 	EVT_MENU(btn_room_new, GNRMainFrame::OnNew)
+	EVT_MENU(btn_quit, GNRMainFrame::OnQuit)
 END_EVENT_TABLE()
 
 GNRMainFrame::GNRMainFrame(wxWindow* parent, wxWindowID id)
@@ -141,17 +157,24 @@ GNRMainFrame::GNRMainFrame(wxWindow* parent, wxWindowID id)
 	
 	ToolBar1 = new wxToolBar(this, ID_ToolBar, wxDefaultPosition, wxDefaultSize, wxTB_HORIZONTAL|wxNO_BORDER, _T("ID_TOOLBAR1"));
 	ToolBar1->SetToolBitmapSize(wxSize(24,24));
-	ToolBarItem1 = ToolBar1->AddTool(btn_room_new, _("Raum erstellen"), wxArtProvider::GetBitmap(wxART_MAKE_ART_ID_FROM_STR(_T("wxART_NEW")),wxART_TOOLBAR), wxNullBitmap, wxITEM_NORMAL, _("Raum erstellen"), _("Raum erstellen"));
-	ToolBarItem2 = ToolBar1->AddTool(btn_room_open, _("Raum öffnen"), wxArtProvider::GetBitmap(wxART_MAKE_ART_ID_FROM_STR(_T("wxART_FOLDER_OPEN")),wxART_TOOLBAR), wxNullBitmap, wxITEM_NORMAL, _("Raum öffnen"), _("Raum öffnen"));
-	ToolBarItem3 = ToolBar1->AddTool(btn_room_save, _("Raum speichern"), wxArtProvider::GetBitmap(wxART_MAKE_ART_ID_FROM_STR(_T("wxART_FILE_SAVE")),wxART_TOOLBAR), wxNullBitmap, wxITEM_NORMAL, _("Raum speichern"), _("Raum speichern"));
+	ToolBarItem1 = ToolBar1->AddTool(btn_room_new, _("Raum erstellen"), wxBitmap(wxIcon(button_room_new_xpm)), wxNullBitmap, wxITEM_NORMAL, _("Raum erstellen"), _("Raum erstellen"));
+	ToolBarItem2 = ToolBar1->AddTool(btn_room_open, _("Raum öffnen"), wxBitmap(wxIcon(button_room_open_xpm)), wxNullBitmap, wxITEM_NORMAL, _("Raum öffnen"), _("Raum öffnen"));
+	ToolBarItem3 = ToolBar1->AddTool(btn_room_save, _("Raum speichern"), wxBitmap(wxIcon(button_room_save_xpm)), wxNullBitmap, wxITEM_NORMAL, _("Raum speichern"), _("Raum speichern"));
+	ToolBarItem4 = ToolBar1->AddTool(btn_room_save_as, _("Raum speichern unter"), wxBitmap(wxIcon(button_room_save_as_xpm)), wxNullBitmap, wxITEM_NORMAL, _("Raum speichern unter"), _("Raum speichern unter"));
 	ToolBar1->AddSeparator();
-	ToolBarItem4 = ToolBar1->AddTool(btn_undo, _("Rückgängig"), wxArtProvider::GetBitmap(wxART_MAKE_ART_ID_FROM_STR(_T("wxART_UNDO")),wxART_TOOLBAR), wxNullBitmap, wxITEM_NORMAL, _("Rückgängig"), _("Rückgängig"));
-	ToolBarItem5 = ToolBar1->AddTool(btn_redo, _("Wiederherstellen"), wxArtProvider::GetBitmap(wxART_MAKE_ART_ID_FROM_STR(_T("wxART_REDO")),wxART_TOOLBAR), wxNullBitmap, wxITEM_NORMAL, _("Wiederherstellen"), _("Wiederherstellen"));
+	ToolBarItem5 = ToolBar1->AddTool(btn_undo, _("Rückgängig"), wxBitmap(wxIcon(button_undo_xpm)), wxNullBitmap, wxITEM_NORMAL, _("Rückgängig"), _("Rückgängig"));
+	ToolBarItem6 = ToolBar1->AddTool(btn_redo, _("Wiederherstellen"), wxBitmap(wxIcon(button_redo_xpm)), wxNullBitmap, wxITEM_NORMAL, _("Wiederherstellen"), _("Wiederherstellen"));
 	ToolBar1->AddSeparator();
-	ToolBarItem6 = ToolBar1->AddTool(btn_move_xz, _("Verschieben in X-Z-Richtung"), wxBitmap(wxIcon(quad_arrow_xpm)), wxNullBitmap, wxITEM_RADIO, _("Verschieben in X-Z-Richtung"), _("Verschieben in X-Z-Richtung"));
-	ToolBarItem7 = ToolBar1->AddTool(btn_move_xy, _("Verschieben in X-Y-Richtung"), wxBitmap(wxIcon(right_arrow_xpm)), wxNullBitmap, wxITEM_RADIO, _("Verschieben in X-Y-Richtung"), _("Verschieben in X-Y-Richtung"));
-	ToolBarItem8 = ToolBar1->AddTool(btn_rotate_xy, _("Rotieren auf X-Y-Achsen"), wxBitmap(wxIcon(circular_arrow_xy_xpm)), wxNullBitmap, wxITEM_RADIO, _("Rotieren auf X-Y-Achsen"), _("Rotieren auf X-Y-Achsen"));
-	ToolBarItem9 = ToolBar1->AddTool(btn_rotate_xz, _("Rotieren auf X-Z-Achsen"), wxBitmap(wxIcon(circular_arrow_xz_xpm)), wxNullBitmap, wxITEM_RADIO, _("Rotieren auf X-Z-Achsen"), _("Rotieren auf X-Z-Achsen"));
+	ToolBarItem7 = ToolBar1->AddTool(btn_move_xz, _("Verschieben in X-Z-Richtung"), wxBitmap(wxIcon(button_move_xz_xpm)), wxNullBitmap, wxITEM_RADIO, _("Verschieben in X-Z-Richtung"), _("Verschieben in X-Z-Richtung"));
+	ToolBarItem8 = ToolBar1->AddTool(btn_move_xy, _("Verschieben in X-Y-Richtung"), wxBitmap(wxIcon(button_move_xy_xpm)), wxNullBitmap, wxITEM_RADIO, _("Verschieben in X-Y-Richtung"), _("Verschieben in X-Y-Richtung"));
+	ToolBarItem9 = ToolBar1->AddTool(btn_rotate_xz, _("Rotieren auf X-Z-Achsen"), wxBitmap(wxIcon(button_world_rotate_xz_xpm)), wxNullBitmap, wxITEM_RADIO, _("Rotieren auf X-Z-Achsen"), _("Rotieren auf X-Z-Achsen"));
+	ToolBarItem10 = ToolBar1->AddTool(btn_rotate_xy, _("Rotieren auf X-Y-Achsen"), wxBitmap(wxIcon(button_world_rotate_xy_xpm)), wxNullBitmap, wxITEM_RADIO, _("Rotieren auf X-Y-Achsen"), _("Rotieren auf X-Y-Achsen"));
+	ToolBar1->AddSeparator();
+	ToolBarItem11 = ToolBar1->AddTool(btn_zoom_in, _("Draufsicht einzoomen"), wxBitmap(wxIcon(button_canvas2d_zoom_in_xpm)), wxNullBitmap, wxITEM_NORMAL, _("Draufsicht einzoomen"), _("Draufsicht einzoomen"));
+	ToolBarItem12 = ToolBar1->AddTool(btn_zoom_out, _("Draufsicht auszoomen"), wxBitmap(wxIcon(button_canvas2d_zoom_out_xpm)), wxNullBitmap, wxITEM_NORMAL, _("Draufsicht auszoomen"), _("Draufsicht auszoomen"));
+	ToolBarItem13 = ToolBar1->AddTool(btn_zoom_fit, _("Draufsicht einpassen"), wxBitmap(wxIcon(button_canvas2d_zoom_fit_xpm)), wxNullBitmap, wxITEM_NORMAL, _("Draufsicht in Ansicht einpassen"), _("Draufsicht in Ansicht einpassen"));
+	ToolBar1->AddSeparator();
+	ToolBarItem99 = ToolBar1->AddTool(btn_quit, _("GNR beenden"), wxBitmap(wxIcon(button_exit_xpm)), wxNullBitmap, wxITEM_NORMAL, _("GNR beenden"), _("GNR beenden"));
 	ToolBar1->Realize();
 	SetToolBar(ToolBar1);
 	Center();

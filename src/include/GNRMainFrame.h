@@ -62,8 +62,13 @@ private:
 	static const long btn_room_new;
 	static const long btn_room_open;
 	static const long btn_room_save;
+	static const long btn_room_save_as;
+	static const long btn_quit;
 	static const long btn_undo;
 	static const long btn_redo;
+	static const long btn_zoom_in;
+	static const long btn_zoom_out;
+	static const long btn_zoom_fit;
 	static const long btn_move_xy;
 	static const long btn_move_xz;
 	static const long btn_rotate_xy;
@@ -83,6 +88,11 @@ private:
 	wxToolBarToolBase* ToolBarItem7;
 	wxToolBarToolBase* ToolBarItem8;
 	wxToolBarToolBase* ToolBarItem9;
+	wxToolBarToolBase* ToolBarItem10;
+	wxToolBarToolBase* ToolBarItem11;
+	wxToolBarToolBase* ToolBarItem12;
+	wxToolBarToolBase* ToolBarItem13;
+	wxToolBarToolBase* ToolBarItem99;
 	
 	DECLARE_EVENT_TABLE()
 };
