@@ -40,6 +40,7 @@ private:
 	void OnLoad(wxCommandEvent& event);
 	void OnNew(wxCommandEvent& event);
 	void OnScrolledWindow1Paint(wxPaintEvent& event);
+	void OnCameraReset(wxCommandEvent& event);
 	//*)
 	//ToolBar Button Events
 	void OnToolbarMoveXY(wxCommandEvent& event);
@@ -73,6 +74,7 @@ private:
 	static const long btn_move_xz;
 	static const long btn_rotate_xy;
 	static const long btn_rotate_xz;
+	static const long btn_camera_reset;
 	static const long ID_ToolBar;
 	
 	//(*Declarations(GNRMainFrame)
@@ -92,6 +94,7 @@ private:
 	wxToolBarToolBase* ToolBarItem11;
 	wxToolBarToolBase* ToolBarItem12;
 	wxToolBarToolBase* ToolBarItem13;
+	wxToolBarToolBase* ToolBarItem14;
 	wxToolBarToolBase* ToolBarItem99;
 	
 	DECLARE_EVENT_TABLE()

@@ -3,15 +3,7 @@
 
 GNRGLCamera::GNRGLCamera()
 {
-	//Init with standard OGL values:
-	viewPoint   = GNRVertex(0.0, 0.0,-1.0);
-	viewDir     = GNRVertex(0.0, 0.0,-1.0);
-	rightVector = GNRVertex(1.0, 0.0, 0.0);
-	upVector    = GNRVertex(0.0, 1.0, 0.0);
-	
-	m_distance = 1.5;
-	
-	rotatedX = rotatedY = rotatedZ = 0.0;
+	reset();
 }
 
 void GNRGLCamera::move(GNRVertex direction)
@@ -109,7 +101,20 @@ void GNRGLCamera::setAngles(float phi, float theta, float rho)
 	rotatedZ = rho;
 }
 
-void GNRGLCamera::setDistance(float distance)
+void GNRGLCamera::changeDistance(float distance)
 {
-	m_distance = distance;
+	m_distance += distance;
+}
+
+void GNRGLCamera::reset()
+{
+	//Init with standard OGL values:
+	viewPoint   = GNRVertex(0.0, 0.0,-1.0);
+	viewDir     = GNRVertex(0.0, 0.0,-1.0);
+	rightVector = GNRVertex(1.0, 0.0, 0.0);
+	upVector    = GNRVertex(0.0, 1.0, 0.0);
+	
+	rotatedX = rotatedY = rotatedZ = 0.0;
+	
+	m_distance = 1.5;
 }

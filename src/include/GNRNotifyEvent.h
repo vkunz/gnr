@@ -3,7 +3,7 @@
 
 #include "wx/event.h"
 
-enum eventType {GLRefresh, XMLOpen, OBJImport, ToolbarChange, NewRoom};
+enum eventType {GLRefresh, XMLOpen, OBJImport, ToolbarChange, NewRoom, ResetCamera};
 
 class GNRNotifyEvent : public wxNotifyEvent
 {

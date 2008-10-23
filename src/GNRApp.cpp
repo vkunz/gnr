@@ -41,6 +41,10 @@ void GNRApp::OnGNREvent(GNRNotifyEvent& event)
 		controller->newRoom();
 		controller->glRefresh();
 		break;
+	case ResetCamera:
+		controller->resetCamera();
+		controller->glRefresh();
+		break;
 	case ToolbarChange:
 		controller->toggleToolbar(event);
 		break;

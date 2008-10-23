@@ -21,7 +21,7 @@
 #endif
 
 #define ZNEAR 0.1f
-#define ZFAR 1000.0f
+#define ZFAR 200.0f
 
 /**
  * constructor of GNRGL2DCanvas
@@ -100,9 +100,4 @@ void GNRGL2DCanvas::OnMouseWheel(wxMouseEvent& event)
 	myevent.setGNREventType(GLRefresh);
 	myevent.SetEventObject(this);
 	GetEventHandler()->ProcessEvent(myevent);
-#if defined(__ATHOS_DEBUG__)
-	wxString msg;
-	msg << _("OnMouseWheel, rotation: ") << m_camera_height;
-	wxLogMessage(msg);
-#endif
 }

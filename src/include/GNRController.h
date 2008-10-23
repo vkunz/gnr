@@ -67,6 +67,7 @@ public:
 	void glRefresh();
 	void initFrames();
 	void newRoom();
+	void resetCamera();
 	void processGLMouse(GNRGLNotifyEvent& event);
 	void XMLOpen(wxString filename);
 	void OBJImport(wxString filename);

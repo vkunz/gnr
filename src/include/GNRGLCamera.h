@@ -22,7 +22,7 @@ public:
 	
 	void setAngles(float phi, float theta, float rho);
 	void setPosition(float x, float y, float z);
-	void setDistance(float distance);
+	void changeDistance(float distance);
 	
 	void reset();
 	

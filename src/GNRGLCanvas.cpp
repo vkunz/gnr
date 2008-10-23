@@ -24,7 +24,7 @@
 #endif
 
 #define ZNEAR 0.1f
-#define ZFAR 1000.0f
+#define ZFAR 100.0f
 
 /**
  * constructor of GNRGLCanvas

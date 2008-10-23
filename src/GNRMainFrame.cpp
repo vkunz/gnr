@@ -34,6 +34,7 @@
 #include "resources/button-canvas2d-zoom-in.xpm"
 #include "resources/button-canvas2d-zoom-out.xpm"
 #include "resources/button-canvas2d-zoom-fit.xpm"
+#include "resources/button-reset-camera.xpm"
 
 //helper functions
 enum wxbuildinfoformat
@@ -88,6 +89,7 @@ const long GNRMainFrame::btn_move_xy = wxNewId();
 const long GNRMainFrame::btn_move_xz = wxNewId();
 const long GNRMainFrame::btn_rotate_xy = wxNewId();
 const long GNRMainFrame::btn_rotate_xz = wxNewId();
+const long GNRMainFrame::btn_camera_reset = wxNewId();
 const long GNRMainFrame::ID_ToolBar = wxNewId();
 
 BEGIN_EVENT_TABLE(GNRMainFrame,wxFrame)
@@ -96,6 +98,7 @@ BEGIN_EVENT_TABLE(GNRMainFrame,wxFrame)
 	EVT_MENU(btn_rotate_xy, GNRMainFrame::OnToolbarRotateXY)
 	EVT_MENU(btn_rotate_xz, GNRMainFrame::OnToolbarRotateXZ)
 	EVT_MENU(btn_room_new, GNRMainFrame::OnNew)
+	EVT_MENU(btn_camera_reset, GNRMainFrame::OnCameraReset)
 	EVT_MENU(btn_quit, GNRMainFrame::OnQuit)
 END_EVENT_TABLE()
 
@@ -173,6 +176,8 @@ GNRMainFrame::GNRMainFrame(wxWindow* parent, wxWindowID id)
 	ToolBarItem11 = ToolBar1->AddTool(btn_zoom_in, _("Draufsicht einzoomen"), wxBitmap(wxIcon(button_canvas2d_zoom_in_xpm)), wxNullBitmap, wxITEM_NORMAL, _("Draufsicht einzoomen"), _("Draufsicht einzoomen"));
 	ToolBarItem12 = ToolBar1->AddTool(btn_zoom_out, _("Draufsicht auszoomen"), wxBitmap(wxIcon(button_canvas2d_zoom_out_xpm)), wxNullBitmap, wxITEM_NORMAL, _("Draufsicht auszoomen"), _("Draufsicht auszoomen"));
 	ToolBarItem13 = ToolBar1->AddTool(btn_zoom_fit, _("Draufsicht einpassen"), wxBitmap(wxIcon(button_canvas2d_zoom_fit_xpm)), wxNullBitmap, wxITEM_NORMAL, _("Draufsicht in Ansicht einpassen"), _("Draufsicht in Ansicht einpassen"));
+	ToolBar1->AddSeparator();
+	ToolBarItem14 = ToolBar1->AddTool(btn_camera_reset, _("Kamera zurücksetzen"), wxBitmap(wxIcon(button_reset_camera_xpm)), wxNullBitmap, wxITEM_NORMAL, _("Kamera in 3D zurücksetzen"), _("Kamera in 3D zurücksetzen"));
 	ToolBar1->AddSeparator();
 	ToolBarItem99 = ToolBar1->AddTool(btn_quit, _("GNR beenden"), wxBitmap(wxIcon(button_exit_xpm)), wxNullBitmap, wxITEM_NORMAL, _("GNR beenden"), _("GNR beenden"));
 	ToolBar1->Realize();
@@ -279,4 +284,11 @@ void GNRMainFrame::OnToolbarRotateXZ(wxCommandEvent& event)
 	myevent.SetEventObject(this);
 	myevent.SetInt(ROTATEXZ);
 	GetEventHandler()->ProcessEvent(myevent);
+}
+
+void GNRMainFrame::OnCameraReset(wxCommandEvent& event)
+{
+	GNRNotifyEvent gnrevent(wxEVT_COMMAND_GNR_NOTIFY);
+	gnrevent.setGNREventType(ResetCamera);
+	GetEventHandler()->ProcessEvent(gnrevent);
 }

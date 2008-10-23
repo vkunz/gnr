@@ -242,6 +242,10 @@ void GNRController::processGLMouse(GNRGLNotifyEvent& event)
 	{
 		m_AssemblyTranslater->ObjectTransform(event);
 	}
+	else if (event.getMouseEvent().GetWheelRotation())
+	{
+		m_GLCamera->changeDistance(event.getMouseEvent().GetWheelRotation() / 600.0);
+	}
 }
 
 /**
@@ -275,6 +279,12 @@ void GNRController::newRoom()
 {
 	delete m_RootAssembly;
 	m_RootAssembly = new GNRAssembly("scene");
+	m_GLCamera->reset();
+}
+
+void GNRController::resetCamera()
+{
+	m_GLCamera->reset();
 }
 
 /**

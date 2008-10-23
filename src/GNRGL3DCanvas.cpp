@@ -3,13 +3,14 @@
 #endif
 
 #include "GNRGL3DCanvas.h"
+#include "GNRGLNotifyEvent.h"
 
 #if defined(__ATHOS_DEBUG__)
 #include <wx/log.h>
 #endif
 
 #define ZNEAR 0.1f
-#define ZFAR 1000.0f
+#define ZFAR 100.0f
 
 /**
  * constructor of GNRGL3DCanvas
@@ -72,9 +73,9 @@ int GNRGL3DCanvas::getCanvasID()
 
 void GNRGL3DCanvas::OnMouseWheel(wxMouseEvent& event)
 {
-#if defined(__ATHOS_DEBUG__)
-	wxString msg;
-	msg << _("OnMouseWheel, rotation: ") << event.GetWheelRotation();
-	wxLogMessage(msg);
-#endif
+	GNRGLNotifyEvent myevent(wxEVT_COMMAND_GL_NOTIFY);
+	myevent.setMouseEvent(event);
+	myevent.setCanvasID(getCanvasID());
+	myevent.SetEventObject(this);
+	GetEventHandler()->ProcessEvent(myevent);
 }
