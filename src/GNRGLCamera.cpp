@@ -9,7 +9,7 @@ GNRGLCamera::GNRGLCamera()
 	rightVector = GNRVertex(1.0, 0.0, 0.0);
 	upVector    = GNRVertex(0.0, 1.0, 0.0);
 	
-	m_distance = 1.0;
+	m_distance = 1.5;
 	
 	rotatedX = rotatedY = rotatedZ = 0.0;
 }
@@ -20,42 +20,41 @@ void GNRGLCamera::move(GNRVertex direction)
 }
 
 
-//void GNRGLCamera::rotateX(GLfloat Angle) {
-//	rotatedX += angle;
-//
-//	//Rotate viewdir around the right vector:
-//	ViewDir = Normalize3dVector(ViewDir*cos(Angle*PIdiv180)
-//	                            + UpVector*sin(Angle*PIdiv180));
-//
-//	//now compute the new UpVector (by cross product)
-//	UpVector = CrossProduct(&ViewDir, &RightVector)*-1;
-//
-//
-//}
+void GNRGLCamera::rotateX(GLfloat angle)
+{
+	rotatedX += angle;
+	
+	//Rotate viewdir around the right vector:
+	viewDir = viewDir*cos(angle*M_PI/180.0) + upVector*sin(angle*M_PI/180.0);
+	viewDir.normalize();
+	
+	//now compute the new UpVector (by cross product)
+	upVector = (viewDir * rightVector) *-1;
+}
 
 void GNRGLCamera::rotateY(GLfloat angle)
 {
 	rotatedY += angle;
 	
 	//Rotate viewdir around the up vector at the viewPoint:
-	
-	viewDir = (viewDir*cos(angle*M_PI/180.0) - rightVector*sin(angle*M_PI/180.0));
+	viewDir = viewDir*cos(angle*M_PI/180.0) - rightVector*sin(angle*M_PI/180.0);
 	viewDir.normalize();
 	
 	//now compute the new RightVector (by cross product)
 	rightVector = viewDir * upVector;
 }
 
-//void GNRGLCamera::rotateZ(GLfloat Angle) {
-//	RotatedZ += Angle;
-//
-//	//Rotate viewdir around the right vector:
-//	RightVector = Normalize3dVector(RightVector*cos(Angle*PIdiv180)
-//	                                + UpVector*sin(Angle*PIdiv180));
-//
-//	//now compute the new UpVector (by cross product)
-//	UpVector = CrossProduct(&ViewDir, &RightVector)*-1;
-//}
+void GNRGLCamera::rotateZ(GLfloat angle)
+{
+	rotatedZ += angle;
+	
+	//Rotate viewdir around the right vector:
+	rightVector = rightVector*cos(angle*M_PI/180.0) + upVector*sin(angle*M_PI/180.0);
+	rightVector.normalize();
+	
+	//now compute the new UpVector (by cross product)
+	upVector = (viewDir * rightVector)*-1;
+}
 
 void GNRGLCamera::render()
 {
@@ -87,9 +86,8 @@ void GNRGLCamera::moveUpward(GLfloat distance)
 
 void GNRGLCamera::setPosition(float x, float y, float z)
 {
-//    position.setX(x);
-//    position.setY(y);
-//    position.setZ(z);
+	GNRVertex temp(x, y, z);
+	viewPoint = (temp + viewDir*m_distance);
 }
 
 void GNRGLCamera::setAngles(float phi, float theta, float rho)
