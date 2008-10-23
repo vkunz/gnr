@@ -5,7 +5,7 @@
 # $^	^^ ohne Wiederholungne
 
 
-.PHONY: clean all co up ci st
+.PHONY: clean all co up ci st btf
 TARGET = gnr/GNR
 
 CC = g++
@@ -21,7 +21,7 @@ GL_LIBS = -lGL -lGLU
 
 all: $(TARGET)
 
-$(TARGET): gnr/bin/GNRApp.o gnr/bin/GNRAssembly.o gnr/bin/GNRAssemblyTranslater.o gnr/bin/GNRController.o gnr/bin/GNRDebugFrame.o gnr/bin/GNRFace.o gnr/bin/GNRGL2DCanvas.o gnr/bin/GNRGL3DCanvas.o gnr/bin/GNRGLCamera.o gnr/bin/GNRGLCanvas.o gnr/bin/GNRGLNotifyEvent.o gnr/bin/GNRImportFile.o gnr/bin/GNRMainFrame.o gnr/bin/GNRMaterial.o gnr/bin/GNRMaterialImport.o gnr/bin/GNRNotifyEvent.o gnr/bin/GNRObjectImport.o gnr/bin/GNRTCoord.o gnr/bin/GNRTreePanelLibrary.o gnr/bin/GNRTreePanelMyScene.o gnr/bin/GNRVertex.o gnr/bin/GNRVNT.o gnr/bin/md5.o gnr/bin/TestCanvas.o
+$(TARGET): gnr/bin/GNRApp.o gnr/bin/GNRAssembly.o gnr/bin/GNRAssemblyTranslater.o gnr/bin/GNRController.o gnr/bin/GNRDebugFrame.o gnr/bin/GNRFace.o gnr/bin/GNRGL2DCanvas.o gnr/bin/GNRGL3DCanvas.o gnr/bin/GNRGLCamera.o gnr/bin/GNRGLCanvas.o gnr/bin/GNRGLNotifyEvent.o gnr/bin/GNRImportFile.o gnr/bin/GNRMainFrame.o gnr/bin/GNRMaterial.o gnr/bin/GNRMaterialLibrary.o gnr/bin/GNRNotifyEvent.o gnr/bin/GNRObjectImport.o gnr/bin/GNRTCoord.o gnr/bin/GNRTreePanelLibrary.o gnr/bin/GNRTreePanelMyScene.o gnr/bin/GNRVertex.o gnr/bin/GNRVNT.o gnr/bin/md5.o gnr/bin/TestCanvas.o
 	@echo ... LINKING ...
 	$(LD) $(WX_LOPTS) $(GL_LIBS) $^ -o $@
 	
@@ -39,6 +39,9 @@ ci:
 	svn commit gnr
 st:
 	@echo $(shell svn status gnr | grep "^M")
+
+btf:
+	astyle --style=linux --indent=tab --mode=c -b -R -U -E gnr/src/*.cpp gnr/src/include/*.h
 
 clean: 
 	rm -f gnr/bin/*.o $(TARGET)

@@ -54,7 +54,7 @@ GNRAssembly *GNRObjectImport::read(const string& fname)
 	
 	//set actual root assembly
 	m_act = m_root;
-	m_matname = "red";
+	m_matname = "white";
 	
 	// 1st pass, gather v, vt and vn
 	ifstream ifs(fname.c_str());
@@ -127,7 +127,9 @@ GNRAssembly *GNRObjectImport::read(const string& fname)
 	
 	//save scale for normalized cube, maximum 1
 	m_root->setScale(scale);
-	
+
+    m_root->setNormals();
+
 	return m_root_real;
 }
 

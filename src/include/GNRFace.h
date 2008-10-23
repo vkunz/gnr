@@ -16,9 +16,11 @@
 #include "GNRVNT.h"
 
 #include <list>
+#include <vector>
 #include <string>
 
 using std::list;
+using std::vector;
 using std::string;
 
 
@@ -29,6 +31,8 @@ public:
 	GNRFace(const GNRFace& other);
 	
 	void addVNT(GNRVNT& vnt);
+	
+	void setNormal();
 	
 	void draw() const;
 	

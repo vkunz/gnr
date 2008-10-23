@@ -127,6 +127,21 @@ void GNRAssembly::setParent(GNRAssembly* p)
 	m_parent = p;
 }
 
+void GNRAssembly::setNormals()
+{
+    // set normals on own faces
+	for (list<GNRFace>::iterator it = m_face.begin(); it != m_face.end(); ++it)
+	{
+		it->setNormal();
+	}
+
+    // let children set their normals
+    for (list<GNRAssembly*>::iterator it = m_part.begin(); it != m_part.end(); ++it)
+    {
+        (*it)->setNormals();
+    }
+}
+
 void GNRAssembly::draw() const
 {
 	if (m_isroot)

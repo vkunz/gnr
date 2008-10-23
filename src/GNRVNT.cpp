@@ -26,6 +26,31 @@ GNRVNT::GNRVNT(const GNRVNT& other)
 	}
 }
 
+const GNRVertex* GNRVNT::getV() const
+{
+	return m_v;
+}
+
+const GNRVertex* GNRVNT::getN() const
+{
+	return m_n;
+}
+
+const GNRTCoord* GNRVNT::getT() const
+{
+	return m_t;
+}
+
+void GNRVNT::setN(GNRVertex* n)
+{
+	if (m_n)
+	{
+		delete m_n;
+	}
+
+	m_n = n;
+}
+
 GNRVNT::~GNRVNT()
 {
 	if (m_v)

@@ -64,6 +64,8 @@ public:
 	const GNRAssembly* getParent() const;
 	void setParent(GNRAssembly* p);
 	
+	void setNormals();
+	
 	void draw() const;
 	
 private:
