@@ -197,7 +197,7 @@ void GNRGLCamera::reset()
 	
 	rotatedX = rotatedY = rotatedZ = 0.0;
 	
-	m_distance = 1.5;
+	m_distance = 2.5;
 }
 
 /**
@@ -208,6 +208,7 @@ void GNRGLCamera::reset()
 GNRVertex GNRGLCamera::getPosition()
 {
 	GNRVertex position = viewPoint - viewDir*m_distance;
+	return position;
 }
 
 /**

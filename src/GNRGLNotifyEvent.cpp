@@ -63,18 +63,30 @@ int GNRGLNotifyEvent::getWinY()
 	return win_y;
 }
 
-void GNRGLNotifyEvent::setWorldSize(float x, float y)
+void GNRGLNotifyEvent::setWorldSize(GNRVertex* glcoords)
 {
-	world_x = x;
-	world_y = y;
+	world_min_x = glcoords[0].getX();
+	world_max_x = glcoords[1].getX();
+	world_min_y = glcoords[0].getY();
+	world_max_y = glcoords[1].getY();
 }
 
-float GNRGLNotifyEvent::getWorldX()
+float GNRGLNotifyEvent::getWorldXmax()
 {
-	return world_x;
+	return world_max_x;
 }
 
-float GNRGLNotifyEvent::getWorldY()
+float GNRGLNotifyEvent::getWorldYmax()
 {
-	return world_y;
+	return world_max_y;
+}
+
+float GNRGLNotifyEvent::getWorldXmin()
+{
+	return world_min_x;
+}
+
+float GNRGLNotifyEvent::getWorldYmin()
+{
+	return world_min_y;
 }

@@ -125,6 +125,9 @@ GNRAssembly *GNRObjectImport::read(const string& fname)
 	m_root->setY(-1.0*(m_ymax + m_ymin)/2.0);
 	m_root->setZ(-1.0*(m_zmax + m_zmin)/2.0);
 	
+	//store minimum over ground to real root
+	//m_root_real->setOverGround((m_ymax + m_ymin)/2.0*scale);
+	
 	//save scale for normalized cube, maximum 1
 	m_root->setScale(scale);
 	
@@ -243,7 +246,9 @@ void GNRObjectImport::getF()
 				char c;
 				tmp >> c;
 				if (c == '/' && i < 3)
+				{
 					i++;
+				}
 			}
 		}
 		v[0]--;

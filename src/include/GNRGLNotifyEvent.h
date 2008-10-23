@@ -2,6 +2,7 @@
 #define _GNRGLNOTIFYEVENT_H_
 
 #include "wx/event.h"
+#include "GNRVertex.h"
 
 class GNRGLNotifyEvent : public wxNotifyEvent
 {
@@ -10,7 +11,8 @@ private:
 	int selectedObj;
 	int canvasID;
 	int win_x, win_y;
-	float world_x, world_y;
+	float world_min_x, world_min_y;
+	float world_max_x, world_max_y;
 public:
 	GNRGLNotifyEvent(wxEventType commandType = wxEVT_NULL, int id = 0);
 	GNRGLNotifyEvent(const GNRGLNotifyEvent& event);
@@ -19,14 +21,16 @@ public:
 	void setSelectedObj(int obj);
 	void setMouseEvent(wxMouseEvent event);
 	void setWindowSize(int x, int y);
-	void setWorldSize(float x, float y);
+	void setWorldSize(GNRVertex* glcoords);
 	int getCanvasID();
 	int getSelectedObj();
 	wxMouseEvent getMouseEvent();
 	int getWinX();
 	int getWinY();
-	float getWorldX();
-	float getWorldY();
+	float getWorldXmin();
+	float getWorldYmin();
+	float getWorldXmax();
+	float getWorldYmax();
 	DECLARE_DYNAMIC_CLASS(GNRGLNotifyEvent);
 };
 

@@ -50,9 +50,9 @@ public:
 	
 	float getScale() const;
 	void setScale(float s);
+	void setOverGround(const float overground);
 	
 	void addFace(const GNRFace& newface);
-	
 	void addPart(GNRAssembly* p_part);
 	
 	void setName(const string& name);
@@ -60,6 +60,7 @@ public:
 	
 	bool getIsRoot() const;
 	void setIsRoot(bool isroot);
+	float getOverGround();
 	
 	const GNRAssembly* getParent() const;
 	void setParent(GNRAssembly* p);
@@ -70,6 +71,7 @@ public:
 	
 private:
 	float m_x, m_y, m_z;
+	float m_overground;
 	float m_phi, m_theta, m_rho;
 	float m_scale;
 	

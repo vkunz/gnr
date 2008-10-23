@@ -41,8 +41,8 @@ protected:
 	void connectEvents();
 	void reshape();
 	void initLights();
-	GNRVertex getGLPos(int x, int y);
-	GNRVertex* getGLDim(int x, int y);
+	void getGLPos(int x, int y, GNRVertex* glcoords);
+	void getGLDim(int x, int y, GNRVertex* glcoords);
 	
 	virtual void setCamera() = 0;
 	virtual void setPerspective() = 0;

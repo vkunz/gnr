@@ -93,7 +93,7 @@ int GNRGL2DCanvas::getCanvasID()
  */
 void GNRGL2DCanvas::OnMouseWheel(wxMouseEvent& event)
 {
-	m_camera_height += 3.6 / (float)event.GetWheelRotation();
+	m_camera_height += 8.0 / (float)event.GetWheelRotation();
 	
 	// Event for Redrawing the Canvases
 	GNRNotifyEvent myevent(wxEVT_COMMAND_GNR_NOTIFY);

@@ -18,6 +18,7 @@
 #include <wx/timer.h>
 
 #include "GNRAssembly.h"
+#include "GNRVertex.h"
 #include "GNRGLCamera.h"
 #include "GNRGLNotifyEvent.h"
 
@@ -33,7 +34,9 @@ private:
 	float phi_old, theta_old, rho_old;  //old copy of previous object params (x,y,z-rotation)
 	float old_x, old_y, old_z;          //old copy of previous object params (x,y,z-coords)
 	GNRAssembly* my_object;             //pointer to assembly object
-	GNRGLCamera* m_glcamera;                 //pointer to camera object
+	GNRGLCamera* m_glcamera;            //pointer to camera object
+	float gl_xmin, gl_xmax;
+	float gl_ymin, gl_ymax;
 	
 protected:
 
@@ -45,7 +48,7 @@ protected:
 	
 public:
 
-	GNRAssemblyTranslater();
+	GNRAssemblyTranslater(GNRGLCamera* camera);
 	virtual ~GNRAssemblyTranslater();
 	void setAssembly(GNRAssembly* assembly);
 	void setGLCamera(GNRGLCamera* camera);

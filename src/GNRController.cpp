@@ -32,10 +32,9 @@ GNRController::GNRController()
 {
 	//create root assembly, proxy and mainframe
 	m_RootAssembly      = new GNRAssembly("scene");
-	m_AssemblyTranslater= new GNRAssemblyTranslater();
 	m_GLCamera          = new GNRGLCamera();
+	m_AssemblyTranslater= new GNRAssemblyTranslater(m_GLCamera);
 	m_MainFrame         = new GNRMainFrame(0);
-	m_AssemblyTranslater->setGLCamera(m_GLCamera);
 	m_activeCanvas = 3;
 	
 #if defined(__ATHOS_DEBUG__)
@@ -220,7 +219,7 @@ void GNRController::processGLMouse(GNRGLNotifyEvent& event)
 				m_AssemblyTranslater->getControl(event);
 			}
 		}
-		else if (event.getMouseEvent().ButtonIsDown(2))
+		else if (event.getMouseEvent().ButtonIsDown(2) && event.getCanvasID() == 3)
 		{
 			m_AssemblyTranslater->setWindow(event);
 			m_AssemblyTranslater->getControl(event);

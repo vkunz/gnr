@@ -14,7 +14,7 @@
 #include <GL/gl.h>
 
 GNRAssembly::GNRAssembly(const string& name = "unnamed"):
-		m_x(0.0), m_y(0.0), m_z(0.0), m_phi(0.0), m_theta(0.0), m_rho(0.0),
+		m_x(0.0), m_y(0.0), m_z(0.0), m_overground(0.0), m_phi(0.0), m_theta(0.0), m_rho(0.0),
 		m_scale(1.0), m_locked(false), m_isWall(false), m_name(name), m_parent(NULL)
 {
 }
@@ -87,9 +87,19 @@ void GNRAssembly::setTheta(const float theta)
 	m_theta = theta;
 }
 
+void GNRAssembly::setOverGround(const float overground)
+{
+	m_overground = overground;
+}
+
 void GNRAssembly::setScale(float s)
 {
 	m_scale = s;
+}
+
+float GNRAssembly::getOverGround()
+{
+	return m_overground;
 }
 
 const string& GNRAssembly::getName() const

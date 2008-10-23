@@ -153,7 +153,6 @@ void GNRGLCanvas::initGL()
 	glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);
 	
 	glEnable(GL_NORMALIZE);
-	
 }
 
 /**
@@ -186,14 +185,21 @@ void GNRGLCanvas::prepareDraw()
 	
 	setCamera();
 	
-	/*
-	glBegin(GL_QUADS);
-	    glVertex3f(-40.0f, 0.0f, -40.0f);
-	    glVertex3f(-40.0f, 0.0f, -2.0f);
-	    glVertex3f(40.0f, 0.0f, -2.0f);
-	    glVertex3f(40.0f, 0.0f, -40.0f);
-	glEnd();*/
-	
+//TODO: draw floor in scene
+//
+//	glBegin(GL_QUADS);
+//	    glNormal3f(0.0,1.0,0.0);
+//	    glVertex3f(-20.0f, 0.0f, -20.0f);
+//
+//        glNormal3f(0.0,1.0,0.0);
+//	    glVertex3f(-20.0f, 0.0f, -2.0f);
+//
+//   	    glNormal3f(0.0,1.0,0.0);
+//	    glVertex3f(20.0f, 0.0f, -2.0f);
+//
+//        glNormal3f(0.0,1.0,0.0);
+//	    glVertex3f(20.0f, 0.0f, -20.0f);
+//	glEnd();
 }
 
 /**
@@ -291,8 +297,8 @@ int GNRGLCanvas::selection(GNRAssembly* rootAssembly, GNRGLCamera* camera, int m
  */
 void GNRGLCanvas::OnLMouseDown(wxMouseEvent& event)
 {
-
-	GNRVertex* glcoords = getGLDim(event.GetX(), event.GetY());
+	GNRVertex* glcoords = new GNRVertex[2];
+	getGLDim(event.GetX(), event.GetY(), glcoords);
 	
 	// send Event to handle Mouse
 	GNRGLNotifyEvent myevent(wxEVT_COMMAND_GL_NOTIFY);
@@ -300,10 +306,11 @@ void GNRGLCanvas::OnLMouseDown(wxMouseEvent& event)
 	myevent.setCanvasID(getCanvasID());
 	myevent.SetEventObject(this);
 	myevent.setWindowSize(m_window_x, m_window_y);
-	myevent.setWorldSize(glcoords[1].getX() - glcoords[0].getX(), glcoords[1].getY() - glcoords[0].getY());
+	myevent.setWorldSize(glcoords);
 	GetEventHandler()->ProcessEvent(myevent);
 	
 	Connect(wxEVT_MOTION, (wxObjectEventFunction)&GNRGLCanvas::OnMouseMove);
+	delete glcoords;
 }
 
 /**
@@ -498,7 +505,7 @@ void GNRGLCanvas::OnPaint(wxPaintEvent& event)
 }
 
 // Convert Mouse-Coordinates to GL-Coordinates
-GNRVertex GNRGLCanvas::getGLPos(int x, int y)
+void GNRGLCanvas::getGLPos(int x, int y, GNRVertex* glcoords)
 {
 	glPushMatrix();
 	GLdouble modelview[16], projection[16];
@@ -519,19 +526,19 @@ GNRVertex GNRGLCanvas::getGLPos(int x, int y)
 	glPopMatrix();
 	
 	// return world coordinates
-	GNRVertex glcoords(xpos, ypos, zpos);
-	return glcoords;
+	glcoords->setX(xpos);
+	glcoords->setY(ypos);
+	glcoords->setZ(zpos);
 }
 
 // Convert Mouse-Coordinates to GL-Coordinates
-GNRVertex* GNRGLCanvas::getGLDim(int x, int y)
+void GNRGLCanvas::getGLDim(int x, int y, GNRVertex* glcoords)
 {
 	glPushMatrix();
 	GLdouble modelview[16], projection[16];
 	GLint viewport[4];
 	float z;
 	double xpos, ypos, zpos;
-	GNRVertex* glcoords = new GNRVertex[2];
 	
 	glGetDoublev(GL_MODELVIEW_MATRIX, modelview);       //get the modelview matrix
 	glGetDoublev(GL_PROJECTION_MATRIX, projection);     //get the projection matrix
@@ -555,9 +562,6 @@ GNRVertex* GNRGLCanvas::getGLDim(int x, int y)
 	glcoords[1].setZ(zpos);
 	
 	glPopMatrix();
-	
-	// return world coordinates
-	return glcoords;
 }
 
 /**
