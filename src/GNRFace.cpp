@@ -53,7 +53,7 @@ void GNRFace::setNormal()
 		++it;
 		GNRVertex p1 = *vp1.getV(), p2 = *vp2.getV();
 		
-		GNRVertex face_normal = (p1 * p2);
+		GNRVertex face_normal = (p2 * p1);
 		face_normal.normalize();
 		
 		for (it = m_vnt.begin(); it != m_vnt.end(); ++it)

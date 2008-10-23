@@ -5,7 +5,7 @@
 # $^	^^ ohne Wiederholungne
 
 
-.PHONY: clean all co up ci st btf
+.PHONY: clean all co up ci st
 TARGET = gnr/GNR
 
 CC = g++
@@ -36,12 +36,10 @@ co:
 up:
 	svn update gnr
 ci:
+	astyle --style=linux --indent=tab --mode=c -b -R -U -E gnr/src/*.cpp gnr/src/include/*.h
 	svn commit gnr
 st:
 	@echo $(shell svn status gnr | grep "^M")
-
-btf:
-	astyle --style=linux --indent=tab --mode=c -b -R -U -E gnr/src/*.cpp gnr/src/include/*.h
 
 clean: 
 	rm -f gnr/bin/*.o $(TARGET)
