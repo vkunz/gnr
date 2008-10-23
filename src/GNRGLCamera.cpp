@@ -1,17 +1,46 @@
+/* vim: set expandtab sw=4 ts=4 sts=4: */
+/**
+ * the gl-camera class implements functions to move and rotate the
+ * camera in a whole scene. rotating is done in 3rd person
+ *
+ * @name        GNRGLCamera.cpp
+ * @date        2008-10-23
+ * @author		Konstantin Balabin  <k.balabin@googlemail.com>
+ * @author		Patrick Kracht      <patrick.kracht@googlemail.com>
+ * @author		Thorsten Moll       <thorsten.moll@googlemail.com>
+ * @author		Valentin Kunz       <athostr@googlemail.com>
+ */
+
 #include "GNRGLCamera.h"
 #include "math.h"
 
+/**
+ * constructor of GNRGLCamera
+ * @access      public
+ */
 GNRGLCamera::GNRGLCamera()
 {
 	reset();
 }
 
+/**
+ * Moves the camera (View-Point) along the direction-vector
+ * @param       GNRAssembly*    RootAssembly
+ * @param       int             Mouse-X-Coordinate
+ * @param       int             Mouse-Y-Coordinate
+ * @return      int             GL-Object-ID
+ * @access      public
+ */
 void GNRGLCamera::move(GNRVertex direction)
 {
 	viewPoint = viewPoint + direction;
 }
 
-
+/**
+ * Rotates the camera arround the x-axis
+ * @param       GLfloat     angle to rotate the camera
+ * @access      public
+ */
 void GNRGLCamera::rotateX(GLfloat angle)
 {
 	rotatedX += angle;
@@ -24,6 +53,11 @@ void GNRGLCamera::rotateX(GLfloat angle)
 	upVector = (viewDir * rightVector) *-1;
 }
 
+/**
+ * Rotates the camera arround the y-axis
+ * @param       GLfloat     angle to rotate the camera
+ * @access      public
+ */
 void GNRGLCamera::rotateY(GLfloat angle)
 {
 	rotatedY += angle;
@@ -36,6 +70,11 @@ void GNRGLCamera::rotateY(GLfloat angle)
 	rightVector = viewDir * upVector;
 }
 
+/**
+ * Rotates the camera arround the z-axis
+ * @param       GLfloat     angle to rotate the camera
+ * @access      public
+ */
 void GNRGLCamera::rotateZ(GLfloat angle)
 {
 	rotatedZ += angle;
@@ -48,6 +87,10 @@ void GNRGLCamera::rotateZ(GLfloat angle)
 	upVector = (viewDir * rightVector)*-1;
 }
 
+/**
+ * translates the vectors to opengl-commands which set the camera
+ * @access      public
+ */
 void GNRGLCamera::render()
 {
 
@@ -61,27 +104,56 @@ void GNRGLCamera::render()
 	          
 }
 
+/**
+ * moves the camera into the scene
+ * @param       GLfloat     distance, the camera should move forward
+ * @access      public
+ */
 void GNRGLCamera::moveForward(GLfloat distance)
 {
 	viewPoint = viewPoint + (viewDir*-distance);
 }
 
+/**
+ * moces the camera in horizontal way
+ * @param       GLfloat     distance, the camera should move right
+ * @access      public
+ */
 void GNRGLCamera::strafeRight(GLfloat distance)
 {
 	viewPoint = viewPoint + (rightVector*distance);
 }
 
+/**
+ * moces the camera in vertical way
+ * @param       GLfloat     distance, the camera should move upwards
+ * @access      public
+ */
 void GNRGLCamera::moveUpward(GLfloat distance)
 {
 	viewPoint = viewPoint + (upVector*distance);
 }
 
+/**
+ * sets the absolute position of the camera
+ * @param       GLfloat     x position in world coordinates
+ * @param       GLfloat     y position in world coordinates
+ * @param       GLfloat     z position in world coordinates
+ * @access      public
+ */
 void GNRGLCamera::setPosition(float x, float y, float z)
 {
 	GNRVertex temp(x, y, z);
 	viewPoint = (temp + viewDir*m_distance);
 }
 
+/**
+ * sets the orientation of the camera
+ * @param       float     angle, the camera is rotated arround x-axis
+ * @param       float     angle, the camera is rotated arround x-axis
+ * @param       float     angle, the camera is rotated arround x-axis
+ * @access      public
+ */
 void GNRGLCamera::setAngles(float phi, float theta, float rho)
 {
 	viewDir.setX(0);
@@ -101,11 +173,20 @@ void GNRGLCamera::setAngles(float phi, float theta, float rho)
 	rotatedZ = rho;
 }
 
+/**
+ * changes the distance between camera and view-point
+ * @param       float     amount, the distance should raise
+ * @access      public
+ */
 void GNRGLCamera::changeDistance(float distance)
 {
 	m_distance += distance;
 }
 
+/**
+ * resets the camera to initial-position
+ * @access      public
+ */
 void GNRGLCamera::reset()
 {
 	//Init with standard OGL values:
@@ -118,3 +199,19 @@ void GNRGLCamera::reset()
 	
 	m_distance = 1.5;
 }
+
+/**
+ * returns the position of the camera
+ * @return
+ * @access      public
+ */
+GNRVertex GNRGLCamera::getPosition()
+{
+	GNRVertex position = viewPoint - viewDir*m_distance;
+}
+
+/**
+ * destructor of GNRGLCamera
+ * @access      public
+ */
+GNRGLCamera::~GNRGLCamera() {}
