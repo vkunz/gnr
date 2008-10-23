@@ -153,6 +153,7 @@ void GNRGLCanvas::initGL()
 	glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);
 	
 	glEnable(GL_NORMALIZE);
+	
 }
 
 /**
