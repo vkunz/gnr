@@ -29,22 +29,16 @@ public:
 	
 	// return value
 	const float getX() const;
-	
 	const float getY() const;
-	
 	const float getZ() const;
 	
 	// setter
 	void setX(const float x);
-	
 	void setY(const float y);
-	
 	void setZ(const float z);
 	
 	float deltaX(GNRVertex* point);
-	
 	float deltaY(GNRVertex* point);
-	
 	float deltaZ(GNRVertex* point);
 	
 	GNRVertex  operator  + (const GNRVertex& p2) const;
@@ -59,6 +53,7 @@ public:
 	
 	float length();
 	bool normalize();
+	void rotate(float phi, float theta, float rho);
 	
 	// return attributes
 	wxString ToString();
@@ -68,10 +63,8 @@ protected:
 private:
 	// stores the x-value relative to zero
 	float m_x;
-	
 	// stores the y-value relative to zero
 	float m_y;
-	
 	// stores the z-value relative to zer
 	float m_z;
 };

@@ -230,7 +230,8 @@ void GNRMaterialLibrary::parseData()
 	if (m_buf.size() < 2)
 		return;
 		
-	float r = 0, g = 0, b = 0, a = 0, s = 0;
+	float r = 0, g = 0, b = 0, a = 0;
+	int s = 0;
 	stringstream ss(m_buf.substr(2, string::npos));
 	
 	switch (m_buf[0])

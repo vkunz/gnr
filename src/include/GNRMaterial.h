@@ -57,17 +57,17 @@ public:
 	void setSpecular(const GNRColor& c);
 	
 	const float& getAlpha() const;
-	const float& getShininess() const;
+	const int& getShininess() const;
 	
 	void setAlpha(float a);
-	void setShininess(float s);
+	void setShininess(int s);
 	
 	void draw() const;
 	
 private:
 	GNRColor m_ambient, m_diffuse, m_specular;
 	float m_alpha;
-	float m_shininess;
+	int m_shininess;
 };
 
 #endif // _GNRMATERIAL_H_

@@ -37,7 +37,7 @@ GNRController::GNRController()
 	m_MainFrame         = new GNRMainFrame(0);
 	m_AssemblyTranslater->setGLCamera(m_GLCamera);
 	m_activeCanvas = 3;
-
+	
 #if defined(__ATHOS_DEBUG__)
 	// Create DebugFrame
 	m_DebugFrame = new GNRDebugFrame(0);
@@ -99,7 +99,7 @@ void GNRController::initFrames()
 	m_Canvas2D = new GNRGL2DCanvas(m_HorizontalSplitter_right, -1);
 	commonCtxt = m_Canvas2D->GetContext();
 	m_Canvas3D = new GNRGL3DCanvas(m_HorizontalSplitter_right, commonCtxt, -1);
-
+	
 	//initialize left and right splitter
 	m_VerticalSplitter->Initialize(m_HorizontalSplitter_left);
 	m_VerticalSplitter->Initialize(m_HorizontalSplitter_right);
@@ -173,7 +173,7 @@ void GNRController::glRefresh3D()
 {
 	//prepare and draw 3D view of room
 	m_Canvas3D->prepareDraw();
-	m_GLCamera->Render();
+	m_GLCamera->render();
 	m_RootAssembly->draw();
 	m_Canvas3D->endDraw();
 }

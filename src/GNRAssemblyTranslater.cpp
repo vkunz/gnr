@@ -203,8 +203,8 @@ void GNRAssemblyTranslater::ObjectRotateXY(GNRGLNotifyEvent& event)
 	else if (event.getMouseEvent().ButtonIsDown(2))
 	{
 		// rotate the whole scene (by using the camera-class)
-		m_glcamera->RotateX((float)(m_mouse_y - event.getMouseEvent().GetY())/-5.0f);
-		m_glcamera->RotateY((float)(m_mouse_x - event.getMouseEvent().GetX())/-5.0f);
+		//m_glcamera->rotateX((float)(m_mouse_y - event.getMouseEvent().GetY())/-5.0f);
+		//m_glcamera->rotateY((float)(m_mouse_x - event.getMouseEvent().GetX())/-5.0f);
 	}
 }
 
@@ -224,8 +224,8 @@ void GNRAssemblyTranslater::ObjectRotateXZ(GNRGLNotifyEvent& event)
 	else if (event.getMouseEvent().ButtonIsDown(2))
 	{
 		// rotate the whole scene (by using the camera-class)
-		m_glcamera->RotateX((float)(m_mouse_y - event.getMouseEvent().GetY())/-5.0f);
-		m_glcamera->RotateY((float)(m_mouse_x - event.getMouseEvent().GetX())/-5.0f);
+		//m_glcamera->RotateX((float)(m_mouse_y - event.getMouseEvent().GetY())/-5.0f);
+		m_glcamera->rotateY((float)(m_mouse_x - event.getMouseEvent().GetX())/-5.0f);
 	}
 }
 
@@ -255,8 +255,8 @@ void GNRAssemblyTranslater::ObjectMoveXY(GNRGLNotifyEvent& event)
 	else if (event.getMouseEvent().ButtonIsDown(2))
 	{
 		// Moving the whole scene (by using the camera-class)
-		m_glcamera->MoveUpward((float)(m_mouse_y - event.getMouseEvent().GetY())/-20.0f);
-		m_glcamera->StrafeRight((float)(m_mouse_x - event.getMouseEvent().GetX())/20.0f);
+		m_glcamera->moveUpward((float)(m_mouse_y - event.getMouseEvent().GetY())/-20.0f);
+		m_glcamera->strafeRight((float)(m_mouse_x - event.getMouseEvent().GetX())/20.0f);
 	}
 }
 
@@ -286,8 +286,8 @@ void GNRAssemblyTranslater::ObjectMoveXZ(GNRGLNotifyEvent& event)
 	else if (event.getMouseEvent().ButtonIsDown(2))
 	{
 		// Moving the whole scene (by using the camera-class)
-		m_glcamera->MoveForward((float)(m_mouse_y - event.getMouseEvent().GetY())/15.0f);
-		m_glcamera->StrafeRight((float)(m_mouse_x - event.getMouseEvent().GetX())/20.0f);
+		m_glcamera->moveForward((float)(m_mouse_y - event.getMouseEvent().GetY())/15.0f);
+		m_glcamera->strafeRight((float)(m_mouse_x - event.getMouseEvent().GetX())/20.0f);
 	}
 }
 

@@ -183,6 +183,28 @@ bool GNRVertex::normalize()
 	return true;
 }
 
+/**
+ * Rotates the current vector using phi, theta, rho
+ * @access      private
+ */
+void GNRVertex::rotate(float phi, float theta, float rho)
+{
+	double phi_rad   = phi * M_PI / 180.0;
+	double theta_rad = theta * M_PI / 180.0;
+	double rho_rad   = rho * M_PI / 180.0;
+	
+	double sp = sin(phi_rad);
+	double st = sin(theta_rad);
+	double sr = sin(rho_rad);
+	double cp = cos(phi_rad);
+	double ct = cos(theta_rad);
+	double cr = cos(rho_rad);
+	
+	m_x = m_x*ct*cr + m_y*ct*sp - m_z*st;
+	m_y = m_x*sp*st*cr - m_x*cp*sr + m_y*sp*st*sr + m_y*cp*cr + m_z*sp*ct;
+	m_z = m_x*cp*st*cr + m_x*sp*sr + m_y*cp*st*sr - m_y*sp*cr + m_z*cp*ct;
+}
+
 wxString GNRVertex::ToString()
 {
 	wxString tmp;

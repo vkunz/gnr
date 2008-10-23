@@ -138,7 +138,7 @@ void GNRGLCanvas::initGL()
 	glDepthFunc(GL_LEQUAL);
 	glClearDepth(1.0f);
 //	glEnable(GL_COLOR_MATERIAL);
-	
+
 	glPolygonMode(GL_FRONT, GL_FILL);
 	glPolygonMode(GL_BACK, GL_LINE);
 	
@@ -177,7 +177,7 @@ void GNRGLCanvas::prepareDraw()
 	
 	setCamera();
 	
-	/*glColor3f(1.0f, 0.0f, 0.0f);
+	/*
 	glBegin(GL_QUADS);
 	    glVertex3f(-40.0f, 0.0f, -40.0f);
 	    glVertex3f(-40.0f, 0.0f, -2.0f);
@@ -238,7 +238,7 @@ int GNRGLCanvas::selection(GNRAssembly* rootAssembly, GNRGLCamera* camera, int m
 		setCamera();
 		if (camera != NULL)
 		{
-			camera->Render();
+			camera->render();
 		}
 		rootAssembly->draw();
 		

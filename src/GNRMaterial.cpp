@@ -60,7 +60,7 @@ void GNRColor::setB(float b)
 
 GNRMaterial::GNRMaterial():
 		m_ambient(0.2, 0.2, 0.2), m_diffuse(0.8, 0.8, 0.8), m_specular(0.0, 0.0, 0.0),
-		m_alpha(1.0), m_shininess(0.0)
+		m_alpha(1.0), m_shininess(0)
 {
 }
 
@@ -84,7 +84,7 @@ const float& GNRMaterial::getAlpha() const
 	return m_alpha;
 }
 
-const float& GNRMaterial::getShininess() const
+const int& GNRMaterial::getShininess() const
 {
 	return m_shininess;
 }
@@ -109,7 +109,7 @@ void GNRMaterial::setAlpha(float a)
 	m_alpha = a;
 }
 
-void GNRMaterial::setShininess(float s)
+void GNRMaterial::setShininess(int s)
 {
 	m_shininess = s;
 }
@@ -127,7 +127,7 @@ void GNRMaterial::draw() const
 	mat[1] = m_ambient.getG();
 	mat[2] = m_ambient.getB();
 	glMaterialfv(GL_FRONT, GL_AMBIENT, mat);
-
+	
 	mat[0] = m_diffuse.getR();
 	mat[1] = m_diffuse.getG();
 	mat[2] = m_diffuse.getB();
@@ -137,7 +137,6 @@ void GNRMaterial::draw() const
 	mat[1] = m_specular.getG();
 	mat[2] = m_specular.getB();
 	glMaterialfv(GL_FRONT, GL_SPECULAR, mat);
-
+	
 	glMateriali(GL_FRONT, GL_SHININESS, m_shininess);
 }
-
