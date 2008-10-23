@@ -12,9 +12,12 @@
 #include "GNRController.h"
 #include "GNRAssembly.h"
 #include "GNRMaterial.h"
-#include "GNRMaterialLibrary.h"
 #include "GNRObjectImport.h"
 #include "wx/wx.h"
+
+// quick && dirty
+#include "GNRMaterialLibrary.h"
+GNRMaterialLibrary mtllib;
 
 #if defined(__ATHOS_DEBUG__)
 #include <wx/log.h>
@@ -24,7 +27,6 @@
  * constructor
  * @access      public
  */
-GNRMaterialLibrary mtllib;
 
 GNRController::GNRController()
 {
@@ -35,7 +37,7 @@ GNRController::GNRController()
 	m_MainFrame         = new GNRMainFrame(0);
 	m_AssemblyTranslater->setGLCamera(m_GLCamera);
 	m_activeCanvas = 3;
-	
+
 #if defined(__ATHOS_DEBUG__)
 	// Create DebugFrame
 	m_DebugFrame = new GNRDebugFrame(0);
@@ -97,7 +99,7 @@ void GNRController::initFrames()
 	m_Canvas2D = new GNRGL2DCanvas(m_HorizontalSplitter_right, -1);
 	commonCtxt = m_Canvas2D->GetContext();
 	m_Canvas3D = new GNRGL3DCanvas(m_HorizontalSplitter_right, commonCtxt, -1);
-	
+
 	//initialize left and right splitter
 	m_VerticalSplitter->Initialize(m_HorizontalSplitter_left);
 	m_VerticalSplitter->Initialize(m_HorizontalSplitter_right);

@@ -137,7 +137,7 @@ void GNRGLCanvas::initGL()
 	glShadeModel(GL_SMOOTH);
 	glDepthFunc(GL_LEQUAL);
 	glClearDepth(1.0f);
-	glEnable(GL_COLOR_MATERIAL);
+//	glEnable(GL_COLOR_MATERIAL);
 	
 	glPolygonMode(GL_FRONT, GL_FILL);
 	glPolygonMode(GL_BACK, GL_LINE);
