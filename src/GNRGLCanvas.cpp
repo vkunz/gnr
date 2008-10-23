@@ -133,12 +133,20 @@ void GNRGLCanvas::initGL()
 	setMatrix();
 	initLights();
 	
-	glEnable(GL_DEPTH_TEST);
 	glShadeModel(GL_SMOOTH);
 	glDepthFunc(GL_LEQUAL);
+	
+	glEnable(GL_BLEND);
+	glEnable(GL_DEPTH_TEST);
+	glEnable(GL_LINE_SMOOTH);
+	glEnable(GL_POLYGON_SMOOTH);
+	
+	glHint(GL_LINE_SMOOTH_HINT, GL_DONT_CARE);
+	glHint(GL_POLYGON_SMOOTH_HINT, GL_DONT_CARE);
+	
+	glLineWidth(1.5);
 	glClearDepth(1.0f);
-//	glEnable(GL_COLOR_MATERIAL);
-
+	
 	glPolygonMode(GL_FRONT, GL_FILL);
 	glPolygonMode(GL_BACK, GL_LINE);
 	
