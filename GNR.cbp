@@ -119,7 +119,6 @@
 		<Unit filename="src\GNRTreePanelMyScene.cpp" />
 		<Unit filename="src\GNRVNT.cpp" />
 		<Unit filename="src\GNRVertex.cpp" />
-		<Unit filename="src\TestCanvas.cpp" />
 		<Unit filename="src\include\GNRApp.h" />
 		<Unit filename="src\include\GNRAssembly.h" />
 		<Unit filename="src\include\GNRAssemblyMediator.h" />
@@ -149,7 +148,6 @@
 		<Unit filename="src\include\GNRTreePanelMyScene.h" />
 		<Unit filename="src\include\GNRVNT.h" />
 		<Unit filename="src\include\GNRVertex.h" />
-		<Unit filename="src\include\TestCanvas.h" />
 		<Unit filename="src\include\md5.h" />
 		<Unit filename="src\md5.cpp" />
 		<Unit filename="src\resources\button-canvas2d-zoom-fit.xpm" />

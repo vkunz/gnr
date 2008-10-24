@@ -42,10 +42,12 @@ void GNRAssemblyMediator::translate(GNRGLNotifyEvent& event)
 	switch (m_CanvasID)
 	{
 	case CANVAS2D:
-		wxLogDebug(wxT("GNRAssemblyMediator 2D"));
+		//calculate coords for the 2D canvas
+		
 		break;
 	case CANVAS3D:
-		wxLogDebug(wxT("GNRAssemblyMediator 3D"));
+		//calculate coords for the 2D canvas
+		
 		break;
 	default:
 		break;
