@@ -305,6 +305,7 @@ void GNRGLCanvas::OnLMouseDown(wxMouseEvent& event)
 	myevent.setMouseEvent(event);
 	myevent.setCanvasID(getCanvasID());
 	myevent.SetEventObject(this);
+	myevent.SetInt((int)this);
 	myevent.setWindowSize(m_window_x, m_window_y);
 	myevent.setWorldSize(glcoords);
 	GetEventHandler()->ProcessEvent(myevent);

@@ -15,52 +15,67 @@
 #include <wx/log.h>
 #endif
 
-/**
- * constructor of assembly mediator
- * @access      public
- */
-GNRAssemblyMediator::GNRAssemblyMediator()
-{
-	m_CanvasID = NONE;
-	m_Assembly = NULL;
-}
-
-/**
- * destructor of assembly mediator
- * @access      public
- */
-GNRAssemblyMediator::~GNRAssemblyMediator()
-{
-}
-
-/**
- * translates mouse event information to the assembly
- * @access      public
- */
-void GNRAssemblyMediator::translate(GNRGLNotifyEvent& event)
-{
-	switch (m_CanvasID)
-	{
-	case CANVAS2D:
-		//calculate coords for the 2D canvas
-		
-		break;
-	case CANVAS3D:
-		//calculate coords for the 2D canvas
-		
-		break;
-	default:
-		break;
-	}
-}
-
-void GNRAssemblyMediator::setMode(canvasType canvas_id)
-{
-	m_CanvasID = canvas_id;
-}
-
 void GNRAssemblyMediator::setAssemblyID(int assemblyID)
 {
 	m_Assembly = (GNRAssembly*)assemblyID;
 }
 
+void GNRAssemblyMediator::initialize(GNRGLNotifyEvent& event)
+{
+	if (m_Assembly != NULL)
+	{
+		old_x = m_Assembly->getX();
+		old_y = m_Assembly->getY();
+		old_z = m_Assembly->getZ();
+		
+		phi_old   = m_Assembly->getPhi();
+		theta_old = m_Assembly->getTheta();
+		rho_old   = m_Assembly->getRho();
+		
+		window_w = event.getWinX();
+		window_h = event.getWinY();
+		
+		gl_xmax = event.getWorldXmax();
+		gl_ymax = event.getWorldYmax();
+		gl_xmin = event.getWorldXmin();
+		gl_ymin = event.getWorldYmin();
+		
+		m_mouse_x = event.getMouseEvent().m_x;
+		m_mouse_y = event.getMouseEvent().m_y;
+	}
+}
+
+int GNRAssemblyMediator::translate(GNRGLNotifyEvent& event)
+{
+	//if no active assembly, return
+	if (m_Assembly == NULL)
+	{
+		return -1;
+	}
+	
+	//store mouse position
+	int m_x,m_y;
+	m_x = event.getMouseEvent().m_x;
+	m_y = event.getMouseEvent().m_y;
+	
+	switch (m_Translation)
+	{
+	case MOVEXZ:
+		MoveXZ(m_x,m_y);
+		break;
+	case MOVEXY:
+		MoveXY(m_x,m_y);
+		break;
+	case ROTATEXY:
+		RotateXY(m_x,m_y);
+		break;
+	case ROTATEXZ:
+		RotateXZ(m_x,m_y);
+		break;
+	default:
+		MoveXZ(m_x,m_y);
+		break;
+	}
+	
+	return 0;
+}

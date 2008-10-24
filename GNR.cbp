@@ -96,6 +96,8 @@
 		<Unit filename="src\GNRApp.cpp" />
 		<Unit filename="src\GNRAssembly.cpp" />
 		<Unit filename="src\GNRAssemblyMediator.cpp" />
+		<Unit filename="src\GNRAssemblyMediator2D.cpp" />
+		<Unit filename="src\GNRAssemblyMediator3D.cpp" />
 		<Unit filename="src\GNRAssemblyTranslater.cpp" />
 		<Unit filename="src\GNRController.cpp" />
 		<Unit filename="src\GNRDebugFrame.cpp" />
@@ -111,6 +113,7 @@
 		<Unit filename="src\GNRMaterial.cpp" />
 		<Unit filename="src\GNRMaterialLibrary.cpp" />
 		<Unit filename="src\GNRMouseController.cpp" />
+		<Unit filename="src\GNRMouseMediator.cpp" />
 		<Unit filename="src\GNRNotifyEvent.cpp" />
 		<Unit filename="src\GNRObjectImport.cpp" />
 		<Unit filename="src\GNRScene.cpp" />
@@ -119,9 +122,12 @@
 		<Unit filename="src\GNRTreePanelMyScene.cpp" />
 		<Unit filename="src\GNRVNT.cpp" />
 		<Unit filename="src\GNRVertex.cpp" />
+		<Unit filename="src\TestCanvas.cpp" />
 		<Unit filename="src\include\GNRApp.h" />
 		<Unit filename="src\include\GNRAssembly.h" />
 		<Unit filename="src\include\GNRAssemblyMediator.h" />
+		<Unit filename="src\include\GNRAssemblyMediator2D.h" />
+		<Unit filename="src\include\GNRAssemblyMediator3D.h" />
 		<Unit filename="src\include\GNRAssemblyTranslater.h" />
 		<Unit filename="src\include\GNRController.h" />
 		<Unit filename="src\include\GNRDebugFrame.h" />
@@ -140,6 +146,7 @@
 		<Unit filename="src\include\GNRMaterialLibrary.h" />
 		<Unit filename="src\include\GNRMediator.h" />
 		<Unit filename="src\include\GNRMouseController.h" />
+		<Unit filename="src\include\GNRMouseMediator.h" />
 		<Unit filename="src\include\GNRNotifyEvent.h" />
 		<Unit filename="src\include\GNRObjectImport.h" />
 		<Unit filename="src\include\GNRScene.h" />
@@ -148,6 +155,7 @@
 		<Unit filename="src\include\GNRTreePanelMyScene.h" />
 		<Unit filename="src\include\GNRVNT.h" />
 		<Unit filename="src\include\GNRVertex.h" />
+		<Unit filename="src\include\TestCanvas.h" />
 		<Unit filename="src\include\md5.h" />
 		<Unit filename="src\md5.cpp" />
 		<Unit filename="src\resources\button-canvas2d-zoom-fit.xpm" />

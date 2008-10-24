@@ -2,7 +2,8 @@
 #define GNRMOUSECONTROLLER_H
 
 #include "GNRAssembly.h"
-#include "GNRAssemblyMediator.h"
+#include "GNRAssemblyMediator2D.h"
+#include "GNRAssemblyMediator3D.h"
 #include "GNRGLCamera.h"
 #include "GNRGLCameraMediator.h"
 #include "GNRGLNotifyEvent.h"
@@ -23,7 +24,8 @@ private:
 	
 	//mediators for specific objects
 	GNRMediator* m_Mediator;
-	GNRAssemblyMediator* m_AssemblyMediator;
+	GNRAssemblyMediator2D* m_AssemblyMediator2D;
+	GNRAssemblyMediator3D* m_AssemblyMediator3D;
 	GNRGLCameraMediator* m_GLCameraMediator;
 	
 protected:
@@ -32,6 +34,7 @@ public:
 	GNRMouseController(GNRScene* scene);
 	virtual ~GNRMouseController();
 	
+	void setTranslation(GNRNotifyEvent& event);
 	void setMediator(GNRGLNotifyEvent& event);
 	void activateMediator(GNRGLNotifyEvent& event);
 };

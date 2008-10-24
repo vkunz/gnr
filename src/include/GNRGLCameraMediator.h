@@ -9,11 +9,12 @@ class GNRGLCameraMediator: public GNRMediator
 public:
 
 	GNRGLCameraMediator();
-	void setMode(canvasType canvas_id);
+	virtual ~GNRGLCameraMediator();
+	
 	void setAssemblyID(int assemblyID) {};      //not needed in camera mediator
 	void setGLCamera(GNRGLCamera* camera);      //set pointer to access camera
-	void translate(GNRGLNotifyEvent& event);    //perform translation to camera
-	virtual ~GNRGLCameraMediator();
+	void initialize(GNRGLNotifyEvent& event) {};
+	int  translate(GNRGLNotifyEvent& event);    //perform translation to camera
 	
 protected:
 

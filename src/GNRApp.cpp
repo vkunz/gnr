@@ -154,7 +154,7 @@ void GNRApp::OnGNREvent(GNRNotifyEvent& event)
 		m_Scene->glRefresh();
 		break;
 	case TOOLBARCHANGE:
-//		controller->toggleToolbar(event);
+		m_MouseCtrl->setTranslation(event);
 		break;
 	}
 }

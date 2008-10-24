@@ -15,7 +15,7 @@ GNRGLCameraMediator::~GNRGLCameraMediator()
 	//dtor
 }
 
-void GNRGLCameraMediator::translate(GNRGLNotifyEvent& event)
+int GNRGLCameraMediator::translate(GNRGLNotifyEvent& event)
 {
 	switch (m_CanvasID)
 	{
@@ -28,11 +28,8 @@ void GNRGLCameraMediator::translate(GNRGLNotifyEvent& event)
 	default:
 		break;
 	}
-}
-
-void GNRGLCameraMediator::setMode(canvasType canvas_id)
-{
-	m_CanvasID = canvas_id;
+	
+	return 0;
 }
 
 void GNRGLCameraMediator::setGLCamera(GNRGLCamera* camera)
