@@ -36,6 +36,11 @@ GNRFace::GNRFace(const GNRFace& other):
 	}
 }
 
+int GNRFace::size() const
+{
+	return m_vnt.size();
+}
+
 void GNRFace::addVNT(GNRVNT& vnt)
 {
 	m_vnt.push_back(vnt);
@@ -44,14 +49,15 @@ void GNRFace::addVNT(GNRVNT& vnt)
 void GNRFace::setNormal()
 {
 	list<GNRVNT>::iterator it = m_vnt.begin();
-	GNRVNT vp1 = *it;
+	GNRVNT vp1(*it);
 	++it;
 	
 	if (vp1.getN() == NULL)
 	{
-		GNRVNT vp2 = *it;
+		GNRVNT vp2(*it);
 		++it;
-		GNRVNT vp3 = *it;
+		
+		GNRVNT vp3(*it);
 		
 		GNRVertex p1 = *vp1.getV(), p2 = *vp2.getV(), p3 = *vp3.getV();
 		

@@ -30,6 +30,8 @@ public:
 	GNRFace(const string& matname);
 	GNRFace(const GNRFace& other);
 	
+	int size() const;
+	
 	void addVNT(GNRVNT& vnt);
 	
 	void setNormal();

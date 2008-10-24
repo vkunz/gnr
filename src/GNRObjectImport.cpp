@@ -272,7 +272,8 @@ void GNRObjectImport::getF()
 		GNRVNT vnt(pv, pn ,pt);
 		face.addVNT(vnt);
 	}
-	m_act->addFace(face);
+	if (face.size() >= 3)
+		m_act->addFace(face);
 }
 
 void GNRObjectImport::getU()
