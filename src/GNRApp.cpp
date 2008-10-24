@@ -45,6 +45,9 @@ bool GNRApp::OnInit()
 		m_TreeCtrlLib   = new wxTreeCtrl();
 		m_TreeCtrlScene = new wxTreeCtrl();
 		
+		m_Scene->setCanvas2D(m_Canvas2D);
+		m_Scene->setCanvas3D(m_Canvas3D);
+		
 #if defined(__ATHOS_DEBUG__)
 		// Create DebugFrame
 		m_DebugFrame = new GNRDebugFrame(0);
@@ -135,19 +138,20 @@ void GNRApp::OnGNREvent(GNRNotifyEvent& event)
 //		controller->glRefresh();
 		break;
 	case GLREFRESH:
-		glRefresh();
+		updateSplitters();
+		m_Scene->glRefresh();
 		break;
 	case OBJIMPORT:
 		OBJImport(event.GetString());
-		glRefresh();
+		m_Scene->glRefresh();
 		break;
 	case NEWROOM:
 		m_Scene->newRoom();
-		glRefresh();
+		m_Scene->glRefresh();
 		break;
 	case RESETCAMERA:
-//		controller->resetCamera();
-//		controller->glRefresh();
+		m_Scene->resetCamera();
+		m_Scene->glRefresh();
 		break;
 	case TOOLBARCHANGE:
 //		controller->toggleToolbar(event);
@@ -172,46 +176,11 @@ void GNRApp::OnGLEvent(GNRGLNotifyEvent& event)
 		m_MouseCtrl->activateMediator(event);
 	}
 	
-	glRefresh();
+	m_Scene->glRefresh();
 }
 
-/**
- * refresh glcanvas frames (3d/2d)
- * @access      public
- */
-void GNRApp::glRefresh()
-{
-	//update splitter dimensions
-	updateSplitters();
-	glRefresh2D();
-	glRefresh3D();
-	glRefresh2D();
-}
 
-/**
- * refresh 2D canvas
- * @access      public
- */
-void GNRApp::glRefresh2D()
-{
-	//prepare and draw 2D top view of room
-	m_Canvas2D->prepareDraw();
-	m_Scene->getRootAssembly()->draw();
-	m_Canvas2D->endDraw();
-}
 
-/**
- * refresh 3D canvas
- * @access      public
- */
-void GNRApp::glRefresh3D()
-{
-	//prepare and draw 3D view of room
-	m_Canvas3D->prepareDraw();
-	m_Scene->getGLCamera()->render();
-	m_Scene->getRootAssembly()->draw();
-	m_Canvas3D->endDraw();
-}
 
 /**
  * handle obj import
