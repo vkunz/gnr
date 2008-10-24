@@ -54,26 +54,27 @@ void GNRAssemblyTranslater::setWindow(GNRGLNotifyEvent& event)
  * @param       int         direction xz(0), xy(1) or rotation(2)
  * @access      public
  */
-void GNRAssemblyTranslater::setDirection(int dir)
+void GNRAssemblyTranslater::setDirection(transType dir)
 {
-	switch (dir)
-	{
-	case MOVEXZ:
-		status = MOVEXZ;
-		break;
-	case MOVEXY:
-		status = MOVEXY;
-		break;
-	case ROTATEXY:
-		status = ROTATEXY;
-		break;
-	case ROTATEXZ:
-		status = ROTATEXZ;
-		break;
-	default:
-		status = MOVEXZ;
-		break;
-	}
+	status = dir;
+//	switch (dir)
+//	{
+//	case MOVEXZ:
+//		status = MOVEXZ;
+//		break;
+//	case MOVEXY:
+//		status = MOVEXY;
+//		break;
+//	case ROTATEXY:
+//		status = ROTATEXY;
+//		break;
+//	case ROTATEXZ:
+//		status = ROTATEXZ;
+//		break;
+//	default:
+//		status = MOVEXZ;
+//		break;
+//	}
 }
 
 /**

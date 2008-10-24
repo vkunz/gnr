@@ -35,7 +35,7 @@ GNRController::GNRController()
 	m_GLCamera          = new GNRGLCamera();
 	m_AssemblyTranslater= new GNRAssemblyTranslater(m_GLCamera);
 	m_MainFrame         = new GNRMainFrame(0);
-	m_activeCanvas = 3;
+	m_activeCanvas      = NONE;
 	
 #if defined(__ATHOS_DEBUG__)
 	// Create DebugFrame
@@ -293,7 +293,7 @@ void GNRController::resetCamera()
  */
 void GNRController::toggleToolbar(wxNotifyEvent& event)
 {
-	switch (event.GetInt())
+	switch ((transType)event.GetInt())
 	{
 	case MOVEXZ:
 		m_AssemblyTranslater->setDirection(MOVEXZ);

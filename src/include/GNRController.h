@@ -25,6 +25,7 @@
 #include "GNRTreePanelLibrary.h"
 #include "GNRTreePanelMyScene.h"
 #include "GNRGLNotifyEvent.h"
+#include "GNREnum.h"
 
 #if defined(__ATHOS_DEBUG__)
 #include <wx/log.h>
@@ -35,7 +36,6 @@ class GNRController
 {
 private:
 
-	enum { MOVEXZ = 0, MOVEXY, ROTATEXY, ROTATEXZ };
 	GNRAssembly* m_RootAssembly;
 	GNRAssemblyTranslater* m_AssemblyTranslater;
 	GNRGLCamera* m_GLCamera;
@@ -55,7 +55,7 @@ private:
 	void glRefresh3D();
 	
 	int m_init;
-	int m_activeCanvas;
+	canvasType m_activeCanvas;
 	
 #if defined(__ATHOS_DEBUG__)
 	GNRDebugFrame* m_DebugFrame;

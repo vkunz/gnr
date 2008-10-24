@@ -21,7 +21,7 @@ private:
 	
 	void setCamera();
 	void setPerspective();
-	int getCanvasID();
+	canvasType getCanvasID();
 	
 	void OnMouseWheel(wxMouseEvent& event);
 	

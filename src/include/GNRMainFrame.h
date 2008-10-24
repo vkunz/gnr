@@ -22,11 +22,11 @@
 #include "GNRTreePanelLibrary.h"
 #include "GNRTreePanelMyScene.h"
 #include "GNRAssembly.h"
+#include "GNREnum.h"
 
 class GNRMainFrame: public wxFrame
 {
 public:
-	enum { MOVEXZ = 0, MOVEXY, ROTATEXY, ROTATEXZ };
 	GNRMainFrame(wxWindow* parent,wxWindowID id = -1);
 	virtual ~GNRMainFrame();
 	

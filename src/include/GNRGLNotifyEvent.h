@@ -3,13 +3,14 @@
 
 #include "wx/event.h"
 #include "GNRVertex.h"
+#include "GNREnum.h"
 
 class GNRGLNotifyEvent : public wxNotifyEvent
 {
 private:
 	wxMouseEvent event;
 	int selectedObj;
-	int canvasID;
+	canvasType canvasID;
 	int win_x, win_y;
 	float world_min_x, world_min_y;
 	float world_max_x, world_max_y;
@@ -17,12 +18,12 @@ public:
 	GNRGLNotifyEvent(wxEventType commandType = wxEVT_NULL, int id = 0);
 	GNRGLNotifyEvent(const GNRGLNotifyEvent& event);
 	virtual wxEvent* Clone() const;
-	void setCanvasID(int id);
+	void setCanvasID(canvasType id);
 	void setSelectedObj(int obj);
 	void setMouseEvent(wxMouseEvent event);
 	void setWindowSize(int x, int y);
 	void setWorldSize(GNRVertex* glcoords);
-	int getCanvasID();
+	canvasType getCanvasID();
 	int getSelectedObj();
 	wxMouseEvent getMouseEvent();
 	int getWinX();

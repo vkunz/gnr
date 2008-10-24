@@ -13,22 +13,70 @@
 #define GNRAPP_H
 
 #include <wx/app.h>
-#include "GNRController.h"
-#include "GNRNotifyEvent.h"
+#include <wx/glcanvas.h>
+#include <wx/splitter.h>
+#include <wx/treectrl.h>
+
+#include "GNRGL2DCanvas.h"
+#include "GNRGL3DCanvas.h"
 #include "GNRGLNotifyEvent.h"
+#include "GNRMainFrame.h"
+#include "GNRMouseController.h"
+#include "GNRNotifyEvent.h"
+#include "GNRScene.h"
+#include "GNRTreePanelLibrary.h"
+#include "GNRTreePanelMyScene.h"
+
+#if defined(__ATHOS_DEBUG__)
+#include <wx/log.h>
+#include "GNRDebugFrame.h"
+#endif
 
 class GNRApp : public wxApp
 {
 private:
-	GNRController* controller;
-	bool m_controllerInit;
-	
+
+	//eventhandler
 	void OnGNREvent(GNRNotifyEvent& event);
 	void OnGLEvent(GNRGLNotifyEvent& event);
 	
+	//functions
+	void glRefresh();
+	void glRefresh2D();
+	void glRefresh3D();
+	void initFrames();
+	void updateSplitters();
+	
+	//attributes
+	wxTreeCtrl* m_TreeCtrlLib;
+	wxTreeCtrl* m_TreeCtrlScene;
+	
+	GNRTreePanelLibrary* m_TreePanelLibrary;
+	GNRTreePanelMyScene* m_TreePanelMyScene;
+	
+	GNRScene* m_Scene;
+	GNRMouseController* m_MouseCtrl;
+	GNRMainFrame* m_MainFrame;
+	
+	GNRGL2DCanvas* m_Canvas2D;
+	GNRGL3DCanvas* m_Canvas3D;
+	wxGLContext* commonCtxt;
+	
+	wxSplitterWindow* m_HorizontalSplitter_left;
+	wxSplitterWindow* m_HorizontalSplitter_right;
+	wxSplitterWindow* m_VerticalSplitter;
+	
+#if defined(__ATHOS_DEBUG__)
+	GNRDebugFrame* m_DebugFrame;
+	wxLog* m_Log;
+#endif
+	
 	DECLARE_EVENT_TABLE();
+	
 public:
+
 	virtual bool OnInit();
+	
 };
 
 #endif // GNRAPP_H

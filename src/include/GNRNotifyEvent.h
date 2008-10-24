@@ -2,8 +2,7 @@
 #define _GNRNOTIFYEVENT_H_
 
 #include "wx/event.h"
-
-enum eventType {GLRefresh, XMLOpen, OBJImport, ToolbarChange, NewRoom, ResetCamera};
+#include "GNREnum.h"
 
 class GNRNotifyEvent : public wxNotifyEvent
 {

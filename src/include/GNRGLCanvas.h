@@ -17,6 +17,7 @@
 #include "GNRAssembly.h"
 #include "GNRGLCamera.h"
 #include "GNRNotifyEvent.h"
+#include "GNREnum.h"
 
 class GNRGLCanvas : public wxGLCanvas
 {
@@ -47,7 +48,7 @@ protected:
 	virtual void setCamera() = 0;
 	virtual void setPerspective() = 0;
 	virtual void OnMouseWheel(wxMouseEvent& event) = 0;
-	virtual int getCanvasID() = 0;
+	virtual canvasType getCanvasID() = 0;
 	
 public:
 	// constructor

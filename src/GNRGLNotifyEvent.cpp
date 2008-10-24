@@ -17,12 +17,12 @@ wxEvent* GNRGLNotifyEvent::Clone() const
 	return new GNRGLNotifyEvent(*this);
 }
 
-void GNRGLNotifyEvent::setCanvasID(int id)
+void GNRGLNotifyEvent::setCanvasID(canvasType id)
 {
 	canvasID = id;
 }
 
-int GNRGLNotifyEvent::getCanvasID()
+canvasType GNRGLNotifyEvent::getCanvasID()
 {
 	return canvasID;
 }

@@ -21,13 +21,13 @@
 #include "GNRVertex.h"
 #include "GNRGLCamera.h"
 #include "GNRGLNotifyEvent.h"
+#include "GNREnum.h"
 
 class GNRAssemblyTranslater
 {
 private:
 
-	enum { MOVEXZ = 0, MOVEXY, ROTATEXY, ROTATEXZ };
-	int status;                         //action to perform with event
+	transType status;                   //action to perform with event
 	bool in_use;                        //remember usage of this controller
 	int	m_mouse_x, m_mouse_y;           //old mouse coords (x,y) on frame
 	int window_w, window_h;             //window dimensions of actual frame (width,height)
@@ -56,7 +56,7 @@ public:
 	bool getControl(GNRGLNotifyEvent& event);
 	void dropControl(GNRGLNotifyEvent& event);
 	void ObjectTransform(GNRGLNotifyEvent& event);
-	void setDirection(int dir);
+	void setDirection(transType dir);
 	bool isInUse();
 	
 };

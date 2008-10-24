@@ -81,9 +81,9 @@ void GNRGL2DCanvas::setPerspective()
  * @return  int     Canvas-ID
  * @access private
  */
-int GNRGL2DCanvas::getCanvasID()
+canvasType GNRGL2DCanvas::getCanvasID()
 {
-	return 2;
+	return CANVAS2D;
 }
 
 /**

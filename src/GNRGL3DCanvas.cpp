@@ -66,9 +66,9 @@ void GNRGL3DCanvas::setPerspective()
  * @return  int     Canvas-ID
  * @access private
  */
-int GNRGL3DCanvas::getCanvasID()
+canvasType GNRGL3DCanvas::getCanvasID()
 {
-	return 3;
+	return CANVAS3D;
 }
 
 void GNRGL3DCanvas::OnMouseWheel(wxMouseEvent& event)
