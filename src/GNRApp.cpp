@@ -163,7 +163,7 @@ void GNRApp::OnGLEvent(GNRGLNotifyEvent& event)
 	//switch mediator to current operation
 	if (event.getMouseEvent().ButtonDown())
 	{
-		m_MouseCtrl->setMediator((buttonType)event.getMouseEvent().GetButton(), event.getCanvasID());
+		m_MouseCtrl->setMediator(event);
 	}
 	
 	//force mouse controller to translate event to mediator

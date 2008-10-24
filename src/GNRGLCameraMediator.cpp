@@ -7,6 +7,7 @@
 GNRGLCameraMediator::GNRGLCameraMediator()
 {
 	m_CanvasID = NONE;
+	m_GLCamera = NULL;
 }
 
 GNRGLCameraMediator::~GNRGLCameraMediator()
@@ -32,4 +33,9 @@ void GNRGLCameraMediator::translate(GNRGLNotifyEvent& event)
 void GNRGLCameraMediator::setMode(canvasType canvas_id)
 {
 	m_CanvasID = canvas_id;
+}
+
+void GNRGLCameraMediator::setGLCamera(GNRGLCamera* camera)
+{
+	m_GLCamera = camera;
 }

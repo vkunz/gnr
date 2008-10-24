@@ -32,7 +32,7 @@ public:
 	GNRMouseController(GNRScene* scene);
 	virtual ~GNRMouseController();
 	
-	void setMediator(buttonType mouse_button, canvasType canvas_id);
+	void setMediator(GNRGLNotifyEvent& event);
 	void activateMediator(GNRGLNotifyEvent& event);
 };
 

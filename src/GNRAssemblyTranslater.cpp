@@ -1,14 +1,12 @@
 /* vim: set expandtab sw=4 ts=4 sts=4: */
 /**
- * the mouse controller class implements the conversion and
- * detection of object movements calculates world coordinates
- * for the glcanvas frames
+ * GNRAssemblyTranslater
  * @name        GNRAssemblyTranslater.cpp
  * @date        2008-10-09
- * @author              Konstantin Balabin  <k.balabin@googlemail.com>
- * @author              Patrick Kracht      <patrick.kracht@googlemail.com>
- * @author              Thorsten Moll       <thorsten.moll@googlemail.com>
- * @author              Valentin Kunz       <athostr@googlemail.com>
+ * @author      Konstantin Balabin  <k.balabin@googlemail.com>
+ * @author      Patrick Kracht      <patrick.kracht@googlemail.com>
+ * @author      Thorsten Moll       <thorsten.moll@googlemail.com>
+ * @author      Valentin Kunz       <athostr@googlemail.com>
  */
 
 #include "GNRAssemblyTranslater.h"
