@@ -31,3 +31,14 @@ GNRGLCamera* GNRScene::getGLCamera()
 {
 	return m_GLCamera;
 }
+
+/**
+ * clean up whole world
+ * @access      public
+ */
+void GNRScene::newRoom()
+{
+	delete m_RootAssembly;
+	m_RootAssembly = new GNRAssembly("scene");
+	m_GLCamera->reset();
+}

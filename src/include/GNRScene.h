@@ -30,6 +30,8 @@ public:
 	
 	void setAssemblyID(int assemblyID);
 	
+	void newRoom();
+	
 	GNRScene();
 	virtual ~GNRScene();
 	

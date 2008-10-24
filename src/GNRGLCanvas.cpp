@@ -185,21 +185,21 @@ void GNRGLCanvas::prepareDraw()
 	
 	setCamera();
 	
-//TODO: draw floor in scene
-//
-//	glBegin(GL_QUADS);
-//	    glNormal3f(0.0,1.0,0.0);
-//	    glVertex3f(-20.0f, 0.0f, -20.0f);
-//
-//        glNormal3f(0.0,1.0,0.0);
-//	    glVertex3f(-20.0f, 0.0f, -2.0f);
-//
-//   	    glNormal3f(0.0,1.0,0.0);
-//	    glVertex3f(20.0f, 0.0f, -2.0f);
-//
-//        glNormal3f(0.0,1.0,0.0);
-//	    glVertex3f(20.0f, 0.0f, -20.0f);
-//	glEnd();
+// TODO: draw floor in scene
+
+	glBegin(GL_QUADS);
+	glNormal3f(0.0,1.0,0.0);
+	glVertex3f(-20.0f, 0.0f, -20.0f);
+	
+	glNormal3f(0.0,1.0,0.0);
+	glVertex3f(-20.0f, 0.0f, -2.0f);
+	
+	glNormal3f(0.0,1.0,0.0);
+	glVertex3f(20.0f, 0.0f, -2.0f);
+	
+	glNormal3f(0.0,1.0,0.0);
+	glVertex3f(20.0f, 0.0f, -20.0f);
+	glEnd();
 }
 
 /**
@@ -498,7 +498,7 @@ void GNRGLCanvas::OnPaint(wxPaintEvent& event)
 {
 	// Event for Redrawing the Canvases
 	GNRNotifyEvent myevent(wxEVT_COMMAND_GNR_NOTIFY);
-	myevent.setGNREventType(GLRefresh);
+	myevent.setGNREventType(GLREFRESH);
 	myevent.SetEventObject(this);
 	GetEventHandler()->ProcessEvent(myevent);
 	event.Skip();

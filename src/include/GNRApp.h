@@ -46,6 +46,7 @@ private:
 	void glRefresh3D();
 	void initFrames();
 	void updateSplitters();
+	void OBJImport(wxString filename);
 	
 	//attributes
 	wxTreeCtrl* m_TreeCtrlLib;

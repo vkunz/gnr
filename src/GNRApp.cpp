@@ -12,6 +12,7 @@
 #include <wx/image.h>
 
 #include "GNRApp.h"
+#include "GNRObjectImport.h"
 
 #if defined(__ATHOS_DEBUG__)
 #include <wx/log.h>
@@ -129,26 +130,26 @@ void GNRApp::OnGNREvent(GNRNotifyEvent& event)
 {
 	switch (event.getGNREventType())
 	{
-	case XMLOpen:
+	case XMLOPEN:
 //		controller->XMLOpen(event.GetString());
 //		controller->glRefresh();
 		break;
-	case GLRefresh:
+	case GLREFRESH:
 		glRefresh();
 		break;
-	case OBJImport:
-//		controller->OBJImport(event.GetString());
-//		controller->glRefresh();
+	case OBJIMPORT:
+		OBJImport(event.GetString());
+		glRefresh();
 		break;
-	case NewRoom:
-//		controller->newRoom();
-//		controller->glRefresh();
+	case NEWROOM:
+		m_Scene->newRoom();
+		glRefresh();
 		break;
-	case ResetCamera:
+	case RESETCAMERA:
 //		controller->resetCamera();
 //		controller->glRefresh();
 		break;
-	case ToolbarChange:
+	case TOOLBARCHANGE:
 //		controller->toggleToolbar(event);
 		break;
 	}
@@ -195,7 +196,7 @@ void GNRApp::glRefresh2D()
 {
 	//prepare and draw 2D top view of room
 	m_Canvas2D->prepareDraw();
-//	m_RootAssembly->draw();
+	m_Scene->getRootAssembly()->draw();
 	m_Canvas2D->endDraw();
 }
 
@@ -207,11 +208,22 @@ void GNRApp::glRefresh3D()
 {
 	//prepare and draw 3D view of room
 	m_Canvas3D->prepareDraw();
-//	m_GLCamera->render();
-//	m_RootAssembly->draw();
+	m_Scene->getGLCamera()->render();
+	m_Scene->getRootAssembly()->draw();
 	m_Canvas3D->endDraw();
 }
 
+/**
+ * handle obj import
+ * @param       wxString        filename
+ * @access      public
+ */
+void GNRApp::OBJImport(wxString filename)
+{
+	// generate new Importer, parse file
+	GNRObjectImport oi;
+	m_Scene->getRootAssembly()->addPart(oi.read((string)filename.mb_str()));
+}
 
 // Code unser im Repo,
 // bugfrei seien Deine Quellen.

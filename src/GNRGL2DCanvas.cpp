@@ -97,7 +97,7 @@ void GNRGL2DCanvas::OnMouseWheel(wxMouseEvent& event)
 	
 	// Event for Redrawing the Canvases
 	GNRNotifyEvent myevent(wxEVT_COMMAND_GNR_NOTIFY);
-	myevent.setGNREventType(GLRefresh);
+	myevent.setGNREventType(GLREFRESH);
 	myevent.SetEventObject(this);
 	GetEventHandler()->ProcessEvent(myevent);
 }

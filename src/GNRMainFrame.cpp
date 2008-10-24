@@ -207,7 +207,7 @@ void GNRMainFrame::OnNew(wxCommandEvent& event)
 	wxMessageBox(wxT("I'll tidy up your room!"));
 	
 	GNRNotifyEvent gnrevent(wxEVT_COMMAND_GNR_NOTIFY);
-	gnrevent.setGNREventType(NewRoom);
+	gnrevent.setGNREventType(NEWROOM);
 	GetEventHandler()->ProcessEvent(gnrevent);
 }
 
@@ -224,7 +224,7 @@ void GNRMainFrame::OnImport(wxCommandEvent& event)
 	if (!filename.IsEmpty())
 	{
 		GNRNotifyEvent gnrevent(wxEVT_COMMAND_GNR_NOTIFY);
-		gnrevent.setGNREventType(OBJImport);
+		gnrevent.setGNREventType(OBJIMPORT);
 		gnrevent.SetString(filename);
 		
 		GetEventHandler()->ProcessEvent(gnrevent);
@@ -243,7 +243,7 @@ void GNRMainFrame::OnLoad(wxCommandEvent& WXUNUSED(event))
 	if (!filename.IsEmpty())
 	{
 		GNRNotifyEvent gnrevent(wxEVT_COMMAND_GNR_NOTIFY);
-		gnrevent.setGNREventType(XMLOpen);
+		gnrevent.setGNREventType(XMLOPEN);
 		gnrevent.SetString(filename);
 		
 		GetEventHandler()->ProcessEvent(gnrevent);
@@ -253,7 +253,7 @@ void GNRMainFrame::OnLoad(wxCommandEvent& WXUNUSED(event))
 void GNRMainFrame::OnToolbarMoveXY(wxCommandEvent& event)
 {
 	GNRNotifyEvent myevent(wxEVT_COMMAND_GNR_NOTIFY);
-	myevent.setGNREventType(ToolbarChange);
+	myevent.setGNREventType(TOOLBARCHANGE);
 	myevent.SetEventObject(this);
 	myevent.SetInt(MOVEXY);
 	GetEventHandler()->ProcessEvent(myevent);
@@ -262,7 +262,7 @@ void GNRMainFrame::OnToolbarMoveXY(wxCommandEvent& event)
 void GNRMainFrame::OnToolbarMoveXZ(wxCommandEvent& event)
 {
 	GNRNotifyEvent myevent(wxEVT_COMMAND_GNR_NOTIFY);
-	myevent.setGNREventType(ToolbarChange);
+	myevent.setGNREventType(TOOLBARCHANGE);
 	myevent.SetEventObject(this);
 	myevent.SetInt(MOVEXZ);
 	GetEventHandler()->ProcessEvent(myevent);
@@ -271,7 +271,7 @@ void GNRMainFrame::OnToolbarMoveXZ(wxCommandEvent& event)
 void GNRMainFrame::OnToolbarRotateXY(wxCommandEvent& event)
 {
 	GNRNotifyEvent myevent(wxEVT_COMMAND_GNR_NOTIFY);
-	myevent.setGNREventType(ToolbarChange);
+	myevent.setGNREventType(TOOLBARCHANGE);
 	myevent.SetEventObject(this);
 	myevent.SetInt(ROTATEXY);
 	GetEventHandler()->ProcessEvent(myevent);
@@ -280,7 +280,7 @@ void GNRMainFrame::OnToolbarRotateXY(wxCommandEvent& event)
 void GNRMainFrame::OnToolbarRotateXZ(wxCommandEvent& event)
 {
 	GNRNotifyEvent myevent(wxEVT_COMMAND_GNR_NOTIFY);
-	myevent.setGNREventType(ToolbarChange);
+	myevent.setGNREventType(TOOLBARCHANGE);
 	myevent.SetEventObject(this);
 	myevent.SetInt(ROTATEXZ);
 	GetEventHandler()->ProcessEvent(myevent);
@@ -289,6 +289,6 @@ void GNRMainFrame::OnToolbarRotateXZ(wxCommandEvent& event)
 void GNRMainFrame::OnCameraReset(wxCommandEvent& event)
 {
 	GNRNotifyEvent gnrevent(wxEVT_COMMAND_GNR_NOTIFY);
-	gnrevent.setGNREventType(ResetCamera);
+	gnrevent.setGNREventType(RESETCAMERA);
 	GetEventHandler()->ProcessEvent(gnrevent);
 }
