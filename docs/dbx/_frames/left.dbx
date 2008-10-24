@@ -13,7 +13,8 @@
 		<title>Vorschau</title>
 		<para>Hier kann die Entwicklung unseres Programms vom ersten Byte bis zum aktuellen 
 		Stand verfolgt werden. Begonnen haben wir mit einer optischen Vorlage durch das
-		OpenSource Java-Programm "Home Sweet 3D" von <ulink url="http://sweethome3d.sourceforge.net/download.html">eTeks</ulink>.
+		OpenSource Java-Programm "Home Sweet 3D" von <ulink url="http://sweethome3d.sourceforge.net/download.html">eTeks</ulink>,
+		das uns eine grober Vorstellung von der geforderten Oberfläche verschafft.
 		<ulink url="http://www.hs-ulm.de/upload/rlunde/projti5/Team1/_downloads/vorbild.jpg">Abb.1</ulink></para>
 		<mediaobject>
 			<imageobject>
@@ -81,6 +82,19 @@
 			</imageobject>
 			<caption>
 				<para>Abb.6: Licht und Schatten</para>
+			</caption>
+		</mediaobject>
+		<para>Die Oberflächen-Informationen werden jetzt (fast) immer korrekt eingelesen. Auch
+		das Berechnen der Normalen (falls keine im OBJ angegeben waren) funktioniert schon recht gut.
+		Das Beispiel zeigt schon die aktuellen Möglichkeiten, wie man Räume einrichten könnte, jedoch
+		ohne Kollisionserkennung und Skalierung. Alle Objekte werden auf die Standardgröße 1 normiert.
+		<ulink url="http://www.hs-ulm.de/upload/rlunde/projti5/Team1/_downloads/prototyp_5.jpg">Abb.7</ulink></para>
+		<mediaobject>
+			<imageobject>
+				<imagedata fileref="_images/prototyp_5_small.img?s=200" align="left" />
+			</imageobject>
+			<caption>
+				<para>Abb.7: Normierte Objekte in Farbe</para>
 			</caption>
 		</mediaobject>
 	</section>

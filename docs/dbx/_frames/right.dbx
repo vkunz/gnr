@@ -99,19 +99,39 @@
 			<para>Bisheriges Vorhaben für die nächste Woche:</para>
 			<itemizedlist>
 				<listitem>
-					<para>Implementierung des TreeViews für die Objekt-Bibliothek und der Szenerie</para>
+					<para>Intuitives Verschieben der Objekte per Drag'n'Drop optimieren</para>
 				</listitem>
 				<listitem>
-					<para>Einbau eines Bemaßungssystems für die importierten Objekte</para>
+					<para>Die Betrachtungsmöglichkeiten der Kamera ausbauen und optimieren</para>
 				</listitem>
 				<listitem>
 					<para>Darstellung der Lichter und Oberflächen in OpenGL verbessern</para>
 				</listitem>
 			</itemizedlist>
 			<title>22.10.2008</title>
-			<para>Der Treeview musste noch warten, da wir einen entscheidenden Durchbruch in der OBJ-Darstellung
-			errungen haben. Lichter und Oberflächen werden jetzt korrekt dargestellt! In Kürze werden auch
-			die MTL-Daten in die Objekte eingebaut, sobald der Parser perfekt funktioniert. </para>
+			<para>Wir haben einen entscheidenden Durchbruch in der OBJ-Darstellung errungen!
+			Lichter und Oberflächen werden jetzt korrekt dargestellt, wenn auch zur Zeit noch grau
+			in grau! In Kürze werden auch die MTL-Daten in die Objekte eingebaut, sobald der Parser 
+			perfekt funktioniert. Die Positionierung der Objekte im Raum ist noch suboptimal, sollte
+			aber in der nächsten Version behoben sein. Auch die Steuerung der Kamera lässt noch zu
+			sehr wünschen übrig.</para>
+			<para>TODO-Liste:</para>
+			<itemizedlist>
+				<listitem>
+					<para>Den Objekten Farbe verleihen und die Darstellung verbessern</para>
+				</listitem>
+				<listitem>
+					<para>Fertigstellung der Kamerasteuerung für die beiden Ansichten</para>
+				</listitem>
+			</itemizedlist>
+			<title>24.10.2008</title>
+			<para>Es stehen noch etwas mehr als zwei Wochen zur Verfügung und unser Projekt entwickelt sich 
+			gerade extrem schnell und etwas unkontrolliert. Farben werden schon angezeigt und das Bewegen der 
+			Objekte funktioniert entsprechend. Über das Feature "Schnappfunktion" muss noch diskutiert werden, 
+			inwiefern es ohne Kollisionserkennung realisieren lässt. Die Bibliothek für den Objekt-Import wird 
+			demnächst in Angriff genommen. Leider werden wir wieder einen Tag verlieren, da wir wieder 
+			grundlegende Veränderungen am System vornehmen müssen, um die Erweiterbarkeit und die Kapselung 
+			der einzelnen Funktionen erhalten zu können.</para>
 			<para>TODO-Liste:</para>
 			<itemizedlist>
 				<listitem>
@@ -119,9 +139,6 @@
 				</listitem>
 				<listitem>
 					<para>Einbau eines Bemaßungssystems für die importierten Objekte</para>
-				</listitem>
-				<listitem>
-					<para>Verbesserte Kamerabewegung auf einer virtuellen Kugel um die Szene</para>
 				</listitem>
 				<listitem>
 					<para>Unterstützung der Schnittstelle zum Austausch von Modellen und Ansichtsinformationen</para>

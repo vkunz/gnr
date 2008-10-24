@@ -11,7 +11,14 @@
 	</articleinfo>
 	<section>
 		<title>Projekt-Homepage Team 1</title>
-		<para>Zeitraum des Projekts vom 29.09.2008 bis 10.11.2008</para>
+		<itemizedlist>
+			<listitem>
+				<para>Zeitraum des Projekts vom 29.09.2008 bis 10.11.2008</para>
+			</listitem>
+			<listitem>
+				<para>Letztes Update vom 24. Oktober 2008, 07:21 Uhr</para>
+			</listitem>
+		</itemizedlist>
 		<subtitle>Das Vorgehensmodell - XP</subtitle>
 		<para>Unser gewähltes Vorgehensmodell - <ulink url="http://de.wikipedia.org/wiki/Extreme_Programming">Extreme-Programming</ulink> im eigentlichen Sinne - lässt
 		keine detaillierte Planung vorausgehen. Es ist vielmehr eine agile Programmiermethode 
