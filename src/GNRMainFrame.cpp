@@ -16,9 +16,9 @@
 #include <wx/filedlg.h>
 #include <string.h>
 
+#include "wx/wx.h"
 #include "GNRObjectImport.h"
 #include "GNRMainFrame.h"
-#include "GNRController.h"
 
 #include "resources/button-undo.xpm"
 #include "resources/button-redo.xpm"
