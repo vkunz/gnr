@@ -435,7 +435,6 @@ void GNRGLCanvas::OnLeaveWindow(wxMouseEvent& event)
  */
 void GNRGLCanvas::OnEnterWindow(wxMouseEvent& event)
 {
-	SetFocus();
 	Connect(wxEVT_MOUSEWHEEL, (wxObjectEventFunction) &GNRGLCanvas::OnMouseWheel);
 	Disconnect(wxEVT_MOTION, (wxObjectEventFunction)&GNRGLCanvas::OnMouseMove);
 	

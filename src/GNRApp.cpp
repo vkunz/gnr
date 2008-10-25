@@ -12,11 +12,18 @@
 #include <wx/image.h>
 
 #include "GNRApp.h"
+#include "GNRMaterial.h"
 #include "GNRObjectImport.h"
 
 #if defined(__ATHOS_DEBUG__)
 #include <wx/log.h>
 #endif
+
+//!!quick && dirty!!
+#include "GNRMaterialLibrary.h"
+GNRMaterialLibrary mtllib;
+//!!quick && dirty!!
+
 
 BEGIN_EVENT_TABLE(GNRApp, wxApp)
 	EVT_GNR_NOTIFY(0, GNRApp::OnGNREvent)   //global event for redraw...
@@ -36,6 +43,15 @@ bool GNRApp::OnInit()
 	
 	if (wxsOK)
 	{
+	
+#if defined(__ATHOS_DEBUG__)
+		// Create DebugFrame
+		m_DebugFrame = new GNRDebugFrame(0);
+		m_DebugFrame->Show(true);
+		m_Log = new wxLogTextCtrl(m_DebugFrame->TextCtrl);
+		m_Log->SetActiveTarget(m_Log);
+#endif
+		
 		//build gui
 		initFrames();
 		
@@ -47,14 +63,6 @@ bool GNRApp::OnInit()
 		
 		m_Scene->setCanvas2D(m_Canvas2D);
 		m_Scene->setCanvas3D(m_Canvas3D);
-		
-#if defined(__ATHOS_DEBUG__)
-		// Create DebugFrame
-		m_DebugFrame = new GNRDebugFrame(0);
-		m_DebugFrame->Show(true);
-		m_Log = new wxLogTextCtrl(m_DebugFrame->TextCtrl);
-		m_Log->SetActiveTarget(m_Log);
-#endif
 	}
 	
 	return wxsOK;

@@ -117,8 +117,8 @@ GNRMainFrame::GNRMainFrame(wxWindow* parent, wxWindowID id)
 	wxMenuBar* MenuBar1;
 	wxMenu* Menu2;
 	
-	Create(parent, wxID_ANY, _("GNR - 3D Einrichtungsplaner"), wxDefaultPosition, wxDefaultSize, wxDEFAULT_FRAME_STYLE, _T("wxID_ANY"));
-	SetClientSize(wxSize(800,600));
+	Create(parent, wxID_ANY, _("GNR - 3D Einrichtungsplaner"), wxPoint(0,0), wxDefaultSize, wxDEFAULT_FRAME_STYLE, _T("wxID_ANY"));
+	SetClientSize(wxSize(800,500));
 	SetMinSize(wxSize(640,480));
 	SetFocus();
 	MenuBar1 = new wxMenuBar();
@@ -152,7 +152,7 @@ GNRMainFrame::GNRMainFrame(wxWindow* parent, wxWindowID id)
 	StatusBar1->SetFieldsCount(1,__wxStatusBarWidths_1);
 	StatusBar1->SetStatusStyles(1,__wxStatusBarStyles_1);
 	SetStatusBar(StatusBar1);
-	Center();
+	//Center();
 	
 	Connect(idMenuQuit,wxEVT_COMMAND_MENU_SELECTED,(wxObjectEventFunction)&GNRMainFrame::OnQuit);
 	Connect(idMenuAbout,wxEVT_COMMAND_MENU_SELECTED,(wxObjectEventFunction)&GNRMainFrame::OnAbout);
@@ -182,7 +182,7 @@ GNRMainFrame::GNRMainFrame(wxWindow* parent, wxWindowID id)
 	ToolBarItem99 = ToolBar1->AddTool(btn_quit, _("GNR beenden"), wxBitmap(wxIcon(button_exit_xpm)), wxNullBitmap, wxITEM_NORMAL, _("GNR beenden"), _("GNR beenden"));
 	ToolBar1->Realize();
 	SetToolBar(ToolBar1);
-	Center();
+	//Center();
 	
 	//own events on menu selection
 	Connect(idMenuImport,wxEVT_COMMAND_MENU_SELECTED,(wxObjectEventFunction)&GNRMainFrame::OnImport);

@@ -23,7 +23,7 @@ class GNRDebugFrame: public wxFrame
 {
 public:
 
-	GNRDebugFrame(wxWindow* parent,wxWindowID id=wxID_ANY,const wxSize& size=wxDefaultSize);
+	GNRDebugFrame(wxWindow* parent,wxWindowID id=wxID_ANY);
 	virtual ~GNRDebugFrame();
 	
 	//(*Declarations(GNRDebugFrame)

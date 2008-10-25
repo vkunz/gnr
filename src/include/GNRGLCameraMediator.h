@@ -11,9 +11,9 @@ public:
 	GNRGLCameraMediator() {};
 	virtual ~GNRGLCameraMediator() {};
 	
-	void setAssemblyID(int assemblyID) {};      //not needed in camera mediator
 	void setGLCamera(GNRGLCamera* camera);      //set pointer to access camera
-	void initialize(GNRGLNotifyEvent& event);
+	void setAssemblyID(int assemblyID) {};      //not needed in camera mediator
+	void initialize(GNRGLNotifyEvent& event);   //initialize camera mediator
 	int  translate(GNRGLNotifyEvent& event);    //perform translation to camera
 	
 protected:
