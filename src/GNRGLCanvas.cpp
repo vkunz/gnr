@@ -301,7 +301,9 @@ int GNRGLCanvas::selection(GNRAssembly* rootAssembly, GNRGLCamera* camera, int m
  */
 void GNRGLCanvas::OnLMouseDown(wxMouseEvent& event)
 {
+	SetFocus();
 	SetCurrent();
+	Connect(wxEVT_MOUSEWHEEL, (wxObjectEventFunction)&GNRGLCanvas::OnMouseWheel);
 	
 	GNRVertex* glcoords = new GNRVertex[2];
 	getGLDim(event.GetX(), event.GetY(), glcoords);
@@ -345,7 +347,9 @@ void GNRGLCanvas::OnLMouseUp(wxMouseEvent& event)
  */
 void GNRGLCanvas::OnMMouseDown(wxMouseEvent& event)
 {
+	SetFocus();
 	SetCurrent();
+	Connect(wxEVT_MOUSEWHEEL, (wxObjectEventFunction)&GNRGLCanvas::OnMouseWheel);
 	// send Event to handle Mouse
 	GNRGLNotifyEvent myevent(wxEVT_COMMAND_GL_NOTIFY);
 	myevent.setMouseEvent(event);
@@ -381,7 +385,9 @@ void GNRGLCanvas::OnMMouseUp(wxMouseEvent& event)
  */
 void GNRGLCanvas::OnRMouseDown(wxMouseEvent& event)
 {
+	SetFocus();
 	SetCurrent();
+	Connect(wxEVT_MOUSEWHEEL, (wxObjectEventFunction)&GNRGLCanvas::OnMouseWheel);
 	// nothing has do be done yet
 }
 
@@ -417,7 +423,9 @@ void GNRGLCanvas::OnMouseMove(wxMouseEvent& event)
  */
 void GNRGLCanvas::OnLeaveWindow(wxMouseEvent& event)
 {
-	Disconnect(wxEVT_MOUSEWHEEL, (wxObjectEventFunction) &GNRGLCanvas::OnMouseWheel);
+	SetFocus();
+	SetCurrent();
+	Disconnect(wxEVT_MOUSEWHEEL, (wxObjectEventFunction)&GNRGLCanvas::OnMouseWheel);
 	Disconnect(wxEVT_MOTION, (wxObjectEventFunction)&GNRGLCanvas::OnMouseMove);
 	
 	// send Event to handle Mouse
@@ -435,7 +443,9 @@ void GNRGLCanvas::OnLeaveWindow(wxMouseEvent& event)
  */
 void GNRGLCanvas::OnEnterWindow(wxMouseEvent& event)
 {
-	Connect(wxEVT_MOUSEWHEEL, (wxObjectEventFunction) &GNRGLCanvas::OnMouseWheel);
+	SetFocus();
+	SetCurrent();
+	Connect(wxEVT_MOUSEWHEEL, (wxObjectEventFunction)&GNRGLCanvas::OnMouseWheel);
 	Disconnect(wxEVT_MOTION, (wxObjectEventFunction)&GNRGLCanvas::OnMouseMove);
 	
 	// send Event to handle Mouse
@@ -453,7 +463,9 @@ void GNRGLCanvas::OnEnterWindow(wxMouseEvent& event)
  */
 void GNRGLCanvas::OnLMouseDblClick(wxMouseEvent& event)
 {
+	SetFocus();
 	SetCurrent();
+	Connect(wxEVT_MOUSEWHEEL, (wxObjectEventFunction)&GNRGLCanvas::OnMouseWheel);
 	//GNRMouse::dropControl(event);
 #if defined(__ATHOS_DEBUG__)
 	wxString msg;
