@@ -9,20 +9,11 @@ class GNRMediator
 {
 public:
 
-	GNRMediator() {};
-	virtual ~GNRMediator() {};
+	GNRMediator();
+	virtual ~GNRMediator();
 	
-	//set translation type by toolbar button
-	void setTranslation(transType translation)
-	{
-		m_Translation = translation;
-	};
-	
-	//set 3D or 2D mode from canvas_id
-	void setMode(canvasType canvas_id)
-	{
-		m_CanvasID = canvas_id;
-	}
+	void setTranslation(transType translation);
+	void setMode(canvasType canvas_id);
 	
 	//has to be implemented in derived classes
 	virtual void setAssemblyID(int assemblyID) = 0;
@@ -32,8 +23,8 @@ public:
 	
 protected:
 
-	canvasType m_CanvasID;
-	transType  m_Translation;
+	static canvasType m_CanvasID;
+	static transType  m_Translation;
 	
 private:
 

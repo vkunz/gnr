@@ -126,11 +126,7 @@ void GNRMouseController::activateMediator(GNRGLNotifyEvent& event)
  */
 void GNRMouseController::setTranslation(GNRNotifyEvent& event)
 {
-	//has to be optimized, maybe static transType for translation?
-	m_AssemblyMediator2D->setTranslation((transType)event.GetInt());
-	m_AssemblyMediator3D->setTranslation((transType)event.GetInt());
-	m_GLCameraMediator2D->setTranslation((transType)event.GetInt());
-	m_GLCameraMediator3D->setTranslation((transType)event.GetInt());
+	m_Mediator->setTranslation((transType)event.GetInt());
 }
 
 /**

@@ -112,6 +112,7 @@
 		<Unit filename="src\GNRMainFrame.cpp" />
 		<Unit filename="src\GNRMaterial.cpp" />
 		<Unit filename="src\GNRMaterialLibrary.cpp" />
+		<Unit filename="src\GNRMediator.cpp" />
 		<Unit filename="src\GNRMouseController.cpp" />
 		<Unit filename="src\GNRNotifyEvent.cpp" />
 		<Unit filename="src\GNRObjectImport.cpp" />

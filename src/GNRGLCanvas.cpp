@@ -186,20 +186,20 @@ void GNRGLCanvas::prepareDraw()
 	setCamera();
 	
 // TODO: draw floor in scene
-//
-//	glBegin(GL_QUADS);
-//	glNormal3f(0.0,1.0,0.0);
-//	glVertex3f(-20.0f, 0.0f, -20.0f);
-//
-//	glNormal3f(0.0,1.0,0.0);
-//	glVertex3f(-20.0f, 0.0f, -2.0f);
-//
-//	glNormal3f(0.0,1.0,0.0);
-//	glVertex3f(20.0f, 0.0f, -2.0f);
-//
-//	glNormal3f(0.0,1.0,0.0);
-//	glVertex3f(20.0f, 0.0f, -20.0f);
-//	glEnd();
+
+	glBegin(GL_QUADS);
+	glNormal3f(0.0,1.0,0.0);
+	glVertex3f(-20.0f, 1.0f, -20.0f);
+	
+	glNormal3f(0.0,1.0,0.0);
+	glVertex3f(-20.0f, 0.0f, 20.0f);
+	
+	glNormal3f(0.0,1.0,0.0);
+	glVertex3f(20.0f, 0.0f, 20.0f);
+	
+	glNormal3f(0.0,1.0,0.0);
+	glVertex3f(20.0f, 1.0f, -20.0f);
+	glEnd();
 }
 
 /**

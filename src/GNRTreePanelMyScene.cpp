@@ -22,8 +22,8 @@ END_EVENT_TABLE()
 
 GNRTreePanelMyScene::GNRTreePanelMyScene(wxWindow* parent,wxWindowID id)
 {
-	Create(parent, id, wxDefaultPosition, wxSize(640,480), wxTAB_TRAVERSAL, _T("id"));
-	TreeCtrl = new wxTreeCtrl(this, ID_TREECTRL, wxPoint(0,0), wxDefaultSize, wxTR_DEFAULT_STYLE, wxDefaultValidator, _T("ID_TREECTRL1"));
+	Create(parent, id, wxDefaultPosition, wxSize(640,480), wxTAB_TRAVERSAL, _T("GNRTreePanelMyScene"));
+	TreeCtrl = new wxTreeCtrl(this, ID_TREECTRL, wxPoint(0,0), wxDefaultSize, wxTR_DEFAULT_STYLE, wxDefaultValidator, _T("GNRTreePanelMyScene"));
 }
 
 GNRTreePanelMyScene::~GNRTreePanelMyScene()
