@@ -6,12 +6,6 @@
 
 class GNRAssemblyMediator3D: public GNRAssemblyMediator
 {
-public:
-
-	GNRAssemblyMediator3D() {};
-	virtual ~GNRAssemblyMediator3D() {};
-	
-protected:
 
 private:
 

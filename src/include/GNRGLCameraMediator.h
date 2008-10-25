@@ -8,9 +8,6 @@ class GNRGLCameraMediator: public GNRMediator
 {
 public:
 
-	GNRGLCameraMediator() {};
-	virtual ~GNRGLCameraMediator() {};
-	
 	void setGLCamera(GNRGLCamera* camera);      //set pointer to access camera
 	void setAssemblyID(int assemblyID) {};      //not needed in camera mediator
 	void initialize(GNRGLNotifyEvent& event);   //initialize camera mediator

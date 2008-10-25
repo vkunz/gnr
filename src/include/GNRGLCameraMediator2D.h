@@ -6,12 +6,6 @@
 
 class GNRGLCameraMediator2D: public GNRGLCameraMediator
 {
-public:
-
-	GNRGLCameraMediator2D() {};
-	virtual ~GNRGLCameraMediator2D() {};
-	
-protected:
 
 private:
 

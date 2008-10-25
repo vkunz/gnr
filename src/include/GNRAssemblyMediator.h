@@ -8,9 +8,6 @@ class GNRAssemblyMediator: public GNRMediator
 {
 public:
 
-	GNRAssemblyMediator() {};
-	virtual ~GNRAssemblyMediator() {};
-	
 	void setAssemblyID(int assemblyID);         //set selected assembly id
 	void setGLCamera(GNRGLCamera* camera) {};   //not needed in assembly mediator
 	void initialize(GNRGLNotifyEvent& event);   //initialize assembly mediator
@@ -22,6 +19,8 @@ protected:
 	virtual void MoveXZ(GNRGLNotifyEvent& event) = 0;
 	virtual void RotateXY(GNRGLNotifyEvent& event) = 0;
 	virtual void RotateXZ(GNRGLNotifyEvent& event) = 0;
+	
+	GNRAssembly* m_Assembly;
 	
 	//storage on mouse down
 	float old_x;
@@ -38,8 +37,6 @@ protected:
 	int window_h;
 	int m_mouse_x;
 	int m_mouse_y;
-	
-	GNRAssembly* m_Assembly;
 	
 private:
 
