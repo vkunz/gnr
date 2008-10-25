@@ -18,6 +18,7 @@
 #include "GNRGLCanvas.h"
 #include "GNRNotifyEvent.h"
 #include "GNRGLNotifyEvent.h"
+#include "GNRMaterialLibrary.h"
 
 #if defined(__ATHOS_DEBUG__)
 #include <wx/log.h>
@@ -25,6 +26,8 @@
 
 #define ZNEAR 0.1f
 #define ZFAR 100.0f
+
+extern GNRMaterialLibrary mtllib;
 
 /**
  * constructor of GNRGLCanvas
@@ -108,7 +111,7 @@ void GNRGLCanvas::initLights()
 	
 	GLfloat light_ambient[] = { 0.2, 0.2, 0.2, 1.0 };
 	GLfloat light_diffuse[] = { 0.4, 0.4, 0.4, 1.0 };
-	GLfloat light_specular[] = { 0.2, 0.2, 0.0, 1.0 };
+	GLfloat light_specular[] = { 0.4, 0.4, 0.3, 1.0 };
 	GLfloat light_position[] = { 2.0, 2.0, 2.0, 1.0 };
 	
 	glLightfv(GL_LIGHT0, GL_AMBIENT, light_ambient);
@@ -161,8 +164,30 @@ void GNRGLCanvas::initGL()
  */
 void GNRGLCanvas::endDraw()
 {
-	setMatrix();
-	glFlush();
+// TODO: draw floor in scene
+
+	glPushMatrix();
+	{
+		mtllib.selectMaterial("flwhite");
+		
+		glBegin(GL_QUADS);
+		glNormal3f(0.0f, 1.0f, 0.0f);
+		glVertex3f(-100.0f, -0.5f, -100.0f);
+		
+		glNormal3f(0.0f, 1.0f, 0.0f);
+		glVertex3f(-100.0f, -0.5f, 100.0f);
+		
+		glNormal3f(0.0f, 1.0f, 0.0f);
+		glVertex3f(100.0f, -0.5f, 100.0f);
+		
+		glNormal3f(0.0f, 1.0f, 0.0f);
+		glVertex3f(100.0f, -0.5f, -100.0f);
+		glEnd();
+	}
+	glPopMatrix();
+	
+	//setMatrix();
+	//glFlush();
 	SwapBuffers();
 }
 
@@ -184,22 +209,6 @@ void GNRGLCanvas::prepareDraw()
 	glLoadIdentity();
 	
 	setCamera();
-	
-// TODO: draw floor in scene
-
-	glBegin(GL_QUADS);
-	glNormal3f(0.0,1.0,0.0);
-	glVertex3f(-20.0f, 1.0f, -20.0f);
-	
-	glNormal3f(0.0,1.0,0.0);
-	glVertex3f(-20.0f, 0.0f, 20.0f);
-	
-	glNormal3f(0.0,1.0,0.0);
-	glVertex3f(20.0f, 0.0f, 20.0f);
-	
-	glNormal3f(0.0,1.0,0.0);
-	glVertex3f(20.0f, 1.0f, -20.0f);
-	glEnd();
 }
 
 /**
