@@ -5,7 +5,8 @@
 #include "GNRAssemblyMediator2D.h"
 #include "GNRAssemblyMediator3D.h"
 #include "GNRGLCamera.h"
-#include "GNRGLCameraMediator.h"
+#include "GNRGLCameraMediator2D.h"
+#include "GNRGLCameraMediator3D.h"
 #include "GNRGLNotifyEvent.h"
 #include "GNRMediator.h"
 #include "GNRScene.h"
@@ -26,7 +27,13 @@ private:
 	GNRMediator* m_Mediator;
 	GNRAssemblyMediator2D* m_AssemblyMediator2D;
 	GNRAssemblyMediator3D* m_AssemblyMediator3D;
-	GNRGLCameraMediator* m_GLCameraMediator;
+	GNRGLCameraMediator2D* m_GLCameraMediator2D;
+	GNRGLCameraMediator3D* m_GLCameraMediator3D;
+	
+	int mouse_x;
+	int mouse_y;
+	
+	void updateMouse(GNRGLNotifyEvent& event);
 	
 protected:
 

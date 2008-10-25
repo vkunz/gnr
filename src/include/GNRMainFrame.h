@@ -17,8 +17,8 @@
 #include <wx/statusbr.h>
 #include <wx/toolbar.h>
 
-#include "GNRGL2DCanvas.h"
-#include "GNRGL3DCanvas.h"
+#include "GNRGLCanvas2D.h"
+#include "GNRGLCanvas3D.h"
 #include "GNRTreePanelLibrary.h"
 #include "GNRTreePanelMyScene.h"
 #include "GNRAssembly.h"

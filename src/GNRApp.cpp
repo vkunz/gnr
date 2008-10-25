@@ -88,9 +88,9 @@ void GNRApp::initFrames()
 	m_TreePanelMyScene = new GNRTreePanelMyScene(m_HorizontalSplitter_left, wxID_ANY);
 	
 	//create two canvas panels
-	m_Canvas2D = new GNRGL2DCanvas(m_HorizontalSplitter_right, -1);
+	m_Canvas2D = new GNRGLCanvas2D(m_HorizontalSplitter_right, -1);
 	commonCtxt = m_Canvas2D->GetContext();
-	m_Canvas3D = new GNRGL3DCanvas(m_HorizontalSplitter_right, commonCtxt, -1);
+	m_Canvas3D = new GNRGLCanvas3D(m_HorizontalSplitter_right, commonCtxt, -1);
 	
 	//initialize left and right splitter
 	m_VerticalSplitter->Initialize(m_HorizontalSplitter_left);
@@ -164,19 +164,17 @@ void GNRApp::OnGNREvent(GNRNotifyEvent& event)
  */
 void GNRApp::OnGLEvent(GNRGLNotifyEvent& event)
 {
-	//switch mediator to current operation
+	//if button goes down, switch mediator to current operation
 	if (event.getMouseEvent().ButtonDown())
 	{
 		m_MouseCtrl->setMediator(event);
 	}
 	
-	//force mouse controller to translate event to mediator
+	//if button is down, translate event to mediator
 	if (event.getMouseEvent().ButtonIsDown(-1))
 	{
 		m_MouseCtrl->activateMediator(event);
 	}
-	
-	m_Scene->glRefresh();
 }
 
 

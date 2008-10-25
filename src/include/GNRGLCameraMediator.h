@@ -8,19 +8,29 @@ class GNRGLCameraMediator: public GNRMediator
 {
 public:
 
-	GNRGLCameraMediator();
-	virtual ~GNRGLCameraMediator();
+	GNRGLCameraMediator() {};
+	virtual ~GNRGLCameraMediator() {};
 	
 	void setAssemblyID(int assemblyID) {};      //not needed in camera mediator
 	void setGLCamera(GNRGLCamera* camera);      //set pointer to access camera
-	void initialize(GNRGLNotifyEvent& event) {};
+	void initialize(GNRGLNotifyEvent& event);
 	int  translate(GNRGLNotifyEvent& event);    //perform translation to camera
 	
 protected:
 
-private:
+	virtual void MoveXY(GNRGLNotifyEvent& event) = 0;
+	virtual void MoveXZ(GNRGLNotifyEvent& event) = 0;
+	virtual void RotateXY(GNRGLNotifyEvent& event) = 0;
+	virtual void RotateXZ(GNRGLNotifyEvent& event) = 0;
+	
 	GNRGLCamera* m_GLCamera;
 	
+	//storage on mouse down
+	int m_mouse_x;
+	int m_mouse_y;
+	
+private:
+
 };
 
 #endif // GNRGLCAMERAMEDIATOR_H

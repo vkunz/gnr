@@ -19,8 +19,8 @@
 #include "GNRAssembly.h"
 #include "GNRAssemblyTranslater.h"
 #include "GNRMainFrame.h"
-#include "GNRGL2DCanvas.h"
-#include "GNRGL3DCanvas.h"
+#include "GNRGLCanvas2D.h"
+#include "GNRGLCanvas3D.h"
 #include "GNRObjectImport.h"
 #include "GNRTreePanelLibrary.h"
 #include "GNRTreePanelMyScene.h"
@@ -40,8 +40,8 @@ private:
 	GNRAssemblyTranslater* m_AssemblyTranslater;
 	GNRGLCamera* m_GLCamera;
 	GNRMainFrame* m_MainFrame;
-	GNRGL2DCanvas* m_Canvas2D;
-	GNRGL3DCanvas* m_Canvas3D;
+	GNRGLCanvas2D* m_Canvas2D;
+	GNRGLCanvas3D* m_Canvas3D;
 	GNRTreePanelLibrary* m_TreePanelLibrary;
 	GNRTreePanelMyScene* m_TreePanelMyScene;
 	wxGLContext* commonCtxt;

@@ -186,20 +186,20 @@ void GNRGLCanvas::prepareDraw()
 	setCamera();
 	
 // TODO: draw floor in scene
-
-	glBegin(GL_QUADS);
-	glNormal3f(0.0,1.0,0.0);
-	glVertex3f(-20.0f, 0.0f, -20.0f);
-	
-	glNormal3f(0.0,1.0,0.0);
-	glVertex3f(-20.0f, 0.0f, -2.0f);
-	
-	glNormal3f(0.0,1.0,0.0);
-	glVertex3f(20.0f, 0.0f, -2.0f);
-	
-	glNormal3f(0.0,1.0,0.0);
-	glVertex3f(20.0f, 0.0f, -20.0f);
-	glEnd();
+//
+//	glBegin(GL_QUADS);
+//	glNormal3f(0.0,1.0,0.0);
+//	glVertex3f(-20.0f, 0.0f, -20.0f);
+//
+//	glNormal3f(0.0,1.0,0.0);
+//	glVertex3f(-20.0f, 0.0f, -2.0f);
+//
+//	glNormal3f(0.0,1.0,0.0);
+//	glVertex3f(20.0f, 0.0f, -2.0f);
+//
+//	glNormal3f(0.0,1.0,0.0);
+//	glVertex3f(20.0f, 0.0f, -20.0f);
+//	glEnd();
 }
 
 /**
@@ -250,11 +250,15 @@ int GNRGLCanvas::selection(GNRAssembly* rootAssembly, GNRGLCamera* camera, int m
 		glLoadIdentity();
 		
 		//prepareDraw();
-		setCamera();
 		if (camera != NULL)
 		{
 			camera->render();
 		}
+		else
+		{
+			setCamera();
+		}
+		
 		rootAssembly->draw();
 		
 		// Select The Projection Matrix
@@ -297,6 +301,8 @@ int GNRGLCanvas::selection(GNRAssembly* rootAssembly, GNRGLCamera* camera, int m
  */
 void GNRGLCanvas::OnLMouseDown(wxMouseEvent& event)
 {
+	SetCurrent();
+	
 	GNRVertex* glcoords = new GNRVertex[2];
 	getGLDim(event.GetX(), event.GetY(), glcoords);
 	
@@ -339,6 +345,7 @@ void GNRGLCanvas::OnLMouseUp(wxMouseEvent& event)
  */
 void GNRGLCanvas::OnMMouseDown(wxMouseEvent& event)
 {
+	SetCurrent();
 	// send Event to handle Mouse
 	GNRGLNotifyEvent myevent(wxEVT_COMMAND_GL_NOTIFY);
 	myevent.setMouseEvent(event);
@@ -374,8 +381,8 @@ void GNRGLCanvas::OnMMouseUp(wxMouseEvent& event)
  */
 void GNRGLCanvas::OnRMouseDown(wxMouseEvent& event)
 {
+	SetCurrent();
 	// nothing has do be done yet
-	
 }
 
 /**
@@ -447,10 +454,11 @@ void GNRGLCanvas::OnEnterWindow(wxMouseEvent& event)
  */
 void GNRGLCanvas::OnLMouseDblClick(wxMouseEvent& event)
 {
+	SetCurrent();
 	//GNRMouse::dropControl(event);
 #if defined(__ATHOS_DEBUG__)
 	wxString msg;
-	msg << _("OnLMouseDblClick x=") << event.m_x << _(" y=") << event.m_y;
+	msg << wxT("OnLMouseDblClick x=") << event.m_x << wxT(" y=") << event.m_y;
 	wxLogMessage(msg);
 #endif
 }
@@ -508,6 +516,7 @@ void GNRGLCanvas::OnPaint(wxPaintEvent& event)
 // Convert Mouse-Coordinates to GL-Coordinates
 void GNRGLCanvas::getGLPos(int x, int y, GNRVertex* glcoords)
 {
+	SetCurrent();
 	glPushMatrix();
 	GLdouble modelview[16], projection[16];
 	GLint viewport[4];
@@ -535,6 +544,7 @@ void GNRGLCanvas::getGLPos(int x, int y, GNRVertex* glcoords)
 // Convert Mouse-Coordinates to GL-Coordinates
 void GNRGLCanvas::getGLDim(int x, int y, GNRVertex* glcoords)
 {
+	SetCurrent();
 	glPushMatrix();
 	GLdouble modelview[16], projection[16];
 	GLint viewport[4];

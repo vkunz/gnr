@@ -1,7 +1,7 @@
 /* vim: set expandtab sw=4 ts=4 sts=4: */
 /**
- * defines the gl3dcanvas class
- * @name        GNRGL3DCanvas.h
+ * defines the gl2dcanvas class
+ * @name        GNRGLCanvas3D.h
  * @date        2008-10-09
  * @author		Konstantin Balabin  <k.balabin@googlemail.com>
  * @author		Patrick Kracht      <patrick.kracht@googlemail.com>
@@ -9,14 +9,16 @@
  * @author		Valentin Kunz       <athostr@googlemail.com>
  */
 
-#ifndef _GNRGL3DCANVAS_H_
-#define _GNRGL3DCANVAS_H_
+#ifndef _GNRGL2DCANVAS_H_
+#define _GNRGL2DCANVAS_H_
 
 #include "GNRGLCanvas.h"
 
-class GNRGL3DCanvas : public GNRGLCanvas
+class GNRGLCanvas2D : public GNRGLCanvas
 {
 private:
+	float m_camera_height;
+	
 	void setCamera();
 	void setPerspective();
 	canvasType getCanvasID();
@@ -24,22 +26,23 @@ private:
 	void OnMouseWheel(wxMouseEvent& event);
 	
 public:
-	GNRGL3DCanvas(wxWindow* parent,
+	GNRGLCanvas2D(wxWindow* parent,
 	              wxWindowID id = wxID_ANY,
 	              const wxPoint& pos = wxDefaultPosition,
 	              const wxSize& size = wxDefaultSize,
 	              long style = 0,
-	              const wxString& name = wxT("GNRGL3DCanvas"));
-	GNRGL3DCanvas(wxWindow* parent,
+	              const wxString& name = wxT("GNRGLCanvas2D"));
+	GNRGLCanvas2D(wxWindow* parent,
 	              wxGLContext* sharedContext,
 	              wxWindowID id = wxID_ANY,
 	              const wxPoint& pos = wxDefaultPosition,
 	              const wxSize& size = wxDefaultSize,
 	              long style = 0,
-	              const wxString& name = _("GNRGL3DCanvas"));
+	              const wxString& name = _("GNRGLCanvas2D"));
 	              
-	~GNRGL3DCanvas() {}
+	~GNRGLCanvas2D() {}
+	
 	
 };
 
-#endif // _GNRGL3DCANVAS_H_
+#endif // _GNRGL2DCANVAS_H_

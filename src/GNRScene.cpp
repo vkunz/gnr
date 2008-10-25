@@ -52,14 +52,24 @@ void GNRScene::resetCamera()
 	m_GLCamera->reset();
 }
 
-void GNRScene::setCanvas2D(GNRGL2DCanvas* p)
+void GNRScene::setCanvas2D(GNRGLCanvas2D* p)
 {
 	m_Canvas2D = p;
 }
 
-void GNRScene::setCanvas3D(GNRGL3DCanvas* p)
+void GNRScene::setCanvas3D(GNRGLCanvas3D* p)
 {
 	m_Canvas3D = p;
+}
+
+GNRGLCanvas2D* GNRScene::getCanvas2D()
+{
+	return m_Canvas2D;
+}
+
+GNRGLCanvas3D* GNRScene::getCanvas3D()
+{
+	return m_Canvas3D;
 }
 
 /**
@@ -70,13 +80,11 @@ void GNRScene::glRefresh()
 {
 	glRefresh2D();
 	glRefresh3D();
-	glRefresh2D();
-	
 }
 
 /**
- * refresh 2D canvas
- * @access      private
+ * refresh only 2D canvas
+ * @access      public
  */
 void GNRScene::glRefresh2D()
 {
@@ -87,8 +95,8 @@ void GNRScene::glRefresh2D()
 }
 
 /**
- * refresh 3D canvas
- * @access      private
+ * refresh only 3D canvas
+ * @access      public
  */
 void GNRScene::glRefresh3D()
 {

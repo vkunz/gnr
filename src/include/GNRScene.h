@@ -4,8 +4,8 @@
 #include "GNRAssembly.h"
 #include "GNRGLCamera.h"
 #include "GNRMaterial.h"
-#include "GNRGL2DCanvas.h"
-#include "GNRGL3DCanvas.h"
+#include "GNRGLCanvas2D.h"
+#include "GNRGLCanvas3D.h"
 
 #if defined(__ATHOS_DEBUG__)
 #include <wx/log.h>
@@ -19,14 +19,11 @@ private:
 	GNRAssembly*    m_RootAssembly;
 	GNRGLCamera*    m_GLCamera;
 	//pointer to canvas
-	GNRGL2DCanvas*  m_Canvas2D;
-	GNRGL3DCanvas*  m_Canvas3D;
+	GNRGLCanvas2D*  m_Canvas2D;
+	GNRGLCanvas3D*  m_Canvas3D;
 	
 	//ID of actual selected assembly
 	int m_AssemblyID;
-	
-	void glRefresh2D();
-	void glRefresh3D();
 	
 protected:
 
@@ -37,13 +34,17 @@ public:
 	GNRGLCamera* getGLCamera();
 	
 	void setAssemblyID(int assemblyID);
-	void setCanvas2D(GNRGL2DCanvas* p);
-	void setCanvas3D(GNRGL3DCanvas* p);
+	void setCanvas2D(GNRGLCanvas2D* p);
+	void setCanvas3D(GNRGLCanvas3D* p);
+	GNRGLCanvas2D* getCanvas2D();
+	GNRGLCanvas3D* getCanvas3D();
 	
 	void newRoom();
 	void resetCamera();
 	
 	void glRefresh();
+	void glRefresh2D();
+	void glRefresh3D();
 	
 	GNRScene();
 	virtual ~GNRScene();

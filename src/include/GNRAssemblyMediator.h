@@ -14,16 +14,16 @@ public:
 	void setAssemblyID(int assemblyID);         //set selected assembly id
 	void setGLCamera(GNRGLCamera* camera) {};   //not needed in assembly mediator
 	void initialize(GNRGLNotifyEvent& event);
-	int  translate(GNRGLNotifyEvent& event);
-	
-	virtual void MoveXY(int m_x,int m_y) = 0;
-	virtual void MoveXZ(int m_x,int m_y) = 0;
-	virtual void RotateXY(int m_x,int m_y) = 0;
-	virtual void RotateXZ(int m_x,int m_y) = 0;
+	int  translate(GNRGLNotifyEvent& event);    //perform translation to assembly
 	
 protected:
 
-	//storage for mouse down
+	virtual void MoveXY(GNRGLNotifyEvent& event) = 0;
+	virtual void MoveXZ(GNRGLNotifyEvent& event) = 0;
+	virtual void RotateXY(GNRGLNotifyEvent& event) = 0;
+	virtual void RotateXZ(GNRGLNotifyEvent& event) = 0;
+	
+	//storage on mouse down
 	float old_x;
 	float old_y;
 	float old_z;

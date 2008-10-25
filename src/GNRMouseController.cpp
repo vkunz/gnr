@@ -25,7 +25,8 @@ GNRMouseController::GNRMouseController(GNRScene* scene)
 	m_Scene = scene;
 	m_AssemblyMediator2D = new GNRAssemblyMediator2D();
 	m_AssemblyMediator3D = new GNRAssemblyMediator3D();
-	m_GLCameraMediator = new GNRGLCameraMediator();
+	m_GLCameraMediator2D = new GNRGLCameraMediator2D();
+	m_GLCameraMediator3D = new GNRGLCameraMediator3D();
 }
 
 /**
@@ -36,7 +37,8 @@ GNRMouseController::~GNRMouseController()
 {
 	delete m_AssemblyMediator3D;
 	delete m_AssemblyMediator2D;
-	delete m_GLCameraMediator;
+	delete m_GLCameraMediator3D;
+	delete m_GLCameraMediator2D;
 }
 
 /**
@@ -48,10 +50,10 @@ GNRMouseController::~GNRMouseController()
  */
 void GNRMouseController::setMediator(GNRGLNotifyEvent& event)
 {
-	int selectedAssemblyID = 0, m_x, m_y;
+	int selectedAssemblyID = 0;
+	
 	//get mouse coords from event
-	m_x = event.getMouseEvent().m_x;
-	m_y = event.getMouseEvent().m_y;
+	updateMouse(event);
 	
 	//connect the matching mediator
 	switch ((buttonType)event.getMouseEvent().GetButton())
@@ -62,16 +64,14 @@ void GNRMouseController::setMediator(GNRGLNotifyEvent& event)
 			//point to 2D mediator if event from canvas 2D
 			m_Mediator = m_AssemblyMediator2D;
 			//check for assembly id from click
-			GNRGL3DCanvas* canvas = (GNRGL3DCanvas*)event.GetInt();
-			selectedAssemblyID = canvas->selection(m_Scene->getRootAssembly(), NULL, m_x, m_y);
+			selectedAssemblyID = (m_Scene->getCanvas2D())->selection(m_Scene->getRootAssembly(), NULL, mouse_x, mouse_y);
 		}
 		else
 		{
 			//else, point to 3D mediator if event from canvas 3D
 			m_Mediator = m_AssemblyMediator3D;
 			//check for assembly id from click
-			GNRGL2DCanvas* canvas = (GNRGL2DCanvas*)event.GetInt();
-			selectedAssemblyID = canvas->selection(m_Scene->getRootAssembly(), m_Scene->getGLCamera() , m_x, m_y);
+			selectedAssemblyID = (m_Scene->getCanvas3D())->selection(m_Scene->getRootAssembly(), m_Scene->getGLCamera() , mouse_x, mouse_y);
 		}
 		
 		//store selected assembly id in scene
@@ -80,18 +80,30 @@ void GNRMouseController::setMediator(GNRGLNotifyEvent& event)
 		//set assembly mediator target to selected object
 		m_Mediator->setAssemblyID(selectedAssemblyID);
 		
-		//setup mediator starting position
-		m_Mediator->initialize(event);
-		
 		break;
 	case MIDDLE_BUTTON:
-		m_Mediator = m_GLCameraMediator;
+		if (event.getCanvasID() == CANVAS2D)
+		{
+			//point to 2D mediator if event from canvas 2D
+			m_Mediator = m_GLCameraMediator2D;
+		}
+		else
+		{
+			//else, point to 3D mediator if event from canvas 3D
+			m_Mediator = m_GLCameraMediator3D;
+		}
+		
+		//set camera to modify by mediator
 		m_Mediator->setGLCamera(m_Scene->getGLCamera());
+		
 		break;
 	case RIGHT_BUTTON:
-		//maybe for later functions
+		//maybe for later functions?
 		break;
 	}
+	
+	//setup mediator starting position
+	m_Mediator->initialize(event);
 }
 
 /**
@@ -101,7 +113,10 @@ void GNRMouseController::setMediator(GNRGLNotifyEvent& event)
  */
 void GNRMouseController::activateMediator(GNRGLNotifyEvent& event)
 {
-	m_Mediator->translate(event);
+	if (m_Mediator->translate(event) == 0)
+	{
+		m_Scene->glRefresh();
+	}
 }
 
 /**
@@ -111,6 +126,19 @@ void GNRMouseController::activateMediator(GNRGLNotifyEvent& event)
  */
 void GNRMouseController::setTranslation(GNRNotifyEvent& event)
 {
+	//has to be optimized, maybe static transType for translation?
 	m_AssemblyMediator2D->setTranslation((transType)event.GetInt());
 	m_AssemblyMediator3D->setTranslation((transType)event.GetInt());
+	m_GLCameraMediator2D->setTranslation((transType)event.GetInt());
+	m_GLCameraMediator3D->setTranslation((transType)event.GetInt());
+}
+
+/**
+ * update actual mouse position
+ * @access      protected
+ */
+void GNRMouseController::updateMouse(GNRGLNotifyEvent& event)
+{
+	mouse_x = event.getMouseEvent().m_x;
+	mouse_y = event.getMouseEvent().m_y;
 }

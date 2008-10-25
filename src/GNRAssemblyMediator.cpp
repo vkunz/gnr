@@ -53,27 +53,23 @@ int GNRAssemblyMediator::translate(GNRGLNotifyEvent& event)
 		return -1;
 	}
 	
-	//store mouse position
-	int m_x,m_y;
-	m_x = event.getMouseEvent().m_x;
-	m_y = event.getMouseEvent().m_y;
-	
+	//do specific translations
 	switch (m_Translation)
 	{
 	case MOVEXZ:
-		MoveXZ(m_x,m_y);
+		MoveXZ(event);
 		break;
 	case MOVEXY:
-		MoveXY(m_x,m_y);
+		MoveXY(event);
 		break;
 	case ROTATEXY:
-		RotateXY(m_x,m_y);
+		RotateXY(event);
 		break;
 	case ROTATEXZ:
-		RotateXZ(m_x,m_y);
+		RotateXZ(event);
 		break;
 	default:
-		MoveXZ(m_x,m_y);
+		MoveXZ(event);
 		break;
 	}
 	

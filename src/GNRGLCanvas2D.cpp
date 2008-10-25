@@ -14,7 +14,7 @@
 #include <gl/glu.h>
 #endif
 
-#include "GNRGL2DCanvas.h"
+#include "GNRGLCanvas2D.h"
 
 #if defined(__ATHOS_DEBUG__)
 #include <wx/log.h>
@@ -22,9 +22,10 @@
 
 #define ZNEAR 0.1f
 #define ZFAR 200.0f
+#define CAMH 2.0f
 
 /**
- * constructor of GNRGL2DCanvas
+ * constructor of GNRGLCanvas2D
  * @param       wxWindow*       Parent-Window
  * @param       wxWindowID      Window-ID
  * @param       wxPoint         Window-Position of the Canvas
@@ -33,14 +34,14 @@
  * @param       wxString        Window-Name
  * @access      public
  */
-GNRGL2DCanvas::GNRGL2DCanvas(wxWindow* parent, wxWindowID id, const wxPoint& pos, const wxSize& size, long style, const wxString& name)
+GNRGLCanvas2D::GNRGLCanvas2D(wxWindow* parent, wxWindowID id, const wxPoint& pos, const wxSize& size, long style, const wxString& name)
 		:GNRGLCanvas(parent, id, pos, size, style, name)
 {
-	m_camera_height = 2;
+	m_camera_height = CAMH;
 }
 
 /**
- * constructor of GNRGL2DCanvas
+ * constructor of GNRGLCanvas2D
  * @param       wxWindow*       Parent-Window
  * @param       wxGLContext*    Used GLContext for common Context
  * @param       wxWindowID      Window-ID
@@ -50,17 +51,17 @@ GNRGL2DCanvas::GNRGL2DCanvas(wxWindow* parent, wxWindowID id, const wxPoint& pos
  * @param       wxString        Window-Name
  * @access      public
  */
-GNRGL2DCanvas::GNRGL2DCanvas(wxWindow* parent, wxGLContext* sharedContext, wxWindowID id, const wxPoint& pos, const wxSize& size,
+GNRGLCanvas2D::GNRGLCanvas2D(wxWindow* parent, wxGLContext* sharedContext, wxWindowID id, const wxPoint& pos, const wxSize& size,
                              long style, const wxString& name) : GNRGLCanvas(parent, sharedContext, id, pos, size, style, name)
 {
-	m_camera_height = 2;
+	m_camera_height = CAMH;
 }
 
 /**
  * sets the camera-position for the 2D scene
  * @access      private
  */
-void GNRGL2DCanvas::setCamera()
+void GNRGLCanvas2D::setCamera()
 {
 	// set camera-position
 	gluLookAt(0, m_camera_height, 0, 0, 0, 0, 0, 0, -1);
@@ -70,7 +71,7 @@ void GNRGL2DCanvas::setCamera()
  * sets the perspective for the 2D scene
  * @access private
  */
-void GNRGL2DCanvas::setPerspective()
+void GNRGLCanvas2D::setPerspective()
 {
 	gluPerspective(45.0f, (float)m_window_x / (float)m_window_y, ZNEAR, ZFAR);
 	//glOrtho(m_window_x*(-1.0f/m_camera_height), m_window_x*(1.0f/m_camera_height), m_window_y*(1.0f/m_camera_height), m_window_y*(-1.0f/m_camera_height), ZNEAR, ZFAR);
@@ -81,7 +82,7 @@ void GNRGL2DCanvas::setPerspective()
  * @return  int     Canvas-ID
  * @access private
  */
-canvasType GNRGL2DCanvas::getCanvasID()
+canvasType GNRGLCanvas2D::getCanvasID()
 {
 	return CANVAS2D;
 }
@@ -91,9 +92,14 @@ canvasType GNRGL2DCanvas::getCanvasID()
  * @param   wxMouseEvent    Mouse Event of current canvas
  * @access private
  */
-void GNRGL2DCanvas::OnMouseWheel(wxMouseEvent& event)
+void GNRGLCanvas2D::OnMouseWheel(wxMouseEvent& event)
 {
-	m_camera_height += 8.0 / (float)event.GetWheelRotation();
+	m_camera_height += 10.0 / (float)event.GetWheelRotation();
+	
+	if (m_camera_height < CAMH)
+	{
+		m_camera_height = CAMH;
+	}
 	
 	// Event for Redrawing the Canvases
 	GNRNotifyEvent myevent(wxEVT_COMMAND_GNR_NOTIFY);

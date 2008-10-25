@@ -2,7 +2,7 @@
 #include <gl/glu.h>
 #endif
 
-#include "GNRGL3DCanvas.h"
+#include "GNRGLCanvas3D.h"
 #include "GNRGLNotifyEvent.h"
 
 #if defined(__ATHOS_DEBUG__)
@@ -13,7 +13,7 @@
 #define ZFAR 100.0f
 
 /**
- * constructor of GNRGL3DCanvas
+ * constructor of GNRGLCanvas3D
  * @param       wxWindow*       Parent-Window
  * @param       wxWindowID      Window-ID
  * @param       wxPoint         Window-Position of the Canvas
@@ -22,13 +22,13 @@
  * @param       wxString        Window-Name
  * @access      public
  */
-GNRGL3DCanvas::GNRGL3DCanvas(wxWindow* parent, wxWindowID id, const wxPoint& pos, const wxSize& size, long style, const wxString& name)
+GNRGLCanvas3D::GNRGLCanvas3D(wxWindow* parent, wxWindowID id, const wxPoint& pos, const wxSize& size, long style, const wxString& name)
 		:GNRGLCanvas(parent, id, pos, size, style, name)
 {
 }
 
 /**
- * constructor of GNRGL3DCanvas
+ * constructor of GNRGLCanvas3D
  * @param       wxWindow*       Parent-Window
  * @param       wxGLContext*    Used GLContext for common Context
  * @param       wxWindowID      Window-ID
@@ -38,7 +38,7 @@ GNRGL3DCanvas::GNRGL3DCanvas(wxWindow* parent, wxWindowID id, const wxPoint& pos
  * @param       wxString        Window-Name
  * @access      public
  */
-GNRGL3DCanvas::GNRGL3DCanvas(wxWindow* parent, wxGLContext* sharedContext, wxWindowID id, const wxPoint& pos, const wxSize& size,
+GNRGLCanvas3D::GNRGLCanvas3D(wxWindow* parent, wxGLContext* sharedContext, wxWindowID id, const wxPoint& pos, const wxSize& size,
                              long style, const wxString& name) : GNRGLCanvas(parent, sharedContext, id, pos, size, style, name)
 {
 }
@@ -47,7 +47,7 @@ GNRGL3DCanvas::GNRGL3DCanvas(wxWindow* parent, wxGLContext* sharedContext, wxWin
  * sets the camera-position for the 3D scene
  * @access      private
  */
-void GNRGL3DCanvas::setCamera()
+void GNRGLCanvas3D::setCamera()
 {
 	// set camera-position
 	//gluLookAt(0, 3, 3, 0, 0, 0, 0, 1, 0);
@@ -56,7 +56,7 @@ void GNRGL3DCanvas::setCamera()
 /** * sets the perspective for the 3D scene
  * @access private
  */
-void GNRGL3DCanvas::setPerspective()
+void GNRGLCanvas3D::setPerspective()
 {
 	gluPerspective(45.0f, (float)m_window_x / (float)m_window_y, ZNEAR, ZFAR);
 }
@@ -66,12 +66,12 @@ void GNRGL3DCanvas::setPerspective()
  * @return  int     Canvas-ID
  * @access private
  */
-canvasType GNRGL3DCanvas::getCanvasID()
+canvasType GNRGLCanvas3D::getCanvasID()
 {
 	return CANVAS3D;
 }
 
-void GNRGL3DCanvas::OnMouseWheel(wxMouseEvent& event)
+void GNRGLCanvas3D::OnMouseWheel(wxMouseEvent& event)
 {
 	GNRGLNotifyEvent myevent(wxEVT_COMMAND_GL_NOTIFY);
 	myevent.setMouseEvent(event);

@@ -11,15 +11,15 @@ public:
 	GNRAssemblyMediator2D() {};
 	virtual ~GNRAssemblyMediator2D() {};
 	
-	void MoveXY(int m_x,int m_y);
-	void MoveXZ(int m_x,int m_y);
-	void RotateXY(int m_x,int m_y);
-	void RotateXZ(int m_x,int m_y);
-	
 protected:
 
 private:
 
+	void MoveXY(GNRGLNotifyEvent& event);
+	void MoveXZ(GNRGLNotifyEvent& event);
+	void RotateXY(GNRGLNotifyEvent& event);
+	void RotateXZ(GNRGLNotifyEvent& event);
+	
 };
 
 #endif // GNRAssemblyMediator2D_H

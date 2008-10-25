@@ -17,8 +17,8 @@
 #include <wx/splitter.h>
 #include <wx/treectrl.h>
 
-#include "GNRGL2DCanvas.h"
-#include "GNRGL3DCanvas.h"
+#include "GNRGLCanvas2D.h"
+#include "GNRGLCanvas3D.h"
 #include "GNRGLNotifyEvent.h"
 #include "GNRMainFrame.h"
 #include "GNRMouseController.h"
@@ -59,8 +59,8 @@ private:
 	GNRMouseController* m_MouseCtrl;
 	GNRMainFrame* m_MainFrame;
 	
-	GNRGL2DCanvas* m_Canvas2D;
-	GNRGL3DCanvas* m_Canvas3D;
+	GNRGLCanvas2D* m_Canvas2D;
+	GNRGLCanvas3D* m_Canvas3D;
 	wxGLContext* commonCtxt;
 	
 	wxSplitterWindow* m_HorizontalSplitter_left;

@@ -95,9 +95,9 @@ void GNRController::initFrames()
 	m_TreePanelMyScene = new GNRTreePanelMyScene(m_HorizontalSplitter_left, wxID_ANY);
 	
 	//create two canvas panels
-	m_Canvas2D = new GNRGL2DCanvas(m_HorizontalSplitter_right, -1);
+	m_Canvas2D = new GNRGLCanvas2D(m_HorizontalSplitter_right, -1);
 	commonCtxt = m_Canvas2D->GetContext();
-	m_Canvas3D = new GNRGL3DCanvas(m_HorizontalSplitter_right, commonCtxt, -1);
+	m_Canvas3D = new GNRGLCanvas3D(m_HorizontalSplitter_right, commonCtxt, -1);
 	
 	//initialize left and right splitter
 	m_VerticalSplitter->Initialize(m_HorizontalSplitter_left);
