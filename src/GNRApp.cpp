@@ -59,6 +59,7 @@ bool GNRApp::OnInit()
 		//build models
 		m_Scene         = new GNRScene();
 		m_MouseCtrl     = new GNRMouseController(m_Scene);
+		m_TreeLibCtrl   = new GNRTreeLibraryController(m_TreeCtrlLib);
 		//m_TreeCtrlScene = new wxTreeCtrl();
 		
 		m_Scene->setCanvas2D(m_Canvas2D);

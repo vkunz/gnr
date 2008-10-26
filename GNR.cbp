@@ -124,6 +124,7 @@
 		<Unit filename="src\GNROpxImport.cpp" />
 		<Unit filename="src\GNRScene.cpp" />
 		<Unit filename="src\GNRTCoord.cpp" />
+		<Unit filename="src\GNRTreeLibraryController.cpp" />
 		<Unit filename="src\GNRTreePanelLibrary.cpp" />
 		<Unit filename="src\GNRTreePanelMyScene.cpp" />
 		<Unit filename="src\GNRVNT.cpp" />
@@ -158,6 +159,7 @@
 		<Unit filename="src\include\GNROpxImport.h" />
 		<Unit filename="src\include\GNRScene.h" />
 		<Unit filename="src\include\GNRTCoord.h" />
+		<Unit filename="src\include\GNRTreeLibraryController.h" />
 		<Unit filename="src\include\GNRTreePanelLibrary.h" />
 		<Unit filename="src\include\GNRTreePanelMyScene.h" />
 		<Unit filename="src\include\GNRVNT.h" />

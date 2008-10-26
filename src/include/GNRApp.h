@@ -26,6 +26,7 @@
 #include "GNRNotifyEvent.h"
 #include "GNROaxImport.h"
 #include "GNRScene.h"
+#include "GNRTreeLibraryController.h"
 #include "GNRTreePanelLibrary.h"
 #include "GNRTreePanelMyScene.h"
 
@@ -61,6 +62,7 @@ private:
 	//attributes
 	wxTreeCtrl* m_TreeCtrlLib;
 	//wxTreeCtrl* m_TreeCtrlScene;
+	GNRTreeLibraryController* m_TreeLibCtrl;
 	
 	GNRTreePanelLibrary* m_TreePanelLibrary;
 	GNRTreePanelMyScene* m_TreePanelMyScene;
