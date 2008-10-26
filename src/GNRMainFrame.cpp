@@ -77,6 +77,10 @@ const long GNRMainFrame::idMenuObjImport = wxNewId();
 const long GNRMainFrame::idMenuObjExport = wxNewId();
 const long GNRMainFrame::idMenuQuit = wxNewId();
 const long GNRMainFrame::idMenuSnapToGrid = wxNewId();
+const long GNRMainFrame::idMenuMoveXZ = wxNewId();
+const long GNRMainFrame::idMenuMoveXY = wxNewId();
+const long GNRMainFrame::idMenuRotateXZ = wxNewId();
+const long GNRMainFrame::idMenuRotateXY = wxNewId();
 const long GNRMainFrame::idMenuHelp = wxNewId();
 const long GNRMainFrame::idMenuAbout = wxNewId();
 const long GNRMainFrame::ID_StatusBar = wxNewId();
@@ -106,33 +110,29 @@ const long GNRMainFrame::ID_STATICTEXT1 = wxNewId();
 const long GNRMainFrame::ID_STATICTEXT2 = wxNewId();
 
 BEGIN_EVENT_TABLE(GNRMainFrame,wxFrame)
+	EVT_MENU(btn_room_new, GNRMainFrame::OnMenuNewRoom)
 	EVT_MENU(btn_move_xz, GNRMainFrame::OnToolbarMoveXZ)
 	EVT_MENU(btn_move_xy, GNRMainFrame::OnToolbarMoveXY)
 	EVT_MENU(btn_rotate_xz, GNRMainFrame::OnToolbarRotateXZ)
 	EVT_MENU(btn_rotate_xy, GNRMainFrame::OnToolbarRotateXY)
 	EVT_MENU(btn_camera_reset, GNRMainFrame::OnCameraReset)
 	EVT_MENU(btn_snap_to_grid, GNRMainFrame::OnSnapToGridBtn)
-	EVT_MENU(btn_room_new, GNRMainFrame::OnMenuNewRoom)
+	//settings menu sync to toolbar
+	EVT_MENU(idMenuSnapToGrid, GNRMainFrame::OnSnapToGridMenu)
+	EVT_MENU(idMenuMoveXZ, GNRMainFrame::OnToolbarMoveXZ)
+	EVT_MENU(idMenuMoveXY, GNRMainFrame::OnToolbarMoveXY)
+	EVT_MENU(idMenuRotateXZ, GNRMainFrame::OnToolbarRotateXZ)
+	EVT_MENU(idMenuRotateXY, GNRMainFrame::OnToolbarRotateXY)
+	//set snap to grid on spinctrl change
 	EVT_SPINCTRL(ID_SPINCTRL_ROTATE, GNRMainFrame::OnSnapToGridCtrl)
 	EVT_SPINCTRL(ID_SPINCTRL_TRANS, GNRMainFrame::OnSnapToGridCtrl)
+	//quit application
 	EVT_MENU(btn_quit, GNRMainFrame::OnMenuQuit)
 END_EVENT_TABLE()
 
 GNRMainFrame::GNRMainFrame(wxWindow* parent, wxWindowID WXUNUSED(id))
 {
 	//(*Initialize(GNRMainFrame)
-	wxMenuItem* MenuItem8;
-	wxMenuItem* MenuItem7;
-	wxMenuItem* MenuItem5;
-	wxMenuItem* MenuItem2;
-	wxMenuItem* MenuItem1;
-	wxMenuItem* MenuItem4;
-	wxMenu* Menu1;
-	wxMenuItem* MenuItem3;
-	wxMenuItem* MenuItem6;
-	wxMenuBar* MenuBar1;
-	wxMenu* Menu2;
-	
 	Create(parent, wxID_ANY, _("GNR - 3D Einrichtungsplaner"), wxDefaultPosition, wxDefaultSize, wxDEFAULT_FRAME_STYLE, _T("wxID_ANY"));
 	SetClientSize(wxSize(800,550));
 	Move(wxPoint(0,0));
@@ -164,6 +164,15 @@ GNRMainFrame::GNRMainFrame(wxWindow* parent, wxWindowID WXUNUSED(id))
 	Menu3 = new wxMenu();
 	MenuItem9 = new wxMenuItem(Menu3, idMenuSnapToGrid, _("Ein&rasten aktivieren\tALT-R"), _("Einrasten aktivieren"), wxITEM_CHECK);
 	Menu3->Append(MenuItem9);
+	Menu3->AppendSeparator();
+	MenuItem12 = new wxMenuItem(Menu3, idMenuMoveXZ, _("Verschieben XZ\tALT-1"), _("Objekt verschieben entlang X- und Z-Achse..."), wxITEM_RADIO);
+	Menu3->Append(MenuItem12);
+	MenuItem13 = new wxMenuItem(Menu3, idMenuMoveXY, _("Verschieben XY\tALT-2"), _("Objekt verschieben entlang X- und Y-Achse..."), wxITEM_RADIO);
+	Menu3->Append(MenuItem13);
+	MenuItem14 = new wxMenuItem(Menu3, idMenuRotateXZ, _("Rotieren XZ\tALT-3"), _("Objekt rotieren an X- und Z-Achse..."), wxITEM_RADIO);
+	Menu3->Append(MenuItem14);
+	MenuItem15 = new wxMenuItem(Menu3, idMenuRotateXY, _("Rotieren XY\tALT-4"), _("Objekt rotieren an X- und Y-Achse..."), wxITEM_RADIO);
+	Menu3->Append(MenuItem15);
 	MenuBar1->Append(Menu3, _("&Einstellungen"));
 	Menu2 = new wxMenu();
 	MenuItem5 = new wxMenuItem(Menu2, idMenuHelp, _("&Hilfe\tF1"), _("Hilfe zur Anwendung"), wxITEM_NORMAL);
@@ -358,6 +367,9 @@ void GNRMainFrame::OnMenuAbout(wxCommandEvent& WXUNUSED(event))
 
 void GNRMainFrame::OnToolbarMoveXZ(wxCommandEvent& WXUNUSED(event))
 {
+	MenuItem12->Check(true);
+	ToolBar1->ToggleTool(btn_move_xz, true);
+	
 	GNRNotifyEvent myevent(wxEVT_COMMAND_GNR_NOTIFY);
 	myevent.setGNREventType(TOOLBARCHANGE);
 	myevent.SetEventObject(this);
@@ -367,6 +379,9 @@ void GNRMainFrame::OnToolbarMoveXZ(wxCommandEvent& WXUNUSED(event))
 
 void GNRMainFrame::OnToolbarMoveXY(wxCommandEvent& WXUNUSED(event))
 {
+	MenuItem13->Check(true);
+	ToolBar1->ToggleTool(btn_move_xy, true);
+	
 	GNRNotifyEvent myevent(wxEVT_COMMAND_GNR_NOTIFY);
 	myevent.setGNREventType(TOOLBARCHANGE);
 	myevent.SetEventObject(this);
@@ -376,6 +391,9 @@ void GNRMainFrame::OnToolbarMoveXY(wxCommandEvent& WXUNUSED(event))
 
 void GNRMainFrame::OnToolbarRotateXZ(wxCommandEvent& WXUNUSED(event))
 {
+	MenuItem14->Check(true);
+	ToolBar1->ToggleTool(btn_rotate_xz, true);
+	
 	GNRNotifyEvent myevent(wxEVT_COMMAND_GNR_NOTIFY);
 	myevent.setGNREventType(TOOLBARCHANGE);
 	myevent.SetEventObject(this);
@@ -385,6 +403,9 @@ void GNRMainFrame::OnToolbarRotateXZ(wxCommandEvent& WXUNUSED(event))
 
 void GNRMainFrame::OnToolbarRotateXY(wxCommandEvent& WXUNUSED(event))
 {
+	MenuItem15->Check(true);
+	ToolBar1->ToggleTool(btn_rotate_xy, true);
+	
 	GNRNotifyEvent myevent(wxEVT_COMMAND_GNR_NOTIFY);
 	myevent.setGNREventType(TOOLBARCHANGE);
 	myevent.SetEventObject(this);
@@ -399,8 +420,17 @@ void GNRMainFrame::OnCameraReset(wxCommandEvent& WXUNUSED(event))
 	GetEventHandler()->ProcessEvent(gnrevent);
 }
 
+void GNRMainFrame::OnSnapToGridMenu(wxCommandEvent& WXUNUSED(event))
+{
+	//sync menu item and toolbar for snapping function
+	ToolBar1->ToggleTool(btn_snap_to_grid, MenuItem9->IsChecked());
+	OnSnapToGrid();
+}
+
 void GNRMainFrame::OnSnapToGridBtn(wxCommandEvent& WXUNUSED(event))
 {
+	//sync menu item and toolbar for snapping function
+	MenuItem9->Check(ToolBarItem15->IsToggled());
 	OnSnapToGrid();
 }
 

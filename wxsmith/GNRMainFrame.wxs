@@ -69,6 +69,31 @@
 					<help>Einrasten aktivieren</help>
 					<check>1</check>
 				</object>
+				<object class="separator" />
+				<object class="wxMenuItem" name="idMenuMoveXZ" variable="MenuItem12" member="yes">
+					<label>Verschieben XZ</label>
+					<accel>ALT-1</accel>
+					<help>Objekt verschieben entlang X- und Z-Achse...</help>
+					<radio>1</radio>
+				</object>
+				<object class="wxMenuItem" name="idMenuMoveXY" variable="MenuItem13" member="yes">
+					<label>Verschieben XY</label>
+					<accel>ALT-2</accel>
+					<help>Objekt verschieben entlang X- und Y-Achse...</help>
+					<radio>1</radio>
+				</object>
+				<object class="wxMenuItem" name="idMenuRotateXZ" variable="MenuItem14" member="yes">
+					<label>Rotieren XZ</label>
+					<accel>ALT-3</accel>
+					<help>Objekt rotieren an X- und Z-Achse...</help>
+					<radio>1</radio>
+				</object>
+				<object class="wxMenuItem" name="idMenuRotateXY" variable="MenuItem15" member="yes">
+					<label>Rotieren XY</label>
+					<accel>ALT-4</accel>
+					<help>Objekt rotieren an X- und Y-Achse...</help>
+					<radio>1</radio>
+				</object>
 			</object>
 			<object class="wxMenu" variable="Menu2" member="no">
 				<label>&amp;Hilfe</label>
