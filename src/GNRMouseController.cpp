@@ -28,6 +28,7 @@ GNRMouseController::GNRMouseController(GNRScene* scene)
 	m_AssemblyMediator3D = new GNRAssemblyMediator3D();
 	m_GLCameraMediator2D = new GNRGLCameraMediator2D();
 	m_GLCameraMediator3D = new GNRGLCameraMediator3D();
+	m_Mediator = m_AssemblyMediator3D;
 }
 
 /**

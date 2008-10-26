@@ -126,9 +126,7 @@ GNRMainFrame::GNRMainFrame(wxWindow* parent, wxWindowID WXUNUSED(id))
 	wxMenuItem* MenuItem2;
 	wxMenuItem* MenuItem1;
 	wxMenuItem* MenuItem4;
-	wxMenuItem* MenuItem11;
 	wxMenu* Menu1;
-	wxMenuItem* MenuItem10;
 	wxMenuItem* MenuItem3;
 	wxMenuItem* MenuItem6;
 	wxMenuBar* MenuBar1;

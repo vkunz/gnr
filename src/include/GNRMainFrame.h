@@ -99,6 +99,8 @@ private:
 	
 	//(*Declarations(GNRMainFrame)
 	wxMenu* Menu3;
+	wxMenuItem* MenuItem11;
+	wxMenuItem* MenuItem10;
 	wxStatusBar* StatusBar1;
 	wxMenuItem* MenuItem9;
 	//*)
