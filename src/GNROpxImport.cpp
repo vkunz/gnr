@@ -30,7 +30,7 @@ GNROpxImport::GNROpxImport()
 GNROpxImport::GNROpxImport(GNRScene* scene, wxString filename)
 {
 	// set GNRScene pointer
-	m_camera = scene->getGLCamera();
+	m_camera = scene->getGLCamera3D();
 	
 	// load
 	Load(filename);
@@ -44,7 +44,7 @@ GNROpxImport::~GNROpxImport()
 void GNROpxImport::Load(GNRScene* scene, wxString filename)
 {
 	// set GNRScene pointer
-	m_camera = scene->getGLCamera();
+	m_camera = scene->getGLCamera3D();
 	
 	// load
 	Load(filename);

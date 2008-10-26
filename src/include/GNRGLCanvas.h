@@ -30,6 +30,7 @@ private:
 	void OnLMouseDown(wxMouseEvent& event);
 	void OnLMouseUp(wxMouseEvent& event);
 	void OnMouseMove(wxMouseEvent& event);
+	void OnMouseWheel(wxMouseEvent& event);
 	void OnLeaveWindow(wxMouseEvent& event);
 	void OnEnterWindow(wxMouseEvent& event);
 	void OnResize(wxSizeEvent& event);
@@ -45,9 +46,7 @@ protected:
 	void getGLPos(int x, int y, GNRVertex* glcoords);
 	void getGLDim(int x, int y, GNRVertex* glcoords);
 	
-	virtual void setCamera() = 0;
 	virtual void setPerspective() = 0;
-	virtual void OnMouseWheel(wxMouseEvent& event) = 0;
 	virtual canvasType getCanvasID() = 0;
 	
 public:

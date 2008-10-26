@@ -43,16 +43,6 @@ GNRGLCanvas3D::GNRGLCanvas3D(wxWindow* parent, wxGLContext* sharedContext, wxWin
 {
 }
 
-/**
- * sets the camera-position for the 3D scene
- * @access      private
- */
-void GNRGLCanvas3D::setCamera()
-{
-	// set camera-position
-	//gluLookAt(0, 3, 3, 0, 0, 0, 0, 1, 0);
-}
-
 /** * sets the perspective for the 3D scene
  * @access private
  */
@@ -69,13 +59,4 @@ void GNRGLCanvas3D::setPerspective()
 canvasType GNRGLCanvas3D::getCanvasID()
 {
 	return CANVAS3D;
-}
-
-void GNRGLCanvas3D::OnMouseWheel(wxMouseEvent& event)
-{
-	GNRGLNotifyEvent myevent(wxEVT_COMMAND_GL_NOTIFY);
-	myevent.setMouseEvent(event);
-	myevent.setCanvasID(getCanvasID());
-	myevent.SetEventObject(this);
-	GetEventHandler()->ProcessEvent(myevent);
 }

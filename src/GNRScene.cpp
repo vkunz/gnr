@@ -2,13 +2,17 @@
 
 GNRScene::GNRScene()
 {
-	m_RootAssembly = new GNRAssembly("scene");
-	m_GLCamera     = new GNRGLCamera();
+	m_RootAssembly  = new GNRAssembly("scene");
+	m_GLCamera2D    = new GNRGLCamera();
+	m_GLCamera3D    = new GNRGLCamera();
+	m_GLCamera2D->rotateX(-90);
+	m_GLCamera2D->changeDistance(3);
 }
 
 GNRScene::~GNRScene()
 {
-	delete m_GLCamera;
+	delete m_GLCamera2D;
+	delete m_GLCamera3D;
 	delete m_RootAssembly;
 }
 
@@ -27,9 +31,14 @@ GNRAssembly* GNRScene::getRootAssembly()
 	return m_RootAssembly;
 }
 
-GNRGLCamera* GNRScene::getGLCamera()
+GNRGLCamera* GNRScene::getGLCamera2D()
 {
-	return m_GLCamera;
+	return m_GLCamera2D;
+}
+
+GNRGLCamera* GNRScene::getGLCamera3D()
+{
+	return m_GLCamera3D;
 }
 
 /**
@@ -40,7 +49,7 @@ void GNRScene::newRoom()
 {
 	delete m_RootAssembly;
 	m_RootAssembly = new GNRAssembly("scene");
-	m_GLCamera->reset();
+	m_GLCamera3D->reset();
 }
 
 /**
@@ -49,7 +58,7 @@ void GNRScene::newRoom()
  */
 void GNRScene::resetCamera()
 {
-	m_GLCamera->reset();
+	m_GLCamera3D->reset();
 }
 
 void GNRScene::setCanvas2D(GNRGLCanvas2D* p)
@@ -90,6 +99,7 @@ void GNRScene::glRefresh2D()
 {
 	//prepare and draw 2D top view of room
 	m_Canvas2D->prepareDraw();
+	m_GLCamera2D->render();
 	m_RootAssembly->draw();
 	m_Canvas2D->endDraw();
 }
@@ -102,7 +112,7 @@ void GNRScene::glRefresh3D()
 {
 	//prepare and draw 3D view of room
 	m_Canvas3D->prepareDraw();
-	m_GLCamera->render();
+	m_GLCamera3D->render();
 	m_RootAssembly->draw();
 	m_Canvas3D->endDraw();
 }

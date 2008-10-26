@@ -207,8 +207,6 @@ void GNRGLCanvas::prepareDraw()
 	
 	// Reset The Current Modelview Matrix
 	glLoadIdentity();
-	
-	setCamera();
 }
 
 /**
@@ -259,14 +257,7 @@ int GNRGLCanvas::selection(GNRAssembly* rootAssembly, GNRGLCamera* camera, int m
 		glLoadIdentity();
 		
 		//prepareDraw();
-		if (camera != NULL)
-		{
-			camera->render();
-		}
-		else
-		{
-			setCamera();
-		}
+		camera->render();
 		
 		rootAssembly->draw();
 		
@@ -415,6 +406,20 @@ void GNRGLCanvas::OnRMouseUp(wxMouseEvent& WXUNUSED(event))
 void GNRGLCanvas::OnMouseMove(wxMouseEvent& event)
 {
 	// send Event to handle Mouse
+	GNRGLNotifyEvent myevent(wxEVT_COMMAND_GL_NOTIFY);
+	myevent.setMouseEvent(event);
+	myevent.setCanvasID(getCanvasID());
+	myevent.SetEventObject(this);
+	GetEventHandler()->ProcessEvent(myevent);
+}
+
+/**
+ * fetches the MouseWheel event
+ * @param       wxMouseEvent    Mouse-Event of current canvas
+ * @access      private
+ */
+void GNRGLCanvas::OnMouseWheel(wxMouseEvent& event)
+{
 	GNRGLNotifyEvent myevent(wxEVT_COMMAND_GL_NOTIFY);
 	myevent.setMouseEvent(event);
 	myevent.setCanvasID(getCanvasID());

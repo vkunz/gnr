@@ -37,7 +37,6 @@
 GNRGLCanvas2D::GNRGLCanvas2D(wxWindow* parent, wxWindowID id, const wxPoint& pos, const wxSize& size, long style, const wxString& name)
 		:GNRGLCanvas(parent, id, pos, size, style, name)
 {
-	m_camera_height = CAMH;
 }
 
 /**
@@ -54,17 +53,6 @@ GNRGLCanvas2D::GNRGLCanvas2D(wxWindow* parent, wxWindowID id, const wxPoint& pos
 GNRGLCanvas2D::GNRGLCanvas2D(wxWindow* parent, wxGLContext* sharedContext, wxWindowID id, const wxPoint& pos, const wxSize& size,
                              long style, const wxString& name) : GNRGLCanvas(parent, sharedContext, id, pos, size, style, name)
 {
-	m_camera_height = CAMH;
-}
-
-/**
- * sets the camera-position for the 2D scene
- * @access      private
- */
-void GNRGLCanvas2D::setCamera()
-{
-	// set camera-position
-	gluLookAt(0, m_camera_height, 0, 0, 0, 0, 0, 0, -1);
 }
 
 /**
@@ -85,25 +73,4 @@ void GNRGLCanvas2D::setPerspective()
 canvasType GNRGLCanvas2D::getCanvasID()
 {
 	return CANVAS2D;
-}
-
-/**
- * fetches MouseWheelEvent and zooms in/out the window
- * @param   wxMouseEvent    Mouse Event of current canvas
- * @access private
- */
-void GNRGLCanvas2D::OnMouseWheel(wxMouseEvent& event)
-{
-	m_camera_height += 10.0 / (float)event.GetWheelRotation();
-	
-	if (m_camera_height < CAMH)
-	{
-		m_camera_height = CAMH;
-	}
-	
-	// Event for Redrawing the Canvases
-	GNRNotifyEvent myevent(wxEVT_COMMAND_GNR_NOTIFY);
-	myevent.setGNREventType(GLREFRESH);
-	myevent.SetEventObject(this);
-	GetEventHandler()->ProcessEvent(myevent);
 }

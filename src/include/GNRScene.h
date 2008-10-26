@@ -17,7 +17,8 @@ private:
 
 	//pointer for scene details
 	GNRAssembly*    m_RootAssembly;
-	GNRGLCamera*    m_GLCamera;
+	GNRGLCamera*    m_GLCamera2D;
+	GNRGLCamera*    m_GLCamera3D;
 	//pointer to canvas
 	GNRGLCanvas2D*  m_Canvas2D;
 	GNRGLCanvas3D*  m_Canvas3D;
@@ -31,7 +32,8 @@ public:
 
 	GNRAssembly* getRootAssembly();
 	GNRAssembly* getAssembly();
-	GNRGLCamera* getGLCamera();
+	GNRGLCamera* getGLCamera2D();
+	GNRGLCamera* getGLCamera3D();
 	
 	void setAssemblyID(int assemblyID);
 	void setCanvas2D(GNRGLCanvas2D* p);

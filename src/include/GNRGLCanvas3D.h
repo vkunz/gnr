@@ -17,11 +17,9 @@
 class GNRGLCanvas3D : public GNRGLCanvas
 {
 private:
-	void setCamera();
+
 	void setPerspective();
 	canvasType getCanvasID();
-	
-	void OnMouseWheel(wxMouseEvent& event);
 	
 public:
 	GNRGLCanvas3D(wxWindow* parent,

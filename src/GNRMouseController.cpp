@@ -65,14 +65,14 @@ void GNRMouseController::setMediator(GNRGLNotifyEvent& event)
 			//point to 2D mediator if event from canvas 2D
 			m_Mediator = m_AssemblyMediator2D;
 			//check for assembly id from click
-			selectedAssemblyID = (m_Scene->getCanvas2D())->selection(m_Scene->getRootAssembly(), NULL, mouse_x, mouse_y);
+			selectedAssemblyID = (m_Scene->getCanvas2D())->selection(m_Scene->getRootAssembly(), m_Scene->getGLCamera2D(), mouse_x, mouse_y);
 		}
 		else
 		{
 			//else, point to 3D mediator if event from canvas 3D
 			m_Mediator = m_AssemblyMediator3D;
 			//check for assembly id from click
-			selectedAssemblyID = (m_Scene->getCanvas3D())->selection(m_Scene->getRootAssembly(), m_Scene->getGLCamera() , mouse_x, mouse_y);
+			selectedAssemblyID = (m_Scene->getCanvas3D())->selection(m_Scene->getRootAssembly(), m_Scene->getGLCamera3D(), mouse_x, mouse_y);
 		}
 		
 		//store selected assembly id in scene
@@ -87,16 +87,14 @@ void GNRMouseController::setMediator(GNRGLNotifyEvent& event)
 		{
 			//point to 2D mediator if event from canvas 2D
 			m_Mediator = m_GLCameraMediator2D;
+			m_Mediator->setGLCamera(m_Scene->getGLCamera2D());
 		}
 		else
 		{
 			//else, point to 3D mediator if event from canvas 3D
 			m_Mediator = m_GLCameraMediator3D;
+			m_Mediator->setGLCamera(m_Scene->getGLCamera3D());
 		}
-		
-		//set camera to modify by mediator
-		m_Mediator->setGLCamera(m_Scene->getGLCamera());
-		
 		break;
 	case RIGHT_BUTTON:
 		//maybe for later functions?
@@ -108,12 +106,13 @@ void GNRMouseController::setMediator(GNRGLNotifyEvent& event)
 		if (event.getCanvasID() == CANVAS2D)
 		{
 			m_Mediator = m_GLCameraMediator2D;
+			m_Mediator->setGLCamera(m_Scene->getGLCamera2D());
 		}
 		else
 		{
 			m_Mediator = m_GLCameraMediator3D;
+			m_Mediator->setGLCamera(m_Scene->getGLCamera3D());
 		}
-		m_Mediator->setGLCamera(m_Scene->getGLCamera());
 	}
 	
 	//setup mediator starting position

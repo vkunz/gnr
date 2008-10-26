@@ -17,20 +17,36 @@
 
 void GNRGLCameraMediator2D::MoveXY(GNRGLNotifyEvent& event)
 {
+	float distX = (float)(m_mouse_x - event.getMouseEvent().GetX())/(float)(window_w)*5.0;
+	float distY = (float)(event.getMouseEvent().GetY() - m_mouse_y)/(float)(window_h)*5.0;
+	
+	doSnapMove(distX);
+	doSnapMove(distY);
+	
+	GNRVertex viewPoint = old_viewPoint + (old_rightVector*distX);
+	viewPoint = viewPoint + (old_upVector*distY);
+	
+	m_GLCamera->setViewPoint(viewPoint);
 }
 
 void GNRGLCameraMediator2D::MoveXZ(GNRGLNotifyEvent& event)
 {
+	MoveXY(event);
 }
 
 void GNRGLCameraMediator2D::RotateXY(GNRGLNotifyEvent& event)
 {
+	MoveXY(event);
 }
 
 void GNRGLCameraMediator2D::RotateXZ(GNRGLNotifyEvent& event)
 {
+	MoveXY(event);
 }
 
 void GNRGLCameraMediator2D::ZoomIn(GNRGLNotifyEvent& event)
 {
+	float distance = event.getMouseEvent().GetWheelRotation() / 600.0;
+	
+	m_GLCamera->changeDistance(distance);
 }

@@ -190,7 +190,7 @@ void GNRGLCamera::changeDistance(float distance)
 void GNRGLCamera::reset()
 {
 	//Init with standard OGL values:
-	viewPoint   = GNRVertex(0.0, 0.0,-1.0);
+	viewPoint   = GNRVertex(0.0, 0.0, 0.0);
 	viewDir     = GNRVertex(0.0, 0.0,-1.0);
 	rightVector = GNRVertex(1.0, 0.0, 0.0);
 	upVector    = GNRVertex(0.0, 1.0, 0.0);
