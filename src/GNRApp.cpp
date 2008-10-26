@@ -141,28 +141,44 @@ void GNRApp::OnGNREvent(GNRNotifyEvent& event)
 {
 	switch (event.getGNREventType())
 	{
-	case XMLOPEN:
-		XMLOpen(event.GetString());
-		m_Scene->glRefresh();
-		break;
 	case GLREFRESH:
 		updateSplitters();
-		m_Scene->glRefresh();
-		break;
-	case OBJIMPORT:
-		OBJImport(event.GetString());
 		m_Scene->glRefresh();
 		break;
 	case NEWROOM:
 		m_Scene->newRoom();
 		m_Scene->glRefresh();
 		break;
-	case RESETCAMERA:
-		m_Scene->resetCamera();
+	case OPXOPEN:
+		OPXOpen(event.GetString());
+		m_Scene->glRefresh();
+		break;
+	case OPXSAVE:
+		OPXSave(event.GetString());
+		m_Scene->glRefresh();
+		break;
+	case OAXIMPORT:
+		OAXImport(event.GetString());
+		m_Scene->glRefresh();
+		break;
+	case OAXEXPORT:
+		OAXExport(event.GetString());
+		m_Scene->glRefresh();
+		break;
+	case OBJIMPORT:
+		OBJImport(event.GetString());
+		m_Scene->glRefresh();
+		break;
+	case OBJEXPORT:
+		OBJExport(event.GetString());
 		m_Scene->glRefresh();
 		break;
 	case TOOLBARCHANGE:
 		m_MouseCtrl->setTranslation(event);
+		break;
+	case RESETCAMERA:
+		m_Scene->resetCamera();
+		m_Scene->glRefresh();
 		break;
 	case SNAPTOGRID:
 		m_MouseCtrl->setSnapfunction(event);
@@ -189,8 +205,52 @@ void GNRApp::OnGLEvent(GNRGLNotifyEvent& event)
 }
 
 /**
+ * handle opx open
+ * @param       wxString        File to open.
+ * @access      private
+ */
+void GNRApp::OPXOpen(wxString filename)
+{
+
+}
+
+/**
+ * handle opx save
+ * @param       wxString        File to save as.
+ * @access      private
+ */
+void GNRApp::OPXSave(wxString filename)
+{
+	wxLogDebug(wxT("OPXSave: not implemented yet"));
+}
+
+/**
+ * handle oax import
+ * @param       wxString        File to import.
+ * @access      private
+ */
+void GNRApp::OAXImport(wxString filename)
+{
+	// creates InputStream of filename
+	wxFFileInputStream stream(filename);
+	
+	// loads file
+	//GNROaxImport oax_stream(stream);
+}
+
+/**
+ * handle oax export
+ * @param       wxString        File to export to.
+ * @access      private
+ */
+void GNRApp::OAXExport(wxString filename)
+{
+	wxLogDebug(wxT("OAXExport: not implemented yet"));
+}
+
+/**
  * handle obj import
- * @param       wxString        filename
+ * @param       wxString        File to import.
  * @access      private
  */
 void GNRApp::OBJImport(wxString filename)
@@ -201,19 +261,14 @@ void GNRApp::OBJImport(wxString filename)
 }
 
 /**
- * handle xml import
- * @param       wxString        filename
+ * handle obj import
+ * @param       wxString        File to export to.
  * @access      private
  */
-void GNRApp::XMLOpen(wxString filename)
+void GNRApp::OBJExport(wxString filename)
 {
-	// creates InputStream of filename
-	wxFFileInputStream stream(filename);
-	
-	// loads file
-	//GNROaxImport oax_stream(stream);
+	wxLogDebug(wxT("OBJExport: not implemented yet"));
 }
-
 
 // Code unser im Repo,
 // bugfrei seien Deine Quellen.

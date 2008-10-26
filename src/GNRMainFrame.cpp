@@ -67,13 +67,13 @@ wxString wxbuildinfo(wxbuildinfoformat format)
 }
 
 //(*IdInit(GNRMainFrame)
-const long GNRMainFrame::idMenuNew = wxNewId();
-const long GNRMainFrame::idMenuLoad = wxNewId();
-const long GNRMainFrame::idMenuSave = wxNewId();
-const long GNRMainFrame::idMenuOAXImport = wxNewId();
-const long GNRMainFrame::idMenuOAXExport = wxNewId();
-const long GNRMainFrame::idMenuImport = wxNewId();
-const long GNRMainFrame::idMenuExport = wxNewId();
+const long GNRMainFrame::idMenuNewRoom = wxNewId();
+const long GNRMainFrame::idMenuOpxOpen = wxNewId();
+const long GNRMainFrame::idMenuOpxSave = wxNewId();
+const long GNRMainFrame::idMenuOaxImport = wxNewId();
+const long GNRMainFrame::idMenuOaxExport = wxNewId();
+const long GNRMainFrame::idMenuObjImport = wxNewId();
+const long GNRMainFrame::idMenuObjExport = wxNewId();
 const long GNRMainFrame::idMenuQuit = wxNewId();
 const long GNRMainFrame::idMenuSnapToGrid = wxNewId();
 const long GNRMainFrame::idMenuHelp = wxNewId();
@@ -105,16 +105,16 @@ const long GNRMainFrame::ID_STATICTEXT1 = wxNewId();
 const long GNRMainFrame::ID_STATICTEXT2 = wxNewId();
 
 BEGIN_EVENT_TABLE(GNRMainFrame,wxFrame)
-	EVT_MENU(btn_move_xy, GNRMainFrame::OnToolbarMoveXY)
 	EVT_MENU(btn_move_xz, GNRMainFrame::OnToolbarMoveXZ)
-	EVT_MENU(btn_rotate_xy, GNRMainFrame::OnToolbarRotateXY)
+	EVT_MENU(btn_move_xy, GNRMainFrame::OnToolbarMoveXY)
 	EVT_MENU(btn_rotate_xz, GNRMainFrame::OnToolbarRotateXZ)
-	EVT_MENU(btn_room_new, GNRMainFrame::OnNew)
+	EVT_MENU(btn_rotate_xy, GNRMainFrame::OnToolbarRotateXY)
 	EVT_MENU(btn_camera_reset, GNRMainFrame::OnCameraReset)
 	EVT_MENU(btn_snap_to_grid, GNRMainFrame::OnSnapToGridBtn)
+	EVT_MENU(btn_room_new, GNRMainFrame::OnMenuNewRoom)
 	EVT_SPINCTRL(ID_SPINCTRL_ROTATE, GNRMainFrame::OnSnapToGridCtrl)
 	EVT_SPINCTRL(ID_SPINCTRL_TRANS, GNRMainFrame::OnSnapToGridCtrl)
-	EVT_MENU(btn_quit, GNRMainFrame::OnQuit)
+	EVT_MENU(btn_quit, GNRMainFrame::OnMenuQuit)
 END_EVENT_TABLE()
 
 GNRMainFrame::GNRMainFrame(wxWindow* parent, wxWindowID WXUNUSED(id))
@@ -139,22 +139,22 @@ GNRMainFrame::GNRMainFrame(wxWindow* parent, wxWindowID WXUNUSED(id))
 	SetFocus();
 	MenuBar1 = new wxMenuBar();
 	Menu1 = new wxMenu();
-	MenuItem8 = new wxMenuItem(Menu1, idMenuNew, _("&Neuer Raum\tAlt-N"), _("Raum leeren..."), wxITEM_NORMAL);
+	MenuItem8 = new wxMenuItem(Menu1, idMenuNewRoom, _("&Neuer Raum\tAlt-N"), _("Raum leeren..."), wxITEM_NORMAL);
 	Menu1->Append(MenuItem8);
 	Menu1->AppendSeparator();
-	MenuItem3 = new wxMenuItem(Menu1, idMenuLoad, _("OPX &Öffnen\tAlt-O"), _("vorhandene Datei öffnen..."), wxITEM_NORMAL);
+	MenuItem3 = new wxMenuItem(Menu1, idMenuOpxOpen, _("OPX &Öffnen\tAlt-O"), _("vorhandene Datei öffnen..."), wxITEM_NORMAL);
 	Menu1->Append(MenuItem3);
-	MenuItem4 = new wxMenuItem(Menu1, idMenuSave, _("OPX &Speichern\tAlt-S"), _("Datei speichern..."), wxITEM_NORMAL);
+	MenuItem4 = new wxMenuItem(Menu1, idMenuOpxSave, _("OPX &Speichern\tAlt-S"), _("Datei speichern..."), wxITEM_NORMAL);
 	Menu1->Append(MenuItem4);
 	Menu1->AppendSeparator();
-	MenuItem10 = new wxMenuItem(Menu1, idMenuOAXImport, _("OAX Importieren"), _("OAX Importieren..."), wxITEM_NORMAL);
+	MenuItem10 = new wxMenuItem(Menu1, idMenuOaxImport, _("OAX Importieren"), _("OAX Importieren..."), wxITEM_NORMAL);
 	Menu1->Append(MenuItem10);
-	MenuItem11 = new wxMenuItem(Menu1, idMenuOAXExport, _("OAX Exportieren"), _("OAX Exportieren..."), wxITEM_NORMAL);
+	MenuItem11 = new wxMenuItem(Menu1, idMenuOaxExport, _("OAX Exportieren"), _("OAX Exportieren..."), wxITEM_NORMAL);
 	Menu1->Append(MenuItem11);
 	Menu1->AppendSeparator();
-	MenuItem6 = new wxMenuItem(Menu1, idMenuImport, _("OBJ &Importieren\tAlt-I"), _("Object-Datei importieren..."), wxITEM_NORMAL);
+	MenuItem6 = new wxMenuItem(Menu1, idMenuObjImport, _("OBJ &Importieren\tAlt-I"), _("Object-Datei importieren..."), wxITEM_NORMAL);
 	Menu1->Append(MenuItem6);
-	MenuItem7 = new wxMenuItem(Menu1, idMenuExport, _("OBJ E&xportieren\tAlt-X"), _("Object-Datei exportieren..."), wxITEM_NORMAL);
+	MenuItem7 = new wxMenuItem(Menu1, idMenuObjExport, _("OBJ E&xportieren\tAlt-X"), _("Object-Datei exportieren..."), wxITEM_NORMAL);
 	Menu1->Append(MenuItem7);
 	Menu1->AppendSeparator();
 	MenuItem1 = new wxMenuItem(Menu1, idMenuQuit, _("GNR Schließen\tAlt-F4"), _("GNR beenden..."), wxITEM_NORMAL);
@@ -178,8 +178,15 @@ GNRMainFrame::GNRMainFrame(wxWindow* parent, wxWindowID WXUNUSED(id))
 	StatusBar1->SetStatusStyles(1,__wxStatusBarStyles_1);
 	SetStatusBar(StatusBar1);
 	
-	Connect(idMenuQuit,wxEVT_COMMAND_MENU_SELECTED,(wxObjectEventFunction)&GNRMainFrame::OnQuit);
-	Connect(idMenuAbout,wxEVT_COMMAND_MENU_SELECTED,(wxObjectEventFunction)&GNRMainFrame::OnAbout);
+	Connect(idMenuNewRoom,wxEVT_COMMAND_MENU_SELECTED,(wxObjectEventFunction)&GNRMainFrame::OnMenuNewRoom);
+	Connect(idMenuOpxOpen,wxEVT_COMMAND_MENU_SELECTED,(wxObjectEventFunction)&GNRMainFrame::OnMenuOpxOpen);
+	Connect(idMenuOpxSave,wxEVT_COMMAND_MENU_SELECTED,(wxObjectEventFunction)&GNRMainFrame::OnMenuOpxSave);
+	Connect(idMenuOaxImport,wxEVT_COMMAND_MENU_SELECTED,(wxObjectEventFunction)&GNRMainFrame::OnMenuOaxImport);
+	Connect(idMenuOaxExport,wxEVT_COMMAND_MENU_SELECTED,(wxObjectEventFunction)&GNRMainFrame::OnMenuOaxExport);
+	Connect(idMenuObjImport,wxEVT_COMMAND_MENU_SELECTED,(wxObjectEventFunction)&GNRMainFrame::OnMenuObjImport);
+	Connect(idMenuObjExport,wxEVT_COMMAND_MENU_SELECTED,(wxObjectEventFunction)&GNRMainFrame::OnMenuObjExport);
+	Connect(idMenuQuit,wxEVT_COMMAND_MENU_SELECTED,(wxObjectEventFunction)&GNRMainFrame::OnMenuQuit);
+	Connect(idMenuAbout,wxEVT_COMMAND_MENU_SELECTED,(wxObjectEventFunction)&GNRMainFrame::OnMenuAbout);
 	//*)
 	
 	//generate toolbar and buttons
@@ -230,14 +237,6 @@ GNRMainFrame::GNRMainFrame(wxWindow* parent, wxWindowID WXUNUSED(id))
 	ToolBar1->Realize();
 	SetToolBar(ToolBar1);
 	//Center();
-	
-	//own events on menu selection
-	Connect(idMenuImport,wxEVT_COMMAND_MENU_SELECTED,(wxObjectEventFunction)&GNRMainFrame::OnImport);
-	Connect(idMenuExport,wxEVT_COMMAND_MENU_SELECTED,(wxObjectEventFunction)&GNRMainFrame::OnExport);
-	Connect(idMenuNew,wxEVT_COMMAND_MENU_SELECTED,(wxObjectEventFunction)&GNRMainFrame::OnNew);
-	
-	// Connects "Menü->Datei->XML Öffnen" with GNRMainFrame::OnLoad
-	Connect(idMenuLoad,wxEVT_COMMAND_MENU_SELECTED,(wxObjectEventFunction)&GNRMainFrame::OnLoad);
 }
 
 GNRMainFrame::~GNRMainFrame()
@@ -246,12 +245,7 @@ GNRMainFrame::~GNRMainFrame()
 	//*)
 }
 
-void GNRMainFrame::OnQuit(wxCommandEvent& WXUNUSED(event))
-{
-	Close();
-}
-
-void GNRMainFrame::OnNew(wxCommandEvent& WXUNUSED(event))
+void GNRMainFrame::OnMenuNewRoom(wxCommandEvent& event)
 {
 	wxMessageBox(wxT("I'll tidy up your room!"));
 	
@@ -260,15 +254,65 @@ void GNRMainFrame::OnNew(wxCommandEvent& WXUNUSED(event))
 	GetEventHandler()->ProcessEvent(gnrevent);
 }
 
-void GNRMainFrame::OnAbout(wxCommandEvent& WXUNUSED(event))
+void GNRMainFrame::OnMenuOpxOpen(wxCommandEvent& event)
 {
-	wxString msg = wxbuildinfo(long_f);
-	wxMessageBox(msg, _("GNR"));
+	wxString filename = wxFileSelector(wxT("Datei wählen..."), wxT(""), wxT(""), wxT(""), wxT("OpxDatei (*.opx)|*.opx"));
+	
+	if (!filename.IsEmpty())
+	{
+		GNRNotifyEvent gnrevent(wxEVT_COMMAND_GNR_NOTIFY);
+		gnrevent.setGNREventType(OPXOPEN);
+		gnrevent.SetString(filename);
+		
+		GetEventHandler()->ProcessEvent(gnrevent);
+	}
 }
 
-void GNRMainFrame::OnImport(wxCommandEvent& WXUNUSED(event))
+void GNRMainFrame::OnMenuOpxSave(wxCommandEvent& event)
 {
-	wxString filename = wxFileSelector(wxT("Datei wählen..."), wxT(""), wxT(""), wxT(""), wxT("Obj-Datei (*.obj)|*.obj"));
+	wxString filename = wxFileSelector(wxT("Datei wählen..."), wxT(""), wxT(""), wxT(""), wxT("OpxDatei (*.opx)|*.opx"));
+	
+	if (!filename.IsEmpty())
+	{
+		GNRNotifyEvent gnrevent(wxEVT_COMMAND_GNR_NOTIFY);
+		gnrevent.setGNREventType(OPXSAVE);
+		gnrevent.SetString(filename);
+		
+		GetEventHandler()->ProcessEvent(gnrevent);
+	}
+}
+
+void GNRMainFrame::OnMenuOaxImport(wxCommandEvent& event)
+{
+	wxString filename = wxFileSelector(wxT("Datei wählen..."), wxT(""), wxT(""), wxT(""), wxT("OaxDatei (*.oax)|*.oax"));
+	
+	if (!filename.IsEmpty())
+	{
+		GNRNotifyEvent gnrevent(wxEVT_COMMAND_GNR_NOTIFY);
+		gnrevent.setGNREventType(OAXIMPORT);
+		gnrevent.SetString(filename);
+		
+		GetEventHandler()->ProcessEvent(gnrevent);
+	}
+}
+
+void GNRMainFrame::OnMenuOaxExport(wxCommandEvent& event)
+{
+	wxString filename = wxFileSelector(wxT("Datei wählen..."), wxT(""), wxT(""), wxT(""), wxT("OaxDatei (*.oax)|*.oax"));
+	
+	if (!filename.IsEmpty())
+	{
+		GNRNotifyEvent gnrevent(wxEVT_COMMAND_GNR_NOTIFY);
+		gnrevent.setGNREventType(OAXEXPORT);
+		gnrevent.SetString(filename);
+		
+		GetEventHandler()->ProcessEvent(gnrevent);
+	}
+}
+
+void GNRMainFrame::OnMenuObjImport(wxCommandEvent& event)
+{
+	wxString filename = wxFileSelector(wxT("Datei wählen..."), wxT(""), wxT(""), wxT(""), wxT("ObjDatei (*.obj)|*.obj"));
 	
 	if (!filename.IsEmpty())
 	{
@@ -280,32 +324,29 @@ void GNRMainFrame::OnImport(wxCommandEvent& WXUNUSED(event))
 	}
 }
 
-void GNRMainFrame::OnExport(wxCommandEvent& WXUNUSED(event))
+void GNRMainFrame::OnMenuObjExport(wxCommandEvent& event)
 {
-	wxMessageBox(wxT("Not implemented yet."));
-}
-
-void GNRMainFrame::OnLoad(wxCommandEvent& WXUNUSED(event))
-{
-	wxString filename = wxFileSelector(wxT("Datei wählen..."), wxT(""), wxT(""), wxT(""), wxT("OAX-Datei (*.oax)|*.oax|OPXDatei (*.opx)|*.opx"));
+	wxString filename = wxFileSelector(wxT("Datei wählen..."), wxT(""), wxT(""), wxT(""), wxT("ObjDatei (*.obj)|*.obj"));
 	
 	if (!filename.IsEmpty())
 	{
 		GNRNotifyEvent gnrevent(wxEVT_COMMAND_GNR_NOTIFY);
-		gnrevent.setGNREventType(XMLOPEN);
+		gnrevent.setGNREventType(OBJEXPORT);
 		gnrevent.SetString(filename);
 		
 		GetEventHandler()->ProcessEvent(gnrevent);
 	}
 }
 
-void GNRMainFrame::OnToolbarMoveXY(wxCommandEvent& WXUNUSED(event))
+void GNRMainFrame::OnMenuQuit(wxCommandEvent& event)
 {
-	GNRNotifyEvent myevent(wxEVT_COMMAND_GNR_NOTIFY);
-	myevent.setGNREventType(TOOLBARCHANGE);
-	myevent.SetEventObject(this);
-	myevent.SetInt(MOVEXY);
-	GetEventHandler()->ProcessEvent(myevent);
+	Close();
+}
+
+void GNRMainFrame::OnMenuAbout(wxCommandEvent& event)
+{
+	wxString msg = wxbuildinfo(long_f);
+	wxMessageBox(msg, _("GNR"));
 }
 
 void GNRMainFrame::OnToolbarMoveXZ(wxCommandEvent& WXUNUSED(event))
@@ -317,12 +358,12 @@ void GNRMainFrame::OnToolbarMoveXZ(wxCommandEvent& WXUNUSED(event))
 	GetEventHandler()->ProcessEvent(myevent);
 }
 
-void GNRMainFrame::OnToolbarRotateXY(wxCommandEvent& WXUNUSED(event))
+void GNRMainFrame::OnToolbarMoveXY(wxCommandEvent& WXUNUSED(event))
 {
 	GNRNotifyEvent myevent(wxEVT_COMMAND_GNR_NOTIFY);
 	myevent.setGNREventType(TOOLBARCHANGE);
 	myevent.SetEventObject(this);
-	myevent.SetInt(ROTATEXY);
+	myevent.SetInt(MOVEXY);
 	GetEventHandler()->ProcessEvent(myevent);
 }
 
@@ -335,11 +376,30 @@ void GNRMainFrame::OnToolbarRotateXZ(wxCommandEvent& WXUNUSED(event))
 	GetEventHandler()->ProcessEvent(myevent);
 }
 
+void GNRMainFrame::OnToolbarRotateXY(wxCommandEvent& WXUNUSED(event))
+{
+	GNRNotifyEvent myevent(wxEVT_COMMAND_GNR_NOTIFY);
+	myevent.setGNREventType(TOOLBARCHANGE);
+	myevent.SetEventObject(this);
+	myevent.SetInt(ROTATEXY);
+	GetEventHandler()->ProcessEvent(myevent);
+}
+
 void GNRMainFrame::OnCameraReset(wxCommandEvent& WXUNUSED(event))
 {
 	GNRNotifyEvent gnrevent(wxEVT_COMMAND_GNR_NOTIFY);
 	gnrevent.setGNREventType(RESETCAMERA);
 	GetEventHandler()->ProcessEvent(gnrevent);
+}
+
+void GNRMainFrame::OnSnapToGridBtn(wxCommandEvent& WXUNUSED(event))
+{
+	OnSnapToGrid();
+}
+
+void GNRMainFrame::OnSnapToGridCtrl(wxSpinEvent& WXUNUSED(event))
+{
+	OnSnapToGrid();
 }
 
 void GNRMainFrame::OnSnapToGrid()
@@ -360,14 +420,4 @@ void GNRMainFrame::OnSnapToGrid()
 	gnrevent.setSnapToAngle(snapAngle);
 	
 	GetEventHandler()->ProcessEvent(gnrevent);
-}
-
-void GNRMainFrame::OnSnapToGridBtn(wxCommandEvent& WXUNUSED(event))
-{
-	OnSnapToGrid();
-}
-
-void GNRMainFrame::OnSnapToGridCtrl(wxSpinEvent& WXUNUSED(event))
-{
-	OnSnapToGrid();
 }

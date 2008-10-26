@@ -48,8 +48,14 @@ private:
 	void glRefresh3D();
 	void initFrames();
 	void updateSplitters();
+	
+	// MainFrame Menu-functions
+	void OPXOpen(wxString filename);
+	void OPXSave(wxString filename);
+	void OAXImport(wxString filename);
+	void OAXExport(wxString filename);
 	void OBJImport(wxString filename);
-	void XMLOpen(wxString filename);
+	void OBJExport(wxString filename);
 	
 	//attributes
 	wxTreeCtrl* m_TreeCtrlLib;

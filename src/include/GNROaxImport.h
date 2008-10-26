@@ -59,9 +59,6 @@ protected:
 
 private:
 	// attributes
-	// pointer to the first zipentry
-	wxZipEntry* m_ptrFirstZipEntry;
-	
 	// x - y - z - scale
 	float m_scalex, m_scaley, m_scalez;
 	

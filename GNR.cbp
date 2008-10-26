@@ -121,6 +121,7 @@
 		<Unit filename="src\GNRNotifyEvent.cpp" />
 		<Unit filename="src\GNROaxImport.cpp" />
 		<Unit filename="src\GNRObjectImport.cpp" />
+		<Unit filename="src\GNROpxImport.cpp" />
 		<Unit filename="src\GNRScene.cpp" />
 		<Unit filename="src\GNRTCoord.cpp" />
 		<Unit filename="src\GNRTreePanelLibrary.cpp" />
@@ -153,6 +154,7 @@
 		<Unit filename="src\include\GNRNotifyEvent.h" />
 		<Unit filename="src\include\GNROaxImport.h" />
 		<Unit filename="src\include\GNRObjectImport.h" />
+		<Unit filename="src\include\GNROpxImport.h" />
 		<Unit filename="src\include\GNRScene.h" />
 		<Unit filename="src\include\GNRTCoord.h" />
 		<Unit filename="src\include\GNRTreePanelLibrary.h" />

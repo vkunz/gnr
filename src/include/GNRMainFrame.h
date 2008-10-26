@@ -38,40 +38,42 @@ public:
 private:
 
 	//(*Handlers(GNRMainFrame)
-	void OnResize(wxMouseEvent& event);
-	void OnQuit(wxCommandEvent& event);
-	void OnAbout(wxCommandEvent& event);
-	void OnImport(wxCommandEvent& event);
-	void OnExport(wxCommandEvent& event);
-	void OnLoad(wxCommandEvent& event);
-	void OnNew(wxCommandEvent& event);
-	void OnScrolledWindow1Paint(wxPaintEvent& event);
-	void OnCameraReset(wxCommandEvent& event);
+	void OnMenuNewRoom(wxCommandEvent& event);
+	void OnMenuOpxOpen(wxCommandEvent& event);
+	void OnMenuOpxSave(wxCommandEvent& event);
+	void OnMenuOaxImport(wxCommandEvent& event);
+	void OnMenuOaxExport(wxCommandEvent& event);
+	void OnMenuObjImport(wxCommandEvent& event);
+	void OnMenuObjExport(wxCommandEvent& event);
+	void OnMenuQuit(wxCommandEvent& event);
+	void OnMenuAbout(wxCommandEvent& event);
 	//*)
 	
 	//ToolBar Button Events
-	void OnToolbarMoveXY(wxCommandEvent& event);
 	void OnToolbarMoveXZ(wxCommandEvent& event);
-	void OnToolbarRotateXY(wxCommandEvent& event);
+	void OnToolbarMoveXY(wxCommandEvent& event);
 	void OnToolbarRotateXZ(wxCommandEvent& event);
-	void OnSnapToGrid();
+	void OnToolbarRotateXY(wxCommandEvent& event);
+	void OnCameraReset(wxCommandEvent& event);
 	void OnSnapToGridBtn(wxCommandEvent& event);
 	void OnSnapToGridCtrl(wxSpinEvent& event);
+	void OnSnapToGrid();
 	
 	//(*Identifiers(GNRMainFrame)
-	static const long idMenuNew;
-	static const long idMenuLoad;
-	static const long idMenuSave;
-	static const long idMenuOAXImport;
-	static const long idMenuOAXExport;
-	static const long idMenuImport;
-	static const long idMenuExport;
+	static const long idMenuNewRoom;
+	static const long idMenuOpxOpen;
+	static const long idMenuOpxSave;
+	static const long idMenuOaxImport;
+	static const long idMenuOaxExport;
+	static const long idMenuObjImport;
+	static const long idMenuObjExport;
 	static const long idMenuQuit;
 	static const long idMenuSnapToGrid;
 	static const long idMenuHelp;
 	static const long idMenuAbout;
 	static const long ID_StatusBar;
 	//*)
+	
 	//ToolBar Buttons
 	static const long btn_room_new;
 	static const long btn_room_open;
