@@ -5,7 +5,7 @@
 		<pos>0,0</pos>
 		<size>800,550</size>
 		<focused>1</focused>
-		<minsize>640,480</minsize>
+		<minsize>800,480</minsize>
 		<id_arg>0</id_arg>
 		<object class="wxMenuBar" variable="MenuBar1" member="no">
 			<object class="wxMenu" variable="Menu1" member="no">

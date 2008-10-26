@@ -135,7 +135,7 @@ GNRMainFrame::GNRMainFrame(wxWindow* parent, wxWindowID WXUNUSED(id))
 	Create(parent, wxID_ANY, _("GNR - 3D Einrichtungsplaner"), wxDefaultPosition, wxDefaultSize, wxDEFAULT_FRAME_STYLE, _T("wxID_ANY"));
 	SetClientSize(wxSize(800,550));
 	Move(wxPoint(0,0));
-	SetMinSize(wxSize(640,480));
+	SetMinSize(wxSize(800,480));
 	SetFocus();
 	MenuBar1 = new wxMenuBar();
 	Menu1 = new wxMenu();
