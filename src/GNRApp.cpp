@@ -59,7 +59,6 @@ bool GNRApp::OnInit()
 		//build models
 		m_Scene         = new GNRScene();
 		m_MouseCtrl     = new GNRMouseController(m_Scene);
-		m_TreeCtrlLib   = new wxTreeCtrl(m_TreePanelLibrary, wxID_ANY, wxPoint(0, 0), m_TreePanelLibrary->GetSize(), wxTR_DEFAULT_STYLE, wxDefaultValidator, _T("TreePanelLibrary"));
 		//m_TreeCtrlScene = new wxTreeCtrl();
 		
 		m_Scene->setCanvas2D(m_Canvas2D);
@@ -95,6 +94,9 @@ void GNRApp::initFrames()
 	//create tree and models panel
 	m_TreePanelLibrary = new GNRTreePanelLibrary(m_HorizontalSplitter_left, wxID_ANY);
 	m_TreePanelMyScene = new GNRTreePanelMyScene(m_HorizontalSplitter_left, wxID_ANY);
+	
+	//create m_TreeCntr
+	m_TreeCtrlLib = new wxTreeCtrl(m_TreePanelLibrary, wxID_ANY, wxPoint(0, 0), m_TreePanelLibrary->GetSize(), wxTR_DEFAULT_STYLE, wxDefaultValidator, _T("TreePanelLibrary"));
 	
 	//create two canvas panels
 	m_Canvas2D = new GNRGLCanvas2D(m_HorizontalSplitter_right, -1);
@@ -133,7 +135,10 @@ void GNRApp::updateSplitters()
 	m_HorizontalSplitter_right->UpdateSize();
 	m_HorizontalSplitter_left->UpdateSize();
 	m_VerticalSplitter->UpdateSize();
-	
+}
+
+void GNRApp::updateSize()
+{
 	// update size of m_TreeCtrlLib
 	m_TreeCtrlLib->SetSize(m_TreePanelLibrary->GetSize());
 }
@@ -188,7 +193,7 @@ void GNRApp::OnGNREvent(GNRNotifyEvent& event)
 		m_MouseCtrl->setSnapfunction(event);
 		break;
 	case PANELSIZE:
-		updateSplitters();
+		updateSize();
 		break;
 	}
 }

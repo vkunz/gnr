@@ -48,6 +48,7 @@ private:
 	void glRefresh3D();
 	void initFrames();
 	void updateSplitters();
+	void updateSize();
 	
 	// MainFrame Menu-functions
 	void OPXOpen(wxString filename);
