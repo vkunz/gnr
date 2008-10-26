@@ -2,7 +2,7 @@
 /**
  * GNROpxImport
  * @name        GNROpxImport.cpp
- * @date        2008-10-23
+ * @date        2008-10-26
  * @author		Konstantin Balabin  <k.balabin@googlemail.com>
  * @author		Patrick Kracht      <patrick.kracht@googlemail.com>
  * @author		Thorsten Moll       <thorsten.moll@googlemail.com>

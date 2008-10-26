@@ -23,14 +23,14 @@ public:
 	GNRTreePanelMyScene(wxWindow* parent,wxWindowID id=wxID_ANY);
 	virtual ~GNRTreePanelMyScene();
 	
-	wxTreeCtrl* TreeCtrl;
-	
 protected:
 
 	static const long ID_TREECTRL;
 	
 private:
 
+	void OnResize(wxSizeEvent& event);
+	
 	DECLARE_EVENT_TABLE()
 };
 

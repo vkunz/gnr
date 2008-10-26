@@ -59,8 +59,8 @@ bool GNRApp::OnInit()
 		//build models
 		m_Scene         = new GNRScene();
 		m_MouseCtrl     = new GNRMouseController(m_Scene);
-		m_TreeCtrlLib   = new wxTreeCtrl();
-		m_TreeCtrlScene = new wxTreeCtrl();
+		m_TreeCtrlLib   = new wxTreeCtrl(m_TreePanelLibrary, wxID_ANY, wxPoint(0, 0), m_TreePanelLibrary->GetSize(), wxTR_DEFAULT_STYLE, wxDefaultValidator, _T("TreePanelLibrary"));
+		//m_TreeCtrlScene = new wxTreeCtrl();
 		
 		m_Scene->setCanvas2D(m_Canvas2D);
 		m_Scene->setCanvas3D(m_Canvas3D);
@@ -133,6 +133,9 @@ void GNRApp::updateSplitters()
 	m_HorizontalSplitter_right->UpdateSize();
 	m_HorizontalSplitter_left->UpdateSize();
 	m_VerticalSplitter->UpdateSize();
+	
+	// update size of m_TreeCtrlLib
+	m_TreeCtrlLib->SetSize(m_TreePanelLibrary->GetSize());
 }
 
 /**
@@ -183,6 +186,9 @@ void GNRApp::OnGNREvent(GNRNotifyEvent& event)
 		break;
 	case SNAPTOGRID:
 		m_MouseCtrl->setSnapfunction(event);
+		break;
+	case PANELSIZE:
+		updateSplitters();
 		break;
 	}
 }

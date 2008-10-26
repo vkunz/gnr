@@ -9,6 +9,7 @@
  * @author		Valentin Kunz       <athostr@googlemail.com>
  */
 
+#include "GNRNotifyEvent.h"
 #include "GNRTreePanelMyScene.h"
 
 #include <wx/treectrl.h>
@@ -23,10 +24,18 @@ END_EVENT_TABLE()
 GNRTreePanelMyScene::GNRTreePanelMyScene(wxWindow* parent,wxWindowID id)
 {
 	Create(parent, id, wxDefaultPosition, wxSize(640,480), wxTAB_TRAVERSAL, _T("GNRTreePanelMyScene"));
-	TreeCtrl = new wxTreeCtrl(this, ID_TREECTRL, wxPoint(0,0), wxDefaultSize, wxTR_DEFAULT_STYLE, wxDefaultValidator, _T("GNRTreePanelMyScene"));
+	
+	Connect(wxEVT_SIZE, (wxObjectEventFunction)&GNRTreePanelMyScene::OnResize);
 }
 
 GNRTreePanelMyScene::~GNRTreePanelMyScene()
 {
 }
 
+void GNRTreePanelMyScene::OnResize(wxSizeEvent& WXUNUSED(event))
+{
+	GNRNotifyEvent gnrevent(wxEVT_COMMAND_GNR_NOTIFY);
+	gnrevent.setGNREventType(PANELSIZE);
+	
+	GetEventHandler()->ProcessEvent(gnrevent);
+}

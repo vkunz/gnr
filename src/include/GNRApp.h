@@ -59,7 +59,7 @@ private:
 	
 	//attributes
 	wxTreeCtrl* m_TreeCtrlLib;
-	wxTreeCtrl* m_TreeCtrlScene;
+	//wxTreeCtrl* m_TreeCtrlScene;
 	
 	GNRTreePanelLibrary* m_TreePanelLibrary;
 	GNRTreePanelMyScene* m_TreePanelMyScene;

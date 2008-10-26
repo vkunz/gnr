@@ -145,6 +145,7 @@
 		<Unit filename="src\include\GNRGLCanvas2D.h" />
 		<Unit filename="src\include\GNRGLCanvas3D.h" />
 		<Unit filename="src\include\GNRGLNotifyEvent.h" />
+		<Unit filename="src\include\GNRGlobalDefine.h" />
 		<Unit filename="src\include\GNRImportFile.h" />
 		<Unit filename="src\include\GNRMainFrame.h" />
 		<Unit filename="src\include\GNRMaterial.h" />
