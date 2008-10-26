@@ -17,6 +17,7 @@
 #include <wx/panel.h>
 #include <wx/spinctrl.h>
 #include <wx/statbox.h>
+#include <wx/stattext.h>
 #include <wx/statusbr.h>
 #include <wx/toolbar.h>
 
@@ -53,12 +54,16 @@ private:
 	void OnToolbarMoveXZ(wxCommandEvent& event);
 	void OnToolbarRotateXY(wxCommandEvent& event);
 	void OnToolbarRotateXZ(wxCommandEvent& event);
-	void OnSnapToGrid(wxCommandEvent& event);
+	void OnSnapToGrid();
+	void OnSnapToGridBtn(wxCommandEvent& event);
+	void OnSnapToGridCtrl(wxSpinEvent& event);
 	
 	//(*Identifiers(GNRMainFrame)
 	static const long idMenuNew;
 	static const long idMenuLoad;
 	static const long idMenuSave;
+	static const long idMenuOAXImport;
+	static const long idMenuOAXExport;
 	static const long idMenuImport;
 	static const long idMenuExport;
 	static const long idMenuQuit;
@@ -89,6 +94,8 @@ private:
 	
 	static const long ID_SPINCTRL_TRANS;
 	static const long ID_SPINCTRL_ROTATE;
+	static const long ID_STATICTEXT1;
+	static const long ID_STATICTEXT2;
 	
 	//(*Declarations(GNRMainFrame)
 	wxMenu* Menu3;
@@ -98,6 +105,8 @@ private:
 	
 	wxSpinCtrl* SpinCtrlTranslate;
 	wxSpinCtrl* SpinCtrlRotate;
+	wxStaticText* StaticText1;
+	wxStaticText* StaticText2;
 	
 	wxToolBar* ToolBar1;
 	
@@ -118,6 +127,8 @@ private:
 	wxToolBarToolBase* ToolBarItem15;
 	wxToolBarToolBase* ToolBarItem16;
 	wxToolBarToolBase* ToolBarItem17;
+	wxToolBarToolBase* ToolBarItem18;
+	wxToolBarToolBase* ToolBarItem19;
 	wxToolBarToolBase* ToolBarItem99;
 	
 	DECLARE_EVENT_TABLE()

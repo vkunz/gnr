@@ -17,6 +17,7 @@
 #include <string.h>
 
 #include "wx/wx.h"
+#include "math.h"
 #include "GNRObjectImport.h"
 #include "GNRMainFrame.h"
 
@@ -69,6 +70,8 @@ wxString wxbuildinfo(wxbuildinfoformat format)
 const long GNRMainFrame::idMenuNew = wxNewId();
 const long GNRMainFrame::idMenuLoad = wxNewId();
 const long GNRMainFrame::idMenuSave = wxNewId();
+const long GNRMainFrame::idMenuOAXImport = wxNewId();
+const long GNRMainFrame::idMenuOAXExport = wxNewId();
 const long GNRMainFrame::idMenuImport = wxNewId();
 const long GNRMainFrame::idMenuExport = wxNewId();
 const long GNRMainFrame::idMenuQuit = wxNewId();
@@ -98,7 +101,8 @@ const long GNRMainFrame::ID_ToolBar = wxNewId();
 
 const long GNRMainFrame::ID_SPINCTRL_TRANS  = wxNewId();
 const long GNRMainFrame::ID_SPINCTRL_ROTATE = wxNewId();
-
+const long GNRMainFrame::ID_STATICTEXT1 = wxNewId();
+const long GNRMainFrame::ID_STATICTEXT2 = wxNewId();
 
 BEGIN_EVENT_TABLE(GNRMainFrame,wxFrame)
 	EVT_MENU(btn_move_xy, GNRMainFrame::OnToolbarMoveXY)
@@ -107,9 +111,9 @@ BEGIN_EVENT_TABLE(GNRMainFrame,wxFrame)
 	EVT_MENU(btn_rotate_xz, GNRMainFrame::OnToolbarRotateXZ)
 	EVT_MENU(btn_room_new, GNRMainFrame::OnNew)
 	EVT_MENU(btn_camera_reset, GNRMainFrame::OnCameraReset)
-	EVT_MENU(btn_snap_to_grid, GNRMainFrame::OnSnapToGrid)
-	//	EVT_SPINCTRL(ID_SPINCTRL_ROTATE, GNRMainFrame::OnSnapToGrid)
-	//	EVT_SPINCTRL(ID_SPINCTRL_TRANS, GNRMainFrame::OnSnapToGrid)
+	EVT_MENU(btn_snap_to_grid, GNRMainFrame::OnSnapToGridBtn)
+	EVT_SPINCTRL(ID_SPINCTRL_ROTATE, GNRMainFrame::OnSnapToGridCtrl)
+	EVT_SPINCTRL(ID_SPINCTRL_TRANS, GNRMainFrame::OnSnapToGridCtrl)
 	EVT_MENU(btn_quit, GNRMainFrame::OnQuit)
 END_EVENT_TABLE()
 
@@ -122,7 +126,9 @@ GNRMainFrame::GNRMainFrame(wxWindow* parent, wxWindowID WXUNUSED(id))
 	wxMenuItem* MenuItem2;
 	wxMenuItem* MenuItem1;
 	wxMenuItem* MenuItem4;
+	wxMenuItem* MenuItem11;
 	wxMenu* Menu1;
+	wxMenuItem* MenuItem10;
 	wxMenuItem* MenuItem3;
 	wxMenuItem* MenuItem6;
 	wxMenuBar* MenuBar1;
@@ -138,10 +144,15 @@ GNRMainFrame::GNRMainFrame(wxWindow* parent, wxWindowID WXUNUSED(id))
 	MenuItem8 = new wxMenuItem(Menu1, idMenuNew, _("&Neuer Raum\tAlt-N"), _("Raum leeren..."), wxITEM_NORMAL);
 	Menu1->Append(MenuItem8);
 	Menu1->AppendSeparator();
-	MenuItem3 = new wxMenuItem(Menu1, idMenuLoad, _("XML &Öffnen\tAlt-O"), _("vorhandene Datei öffnen..."), wxITEM_NORMAL);
+	MenuItem3 = new wxMenuItem(Menu1, idMenuLoad, _("OPX &Öffnen\tAlt-O"), _("vorhandene Datei öffnen..."), wxITEM_NORMAL);
 	Menu1->Append(MenuItem3);
-	MenuItem4 = new wxMenuItem(Menu1, idMenuSave, _("XML &Speichern\tAlt-S"), _("Datei speichern..."), wxITEM_NORMAL);
+	MenuItem4 = new wxMenuItem(Menu1, idMenuSave, _("OPX &Speichern\tAlt-S"), _("Datei speichern..."), wxITEM_NORMAL);
 	Menu1->Append(MenuItem4);
+	Menu1->AppendSeparator();
+	MenuItem10 = new wxMenuItem(Menu1, idMenuOAXImport, _("OAX Importieren"), _("OAX Importieren..."), wxITEM_NORMAL);
+	Menu1->Append(MenuItem10);
+	MenuItem11 = new wxMenuItem(Menu1, idMenuOAXExport, _("OAX Exportieren"), _("OAX Exportieren..."), wxITEM_NORMAL);
+	Menu1->Append(MenuItem11);
 	Menu1->AppendSeparator();
 	MenuItem6 = new wxMenuItem(Menu1, idMenuImport, _("OBJ &Importieren\tAlt-I"), _("Object-Datei importieren..."), wxITEM_NORMAL);
 	Menu1->Append(MenuItem6);
@@ -201,15 +212,19 @@ GNRMainFrame::GNRMainFrame(wxWindow* parent, wxWindowID WXUNUSED(id))
 	ToolBar1->AddSeparator();
 	
 	//build input for grid snapping
-	SpinCtrlTranslate = new wxSpinCtrl(ToolBar1, ID_SPINCTRL_TRANS, _T("100"), wxPoint(0,0), wxSize(50,20), 0, 1, 1000, 10, _T("ID_SPINCTRL_TRANS"));
+	SpinCtrlTranslate = new wxSpinCtrl(ToolBar1, ID_SPINCTRL_TRANS, _T("100"), wxPoint(0,0), wxSize(60,20), 0, 1, 1000, 10, _T("ID_SPINCTRL_TRANS"));
+	StaticText1       = new wxStaticText(ToolBar1, ID_STATICTEXT1, _(" mm"), wxPoint(3,13), wxSize(20,12), 0, _T("Schrittweite in mm"));
 	SpinCtrlTranslate->SetValue(_T("100"));
 	ToolBarItem16 = ToolBar1->AddControl(SpinCtrlTranslate);
+	ToolBarItem17 = ToolBar1->AddControl(StaticText1);
 	ToolBar1->AddSeparator();
 	
 	//build input for rotation snapping
-	SpinCtrlRotate = new wxSpinCtrl(ToolBar1, ID_SPINCTRL_ROTATE, _T("15"), wxPoint(0,0), wxSize(50,20), 0, 5, 90, 10, _T("ID_SPINCTRL_ROTATE"));
+	SpinCtrlRotate = new wxSpinCtrl(ToolBar1, ID_SPINCTRL_ROTATE, _T("15"), wxPoint(0,0), wxSize(60,20), 0, 0, 90, 10, _T("ID_SPINCTRL_ROTATE"));
+	StaticText2    = new wxStaticText(ToolBar1, ID_STATICTEXT2, _(" Grad"), wxPoint(3,13), wxSize(30,12), 0, _T("Schrittweite in Grad"));
 	SpinCtrlRotate->SetValue(_T("15"));
-	ToolBarItem17 = ToolBar1->AddControl(SpinCtrlRotate);
+	ToolBarItem18 = ToolBar1->AddControl(SpinCtrlRotate);
+	ToolBarItem19 = ToolBar1->AddControl(StaticText2);
 	ToolBar1->AddSeparator();
 	
 	//build exit button at the end
@@ -329,7 +344,7 @@ void GNRMainFrame::OnCameraReset(wxCommandEvent& WXUNUSED(event))
 	GetEventHandler()->ProcessEvent(gnrevent);
 }
 
-void GNRMainFrame::OnSnapToGrid(wxCommandEvent& event)
+void GNRMainFrame::OnSnapToGrid()
 {
 	GNRNotifyEvent gnrevent(wxEVT_COMMAND_GNR_NOTIFY);
 	gnrevent.setGNREventType(SNAPTOGRID);
@@ -347,4 +362,14 @@ void GNRMainFrame::OnSnapToGrid(wxCommandEvent& event)
 	gnrevent.setSnapToAngle(snapAngle);
 	
 	GetEventHandler()->ProcessEvent(gnrevent);
+}
+
+void GNRMainFrame::OnSnapToGridBtn(wxCommandEvent& WXUNUSED(event))
+{
+	OnSnapToGrid();
+}
+
+void GNRMainFrame::OnSnapToGridCtrl(wxSpinEvent& WXUNUSED(event))
+{
+	OnSnapToGrid();
 }

@@ -390,7 +390,7 @@ void GNRGLCanvas::OnMMouseUp(wxMouseEvent& event)
  * @param       wxMouseEvent    Mouse-Event of current canvas
  * @access      private
  */
-void GNRGLCanvas::OnRMouseDown(wxMouseEvent& event)
+void GNRGLCanvas::OnRMouseDown(wxMouseEvent& WXUNUSED(event))
 {
 	SetFocus();
 	Connect(wxEVT_MOUSEWHEEL, (wxObjectEventFunction)&GNRGLCanvas::OnMouseWheel);
@@ -402,7 +402,7 @@ void GNRGLCanvas::OnRMouseDown(wxMouseEvent& event)
  * @param       wxMouseEvent    Mouse-Event of current canvas
  * @access      private
  */
-void GNRGLCanvas::OnRMouseUp(wxMouseEvent& event)
+void GNRGLCanvas::OnRMouseUp(wxMouseEvent& WXUNUSED(event))
 {
 	// nothing has do be done yet
 }
@@ -480,7 +480,7 @@ void GNRGLCanvas::OnLMouseDblClick(wxMouseEvent& event)
  * @param       wxSizeEvent    Size-Event of current canvas
  * @access      private
  */
-void GNRGLCanvas::OnResize(wxSizeEvent& event)
+void GNRGLCanvas::OnResize(wxSizeEvent& WXUNUSED(event))
 {
 	//get canvas-size
 	GetClientSize(&m_window_x, &m_window_y);

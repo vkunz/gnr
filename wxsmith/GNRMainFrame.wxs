@@ -17,14 +17,23 @@
 				</object>
 				<object class="separator" />
 				<object class="wxMenuItem" name="idMenuLoad" variable="MenuItem3" member="no">
-					<label>XML &amp;Öffnen</label>
+					<label>OPX &amp;Öffnen</label>
 					<accel>Alt-O</accel>
 					<help>vorhandene Datei öffnen...</help>
 				</object>
 				<object class="wxMenuItem" name="idMenuSave" variable="MenuItem4" member="no">
-					<label>XML &amp;Speichern</label>
+					<label>OPX &amp;Speichern</label>
 					<accel>Alt-S</accel>
 					<help>Datei speichern...</help>
+				</object>
+				<object class="separator" />
+				<object class="wxMenuItem" name="idMenuOAXImport" variable="MenuItem10" member="yes">
+					<label>OAX Importieren</label>
+					<help>OAX Importieren...</help>
+				</object>
+				<object class="wxMenuItem" name="idMenuOAXExport" variable="MenuItem11" member="yes">
+					<label>OAX Exportieren</label>
+					<help>OAX Exportieren...</help>
 				</object>
 				<object class="separator" />
 				<object class="wxMenuItem" name="idMenuImport" variable="MenuItem6" member="no">

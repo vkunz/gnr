@@ -27,7 +27,7 @@ BEGIN_EVENT_TABLE(GNRDebugFrame,wxFrame)
 	//*)
 END_EVENT_TABLE()
 
-GNRDebugFrame::GNRDebugFrame(wxWindow* parent,wxWindowID id)
+GNRDebugFrame::GNRDebugFrame(wxWindow* parent,wxWindowID WXUNUSED(id))
 {
 	//(*Initialize(GNRDebugFrame)
 	Create(parent, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, wxDEFAULT_FRAME_STYLE, _T("wxID_ANY"));
