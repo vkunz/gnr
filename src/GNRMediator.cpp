@@ -15,15 +15,13 @@ int GNRMediator::m_SnapAngle = 1;
  * constructor of GNRMediator is useless
  * @access      public
  */
-GNRMediator::GNRMediator()
-{}
+GNRMediator::GNRMediator() {}
 
 /**
  * destructor of GNRMediator is useless
  * @access      public
  */
-GNRMediator::~GNRMediator()
-{}
+GNRMediator::~GNRMediator() {}
 
 /**
  * set translation type for all mediators

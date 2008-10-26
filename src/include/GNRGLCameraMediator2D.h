@@ -13,6 +13,7 @@ private:
 	void MoveXZ(GNRGLNotifyEvent& event);
 	void RotateXY(GNRGLNotifyEvent& event);
 	void RotateXZ(GNRGLNotifyEvent& event);
+	void ZoomIn(GNRGLNotifyEvent& event);
 	
 };
 

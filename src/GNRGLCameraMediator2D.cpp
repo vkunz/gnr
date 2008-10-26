@@ -30,3 +30,7 @@ void GNRGLCameraMediator2D::RotateXY(GNRGLNotifyEvent& event)
 void GNRGLCameraMediator2D::RotateXZ(GNRGLNotifyEvent& event)
 {
 }
+
+void GNRGLCameraMediator2D::ZoomIn(GNRGLNotifyEvent& event)
+{
+}

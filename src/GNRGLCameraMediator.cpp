@@ -26,11 +26,24 @@ void GNRGLCameraMediator::initialize(GNRGLNotifyEvent& event)
 	//do initialize stuff here
 	m_mouse_x = event.getMouseEvent().GetX();
 	m_mouse_y = event.getMouseEvent().GetY();
+	
+	old_viewPoint   = m_GLCamera->getViewPoint();
+	old_viewDir     = m_GLCamera->getViewDir();
+	old_rightVector = m_GLCamera->getRightVector();
+	old_upVector    = m_GLCamera->getUpVector();
+	old_rotatedX    = m_GLCamera->getRotatedX();
+	old_rotatedY    = m_GLCamera->getRotatedY();
+	old_rotatedZ    = m_GLCamera->getRotatedZ();
 }
 
 int GNRGLCameraMediator::translate(GNRGLNotifyEvent& event)
 {
 	//do specific translations
+	if (event.getMouseEvent().GetWheelRotation())
+	{
+		ZoomIn(event);
+		return 0;
+	}
 	switch (m_Translation)
 	{
 	case MOVEXZ:

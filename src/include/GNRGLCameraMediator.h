@@ -3,6 +3,7 @@
 
 #include "GNRMediator.h"
 #include "GNRGLCamera.h"
+#include "GNRVertex.h"
 
 class GNRGLCameraMediator: public GNRMediator
 {
@@ -19,6 +20,7 @@ protected:
 	virtual void MoveXZ(GNRGLNotifyEvent& event) = 0;
 	virtual void RotateXY(GNRGLNotifyEvent& event) = 0;
 	virtual void RotateXZ(GNRGLNotifyEvent& event) = 0;
+	virtual void ZoomIn(GNRGLNotifyEvent& event) = 0;
 	
 	GNRGLCamera* m_GLCamera;
 	
@@ -26,7 +28,15 @@ protected:
 	int m_mouse_x;
 	int m_mouse_y;
 	
+	GNRVertex old_viewPoint;
+	GNRVertex old_viewDir;
+	GNRVertex old_rightVector;
+	GNRVertex old_upVector;
+	float old_rotatedX, old_rotatedY, old_rotatedZ;
+	
+	
 private:
+
 
 };
 

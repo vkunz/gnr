@@ -150,8 +150,8 @@ void GNRGLCamera::setPosition(float x, float y, float z)
 /**
  * sets the orientation of the camera
  * @param       float     angle, the camera is rotated arround x-axis
- * @param       float     angle, the camera is rotated arround x-axis
- * @param       float     angle, the camera is rotated arround x-axis
+ * @param       float     angle, the camera is rotated arround y-axis
+ * @param       float     angle, the camera is rotated arround z-axis
  * @access      public
  */
 void GNRGLCamera::setAngles(float phi, float theta, float rho)
@@ -202,13 +202,153 @@ void GNRGLCamera::reset()
 
 /**
  * returns the position of the camera
- * @return
+ * @return  GNRVertex   Camera-Position
  * @access      public
  */
 GNRVertex GNRGLCamera::getPosition()
 {
 	GNRVertex position = viewPoint - viewDir*m_distance;
 	return position;
+}
+
+/**
+ * returns the ViewPoint of the camera
+ * @return  GNRVertex   ViewPoint
+ * @access      public
+ */
+GNRVertex GNRGLCamera::getViewPoint()
+{
+	return viewPoint;
+}
+
+/**
+ * returns the View-Direction of the camera
+ * @return  GNRVertex   View-Direction
+ * @access      public
+ */
+GNRVertex GNRGLCamera::getViewDir()
+{
+	return viewDir;
+}
+
+/**
+ * returns the right-Vector of the camera
+ * @return  GNRVertex   right-Vector
+ * @access      public
+ */
+GNRVertex GNRGLCamera::getRightVector()
+{
+	return rightVector;
+}
+
+/**
+ * returns the up-Vector of the camera
+ * @return  GNRVertex   up-Vector
+ * @access      public
+ */
+GNRVertex GNRGLCamera::getUpVector()
+{
+	return upVector;
+}
+
+/**
+ * returns the rotation of the camera arround x-axis
+ * @return  GLfloat   x-Rotation in Degree
+ * @access      public
+ */
+GLfloat GNRGLCamera::getRotatedX()
+{
+	return rotatedX;
+}
+
+/**
+ * returns the rotation of the camera arround y-axis
+ * @return  GLfloat   y-Rotation in Degree
+ * @access      public
+ */
+GLfloat GNRGLCamera::getRotatedY()
+{
+	return rotatedY;
+}
+
+/**
+ * returns the rotation of the camera arround z-axis
+ * @return  GLfloat   z-Rotation in Degree
+ * @access      public
+ */
+GLfloat GNRGLCamera::getRotatedZ()
+{
+	return rotatedZ;
+}
+
+/**
+ * sets the View-Point of the camera
+ * @param  GNRVertex   View-Point
+ * @access      public
+ */
+void GNRGLCamera::setViewPoint(GNRVertex point)
+{
+	viewPoint = point;
+}
+
+/**
+ * sets the View-Direction of the camera
+ * @param  GNRVertex   View-Direction
+ * @access      public
+ */
+void GNRGLCamera::setViewDir(GNRVertex dir)
+{
+	viewDir = dir;
+}
+
+/**
+ * sets the right-Vector of the camera
+ * @param  GNRVertex   right-Vector
+ * @access      public
+ */
+void GNRGLCamera::setRightVector(GNRVertex right)
+{
+	rightVector = right;
+}
+
+/**
+ * sets the up-Vector of the camera
+ * @param  GNRVertex   up-Vector
+ * @access      public
+ */
+void GNRGLCamera::setUpVector(GNRVertex up)
+{
+	upVector = up;
+}
+
+/**
+ * sets the rotation of the camera arround x-axis
+ * @param  GLfloat   x-Rotation in Degree
+ * @access      public
+ */
+void GNRGLCamera::setRotatedX(GLfloat phi)
+{
+	rotatedX = phi;
+}
+
+/**
+ * sets the rotation of the camera arround y-axis
+ * @param  GLfloat   y-Rotation in Degree
+ * @access      public
+ */
+void GNRGLCamera::setRotatedY(GLfloat theta)
+{
+	rotatedY = theta;
+}
+
+/**
+ * sets the rotation of the camera arround z-axis
+ * @param  GLfloat   z-Rotation in Degree
+ * @access      public
+ */
+void GNRGLCamera::setRotatedZ(GLfloat rho)
+{
+	rotatedZ = rho;
 }
 
 /**

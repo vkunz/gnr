@@ -199,10 +199,18 @@ void GNRApp::OnGLEvent(GNRGLNotifyEvent& event)
 	}
 	
 	//if button is down, translate event to mediator
-	if (event.getMouseEvent().ButtonIsDown(-1))
+	else if (event.getMouseEvent().ButtonIsDown(-1))
 	{
 		m_MouseCtrl->activateMediator(event);
 	}
+	
+	//if event is scroll-event, translate event to mediator
+	else if (event.getMouseEvent().GetWheelRotation())
+	{
+		m_MouseCtrl->setMediator(event);
+		m_MouseCtrl->activateMediator(event);
+	}
+	
 }
 
 /**

@@ -103,6 +103,19 @@ void GNRMouseController::setMediator(GNRGLNotifyEvent& event)
 		break;
 	}
 	
+	if (event.getMouseEvent().GetWheelRotation())
+	{
+		if (event.getCanvasID() == CANVAS2D)
+		{
+			m_Mediator = m_GLCameraMediator2D;
+		}
+		else
+		{
+			m_Mediator = m_GLCameraMediator3D;
+		}
+		m_Mediator->setGLCamera(m_Scene->getGLCamera());
+	}
+	
 	//setup mediator starting position
 	m_Mediator->initialize(event);
 }
