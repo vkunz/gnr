@@ -223,7 +223,9 @@ void GNRApp::OPXOpen(wxString filename)
  */
 void GNRApp::OPXSave(wxString filename)
 {
+#if defined(__ATHOS_DEBUG__)
 	wxLogDebug(wxT("OPXSave: not implemented yet"));
+#endif
 }
 
 /**
@@ -247,7 +249,9 @@ void GNRApp::OAXImport(wxString filename)
  */
 void GNRApp::OAXExport(wxString filename)
 {
+#if defined(__ATHOS_DEBUG__)
 	wxLogDebug(wxT("OAXExport: not implemented yet"));
+#endif
 }
 
 /**
@@ -269,7 +273,9 @@ void GNRApp::OBJImport(wxString filename)
  */
 void GNRApp::OBJExport(wxString filename)
 {
+#if defined(__ATHOS_DEBUG__)
 	wxLogDebug(wxT("OBJExport: not implemented yet"));
+#endif
 }
 
 // Code unser im Repo,
