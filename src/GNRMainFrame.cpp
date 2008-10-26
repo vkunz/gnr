@@ -245,7 +245,7 @@ GNRMainFrame::~GNRMainFrame()
 	//*)
 }
 
-void GNRMainFrame::OnMenuNewRoom(wxCommandEvent& event)
+void GNRMainFrame::OnMenuNewRoom(wxCommandEvent& WXUNUSED(event))
 {
 	wxMessageBox(wxT("I'll tidy up your room!"));
 	
@@ -254,10 +254,11 @@ void GNRMainFrame::OnMenuNewRoom(wxCommandEvent& event)
 	GetEventHandler()->ProcessEvent(gnrevent);
 }
 
-void GNRMainFrame::OnMenuOpxOpen(wxCommandEvent& event)
+void GNRMainFrame::OnMenuOpxOpen(wxCommandEvent& WXUNUSED(event))
 {
 	wxString filename = wxFileSelector(wxT("Datei wählen..."), wxT(""), wxT(""), wxT(""), wxT("OpxDatei (*.opx)|*.opx"));
 	
+	// look if string is not empty
 	if (!filename.IsEmpty())
 	{
 		GNRNotifyEvent gnrevent(wxEVT_COMMAND_GNR_NOTIFY);
@@ -268,10 +269,11 @@ void GNRMainFrame::OnMenuOpxOpen(wxCommandEvent& event)
 	}
 }
 
-void GNRMainFrame::OnMenuOpxSave(wxCommandEvent& event)
+void GNRMainFrame::OnMenuOpxSave(wxCommandEvent& WXUNUSED(event))
 {
 	wxString filename = wxFileSelector(wxT("Datei wählen..."), wxT(""), wxT(""), wxT(""), wxT("OpxDatei (*.opx)|*.opx"));
 	
+	// look if string is not empty
 	if (!filename.IsEmpty())
 	{
 		GNRNotifyEvent gnrevent(wxEVT_COMMAND_GNR_NOTIFY);
@@ -282,10 +284,11 @@ void GNRMainFrame::OnMenuOpxSave(wxCommandEvent& event)
 	}
 }
 
-void GNRMainFrame::OnMenuOaxImport(wxCommandEvent& event)
+void GNRMainFrame::OnMenuOaxImport(wxCommandEvent& WXUNUSED(event))
 {
 	wxString filename = wxFileSelector(wxT("Datei wählen..."), wxT(""), wxT(""), wxT(""), wxT("OaxDatei (*.oax)|*.oax"));
 	
+	// look if string is not empty
 	if (!filename.IsEmpty())
 	{
 		GNRNotifyEvent gnrevent(wxEVT_COMMAND_GNR_NOTIFY);
@@ -296,10 +299,11 @@ void GNRMainFrame::OnMenuOaxImport(wxCommandEvent& event)
 	}
 }
 
-void GNRMainFrame::OnMenuOaxExport(wxCommandEvent& event)
+void GNRMainFrame::OnMenuOaxExport(wxCommandEvent& WXUNUSED(event))
 {
 	wxString filename = wxFileSelector(wxT("Datei wählen..."), wxT(""), wxT(""), wxT(""), wxT("OaxDatei (*.oax)|*.oax"));
 	
+	// look if string is not empty
 	if (!filename.IsEmpty())
 	{
 		GNRNotifyEvent gnrevent(wxEVT_COMMAND_GNR_NOTIFY);
@@ -310,10 +314,11 @@ void GNRMainFrame::OnMenuOaxExport(wxCommandEvent& event)
 	}
 }
 
-void GNRMainFrame::OnMenuObjImport(wxCommandEvent& event)
+void GNRMainFrame::OnMenuObjImport(wxCommandEvent& WXUNUSED(event))
 {
 	wxString filename = wxFileSelector(wxT("Datei wählen..."), wxT(""), wxT(""), wxT(""), wxT("ObjDatei (*.obj)|*.obj"));
 	
+	// look if string is not empty
 	if (!filename.IsEmpty())
 	{
 		GNRNotifyEvent gnrevent(wxEVT_COMMAND_GNR_NOTIFY);
@@ -324,10 +329,11 @@ void GNRMainFrame::OnMenuObjImport(wxCommandEvent& event)
 	}
 }
 
-void GNRMainFrame::OnMenuObjExport(wxCommandEvent& event)
+void GNRMainFrame::OnMenuObjExport(wxCommandEvent& WXUNUSED(event))
 {
 	wxString filename = wxFileSelector(wxT("Datei wählen..."), wxT(""), wxT(""), wxT(""), wxT("ObjDatei (*.obj)|*.obj"));
 	
+	// look if string is not empty
 	if (!filename.IsEmpty())
 	{
 		GNRNotifyEvent gnrevent(wxEVT_COMMAND_GNR_NOTIFY);
@@ -338,12 +344,12 @@ void GNRMainFrame::OnMenuObjExport(wxCommandEvent& event)
 	}
 }
 
-void GNRMainFrame::OnMenuQuit(wxCommandEvent& event)
+void GNRMainFrame::OnMenuQuit(wxCommandEvent& WXUNUSED(event))
 {
 	Close();
 }
 
-void GNRMainFrame::OnMenuAbout(wxCommandEvent& event)
+void GNRMainFrame::OnMenuAbout(wxCommandEvent& WXUNUSED(event))
 {
 	wxString msg = wxbuildinfo(long_f);
 	wxMessageBox(msg, _("GNR"));

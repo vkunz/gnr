@@ -14,6 +14,7 @@
 #include "GNRApp.h"
 #include "GNRMaterial.h"
 #include "GNRObjectImport.h"
+#include "GNROpxImport.h"
 
 #if defined(__ATHOS_DEBUG__)
 #include <wx/log.h>
@@ -211,7 +212,8 @@ void GNRApp::OnGLEvent(GNRGLNotifyEvent& event)
  */
 void GNRApp::OPXOpen(wxString filename)
 {
-
+	// create importer and execute it
+	GNROpxImport import(m_Scene, filename);
 }
 
 /**

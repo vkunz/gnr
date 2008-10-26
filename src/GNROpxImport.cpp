@@ -9,6 +9,7 @@
  * @author		Valentin Kunz       <athostr@googlemail.com>
  */
 
+#include <wx/string.h>
 #include <wx/tokenzr.h>
 #include <wx/zipstrm.h>
 #include <wx/wfstream.h>
@@ -118,7 +119,7 @@ void GNROpxImport::LoadXml(wxInputStream& stream)
 	node = node->GetNext();
 	
 	// node to camera
-	node = node->GetNext();
+	node = node->GetChildren();
 	
 	// node to type
 	node = node->GetChildren();
@@ -131,8 +132,6 @@ void GNROpxImport::LoadXml(wxInputStream& stream)
 	
 	// get value of location
 	value = prop->GetValue();
-	
-	wxLogDebug(value);
 	
 	// tokenize value
 	tok.SetString(value, wxT(" "));
@@ -148,6 +147,51 @@ void GNROpxImport::LoadXml(wxInputStream& stream)
 	
 	// set camera position
 	m_camera->setPosition(x, y, z);
+	
+	// prop to orientation
+	prop = prop->GetNext();
+	
+	// get value of orientation
+	value = prop->GetValue();
+	
+	// tokenize value
+	tok.SetString(value, wxT(" "));
+	
+	// get camera x-orientation
+	tok.GetNextToken().ToDouble(&x);
+	
+	// get camera y-orientation
+	tok.GetNextToken().ToDouble(&y);
+	
+	// get camera z-orientation
+	tok.GetNextToken().ToDouble(&z);
+	
+	// set camera orientation
+	m_camera->setAngles(x, y, z);
+	
+	// node to camera
+	node = node->GetParent();
+	
+	// node to lightsources
+	node = node->GetNext();
+	
+	// node to scene
+	node = node->GetNext();
+	
+	// node to assemblies
+	node = node->GetChildren();
+	
+	// node to first assembly
+	node = node->GetChildren();
+	
+	// walk through all assembly-tags
+	while (node->GetName() == wxT("assembly"))
+	{
+		// do something with assembly
+		node = node->GetNext();
+	}
+	
+#warning "INFO: Here todo someting, I'm waiting until monday(27.10.2008), if xml-format changes."
 }
 
 void GNROpxImport::LoadOax(wxInputStream& stream)
