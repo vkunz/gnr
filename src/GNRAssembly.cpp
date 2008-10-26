@@ -92,9 +92,44 @@ void GNRAssembly::setOverGround(const float overground)
 	m_overground = overground;
 }
 
+float GNRAssembly::getScale() const
+{
+	return m_scale;
+}
+
+float GNRAssembly::getScaleX() const
+{
+	return m_scaleX;
+}
+
+float GNRAssembly::getScaleY() const
+{
+	return m_scaleY;
+}
+
+float GNRAssembly::getScaleZ() const
+{
+	return m_scaleZ;
+}
+
 void GNRAssembly::setScale(float s)
 {
 	m_scale = s;
+}
+
+void GNRAssembly::setScaleX(float x)
+{
+	m_scaleX = x;
+}
+
+void GNRAssembly::setScaleY(float y)
+{
+	m_scaleY = y;
+}
+
+void GNRAssembly::setScaleZ(float z)
+{
+	m_scaleZ = z;
 }
 
 float GNRAssembly::getOverGround()
@@ -115,6 +150,11 @@ void GNRAssembly::addFace(const GNRFace& face)
 void GNRAssembly::addPart(GNRAssembly* p)
 {
 	m_part.push_back(p);
+}
+
+void GNRAssembly::setName(const string& name)
+{
+	m_name = name;
 }
 
 bool GNRAssembly::getIsRoot() const

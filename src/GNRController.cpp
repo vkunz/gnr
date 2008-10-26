@@ -12,7 +12,9 @@
 #include "GNRController.h"
 #include "GNRAssembly.h"
 #include "GNRMaterial.h"
+#include "GNROaxImport.h"
 #include "GNRObjectImport.h"
+#include "GNRXmlImport.h"
 #include "wx/wx.h"
 
 // quick && dirty
@@ -21,6 +23,10 @@ GNRMaterialLibrary mtllib;
 
 #if defined(__ATHOS_DEBUG__)
 #include <wx/log.h>
+#include <wx/wfstream.h>
+#include <wx/zipstrm.h>
+#include <wx/txtstrm.h>
+#include <wx/xml/xml.h>
 #endif
 
 /**
@@ -36,6 +42,7 @@ GNRController::GNRController()
 	m_AssemblyTranslater= new GNRAssemblyTranslater(m_GLCamera);
 	m_MainFrame         = new GNRMainFrame(0);
 	m_activeCanvas      = NONE;
+	
 	
 #if defined(__ATHOS_DEBUG__)
 	// Create DebugFrame
@@ -255,7 +262,131 @@ void GNRController::processGLMouse(GNRGLNotifyEvent& event)
 void GNRController::XMLOpen(wxString filename)
 {
 	wxLogDebug(wxT("Hier angekommen"));
-	wxLogDebug(filename);
+	//wxLogDebug(filename);
+	wxString file = wxT("D:\\Devel\\Projects\\Praxisprojekt\\data\\Reference-oax\\31696c04-386a-4407-8f3e-c3f6e92d91ca.oax");
+	
+	wxFFileInputStream stream(file);
+	
+	// test as stream
+	GNROaxImport oax_2(stream);
+	
+	// test as file
+	GNROaxImport oax(file);
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	//GNRXmlImport xmlImport(file);
+	
+//    wxLogDebug(wxT("Zip erstellen..."));
+
+//    wxFFileOutputStream out(file);
+//    wxZipOutputStream zipout(out);
+//    wxTextOutputStream txtout(zipout);
+//    wxString sep(wxFileName::GetPathSeparator());
+
+//    zipout.PutNextEntry(_T("entry1.txt"));
+//    txtout << _T("Some text for entry1.txt\n");
+
+//    zipout.PutNextEntry(_T("subdir") + sep + _T("entry2.txt"));
+//    txtout << _T("Some text for subdir/entry2.txt\n");
+
+//    log << wxT("Datei: ") << file << wxT(" erstellt!");
+
+//    wxLogDebug(log);
+
+//    file = wxT("D:\\Devel\\Projects\\Praxisprojekt\\data\\Reference-opx\\ExampleProject.opx");
+
+//    wxLogDebug(wxT("Zip auslesen..."));
+
+//    wxZipEntry* entry;
+//    wxFFileInputStream in(file);
+//    wxZipInputStream zipin(in);
+//    wxTextInputStream txtin(zipin);
+//    wxXmlDocument xml;
+//    wxXmlNode* child;
+//    wxXmlProperty* prop;
+
+	// iterate through all entrys
+//    while(entry = zipin.GetNextEntry())
+//    {
+	// filter directories
+//        if(!entry->IsDir())
+//        {
+	// filter xml
+//            if(entry->GetName().Matches(wxT("*.xml")))
+//            {
+//                log = entry->GetName();
+//                wxLogDebug(log);
+//                log = wxT("");
+
+//                xml.Load(zipin);
+//                log << wxT("content.xml -> Version: ") <<  xml.GetVersion() << wxT("\tcontent.xml -> Encoding: ") << xml.GetFileEncoding();
+//                wxLogDebug(log);
+//                log = wxT("");
+
+	// opxml
+//                child = xml.GetRoot();
+
+	// projectinformation
+//                child = child->GetChildren();
+
+	// data
+//                child = child->GetNext();
+
+	// camera
+//                child = child->GetChildren();
+
+	// lightsource
+//                child = child->GetNext();
+
+	// scene
+//                child = child->GetNext();
+
+	// assembly
+//                child = child->GetChildren();
+
+	// go through all scene-tags
+//                while(child)
+//                {
+	// filter assembly
+//                    if(child->GetName() == wxT("assembly"))
+//                    {
+//                        prop = child->GetProperties();
+
+//                        log += wxT("Properties: ");
+//                        while(prop)
+//                        {
+//                            log += prop->GetName();
+//                            log += wxT(" ");
+//                            log += prop->GetValue();
+//                            log += wxT(" ");
+
+//                            prop = prop->GetNext();
+//                        }
+//                        wxLogDebug(log);
+//                        log = wxT("");
+//                    }
+
+//                    child = child->GetNext();
+//                }
+
+//                while(child)
+//                {
+//                    log = child->GetNodeContent();
+//                    wxLogDebug(log);
+
+	// next child
+//                    child = child->GetNext();
+//                }
+//            }
+//        }
+//    }
 }
 
 /**

@@ -30,6 +30,8 @@
 					<Add library="libwxjpegd.a" />
 					<Add library="libwxtiffd.a" />
 					<Add library="libwxmsw28ud_gl.a" />
+					<Add library="libwxbase28ud_xml.a" />
+					<Add library="libwxexpatd.a" />
 					<Add directory="$(#wx)\lib\gcc_lib" />
 				</Linker>
 			</Target>
@@ -56,6 +58,8 @@
 					<Add library="libwxtiff.a" />
 					<Add library="libwxjpeg.a" />
 					<Add library="libwxmsw28u_gl.a" />
+					<Add library="libwxbase28u_xml.a" />
+					<Add library="libwxexpat.a" />
 					<Add directory="$(#wx)\lib\gcc_lib" />
 				</Linker>
 			</Target>
@@ -115,6 +119,7 @@
 		<Unit filename="src\GNRMediator.cpp" />
 		<Unit filename="src\GNRMouseController.cpp" />
 		<Unit filename="src\GNRNotifyEvent.cpp" />
+		<Unit filename="src\GNROaxImport.cpp" />
 		<Unit filename="src\GNRObjectImport.cpp" />
 		<Unit filename="src\GNRScene.cpp" />
 		<Unit filename="src\GNRTCoord.cpp" />
@@ -146,6 +151,7 @@
 		<Unit filename="src\include\GNRMediator.h" />
 		<Unit filename="src\include\GNRMouseController.h" />
 		<Unit filename="src\include\GNRNotifyEvent.h" />
+		<Unit filename="src\include\GNROaxImport.h" />
 		<Unit filename="src\include\GNRObjectImport.h" />
 		<Unit filename="src\include\GNRScene.h" />
 		<Unit filename="src\include\GNRTCoord.h" />

@@ -16,6 +16,7 @@
 #include <wx/glcanvas.h>
 #include <wx/splitter.h>
 #include <wx/treectrl.h>
+#include <wx/wfstream.h>
 
 #include "GNRGLCanvas2D.h"
 #include "GNRGLCanvas3D.h"
@@ -23,6 +24,7 @@
 #include "GNRMainFrame.h"
 #include "GNRMouseController.h"
 #include "GNRNotifyEvent.h"
+#include "GNROaxImport.h"
 #include "GNRScene.h"
 #include "GNRTreePanelLibrary.h"
 #include "GNRTreePanelMyScene.h"
@@ -47,6 +49,7 @@ private:
 	void initFrames();
 	void updateSplitters();
 	void OBJImport(wxString filename);
+	void XMLOpen(wxString filename);
 	
 	//attributes
 	wxTreeCtrl* m_TreeCtrlLib;

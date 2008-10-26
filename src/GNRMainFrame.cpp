@@ -102,7 +102,7 @@ BEGIN_EVENT_TABLE(GNRMainFrame,wxFrame)
 	EVT_MENU(btn_quit, GNRMainFrame::OnQuit)
 END_EVENT_TABLE()
 
-GNRMainFrame::GNRMainFrame(wxWindow* parent, wxWindowID id)
+GNRMainFrame::GNRMainFrame(wxWindow* parent, wxWindowID WXUNUSED(id))
 {
 	//(*Initialize(GNRMainFrame)
 	wxMenuItem* MenuItem8;
@@ -188,6 +188,8 @@ GNRMainFrame::GNRMainFrame(wxWindow* parent, wxWindowID id)
 	Connect(idMenuImport,wxEVT_COMMAND_MENU_SELECTED,(wxObjectEventFunction)&GNRMainFrame::OnImport);
 	Connect(idMenuExport,wxEVT_COMMAND_MENU_SELECTED,(wxObjectEventFunction)&GNRMainFrame::OnExport);
 	Connect(idMenuNew,wxEVT_COMMAND_MENU_SELECTED,(wxObjectEventFunction)&GNRMainFrame::OnNew);
+	
+	// Connects "Menü->Datei->XML Öffnen" with GNRMainFrame::OnLoad
 	Connect(idMenuLoad,wxEVT_COMMAND_MENU_SELECTED,(wxObjectEventFunction)&GNRMainFrame::OnLoad);
 }
 
@@ -197,12 +199,12 @@ GNRMainFrame::~GNRMainFrame()
 	//*)
 }
 
-void GNRMainFrame::OnQuit(wxCommandEvent& event)
+void GNRMainFrame::OnQuit(wxCommandEvent& WXUNUSED(event))
 {
 	Close();
 }
 
-void GNRMainFrame::OnNew(wxCommandEvent& event)
+void GNRMainFrame::OnNew(wxCommandEvent& WXUNUSED(event))
 {
 	wxMessageBox(wxT("I'll tidy up your room!"));
 	
@@ -211,13 +213,13 @@ void GNRMainFrame::OnNew(wxCommandEvent& event)
 	GetEventHandler()->ProcessEvent(gnrevent);
 }
 
-void GNRMainFrame::OnAbout(wxCommandEvent& event)
+void GNRMainFrame::OnAbout(wxCommandEvent& WXUNUSED(event))
 {
 	wxString msg = wxbuildinfo(long_f);
 	wxMessageBox(msg, _("GNR"));
 }
 
-void GNRMainFrame::OnImport(wxCommandEvent& event)
+void GNRMainFrame::OnImport(wxCommandEvent& WXUNUSED(event))
 {
 	wxString filename = wxFileSelector(wxT("Datei wählen..."), wxT(""), wxT(""), wxT(""), wxT("Obj-Datei (*.obj)|*.obj"));
 	
@@ -231,7 +233,7 @@ void GNRMainFrame::OnImport(wxCommandEvent& event)
 	}
 }
 
-void GNRMainFrame::OnExport(wxCommandEvent& event)
+void GNRMainFrame::OnExport(wxCommandEvent& WXUNUSED(event))
 {
 	wxMessageBox(wxT("Not implemented yet."));
 }
@@ -250,7 +252,7 @@ void GNRMainFrame::OnLoad(wxCommandEvent& WXUNUSED(event))
 	}
 }
 
-void GNRMainFrame::OnToolbarMoveXY(wxCommandEvent& event)
+void GNRMainFrame::OnToolbarMoveXY(wxCommandEvent& WXUNUSED(event))
 {
 	GNRNotifyEvent myevent(wxEVT_COMMAND_GNR_NOTIFY);
 	myevent.setGNREventType(TOOLBARCHANGE);
@@ -259,7 +261,7 @@ void GNRMainFrame::OnToolbarMoveXY(wxCommandEvent& event)
 	GetEventHandler()->ProcessEvent(myevent);
 }
 
-void GNRMainFrame::OnToolbarMoveXZ(wxCommandEvent& event)
+void GNRMainFrame::OnToolbarMoveXZ(wxCommandEvent& WXUNUSED(event))
 {
 	GNRNotifyEvent myevent(wxEVT_COMMAND_GNR_NOTIFY);
 	myevent.setGNREventType(TOOLBARCHANGE);
@@ -268,7 +270,7 @@ void GNRMainFrame::OnToolbarMoveXZ(wxCommandEvent& event)
 	GetEventHandler()->ProcessEvent(myevent);
 }
 
-void GNRMainFrame::OnToolbarRotateXY(wxCommandEvent& event)
+void GNRMainFrame::OnToolbarRotateXY(wxCommandEvent& WXUNUSED(event))
 {
 	GNRNotifyEvent myevent(wxEVT_COMMAND_GNR_NOTIFY);
 	myevent.setGNREventType(TOOLBARCHANGE);
@@ -277,7 +279,7 @@ void GNRMainFrame::OnToolbarRotateXY(wxCommandEvent& event)
 	GetEventHandler()->ProcessEvent(myevent);
 }
 
-void GNRMainFrame::OnToolbarRotateXZ(wxCommandEvent& event)
+void GNRMainFrame::OnToolbarRotateXZ(wxCommandEvent& WXUNUSED(event))
 {
 	GNRNotifyEvent myevent(wxEVT_COMMAND_GNR_NOTIFY);
 	myevent.setGNREventType(TOOLBARCHANGE);
@@ -286,7 +288,7 @@ void GNRMainFrame::OnToolbarRotateXZ(wxCommandEvent& event)
 	GetEventHandler()->ProcessEvent(myevent);
 }
 
-void GNRMainFrame::OnCameraReset(wxCommandEvent& event)
+void GNRMainFrame::OnCameraReset(wxCommandEvent& WXUNUSED(event))
 {
 	GNRNotifyEvent gnrevent(wxEVT_COMMAND_GNR_NOTIFY);
 	gnrevent.setGNREventType(RESETCAMERA);

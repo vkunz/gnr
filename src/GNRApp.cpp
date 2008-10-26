@@ -142,8 +142,8 @@ void GNRApp::OnGNREvent(GNRNotifyEvent& event)
 	switch (event.getGNREventType())
 	{
 	case XMLOPEN:
-//		controller->XMLOpen(event.GetString());
-//		controller->glRefresh();
+		XMLOpen(event.GetString());
+		m_Scene->glRefresh();
 		break;
 	case GLREFRESH:
 		updateSplitters();
@@ -185,13 +185,10 @@ void GNRApp::OnGLEvent(GNRGLNotifyEvent& event)
 	}
 }
 
-
-
-
 /**
  * handle obj import
  * @param       wxString        filename
- * @access      public
+ * @access      private
  */
 void GNRApp::OBJImport(wxString filename)
 {
@@ -199,6 +196,21 @@ void GNRApp::OBJImport(wxString filename)
 	GNRObjectImport oi;
 	m_Scene->getRootAssembly()->addPart(oi.read((string)filename.mb_str()));
 }
+
+/**
+ * handle xml import
+ * @param       wxString        filename
+ * @access      private
+ */
+void GNRApp::XMLOpen(wxString filename)
+{
+	// creates InputStream of filename
+	wxFFileInputStream stream(filename);
+	
+	// loads file
+	//GNROaxImport oax_stream(stream);
+}
+
 
 // Code unser im Repo,
 // bugfrei seien Deine Quellen.

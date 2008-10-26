@@ -7,41 +7,51 @@
 	</projectInformation>
 	<data>
 		<camera>
-			<type>parallel</type>
-			<position location="0 0 0" orientation="0 0 0"/>
+			<type>perspective</type>
+			<position location="0 2.3 0.5" orientation="-90 0.2 0"/>
 		</camera>
 		<lightsources>
 			<lightsource active="true">
-				<position location="0 0 0"/>
-				<ambient color="1 1 1 1"/>
-				<diffuse color="1 1 1 1"/>
-				<specular color="1 1 1 1"/>
-				<spot angle="" orientation=""/>
+				<position location="0.3 5 0"/>
+				<ambient color="0.7 0.457 0 0.7"/>
+				<diffuse color="0 0.4 0 0.2"/>
+				<specular color="0. 1 0 0.4 0.3"/>
+			</lightsource>
+			<lightsource active="true">
+				<position location="0.3 1.2 0.8"/>
+				<ambient color="0.7 0.457 0 0.7"/>
+				<diffuse color="0 0.4 0 0.2"/>
+				<specular color="0. 1 0 0.4 0.3"/>
+				<spot angle="45" orientation="-95 20.4 2"/>
 			</lightsource>
 		</lightsources>
 		<scene>
-			<assembly visible="true" location="0 0 0" orientation="0 0 0" id="31696c04-386a-4407-8f3e-c3f6e92d91ca.oax"/>
-			<assembly visible="true" location="0 0 0" orientation="0 0 0" id="31696c04-386a-4407-8f3e-c3f6e92d91cb.oax"/>
-			<assembly visible="true" location="0 0 0" orientation="0 0 0" id="31696c04-386a-4407-8f3e-c3f6e92d91cc.oax"/>
-			<assembly visible="true" location="0 0 0" orientation="0 0 0" id="31696c04-386a-4407-8f3e-c3f6e92d91cd.oax"/>
-			<group visible="true" name="">
-				<assembly visible="true" location="0 0 0" orientation="0 0 0" id="31696c04-386a-4407-8f3e-c3f6e92d91ca.oax"/>
-				<assembly visible="true" location="0 0 0" orientation="0 0 0" id="31696c04-386a-4407-8f3e-c3f6e92d91cb.oax"/>
-				<assembly visible="true" location="0 0 0" orientation="0 0 0" id="31696c04-386a-4407-8f3e-c3f6e92d91cc.oax"/>
-				<assembly visible="true" location="0 0 0" orientation="0 0 0" id="31696c04-386a-4407-8f3e-c3f6e92d91cd.oax"/>
-			</group>
-			<sphere visible="true" location="0 0 0" orientation="0 0 0">
-				<radius> </radius>
-			</sphere>
-			<cuboid visible="true" location="0 0 0" orientation="0 0 0" tag="wall">
-				<width> </width>
-				<height> </height>
-				<depth> </depth>
-			</cuboid>
-			<zylinder visible="true" location="0 0 0" orientation="0 0 0">
-				<radius> </radius>
-				<height> </height>
-			</zylinder>
+			<assemblies>
+				<assembly visible="true" location="0 0 2.4" orientation="0 10 0" id="31696c04-386a-4407-8f3e-c3f6e92d91ca.oax"/>
+				<assembly visible="true" location="0 0.23 0" orientation="0 0 5" id="31696c04-386a-4407-8f3e-c3f6e92d91cb.oax"/>
+				<group visible="true" name="Group1">
+					<assembly visible="true" location="0.2 0 0" orientation="30 0 0" id="31696c04-386a-4407-8f3e-c3f6e92d91cc.oax"/>
+					<assembly visible="true" location="0 0 0.8" orientation="0 7 0" id="31696c04-386a-4407-8f3e-c3f6e92d91cd.oax"/>
+				</group>
+				<group visible="true" name="Group2">
+					<assembly visible="false" location="0 0 10" orientation="0 0 50" id="31696c04-386a-4407-8f3e-c3f6e92d91ca.oax"/>
+					<assembly visible="true" location="8 0 0" orientation="0 20 70" id="31696c04-386a-4407-8f3e-c3f6e92d91cc.oax"/>
+				</group>
+			</assemblies>
+			<objects>
+				<cuboid visible="true" location="2.5 0 0.2" orientation="30 0 0" tag="wall">
+					<width>0.25</width>
+					<height>5.1</height>
+					<depth>3.8</depth>
+				</cuboid>
+				<zylinder visible="true" location="0 0 1.8" orientation="0 45 0">
+					<radius>0.35</radius>
+					<height>1.25</height>
+				</zylinder>
+				<sphere visible="true" location="2.0 0.5 0" orientation="30 0 90">
+					<radius>1.25</radius>
+				</sphere>
+			</objects>
 		</scene>
 	</data>
 </opxml>

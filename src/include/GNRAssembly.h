@@ -49,7 +49,17 @@ public:
 	void setTheta(float theta);
 	
 	float getScale() const;
+	
+	float getScaleX() const;
+	float getScaleY() const;
+	float getScaleZ() const;
+	
 	void setScale(float s);
+	
+	void setScaleX(float x);
+	void setScaleY(float y);
+	void setScaleZ(float z);
+	
 	void setOverGround(const float overground);
 	
 	void addFace(const GNRFace& newface);
@@ -74,6 +84,7 @@ private:
 	float m_overground;
 	float m_phi, m_theta, m_rho;
 	float m_scale;
+	float m_scaleX, m_scaleY, m_scaleZ;
 	
 	bool m_locked, m_isWall, m_isroot;
 	string m_name;
