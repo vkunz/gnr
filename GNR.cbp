@@ -32,6 +32,7 @@
 					<Add library="libwxmsw28ud_gl.a" />
 					<Add library="libwxbase28ud_xml.a" />
 					<Add library="libwxexpatd.a" />
+					<Add library="libwxmsw28ud_adv.a" />
 					<Add directory="$(#wx)\lib\gcc_lib" />
 				</Linker>
 			</Target>
@@ -60,6 +61,7 @@
 					<Add library="libwxmsw28u_gl.a" />
 					<Add library="libwxbase28u_xml.a" />
 					<Add library="libwxexpat.a" />
+					<Add library="libwxmsw28u_adv.a" />
 					<Add directory="$(#wx)\lib\gcc_lib" />
 				</Linker>
 			</Target>
@@ -112,6 +114,8 @@
 		<Unit filename="src\GNRGLCanvas2D.cpp" />
 		<Unit filename="src\GNRGLCanvas3D.cpp" />
 		<Unit filename="src\GNRGLNotifyEvent.cpp" />
+		<Unit filename="src\GNRGridRowData.cpp" />
+		<Unit filename="src\GNRGridSceneController.cpp" />
 		<Unit filename="src\GNRImportFile.cpp" />
 		<Unit filename="src\GNRMainFrame.cpp" />
 		<Unit filename="src\GNRMaterial.cpp" />
@@ -147,6 +151,8 @@
 		<Unit filename="src\include\GNRGLCanvas3D.h" />
 		<Unit filename="src\include\GNRGLNotifyEvent.h" />
 		<Unit filename="src\include\GNRGlobalDefine.h" />
+		<Unit filename="src\include\GNRGridRowData.h" />
+		<Unit filename="src\include\GNRGridSceneController.h" />
 		<Unit filename="src\include\GNRImportFile.h" />
 		<Unit filename="src\include\GNRMainFrame.h" />
 		<Unit filename="src\include\GNRMaterial.h" />

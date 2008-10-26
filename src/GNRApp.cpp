@@ -60,7 +60,8 @@ bool GNRApp::OnInit()
 		m_Scene         = new GNRScene();
 		m_MouseCtrl     = new GNRMouseController(m_Scene);
 		m_TreeLibCtrl   = new GNRTreeLibraryController(m_TreeCtrlLib);
-		//m_TreeCtrlScene = new wxTreeCtrl();
+		m_GridSceneCtrl = new GNRGridSceneController(m_Grid);
+		
 		
 		m_Scene->setCanvas2D(m_Canvas2D);
 		m_Scene->setCanvas3D(m_Canvas3D);
@@ -97,7 +98,10 @@ void GNRApp::initFrames()
 	m_TreePanelMyScene = new GNRTreePanelMyScene(m_HorizontalSplitter_left, wxID_ANY);
 	
 	//create m_TreeCntr
-	m_TreeCtrlLib = new wxTreeCtrl(m_TreePanelLibrary, wxID_ANY, wxPoint(0, 0), m_TreePanelLibrary->GetSize(), wxTR_DEFAULT_STYLE, wxDefaultValidator, _T("TreePanelLibrary"));
+	m_TreeCtrlLib = new wxTreeCtrl(m_TreePanelLibrary, wxID_ANY, wxPoint(0, 0), m_TreePanelLibrary->GetSize(), wxTR_DEFAULT_STYLE, wxDefaultValidator, wxT("TreePanelLibrary"));
+	
+	//create m_Grid
+	m_Grid = new wxGrid(m_TreePanelMyScene, wxID_ANY, wxPoint(0, 0), m_TreePanelMyScene->GetSize(), wxWANTS_CHARS, wxT("GridPanelMyScene"));
 	
 	//create two canvas panels
 	m_Canvas2D = new GNRGLCanvas2D(m_HorizontalSplitter_right, -1);
@@ -142,6 +146,9 @@ void GNRApp::updateSize()
 {
 	// update size of m_TreeCtrlLib
 	m_TreeCtrlLib->SetSize(m_TreePanelLibrary->GetSize());
+	
+	// update size of m_Grid
+	m_Grid->SetSize(m_TreePanelMyScene->GetSize());
 }
 
 /**

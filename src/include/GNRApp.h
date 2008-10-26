@@ -14,6 +14,7 @@
 
 #include <wx/app.h>
 #include <wx/glcanvas.h>
+#include <wx/grid.h>
 #include <wx/splitter.h>
 #include <wx/treectrl.h>
 #include <wx/wfstream.h>
@@ -21,6 +22,7 @@
 #include "GNRGLCanvas2D.h"
 #include "GNRGLCanvas3D.h"
 #include "GNRGLNotifyEvent.h"
+#include "GNRGridSceneController.h"
 #include "GNRMainFrame.h"
 #include "GNRMouseController.h"
 #include "GNRNotifyEvent.h"
@@ -60,9 +62,17 @@ private:
 	void OBJExport(wxString filename);
 	
 	//attributes
+	//treectrl
 	wxTreeCtrl* m_TreeCtrlLib;
-	//wxTreeCtrl* m_TreeCtrlScene;
+	
+	//manges the treectrl
 	GNRTreeLibraryController* m_TreeLibCtrl;
+	
+	//grid
+	wxGrid* m_Grid;
+	
+	//manages the grid
+	GNRGridSceneController* m_GridSceneCtrl;
 	
 	GNRTreePanelLibrary* m_TreePanelLibrary;
 	GNRTreePanelMyScene* m_TreePanelMyScene;
