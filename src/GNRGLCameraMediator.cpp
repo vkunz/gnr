@@ -44,6 +44,7 @@ int GNRGLCameraMediator::translate(GNRGLNotifyEvent& event)
 		ZoomIn(event);
 		return 0;
 	}
+	
 	switch (m_Translation)
 	{
 	case MOVEXZ:

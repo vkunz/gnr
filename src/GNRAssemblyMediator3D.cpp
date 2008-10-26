@@ -62,8 +62,8 @@ void GNRAssemblyMediator3D::MoveXZ(GNRGLNotifyEvent& event)
  */
 void GNRAssemblyMediator3D::RotateXY(GNRGLNotifyEvent& event)
 {
-	float new_phi   = phi_old + 720.0f*(m_mouse_y - event.getMouseEvent().GetY())/window_h;
-	float new_theta = theta_old + 720.0f*(m_mouse_x - event.getMouseEvent().GetX())/window_w;
+	float new_phi   = phi_old + 720.0f*(event.getMouseEvent().GetY() - m_mouse_y)/window_h;
+	float new_theta = theta_old + 720.0f*(event.getMouseEvent().GetX() - m_mouse_x)/window_w;
 	
 	doSnapRotate(new_phi);
 	doSnapRotate(new_theta);
@@ -79,7 +79,7 @@ void GNRAssemblyMediator3D::RotateXY(GNRGLNotifyEvent& event)
  */
 void GNRAssemblyMediator3D::RotateXZ(GNRGLNotifyEvent& event)
 {
-	float new_phi = phi_old + 720.0f*(m_mouse_y - event.getMouseEvent().GetY())/window_h;
+	float new_phi = phi_old + 720.0f*(event.getMouseEvent().GetY() - m_mouse_y)/window_h;
 	float new_rho = rho_old + 720.0f*(m_mouse_x - event.getMouseEvent().GetX())/window_w;
 	
 	doSnapRotate(new_phi);

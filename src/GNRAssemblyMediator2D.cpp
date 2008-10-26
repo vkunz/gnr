@@ -61,7 +61,7 @@ void GNRAssemblyMediator2D::MoveXZ(GNRGLNotifyEvent& event)
  */
 void GNRAssemblyMediator2D::RotateXY(GNRGLNotifyEvent& event)
 {
-	float new_phi   = phi_old + 720.0f*(m_mouse_y - event.getMouseEvent().GetY())/window_h;
+	float new_phi   = phi_old + 720.0f*(event.getMouseEvent().GetY() - m_mouse_y)/window_h;
 	float new_theta = theta_old + 720.0f*(m_mouse_x - event.getMouseEvent().GetX())/window_w;
 	
 	doSnapRotate(new_phi);
