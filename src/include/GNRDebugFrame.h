@@ -13,8 +13,8 @@
 #define GNRDEBUGFRAME_H
 
 //(*Headers(GNRDebugFrame)
+#include <wx/textctrl.h>
 #include <wx/frame.h>
-class wxTextCtrl;
 //*)
 
 #include <wx/log.h>

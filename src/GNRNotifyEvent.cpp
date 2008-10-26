@@ -23,3 +23,23 @@ int GNRNotifyEvent::getGNREventType()
 {
 	return eventType;
 }
+
+void GNRNotifyEvent::setSnapToGrid(int value)
+{
+	eventSnapToGrid = value;
+}
+
+int GNRNotifyEvent::getSnapToGrid()
+{
+	return eventSnapToGrid;
+}
+
+void GNRNotifyEvent::setSnapToAngle(int value)
+{
+	eventSnapToAngle = value;
+}
+
+int GNRNotifyEvent::getSnapToAngle()
+{
+	return eventSnapToAngle;
+}

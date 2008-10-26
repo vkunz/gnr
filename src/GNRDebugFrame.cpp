@@ -12,7 +12,6 @@
 #include "GNRDebugFrame.h"
 
 //(*InternalHeaders(GNRDebugFrame)
-#include <wx/textctrl.h>
 #include <wx/intl.h>
 #include <wx/string.h>
 //*)
@@ -31,8 +30,9 @@ END_EVENT_TABLE()
 GNRDebugFrame::GNRDebugFrame(wxWindow* parent,wxWindowID id)
 {
 	//(*Initialize(GNRDebugFrame)
-	Create(parent, id, wxEmptyString, wxPoint(0,525), wxDefaultSize, wxDEFAULT_FRAME_STYLE, _T("id"));
-	SetClientSize(wxSize(800,115));
+	Create(parent, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, wxDEFAULT_FRAME_STYLE, _T("wxID_ANY"));
+	SetClientSize(wxSize(800,100));
+	Move(wxPoint(0,575));
 	TextCtrl = new wxTextCtrl(this, ID_TextCtrl, wxEmptyString, wxPoint(32,80), wxDefaultSize, wxTE_MULTILINE, wxDefaultValidator, _T("ID_TextCtrl"));
 	//*)
 }

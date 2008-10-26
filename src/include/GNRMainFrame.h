@@ -14,6 +14,9 @@
 
 #include <wx/menu.h>
 #include <wx/frame.h>
+#include <wx/panel.h>
+#include <wx/spinctrl.h>
+#include <wx/statbox.h>
 #include <wx/statusbr.h>
 #include <wx/toolbar.h>
 
@@ -27,10 +30,12 @@
 class GNRMainFrame: public wxFrame
 {
 public:
+
 	GNRMainFrame(wxWindow* parent,wxWindowID id = -1);
 	virtual ~GNRMainFrame();
 	
 private:
+
 	//(*Handlers(GNRMainFrame)
 	void OnResize(wxMouseEvent& event);
 	void OnQuit(wxCommandEvent& event);
@@ -42,11 +47,13 @@ private:
 	void OnScrolledWindow1Paint(wxPaintEvent& event);
 	void OnCameraReset(wxCommandEvent& event);
 	//*)
+	
 	//ToolBar Button Events
 	void OnToolbarMoveXY(wxCommandEvent& event);
 	void OnToolbarMoveXZ(wxCommandEvent& event);
 	void OnToolbarRotateXY(wxCommandEvent& event);
 	void OnToolbarRotateXZ(wxCommandEvent& event);
+	void OnSnapToGrid(wxCommandEvent& event);
 	
 	//(*Identifiers(GNRMainFrame)
 	static const long idMenuNew;
@@ -55,6 +62,7 @@ private:
 	static const long idMenuImport;
 	static const long idMenuExport;
 	static const long idMenuQuit;
+	static const long idMenuSnapToGrid;
 	static const long idMenuHelp;
 	static const long idMenuAbout;
 	static const long ID_StatusBar;
@@ -75,12 +83,24 @@ private:
 	static const long btn_rotate_xy;
 	static const long btn_rotate_xz;
 	static const long btn_camera_reset;
+	static const long btn_snap_to_grid;
+	
 	static const long ID_ToolBar;
 	
+	static const long ID_SPINCTRL_TRANS;
+	static const long ID_SPINCTRL_ROTATE;
+	
 	//(*Declarations(GNRMainFrame)
+	wxMenu* Menu3;
 	wxStatusBar* StatusBar1;
+	wxMenuItem* MenuItem9;
 	//*)
+	
+	wxSpinCtrl* SpinCtrlTranslate;
+	wxSpinCtrl* SpinCtrlRotate;
+	
 	wxToolBar* ToolBar1;
+	
 	wxToolBarToolBase* ToolBarItem1;
 	wxToolBarToolBase* ToolBarItem2;
 	wxToolBarToolBase* ToolBarItem3;
@@ -95,6 +115,9 @@ private:
 	wxToolBarToolBase* ToolBarItem12;
 	wxToolBarToolBase* ToolBarItem13;
 	wxToolBarToolBase* ToolBarItem14;
+	wxToolBarToolBase* ToolBarItem15;
+	wxToolBarToolBase* ToolBarItem16;
+	wxToolBarToolBase* ToolBarItem17;
 	wxToolBarToolBase* ToolBarItem99;
 	
 	DECLARE_EVENT_TABLE()

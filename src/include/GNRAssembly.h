@@ -80,6 +80,7 @@ public:
 	void draw() const;
 	
 private:
+
 	float m_x, m_y, m_z;
 	float m_overground;
 	float m_phi, m_theta, m_rho;

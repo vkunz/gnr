@@ -7,13 +7,26 @@
 class GNRNotifyEvent : public wxNotifyEvent
 {
 private:
+
 	int eventType;
+	int eventSnapToGrid;
+	int eventSnapToAngle;
+	
 public:
+
 	GNRNotifyEvent(wxEventType commandType = wxEVT_NULL, int id = 0);
 	GNRNotifyEvent(const GNRNotifyEvent& event);
 	virtual wxEvent* Clone() const;
+	
 	void setGNREventType(int type);
 	int getGNREventType();
+	
+	void setSnapToGrid(int value);
+	int getSnapToGrid();
+	
+	void setSnapToAngle(int value);
+	int getSnapToAngle();
+	
 	DECLARE_DYNAMIC_CLASS(GNRNotifyEvent);
 };
 

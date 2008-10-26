@@ -164,6 +164,12 @@ void GNRApp::OnGNREvent(GNRNotifyEvent& event)
 	case TOOLBARCHANGE:
 		m_MouseCtrl->setTranslation(event);
 		break;
+	case SNAPTOGRID:
+		wxString msg;
+		msg<<wxT("SNAP grid=")<<event.getSnapToGrid()<<wxT(" angle=")<<event.getSnapToAngle();
+		wxLogMessage(msg);
+		m_MouseCtrl->setSnapfunction(event);
+		break;
 	}
 }
 

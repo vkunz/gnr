@@ -2,8 +2,8 @@
 <wxsmith>
 	<object class="wxFrame" name="GNRMainFrame">
 		<title>GNR - 3D Einrichtungsplaner</title>
-		<centered>1</centered>
-		<size>800,600</size>
+		<pos>0,0</pos>
+		<size>800,550</size>
 		<focused>1</focused>
 		<minsize>640,480</minsize>
 		<id_arg>0</id_arg>
@@ -33,8 +33,8 @@
 					<help>Object-Datei importieren...</help>
 				</object>
 				<object class="wxMenuItem" name="idMenuExport" variable="MenuItem7" member="no">
-					<label>OBJ &amp;Exportieren</label>
-					<accel>Alt-E</accel>
+					<label>OBJ E&amp;xportieren</label>
+					<accel>Alt-X</accel>
 					<help>Object-Datei exportieren...</help>
 				</object>
 				<object class="separator" />
@@ -43,6 +43,15 @@
 					<accel>Alt-F4</accel>
 					<help>GNR beenden...</help>
 					<handler function="OnQuit" entry="EVT_MENU" />
+				</object>
+			</object>
+			<object class="wxMenu" variable="Menu3" member="yes">
+				<label>&amp;Einstellungen</label>
+				<object class="wxMenuItem" name="idMenuSnapToGrid" variable="MenuItem9" member="yes">
+					<label>Ein&amp;rasten aktivieren</label>
+					<accel>ALT-R</accel>
+					<help>Einrasten aktivieren</help>
+					<check>1</check>
 				</object>
 			</object>
 			<object class="wxMenu" variable="Menu2" member="no">

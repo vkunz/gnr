@@ -130,6 +130,16 @@ void GNRMouseController::setTranslation(GNRNotifyEvent& event)
 }
 
 /**
+ * set snap to grid and angle values
+ * @param       GNRNotifyEvent      command event from canvas
+ * @access      public
+ */
+void GNRMouseController::setSnapfunction(GNRNotifyEvent& event)
+{
+	m_Mediator->setSnapfunction(event);
+}
+
+/**
  * update actual mouse position
  * @param       GNRGLNotifyEvent      command event from canvas
  * @access      protected

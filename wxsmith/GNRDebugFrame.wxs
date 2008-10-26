@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <wxsmith>
 	<object class="wxFrame" name="GNRDebugFrame">
-		<size>800,400</size>
-		<size_arg>1</size_arg>
+		<pos>0,575</pos>
+		<size>800,100</size>
+		<id_arg>0</id_arg>
 		<object class="wxTextCtrl" name="ID_TextCtrl" variable="TextCtrl" member="yes">
 			<pos>32,80</pos>
 			<style>wxTE_MULTILINE</style>

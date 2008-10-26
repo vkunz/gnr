@@ -35,6 +35,7 @@
 #include "resources/button-canvas2d-zoom-out.xpm"
 #include "resources/button-canvas2d-zoom-fit.xpm"
 #include "resources/button-reset-camera.xpm"
+#include "resources/button-snap-to-grid.xpm"
 
 //helper functions
 enum wxbuildinfoformat
@@ -71,6 +72,7 @@ const long GNRMainFrame::idMenuSave = wxNewId();
 const long GNRMainFrame::idMenuImport = wxNewId();
 const long GNRMainFrame::idMenuExport = wxNewId();
 const long GNRMainFrame::idMenuQuit = wxNewId();
+const long GNRMainFrame::idMenuSnapToGrid = wxNewId();
 const long GNRMainFrame::idMenuHelp = wxNewId();
 const long GNRMainFrame::idMenuAbout = wxNewId();
 const long GNRMainFrame::ID_StatusBar = wxNewId();
@@ -90,7 +92,13 @@ const long GNRMainFrame::btn_move_xz = wxNewId();
 const long GNRMainFrame::btn_rotate_xy = wxNewId();
 const long GNRMainFrame::btn_rotate_xz = wxNewId();
 const long GNRMainFrame::btn_camera_reset = wxNewId();
+const long GNRMainFrame::btn_snap_to_grid = wxNewId();
+
 const long GNRMainFrame::ID_ToolBar = wxNewId();
+
+const long GNRMainFrame::ID_SPINCTRL_TRANS  = wxNewId();
+const long GNRMainFrame::ID_SPINCTRL_ROTATE = wxNewId();
+
 
 BEGIN_EVENT_TABLE(GNRMainFrame,wxFrame)
 	EVT_MENU(btn_move_xy, GNRMainFrame::OnToolbarMoveXY)
@@ -99,6 +107,9 @@ BEGIN_EVENT_TABLE(GNRMainFrame,wxFrame)
 	EVT_MENU(btn_rotate_xz, GNRMainFrame::OnToolbarRotateXZ)
 	EVT_MENU(btn_room_new, GNRMainFrame::OnNew)
 	EVT_MENU(btn_camera_reset, GNRMainFrame::OnCameraReset)
+	EVT_MENU(btn_snap_to_grid, GNRMainFrame::OnSnapToGrid)
+	//	EVT_SPINCTRL(ID_SPINCTRL_ROTATE, GNRMainFrame::OnSnapToGrid)
+	//	EVT_SPINCTRL(ID_SPINCTRL_TRANS, GNRMainFrame::OnSnapToGrid)
 	EVT_MENU(btn_quit, GNRMainFrame::OnQuit)
 END_EVENT_TABLE()
 
@@ -117,8 +128,9 @@ GNRMainFrame::GNRMainFrame(wxWindow* parent, wxWindowID WXUNUSED(id))
 	wxMenuBar* MenuBar1;
 	wxMenu* Menu2;
 	
-	Create(parent, wxID_ANY, _("GNR - 3D Einrichtungsplaner"), wxPoint(0,0), wxDefaultSize, wxDEFAULT_FRAME_STYLE, _T("wxID_ANY"));
-	SetClientSize(wxSize(800,500));
+	Create(parent, wxID_ANY, _("GNR - 3D Einrichtungsplaner"), wxDefaultPosition, wxDefaultSize, wxDEFAULT_FRAME_STYLE, _T("wxID_ANY"));
+	SetClientSize(wxSize(800,550));
+	Move(wxPoint(0,0));
 	SetMinSize(wxSize(640,480));
 	SetFocus();
 	MenuBar1 = new wxMenuBar();
@@ -133,12 +145,16 @@ GNRMainFrame::GNRMainFrame(wxWindow* parent, wxWindowID WXUNUSED(id))
 	Menu1->AppendSeparator();
 	MenuItem6 = new wxMenuItem(Menu1, idMenuImport, _("OBJ &Importieren\tAlt-I"), _("Object-Datei importieren..."), wxITEM_NORMAL);
 	Menu1->Append(MenuItem6);
-	MenuItem7 = new wxMenuItem(Menu1, idMenuExport, _("OBJ &Exportieren\tAlt-E"), _("Object-Datei exportieren..."), wxITEM_NORMAL);
+	MenuItem7 = new wxMenuItem(Menu1, idMenuExport, _("OBJ E&xportieren\tAlt-X"), _("Object-Datei exportieren..."), wxITEM_NORMAL);
 	Menu1->Append(MenuItem7);
 	Menu1->AppendSeparator();
 	MenuItem1 = new wxMenuItem(Menu1, idMenuQuit, _("GNR Schließen\tAlt-F4"), _("GNR beenden..."), wxITEM_NORMAL);
 	Menu1->Append(MenuItem1);
 	MenuBar1->Append(Menu1, _("&Datei"));
+	Menu3 = new wxMenu();
+	MenuItem9 = new wxMenuItem(Menu3, idMenuSnapToGrid, _("Ein&rasten aktivieren\tALT-R"), _("Einrasten aktivieren"), wxITEM_CHECK);
+	Menu3->Append(MenuItem9);
+	MenuBar1->Append(Menu3, _("&Einstellungen"));
 	Menu2 = new wxMenu();
 	MenuItem5 = new wxMenuItem(Menu2, idMenuHelp, _("&Hilfe\tF1"), _("Hilfe zur Anwendung"), wxITEM_NORMAL);
 	Menu2->Append(MenuItem5);
@@ -152,12 +168,12 @@ GNRMainFrame::GNRMainFrame(wxWindow* parent, wxWindowID WXUNUSED(id))
 	StatusBar1->SetFieldsCount(1,__wxStatusBarWidths_1);
 	StatusBar1->SetStatusStyles(1,__wxStatusBarStyles_1);
 	SetStatusBar(StatusBar1);
-	//Center();
 	
 	Connect(idMenuQuit,wxEVT_COMMAND_MENU_SELECTED,(wxObjectEventFunction)&GNRMainFrame::OnQuit);
 	Connect(idMenuAbout,wxEVT_COMMAND_MENU_SELECTED,(wxObjectEventFunction)&GNRMainFrame::OnAbout);
 	//*)
 	
+	//generate toolbar and buttons
 	ToolBar1 = new wxToolBar(this, ID_ToolBar, wxDefaultPosition, wxDefaultSize, wxTB_HORIZONTAL|wxNO_BORDER, _T("ID_TOOLBAR1"));
 	ToolBar1->SetToolBitmapSize(wxSize(24,24));
 	ToolBarItem1 = ToolBar1->AddTool(btn_room_new, _("Raum erstellen"), wxBitmap(wxIcon(button_room_new_xpm)), wxNullBitmap, wxITEM_NORMAL, _("Raum erstellen"), _("Raum erstellen"));
@@ -179,6 +195,24 @@ GNRMainFrame::GNRMainFrame(wxWindow* parent, wxWindowID WXUNUSED(id))
 	ToolBar1->AddSeparator();
 	ToolBarItem14 = ToolBar1->AddTool(btn_camera_reset, _("Kamera zurücksetzen"), wxBitmap(wxIcon(button_reset_camera_xpm)), wxNullBitmap, wxITEM_NORMAL, _("Kamera in 3D zurücksetzen"), _("Kamera in 3D zurücksetzen"));
 	ToolBar1->AddSeparator();
+	
+	//toggle button for snap to grid function
+	ToolBarItem15 = ToolBar1->AddTool(btn_snap_to_grid, _("Einrasten aktivieren"), wxBitmap(wxIcon(button_snap_to_grid_xpm)), wxNullBitmap, wxITEM_CHECK, _("Einrasten aktivieren"), _("Einrasten aktivieren"));
+	ToolBar1->AddSeparator();
+	
+	//build input for grid snapping
+	SpinCtrlTranslate = new wxSpinCtrl(ToolBar1, ID_SPINCTRL_TRANS, _T("100"), wxPoint(0,0), wxSize(50,20), 0, 1, 1000, 10, _T("ID_SPINCTRL_TRANS"));
+	SpinCtrlTranslate->SetValue(_T("100"));
+	ToolBarItem16 = ToolBar1->AddControl(SpinCtrlTranslate);
+	ToolBar1->AddSeparator();
+	
+	//build input for rotation snapping
+	SpinCtrlRotate = new wxSpinCtrl(ToolBar1, ID_SPINCTRL_ROTATE, _T("15"), wxPoint(0,0), wxSize(50,20), 0, 5, 90, 10, _T("ID_SPINCTRL_ROTATE"));
+	SpinCtrlRotate->SetValue(_T("15"));
+	ToolBarItem17 = ToolBar1->AddControl(SpinCtrlRotate);
+	ToolBar1->AddSeparator();
+	
+	//build exit button at the end
 	ToolBarItem99 = ToolBar1->AddTool(btn_quit, _("GNR beenden"), wxBitmap(wxIcon(button_exit_xpm)), wxNullBitmap, wxITEM_NORMAL, _("GNR beenden"), _("GNR beenden"));
 	ToolBar1->Realize();
 	SetToolBar(ToolBar1);
@@ -292,5 +326,25 @@ void GNRMainFrame::OnCameraReset(wxCommandEvent& WXUNUSED(event))
 {
 	GNRNotifyEvent gnrevent(wxEVT_COMMAND_GNR_NOTIFY);
 	gnrevent.setGNREventType(RESETCAMERA);
+	GetEventHandler()->ProcessEvent(gnrevent);
+}
+
+void GNRMainFrame::OnSnapToGrid(wxCommandEvent& event)
+{
+	GNRNotifyEvent gnrevent(wxEVT_COMMAND_GNR_NOTIFY);
+	gnrevent.setGNREventType(SNAPTOGRID);
+	
+	int snapGrid  = SpinCtrlTranslate->GetValue();
+	int snapAngle = SpinCtrlRotate->GetValue();
+	
+	if (!ToolBarItem15->IsToggled())
+	{
+		snapAngle = 1;
+		snapGrid  = 1;
+	}
+	
+	gnrevent.setSnapToGrid(snapGrid);
+	gnrevent.setSnapToAngle(snapAngle);
+	
 	GetEventHandler()->ProcessEvent(gnrevent);
 }

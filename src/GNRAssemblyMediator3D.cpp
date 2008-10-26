@@ -10,6 +10,7 @@
  */
 
 #include "GNRAssemblyMediator3D.h"
+#include "math.h"
 
 #if defined(__ATHOS_DEBUG__)
 #include <wx/log.h>
@@ -24,10 +25,15 @@ void GNRAssemblyMediator3D::MoveXY(GNRGLNotifyEvent& event)
 {
 	float new_x = old_x - (gl_xmax-gl_xmin)*(m_mouse_x - event.getMouseEvent().GetX())/window_w;
 	float new_y = old_y - (gl_ymax-gl_ymin)*(event.getMouseEvent().GetY() - m_mouse_y)/window_h;
+	
 	if (new_y < m_Assembly->getOverGround())
 	{
 		new_y = m_Assembly->getOverGround();
 	}
+	
+	doSnapMove(new_x);
+	doSnapMove(new_y);
+	
 	m_Assembly->setX(new_x);
 	m_Assembly->setY(new_y);
 }
@@ -41,6 +47,10 @@ void GNRAssemblyMediator3D::MoveXZ(GNRGLNotifyEvent& event)
 {
 	float new_x = old_x - (gl_xmax-gl_xmin)*(m_mouse_x - event.getMouseEvent().GetX())/window_w;
 	float new_z = old_z - (gl_ymax-gl_ymin)*(m_mouse_y - event.getMouseEvent().GetY())/window_h*2.0f;
+	
+	doSnapMove(new_x);
+	doSnapMove(new_z);
+	
 	m_Assembly->setX(new_x);
 	m_Assembly->setZ(new_z);
 }
@@ -52,8 +62,14 @@ void GNRAssemblyMediator3D::MoveXZ(GNRGLNotifyEvent& event)
  */
 void GNRAssemblyMediator3D::RotateXY(GNRGLNotifyEvent& event)
 {
-	m_Assembly->setPhi(phi_old + 720.0f*(m_mouse_y - event.getMouseEvent().GetY())/window_h);
-	m_Assembly->setTheta(theta_old + 720.0f*(m_mouse_x - event.getMouseEvent().GetX())/window_w);
+	float new_phi   = phi_old + 720.0f*(m_mouse_y - event.getMouseEvent().GetY())/window_h;
+	float new_theta = theta_old + 720.0f*(m_mouse_x - event.getMouseEvent().GetX())/window_w;
+	
+	doSnapRotate(new_phi);
+	doSnapRotate(new_theta);
+	
+	m_Assembly->setPhi(new_phi);
+	m_Assembly->setTheta(new_theta);
 }
 
 /**
@@ -63,6 +79,12 @@ void GNRAssemblyMediator3D::RotateXY(GNRGLNotifyEvent& event)
  */
 void GNRAssemblyMediator3D::RotateXZ(GNRGLNotifyEvent& event)
 {
-	m_Assembly->setPhi(phi_old + 720.0f*(m_mouse_y - event.getMouseEvent().GetY())/window_h);
-	m_Assembly->setRho(rho_old + 720.0f*(m_mouse_x - event.getMouseEvent().GetX())/window_w);
+	float new_phi = phi_old + 720.0f*(m_mouse_y - event.getMouseEvent().GetY())/window_h;
+	float new_rho = rho_old + 720.0f*(m_mouse_x - event.getMouseEvent().GetX())/window_w;
+	
+	doSnapRotate(new_phi);
+	doSnapRotate(new_rho);
+	
+	m_Assembly->setPhi(new_phi);
+	m_Assembly->setRho(new_rho);
 }
