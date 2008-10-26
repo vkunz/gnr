@@ -65,9 +65,9 @@ void GNRAssemblyMediator::initialize(GNRGLNotifyEvent& event)
 int GNRAssemblyMediator::translate(GNRGLNotifyEvent& event)
 {
 	//if no active assembly, return
-	if (m_Assembly == NULL)
+	if (m_Assembly == NULL || (int)m_Assembly == 0)
 	{
-		return -1;
+		return 1;
 	}
 	
 	//do specific translations
