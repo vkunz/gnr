@@ -18,6 +18,7 @@
 /**
  * constructor of mousecontroller sets scene to modify and
  * initializes the two mediators
+ * @param       GNRScene      pointer to actual scene
  * @access      public
  */
 GNRMouseController::GNRMouseController(GNRScene* scene)
@@ -44,8 +45,7 @@ GNRMouseController::~GNRMouseController()
 /**
  * prepare different mediators for translating mouse actions to
  * the camera and assemblies at once
- * @param       buttonType      button-id from mouse event
- * @param       canvasType      canvas-id from mouse event
+ * @param       GNRGLNotifyEvent      command event from canvas
  * @access      public
  */
 void GNRMouseController::setMediator(GNRGLNotifyEvent& event)
@@ -121,7 +121,7 @@ void GNRMouseController::activateMediator(GNRGLNotifyEvent& event)
 
 /**
  * pass through the command event to the selected mediator
- * @param       GNRGLNotifyEvent      command event from canvas
+ * @param       GNRNotifyEvent      command event from canvas
  * @access      public
  */
 void GNRMouseController::setTranslation(GNRNotifyEvent& event)
@@ -131,10 +131,11 @@ void GNRMouseController::setTranslation(GNRNotifyEvent& event)
 
 /**
  * update actual mouse position
+ * @param       GNRGLNotifyEvent      command event from canvas
  * @access      protected
  */
 void GNRMouseController::updateMouse(GNRGLNotifyEvent& event)
 {
-	mouse_x = event.getMouseEvent().m_x;
-	mouse_y = event.getMouseEvent().m_y;
+	mouse_x = event.getMouseEvent().GetX();
+	mouse_y = event.getMouseEvent().GetY();
 }

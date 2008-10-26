@@ -15,11 +15,21 @@
 #include <wx/log.h>
 #endif
 
+/**
+ * set active assembly which was hit by selection
+ * @param       int         assemblyID int cast of pointer
+ * @access      public
+ */
 void GNRAssemblyMediator::setAssemblyID(int assemblyID)
 {
 	m_Assembly = (GNRAssembly*)assemblyID;
 }
 
+/**
+ * global initialize of assembly mediator on mouse down
+ * @param       GNRGLNotifyEvent         event information
+ * @access      public
+ */
 void GNRAssemblyMediator::initialize(GNRGLNotifyEvent& event)
 {
 	if (m_Assembly != NULL)
@@ -36,15 +46,22 @@ void GNRAssemblyMediator::initialize(GNRGLNotifyEvent& event)
 		window_h = event.getWinY();
 		
 		gl_xmax = event.getWorldXmax();
-		gl_ymax = event.getWorldYmax();
 		gl_xmin = event.getWorldXmin();
+		
+		gl_ymax = event.getWorldYmax();
 		gl_ymin = event.getWorldYmin();
 		
-		m_mouse_x = event.getMouseEvent().m_x;
-		m_mouse_y = event.getMouseEvent().m_y;
+		m_mouse_x = event.getMouseEvent().GetX();
+		m_mouse_y = event.getMouseEvent().GetY();
 	}
 }
 
+/**
+ * call specific translation function of 2D or 3D mediator
+ * @param       GNRGLNotifyEvent     event information
+ * @return      int                  status of translation
+ * @access      public
+ */
 int GNRAssemblyMediator::translate(GNRGLNotifyEvent& event)
 {
 	//if no active assembly, return

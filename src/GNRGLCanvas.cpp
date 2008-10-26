@@ -311,7 +311,6 @@ int GNRGLCanvas::selection(GNRAssembly* rootAssembly, GNRGLCamera* camera, int m
 void GNRGLCanvas::OnLMouseDown(wxMouseEvent& event)
 {
 	SetFocus();
-	SetCurrent();
 	Connect(wxEVT_MOUSEWHEEL, (wxObjectEventFunction)&GNRGLCanvas::OnMouseWheel);
 	
 	GNRVertex* glcoords = new GNRVertex[2];
@@ -357,7 +356,6 @@ void GNRGLCanvas::OnLMouseUp(wxMouseEvent& event)
 void GNRGLCanvas::OnMMouseDown(wxMouseEvent& event)
 {
 	SetFocus();
-	SetCurrent();
 	Connect(wxEVT_MOUSEWHEEL, (wxObjectEventFunction)&GNRGLCanvas::OnMouseWheel);
 	// send Event to handle Mouse
 	GNRGLNotifyEvent myevent(wxEVT_COMMAND_GL_NOTIFY);
@@ -395,7 +393,6 @@ void GNRGLCanvas::OnMMouseUp(wxMouseEvent& event)
 void GNRGLCanvas::OnRMouseDown(wxMouseEvent& event)
 {
 	SetFocus();
-	SetCurrent();
 	Connect(wxEVT_MOUSEWHEEL, (wxObjectEventFunction)&GNRGLCanvas::OnMouseWheel);
 	// nothing has do be done yet
 }
@@ -469,7 +466,6 @@ void GNRGLCanvas::OnEnterWindow(wxMouseEvent& event)
 void GNRGLCanvas::OnLMouseDblClick(wxMouseEvent& event)
 {
 	SetFocus();
-	SetCurrent();
 	Connect(wxEVT_MOUSEWHEEL, (wxObjectEventFunction)&GNRGLCanvas::OnMouseWheel);
 	//GNRMouse::dropControl(event);
 #if defined(__ATHOS_DEBUG__)
@@ -534,6 +530,7 @@ void GNRGLCanvas::getGLPos(int x, int y, GNRVertex* glcoords)
 {
 	SetCurrent();
 	glPushMatrix();
+	
 	GLdouble modelview[16], projection[16];
 	GLint viewport[4];
 	float z;
@@ -562,6 +559,7 @@ void GNRGLCanvas::getGLDim(int x, int y, GNRVertex* glcoords)
 {
 	SetCurrent();
 	glPushMatrix();
+	
 	GLdouble modelview[16], projection[16];
 	GLint viewport[4];
 	float z;

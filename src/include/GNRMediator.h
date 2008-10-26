@@ -12,6 +12,7 @@ public:
 	GNRMediator();
 	virtual ~GNRMediator();
 	
+	//global setting of stranslation type and active canvas
 	void setTranslation(transType translation);
 	void setMode(canvasType canvas_id);
 	

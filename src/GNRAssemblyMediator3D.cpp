@@ -15,6 +15,11 @@
 #include <wx/log.h>
 #endif
 
+/**
+ * move the object in XY dimension and limit height over ground
+ * @param       GNRGLNotifyEvent         event from GLNotify
+ * @access      protected
+ */
 void GNRAssemblyMediator3D::MoveXY(GNRGLNotifyEvent& event)
 {
 	float new_x = old_x - (gl_xmax-gl_xmin)*(m_mouse_x - event.getMouseEvent().GetX())/window_w;
@@ -27,20 +32,35 @@ void GNRAssemblyMediator3D::MoveXY(GNRGLNotifyEvent& event)
 	m_Assembly->setY(new_y);
 }
 
+/**
+ * move the object in XZ dimension
+ * @param       GNRGLNotifyEvent         event from GLNotify
+ * @access      private
+ */
 void GNRAssemblyMediator3D::MoveXZ(GNRGLNotifyEvent& event)
 {
 	float new_x = old_x - (gl_xmax-gl_xmin)*(m_mouse_x - event.getMouseEvent().GetX())/window_w;
-	float new_z = old_z - (m_mouse_y - event.getMouseEvent().GetY())/90.0f;
+	float new_z = old_z - (gl_ymax-gl_ymin)*(m_mouse_y - event.getMouseEvent().GetY())/window_h*2.0f;
 	m_Assembly->setX(new_x);
 	m_Assembly->setZ(new_z);
 }
 
+/**
+ * rotate the object in XY dimension
+ * @param       GNRGLNotifyEvent         event from GLNotify
+ * @access      private
+ */
 void GNRAssemblyMediator3D::RotateXY(GNRGLNotifyEvent& event)
 {
 	m_Assembly->setPhi(phi_old + 720.0f*(m_mouse_y - event.getMouseEvent().GetY())/window_h);
 	m_Assembly->setTheta(theta_old + 720.0f*(m_mouse_x - event.getMouseEvent().GetX())/window_w);
 }
 
+/**
+ * rotate the object in XZ dimension
+ * @param       GNRGLNotifyEvent         event from GLNotify
+ * @access      private
+ */
 void GNRAssemblyMediator3D::RotateXZ(GNRGLNotifyEvent& event)
 {
 	m_Assembly->setPhi(phi_old + 720.0f*(m_mouse_y - event.getMouseEvent().GetY())/window_h);
