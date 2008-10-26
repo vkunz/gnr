@@ -23,8 +23,8 @@
  */
 void GNRGLCameraMediator3D::MoveXY(GNRGLNotifyEvent& event)
 {
-	float distX = (m_mouse_x - event.getMouseEvent().GetX())/-80.0f;
-	float distY = (m_mouse_y - event.getMouseEvent().GetY())/80.0f;
+	float distX = (float)(m_mouse_x - event.getMouseEvent().GetX())/(float)(window_w)*5.0;
+	float distY = (float)(event.getMouseEvent().GetY() - m_mouse_y)/(float)(window_h)*5.0;
 	
 	GNRVertex viewPoint = old_viewPoint + (old_rightVector*distX);
 	viewPoint = viewPoint + (old_upVector*distY);
@@ -39,8 +39,8 @@ void GNRGLCameraMediator3D::MoveXY(GNRGLNotifyEvent& event)
  */
 void GNRGLCameraMediator3D::MoveXZ(GNRGLNotifyEvent& event)
 {
-	float distX = (m_mouse_x - event.getMouseEvent().GetX())/-80.0f;
-	float distZ = (m_mouse_y - event.getMouseEvent().GetY())/80.0f;
+	float distX = (float)(m_mouse_x - event.getMouseEvent().GetX())/(float)(window_w)*5.0;
+	float distZ = (float)(m_mouse_y - event.getMouseEvent().GetY())/(float)(window_h)*5.0;
 	
 	GNRVertex viewPoint = old_viewPoint + (old_rightVector*distX);
 	viewPoint = viewPoint + (old_viewDir*-distZ);
@@ -55,8 +55,8 @@ void GNRGLCameraMediator3D::MoveXZ(GNRGLNotifyEvent& event)
  */
 void GNRGLCameraMediator3D::RotateXY(GNRGLNotifyEvent& event)
 {
-	float xangle = (m_mouse_y - event.getMouseEvent().m_y)/1.5;
-	float yangle = (m_mouse_x - event.getMouseEvent().m_x)/1.5;
+	float xangle = (float)(m_mouse_y - event.getMouseEvent().GetY())/(float)window_h*720.0f;
+	float yangle = (float)(m_mouse_x - event.getMouseEvent().GetX())/(float)window_w*720.0f;
 	
 	//Rotate viewdir around the right vector:
 	GNRVertex viewDir = old_viewDir*cos(xangle*M_PI/180.0) + old_upVector*sin(xangle*M_PI/180.0);
@@ -86,8 +86,8 @@ void GNRGLCameraMediator3D::RotateXY(GNRGLNotifyEvent& event)
  */
 void GNRGLCameraMediator3D::RotateXZ(GNRGLNotifyEvent& event)
 {
-	float xangle = (m_mouse_y - event.getMouseEvent().m_y)/1.5f;
-	float zangle = (m_mouse_x - event.getMouseEvent().m_x)/-1.5f;
+	float xangle = (float)(m_mouse_y - event.getMouseEvent().GetY())/(float)window_h*720.0f;
+	float zangle = (float)(m_mouse_x - event.getMouseEvent().GetX())/(float)window_w*720.0f;
 	
 	//Rotate viewdir around the right vector:
 	GNRVertex viewDir = old_viewDir*cos(xangle*M_PI/180.0) + old_upVector*sin(xangle*M_PI/180.0);

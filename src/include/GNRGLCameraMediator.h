@@ -29,10 +29,6 @@ protected:
 	int m_mouse_y;
 	int window_w;
 	int window_h;
-	float gl_xmax;
-	float gl_xmin;
-	float gl_ymax;
-	float gl_ymin;
 	
 	GNRVertex old_viewPoint;
 	GNRVertex old_viewDir;

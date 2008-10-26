@@ -37,12 +37,6 @@ void GNRGLCameraMediator::initialize(GNRGLNotifyEvent& event)
 	
 	window_w = event.getWinX();
 	window_h = event.getWinY();
-	
-	gl_xmax = event.getWorldXmax();
-	gl_xmin = event.getWorldXmin();
-	
-	gl_ymax = event.getWorldYmax();
-	gl_ymin = event.getWorldYmin();
 }
 
 int GNRGLCameraMediator::translate(GNRGLNotifyEvent& event)
