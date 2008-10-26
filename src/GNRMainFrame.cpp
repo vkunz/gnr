@@ -18,6 +18,7 @@
 
 #include "wx/wx.h"
 #include "math.h"
+#include "GNRGlobalDefine.h"
 #include "GNRObjectImport.h"
 #include "GNRMainFrame.h"
 
@@ -217,17 +218,17 @@ GNRMainFrame::GNRMainFrame(wxWindow* parent, wxWindowID WXUNUSED(id))
 	ToolBar1->AddSeparator();
 	
 	//build input for grid snapping
-	SpinCtrlTranslate = new wxSpinCtrl(ToolBar1, ID_SPINCTRL_TRANS, _T("100"), wxPoint(0,0), wxSize(60,20), 0, 1, 1000, 10, _T("ID_SPINCTRL_TRANS"));
-	StaticText1       = new wxStaticText(ToolBar1, ID_STATICTEXT1, _(" mm"), wxPoint(3,13), wxSize(20,12), 0, _T("Schrittweite in mm"));
-	SpinCtrlTranslate->SetValue(_T("100"));
+	SpinCtrlTranslate = new wxSpinCtrl(ToolBar1, ID_SPINCTRL_TRANS, _T("Schrittweite in cm"), wxPoint(0,0), wxSize(60,20), 0, SNAP_IN_MINIMUM_UNIT, SNAP_IN_MAXIMUM_UNIT, 10, _T("ID_SPINCTRL_TRANS"));
+	StaticText1       = new wxStaticText(ToolBar1, ID_STATICTEXT1, _(" cm"), wxPoint(3,13), wxSize(20,12), 0, _T("Schrittweite in cm"));
+	SpinCtrlTranslate->SetValue(_T("50"));
 	ToolBarItem16 = ToolBar1->AddControl(SpinCtrlTranslate);
 	ToolBarItem17 = ToolBar1->AddControl(StaticText1);
 	ToolBar1->AddSeparator();
 	
 	//build input for rotation snapping
-	SpinCtrlRotate = new wxSpinCtrl(ToolBar1, ID_SPINCTRL_ROTATE, _T("15"), wxPoint(0,0), wxSize(60,20), 0, 0, 90, 10, _T("ID_SPINCTRL_ROTATE"));
+	SpinCtrlRotate = new wxSpinCtrl(ToolBar1, ID_SPINCTRL_ROTATE, _T("Schrittweite in Grad"), wxPoint(0,0), wxSize(60,20), 0, SNAP_IN_MINIMUM_DEGREE, SNAP_IN_MAXIMUM_DEGREE, 10, _T("ID_SPINCTRL_ROTATE"));
 	StaticText2    = new wxStaticText(ToolBar1, ID_STATICTEXT2, _(" Grad"), wxPoint(3,13), wxSize(30,12), 0, _T("Schrittweite in Grad"));
-	SpinCtrlRotate->SetValue(_T("15"));
+	SpinCtrlRotate->SetValue(_T("45"));
 	ToolBarItem18 = ToolBar1->AddControl(SpinCtrlRotate);
 	ToolBarItem19 = ToolBar1->AddControl(StaticText2);
 	ToolBar1->AddSeparator();

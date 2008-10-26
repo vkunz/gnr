@@ -1,4 +1,9 @@
+#include "GNRGlobalDefine.h"
 #include "GNRMediator.h"
+
+#if defined(__ATHOS_DEBUG__)
+#include <wx/log.h>
+#endif
 
 //global static storage for all mediators
 canvasType GNRMediator::m_CanvasID;
@@ -47,7 +52,7 @@ void GNRMediator::setMode(canvasType canvas_id)
  */
 void GNRMediator::setSnapfunction(GNRNotifyEvent& event)
 {
-	m_SnapGrid  = event.getSnapToGrid();
+	m_SnapGrid  = 5*event.getSnapToGrid();
 	m_SnapAngle = event.getSnapToAngle();
 }
 
@@ -58,8 +63,12 @@ void GNRMediator::setSnapfunction(GNRNotifyEvent& event)
  */
 void GNRMediator::doSnapMove(float& value)
 {
-	//maximum snapping 1000 mm
-	value = round(value*(1000/m_SnapGrid))/(1000/m_SnapGrid);
+	float new_value = round(value*((float)SNAP_IN_MAXIMUM_UNIT/(float)m_SnapGrid))/((float)SNAP_IN_MAXIMUM_UNIT/(float)m_SnapGrid);
+	//if value reaches about SNAP_APPROACH_PERC (25%) of grid value, snap in
+	if (fabs(value - new_value)*(float)SNAP_IN_MAXIMUM_UNIT/(float)m_SnapGrid < SNAP_APPROACH_PERC)
+	{
+		value = new_value;
+	}
 }
 
 /**
@@ -69,6 +78,10 @@ void GNRMediator::doSnapMove(float& value)
  */
 void GNRMediator::doSnapRotate(float& value)
 {
-	//maximum snapping 90 degree
-	value = round(value/m_SnapAngle)*m_SnapAngle;
+	float new_value = round(value/(float)m_SnapAngle)*(float)m_SnapAngle;
+	//if angle reaches about SNAP_APPROACH_PERC (25%) of snapping angle, snap in
+	if (fabs(value - new_value)/(float)m_SnapAngle < SNAP_APPROACH_PERC)
+	{
+		value = new_value;
+	}
 }
