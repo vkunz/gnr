@@ -45,7 +45,7 @@ void GNRGLCamera::rotateX(GLfloat angle)
 {
 	rotatedX += angle;
 	
-	//Rotate viewdir around the right vector:
+	//Rotate viewdir around the right-Vector:
 	viewDir = viewDir*cos(angle*M_PI/180.0) + upVector*sin(angle*M_PI/180.0);
 	viewDir.normalize();
 	

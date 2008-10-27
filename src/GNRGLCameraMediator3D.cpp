@@ -55,32 +55,33 @@ void GNRGLCameraMediator3D::MoveXZ(GNRGLNotifyEvent& event)
 }
 
 /**
- * rotate the camera in arround X+Y-axis
+ * rotate the camera around X+Y-axis
  * @param GNRGLNotifyEvent event from GLNotify
  * @access private
  */
 void GNRGLCameraMediator3D::RotateXY(GNRGLNotifyEvent& event)
 {
-	float xangle = (float)(m_mouse_y - event.getMouseEvent().GetY())/(float)window_h*360.0f;
+	float xangle = -(float)(m_mouse_y - event.getMouseEvent().GetY())/(float)window_h*360.0f;
 	float yangle = (float)(m_mouse_x - event.getMouseEvent().GetX())/(float)window_w*360.0f;
 	
 	doSnapRotate(xangle);
 	doSnapRotate(yangle);
 	
-	//Rotate viewdir around the right vector:
+	//rotate around the right-Vector
 	GNRVertex viewDir = old_viewDir*cos(xangle*M_PI/180.0) + old_upVector*sin(xangle*M_PI/180.0);
 	viewDir.normalize();
+	GNRVertex upVector = old_rightVector * viewDir;
 	
-	//now compute the new UpVector (by cross product)
-	GNRVertex upVector = (viewDir * old_rightVector) *-1;
+	//Rotate viewdir around the up vector:
+	//viewDir = viewDir*cos(yangle*M_PI/180.0) + old_rightVector*sin(yangle*M_PI/180.0);
+	//viewDir.normalize();
 	
-	//Rotate viewdir around the up vector at the viewPoint:
-	viewDir = viewDir*cos(yangle*M_PI/180.0) - old_rightVector*sin(yangle*M_PI/180.0);
-	viewDir.normalize();
-	
-	//now compute the new RightVector (by cross product)
-	GNRVertex rightVector = viewDir * upVector;
-	
+	upVector.rotate(0, yangle, 0);
+	GNRVertex rightVector(old_rightVector);
+	rightVector.rotate(0, yangle, 0);
+	viewDir.rotate(0, yangle, 0);
+//	GNRVertex rightVector = viewDir * upVector;
+
 	m_GLCamera->setRotatedX(old_rotatedX + xangle);
 	m_GLCamera->setRotatedY(old_rotatedY + yangle);
 	m_GLCamera->setViewDir(viewDir);

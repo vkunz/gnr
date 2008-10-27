@@ -5,8 +5,7 @@ GNRScene::GNRScene()
 	m_RootAssembly  = new GNRAssembly("scene");
 	m_GLCamera2D    = new GNRGLCamera();
 	m_GLCamera3D    = new GNRGLCamera();
-	m_GLCamera2D->rotateX(-90);
-	m_GLCamera2D->changeDistance(3);
+	resetCamera();
 }
 
 GNRScene::~GNRScene()
@@ -58,8 +57,10 @@ void GNRScene::newRoom()
  */
 void GNRScene::resetCamera()
 {
+	m_GLCamera2D->reset();
+	m_GLCamera2D->rotateX(-90);
+	m_GLCamera2D->changeDistance(3);
 	m_GLCamera3D->reset();
-	//m_GLCamera2D->reset();
 }
 
 void GNRScene::setCanvas2D(GNRGLCanvas2D* p)
