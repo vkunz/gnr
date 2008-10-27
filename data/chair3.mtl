@@ -1,0 +1,23 @@
+# Blender3D MTL File: armchair_and_table2.blend
+# Material Count: 2
+newmtl metall
+Ns 80.392157
+Ka 0.000000 0.000000 0.000000
+Kd 0.063199 0.063199 0.063199
+Ks 1.268975 1.268975 1.268975
+Ni 1.000000
+d 1.000000
+illum 2
+
+
+newmtl silla_co
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.640000 0.640000
+Ks 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 1
+map_Kd telas_groges.jpg
+
+
