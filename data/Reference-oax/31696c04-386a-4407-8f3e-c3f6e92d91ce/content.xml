@@ -9,17 +9,17 @@
 		</tags>
 	</assemblyInformation>
 	<data>
-		<cuboid visible="true" location="2.5 0 0.2" orientation="30 0 0">
+		<cuboid visible="true" locationOffset="2.5 0 0.2" orientationOffset="30 0 0">
 			<width>0.25</width>
 			<height>5.1</height>
 			<depth>3.8</depth>
 		</cuboid>
-		<cylinder visible="true" location="0 0 1.8" orientation="0 45 0">
+		<cylinder visible="true" locationOffset="0 0 1.8" orientationOffset="0 45 0">
 			<radiusBottom>0.35</radiusBottom>
 			<radiusTop>0.6</radiusTop>
 			<height>1.25</height>
 		</cylinder>
-		<sphere visible="true" location="2.0 0.5 0" orientation="30 0 90">
+		<sphere visible="true" locationOffset="2.0 0.5 0" orientationOffset="30 0 90">
 			<radius>1.25</radius>
 		</sphere>
 	</data>

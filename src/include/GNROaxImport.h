@@ -97,9 +97,30 @@ private:
 	// random access iterator
 	std::vector<wxString>::iterator m_vecTagsit;
 	
+	// float to store cuboid width
+	float m_width;
+	
+	// float to store cuboid/cylinder height
+	float m_height;
+	
+	// float to store cuboid depth
+	float m_depth;
+	
+	// float to store cylinder radiusBottom and sphere radius
+	float m_radiusBottom;
+	
+	// float to store cylinder radiusTop
+	float m_radiusTop;
+	
+	// bool to store visibility of primitives
+	bool m_visible;
+	
 	// functions
-	// load xml
-	void LoadXml(wxInputStream& stream);
+	// load assembly xml
+	void LoadAssemblyXml(wxInputStream& stream);
+	
+	// load primitives xml
+	void LoadPrimitivesXml(wxInputStream& stream);
 	
 	// load obj
 	void LoadObj(wxInputStream& stream);
