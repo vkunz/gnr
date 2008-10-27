@@ -109,10 +109,10 @@ void GNRGLCanvas::initLights()
 	
 	glEnable(GL_LIGHT0);
 	
-	GLfloat light_ambient[] = { 0.2, 0.2, 0.2, 1.0 };
-	GLfloat light_diffuse[] = { 0.4, 0.4, 0.4, 1.0 };
-	GLfloat light_specular[] = { 0.4, 0.4, 0.3, 1.0 };
-	GLfloat light_position[] = { 2.0, 2.0, 2.0, 1.0 };
+	GLfloat light_ambient[] = { 0.5, 0.5, 0.5, 1.0 };
+	GLfloat light_diffuse[] = { 0.5, 0.5, 0.5, 1.0 };
+	GLfloat light_specular[] = { 0.4, 0.4, 0.4, 1.0 };
+	GLfloat light_position[] = { 10.0, 10.0, 2.0, 1.0 };
 	
 	glLightfv(GL_LIGHT0, GL_AMBIENT, light_ambient);
 	glLightfv(GL_LIGHT0, GL_DIFFUSE, light_diffuse);
@@ -139,7 +139,15 @@ void GNRGLCanvas::initGL()
 	glShadeModel(GL_SMOOTH);
 	glDepthFunc(GL_LEQUAL);
 	
+	//glBlendFunc(GL_ONE, GL_ONE);
+	//glBlendFunc(GL_ONE_MINUS_SRC_ALPHA,GL_SRC_ALPHA);
+	//glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	//glBlendFuncSeparate(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, GL_ONE_MINUS_DST_ALPHA, GL_ONE);
 	glEnable(GL_BLEND);
+	glBlendFunc(GL_ONE_MINUS_SRC_ALPHA,GL_SRC_ALPHA);
+	//glEnable(GL_ALPHA_TEST);
+	glAlphaFunc(GL_GREATER, 0.1);
+	
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_LINE_SMOOTH);
 	glEnable(GL_POLYGON_SMOOTH);
@@ -147,11 +155,11 @@ void GNRGLCanvas::initGL()
 	glHint(GL_LINE_SMOOTH_HINT, GL_DONT_CARE);
 	glHint(GL_POLYGON_SMOOTH_HINT, GL_DONT_CARE);
 	
-	glLineWidth(1.5);
+	glLineWidth(1.0f);
 	glClearDepth(1.0f);
 	
-	glPolygonMode(GL_FRONT, GL_FILL);
-	glPolygonMode(GL_BACK, GL_LINE);
+	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+	//glPolygonMode(GL_BACK, GL_FILL);
 	
 	glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);
 	
@@ -164,8 +172,26 @@ void GNRGLCanvas::initGL()
  */
 void GNRGLCanvas::endDraw()
 {
-// TODO: draw floor in scene
+	//setMatrix();
+	//glFlush();
+	SwapBuffers();
+}
 
+/**
+ * Clears the screen and does all the work that has to be done before drawing
+ * @access      private
+ */
+void GNRGLCanvas::prepareDraw()
+{
+	// set current GL-Context as activ
+	SetCurrent();
+	
+	// Clear the Window
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	
+	glMatrixMode(GL_MODELVIEW);
+	
+	//draw floor
 	glPushMatrix();
 	{
 		mtllib.selectMaterial("flwhite");
@@ -185,25 +211,6 @@ void GNRGLCanvas::endDraw()
 		glEnd();
 	}
 	glPopMatrix();
-	
-	//setMatrix();
-	//glFlush();
-	SwapBuffers();
-}
-
-/**
- * Clears the screen and does all the work that has to be done before drawing
- * @access      private
- */
-void GNRGLCanvas::prepareDraw()
-{
-	// set current GL-Context as activ
-	SetCurrent();
-	
-	// Clear the Window
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	
-	glMatrixMode(GL_MODELVIEW);
 	
 	// Reset The Current Modelview Matrix
 	glLoadIdentity();

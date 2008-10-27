@@ -97,6 +97,7 @@ private:
 	static const long btn_rotate_xz;
 	static const long btn_camera_reset;
 	static const long btn_snap_to_grid;
+	static const long btn_draw_walls;
 	
 	static const long ID_ToolBar;
 	
@@ -134,27 +135,7 @@ private:
 	wxStaticText* StaticText2;
 	
 	wxToolBar* ToolBar1;
-	
-	wxToolBarToolBase* ToolBarItem1;
-	wxToolBarToolBase* ToolBarItem2;
-	wxToolBarToolBase* ToolBarItem3;
-	wxToolBarToolBase* ToolBarItem4;
-	wxToolBarToolBase* ToolBarItem5;
-	wxToolBarToolBase* ToolBarItem6;
-	wxToolBarToolBase* ToolBarItem7;
-	wxToolBarToolBase* ToolBarItem8;
-	wxToolBarToolBase* ToolBarItem9;
-	wxToolBarToolBase* ToolBarItem10;
-	wxToolBarToolBase* ToolBarItem11;
-	wxToolBarToolBase* ToolBarItem12;
-	wxToolBarToolBase* ToolBarItem13;
-	wxToolBarToolBase* ToolBarItem14;
-	wxToolBarToolBase* ToolBarItem15;
-	wxToolBarToolBase* ToolBarItem16;
-	wxToolBarToolBase* ToolBarItem17;
-	wxToolBarToolBase* ToolBarItem18;
-	wxToolBarToolBase* ToolBarItem19;
-	wxToolBarToolBase* ToolBarItem99;
+	wxToolBarToolBase* ToolBarItem[30];
 	
 	DECLARE_EVENT_TABLE()
 };
