@@ -1,8 +1,8 @@
 /* vim: set expandtab sw=4 ts=4 sts=4: */
 /**
  * GNRTreeLibraryController
- * @name                GNRTreeLibraryController.cpp
- * @date                2008-10-26
+ * @name        GNRTreeLibraryController.cpp
+ * @date        2008-10-26
  * @author		Konstantin Balabin  <k.balabin@googlemail.com>
  * @author		Patrick Kracht      <patrick.kracht@googlemail.com>
  * @author		Thorsten Moll       <thorsten.moll@googlemail.com>
@@ -18,8 +18,10 @@
 #include <wx/log.h>
 #endif
 
-
-// ctor
+/**
+ * Constructor.
+ * @param       wxTreeCtrl*     Assigns pointer to wxTreeCtrl.
+ */
 GNRTreeLibraryController::GNRTreeLibraryController(wxTreeCtrl* treectrl)
 {
 	// store Pointer to TreeCtrl
@@ -32,12 +34,17 @@ GNRTreeLibraryController::GNRTreeLibraryController(wxTreeCtrl* treectrl)
 	buildTreeCtrl();
 }
 
-// dtor
+/**
+ * Virtual Destructor.
+ */
 GNRTreeLibraryController::~GNRTreeLibraryController()
 {
 	// do nothing
 }
 
+/**
+ * Open library.xml if exist and get all its data.
+ */
 void GNRTreeLibraryController::openLibrary()
 {
 	// string to store groupname
@@ -127,6 +134,9 @@ void GNRTreeLibraryController::openLibrary()
 	}
 }
 
+/**
+ * Build TreeControll on actual data.
+ */
 void GNRTreeLibraryController::buildTreeCtrl()
 {
 	// set root

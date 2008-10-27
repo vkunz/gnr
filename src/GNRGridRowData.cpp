@@ -11,12 +11,24 @@
 
 #include "GNRGridRowData.h"
 
-// ctor
+/**
+ * Default Constructor.
+ */
 GNRGridRowData::GNRGridRowData()
 {
 	//ctor
 }
 
+/**
+ * Constructor.
+ * Assigns parameters to internal attributes.
+ * @param       wxString        Name of Assembly.
+ * @param       float           Length of Assembly.
+ * @param       float           Width of Assembly.
+ * @param       float           Depth of Assembly.
+ * @param       bool            Visibility of Assembly.
+ * @param       int             AssemblyId.
+ */
 GNRGridRowData::GNRGridRowData(wxString name, float length, float width, float depth, bool visible, int id)
 {
 	// set name
@@ -38,14 +50,18 @@ GNRGridRowData::GNRGridRowData(wxString name, float length, float width, float d
 	m_id = id;
 }
 
-// dtor
+/**
+ * Virtual Destructor
+ */
 GNRGridRowData::~GNRGridRowData()
 {
 	//dtor
 }
 
+/**
+ * @return      AssemblyId.
+ */
 int GNRGridRowData::getId()
 {
 	return m_id;
 }
-

@@ -19,7 +19,11 @@
 #include "GNRAssembly.h"
 #include "GNRGridRowData.h"
 
-
+/**
+ * @class GNRGridSceneController
+ *
+ * This class manages the grid on the left side of the Application.
+*/
 class GNRGridSceneController
 {
 public:

@@ -21,12 +21,18 @@
 #include <wx/log.h>
 #endif
 
-//ctor
+/**
+ * Default Constructor.
+ */
 GNROpxImport::GNROpxImport()
 {
-
 }
 
+/**
+ * Loads the given filename. See Load(wxString filename).
+ * @param       wxString        Filepath to read from.
+ * @param       GNRScene*       Assigns pointer to actual scene.
+ */
 GNROpxImport::GNROpxImport(GNRScene* scene, wxString filename)
 {
 	// set GNRScene pointer
@@ -36,11 +42,19 @@ GNROpxImport::GNROpxImport(GNRScene* scene, wxString filename)
 	Load(filename);
 }
 
+/**
+ * Virtual Destructor.
+ */
 GNROpxImport::~GNROpxImport()
 {
 	//dtor
 }
 
+/**
+ * Loads the given filename. See Load(wxString filename).
+ * @param       wxString    Filepath to read from.
+ * @param       GNRScene*   Assigns pointer to actual scene.
+ */
 void GNROpxImport::Load(GNRScene* scene, wxString filename)
 {
 	// set GNRScene pointer
@@ -50,6 +64,10 @@ void GNROpxImport::Load(GNRScene* scene, wxString filename)
 	Load(filename);
 }
 
+/**
+ * Loads the given file and get all its data.
+ * @param       wxString    Filepath to read from.
+ */
 void GNROpxImport::Load(wxString filename)
 {
 	// create inputstream of file
@@ -92,6 +110,10 @@ void GNROpxImport::Load(wxString filename)
 	}
 }
 
+/**
+ * Loads the given stream and get its all data.
+ * @param       wxInputStream    Load xml-File as wxInputStream.
+ */
 void GNROpxImport::LoadXml(wxInputStream& stream)
 {
 	// temporary attributes
@@ -194,6 +216,10 @@ void GNROpxImport::LoadXml(wxInputStream& stream)
 #warning "INFO: Here todo someting, I'm waiting until monday(27.10.2008), if xml-format changes."
 }
 
+/**
+ * Loads the given stream and get its all data.
+ * @param       wxInputStream    Load obj-File as wxInputStream.
+ */
 void GNROpxImport::LoadOax(wxInputStream& stream)
 {
 

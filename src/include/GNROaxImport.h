@@ -9,7 +9,6 @@
  * @author		Valentin Kunz       <athostr@googlemail.com>
  */
 
-
 #ifndef _GNROAXIMPORT_H_
 #define _GNROAXIMPORT_H_
 
@@ -23,14 +22,14 @@
 #include "GNRAssembly.h"
 
 /**
-    @class GNROaxImport
-
-    This class creates a GNRAssembly of oax-Files.
-
-    Internally a GNRObjectImport is used.
-
-    @see GNRObjectImport
-*/
+ * @class GNROaxImport
+ *
+ * This class creates a GNRAssembly of oax-Files.
+ *
+ * Internally a GNRObjectImport is used.
+ *
+ * @see GNRObjectImport
+ */
 class GNROaxImport
 {
 public:

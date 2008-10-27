@@ -18,6 +18,15 @@
 #include "GNRGLCamera.h"
 #include "GNRScene.h"
 
+/**
+ * @class GNROpxImport
+ *
+ * This class creates a Scene of a opx-File.
+ *
+ * Internally a GNROaxImport is used.
+ *
+ * @see GNROaxImport
+ */
 class GNROpxImport
 {
 public:

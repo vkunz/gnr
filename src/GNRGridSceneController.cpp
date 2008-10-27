@@ -14,7 +14,10 @@
 #include "GNRGridSceneController.h"
 #include "GNRGridTable.h"
 
-// ctor
+/**
+ * Constructor.
+ * @param       wxGrid*         Assigns pointer to wxGrid.
+ */
 GNRGridSceneController::GNRGridSceneController(wxGrid* grid)
 {
 	// store pointer to grid
@@ -24,12 +27,17 @@ GNRGridSceneController::GNRGridSceneController(wxGrid* grid)
 	buildGrid();
 }
 
-// dtor
+/**
+ * Virtual Destructor.
+ */
 GNRGridSceneController::~GNRGridSceneController()
 {
 	// do nothing
 }
 
+/**
+ * Builds Grid on actual data.
+ */
 void GNRGridSceneController::buildGrid()
 {
 	// creat own table

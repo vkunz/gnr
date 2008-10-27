@@ -16,6 +16,11 @@
 #include <wx/string.h>
 #include <wx/treectrl.h>
 
+/**
+ * @class GNRTreeLibraryController
+ *
+ * This class manages the treelibrary on the left side of the Application.
+ */
 class GNRTreeLibraryController
 {
 public:
