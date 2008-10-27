@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <oaxml standard="oaxml.hs-ulm.de" version="0.1.0">
 	<assemblyInformation>
 		<name>Stardestroyer</name>
@@ -9,7 +9,6 @@
 		</tags>
 	</assemblyInformation>
 	<data>
-		<lightsources/>
-		<obj scale="0.12 0.2 0.2" locationOffset="0 0 0" orientation="0 18.5 0" ref="stardestroyer.obj"/>
+		<obj scale="0.12 0.2 0.2" locationOffset="0 0 0" orientationOffset="0 18.5 0" ref="stardestroyer.obj"/>
 	</data>
 </oaxml>

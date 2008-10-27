@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <oaxml standard="oaxml.hs-ulm.de" version="0.1.0">
 	<assemblyInformation>
 		<name>Apple IBook</name>
@@ -10,7 +10,6 @@
 		</tags>
 	</assemblyInformation>
 	<data>
-		<lightsources></lightsources>
-		<obj scale="0.548 0.2 0.8" locationOffset="0 0 0" orientation="0 0 0" ref="apple-ibook-2001.obj"/>
+		<obj scale="0.548 0.2 0.8" locationOffset="0 0 0" orientationOffset="0 0 0" ref="apple-ibook-2001.obj"/>
 	</data>
 </oaxml>
