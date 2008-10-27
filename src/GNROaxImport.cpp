@@ -190,14 +190,54 @@ void GNROaxImport::LoadXml(wxInputStream& stream)
 	// node to assemblyInformation
 	node = xml.GetRoot()->GetChildren();
 	
+	// node to name
+	node = node->GetChildren();
+	
+	// get name
+	m_name = node->GetNodeContent();
+	
+	// node to author
+	node = node->GetNext();
+	
+	// get author
+	m_author = node->GetNodeContent();
+	
+	// node to Tags
+	node = node->GetNext();
+	
+	// node to first Tag
+	node = node->GetChildren();
+	
+	// walk through all tags
+	while (node)
+	{
+		// get content of tag and store in m_vecTags
+		m_vecTags.push_back(node->GetNodeContent());
+		
+		// check if next exist, if not, leave
+		if (node->GetNext() == NULL)
+		{
+			break;
+		}
+		// everything ok, set next node
+		else
+		{
+			// set node to next group
+			node = node->GetNext();
+		}
+	}
+	
+	// node to tags
+	node = node->GetParent();
+	
+	// node to assemblyInformation
+	node = node->GetParent();
+	
 	// node to data
 	node = node->GetNext();
 	
-	// node to lightsource
-	node = node->GetChildren();
-	
 	// node to obj
-	node = node->GetNext();
+	node = node->GetChildren();
 	
 	// prop to scale
 	prop = node->GetProperties();
@@ -210,15 +250,15 @@ void GNROaxImport::LoadXml(wxInputStream& stream)
 	
 	// get x-scale
 	tok.GetNextToken().ToDouble(&x);
-	m_scalex = x;
+	m_scaleX = x;
 	
 	// get y-scale
 	tok.GetNextToken().ToDouble(&y);
-	m_scaley = y;
+	m_scaleY = y;
 	
 	// get z-scale
 	tok.GetNextToken().ToDouble(&z);
-	m_scalez = z;
+	m_scaleZ = z;
 	
 	// prop to locationOffset
 	prop = prop->GetNext();
@@ -229,38 +269,38 @@ void GNROaxImport::LoadXml(wxInputStream& stream)
 	// tokenize value
 	tok.SetString(value, wxT(" "));
 	
-	// get x-offset
+	// get x-locationOffset
 	tok.GetNextToken().ToDouble(&x);
-	m_offsetx = x;
+	m_locationOffsetX = x;
 	
-	// get y-offset
+	// get y-locationOffset
 	tok.GetNextToken().ToDouble(&y);
-	m_offsety = y;
+	m_locationOffsetY = y;
 	
-	// get z-offset
+	// get z-locationOffset
 	tok.GetNextToken().ToDouble(&z);
-	m_offsetz = z;
+	m_locationOffsetZ = z;
 	
-	// prop to orientation
+	// prop to orientationOffset
 	prop = prop->GetNext();
 	
-	// get value of orientation
+	// get value of orientationOffset
 	value = prop->GetValue();
 	
 	// tokenize value
 	tok.SetString(value, wxT(" "));
 	
-	// get x-orientation
+	// get x-orientationOffset
 	tok.GetNextToken().ToDouble(&x);
-	m_orientationx = x;
+	m_orientationOffsetX = x;
 	
-	// get y-orientation
+	// get y-orientationOffset
 	tok.GetNextToken().ToDouble(&y);
-	m_orientationy = y;
+	m_orientationOffsetY = y;
 	
-	// get z-orientation
+	// get z-orientationOffset
 	tok.GetNextToken().ToDouble(&z);
-	m_orientationz = z;
+	m_orientationOffsetZ = z;
 	
 	// prop to ref
 	prop = prop->GetNext();
@@ -282,34 +322,34 @@ void GNROaxImport::LoadObj(wxInputStream& stream)
 	//m_ptrAssembly = import.read()
 	
 	// set x-offset
-	m_ptrAssembly->setX(m_offsetx);
+	m_ptrAssembly->setX(m_locationOffsetX);
 	
 	// set y-offset
-	m_ptrAssembly->setY(m_offsety);
+	m_ptrAssembly->setY(m_locationOffsetY);
 	
 	// set z-offset
-	m_ptrAssembly->setZ(m_offsetz);
+	m_ptrAssembly->setZ(m_locationOffsetZ);
 	
 	
 	// set x-orientation
-	m_ptrAssembly->setPhi(m_orientationx);
+	m_ptrAssembly->setPhi(m_orientationOffsetX);
 	
 	// set y-orientation
-	m_ptrAssembly->setRho(m_orientationy);
+	m_ptrAssembly->setRho(m_orientationOffsetY);
 	
 	// set z-orientation
-	m_ptrAssembly->setTheta(m_orientationz);
+	m_ptrAssembly->setTheta(m_orientationOffsetZ);
 	
 	
 	// set x-scale
-	m_ptrAssembly->setScaleX(m_scalex);
+	m_ptrAssembly->setScaleX(m_scaleX);
 	
 	// set y-scale
-	m_ptrAssembly->setScaleY(m_scaley);
+	m_ptrAssembly->setScaleY(m_scaleY);
 	
 	// set z-scale
-	m_ptrAssembly->setScaleZ(m_scalez);
+	m_ptrAssembly->setScaleZ(m_scaleZ);
 	
 	// set assemly-name
-	m_ptrAssembly->setName(std::string(std::string(m_objFilename.BeforeLast('.').mb_str())));
+	m_ptrAssembly->setName(std::string(std::string(m_name.mb_str())));
 }

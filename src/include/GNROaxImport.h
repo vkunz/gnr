@@ -59,13 +59,13 @@ protected:
 private:
 	// attributes
 	// x - y - z - scale
-	float m_scalex, m_scaley, m_scalez;
+	float m_scaleX, m_scaleY, m_scaleZ;
 	
 	// x - y - z - offset
-	float m_offsetx, m_offsety, m_offsetz;
+	float m_locationOffsetX, m_locationOffsetY, m_locationOffsetZ;
 	
 	// x - y - z - orientation
-	float m_orientationx, m_orientationy, m_orientationz;
+	float m_orientationOffsetX, m_orientationOffsetY, m_orientationOffsetZ;
 	
 	// pointer to actual zip entry
 	wxZipEntry* m_ptrZipEntry;
@@ -84,6 +84,18 @@ private:
 	
 	// string to store name of obj-file
 	wxString m_objFilename;
+	
+	// string to store assemblyInformation->Name
+	wxString m_name;
+	
+	// string to store assemblyInformation->Autho
+	wxString m_author;
+	
+	// vector of string to store assemblyInformation->Tags
+	std::vector<wxString> m_vecTags;
+	
+	// random access iterator
+	std::vector<wxString>::iterator m_vecTagsit;
 	
 	// functions
 	// load xml
