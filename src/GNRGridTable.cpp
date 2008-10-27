@@ -45,8 +45,13 @@ static const wxChar *headers[Col_Max] =
 };
 
 // ctor
-GNRGridTable::GNRGridTable()
+GNRGridTable::GNRGridTable() : wxGridTableBase()
 {
+}
+
+GNRGridTable::GNRGridTable(int numRows, int WXUNUSED(numCols))
+{
+	m_vector.resize(numRows);
 }
 
 // dtor
@@ -56,12 +61,27 @@ GNRGridTable::~GNRGridTable()
 
 int GNRGridTable::GetNumberRows()
 {
-	return WXSIZEOF(gs_GNRGridData);
+	return m_vector.size();
 }
 
 int GNRGridTable::GetNumberCols()
 {
-	return Col_Max;
+	return 6;
+}
+
+wxString GNRGridTable::GetValue(int row, int col)
+{
+	wxString tmp;
+	GNRGridRowData grdtmp = m_vector[row];
+	
+	tmp = grdtmp[col];
+	
+	return tmp;
+}
+
+void GNRGridTable::SetValue(int row, int col, const wxString& s)
+{
+	m_vector[row][col] = s;
 }
 
 bool GNRGridTable::IsEmptyCell(int row, int col)
@@ -69,60 +89,62 @@ bool GNRGridTable::IsEmptyCell(int row, int col)
 	return false;
 }
 
-wxString GNRGridTable::GetValue(int row, int col)
+void GNRGridTable::Clear()
 {
-	const GNRGridData& gd = gs_GNRGridData[row];
-	wxString tmp;
-	
-	switch (col)
+	m_vector.clear();
+}
+
+bool GNRGridTable::InsertRows(size_t pos, size_t numRows)
+{
+
+}
+
+bool GNRGridTable::AppendRows(size_t numRows)
+{
+
+}
+
+bool GNRGridTable::DeleteRows(size_t pos, size_t numRows)
+{
+
+}
+
+void GNRGridTable::SetRowLabelValue(int row, const wxString&)
+{
+
+}
+
+void GNRGridTable::SetColLabelValue(int col, const wxString& value)
+{
+	if (col > (int)(m_colLabels.GetCount()) - 1)
 	{
-	case Col_Name:
-		return gd.name;
-	case Col_Length:
-		tmp << gd.length;
-		return tmp;
-		tmp = wxT("");
-	case Col_Width:
-		tmp << gd.width;
-		return tmp;
-		tmp = wxT("");
-	case Col_Depth:
-		tmp << gd.depth;
-		return tmp;
-		tmp = wxT("");
-	case Col_Visible:
-		return gd.visible ? wxT("1") : wxT("0");
-	case Col_Id:
-		tmp << gd.id;
-		return tmp;
+		int n = m_colLabels.GetCount();
+		int i;
+		
+		for (i = n; i <= col; i++)
+		{
+			m_colLabels.Add(wxGridTableBase::GetColLabelValue(i));
+		}
 	}
 	
-	return wxEmptyString;
+	m_colLabels[col] = value;
 }
 
-void GNRGridTable::SetValue(int row, int col, const wxString& value)
+wxString GNRGridTable::GetRowLabelValue(int row)
 {
 
 }
 
-wxString GNRGridTable::GetTypeName(int row, int col)
+wxString GNRGridTable::GetColLabelValue(int col)
 {
-	switch (col)
+	if (col > (int)(m_colLabels.GetCount()) - 1)
 	{
-	case Col_Name:
-		return wxGRID_VALUE_STRING;
-	case Col_Length:
-		return wxGRID_VALUE_FLOAT;
-	case Col_Width:
-		return wxGRID_VALUE_FLOAT;
-	case Col_Depth:
-		return wxGRID_VALUE_FLOAT;
-	case Col_Visible:
-		return wxGRID_VALUE_CHOICE;
-	case Col_Id:
-		return wxGRID_VALUE_LONG;
+		// using default label
+		//
+		return wxGridTableBase::GetColLabelValue(col);
 	}
-	
-	return wxEmptyString;
+	else
+	{
+		return m_colLabels[col];
+	}
 }
-

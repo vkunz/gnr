@@ -116,6 +116,7 @@
 		<Unit filename="src\GNRGLNotifyEvent.cpp" />
 		<Unit filename="src\GNRGridRowData.cpp" />
 		<Unit filename="src\GNRGridSceneController.cpp" />
+        <Unit filename="src\GNRGridTable.cpp" />
 		<Unit filename="src\GNRImportFile.cpp" />
 		<Unit filename="src\GNRMainFrame.cpp" />
 		<Unit filename="src\GNRMaterial.cpp" />
@@ -153,6 +154,7 @@
 		<Unit filename="src\include\GNRGlobalDefine.h" />
 		<Unit filename="src\include\GNRGridRowData.h" />
 		<Unit filename="src\include\GNRGridSceneController.h" />
+        <Unit filename="src\include\GNRGridTable.h" />
 		<Unit filename="src\include\GNRImportFile.h" />
 		<Unit filename="src\include\GNRMainFrame.h" />
 		<Unit filename="src\include\GNRMaterial.h" />

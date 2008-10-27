@@ -31,6 +31,9 @@ GNRGridRowData::GNRGridRowData()
  */
 GNRGridRowData::GNRGridRowData(wxString name, float length, float width, float depth, bool visible, int id)
 {
+	// we have 6 hard-coded columns
+	m_col = 6;
+	
 	// set name
 	m_name = name;
 	
@@ -64,4 +67,45 @@ GNRGridRowData::~GNRGridRowData()
 int GNRGridRowData::getId()
 {
 	return m_id;
+}
+
+int GNRGridRowData::getCol()
+{
+	return m_col;
+}
+
+wxString GNRGridRowData::operator[](int val)
+{
+	// temporary attribute for converting
+	wxString tmp;
+	
+	// switch, which column is chosen
+	switch (val)
+	{
+	case 0:
+		return m_name;
+	case 1:
+		tmp << m_length;
+		return tmp;
+	case 2:
+		tmp << m_width;
+		return tmp;
+	case 3:
+		tmp << m_depth;
+		return tmp;
+	case 4:
+		if (m_visible)
+		{
+			return wxT("true");
+		}
+		else
+		{
+			return wxT("false");
+		}
+	case 5:
+		tmp << m_id;
+		return tmp;
+	}
+	
+	return wxT("");
 }

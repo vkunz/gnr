@@ -41,13 +41,10 @@ GNRGridSceneController::~GNRGridSceneController()
 void GNRGridSceneController::buildGrid()
 {
 	// creat own table
-	//wxGridTableBase* table = new GNRGridTable();
+	wxGridTableBase* table = new GNRGridTable();
 	
 	// set table
-	//m_grid->SetTable(table, true);
-	
-	// create grid, 1 row, 5 cols
-	m_grid->CreateGrid(1, 5);
+	m_grid->SetTable(table, true);
 	
 	// disable rowlabel
 	m_grid->SetRowLabelSize(0);
@@ -58,12 +55,11 @@ void GNRGridSceneController::buildGrid()
 	m_grid->SetColLabelValue(2, wxT("Breite"));
 	m_grid->SetColLabelValue(3, wxT("Tiefe"));
 	m_grid->SetColLabelValue(4, wxT("Sichtbar"));
+	m_grid->SetColLabelValue(5, wxT("GruppenId"));
 	
 	// enalbe lines
 	m_grid->EnableGridLines(true);
 	
-	// set row size
-	m_grid->SetRowSize(0, 20);
-	
+	// enable Autosize
 	m_grid->AutoSize();
 }

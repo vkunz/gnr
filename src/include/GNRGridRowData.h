@@ -27,11 +27,22 @@ public:
 	virtual ~GNRGridRowData();
 	
 	// functions
+	// get assemblyId
 	int getId();
+	
+	// get number of columns
+	int getCol();
+	
+	// index-operator
+	wxString operator[](int val);
+	
 protected:
 
 private:
 	// attributes
+	// number of columns
+	int m_col;
+	
 	// assembly-name
 	wxString m_name;
 	

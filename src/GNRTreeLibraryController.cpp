@@ -86,7 +86,7 @@ void GNRTreeLibraryController::openLibrary()
 		// stores data into map
 		m_groups.insert(std::pair<wxString, unsigned long int>(Name, groupId));
 		
-		// check if there is no next node, leave
+		// check if next exist, if not, leave
 		if (node->GetNext() == NULL)
 		{
 			break;
