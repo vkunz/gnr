@@ -49,7 +49,7 @@ void GNRScene::newRoom()
 {
 	delete m_RootAssembly;
 	m_RootAssembly = new GNRAssembly("scene");
-	m_GLCamera3D->reset();
+	resetCamera();
 }
 
 /**
@@ -59,6 +59,7 @@ void GNRScene::newRoom()
 void GNRScene::resetCamera()
 {
 	m_GLCamera3D->reset();
+	m_GLCamera2D->reset();
 }
 
 void GNRScene::setCanvas2D(GNRGLCanvas2D* p)

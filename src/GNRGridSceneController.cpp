@@ -46,7 +46,7 @@ void GNRGridSceneController::buildGrid()
 	
 	// set headers
 	m_grid->SetColLabelValue(0, wxT("Name"));
-	m_grid->SetColLabelValue(1, wxT("Länge"));
+	m_grid->SetColLabelValue(1, wxT("L\u00E4nge"));
 	m_grid->SetColLabelValue(2, wxT("Breite"));
 	m_grid->SetColLabelValue(3, wxT("Tiefe"));
 	m_grid->SetColLabelValue(4, wxT("Sichtbar"));
