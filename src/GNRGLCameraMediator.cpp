@@ -34,6 +34,7 @@ void GNRGLCameraMediator::initialize(GNRGLNotifyEvent& event)
 	old_rotatedX    = m_GLCamera->getRotatedX();
 	old_rotatedY    = m_GLCamera->getRotatedY();
 	old_rotatedZ    = m_GLCamera->getRotatedZ();
+	m_distance      = m_GLCamera->getDistance();
 	
 	window_w = event.getWinX();
 	window_h = event.getWinY();

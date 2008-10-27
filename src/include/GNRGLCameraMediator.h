@@ -29,6 +29,7 @@ protected:
 	int m_mouse_y;
 	int window_w;
 	int window_h;
+	float m_distance;
 	
 	GNRVertex old_viewPoint;
 	GNRVertex old_viewDir;

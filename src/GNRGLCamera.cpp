@@ -184,6 +184,16 @@ void GNRGLCamera::changeDistance(float distance)
 }
 
 /**
+ * get the distance between camera and view-point
+ * @param       float     amount, the distance should raise
+ * @access      public
+ */
+float GNRGLCamera::getDistance()
+{
+	return m_distance;
+}
+
+/**
  * resets the camera to initial-position
  * @access      public
  */
