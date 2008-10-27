@@ -58,6 +58,12 @@ private:
 	// random access iterator
 	std::vector<wxZipEntry*>::iterator m_vectorit;
 	
+	// string to store projectInformation -> ProjectName
+	wxString m_name;
+	
+	// string to store projectInformation -> Author
+	wxString m_author;
+	
 	// functions
 	// loads file
 	void Load(wxString filename);

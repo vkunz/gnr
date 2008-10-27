@@ -321,7 +321,7 @@ void GNROaxImport::LoadAssemblyXml(wxInputStream& stream)
 
 void GNROaxImport::LoadPrimitivesXml(wxInputStream& stream)
 {
-#warning "Need to create an primitive-assmbly here"
+#warning "INFO: Need to create an primitive-assmbly here"
 
 	// temporary attributes
 	double x, y, z;
@@ -494,7 +494,7 @@ void GNROaxImport::LoadPrimitivesXml(wxInputStream& stream)
 				node = node->GetNext();
 			}
 			
-#warning "Need to create an cuboid here, waiting for api."
+#warning "INFO: Need to create an cuboid here, waiting for api."
 			// primitive found
 			continue;
 		}
@@ -597,7 +597,7 @@ void GNROaxImport::LoadPrimitivesXml(wxInputStream& stream)
 				node = node->GetNext();
 			}
 			
-#warning "Need to create an cylinder here, waiting for api."
+#warning "INFO: Need to create an cylinder here, waiting for api."
 			// primitive found
 			continue;
 		}
@@ -686,7 +686,7 @@ void GNROaxImport::LoadPrimitivesXml(wxInputStream& stream)
 				node = node->GetNext();
 			}
 			
-#warning "Need to create an sphere here, waiting for api."
+#warning "INFO: Need to create an sphere here, waiting for api."
 			// primitive found
 			continue;
 			

@@ -85,13 +85,13 @@ private:
 	// string to store name of obj-file
 	wxString m_objFilename;
 	
-	// string to store assemblyInformation->Name
+	// string to store assemblyInformation -> Name
 	wxString m_name;
 	
-	// string to store assemblyInformation->Autho
+	// string to store assemblyInformation -> Author
 	wxString m_author;
 	
-	// vector of string to store assemblyInformation->Tags
+	// vector of string to store assemblyInformation -> Tags
 	std::vector<wxString> m_vecTags;
 	
 	// random access iterator

@@ -89,7 +89,7 @@ void GNROpxImport::Load(wxString filename)
 		m_ptrZipEntry = zipIn.GetNextEntry();
 	}
 	
-	// walk thorug all vector-entrys, find *.xml
+	// walk through all vector-entrys, find *.xml
 	for (m_vectorit = m_vector.begin(); m_vectorit != m_vector.end(); m_vectorit++)
 	{
 		// get actual zipEntry
@@ -136,6 +136,21 @@ void GNROpxImport::LoadXml(wxInputStream& stream)
 	
 	// node to projectInformation
 	node = xml.GetRoot()->GetChildren();
+	
+	// node to name
+	node = node->GetChildren();
+	
+	// get name
+	m_name = node->GetNodeContent();
+	
+	// node to author
+	node = node->GetNext();
+	
+	// get author
+	m_author = node->GetNodeContent();
+	
+	// node to projectInformation
+	node = node->GetParent();
 	
 	// node to data
 	node = node->GetNext();
@@ -200,10 +215,7 @@ void GNROpxImport::LoadXml(wxInputStream& stream)
 	// node to scene
 	node = node->GetNext();
 	
-	// node to assemblies
-	node = node->GetChildren();
-	
-	// node to first assembly
+	// node to first assembly or group
 	node = node->GetChildren();
 	
 	// walk through all assembly-tags
