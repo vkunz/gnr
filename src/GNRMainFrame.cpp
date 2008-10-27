@@ -255,7 +255,6 @@ GNRMainFrame::GNRMainFrame(wxWindow* parent, wxWindowID WXUNUSED(id))
 
 GNRMainFrame::~GNRMainFrame()
 {
-	delete[] ToolBarItem;
 }
 
 void GNRMainFrame::OnMenuNewRoom(wxCommandEvent& WXUNUSED(event))
