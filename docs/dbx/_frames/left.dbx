@@ -97,5 +97,20 @@
 				<para>Abb.7: Normierte Objekte in Farbe</para>
 			</caption>
 		</mediaobject>
+		<para>Die GUI hat sich bereits in großen Schritten der Oberfläche von Home Sweet 3D
+		angenähert und bietet im Vergleich zur Vorgängerversion schon eine deutlich komfortablere
+		Handhabung - insbesondere die Snap-to-Grid Funktion und die neue Steuerung der Kamera haben
+		sich merklich verbessert. Die Menüstruktur hat sich auch um einige Punkte erweitert und wird
+		voraussichtlich in der nächsten Woche ihr endgültiges Aussehen bekommen, sobald der Großteil
+		der Anforderungen implementiert sind.
+		<ulink url="http://www.hs-ulm.de/upload/rlunde/projti5/Team1/_downloads/prototyp_6.jpg">Abb.8</ulink></para>
+		<mediaobject>
+			<imageobject>
+				<imagedata fileref="_images/prototyp_6_small.img?s=200" align="left" />
+			</imageobject>
+			<caption>
+				<para>Abb.8: Immer mehr Funktionen</para>
+			</caption>
+		</mediaobject>
 	</section>
 </article>

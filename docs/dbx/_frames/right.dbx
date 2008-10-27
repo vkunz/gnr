@@ -115,7 +115,7 @@
 			perfekt funktioniert. Die Positionierung der Objekte im Raum ist noch suboptimal, sollte
 			aber in der nächsten Version behoben sein. Auch die Steuerung der Kamera lässt noch zu
 			sehr wünschen übrig.</para>
-			<para>TODO-Liste:</para>
+			<para>Angestrebte Verbesserungen:</para>
 			<itemizedlist>
 				<listitem>
 					<para>Den Objekten Farbe verleihen und die Darstellung verbessern</para>
@@ -132,13 +132,40 @@
 			demnächst in Angriff genommen. Leider werden wir wieder einen Tag verlieren, da wir wieder 
 			grundlegende Veränderungen am System vornehmen müssen, um die Erweiterbarkeit und die Kapselung 
 			der einzelnen Funktionen erhalten zu können.</para>
+			<para>Die Wochenplanung:</para>
+			<itemizedlist>
+				<listitem>
+					<para>Implementierung eines TreeViews für die Objekt-Bibliothek mit Drag'n'Drop-Funktionalität</para>
+				</listitem>
+				<listitem>
+					<para>Implementierung einer Tabelle für die Objekte der Szenerie mit zusätzlichen Optionen</para>
+				</listitem>
+				<listitem>
+					<para>Erweiterung der Menüführung mit Tastaturkürzeln</para>
+				</listitem>
+				<listitem>
+					<para>Intelligente Schnappfunktion auf ein Raster und durch Kollisionserkennung an Objekten</para>
+				</listitem>
+			</itemizedlist>
+			<title>27.10.2008</title>
+			<para>Die letzen zwei Wochen sind angebrochen! Die Schnappfunktion ist jetzt zumindest auf ein 
+			virtuelles Raster zuschaltbar, jedoch scheint die Kollisionserkennung aber im Hinblick auf die 
+			Kürze des Projekts nicht realisierbar zu sein. Der Grundstein für die Objekt-Bibliothek
+			und die Liste der Objekte in der Szene ist bereits gelegt. Im Laufe der Woche sollten beide
+			Funktionen rudimentär implementiert sein und es ermöglichen, die Dimensionen der Objekte zu
+			redefinieren. Das Zeichnen der Wände, um die Ausmaße des Raums festzulegen, wird wohl auch erst 
+			in der kommenden Woche realisiert. Die Toolbar hingegen hast schon fast ihr endgültiges Aussehen, 
+			wenn auch noch nicht alle Funktionen bequem per Tastatur erreichbar sind.</para>
 			<para>TODO-Liste:</para>
 			<itemizedlist>
 				<listitem>
-					<para>Implementierung des TreeViews für die Objekt-Bibliothek und der Szenerie</para>
+					<para>Einbau eines Bemaßungssystems für die importierten Objekte</para>
 				</listitem>
 				<listitem>
-					<para>Einbau eines Bemaßungssystems für die importierten Objekte</para>
+					<para>Zeichnen von Wänden, um die Ausmaße des Raumes zu definieren</para>
+				</listitem>
+				<listitem>
+					<para>Einsatz von Display-Listen zum Zeichnen der Objekte in OpenGL, um die Performance zu steigern</para>
 				</listitem>
 				<listitem>
 					<para>Unterstützung der Schnittstelle zum Austausch von Modellen und Ansichtsinformationen</para>
