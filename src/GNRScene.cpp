@@ -59,7 +59,7 @@ void GNRScene::newRoom()
 void GNRScene::resetCamera()
 {
 	m_GLCamera3D->reset();
-	m_GLCamera2D->reset();
+	//m_GLCamera2D->reset();
 }
 
 void GNRScene::setCanvas2D(GNRGLCanvas2D* p)
