@@ -112,6 +112,10 @@ void GNRGLCamera::render()
 void GNRGLCamera::moveForward(GLfloat distance)
 {
 	viewPoint = viewPoint + (viewDir*-distance);
+	if (viewPoint.getY() <= 1.0)
+	{
+		viewPoint.setY(1.0);
+	}
 }
 
 /**
@@ -132,6 +136,10 @@ void GNRGLCamera::strafeRight(GLfloat distance)
 void GNRGLCamera::moveUpward(GLfloat distance)
 {
 	viewPoint = viewPoint + (upVector*distance);
+	if (viewPoint.getY() <= 1.0)
+	{
+		viewPoint.setY(1.0);
+	}
 }
 
 /**
@@ -145,6 +153,10 @@ void GNRGLCamera::setPosition(float x, float y, float z)
 {
 	GNRVertex temp(x, y, z);
 	viewPoint = (temp + viewDir*m_distance);
+	if (viewPoint.getY() <= 1.0)
+	{
+		viewPoint.setY(1.0);
+	}
 }
 
 /**
@@ -181,6 +193,10 @@ void GNRGLCamera::setAngles(float phi, float theta, float rho)
 void GNRGLCamera::changeDistance(float distance)
 {
 	m_distance += distance;
+	if (m_distance <= 1.0)
+	{
+		m_distance = 1.0;
+	}
 }
 
 /**

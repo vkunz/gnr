@@ -57,10 +57,15 @@ void GNRScene::newRoom()
  */
 void GNRScene::resetCamera()
 {
+	//reset 2D cam to default
 	m_GLCamera2D->reset();
 	m_GLCamera2D->rotateX(-90);
-	m_GLCamera2D->changeDistance(3);
+	m_GLCamera2D->changeDistance(4);
+	
+	//reset 3D cam to default
 	m_GLCamera3D->reset();
+	m_GLCamera3D->changeDistance(2.5);
+	m_GLCamera3D->setAngles(25.0, 0.0, 0.0);
 }
 
 void GNRScene::setCanvas2D(GNRGLCanvas2D* p)
@@ -103,7 +108,7 @@ void GNRScene::glRefresh2D()
 	m_Canvas2D->prepareDraw();
 	m_GLCamera2D->render();
 	m_Canvas2D->initLights();
-	m_Canvas2D->drawBaseFloor(0.0, -0.501, 0.0, 8);
+	m_Canvas2D->drawBaseFloor(0.0, -0.501, 0.0, 25);
 	m_RootAssembly->draw();
 	m_Canvas2D->endDraw();
 }
@@ -118,7 +123,7 @@ void GNRScene::glRefresh3D()
 	m_Canvas3D->prepareDraw();
 	m_GLCamera3D->render();
 	m_Canvas3D->initLights();
-	m_Canvas3D->drawBaseFloor(0.0, -0.501, 0.0, 8);
+	m_Canvas3D->drawBaseFloor(0.0, -0.501, 0.0, 25);
 	m_RootAssembly->draw();
 	m_Canvas3D->endDraw();
 }
