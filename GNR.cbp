@@ -172,7 +172,6 @@
 		<Unit filename="src\include\GNRTreePanelMyScene.h" />
 		<Unit filename="src\include\GNRVNT.h" />
 		<Unit filename="src\include\GNRVertex.h" />
-		<Unit filename="src\include\bitmap.h" />
 		<Unit filename="src\include\md5.h" />
 		<Unit filename="src\md5.cpp" />
 		<Unit filename="src\resources\button-canvas2d-zoom-fit.xpm" />
@@ -198,6 +197,7 @@
 		<Unit filename="src\resources\button-world-rotate-xy.xpm" />
 		<Unit filename="src\resources\button-world-rotate-xz.xpm" />
 		<Unit filename="src\resources\button-world-sphere.xpm" />
+		<Unit filename="src\resources\grid_24bit_rgb.bmp" />
 		<Unit filename="src\resources\please-wait.xpm" />
 		<Unit filename="src\resources\resource.rc">
 			<Option compilerVar="WINDRES" />

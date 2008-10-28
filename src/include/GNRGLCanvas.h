@@ -43,7 +43,7 @@ protected:
 	void initGL();
 	void connectEvents();
 	void reshape();
-	void loadTexture(char *filename, GLuint &texture);
+	void loadFloorTexture();
 	void getGLPos(int x, int y, GNRVertex* glcoords);
 	void getGLDim(int x, int y, GNRVertex* glcoords);
 	

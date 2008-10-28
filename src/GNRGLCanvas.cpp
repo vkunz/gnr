@@ -15,11 +15,12 @@
 #include <gl/glu.h>
 #endif
 
+#include <wx/image.h>
 #include "GNRGLCanvas.h"
 #include "GNRNotifyEvent.h"
 #include "GNRGLNotifyEvent.h"
 #include "GNRMaterialLibrary.h"
-#include "bitmap.h"
+#include "resources/grid_24bit_rgb.xpm"
 
 #if defined(__ATHOS_DEBUG__)
 #include <wx/log.h>
@@ -150,7 +151,7 @@ void GNRGLCanvas::initGL()
 	
 	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
 	
-	loadTexture("grid_24bit_rgb.bmp", FloorTexture);
+	loadFloorTexture();
 	
 	//glEnable(GL_CULL_FACE);
 	//glCullFace(GL_FRONT);
@@ -209,23 +210,19 @@ void GNRGLCanvas::drawBaseFloor(float fCenterX, float fCenterY, float fCenterZ, 
 	glDisable(GL_TEXTURE_2D);
 }
 
-void GNRGLCanvas::loadTexture(char *filename, GLuint &texture)
+void GNRGLCanvas::loadFloorTexture()
 {
-	glGenTextures(1, &texture);
-	glBindTexture(GL_TEXTURE_2D, texture);
+	wxImage image(grid_24bit_rgb_xpm);
 	
-	BITMAPINFOHEADER bitmapInfoHeader;
-	unsigned char *buffer = LoadBitmapFile(filename, &bitmapInfoHeader);
+	glGenTextures(1, &FloorTexture);
+	glBindTexture(GL_TEXTURE_2D, FloorTexture);
 	
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
 	
-	//glTexImage2D(GL_TEXTURE_2D, 0, 3, bitmapInfoHeader.biWidth, bitmapInfoHeader.biHeight, 0, GL_RGB, GL_UNSIGNED_BYTE, buffer);
-	gluBuild2DMipmaps(GL_TEXTURE_2D, 3, bitmapInfoHeader.biWidth, bitmapInfoHeader.biHeight, GL_RGB, GL_UNSIGNED_BYTE, buffer);
-	
-	free(buffer);
+	gluBuild2DMipmaps(GL_TEXTURE_2D, 3, image.GetWidth(), image.GetHeight(), GL_RGB, GL_UNSIGNED_BYTE, image.GetData());
 }
 
 /**
