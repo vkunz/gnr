@@ -14,6 +14,9 @@
 #include "GNRGLCamera.h"
 #include "math.h"
 
+#define HEIGHT_MIN      -0.25
+#define DISTANCE_MIN     1.00
+
 /**
  * constructor of GNRGLCamera
  * @access      public
@@ -96,6 +99,11 @@ void GNRGLCamera::render()
 
 	//The point at which the camera looks:
 	GNRVertex position = viewPoint - viewDir*m_distance;
+	if (position.getY() <= HEIGHT_MIN)
+	{
+		position.setY(HEIGHT_MIN);
+		viewPoint = position + viewDir*m_distance;
+	}
 	
 	//as we know the up vector, we can easily use gluLookAt:
 	gluLookAt(position.getX(),position.getY(),position.getZ(),
@@ -112,9 +120,9 @@ void GNRGLCamera::render()
 void GNRGLCamera::moveForward(GLfloat distance)
 {
 	viewPoint = viewPoint + (viewDir*-distance);
-	if (viewPoint.getY() <= 1.0)
+	if (viewPoint.getY() <= HEIGHT_MIN)
 	{
-		viewPoint.setY(1.0);
+		viewPoint.setY(HEIGHT_MIN);
 	}
 }
 
@@ -136,9 +144,9 @@ void GNRGLCamera::strafeRight(GLfloat distance)
 void GNRGLCamera::moveUpward(GLfloat distance)
 {
 	viewPoint = viewPoint + (upVector*distance);
-	if (viewPoint.getY() <= 1.0)
+	if (viewPoint.getY() <= HEIGHT_MIN)
 	{
-		viewPoint.setY(1.0);
+		viewPoint.setY(HEIGHT_MIN);
 	}
 }
 
@@ -153,9 +161,9 @@ void GNRGLCamera::setPosition(float x, float y, float z)
 {
 	GNRVertex temp(x, y, z);
 	viewPoint = (temp + viewDir*m_distance);
-	if (viewPoint.getY() <= 1.0)
+	if (viewPoint.getY() <= HEIGHT_MIN)
 	{
-		viewPoint.setY(1.0);
+		viewPoint.setY(HEIGHT_MIN);
 	}
 }
 
@@ -193,9 +201,9 @@ void GNRGLCamera::setAngles(float phi, float theta, float rho)
 void GNRGLCamera::changeDistance(float distance)
 {
 	m_distance += distance;
-	if (m_distance <= 1.0)
+	if (m_distance <= DISTANCE_MIN)
 	{
-		m_distance = 1.0;
+		m_distance = DISTANCE_MIN;
 	}
 }
 
@@ -314,6 +322,10 @@ GLfloat GNRGLCamera::getRotatedZ()
  */
 void GNRGLCamera::setViewPoint(GNRVertex point)
 {
+	if (point.getY() <= HEIGHT_MIN)
+	{
+		point.setY(HEIGHT_MIN);
+	}
 	viewPoint = point;
 }
 

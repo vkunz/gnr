@@ -113,7 +113,7 @@ void GNRGLCanvas::initLights()
 	
 	GLfloat light_ambientd[] = { 0.25, 0.25, 0.25, 1.0 };
 	GLfloat light_specular[] = { 0.35, 0.35, 0.35, 1.0 };
-	GLfloat light_position[] = { 0.5, 1.5, 2.0, 0.0 };
+	GLfloat light_position[] = { 1.5, 2.5, 1.0, 0.0 };
 	
 	glLightfv(GL_LIGHT0, GL_AMBIENT_AND_DIFFUSE, light_ambientd);
 	glLightfv(GL_LIGHT0, GL_SPECULAR, light_specular);

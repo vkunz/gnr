@@ -180,6 +180,7 @@
 		<Unit filename="src\resources\button-delete.xpm" />
 		<Unit filename="src\resources\button-draw-cube.xpm" />
 		<Unit filename="src\resources\button-draw-cylinder.xpm" />
+		<Unit filename="src\resources\button-draw-walls.xpm" />
 		<Unit filename="src\resources\button-exit.xpm" />
 		<Unit filename="src\resources\button-group-add.xpm" />
 		<Unit filename="src\resources\button-help-bulb.xpm" />
@@ -187,6 +188,7 @@
 		<Unit filename="src\resources\button-move-xz.xpm" />
 		<Unit filename="src\resources\button-move.xpm" />
 		<Unit filename="src\resources\button-redo.xpm" />
+		<Unit filename="src\resources\button-reset-camera.xpm" />
 		<Unit filename="src\resources\button-room-export.xpm" />
 		<Unit filename="src\resources\button-room-new.xpm" />
 		<Unit filename="src\resources\button-room-open.xpm" />
@@ -197,7 +199,10 @@
 		<Unit filename="src\resources\button-world-rotate-xy.xpm" />
 		<Unit filename="src\resources\button-world-rotate-xz.xpm" />
 		<Unit filename="src\resources\button-world-sphere.xpm" />
+		<Unit filename="src\resources\cube.xpm" />
 		<Unit filename="src\resources\grid_24bit_rgb.bmp" />
+		<Unit filename="src\resources\grid_24bit_rgb.xpm" />
+		<Unit filename="src\resources\grid_dummy_24bit_rgb.xpm" />
 		<Unit filename="src\resources\please-wait.xpm" />
 		<Unit filename="src\resources\resource.rc">
 			<Option compilerVar="WINDRES" />

@@ -23,8 +23,8 @@
  */
 void GNRGLCameraMediator3D::MoveXY(GNRGLNotifyEvent& event)
 {
-	float distX = (float)(m_mouse_x - event.getMouseEvent().GetX())/(float)(window_w)*5.0;
-	float distY = (float)(event.getMouseEvent().GetY() - m_mouse_y)/(float)(window_h)*5.0;
+	float distX = (float)(m_mouse_x - event.getMouseEvent().GetX())/(float)(window_w)*10.0;
+	float distY = (float)(event.getMouseEvent().GetY() - m_mouse_y)/(float)(window_h)*10.0;
 	
 	doSnapMove(distX);
 	doSnapMove(distY);
@@ -42,8 +42,8 @@ void GNRGLCameraMediator3D::MoveXY(GNRGLNotifyEvent& event)
  */
 void GNRGLCameraMediator3D::MoveXZ(GNRGLNotifyEvent& event)
 {
-	float distX = (float)(m_mouse_x - event.getMouseEvent().GetX())/(float)(window_w)*5.0;
-	float distZ = (float)(m_mouse_y - event.getMouseEvent().GetY())/(float)(window_h)*5.0;
+	float distX = (float)(m_mouse_x - event.getMouseEvent().GetX())/(float)(window_w)*10.0;
+	float distZ = (float)(m_mouse_y - event.getMouseEvent().GetY())/(float)(window_h)*10.0;
 	
 	doSnapMove(distX);
 	doSnapMove(distZ);
@@ -71,6 +71,7 @@ void GNRGLCameraMediator3D::RotateXY(GNRGLNotifyEvent& event)
 	GNRVertex viewDir = old_viewDir*cos(xangle*M_PI/180.0) + old_upVector*sin(xangle*M_PI/180.0);
 	viewDir.normalize();
 	GNRVertex upVector = old_rightVector * viewDir;
+	upVector.setY(1.0);
 	
 	//Rotate viewdir around the up vector:
 	//viewDir = viewDir*cos(yangle*M_PI/180.0) + old_rightVector*sin(yangle*M_PI/180.0);
