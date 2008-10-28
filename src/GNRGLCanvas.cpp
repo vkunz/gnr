@@ -388,11 +388,12 @@ void GNRGLCanvas::OnMMouseUp(wxMouseEvent& event)
  * @param       wxMouseEvent    Mouse-Event of current canvas
  * @access      private
  */
-void GNRGLCanvas::OnRMouseDown(wxMouseEvent& WXUNUSED(event))
+void GNRGLCanvas::OnRMouseDown(wxMouseEvent& event)
 {
 	SetFocus();
 	Connect(wxEVT_MOUSEWHEEL, (wxObjectEventFunction)&GNRGLCanvas::OnMouseWheel);
 	// nothing has do be done yet
+	OnMMouseDown(event);
 }
 
 /**
@@ -400,9 +401,11 @@ void GNRGLCanvas::OnRMouseDown(wxMouseEvent& WXUNUSED(event))
  * @param       wxMouseEvent    Mouse-Event of current canvas
  * @access      private
  */
-void GNRGLCanvas::OnRMouseUp(wxMouseEvent& WXUNUSED(event))
+void GNRGLCanvas::OnRMouseUp(wxMouseEvent& event)
 {
+	//Disconnect(wxEVT_MOTION, (wxObjectEventFunction)&GNRGLCanvas::OnMouseMove);
 	// nothing has do be done yet
+	OnMMouseUp(event);
 }
 
 /**

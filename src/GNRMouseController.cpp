@@ -97,7 +97,18 @@ void GNRMouseController::setMediator(GNRGLNotifyEvent& event)
 		}
 		break;
 	case RIGHT_BUTTON:
-		//maybe for later functions?
+		if (event.getCanvasID() == CANVAS2D)
+		{
+			//point to 2D mediator if event from canvas 2D
+			m_Mediator = m_GLCameraMediator2D;
+			m_Mediator->setGLCamera(m_Scene->getGLCamera2D());
+		}
+		else
+		{
+			//else, point to 3D mediator if event from canvas 3D
+			m_Mediator = m_GLCameraMediator3D;
+			m_Mediator->setGLCamera(m_Scene->getGLCamera3D());
+		}
 		break;
 	}
 	
