@@ -45,16 +45,16 @@ bool GNRApp::OnInit()
 	if (wxsOK)
 	{
 	
+		//build gui
+		initFrames();
+		
 #if defined(__ATHOS_DEBUG__)
 		// Create DebugFrame
-		m_DebugFrame = new GNRDebugFrame(0);
+		m_DebugFrame = new GNRDebugFrame(m_MainFrame);
 		m_DebugFrame->Show(true);
 		m_Log = new wxLogTextCtrl(m_DebugFrame->TextCtrl);
 		m_Log->SetActiveTarget(m_Log);
 #endif
-		
-		//build gui
-		initFrames();
 		
 		//build models
 		m_Scene         = new GNRScene();

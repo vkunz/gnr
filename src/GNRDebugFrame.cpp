@@ -30,7 +30,7 @@ END_EVENT_TABLE()
 GNRDebugFrame::GNRDebugFrame(wxWindow* parent,wxWindowID WXUNUSED(id))
 {
 	//(*Initialize(GNRDebugFrame)
-	Create(parent, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, wxDEFAULT_FRAME_STYLE, _T("wxID_ANY"));
+	Create(parent, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, wxCAPTION|wxSYSTEM_MENU|wxRESIZE_BORDER|wxMAXIMIZE_BOX|wxMINIMIZE_BOX, _T("wxID_ANY"));
 	SetClientSize(wxSize(800,100));
 	Move(wxPoint(0,575));
 	TextCtrl = new wxTextCtrl(this, ID_TextCtrl, wxEmptyString, wxPoint(32,80), wxDefaultSize, wxTE_MULTILINE, wxDefaultValidator, _T("ID_TextCtrl"));
