@@ -110,13 +110,11 @@ void GNRGLCanvas::initLights()
 	
 	glEnable(GL_LIGHT0);
 	
-	GLfloat light_ambient[] = { 0.5, 0.5, 0.5, 1.0 };
-	GLfloat light_diffuse[] = { 0.5, 0.5, 0.5, 1.0 };
-	GLfloat light_specular[] = { 0.4, 0.4, 0.4, 1.0 };
-	GLfloat light_position[] = { 10.0, 10.0, 2.0, 1.0 };
+	GLfloat light_ambientd[] = { 0.25, 0.25, 0.25, 1.0 };
+	GLfloat light_specular[] = { 0.35, 0.35, 0.35, 1.0 };
+	GLfloat light_position[] = { 0.5, 1.5, 2.0, 0.0 };
 	
-	glLightfv(GL_LIGHT0, GL_AMBIENT, light_ambient);
-	glLightfv(GL_LIGHT0, GL_DIFFUSE, light_diffuse);
+	glLightfv(GL_LIGHT0, GL_AMBIENT_AND_DIFFUSE, light_ambientd);
 	glLightfv(GL_LIGHT0, GL_SPECULAR, light_specular);
 	glLightfv(GL_LIGHT0, GL_POSITION, light_position);
 	
@@ -132,10 +130,9 @@ void GNRGLCanvas::initLights()
 void GNRGLCanvas::initGL()
 {
 	SetCurrent();
-	glClearColor(0.3, 0.3, 0.3, 0.0);
+	glClearColor(0.5, 0.5, 0.5, 0.0);
 	
 	setMatrix();
-	initLights();
 	
 	glShadeModel(GL_SMOOTH);
 	
@@ -150,7 +147,6 @@ void GNRGLCanvas::initGL()
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_LINE_SMOOTH);
 	glEnable(GL_POLYGON_SMOOTH);
-	glEnable(GL_TEXTURE_2D);
 	
 	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
 	
@@ -176,11 +172,13 @@ void GNRGLCanvas::initGL()
 
 void GNRGLCanvas::drawBaseFloor(float fCenterX, float fCenterY, float fCenterZ, int fSize)
 {
-	float FloorColor[4] = { 1.0f, 1.0f, 1.0f, 0.6f };
+	float FloorColor[4] = { 1.0f, 1.0f, 1.0f, 0.0f };
+	
+	glEnable(GL_TEXTURE_2D);
 	
 	glMaterialfv(GL_FRONT, GL_SPECULAR, FloorColor);
 	glMaterialfv(GL_FRONT, GL_AMBIENT_AND_DIFFUSE, FloorColor);
-	glMaterialf(GL_FRONT, GL_SHININESS, 200.0);
+	glMaterialf(GL_FRONT, GL_SHININESS, 100.0);
 	
 	glBindTexture(GL_TEXTURE_2D, FloorTexture);
 	
@@ -207,6 +205,8 @@ void GNRGLCanvas::drawBaseFloor(float fCenterX, float fCenterY, float fCenterZ, 
 		z = fCenterZ-((float)fSize/2.0);
 	}
 	glEnd();
+	
+	glDisable(GL_TEXTURE_2D);
 }
 
 void GNRGLCanvas::loadTexture(char *filename, GLuint &texture)
@@ -217,12 +217,13 @@ void GNRGLCanvas::loadTexture(char *filename, GLuint &texture)
 	BITMAPINFOHEADER bitmapInfoHeader;
 	unsigned char *buffer = LoadBitmapFile(filename, &bitmapInfoHeader);
 	
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
 	
-	glTexImage2D(GL_TEXTURE_2D, 0, 3, bitmapInfoHeader.biWidth, bitmapInfoHeader.biHeight, 0, GL_RGB, GL_UNSIGNED_BYTE, buffer);
+	//glTexImage2D(GL_TEXTURE_2D, 0, 3, bitmapInfoHeader.biWidth, bitmapInfoHeader.biHeight, 0, GL_RGB, GL_UNSIGNED_BYTE, buffer);
+	gluBuild2DMipmaps(GL_TEXTURE_2D, 3, bitmapInfoHeader.biWidth, bitmapInfoHeader.biHeight, GL_RGB, GL_UNSIGNED_BYTE, buffer);
 	
 	free(buffer);
 }
@@ -251,12 +252,6 @@ void GNRGLCanvas::prepareDraw()
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	
 	glMatrixMode(GL_MODELVIEW);
-	
-	glPushMatrix();
-	{
-		drawBaseFloor(0.0, -0.52, 0.0, 5);
-	}
-	glPopMatrix();
 	
 	// Reset The Current Modelview Matrix
 	glLoadIdentity();

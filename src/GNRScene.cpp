@@ -102,6 +102,8 @@ void GNRScene::glRefresh2D()
 	//prepare and draw 2D top view of room
 	m_Canvas2D->prepareDraw();
 	m_GLCamera2D->render();
+	m_Canvas2D->initLights();
+	m_Canvas2D->drawBaseFloor(0.0, -0.501, 0.0, 8);
 	m_RootAssembly->draw();
 	m_Canvas2D->endDraw();
 }
@@ -115,6 +117,8 @@ void GNRScene::glRefresh3D()
 	//prepare and draw 3D view of room
 	m_Canvas3D->prepareDraw();
 	m_GLCamera3D->render();
+	m_Canvas3D->initLights();
+	m_Canvas3D->drawBaseFloor(0.0, -0.501, 0.0, 8);
 	m_RootAssembly->draw();
 	m_Canvas3D->endDraw();
 }

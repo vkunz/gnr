@@ -43,8 +43,6 @@ protected:
 	void initGL();
 	void connectEvents();
 	void reshape();
-	void initLights();
-	void drawBaseFloor(float fCenterX, float fCenterY, float fCenterZ, int fSize);
 	void loadTexture(char *filename, GLuint &texture);
 	void getGLPos(int x, int y, GNRVertex* glcoords);
 	void getGLDim(int x, int y, GNRVertex* glcoords);
@@ -73,9 +71,11 @@ public:
 	// Drawing the GL-Scene
 	void setMatrix();
 	void prepareDraw();
+	void initLights();
 	void draw();
 	void endDraw();
 	int selection(GNRAssembly* rootAssembly, GNRGLCamera* camera, int mouse_x, int mouse_y);
+	void drawBaseFloor(float fCenterX, float fCenterY, float fCenterZ, int fSize);
 };
 
 #endif // _GNRGLCANVAS_H_
