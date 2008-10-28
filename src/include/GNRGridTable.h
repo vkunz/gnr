@@ -1,7 +1,6 @@
-/* vim: set expandtab sw=4 ts=4 sts=4: */
 /**
- * GNRTreeLibraryController
- * @name                GNRTreeLibraryController.cpp
+ * GNRGridTable
+ * @name                GNRGridTable.h
  * @date                2008-10-26
  * @author		Konstantin Balabin  <k.balabin@googlemail.com>
  * @author		Patrick Kracht      <patrick.kracht@googlemail.com>
@@ -13,6 +12,7 @@
 #define _GNRGRIDTABLE_H_
 
 #include <vector>
+#include <wx/arrstr.h>
 #include <wx/grid.h>
 #include <wx/string.h>
 

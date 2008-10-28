@@ -1,4 +1,3 @@
-/* vim: set expandtab sw=4 ts=4 sts=4: */
 /**
  * defines a camera-class for the opengl scene
  * @name        GNRGLCamera.h
@@ -12,8 +11,9 @@
 #ifndef _GNRGLCAMERA_H_
 #define _GNRGLCAMERA_H_
 
-#include "GNRVertex.h"
 #include <GL/glu.h>
+
+#include "GNRVertex.h"
 
 class GNRGLCamera
 {

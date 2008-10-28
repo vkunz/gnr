@@ -1,4 +1,3 @@
-/* vim: set expandtab sw=4 ts=4 sts=4: */
 /**
  * main application is creating the main controller starting the program
  * @name        GNRApp.cpp
@@ -12,7 +11,6 @@
 #include <wx/image.h>
 
 #include "GNRApp.h"
-#include "GNRMaterial.h"
 #include "GNRObjectImport.h"
 #include "GNROpxImport.h"
 

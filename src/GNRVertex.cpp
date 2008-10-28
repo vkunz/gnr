@@ -1,4 +1,3 @@
-/* vim: set expandtab sw=4 ts=4 sts=4: */
 /**
  * GNRVertex
  * @name        GNRVertex.cpp
@@ -9,8 +8,9 @@
  * @author		Valentin Kunz       <athostr@googlemail.com>
  */
 
+#include <math.h>
+
 #include "GNRVertex.h"
-#include "math.h"
 
 // ctor
 GNRVertex::GNRVertex()

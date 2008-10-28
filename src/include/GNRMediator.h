@@ -1,7 +1,16 @@
+/**
+ * GNRMediator
+ * @name        GNRMediator.h
+ * @date        2008-10-05
+ * @author		Konstantin Balabin  <k.balabin@googlemail.com>
+ * @author		Patrick Kracht      <patrick.kracht@googlemail.com>
+ * @author		Thorsten Moll       <thorsten.moll@googlemail.com>
+ * @author		Valentin Kunz       <athostr@googlemail.com>
+ */
+
 #ifndef GNRMEDIATOR_H
 #define GNRMEDIATOR_H
 
-#include "GNREnum.h"
 #include "GNRGLNotifyEvent.h"
 #include "GNRGLCamera.h"
 #include "GNRNotifyEvent.h"

@@ -1,4 +1,3 @@
-/* vim: set expandtab sw=4 ts=4 sts=4: */
 /**
  * GNRMainFrame
  * @name        GNRMainFrame.cpp
@@ -9,18 +8,22 @@
  * @author		Valentin Kunz       <athostr@googlemail.com>
  */
 
-#include <wx/intl.h>
 #include <wx/artprov.h>
 #include <wx/image.h>
-#include <wx/log.h>
+#include <wx/intl.h>
 #include <wx/filedlg.h>
-#include <string.h>
+#include <wx/msgdlg.h>
+#include <wx/string.h>
 
-#include "wx/wx.h"
-#include "math.h"
+
+#if defined(__ATHOS__DEBUG)
+#include <wx/log.h>
+#endif
+
+#include "GNREnum.h"
 #include "GNRGlobalDefine.h"
-#include "GNRObjectImport.h"
 #include "GNRMainFrame.h"
+#include "GNRNotifyEvent.h"
 
 #include "resources/button-undo.xpm"
 #include "resources/button-redo.xpm"

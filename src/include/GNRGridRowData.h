@@ -1,7 +1,6 @@
-/* vim: set expandtab sw=4 ts=4 sts=4: */
 /**
- * GNRTreeLibraryController
- * @name                GNRTreeLibraryController.h
+ * GNRGridRowData
+ * @name                GNRGridRowData.h
  * @date                2008-10-26
  * @author		Konstantin Balabin  <k.balabin@googlemail.com>
  * @author		Patrick Kracht      <patrick.kracht@googlemail.com>

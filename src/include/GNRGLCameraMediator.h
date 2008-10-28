@@ -1,3 +1,13 @@
+/**
+ * GNRGLCameraMediator
+ * @name        GNRGLCameraMediator.h
+ * @date        2008-10-05
+ * @author		Konstantin Balabin  <k.balabin@googlemail.com>
+ * @author		Patrick Kracht      <patrick.kracht@googlemail.com>
+ * @author		Thorsten Moll       <thorsten.moll@googlemail.com>
+ * @author		Valentin Kunz       <athostr@googlemail.com>
+ */
+
 #ifndef GNRGLCAMERAMEDIATOR_H
 #define GNRGLCAMERAMEDIATOR_H
 
@@ -37,9 +47,7 @@ protected:
 	GNRVertex old_upVector;
 	float old_rotatedX, old_rotatedY, old_rotatedZ;
 	
-	
 private:
-
 
 };
 

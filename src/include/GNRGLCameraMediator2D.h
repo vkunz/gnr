@@ -1,7 +1,16 @@
+/**
+ * GNRGLCameraMediator2D
+ * @name        GNRGLCameraMediator2D.h
+ * @date        2008-10-05
+ * @author		Konstantin Balabin  <k.balabin@googlemail.com>
+ * @author		Patrick Kracht      <patrick.kracht@googlemail.com>
+ * @author		Thorsten Moll       <thorsten.moll@googlemail.com>
+ * @author		Valentin Kunz       <athostr@googlemail.com>
+ */
+
 #ifndef GNRGLCAMERAMEDIATOR2D_H
 #define GNRGLCAMERAMEDIATOR2D_H
 
-#include "GNRGLCamera.h"
 #include "GNRGLCameraMediator.h"
 
 class GNRGLCameraMediator2D: public GNRGLCameraMediator

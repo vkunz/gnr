@@ -1,4 +1,3 @@
-/* vim: set expandtab sw=4 ts=4 sts=4: */
 /**
  * obj file importer for reading and parsing obj-files
  * @name        GNRObjectImport.cpp

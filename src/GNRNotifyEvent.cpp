@@ -1,3 +1,13 @@
+/**
+ * GNRNotifyEvent
+ * @name        GNRNotifyEvent.cpp
+ * @date        2008-10-24
+ * @author		Konstantin Balabin  <k.balabin@googlemail.com>
+ * @author		Patrick Kracht      <patrick.kracht@googlemail.com>
+ * @author		Thorsten Moll       <thorsten.moll@googlemail.com>
+ * @author		Valentin Kunz       <athostr@googlemail.com>
+ */
+
 #include "GNRNotifyEvent.h"
 
 DEFINE_EVENT_TYPE(wxEVT_COMMAND_GNR_NOTIFY)

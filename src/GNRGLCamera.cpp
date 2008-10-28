@@ -1,8 +1,6 @@
-/* vim: set expandtab sw=4 ts=4 sts=4: */
 /**
  * the gl-camera class implements functions to move and rotate the
  * camera in a whole scene. rotating is done in 3rd person
- *
  * @name        GNRGLCamera.cpp
  * @date        2008-10-23
  * @author		Konstantin Balabin  <k.balabin@googlemail.com>
@@ -11,8 +9,9 @@
  * @author		Valentin Kunz       <athostr@googlemail.com>
  */
 
+#include <math.h>
+
 #include "GNRGLCamera.h"
-#include "math.h"
 
 #define HEIGHT_MIN      -0.25
 #define DISTANCE_MIN     1.00

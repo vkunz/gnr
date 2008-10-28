@@ -1,8 +1,7 @@
-/* vim: set expandtab sw=4 ts=4 sts=4: */
 /**
  * the gl2dcanvas class implements the speciality for the 2D view
  *
- * @name        GNRGLCanvas.cpp
+ * @name        GNRGLCanvas2D.cpp
  * @date        2008-10-09
  * @author		Konstantin Balabin  <k.balabin@googlemail.com>
  * @author		Patrick Kracht      <patrick.kracht@googlemail.com>

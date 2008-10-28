@@ -1,4 +1,3 @@
-/* vim: set expandtab sw=4 ts=4 sts=4: */
 /**
  * GNRMainFrame
  * @name        GNRMainFrame.h
@@ -16,17 +15,9 @@
 #include <wx/frame.h>
 #include <wx/panel.h>
 #include <wx/spinctrl.h>
-#include <wx/statbox.h>
 #include <wx/stattext.h>
 #include <wx/statusbr.h>
 #include <wx/toolbar.h>
-
-#include "GNRGLCanvas2D.h"
-#include "GNRGLCanvas3D.h"
-#include "GNRTreePanelLibrary.h"
-#include "GNRTreePanelMyScene.h"
-#include "GNRAssembly.h"
-#include "GNREnum.h"
 
 class GNRMainFrame: public wxFrame
 {

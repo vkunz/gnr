@@ -1,7 +1,6 @@
-/* vim: set expandtab sw=4 ts=4 sts=4: */
 /**
  * defines the gl2dcanvas class
- * @name        GNRGLCanvas3D.h
+ * @name        GNRGLCanvas2D.h
  * @date        2008-10-09
  * @author		Konstantin Balabin  <k.balabin@googlemail.com>
  * @author		Patrick Kracht      <patrick.kracht@googlemail.com>

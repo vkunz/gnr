@@ -1,7 +1,6 @@
-/* vim: set expandtab sw=4 ts=4 sts=4: */
 /**
  * GNRApp
- * @name        GNRApp.cpp
+ * @name        GNRApp.h
  * @date        2008-09-30
  * @author		Konstantin Balabin  <k.balabin@googlemail.com>
  * @author		Patrick Kracht      <patrick.kracht@googlemail.com>
@@ -26,7 +25,6 @@
 #include "GNRMainFrame.h"
 #include "GNRMouseController.h"
 #include "GNRNotifyEvent.h"
-#include "GNROaxImport.h"
 #include "GNRScene.h"
 #include "GNRTreeLibraryController.h"
 #include "GNRTreePanelLibrary.h"

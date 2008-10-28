@@ -1,4 +1,3 @@
-/* vim: set expandtab sw=4 ts=4 sts=4: */
 /**
  * GNRAssemblyMediator2D
  * @name        GNRAssemblyMediator2D.cpp

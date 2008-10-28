@@ -1,6 +1,5 @@
-/* vim: set expandtab sw=4 ts=4 sts=4: */
 /**
- * GNRController (singleton)
+ * GNRController
  * @name        GNRController.cpp
  * @date        2008-09-30
  * @author		Konstantin Balabin  <k.balabin@googlemail.com>
@@ -21,11 +20,9 @@
 #include "GNRMainFrame.h"
 #include "GNRGLCanvas2D.h"
 #include "GNRGLCanvas3D.h"
-#include "GNRObjectImport.h"
 #include "GNRTreePanelLibrary.h"
 #include "GNRTreePanelMyScene.h"
 #include "GNRGLNotifyEvent.h"
-#include "GNREnum.h"
 
 #if defined(__ATHOS_DEBUG__)
 #include <wx/log.h>

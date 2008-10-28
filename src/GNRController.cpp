@@ -1,6 +1,5 @@
-/* vim: set expandtab sw=4 ts=4 sts=4: */
 /**
- * GNRController (singleton)
+ * GNRController
  * @name        GNRController.cpp
  * @date        2008-09-30
  * @author		Konstantin Balabin  <k.balabin@googlemail.com>

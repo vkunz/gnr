@@ -1,4 +1,3 @@
-/* vim: set expandtab sw=4 ts=4 sts=4: */
 /**
  * GNRAssemblyTranslater
  * @name        GNRAssemblyTranslater.cpp
@@ -9,10 +8,10 @@
  * @author      Valentin Kunz       <athostr@googlemail.com>
  */
 
-#include "GNRAssemblyTranslater.h"
 #include <wx/math.h>
 
 #include "GNRAssembly.h"
+#include "GNRAssemblyTranslater.h"
 
 #if defined(__ATHOS_DEBUG__)
 #include <wx/log.h>

@@ -1,4 +1,3 @@
-/* vim: set expandtab sw=4 ts=4 sts=4: */
 /**
  * GNRTreeLibraryController
  * @name                GNRTreeLibraryController.h
@@ -13,7 +12,6 @@
 #define _GNRTREELIBRARYCONTROLLER_H_
 
 #include <map>
-#include <wx/string.h>
 #include <wx/treectrl.h>
 
 /**

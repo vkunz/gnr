@@ -1,8 +1,6 @@
-/* vim: set expandtab sw=4 ts=4 sts=4: */
 /**
  * the glcanvas class implements the initialization, event-functions,
  * selection and drawing methods that have 2D and 3D in common
- *
  * @name        GNRGLCanvas.cpp
  * @date        2008-10-08
  * @author		Konstantin Balabin  <k.balabin@googlemail.com>
@@ -16,6 +14,7 @@
 #endif
 
 #include <wx/image.h>
+
 #include "GNRGLCanvas.h"
 #include "GNRNotifyEvent.h"
 #include "GNRGLNotifyEvent.h"

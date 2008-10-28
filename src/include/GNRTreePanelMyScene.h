@@ -1,4 +1,3 @@
-/* vim: set expandtab sw=4 ts=4 sts=4: */
 /**
  * GNRTreePanelMyScene
  * @name        GNRTreePanelMyScene.h
@@ -13,8 +12,6 @@
 #define GNRTreePanelMyScene_H
 
 #include <wx/panel.h>
-class wxTreeCtrl;
-class wxTreeEvent;
 
 class GNRTreePanelMyScene: public wxPanel
 {
@@ -25,8 +22,6 @@ public:
 	
 protected:
 
-	static const long ID_TREECTRL;
-	
 private:
 
 	void OnResize(wxSizeEvent& event);

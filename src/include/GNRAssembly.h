@@ -1,4 +1,3 @@
-/* vim: set expandtab sw=4 ts=4 sts=4: */
 /**
  * GNRAssembly
  * @name                GNRAssembly.h
@@ -17,8 +16,6 @@
 #include <string>
 
 #include "GNRFace.h"
-#include "GNRVertex.h"
-#include "GNRTCoord.h"
 
 using std::list;
 using std::vector;

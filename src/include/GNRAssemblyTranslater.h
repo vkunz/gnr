@@ -1,4 +1,3 @@
-/* vim: set expandtab sw=4 ts=4 sts=4: */
 /**
  * defines the mouse controller class
  * @name        GNRAssemblyTranslater.h
@@ -14,14 +13,10 @@
 
 #include <wx/dcclient.h>
 #include <wx/msgdlg.h>
-#include <wx/string.h>
-#include <wx/timer.h>
 
 #include "GNRAssembly.h"
-#include "GNRVertex.h"
 #include "GNRGLCamera.h"
 #include "GNRGLNotifyEvent.h"
-#include "GNREnum.h"
 
 class GNRAssemblyTranslater
 {

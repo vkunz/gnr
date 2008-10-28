@@ -1,4 +1,3 @@
-/* vim: set expandtab sw=4 ts=4 sts=4: */
 /**
  * GNROpxImport
  * @name        GNROpxImport.h
@@ -12,8 +11,8 @@
 #ifndef _GNROPXIMPORT_H_
 #define _GNROPXIMPORT_H_
 
-#include <map>
 #include <wx/wfstream.h>
+#include <wx/zipstrm.h>
 
 #include "GNRGLCamera.h"
 #include "GNRScene.h"

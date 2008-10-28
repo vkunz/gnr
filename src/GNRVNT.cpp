@@ -1,6 +1,17 @@
-#include "GNRVNT.h"
+/**
+ * GNRVNT
+ * @name        GNRVNT.cpp
+ * @date        2008-10-05
+ * @author		Konstantin Balabin  <k.balabin@googlemail.com>
+ * @author		Patrick Kracht      <patrick.kracht@googlemail.com>
+ * @author		Thorsten Moll       <thorsten.moll@googlemail.com>
+ * @author		Valentin Kunz       <athostr@googlemail.com>
+ */
 
 #include <GL/gl.h>
+
+
+#include "GNRVNT.h"
 
 GNRVNT::GNRVNT(GNRVertex* v, GNRVertex* n, GNRTCoord* t):
 		m_v(v), m_n(n), m_t(t)

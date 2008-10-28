@@ -1,4 +1,3 @@
-/* vim: set expandtab sw=4 ts=4 sts=4: */
 /**
  * defines the glcanvas base class
  * @name        GNRGLCanvas.h
@@ -15,9 +14,8 @@
 #include <wx/glcanvas.h>
 
 #include "GNRAssembly.h"
-#include "GNRGLCamera.h"
-#include "GNRNotifyEvent.h"
 #include "GNREnum.h"
+#include "GNRGLCamera.h"
 
 class GNRGLCanvas : public wxGLCanvas
 {

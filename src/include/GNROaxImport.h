@@ -1,4 +1,3 @@
-/* vim: set expandtab sw=4 ts=4 sts=4: */
 /**
  * GNROaxImport
  * @name        GNROaxImport.h
@@ -15,7 +14,6 @@
 #include <map>
 #include <vector>
 #include <wx/string.h>
-#include <wx/txtstrm.h>
 #include <wx/wfstream.h>
 #include <wx/zipstrm.h>
 

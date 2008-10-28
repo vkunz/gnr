@@ -1,4 +1,3 @@
-/* vim: set expandtab sw=4 ts=4 sts=4: */
 /**
  * GNRAssemblyMediator3D
  * @name        GNRAssemblyMediator3D.cpp
@@ -10,7 +9,6 @@
  */
 
 #include "GNRAssemblyMediator3D.h"
-#include "math.h"
 
 #if defined(__ATHOS_DEBUG__)
 #include <wx/log.h>

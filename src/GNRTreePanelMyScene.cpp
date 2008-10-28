@@ -1,4 +1,3 @@
-/* vim: set expandtab sw=4 ts=4 sts=4: */
 /**
  * GNRTreePanelMyScene
  * @name        GNRTreePanelMyScene.cpp
@@ -9,14 +8,9 @@
  * @author		Valentin Kunz       <athostr@googlemail.com>
  */
 
+#include "GNREnum.h"
 #include "GNRNotifyEvent.h"
 #include "GNRTreePanelMyScene.h"
-
-#include <wx/treectrl.h>
-#include <wx/intl.h>
-#include <wx/string.h>
-
-const long GNRTreePanelMyScene::ID_TREECTRL = wxNewId();
 
 BEGIN_EVENT_TABLE(GNRTreePanelMyScene,wxPanel)
 END_EVENT_TABLE()

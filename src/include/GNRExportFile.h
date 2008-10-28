@@ -1,4 +1,3 @@
-/* vim: set expandtab sw=4 ts=4 sts=4: */
 /**
  * GNRExportFile
  * @name        GNRExportFile.h
@@ -11,7 +10,6 @@
 
 #ifndef _GNREXPORTFILE_H_
 #define _GNREXPORTFILE_H_
-
 
 class GNRExportFile
 {

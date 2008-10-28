@@ -1,4 +1,3 @@
-/* vim: set expandtab sw=4 ts=4 sts=4: */
 /**
  * GNRTreePanelLibrary
  * @name        GNRTreePanelLibrary.cpp
@@ -9,14 +8,9 @@
  * @author		Valentin Kunz       <athostr@googlemail.com>
  */
 
-#include "GNRTreePanelLibrary.h"
+#include "GNREnum.h"
 #include "GNRNotifyEvent.h"
-
-#include <wx/treectrl.h>
-#include <wx/intl.h>
-#include <wx/string.h>
-
-const long GNRTreePanelLibrary::ID_TREECTRL = wxNewId();
+#include "GNRTreePanelLibrary.h"
 
 BEGIN_EVENT_TABLE(GNRTreePanelLibrary,wxPanel)
 END_EVENT_TABLE()

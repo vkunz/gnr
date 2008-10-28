@@ -1,4 +1,3 @@
-/* vim: set expandtab sw=4 ts=4 sts=4: */
 /**
  * GNRGridSceneController
  * @name                GNRGridSceneController.cpp
@@ -8,8 +7,6 @@
  * @author		Thorsten Moll       <thorsten.moll@googlemail.com>
  * @author		Valentin Kunz       <athostr@googlemail.com>
  */
-
-#include <wx/string.h>
 
 #include "GNRGridSceneController.h"
 #include "GNRGridTable.h"

@@ -1,4 +1,3 @@
-/* vim: set expandtab sw=4 ts=4 sts=4: */
 /**
  * GNRFace
  * @name        GNRFace.h
@@ -12,7 +11,6 @@
 #ifndef _GNRFACE_H_
 #define _GNRFACE_H_
 
-#include "GNRVertex.h"
 #include "GNRVNT.h"
 
 #include <list>

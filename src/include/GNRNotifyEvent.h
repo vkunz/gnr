@@ -1,8 +1,17 @@
+/**
+ * GNRNotifyEvent
+ * @name        GNRNotifyEvent.h
+ * @date        2008-10-05
+ * @author		Konstantin Balabin  <k.balabin@googlemail.com>
+ * @author		Patrick Kracht      <patrick.kracht@googlemail.com>
+ * @author		Thorsten Moll       <thorsten.moll@googlemail.com>
+ * @author		Valentin Kunz       <athostr@googlemail.com>
+ */
+
 #ifndef _GNRNOTIFYEVENT_H_
 #define _GNRNOTIFYEVENT_H_
 
 #include "wx/event.h"
-#include "GNREnum.h"
 
 class GNRNotifyEvent : public wxNotifyEvent
 {

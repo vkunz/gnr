@@ -1,9 +1,18 @@
+/**
+ * GNRScene
+ * @name        GNRScene.h
+ * @date        2008-10-05
+ * @author		Konstantin Balabin  <k.balabin@googlemail.com>
+ * @author		Patrick Kracht      <patrick.kracht@googlemail.com>
+ * @author		Thorsten Moll       <thorsten.moll@googlemail.com>
+ * @author		Valentin Kunz       <athostr@googlemail.com>
+ */
+
 #ifndef GNRSCENE_H
 #define GNRSCENE_H
 
 #include "GNRAssembly.h"
 #include "GNRGLCamera.h"
-#include "GNRMaterial.h"
 #include "GNRGLCanvas2D.h"
 #include "GNRGLCanvas3D.h"
 

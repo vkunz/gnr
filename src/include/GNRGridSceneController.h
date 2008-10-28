@@ -1,4 +1,3 @@
-/* vim: set expandtab sw=4 ts=4 sts=4: */
 /**
  * GNRGridSceneController
  * @name                GNRGridSceneController.h
@@ -14,7 +13,6 @@
 
 #include <vector>
 #include <wx/grid.h>
-#include <wx/string.h>
 
 #include "GNRAssembly.h"
 #include "GNRGridRowData.h"

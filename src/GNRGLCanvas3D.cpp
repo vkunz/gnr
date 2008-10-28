@@ -1,9 +1,19 @@
+/**
+ * the gl2dcanvas class implements the speciality for the 2D view
+ *
+ * @name        GNRGLCanvas3D.cpp
+ * @date        2008-10-09
+ * @author		Konstantin Balabin  <k.balabin@googlemail.com>
+ * @author		Patrick Kracht      <patrick.kracht@googlemail.com>
+ * @author		Thorsten Moll       <thorsten.moll@googlemail.com>
+ * @author		Valentin Kunz       <athostr@googlemail.com>
+ */
+
 #ifdef _WIN32
 #include <gl/glu.h>
 #endif
 
 #include "GNRGLCanvas3D.h"
-#include "GNRGLNotifyEvent.h"
 
 #if defined(__ATHOS_DEBUG__)
 #include <wx/log.h>

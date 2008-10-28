@@ -1,9 +1,20 @@
+/**
+ * GNRGLNotifyEvent
+ * @name        GNRGLNotifyEvent.h
+ * @date        2008-10-05
+ * @author		Konstantin Balabin  <k.balabin@googlemail.com>
+ * @author		Patrick Kracht      <patrick.kracht@googlemail.com>
+ * @author		Thorsten Moll       <thorsten.moll@googlemail.com>
+ * @author		Valentin Kunz       <athostr@googlemail.com>
+ */
+
 #ifndef _GNRGLNOTIFYEVENT_H_
 #define _GNRGLNOTIFYEVENT_H_
 
-#include "wx/event.h"
-#include "GNRVertex.h"
+#include <wx/event.h>
+
 #include "GNREnum.h"
+#include "GNRVertex.h"
 
 class GNRGLNotifyEvent : public wxNotifyEvent
 {
