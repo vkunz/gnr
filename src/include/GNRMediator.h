@@ -15,6 +15,7 @@ public:
 	
 	//global setting of stranslation type and active canvas
 	void setTranslation(transType translation);
+	transType getTranslation();
 	void setSnapfunction(GNRNotifyEvent& event);
 	void setMode(canvasType canvas_id);
 	void doSnapMove(float& value);

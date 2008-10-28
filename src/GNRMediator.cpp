@@ -34,6 +34,16 @@ void GNRMediator::setTranslation(transType translation)
 }
 
 /**
+ * get translation type for all mediators
+ * @return      transType       id of translation
+ * @access      public
+ */
+transType GNRMediator::getTranslation()
+{
+	return m_Translation;
+}
+
+/**
  * set active canvas for all mediators
  * @param       canvasType       id of active canvas
  * @access      public

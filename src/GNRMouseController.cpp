@@ -51,8 +51,6 @@ GNRMouseController::~GNRMouseController()
  */
 void GNRMouseController::setMediator(GNRGLNotifyEvent& event)
 {
-	int selectedAssemblyID = 0;
-	
 	//get mouse coords from event
 	updateMouse(event);
 	
@@ -60,27 +58,14 @@ void GNRMouseController::setMediator(GNRGLNotifyEvent& event)
 	switch ((buttonType)event.getMouseEvent().GetButton())
 	{
 	case LEFT_BUTTON:
-		if (event.getCanvasID() == CANVAS2D)
+		if (m_Mediator->getTranslation() == DRAWWALL)
 		{
-			//point to 2D mediator if event from canvas 2D
-			m_Mediator = m_AssemblyMediator2D;
-			//check for assembly id from click
-			selectedAssemblyID = (m_Scene->getCanvas2D())->selection(m_Scene->getRootAssembly(), m_Scene->getGLCamera2D(), mouse_x, mouse_y);
+			//TODO WALL MEDIATOR
 		}
 		else
 		{
-			//else, point to 3D mediator if event from canvas 3D
-			m_Mediator = m_AssemblyMediator3D;
-			//check for assembly id from click
-			selectedAssemblyID = (m_Scene->getCanvas3D())->selection(m_Scene->getRootAssembly(), m_Scene->getGLCamera3D(), mouse_x, mouse_y);
+			setAssemblyMediator(event);
 		}
-		
-		//store selected assembly id in scene
-		m_Scene->setAssemblyID(selectedAssemblyID);
-		
-		//set assembly mediator target to selected object
-		m_Mediator->setAssemblyID(selectedAssemblyID);
-		
 		break;
 	case MIDDLE_BUTTON:
 		if (event.getCanvasID() == CANVAS2D)
@@ -172,4 +157,29 @@ void GNRMouseController::updateMouse(GNRGLNotifyEvent& event)
 {
 	mouse_x = event.getMouseEvent().GetX();
 	mouse_y = event.getMouseEvent().GetY();
+}
+
+void GNRMouseController::setAssemblyMediator(GNRGLNotifyEvent& event)
+{
+	int selectedAssemblyID = 0;
+	if (event.getCanvasID() == CANVAS2D)
+	{
+		//point to 2D mediator if event from canvas 2D
+		m_Mediator = m_AssemblyMediator2D;
+		//check for assembly id from click
+		selectedAssemblyID = (m_Scene->getCanvas2D())->selection(m_Scene->getRootAssembly(), m_Scene->getGLCamera2D(), mouse_x, mouse_y);
+	}
+	else
+	{
+		//else, point to 3D mediator if event from canvas 3D
+		m_Mediator = m_AssemblyMediator3D;
+		//check for assembly id from click
+		selectedAssemblyID = (m_Scene->getCanvas3D())->selection(m_Scene->getRootAssembly(), m_Scene->getGLCamera3D(), mouse_x, mouse_y);
+	}
+	
+	//store selected assembly id in scene
+	m_Scene->setAssemblyID(selectedAssemblyID);
+	
+	//set assembly mediator target to selected object
+	m_Mediator->setAssemblyID(selectedAssemblyID);
 }
