@@ -38,11 +38,14 @@ private:
 	
 protected:
 	int m_window_x, m_window_y;
+	unsigned int FloorTexture;
 	
 	void initGL();
 	void connectEvents();
 	void reshape();
 	void initLights();
+	void drawBaseFloor(float fCenterX, float fCenterY, float fCenterZ, int fSize);
+	void loadTexture(char *filename, GLuint &texture);
 	void getGLPos(int x, int y, GNRVertex* glcoords);
 	void getGLDim(int x, int y, GNRVertex* glcoords);
 	

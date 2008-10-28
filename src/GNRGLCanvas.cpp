@@ -19,6 +19,7 @@
 #include "GNRNotifyEvent.h"
 #include "GNRGLNotifyEvent.h"
 #include "GNRMaterialLibrary.h"
+#include "bitmap.h"
 
 #if defined(__ATHOS_DEBUG__)
 #include <wx/log.h>
@@ -131,39 +132,99 @@ void GNRGLCanvas::initLights()
 void GNRGLCanvas::initGL()
 {
 	SetCurrent();
-	glClearColor(0.4, 0.4, 0.4, 0.0);
+	glClearColor(0.3, 0.3, 0.3, 0.0);
 	
 	setMatrix();
 	initLights();
 	
 	glShadeModel(GL_SMOOTH);
-	glDepthFunc(GL_LEQUAL);
 	
+	glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);
+	glHint(GL_LINE_SMOOTH_HINT, GL_NICEST);
+	glHint(GL_POLYGON_SMOOTH_HINT, GL_NICEST);
+	
+	glDepthFunc(GL_LEQUAL);
+	glBlendFunc(GL_ONE_MINUS_SRC_ALPHA,GL_SRC_ALPHA);
+	
+	glEnable(GL_BLEND);
+	glEnable(GL_DEPTH_TEST);
+	glEnable(GL_LINE_SMOOTH);
+	glEnable(GL_POLYGON_SMOOTH);
+	glEnable(GL_TEXTURE_2D);
+	
+	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
+	
+	loadTexture("grid_24bit_rgb.bmp", FloorTexture);
+	
+	//glEnable(GL_CULL_FACE);
+	//glCullFace(GL_FRONT);
 	//glBlendFunc(GL_ONE, GL_ONE);
 	//glBlendFunc(GL_ONE_MINUS_SRC_ALPHA,GL_SRC_ALPHA);
 	//glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	//glBlendFuncSeparate(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, GL_ONE_MINUS_DST_ALPHA, GL_ONE);
-	glEnable(GL_BLEND);
-	glBlendFunc(GL_ONE_MINUS_SRC_ALPHA,GL_SRC_ALPHA);
 	//glEnable(GL_ALPHA_TEST);
-	glAlphaFunc(GL_GREATER, 0.1);
-	
-	glEnable(GL_DEPTH_TEST);
-	glEnable(GL_LINE_SMOOTH);
-	glEnable(GL_POLYGON_SMOOTH);
-	
-	glHint(GL_LINE_SMOOTH_HINT, GL_DONT_CARE);
-	glHint(GL_POLYGON_SMOOTH_HINT, GL_DONT_CARE);
+	//glAlphaFunc(GL_GREATER, 0.1);
+	//glPolygonMode(GL_BACK, GL_FILL);
 	
 	glLineWidth(1.0f);
 	glClearDepth(1.0f);
 	
 	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-	//glPolygonMode(GL_BACK, GL_FILL);
-	
-	glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);
 	
 	glEnable(GL_NORMALIZE);
+}
+
+void GNRGLCanvas::drawBaseFloor(float fCenterX, float fCenterY, float fCenterZ, int fSize)
+{
+	float FloorColor[4] = { 1.0f, 1.0f, 1.0f, 0.6f };
+	
+	glMaterialfv(GL_FRONT, GL_SPECULAR, FloorColor);
+	glMaterialfv(GL_FRONT, GL_AMBIENT_AND_DIFFUSE, FloorColor);
+	glMaterialf(GL_FRONT, GL_SHININESS, 200.0);
+	
+	glBindTexture(GL_TEXTURE_2D, FloorTexture);
+	
+	glBegin(GL_QUADS);
+	//set normal
+	glNormal3f(0.0, 1.0, 0.0);
+	//set starting edge half of size from center
+	float x = fCenterX-((float)fSize/2.0), z = fCenterZ-((float)fSize/2.0);
+	//draw fSize quads in x-axis
+	for (GLint i = 0; i < fSize; i++, x += 1.0)
+	{
+		//draw fSize quads in z-axis
+		for (GLint j = 0; j < fSize; j++, z += 1.0)
+		{
+			glTexCoord2f(0.0, 0.0);
+			glVertex3f(x, fCenterY, z);
+			glTexCoord2f(1.0, 0.0);
+			glVertex3f(x + 1.0f,	fCenterY, z);
+			glTexCoord2f(1.0, 1.0);
+			glVertex3f(x + 1.0f, fCenterY, z + 1.0f);
+			glTexCoord2f(0.0, 1.0);
+			glVertex3f(x, fCenterY, z + 1.0f);
+		}
+		z = fCenterZ-((float)fSize/2.0);
+	}
+	glEnd();
+}
+
+void GNRGLCanvas::loadTexture(char *filename, GLuint &texture)
+{
+	glGenTextures(1, &texture);
+	glBindTexture(GL_TEXTURE_2D, texture);
+	
+	BITMAPINFOHEADER bitmapInfoHeader;
+	unsigned char *buffer = LoadBitmapFile(filename, &bitmapInfoHeader);
+	
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+	
+	glTexImage2D(GL_TEXTURE_2D, 0, 3, bitmapInfoHeader.biWidth, bitmapInfoHeader.biHeight, 0, GL_RGB, GL_UNSIGNED_BYTE, buffer);
+	
+	free(buffer);
 }
 
 /**
@@ -191,24 +252,9 @@ void GNRGLCanvas::prepareDraw()
 	
 	glMatrixMode(GL_MODELVIEW);
 	
-	//draw floor
 	glPushMatrix();
 	{
-		mtllib.selectMaterial("flwhite");
-		
-		glBegin(GL_QUADS);
-		glNormal3f(0.0f, 1.0f, 0.0f);
-		glVertex3f(-100.0f, -0.5f, -100.0f);
-		
-		glNormal3f(0.0f, 1.0f, 0.0f);
-		glVertex3f(-100.0f, -0.5f, 100.0f);
-		
-		glNormal3f(0.0f, 1.0f, 0.0f);
-		glVertex3f(100.0f, -0.5f, 100.0f);
-		
-		glNormal3f(0.0f, 1.0f, 0.0f);
-		glVertex3f(100.0f, -0.5f, -100.0f);
-		glEnd();
+		drawBaseFloor(0.0, -0.52, 0.0, 5);
 	}
 	glPopMatrix();
 	
