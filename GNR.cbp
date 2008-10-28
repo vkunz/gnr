@@ -125,8 +125,11 @@
 		<Unit filename="src\GNRMouseController.cpp" />
 		<Unit filename="src\GNRNotifyEvent.cpp" />
 		<Unit filename="src\GNROaxImport.cpp" />
+		<Unit filename="src\GNRObjOaxConverter.cpp" />
+		<Unit filename="src\GNRObjOaxConverterFrame.cpp" />
 		<Unit filename="src\GNRObjectImport.cpp" />
 		<Unit filename="src\GNROpxImport.cpp" />
+		<Unit filename="src\GNRPreviewPanel.cpp" />
 		<Unit filename="src\GNRScene.cpp" />
 		<Unit filename="src\GNRTCoord.cpp" />
 		<Unit filename="src\GNRTreeLibraryController.cpp" />
@@ -163,8 +166,11 @@
 		<Unit filename="src\include\GNRMouseController.h" />
 		<Unit filename="src\include\GNRNotifyEvent.h" />
 		<Unit filename="src\include\GNROaxImport.h" />
+		<Unit filename="src\include\GNRObjOaxConverter.h" />
+		<Unit filename="src\include\GNRObjOaxConverterFrame.h" />
 		<Unit filename="src\include\GNRObjectImport.h" />
 		<Unit filename="src\include\GNROpxImport.h" />
+		<Unit filename="src\include\GNRPreviewPanel.h" />
 		<Unit filename="src\include\GNRScene.h" />
 		<Unit filename="src\include\GNRTCoord.h" />
 		<Unit filename="src\include\GNRTreeLibraryController.h" />
@@ -200,7 +206,6 @@
 		<Unit filename="src\resources\button-world-rotate-xz.xpm" />
 		<Unit filename="src\resources\button-world-sphere.xpm" />
 		<Unit filename="src\resources\cube.xpm" />
-		<Unit filename="src\resources\grid_24bit_rgb.bmp" />
 		<Unit filename="src\resources\grid_24bit_rgb.xpm" />
 		<Unit filename="src\resources\grid_dummy_24bit_rgb.xpm" />
 		<Unit filename="src\resources\please-wait.xpm" />
