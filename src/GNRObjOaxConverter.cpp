@@ -27,16 +27,5 @@ void GNRObjOaxConverter::initFrame()
 {
 	// create frame
 	m_frame = new GNRObjOaxConverterFrame(0);
-	
-	// create panel
-	m_panel = new GNRPreviewPanel(m_frame);
-	
-	// create canvas
-	m_canvas = new GNRGLCanvas3D(m_panel, -1);
-	
-	// set canvas on panel
-	m_canvas->Reparent(m_panel);
-	
-	// show frame
 	m_frame->Show(true);
 }

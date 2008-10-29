@@ -13,7 +13,7 @@
 
 #include <wx/string.h>
 
-#include "GNRGLCanvas3D.h"
+#include "GNRGLCanvasPreview.h"
 #include "GNRObjOaxConverterFrame.h"
 #include "GNRPreviewPanel.h"
 
@@ -32,12 +32,6 @@ private:
 	// attributes
 	// Frame
 	GNRObjOaxConverterFrame* m_frame;
-	
-	// Panel
-	GNRPreviewPanel* m_panel;
-	
-	// Canvas
-	GNRGLCanvas* m_canvas;
 	
 	// functions
 	// initialize gui

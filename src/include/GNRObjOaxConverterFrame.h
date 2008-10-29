@@ -18,6 +18,8 @@
 #include <wx/spinctrl.h>
 #include <wx/stattext.h>
 
+#include "GNRGLCanvasPreview.h"
+
 class GNRObjOaxConverterFrame : public wxFrame
 {
 public:
@@ -45,6 +47,9 @@ private:
 	static const long idStxDepth;
 	static const long idStxHeight;
 	static const long idTxtName;
+	
+	// Canvas
+	GNRGLCanvasPreview* m_canvas;
 	
 	// Button
 	wxButton* m_btnCreate;
@@ -76,7 +81,6 @@ private:
 	void OnBtnCancel(wxCommandEvent& event);
 	void OnBtnCreate(wxCommandEvent& event);
 	void OnClose(wxCloseEvent& event);
-	
 };
 
 #endif // _GNROBJOAXCONVERTERFRAME_H_

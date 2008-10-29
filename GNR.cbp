@@ -113,6 +113,7 @@
 		<Unit filename="src\GNRGLCanvas.cpp" />
 		<Unit filename="src\GNRGLCanvas2D.cpp" />
 		<Unit filename="src\GNRGLCanvas3D.cpp" />
+		<Unit filename="src\GNRGLCanvasPreview.cpp" />
 		<Unit filename="src\GNRGLNotifyEvent.cpp" />
 		<Unit filename="src\GNRGLScreenshot.cpp" />
 		<Unit filename="src\GNRGridRowData.cpp" />
@@ -130,7 +131,6 @@
 		<Unit filename="src\GNRObjOaxConverterFrame.cpp" />
 		<Unit filename="src\GNRObjectImport.cpp" />
 		<Unit filename="src\GNROpxImport.cpp" />
-		<Unit filename="src\GNRPreviewPanel.cpp" />
 		<Unit filename="src\GNRScene.cpp" />
 		<Unit filename="src\GNRTCoord.cpp" />
 		<Unit filename="src\GNRTreeLibraryController.cpp" />
@@ -154,6 +154,7 @@
 		<Unit filename="src\include\GNRGLCanvas.h" />
 		<Unit filename="src\include\GNRGLCanvas2D.h" />
 		<Unit filename="src\include\GNRGLCanvas3D.h" />
+		<Unit filename="src\include\GNRGLCanvasPreview.h" />
 		<Unit filename="src\include\GNRGLNotifyEvent.h" />
 		<Unit filename="src\include\GNRGLScreenshot.h" />
 		<Unit filename="src\include\GNRGlobalDefine.h" />
@@ -172,7 +173,6 @@
 		<Unit filename="src\include\GNRObjOaxConverterFrame.h" />
 		<Unit filename="src\include\GNRObjectImport.h" />
 		<Unit filename="src\include\GNROpxImport.h" />
-		<Unit filename="src\include\GNRPreviewPanel.h" />
 		<Unit filename="src\include\GNRScene.h" />
 		<Unit filename="src\include\GNRTCoord.h" />
 		<Unit filename="src\include\GNRTreeLibraryController.h" />

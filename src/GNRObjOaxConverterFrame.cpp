@@ -33,9 +33,6 @@ GNRObjOaxConverterFrame::GNRObjOaxConverterFrame(wxWindow* parent, wxWindowID id
 	// set size
 	SetClientSize(wxSize(550, 350));
 	
-	// set focus
-	SetFocus();
-	
 	// Button create
 	m_btnCreate     = new wxButton(this, idBtnCreate, wxT("Erstellen"), wxPoint(328,304), wxDefaultSize, 0, wxDefaultValidator);
 	
@@ -47,16 +44,16 @@ GNRObjOaxConverterFrame::GNRObjOaxConverterFrame(wxWindow* parent, wxWindowID id
 	m_ckbProportion->SetValue(true);
 	
 	// Combobox category
-	m_cbxCategory   = new wxComboBox(this, idCbxCategory, wxEmptyString, wxPoint(384,90), wxSize(100,24), 0, 0, 0, wxDefaultValidator);
+	m_cbxCategory   = new wxComboBox(this, idCbxCategory, wxEmptyString, wxPoint(384,90), wxSize(130,24), 0, 0, 0, wxDefaultValidator);
 	
 	// SpinCtrl width
-	m_spcWidth      = new wxSpinCtrl(this, idSpcWidth, wxEmptyString, wxPoint(384,130), wxSize(100,24), 0, 0, 100, 0);
+	m_spcWidth      = new wxSpinCtrl(this, idSpcWidth, wxEmptyString, wxPoint(384,130), wxSize(130,24), 0, 0, 100, 0);
 	
 	// SpinCtrl depth
-	m_spcDepth      = new wxSpinCtrl(this, idSpcDepth, wxEmptyString, wxPoint(384,170), wxSize(100,24), 0, 0, 100, 0);
+	m_spcDepth      = new wxSpinCtrl(this, idSpcDepth, wxEmptyString, wxPoint(384,170), wxSize(130,24), 0, 0, 100, 0);
 	
 	// SpinCtrl height
-	m_spcHeight     = new wxSpinCtrl(this, idSpcHeight, wxEmptyString, wxPoint(384,210), wxSize(100,24), 0, 0, 100, 0);
+	m_spcHeight     = new wxSpinCtrl(this, idSpcHeight, wxEmptyString, wxPoint(384,210), wxSize(130,24), 0, 0, 100, 0);
 	
 	// StaticText name
 	m_stxName       = new wxStaticText(this, idStxName, wxT("Name:"), wxPoint(280,54), wxSize(100,24), 0);
@@ -74,7 +71,7 @@ GNRObjOaxConverterFrame::GNRObjOaxConverterFrame(wxWindow* parent, wxWindowID id
 	m_stxHeight     = new wxStaticText(this, idStxHeight, wxT("H\u00F6he:"), wxPoint(280,214), wxSize(100,24), 0);
 	
 	// TextCtrl name
-	m_txcName       = new wxTextCtrl(this, idTxtName, wxEmptyString, wxPoint(384,50), wxSize(100,24), 0, wxDefaultValidator);
+	m_txcName       = new wxTextCtrl(this, idTxtName, wxEmptyString, wxPoint(384,50), wxSize(130,24), 0, wxDefaultValidator);
 	
 	// connects m_btnCancel with OnBtnCancel()
 	Connect(idBtnCancel,wxEVT_COMMAND_BUTTON_CLICKED,(wxObjectEventFunction)&GNRObjOaxConverterFrame::OnBtnCancel);
@@ -84,6 +81,9 @@ GNRObjOaxConverterFrame::GNRObjOaxConverterFrame(wxWindow* parent, wxWindowID id
 	
 	// connects X with OnClose()
 	Connect(wxID_ANY,wxEVT_CLOSE_WINDOW,(wxObjectEventFunction)&GNRObjOaxConverterFrame::OnClose);
+	
+	// create canvas
+	m_canvas = new GNRGLCanvasPreview(this, wxID_ANY, wxPoint(50, 50), wxSize(200, 200), wxSIMPLE_BORDER);
 }
 
 // dtor
