@@ -15,7 +15,6 @@
 
 #include "GNRGLCanvasPreview.h"
 #include "GNRObjOaxConverterFrame.h"
-#include "GNRPreviewPanel.h"
 
 class GNRObjOaxConverter
 {

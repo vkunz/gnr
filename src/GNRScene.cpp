@@ -118,7 +118,7 @@ void GNRScene::glRefresh2D()
 	m_Canvas2D->prepareDraw();
 	m_GLCamera2D->render();
 	m_Canvas2D->initLights();
-	m_Canvas2D->drawBaseFloor(0.0, -0.501, 0.0, 25);
+	m_Canvas2D->drawBaseFloor(0.0, -0.501, 0.0, 30);
 	m_RootAssembly->draw();
 	m_Canvas2D->endDraw();
 }
@@ -133,7 +133,7 @@ void GNRScene::glRefresh3D()
 	m_Canvas3D->prepareDraw();
 	m_GLCamera3D->render();
 	m_Canvas3D->initLights();
-	m_Canvas3D->drawBaseFloor(0.0, -0.501, 0.0, 25);
+	m_Canvas3D->drawBaseFloor(0.0, -0.501, 0.0, 30);
 	m_RootAssembly->draw();
 	m_Canvas3D->endDraw();
 }

@@ -166,6 +166,7 @@ void GNRGLCanvas::initGL()
 	glClearDepth(1.0f);
 	
 	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+	//glPolygonMode(GL_BACK, GL_NONE);
 	
 	glEnable(GL_NORMALIZE);
 }
@@ -186,23 +187,23 @@ void GNRGLCanvas::drawBaseFloor(float fCenterX, float fCenterY, float fCenterZ, 
 	//set normal
 	glNormal3f(0.0, 1.0, 0.0);
 	//set starting edge half of size from center
-	float x = fCenterX-((float)fSize/2.0), z = fCenterZ-((float)fSize/2.0);
+	float s = (float)fSize/2.0;
+	float x = fCenterX - s, z = fCenterZ - s;
 	//draw fSize quads in x-axis
-	for (GLint i = 0; i < fSize; i++, x += 1.0)
+	for (GLint i = 0; i < fSize; i++)
 	{
 		//draw fSize quads in z-axis
-		for (GLint j = 0; j < fSize; j++, z += 1.0)
+		for (GLint j = 0; j < fSize; j++)
 		{
-			glTexCoord2f(0.0, 0.0);
-			glVertex3f(x, fCenterY, z);
-			glTexCoord2f(1.0, 0.0);
-			glVertex3f(x + 1.0f,	fCenterY, z);
-			glTexCoord2f(1.0, 1.0);
-			glVertex3f(x + 1.0f, fCenterY, z + 1.0f);
-			glTexCoord2f(0.0, 1.0);
-			glVertex3f(x, fCenterY, z + 1.0f);
+			glTexCoord2f(0.0,0.0);
+			glVertex3f(x+j,fCenterY,z+i);
+			glTexCoord2f(0.0,1.0);
+			glVertex3f(x+j,fCenterY,z+i+1.0f);
+			glTexCoord2f(1.0,1.0);
+			glVertex3f(x+j+1.0f,fCenterY,z+i+1.0f);
+			glTexCoord2f(1.0,0.0);
+			glVertex3f(x+j+1.0f,fCenterY,z+i);
 		}
-		z = fCenterZ-((float)fSize/2.0);
 	}
 	glEnd();
 	
