@@ -114,6 +114,7 @@
 		<Unit filename="src\GNRGLCanvas2D.cpp" />
 		<Unit filename="src\GNRGLCanvas3D.cpp" />
 		<Unit filename="src\GNRGLNotifyEvent.cpp" />
+		<Unit filename="src\GNRGLScreenshot.cpp" />
 		<Unit filename="src\GNRGridRowData.cpp" />
 		<Unit filename="src\GNRGridSceneController.cpp" />
 		<Unit filename="src\GNRGridTable.cpp" />
@@ -154,6 +155,7 @@
 		<Unit filename="src\include\GNRGLCanvas2D.h" />
 		<Unit filename="src\include\GNRGLCanvas3D.h" />
 		<Unit filename="src\include\GNRGLNotifyEvent.h" />
+		<Unit filename="src\include\GNRGLScreenshot.h" />
 		<Unit filename="src\include\GNRGlobalDefine.h" />
 		<Unit filename="src\include\GNRGridRowData.h" />
 		<Unit filename="src\include\GNRGridSceneController.h" />

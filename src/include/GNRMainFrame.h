@@ -45,6 +45,8 @@ private:
 	void OnToolbarMoveXY(wxCommandEvent& event);
 	void OnToolbarRotateXZ(wxCommandEvent& event);
 	void OnToolbarRotateXY(wxCommandEvent& event);
+	void OnToolbarDrawWall(wxCommandEvent& event);
+	void OnCreateScreenshot(wxCommandEvent& event);
 	void OnCameraReset(wxCommandEvent& event);
 	void OnSnapToGridBtn(wxCommandEvent& event);
 	void OnSnapToGridCtrl(wxSpinEvent& event);
@@ -66,6 +68,7 @@ private:
 	static const long idMenuMoveXY;
 	static const long idMenuRotateXZ;
 	static const long idMenuRotateXY;
+	static const long idMenuDrawWall;
 	static const long idMenuHelp;
 	static const long idMenuAbout;
 	static const long ID_StatusBar;
@@ -86,9 +89,10 @@ private:
 	static const long btn_move_xz;
 	static const long btn_rotate_xy;
 	static const long btn_rotate_xz;
+	static const long btn_draw_walls;
+	static const long btn_create_screenshot;
 	static const long btn_camera_reset;
 	static const long btn_snap_to_grid;
-	static const long btn_draw_walls;
 	
 	static const long ID_ToolBar;
 	
@@ -98,26 +102,16 @@ private:
 	static const long ID_STATICTEXT2;
 	
 	//(*Declarations(GNRMainFrame)
-	wxMenuBar* MenuBar1;
-	wxMenu* Menu1;
-	wxMenu* Menu2;
 	wxMenu* Menu3;
-	wxMenuItem* MenuItem1;
-	wxMenuItem* MenuItem2;
-	wxMenuItem* MenuItem3;
-	wxMenuItem* MenuItem4;
-	wxMenuItem* MenuItem5;
-	wxMenuItem* MenuItem6;
-	wxMenuItem* MenuItem7;
-	wxMenuItem* MenuItem8;
-	wxMenuItem* MenuItem9;
-	wxMenuItem* MenuItem10;
-	wxMenuItem* MenuItem11;
-	wxMenuItem* MenuItem12;
-	wxMenuItem* MenuItem13;
 	wxMenuItem* MenuItem14;
+	wxMenuItem* MenuItem11;
 	wxMenuItem* MenuItem15;
+	wxMenuItem* MenuItem13;
+	wxMenuItem* MenuItem10;
+	wxMenuItem* MenuItem12;
 	wxStatusBar* StatusBar1;
+	wxMenuItem* MenuItem16;
+	wxMenuItem* MenuItem9;
 	//*)
 	
 	wxSpinCtrl* SpinCtrlTranslate;

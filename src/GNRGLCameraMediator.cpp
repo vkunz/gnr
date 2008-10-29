@@ -62,6 +62,9 @@ int GNRGLCameraMediator::translate(GNRGLNotifyEvent& event)
 	case ROTATEXZ:
 		RotateXZ(event);
 		break;
+	case DRAWWALL:
+		// no camera-movement
+		break;
 	default:
 		MoveXZ(event);
 		break;

@@ -13,6 +13,7 @@
 #include "GNRApp.h"
 #include "GNRObjectImport.h"
 #include "GNROpxImport.h"
+#include "GNRGLScreenshot.h"
 
 #if defined(__ATHOS_DEBUG__)
 #include <wx/log.h>
@@ -201,6 +202,9 @@ void GNRApp::OnGNREvent(GNRNotifyEvent& event)
 	case PANELSIZE:
 		updateSize();
 		break;
+	case SCREENSHOT:
+		createScreenshot(event.GetString());
+		break;
 	}
 }
 
@@ -301,6 +305,16 @@ void GNRApp::OBJExport(wxString filename)
 #if defined(__ATHOS_DEBUG__)
 	wxLogDebug(wxT("OBJExport: not implemented yet"));
 #endif
+}
+
+/**
+ * handle screenshot-creation
+ * @access      private
+ */
+void GNRApp::createScreenshot(wxString filename)
+{
+	m_Canvas3D->setActive();
+	GNRGLScreenshot scr(filename);
 }
 
 // Code unser im Repo,

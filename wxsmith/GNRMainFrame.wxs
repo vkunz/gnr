@@ -94,6 +94,11 @@
 					<help>Objekt rotieren an X- und Y-Achse...</help>
 					<radio>1</radio>
 				</object>
+				<object class="wxMenuItem" name="idMenuDrawWall" variable="MenuItem16" member="yes">
+					<label>Wände erstellen</label>
+					<accel>ALT-5</accel>
+					<help>Wände im 2D-Modus erstellen</help>
+				</object>
 			</object>
 			<object class="wxMenu" variable="Menu2" member="no">
 				<label>&amp;Hilfe</label>

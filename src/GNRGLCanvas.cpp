@@ -642,6 +642,15 @@ void GNRGLCanvas::getGLDim(int x, int y, GNRVertex* glcoords)
 }
 
 /**
+ * Set the Canvas as active
+ * @access      public
+ */
+void GNRGLCanvas::setActive()
+{
+	SetCurrent();
+}
+
+/**
  * destructor of GNRGLCanvas
  * @access      public
  */

@@ -59,7 +59,11 @@ void GNRMouseController::setMediator(GNRGLNotifyEvent& event)
 	case LEFT_BUTTON:
 		if (m_Mediator->getTranslation() == DRAWWALL)
 		{
-			//TODO WALL MEDIATOR
+			/*	//TODO WALL MEDIATOR
+				GNRAssemblyCuboid* cub = new GNRAssemblyCuboid();
+				m_WallMediator->setAssemblyID((int)GNRAssemblyCuboid);
+			
+				m_Mediator = m_WallMediator;*/
 		}
 		else
 		{

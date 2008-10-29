@@ -59,6 +59,8 @@ private:
 	void OBJImport(wxString filename);
 	void OBJExport(wxString filename);
 	
+	void createScreenshot(wxString filename);
+	
 	//attributes
 	//treectrl
 	wxTreeCtrl* m_TreeCtrlLib;

@@ -42,6 +42,7 @@
 #include "resources/button-reset-camera.xpm"
 #include "resources/button-snap-to-grid.xpm"
 #include "resources/button-draw-walls.xpm"
+#include "resources/button_screenshot.xpm"
 
 //helper functions
 enum wxbuildinfoformat
@@ -85,6 +86,7 @@ const long GNRMainFrame::idMenuMoveXZ = wxNewId();
 const long GNRMainFrame::idMenuMoveXY = wxNewId();
 const long GNRMainFrame::idMenuRotateXZ = wxNewId();
 const long GNRMainFrame::idMenuRotateXY = wxNewId();
+const long GNRMainFrame::idMenuDrawWall = wxNewId();
 const long GNRMainFrame::idMenuHelp = wxNewId();
 const long GNRMainFrame::idMenuAbout = wxNewId();
 const long GNRMainFrame::ID_StatusBar = wxNewId();
@@ -103,6 +105,7 @@ const long GNRMainFrame::btn_move_xy = wxNewId();
 const long GNRMainFrame::btn_move_xz = wxNewId();
 const long GNRMainFrame::btn_rotate_xy = wxNewId();
 const long GNRMainFrame::btn_rotate_xz = wxNewId();
+const long GNRMainFrame::btn_create_screenshot = wxNewId();
 const long GNRMainFrame::btn_camera_reset = wxNewId();
 const long GNRMainFrame::btn_snap_to_grid = wxNewId();
 const long GNRMainFrame::btn_draw_walls = wxNewId();
@@ -120,6 +123,9 @@ BEGIN_EVENT_TABLE(GNRMainFrame,wxFrame)
 	EVT_MENU(btn_move_xy, GNRMainFrame::OnToolbarMoveXY)
 	EVT_MENU(btn_rotate_xz, GNRMainFrame::OnToolbarRotateXZ)
 	EVT_MENU(btn_rotate_xy, GNRMainFrame::OnToolbarRotateXY)
+	EVT_MENU(btn_rotate_xy, GNRMainFrame::OnToolbarRotateXY)
+	EVT_MENU(btn_draw_walls, GNRMainFrame::OnToolbarDrawWall)
+	EVT_MENU(btn_create_screenshot, GNRMainFrame::OnCreateScreenshot)
 	EVT_MENU(btn_camera_reset, GNRMainFrame::OnCameraReset)
 	EVT_MENU(btn_snap_to_grid, GNRMainFrame::OnSnapToGridBtn)
 	//settings menu sync to toolbar
@@ -128,6 +134,8 @@ BEGIN_EVENT_TABLE(GNRMainFrame,wxFrame)
 	EVT_MENU(idMenuMoveXY, GNRMainFrame::OnToolbarMoveXY)
 	EVT_MENU(idMenuRotateXZ, GNRMainFrame::OnToolbarRotateXZ)
 	EVT_MENU(idMenuRotateXY, GNRMainFrame::OnToolbarRotateXY)
+	EVT_MENU(idMenuRotateXY, GNRMainFrame::OnToolbarRotateXY)
+	EVT_MENU(idMenuDrawWall, GNRMainFrame::OnToolbarDrawWall)
 	//set snap to grid on spinctrl change
 	EVT_SPINCTRL(ID_SPINCTRL_ROTATE, GNRMainFrame::OnSnapToGridCtrl)
 	EVT_SPINCTRL(ID_SPINCTRL_TRANS, GNRMainFrame::OnSnapToGridCtrl)
@@ -138,6 +146,18 @@ END_EVENT_TABLE()
 GNRMainFrame::GNRMainFrame(wxWindow* parent, wxWindowID WXUNUSED(id))
 {
 	//(*Initialize(GNRMainFrame)
+	wxMenuItem* MenuItem8;
+	wxMenuItem* MenuItem7;
+	wxMenuItem* MenuItem5;
+	wxMenuItem* MenuItem2;
+	wxMenuItem* MenuItem1;
+	wxMenuItem* MenuItem4;
+	wxMenu* Menu1;
+	wxMenuItem* MenuItem3;
+	wxMenuItem* MenuItem6;
+	wxMenuBar* MenuBar1;
+	wxMenu* Menu2;
+	
 	Create(parent, wxID_ANY, _("GNR - 3D Einrichtungsplaner"), wxDefaultPosition, wxDefaultSize, wxDEFAULT_FRAME_STYLE, _T("wxID_ANY"));
 	SetClientSize(wxSize(800,550));
 	Move(wxPoint(0,0));
@@ -178,6 +198,8 @@ GNRMainFrame::GNRMainFrame(wxWindow* parent, wxWindowID WXUNUSED(id))
 	Menu3->Append(MenuItem14);
 	MenuItem15 = new wxMenuItem(Menu3, idMenuRotateXY, _("Rotieren XY\tALT-4"), _("Objekt rotieren an X- und Y-Achse..."), wxITEM_RADIO);
 	Menu3->Append(MenuItem15);
+	MenuItem16 = new wxMenuItem(Menu3, idMenuDrawWall, _("Wände erstellen\tALT-5"), _("Wände im 2D-Modus erstellen"), wxITEM_NORMAL);
+	Menu3->Append(MenuItem16);
 	MenuBar1->Append(Menu3, _("&Einstellungen"));
 	Menu2 = new wxMenu();
 	MenuItem5 = new wxMenuItem(Menu2, idMenuHelp, _("&Hilfe\tF1"), _("Hilfe zur Anwendung"), wxITEM_NORMAL);
@@ -226,6 +248,7 @@ GNRMainFrame::GNRMainFrame(wxWindow* parent, wxWindowID WXUNUSED(id))
 	ToolBarItem[c++] = ToolBar1->AddTool(btn_zoom_out, _("Draufsicht auszoomen"), wxBitmap(wxIcon(button_canvas2d_zoom_out_xpm)), wxNullBitmap, wxITEM_NORMAL, _("Draufsicht auszoomen"), _("Draufsicht auszoomen"));
 	ToolBarItem[c++] = ToolBar1->AddTool(btn_zoom_fit, _("Draufsicht einpassen"), wxBitmap(wxIcon(button_canvas2d_zoom_fit_xpm)), wxNullBitmap, wxITEM_NORMAL, _("Draufsicht in Ansicht einpassen"), _("Draufsicht in Ansicht einpassen"));
 	ToolBar1->AddSeparator();
+	ToolBarItem[c++] = ToolBar1->AddTool(btn_create_screenshot, _("Screenshot erstellen"), wxBitmap(wxIcon(button_screenshot_xpm)), wxNullBitmap, wxITEM_NORMAL, _("Screenshot der 3D-Szene erstellen"), _("Screenshot der 3D-Szene erstellen"));
 	ToolBarItem[c++] = ToolBar1->AddTool(btn_camera_reset, _("Kamera zurücksetzen"), wxBitmap(wxIcon(button_reset_camera_xpm)), wxNullBitmap, wxITEM_NORMAL, _("Kamera in 3D zurücksetzen"), _("Kamera in 3D zurücksetzen"));
 	ToolBar1->AddSeparator();
 	
@@ -418,6 +441,38 @@ void GNRMainFrame::OnToolbarRotateXY(wxCommandEvent& WXUNUSED(event))
 	GetEventHandler()->ProcessEvent(myevent);
 }
 
+void GNRMainFrame::OnToolbarDrawWall(wxCommandEvent& WXUNUSED(event))
+{
+	MenuItem15->Check(true);
+	ToolBar1->ToggleTool(btn_draw_walls, true);
+	
+	GNRNotifyEvent myevent(wxEVT_COMMAND_GNR_NOTIFY);
+	myevent.setGNREventType(TOOLBARCHANGE);
+	myevent.SetEventObject(this);
+	myevent.SetInt(DRAWWALL);
+	GetEventHandler()->ProcessEvent(myevent);
+}
+
+void GNRMainFrame::OnCreateScreenshot(wxCommandEvent& event)
+{
+	wxString filetypes;
+	filetypes << wxT("PNG (*.png)|*.png");
+	filetypes << wxT("|JPEG (*.jpg)|*.jpg");
+	filetypes << wxT("|BMP (*.bmp)|*.bmp");
+	filetypes << wxT("|TIFF (*.tif)|*.tif");
+	wxString filename = wxFileSelector(wxT("Bild speichern unter..."), wxT(""), wxT(""), wxT(""), filetypes, wxFD_SAVE);
+	
+	if (!filename.IsEmpty())
+	{
+		GNRNotifyEvent gnrevent(wxEVT_COMMAND_GNR_NOTIFY);
+		gnrevent.SetString(filename);
+		gnrevent.setGNREventType(SCREENSHOT);
+		
+		GetEventHandler()->ProcessEvent(gnrevent);
+	}
+}
+
+
 void GNRMainFrame::OnCameraReset(wxCommandEvent& WXUNUSED(event))
 {
 	GNRNotifyEvent gnrevent(wxEVT_COMMAND_GNR_NOTIFY);
@@ -435,7 +490,7 @@ void GNRMainFrame::OnSnapToGridMenu(wxCommandEvent& WXUNUSED(event))
 void GNRMainFrame::OnSnapToGridBtn(wxCommandEvent& WXUNUSED(event))
 {
 	//sync menu item and toolbar for snapping function
-	MenuItem9->Check(ToolBarItem[15]->IsToggled());
+	MenuItem9->Check(ToolBarItem[16]->IsToggled());
 	OnSnapToGrid();
 }
 
@@ -452,7 +507,7 @@ void GNRMainFrame::OnSnapToGrid()
 	int snapGrid  = SpinCtrlTranslate->GetValue();
 	int snapAngle = SpinCtrlRotate->GetValue();
 	
-	if (!ToolBarItem[15]->IsToggled())
+	if (!ToolBarItem[16]->IsToggled())
 	{
 		snapAngle = 1;
 		snapGrid  = 1;
