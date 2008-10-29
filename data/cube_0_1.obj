@@ -1,8 +1,8 @@
 # cube.obj
 #
  
-g cube
-usemtl yellow
+#g cube
+usemtl magenta 
 v  0.0  0.0  0.0
 v  0.0  0.0  1.0
 v  0.0  1.0  0.0

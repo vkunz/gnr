@@ -33,13 +33,13 @@ void GNRAssemblyMediator::initialize(GNRGLNotifyEvent& event)
 {
 	if (m_Assembly != NULL)
 	{
-		old_x = m_Assembly->getX();
-		old_y = m_Assembly->getY();
-		old_z = m_Assembly->getZ();
+		old_x = m_Assembly->getGroupX();
+		old_y = m_Assembly->getGroupY();
+		old_z = m_Assembly->getGroupZ();
 		
-		phi_old   = m_Assembly->getPhi();
-		theta_old = m_Assembly->getTheta();
-		rho_old   = m_Assembly->getRho();
+		phi_old   = m_Assembly->getGroupPhi();
+		theta_old = m_Assembly->getGroupTheta();
+		rho_old   = m_Assembly->getGroupRho();
 		
 		window_w = event.getWinX();
 		window_h = event.getWinY();

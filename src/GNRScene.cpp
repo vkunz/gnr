@@ -10,9 +10,32 @@
 
 #include "GNRScene.h"
 
+#include "GNRAssembly.h"
+#include "GNRAssemblyCuboid.h"
+#include "GNRAssemblyCylinder.h"
+#include "GNRAssemblySphere.h"
+
 GNRScene::GNRScene()
 {
 	m_RootAssembly  = new GNRAssembly("scene");
+	m_RootAssembly->setLocked(false);
+	
+	GNRAssemblyCylinder* cylinder = new GNRAssemblyCylinder("cylinder");
+	cylinder->setX(1);
+	cylinder->setZ(-1);
+	cylinder->setLocked(true);
+	m_RootAssembly->addPart(cylinder);
+	
+	GNRAssemblyCuboid* cuboid = new GNRAssemblyCuboid("cuboid");
+	cuboid->setLocked(false);
+	cylinder->addPart(cuboid);
+	
+	GNRAssemblySphere* sphere = new GNRAssemblySphere("sphere");
+	sphere->setX(-1);
+	sphere->setZ(-1);
+	sphere->setLocked(false);
+	m_RootAssembly->addPart(sphere);
+	
 	m_GLCamera2D    = new GNRGLCamera();
 	m_GLCamera3D    = new GNRGLCamera();
 	resetCamera();
@@ -57,7 +80,7 @@ GNRGLCamera* GNRScene::getGLCamera3D()
 void GNRScene::newRoom()
 {
 	delete m_RootAssembly;
-	m_RootAssembly = new GNRAssembly("scene");
+	m_RootAssembly = new GNRAssemblyCuboid("scene");
 	resetCamera();
 }
 

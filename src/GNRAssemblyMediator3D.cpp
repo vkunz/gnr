@@ -32,8 +32,8 @@ void GNRAssemblyMediator3D::MoveXY(GNRGLNotifyEvent& event)
 	doSnapMove(new_x);
 	doSnapMove(new_y);
 	
-	m_Assembly->setX(new_x);
-	m_Assembly->setY(new_y);
+	m_Assembly->setGroupX(new_x);
+	m_Assembly->setGroupY(new_y);
 }
 
 /**
@@ -49,8 +49,8 @@ void GNRAssemblyMediator3D::MoveXZ(GNRGLNotifyEvent& event)
 	doSnapMove(new_x);
 	doSnapMove(new_z);
 	
-	m_Assembly->setX(new_x);
-	m_Assembly->setZ(new_z);
+	m_Assembly->setGroupX(new_x);
+	m_Assembly->setGroupZ(new_z);
 }
 
 /**
@@ -66,8 +66,8 @@ void GNRAssemblyMediator3D::RotateXY(GNRGLNotifyEvent& event)
 	doSnapRotate(new_phi);
 	doSnapRotate(new_theta);
 	
-	m_Assembly->setPhi(new_phi);
-	m_Assembly->setTheta(new_theta);
+	m_Assembly->setGroupPhi(new_phi);
+	m_Assembly->setGroupTheta(new_theta);
 }
 
 /**
@@ -83,6 +83,6 @@ void GNRAssemblyMediator3D::RotateXZ(GNRGLNotifyEvent& event)
 	doSnapRotate(new_phi);
 	doSnapRotate(new_rho);
 	
-	m_Assembly->setPhi(new_phi);
-	m_Assembly->setRho(new_rho);
+	m_Assembly->setGroupPhi(new_phi);
+	m_Assembly->setGroupRho(new_rho);
 }

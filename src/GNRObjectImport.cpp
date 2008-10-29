@@ -9,6 +9,7 @@
  */
 
 #include "GNRObjectImport.h"
+#include "GNRAssemblyObj.h"
 #include "GNRVNT.h"
 #include "GNRFace.h"
 
@@ -31,22 +32,19 @@ GNRObjectImport::~GNRObjectImport()
 {
 }
 
-GNRAssembly *GNRObjectImport::read(const string& fname)
+GNRAssembly* GNRObjectImport::read(const string& fname)
 {
 	m_xmin = m_ymin = m_zmin = std::numeric_limits<float>::max();
 	m_xmax = m_ymax = m_zmax = -m_xmin;
 	
-	
 	//build base wrapper assembly
-	m_root = new GNRAssembly(fname);
-	m_root->setIsRoot(true);
+	m_root = new GNRAssemblyObj(fname);
 	
 	//safe root pointer
 	GNRAssembly* m_root_real = m_root;
 	
 	//create root assembly for object
-	m_root = new GNRAssembly(fname);
-	m_root->setIsRoot(false);
+	m_root = new GNRAssemblyObj(fname);
 	
 	//appen root assembly for object
 	m_root_real->addPart(m_root);
@@ -130,7 +128,7 @@ GNRAssembly *GNRObjectImport::read(const string& fname)
 	//save scale for normalized cube, maximum 1
 	m_root->setScale(scale);
 	
-	m_root->setNormals();
+	dynamic_cast<GNRAssemblyObj*>(m_act)->setNormals();
 	
 	return m_root_real;
 }
@@ -161,9 +159,9 @@ void GNRObjectImport::getO()
 	stringstream ss(m_buf.substr(2, string::npos));
 	ss >> objname;
 	
-	m_act = new GNRAssembly(objname);
+	dynamic_cast<GNRAssemblyObj*>(m_act)->setNormals();
+	m_act = new GNRAssemblyObj(objname);
 	m_act->setParent(m_root);
-	m_act->setIsRoot(false);
 	m_root->addPart(m_act);
 }
 
@@ -272,7 +270,7 @@ void GNRObjectImport::getF()
 		face.addVNT(vnt);
 	}
 	if (face.size() >= 3)
-		m_act->addFace(face);
+		dynamic_cast<GNRAssemblyObj*>(m_act)->addFace(face);
 }
 
 void GNRObjectImport::getU()

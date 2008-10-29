@@ -16,6 +16,7 @@
 #include <string>
 
 #include "GNRFace.h"
+#include <GL/glu.h>
 
 using std::list;
 using std::vector;
@@ -32,18 +33,37 @@ public:
 	float getX() const;
 	float getY() const;
 	float getZ() const;
+	void getPosition(GNRVertex& result) const;
 	
 	void setX(float x);
 	void setY(float y);
 	void setZ(float z);
+	void setPosition(const GNRVertex& pos);
 	
 	float getPhi() const;
 	float getRho() const;
 	float getTheta() const;
 	
+	
 	void setPhi(float phi);
 	void setRho(float rho);
 	void setTheta(float theta);
+	
+	float getGroupX() const;
+	float getGroupY() const;
+	float getGroupZ() const;
+	
+	void setGroupX(float x);
+	void setGroupY(float y);
+	void setGroupZ(float z);
+	
+	float getGroupPhi() const;
+	float getGroupRho() const;
+	float getGroupTheta() const;
+	
+	void setGroupPhi(float phi);
+	void setGroupRho(float rho);
+	void setGroupTheta(float theta);
 	
 	float getScale() const;
 	
@@ -59,38 +79,43 @@ public:
 	
 	void setOverGround(const float overground);
 	
-	void addFace(const GNRFace& newface);
 	void addPart(GNRAssembly* p_part);
 	
 	void setName(const string& name);
 	const string& getName() const;
 	
-	bool getIsRoot() const;
-	void setIsRoot(bool isroot);
 	float getOverGround();
+	
+	void setLocked(bool locked);
+	bool getLocked() const;
 	
 	const GNRAssembly* getParent() const;
 	void setParent(GNRAssembly* p);
 	
-	void setNormals();
+	void draw();
 	
-	void draw() const;
+protected:
+	void draw_children();
+	void virtual genDL();
 	
-private:
-
 	float m_x, m_y, m_z;
 	float m_overground;
+	
 	float m_phi, m_theta, m_rho;
+	
 	float m_scale;
 	float m_scaleX, m_scaleY, m_scaleZ;
 	
-	bool m_locked, m_isWall, m_isroot;
+	bool m_Locked, m_Wall, m_Visible;
 	string m_name;
-	
-	list<GNRFace> m_face;
 	
 	GNRAssembly* m_parent;
 	list<GNRAssembly*> m_part;
+	
+	bool m_DL_valid;
+	int m_DL_id;
+	
+	unsigned m_at_depth;
 };
 
 #endif // _GNRASSEMBLY_H_
