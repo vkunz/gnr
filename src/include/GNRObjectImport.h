@@ -35,11 +35,15 @@ private:
 	void getVN();
 	void getVT();
 	
+	void minmax(float& min,float& max,float value);
+	
 	vector<GNRVertex> m_vertex, m_normal;
 	vector<GNRTCoord> m_tcoord;
 	string m_matname;
 	
-	GNRAssembly* m_root, *m_act;
+	GNRAssembly* m_wrapper;
+	GNRAssembly* m_act;
+	GNRAssembly* m_root;
 	
 	ifstream m_ifs;
 	string m_buf;

@@ -28,7 +28,7 @@
 #include "GNRScene.h"
 #include "GNRTreeLibraryController.h"
 #include "GNRTreePanelLibrary.h"
-#include "GNRTreePanelMyScene.h"
+#include "GNRGridPanelMyScene.h"
 
 #if defined(__ATHOS_DEBUG__)
 #include <wx/log.h>
@@ -75,7 +75,7 @@ private:
 	GNRGridSceneController* m_GridSceneCtrl;
 	
 	GNRTreePanelLibrary* m_TreePanelLibrary;
-	GNRTreePanelMyScene* m_TreePanelMyScene;
+	GNRGridPanelMyScene* m_GridPanelMyScene;
 	
 	GNRScene* m_Scene;
 	GNRMouseController* m_MouseCtrl;

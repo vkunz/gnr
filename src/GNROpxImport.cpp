@@ -224,7 +224,7 @@ void GNROpxImport::LoadXml(wxInputStream& stream)
 		node = node->GetNext();
 	}
 	
-//#warning "INFO: Here todo someting, I'm waiting until monday(27.10.2008), if xml-format changes."
+#warning "INFO: Here todo someting, I'm waiting until monday(27.10.2008), if xml-format changes."
 }
 
 /**

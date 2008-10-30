@@ -12,9 +12,7 @@
 #include <math.h>
 
 #include "GNRGLCamera.h"
-
-#define HEIGHT_MIN      -0.25
-#define DISTANCE_MIN     1.00
+#include "GNRGlobalDefine.h"
 
 /**
  * constructor of GNRGLCamera
@@ -98,9 +96,9 @@ void GNRGLCamera::render()
 
 	//The point at which the camera looks:
 	GNRVertex position = viewPoint - viewDir*m_distance;
-	if (position.getY() <= HEIGHT_MIN)
+	if (position.getY() <= CAMERA_HEIGHT_MIN)
 	{
-		position.setY(HEIGHT_MIN);
+		position.setY(CAMERA_HEIGHT_MIN);
 		viewPoint = position + viewDir*m_distance;
 	}
 	
@@ -119,9 +117,9 @@ void GNRGLCamera::render()
 void GNRGLCamera::moveForward(GLfloat distance)
 {
 	viewPoint = viewPoint + (viewDir*-distance);
-	if (viewPoint.getY() <= HEIGHT_MIN)
+	if (viewPoint.getY() <= CAMERA_HEIGHT_MIN)
 	{
-		viewPoint.setY(HEIGHT_MIN);
+		viewPoint.setY(CAMERA_HEIGHT_MIN);
 	}
 }
 
@@ -143,9 +141,9 @@ void GNRGLCamera::strafeRight(GLfloat distance)
 void GNRGLCamera::moveUpward(GLfloat distance)
 {
 	viewPoint = viewPoint + (upVector*distance);
-	if (viewPoint.getY() <= HEIGHT_MIN)
+	if (viewPoint.getY() <= CAMERA_HEIGHT_MIN)
 	{
-		viewPoint.setY(HEIGHT_MIN);
+		viewPoint.setY(CAMERA_HEIGHT_MIN);
 	}
 }
 
@@ -160,9 +158,9 @@ void GNRGLCamera::setPosition(float x, float y, float z)
 {
 	GNRVertex temp(x, y, z);
 	viewPoint = (temp + viewDir*m_distance);
-	if (viewPoint.getY() <= HEIGHT_MIN)
+	if (viewPoint.getY() <= CAMERA_HEIGHT_MIN)
 	{
-		viewPoint.setY(HEIGHT_MIN);
+		viewPoint.setY(CAMERA_HEIGHT_MIN);
 	}
 }
 
@@ -200,9 +198,9 @@ void GNRGLCamera::setAngles(float phi, float theta, float rho)
 void GNRGLCamera::changeDistance(float distance)
 {
 	m_distance += distance;
-	if (m_distance <= DISTANCE_MIN)
+	if (m_distance <= CAMERA_DISTANCE_MIN)
 	{
-		m_distance = DISTANCE_MIN;
+		m_distance = CAMERA_DISTANCE_MIN;
 	}
 }
 
@@ -321,9 +319,9 @@ GLfloat GNRGLCamera::getRotatedZ()
  */
 void GNRGLCamera::setViewPoint(GNRVertex point)
 {
-	if (point.getY() <= HEIGHT_MIN)
+	if (point.getY() <= CAMERA_HEIGHT_MIN)
 	{
-		point.setY(HEIGHT_MIN);
+		point.setY(CAMERA_HEIGHT_MIN);
 	}
 	viewPoint = point;
 }

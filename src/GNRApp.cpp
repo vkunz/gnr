@@ -94,13 +94,13 @@ void GNRApp::initFrames()
 	
 	//create tree and models panel
 	m_TreePanelLibrary = new GNRTreePanelLibrary(m_HorizontalSplitter_left, wxID_ANY);
-	m_TreePanelMyScene = new GNRTreePanelMyScene(m_HorizontalSplitter_left, wxID_ANY);
+	m_GridPanelMyScene = new GNRGridPanelMyScene(m_HorizontalSplitter_left, wxID_ANY);
 	
 	//create m_TreeCntr
 	m_TreeCtrlLib = new wxTreeCtrl(m_TreePanelLibrary, wxID_ANY, wxPoint(0, 0), m_TreePanelLibrary->GetSize(), wxTR_DEFAULT_STYLE, wxDefaultValidator, wxT("TreePanelLibrary"));
 	
 	//create m_Grid
-	m_Grid = new wxGrid(m_TreePanelMyScene, wxID_ANY, wxPoint(0, 0), m_TreePanelMyScene->GetSize(), wxWANTS_CHARS, wxT("GridPanelMyScene"));
+	m_Grid = new wxGrid(m_GridPanelMyScene, wxID_ANY, wxPoint(0, 0), m_GridPanelMyScene->GetSize(), wxWANTS_CHARS, wxT("GridPanelMyScene"));
 	
 	//create two canvas panels
 	m_Canvas2D = new GNRGLCanvas2D(m_HorizontalSplitter_right, -1);
@@ -113,7 +113,7 @@ void GNRApp::initFrames()
 	
 	//initialize both treepanels
 	m_HorizontalSplitter_left->Initialize(m_TreePanelLibrary);
-	m_HorizontalSplitter_left->Initialize(m_TreePanelMyScene);
+	m_HorizontalSplitter_left->Initialize(m_GridPanelMyScene);
 	
 	//initialize both canvases
 	m_HorizontalSplitter_right->Initialize(m_Canvas2D);
@@ -123,7 +123,7 @@ void GNRApp::initFrames()
 	m_HorizontalSplitter_right->SplitHorizontally(m_Canvas2D, m_Canvas3D);
 	
 	//split left splitter in upper (library) and lower (myscene) treeview
-	m_HorizontalSplitter_left->SplitHorizontally(m_TreePanelLibrary, m_TreePanelMyScene);
+	m_HorizontalSplitter_left->SplitHorizontally(m_TreePanelLibrary, m_GridPanelMyScene);
 	
 	//split vertical (main) splitter in left and right splitter
 	m_VerticalSplitter->SplitVertically(m_HorizontalSplitter_left, m_HorizontalSplitter_right);
@@ -147,7 +147,7 @@ void GNRApp::updateSize()
 	m_TreeCtrlLib->SetSize(m_TreePanelLibrary->GetSize());
 	
 	// update size of m_Grid
-	m_Grid->SetSize(m_TreePanelMyScene->GetSize());
+	m_Grid->SetSize(m_GridPanelMyScene->GetSize());
 }
 
 /**

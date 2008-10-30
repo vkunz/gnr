@@ -334,6 +334,14 @@ int GNRGLCanvas::selection(GNRAssembly* rootAssembly, GNRGLCamera* camera, int m
 				depth = buffer[loop*4+1];
 			}
 		}
+		
+		//if choose > 0, an object was hit
+		if (choose > 0)
+		{
+			//return master ID of assembly
+			GNRAssembly* a = (GNRAssembly*)choose;
+			return a->getMasterID();
+		}
 		return choose;
 	}
 	return 0;

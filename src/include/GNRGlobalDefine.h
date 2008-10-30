@@ -17,4 +17,7 @@
 #define SNAP_IN_MINIMUM_DEGREE   10           //   10° minimum degree
 #define SNAP_APPROACH_PERC        0.25f       //   25% of reached snap value
 
+#define CAMERA_HEIGHT_MIN         0.10        //   10cm minimum height of cam
+#define CAMERA_DISTANCE_MIN       1.00        //  100cm minimum distance of cam
+
 #endif // GNRENUM_H

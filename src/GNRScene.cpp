@@ -10,32 +10,9 @@
 
 #include "GNRScene.h"
 
-#include "GNRAssembly.h"
-#include "GNRAssemblyCuboid.h"
-#include "GNRAssemblyCylinder.h"
-#include "GNRAssemblySphere.h"
-
 GNRScene::GNRScene()
 {
 	m_RootAssembly  = new GNRAssembly("scene");
-	m_RootAssembly->setLocked(false);
-	
-	GNRAssemblyCylinder* cylinder = new GNRAssemblyCylinder("cylinder");
-	cylinder->setX(1);
-	cylinder->setZ(-1);
-	cylinder->setLocked(true);
-	m_RootAssembly->addPart(cylinder);
-	
-	GNRAssemblyCuboid* cuboid = new GNRAssemblyCuboid("cuboid");
-	cuboid->setLocked(false);
-	cylinder->addPart(cuboid);
-	
-	GNRAssemblySphere* sphere = new GNRAssemblySphere("sphere");
-	sphere->setX(-1);
-	sphere->setZ(-1);
-	sphere->setLocked(false);
-	m_RootAssembly->addPart(sphere);
-	
 	m_GLCamera2D    = new GNRGLCamera();
 	m_GLCamera3D    = new GNRGLCamera();
 	resetCamera();
@@ -80,7 +57,7 @@ GNRGLCamera* GNRScene::getGLCamera3D()
 void GNRScene::newRoom()
 {
 	delete m_RootAssembly;
-	m_RootAssembly = new GNRAssemblyCuboid("scene");
+	m_RootAssembly = new GNRAssembly("scene");
 	resetCamera();
 }
 
@@ -98,7 +75,7 @@ void GNRScene::resetCamera()
 	//reset 3D cam to default
 	m_GLCamera3D->reset();
 	m_GLCamera3D->changeDistance(2.5);
-	m_GLCamera3D->setAngles(25.0, 0.0, 0.0);
+	m_GLCamera3D->setAngles(20.0, 0.0, 0.0);
 }
 
 void GNRScene::setCanvas2D(GNRGLCanvas2D* p)
@@ -141,7 +118,7 @@ void GNRScene::glRefresh2D()
 	m_Canvas2D->prepareDraw();
 	m_GLCamera2D->render();
 	m_Canvas2D->initLights();
-	m_Canvas2D->drawBaseFloor(0.0, -0.501, 0.0, 30);
+	m_Canvas2D->drawBaseFloor(0.0, 0.0, 0.0, 32);
 	m_RootAssembly->draw();
 	m_Canvas2D->endDraw();
 }
@@ -156,7 +133,7 @@ void GNRScene::glRefresh3D()
 	m_Canvas3D->prepareDraw();
 	m_GLCamera3D->render();
 	m_Canvas3D->initLights();
-	m_Canvas3D->drawBaseFloor(0.0, -0.501, 0.0, 30);
+	m_Canvas3D->drawBaseFloor(0.0, 0.0, 0.0, 32);
 	m_RootAssembly->draw();
 	m_Canvas3D->endDraw();
 }

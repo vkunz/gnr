@@ -9,8 +9,8 @@
  */
 
 #include "GNRObjectImport.h"
-#include "GNRAssemblyObj.h"
 #include "GNRVNT.h"
+#include "GNREnum.h"
 #include "GNRFace.h"
 
 #include <fstream>
@@ -32,25 +32,21 @@ GNRObjectImport::~GNRObjectImport()
 {
 }
 
-GNRAssembly* GNRObjectImport::read(const string& fname)
+GNRAssembly *GNRObjectImport::read(const string& fname)
 {
 	m_xmin = m_ymin = m_zmin = std::numeric_limits<float>::max();
 	m_xmax = m_ymax = m_zmax = -m_xmin;
 	
 	//build base wrapper assembly
-	m_root = new GNRAssemblyObj(fname);
-	
-	//safe root pointer
-	GNRAssembly* m_root_real = m_root;
+	m_root = new GNRAssembly(fname);
+	m_root->setType(IS_OBJECT);
 	
 	//create root assembly for object
-	m_root = new GNRAssemblyObj(fname);
+	m_wrapper = new GNRAssembly("wrapper");
+	m_wrapper->setType(IS_WRAPPER);
 	
 	//appen root assembly for object
-	m_root_real->addPart(m_root);
-	
-	//set actual root assembly
-	m_act = m_root;
+	m_root->addPart(m_wrapper);
 	m_matname = "white";
 	
 	// 1st pass, gather v, vt and vn
@@ -101,36 +97,20 @@ GNRAssembly* GNRObjectImport::read(const string& fname)
 	}
 	ifs.close();
 	
-	float x_diff = (m_xmax - m_xmin);
-	float y_diff = (m_ymax - m_ymin);
-	float z_diff = (m_zmax - m_zmin);
-	float max_diff = x_diff;
-	
-	if (max_diff < y_diff)
-	{
-		max_diff = y_diff;
-	}
-	if (max_diff < z_diff)
-	{
-		max_diff = z_diff;
-	}
-	
-	float scale = (float)1.0 / max_diff;
-	
 	//scale factor 1.0 instead of scale, if glScalef before glTranslatef in assembly->draw
-	m_root->setX(-1.0*(m_xmax + m_xmin)/2.0);
-	m_root->setY(-1.0*(m_ymax + m_ymin)/2.0);
-	m_root->setZ(-1.0*(m_zmax + m_zmin)/2.0);
+	m_wrapper->setX(-1.0*(m_xmax + m_xmin)/2.0);
+	m_wrapper->setY(-1.0*(m_ymax + m_ymin)/2.0);
+	m_wrapper->setZ(-1.0*(m_zmax + m_zmin)/2.0);
+	m_wrapper->setNormals();
 	
-	//store minimum over ground to real root
-	//m_root_real->setOverGround((m_ymax + m_ymin)/2.0*scale);
+	//set real size and scale of object
+	m_root->setSize((m_xmax - m_xmin),(m_ymax - m_ymin),(m_zmax - m_zmin));
+	m_root->setScale(1.0,1.0,1.0);
+	m_root->putOnGround();
 	
-	//save scale for normalized cube, maximum 1
-	m_root->setScale(scale);
+	m_root->debugInfo();
 	
-	dynamic_cast<GNRAssemblyObj*>(m_act)->setNormals();
-	
-	return m_root_real;
+	return m_root;
 }
 
 void GNRObjectImport::getVs()
@@ -159,10 +139,21 @@ void GNRObjectImport::getO()
 	stringstream ss(m_buf.substr(2, string::npos));
 	ss >> objname;
 	
-	dynamic_cast<GNRAssemblyObj*>(m_act)->setNormals();
-	m_act = new GNRAssemblyObj(objname);
-	m_act->setParent(m_root);
-	m_root->addPart(m_act);
+	m_act = new GNRAssembly(m_wrapper,objname);
+	m_act->setType(IS_ATOMIC);
+	m_wrapper->addPart(m_act);
+}
+
+void GNRObjectImport::minmax(float& min,float& max,float value)
+{
+	if (max < value)
+	{
+		max = value;
+	}
+	if (min > value)
+	{
+		min = value;
+	}
 }
 
 void GNRObjectImport::getV()
@@ -171,32 +162,9 @@ void GNRObjectImport::getV()
 	stringstream ss(m_buf);
 	ss >> x >> y >> z;
 	
-	if (m_xmin > x)
-	{
-		m_xmin = x;
-	}
-	if (m_xmax < x)
-	{
-		m_xmax = x;
-	}
-	
-	if (m_ymin > y)
-	{
-		m_ymin = y;
-	}
-	if (m_ymax < y)
-	{
-		m_ymax = y;
-	}
-	
-	if (m_zmin > z)
-	{
-		m_zmin = z;
-	}
-	if (m_zmax < z)
-	{
-		m_zmax = z;
-	}
+	minmax(m_xmin, m_xmax, x);
+	minmax(m_ymin, m_ymax, y);
+	minmax(m_zmin, m_zmax, z);
 	
 	GNRVertex tmp(x, y, z);
 	m_vertex.push_back(tmp);
@@ -270,7 +238,7 @@ void GNRObjectImport::getF()
 		face.addVNT(vnt);
 	}
 	if (face.size() >= 3)
-		dynamic_cast<GNRAssemblyObj*>(m_act)->addFace(face);
+		m_act->addFace(face);
 }
 
 void GNRObjectImport::getU()

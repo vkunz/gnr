@@ -15,8 +15,8 @@
 #include <vector>
 #include <string>
 
+#include "GNREnum.h"
 #include "GNRFace.h"
-#include <GL/glu.h>
 
 using std::list;
 using std::vector;
@@ -25,97 +25,85 @@ using std::string;
 class GNRAssembly
 {
 public:
+
 	GNRAssembly();
 	GNRAssembly(const string &name);
+	GNRAssembly(GNRAssembly* parent, const string &name);
 	
 	virtual ~GNRAssembly();
 	
 	float getX() const;
 	float getY() const;
 	float getZ() const;
-	void getPosition(GNRVertex& result) const;
 	
-	void setX(float x);
-	void setY(float y);
-	void setZ(float z);
-	void setPosition(const GNRVertex& pos);
+	float getHeight() const;
+	float getWidth() const;
+	float getDepth() const;
+	
+	void setX(const float x);
+	void setY(const float y);
+	void setZ(const float z);
+	void setXY(const float x,const float y);
+	void setXZ(const float x,const float z);
+	
+	void setHeight(const float height);
+	void setWidth(const float width);
+	void setDepth(const float depth);
+	void setSize(const float width,const float height,const float depth);
 	
 	float getPhi() const;
 	float getRho() const;
 	float getTheta() const;
 	
-	
-	void setPhi(float phi);
-	void setRho(float rho);
-	void setTheta(float theta);
-	
-	float getGroupX() const;
-	float getGroupY() const;
-	float getGroupZ() const;
-	
-	void setGroupX(float x);
-	void setGroupY(float y);
-	void setGroupZ(float z);
-	
-	float getGroupPhi() const;
-	float getGroupRho() const;
-	float getGroupTheta() const;
-	
-	void setGroupPhi(float phi);
-	void setGroupRho(float rho);
-	void setGroupTheta(float theta);
-	
-	float getScale() const;
+	void setPhi(const float phi);
+	void setRho(const float rho);
+	void setTheta(const float theta);
+	void setPhiTheta(const float phi,const float theta);
+	void setPhiRho(const float phi,const float rho);
 	
 	float getScaleX() const;
 	float getScaleY() const;
 	float getScaleZ() const;
 	
-	void setScale(float s);
+	void setScaleX(const float x);
+	void setScaleY(const float y);
+	void setScaleZ(const float z);
+	void setScale(const float x,const float y,const float z);
 	
-	void setScaleX(float x);
-	void setScaleY(float y);
-	void setScaleZ(float z);
-	
-	void setOverGround(const float overground);
-	
-	void addPart(GNRAssembly* p_part);
+	void addFace(const GNRFace& newface);
+	void addPart(GNRAssembly* part);
 	
 	void setName(const string& name);
 	const string& getName() const;
 	
-	float getOverGround();
+	void setType(const assemblyType& type);
+	assemblyType getType() const;
+	bool isType(const assemblyType& type);
 	
-	void setLocked(bool locked);
-	bool getLocked() const;
-	
-	const GNRAssembly* getParent() const;
+	GNRAssembly* getParent() const;
+	int getMasterID();
 	void setParent(GNRAssembly* p);
 	
-	void draw();
+	float getOverGround() const;
+	void putOnGround();
+	void setNormals();
 	
-protected:
-	void draw_children();
-	void virtual genDL();
+	void draw() const;
+	void debugInfo() const;
 	
+private:
+
 	float m_x, m_y, m_z;
-	float m_overground;
-	
 	float m_phi, m_theta, m_rho;
-	
-	float m_scale;
-	float m_scaleX, m_scaleY, m_scaleZ;
-	
-	bool m_Locked, m_Wall, m_Visible;
+	float m_scale_x, m_scale_y, m_scale_z;
+	float m_width, m_height, m_depth;
+	assemblyType m_type;
 	string m_name;
 	
 	GNRAssembly* m_parent;
+	
+	list<GNRFace> m_face;
 	list<GNRAssembly*> m_part;
-	
-	bool m_DL_valid;
-	int m_DL_id;
-	
-	unsigned m_at_depth;
 };
 
 #endif // _GNRASSEMBLY_H_
