@@ -139,6 +139,7 @@ BEGIN_EVENT_TABLE(GNRMainFrame,wxFrame)
 	EVT_MENU(btn_snap_to_grid, GNRMainFrame::OnSnapToGridBtn)
 	//functions menu
 	EVT_MENU(idMenuGroup, GNRMainFrame::OnGroupCreate)
+	EVT_MENU(idMenuUngroup, GNRMainFrame::OnGroupModify)
 	//settings menu sync to toolbar
 	EVT_MENU(idMenuSnapToGrid, GNRMainFrame::OnSnapToGridMenu)
 	EVT_MENU(idMenuMoveXZ, GNRMainFrame::OnToolbarMoveXZ)
@@ -577,6 +578,13 @@ void GNRMainFrame::OnGroupCreate(wxCommandEvent& WXUNUSED(event))
 {
 	GNRNotifyEvent gnrevent(wxEVT_COMMAND_GNR_NOTIFY);
 	gnrevent.setGNREventType(CREATEGROUP);
+	GetEventHandler()->ProcessEvent(gnrevent);
+}
+
+void GNRMainFrame::OnGroupModify(wxCommandEvent& WXUNUSED(event))
+{
+	GNRNotifyEvent gnrevent(wxEVT_COMMAND_GNR_NOTIFY);
+	gnrevent.setGNREventType(MODIFYGROUP);
 	GetEventHandler()->ProcessEvent(gnrevent);
 }
 

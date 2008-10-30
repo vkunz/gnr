@@ -68,10 +68,10 @@ public:
 	void deleteSelectedAssemblies();
 	void hideSelectedAssemblies();
 	void groupSelectedAssemblies();
+	void ungroupSelectedAssemblies();
 	
 	void restoreAssembly(GNRAssembly* assembly);
 	void showAssembly(GNRAssembly* assembly);
-	void ungroupAssembly(GNRAssembly* assembly);
 	void selectAssembly(GNRAssembly* assembly);
 	void minmax(float& min,float& max,float value);
 	

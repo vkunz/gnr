@@ -615,7 +615,7 @@ void GNRAssembly::draw() const
 		float h_z = m_depth/2.0;
 		
 		//if selected paint in green color
-		if (m_parent->m_type == IS_SELECTED)
+		if (m_parent->m_type == IS_SELECTED && m_type != IS_GROUP)
 		{
 			linecolor[0] = 0.0;
 			linecolor[1] = 1.0;

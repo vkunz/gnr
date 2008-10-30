@@ -260,12 +260,6 @@ void GNRScene::groupSelectedAssemblies()
 	//build new center as vertex for better calculation
 	GNRVertex new_center((max[0]+min[0])/2.0, (max[1]+min[1])/2.0, (max[2]+min[2])/2.0);
 	
-	wxString str;
-	str << wxT(" newX=") << (max[0]+min[0])/2.0;
-	str << wxT(" newY=") << (max[1]+min[1])/2.0;
-	str << wxT(" newZ=") << (max[2]+min[2])/2.0;
-	wxLogDebug(str);
-	
 	//move group center to new center
 	group->setCenterVertex(new_center);
 	group->setHeight((max[1]+min[1]));
@@ -292,6 +286,53 @@ void GNRScene::groupSelectedAssemblies()
 }
 
 /**
+ * ungroup selected group and move all parts to selected container
+ * @access      public
+ */
+void GNRScene::ungroupSelectedAssemblies()
+{
+	list<GNRAssembly*> sel_parts = m_Selected->getPartList();
+	list<GNRAssembly*> grp_parts;
+	
+	if (sel_parts.size() <= 0)
+	{
+		//no parts, don't waste time
+		return;
+	}
+	
+	GNRVertex grp_center;
+	GNRVertex obj_center;
+	
+	//find all groups and free them
+	for (list<GNRAssembly*>::iterator it = sel_parts.begin(); it != sel_parts.end(); ++it)
+	{
+		grp_center = (*it)->getCenterVertex();
+		if ((*it)->isType(IS_GROUP))
+		{
+			//get partlist iterator
+			grp_parts  = (*it)->getPartList();
+			//save center of group
+			obj_center = (*it)->getCenterVertex();
+			
+			//correct position of all group members
+			for (list<GNRAssembly*>::iterator child_it = grp_parts.begin(); child_it != grp_parts.end(); ++child_it)
+			{
+				//move assembly from group to IS_SELECTED
+				m_Selected->addPart((*child_it));
+				(*it)->delPart((*child_it));
+				
+				//calculate new position to center of IS_SELECTED
+				obj_center = grp_center - obj_center;
+				(*it)->setCenterVertex(obj_center);
+				
+				//put the new child on the floor, please
+				(*child_it)->putOnGround();
+			}
+		}
+	}
+}
+
+/**
  * restore assembly (move from trash container to root)
  * @param       GNRAssembly*        pointer to assembly to restor
  * @access      public
@@ -311,16 +352,6 @@ void GNRScene::restoreAssembly(GNRAssembly* assembly)
  * @access      public
  */
 void GNRScene::showAssembly(GNRAssembly* assembly)
-{
-
-}
-
-/**
- * ungroup selected group and move all parts to selected container
- * @param       GNRAssembly*        pointer to assembly for editing
- * @access      public
- */
-void GNRScene::ungroupAssembly(GNRAssembly* assembly)
 {
 
 }
