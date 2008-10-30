@@ -85,6 +85,7 @@ void GNRGLCanvas::connectEvents()
 	Connect(wxEVT_ENTER_WINDOW, (wxObjectEventFunction)&GNRGLCanvas::OnEnterWindow);
 	Connect(wxEVT_SIZE, (wxObjectEventFunction)&GNRGLCanvas::OnResize);
 	Connect(wxEVT_PAINT,(wxObjectEventFunction)&GNRGLCanvas::OnPaint);
+	Connect(wxEVT_LEFT_DCLICK, (wxObjectEventFunction)&GNRGLCanvas::OnLMouseDblClick);
 }
 
 void GNRGLCanvas::setMatrix()
@@ -354,6 +355,33 @@ GNRAssembly* GNRGLCanvas::selection(GNRAssembly* rootAssembly, GNRGLCamera* came
  * @access      private
  */
 void GNRGLCanvas::OnLMouseDown(wxMouseEvent& event)
+{
+	SetFocus();
+	Connect(wxEVT_MOUSEWHEEL, (wxObjectEventFunction)&GNRGLCanvas::OnMouseWheel);
+	
+	GNRVertex* glcoords = new GNRVertex[2];
+	getGLDim(event.GetX(), event.GetY(), glcoords);
+	
+	// send Event to handle Mouse
+	GNRGLNotifyEvent myevent(wxEVT_COMMAND_GL_NOTIFY);
+	myevent.setMouseEvent(event);
+	myevent.setCanvasID(getCanvasID());
+	myevent.SetEventObject(this);
+	myevent.SetInt((int)this);
+	myevent.setWindowSize(m_window_x, m_window_y);
+	myevent.setWorldSize(glcoords);
+	GetEventHandler()->ProcessEvent(myevent);
+	
+	Connect(wxEVT_MOTION, (wxObjectEventFunction)&GNRGLCanvas::OnMouseMove);
+	delete[] glcoords;
+}
+
+/**
+ * fetches the Double-Click event for selection of objects
+ * @param       wxMouseEvent    Mouse-Event of current canvas
+ * @access      private
+ */
+void GNRGLCanvas::OnLMouseDblClick(wxMouseEvent& event)
 {
 	SetFocus();
 	Connect(wxEVT_MOUSEWHEEL, (wxObjectEventFunction)&GNRGLCanvas::OnMouseWheel);

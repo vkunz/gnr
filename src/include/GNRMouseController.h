@@ -53,6 +53,7 @@ public:
 	
 	void setTranslation(GNRNotifyEvent& event);
 	void setSnapfunction(GNRNotifyEvent& event);
+	void setSelected(GNRGLNotifyEvent& event);
 	void setMediator(GNRGLNotifyEvent& event);
 	void setAssemblyMediator(GNRGLNotifyEvent& event);
 	void activateMediator(GNRGLNotifyEvent& event);

@@ -101,9 +101,7 @@ GNRAssembly *GNRObjectImport::read(const string& fname)
 	ifs.close();
 	
 	//scale factor 1.0 instead of scale, if glScalef before glTranslatef in assembly->draw
-	m_wrapper->setX(-1.0*(m_xmax + m_xmin)/2.0);
-	m_wrapper->setY(-1.0*(m_ymax + m_ymin)/2.0);
-	m_wrapper->setZ(-1.0*(m_zmax + m_zmin)/2.0);
+	m_wrapper->setXYZ(-1.0*(m_xmax + m_xmin)/2.0, -1.0*(m_ymax + m_ymin)/2.0, -1.0*(m_zmax + m_zmin)/2.0);
 	m_wrapper->setNormals();
 	
 	//set real size and scale of object

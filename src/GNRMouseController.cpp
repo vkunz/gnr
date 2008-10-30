@@ -191,12 +191,23 @@ void GNRMouseController::setAssemblyMediator(GNRGLNotifyEvent& event)
 		selectedAssembly = (m_Scene->getCanvas3D())->selection(m_Scene->getRootAssembly(), m_Scene->getGLCamera3D(), mouse_x, mouse_y);
 	}
 	
-	//store selected assembly id in scene
-	m_Scene->setAssembly(selectedAssembly);
+	//set assembly mediator target to selected object
+	m_Mediator->setAssembly(selectedAssembly);
+}
+
+void GNRMouseController::setSelected(GNRGLNotifyEvent& event)
+{
+	GNRAssembly* selectedAssembly = NULL;
+	
+	if (event.getCanvasID() == CANVAS2D)
+	{
+		selectedAssembly = (m_Scene->getCanvas2D())->selection(m_Scene->getRootAssembly(), m_Scene->getGLCamera2D(), mouse_x, mouse_y);
+	}
+	else
+	{
+		selectedAssembly = (m_Scene->getCanvas3D())->selection(m_Scene->getRootAssembly(), m_Scene->getGLCamera3D(), mouse_x, mouse_y);
+	}
 	
 	//select assembly (move to IS_SELECTED group)
 	m_Scene->selectAssembly(selectedAssembly);
-	
-	//set assembly mediator target to selected object
-	m_Mediator->setAssembly(selectedAssembly);
 }

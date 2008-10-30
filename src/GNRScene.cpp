@@ -240,15 +240,47 @@ void GNRScene::groupSelectedAssemblies()
 	
 	if (parts.size() <= 0)
 	{
+		//no parts, don't waste time
 		return;
 	}
 	
 	GNRAssembly* group = new GNRAssembly(IS_GROUP, "group");
+	GNRAssembly* element;
+	
+	float min[3], max[3];
+	
+	//first pass to get maximum cube and new center of group
 	for (list<GNRAssembly*>::iterator it = parts.begin(); it != parts.end(); ++it)
 	{
+		element = (*it);
+		minmax(min[0], max[0], element->getX());
+		minmax(min[1], max[1], element->getY());
+		minmax(min[2], max[2], element->getZ());
+	}
+	
+	//build new center as vertex for better calculation
+	GNRVertex new_center((max[0]+min[0])/2.0, (max[1]+min[1])/2.0, (max[2]+min[2])/2.0);
+	//move group center to new center
+	group->setCenterVertex(new_center);
+	//store obj center as vertex
+	GNRVertex obj_center;
+	
+	//put all assemblies in the selected container
+	for (list<GNRAssembly*>::iterator it = parts.begin(); it != parts.end(); ++it)
+	{
+		//store old center
+		obj_center = (*it)->getCenterVertex();
+		
+		//add part to new group and remove from selection
 		group->addPart((*it));
 		m_Selected->delPart((*it));
+		
+		//modify center relative to new center
+		obj_center = obj_center - new_center;
+		(*it)->setCenterVertex(obj_center);
 	}
+	
+	//put new group in the world
 	m_RootAssembly->addPart(group);
 }
 
@@ -293,30 +325,41 @@ void GNRScene::ungroupAssembly(GNRAssembly* assembly)
  */
 void GNRScene::selectAssembly(GNRAssembly* assembly)
 {
-	if (assembly != NULL)
+	if (assembly != NULL && assembly->getParent() != NULL)
 	{
-		//is parent of assembly is not the select container
+		//if parent of assembly is group, highlight
 		if (! assembly->getParent()->isType(IS_SELECTED))
 		{
 			//move assembly in selected container
 			m_Selected->addPart(assembly);
 			m_RootAssembly->delPart(assembly);
-			
-			wxString msg;
-			msg << (int)assembly << wxT(" moved to IS_SELECTED!");
-			wxLogDebug(msg);
 		}
-		else
+		else if (assembly->getParent()->isType(IS_SELECTED))
 		{
 			//move assembly in root
 			m_RootAssembly->addPart(assembly);
 			m_Selected->delPart(assembly);
-			
-			wxString msg;
-			msg << (int)assembly << wxT(" moved to IS_ROOT!");
-			wxLogDebug(msg);
 		}
 		//repaint cause of box on floor
 		glRefresh();
+	}
+}
+
+/**
+ * calculate min max values
+ * @param       float       new minium value
+ * @param       float       new maximum value
+ * @param       float       value to check for changes
+ * @access      public
+ */
+void GNRScene::minmax(float& min,float& max,float value)
+{
+	if (max < value)
+	{
+		max = value;
+	}
+	if (min > value)
+	{
+		min = value;
 	}
 }

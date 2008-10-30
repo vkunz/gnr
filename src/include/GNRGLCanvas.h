@@ -33,6 +33,7 @@ private:
 	void OnKeyDown(wxKeyEvent& event);
 	void OnResize(wxSizeEvent& event);
 	void OnPaint(wxPaintEvent& event);
+	void OnLMouseDblClick(wxMouseEvent& event);
 	DECLARE_EVENT_TABLE()
 	
 protected:

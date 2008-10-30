@@ -329,6 +329,20 @@ void GNRAssembly::setXZ(const float x, const float z)
 }
 
 /**
+ * set position value x, y and z
+ * @param       float       x
+ * @param       float       y
+ * @param       float       z
+ * @access      public
+ */
+void GNRAssembly::setXYZ(const float x, const float y, const float z)
+{
+	m_x = x;
+	m_y = y;
+	m_z = z;
+}
+
+/**
  * set degree value of rotation in x
  * @param       float        rotation degree in x
  * @access      public
@@ -501,6 +515,18 @@ void GNRAssembly::setType(const assemblyType& type)
 }
 
 /**
+ * set vertex position
+ * @param       GNRVertex      vertex to center
+ * @access      public
+ */
+void GNRAssembly::setCenterVertex(const GNRVertex& center)
+{
+	m_x = center.getX();
+	m_y = center.getY();
+	m_z = center.getZ();
+}
+
+/**
  * add face to assembly
  * @param       GNRFace      face to add
  * @access      public
@@ -529,6 +555,17 @@ void GNRAssembly::addPart(GNRAssembly* part)
 void GNRAssembly::delPart(GNRAssembly* part)
 {
 	m_part.remove(part);
+}
+
+/**
+ * get vertex position
+ * @return      GNRVertext      vertex to center of object
+ * @access      public
+ */
+GNRVertex& GNRAssembly::getCenterVertex() const
+{
+	GNRVertex position(m_x, m_y, m_z);
+	return position;
 }
 
 /**
@@ -577,7 +614,7 @@ void GNRAssembly::draw() const
 		float h_y = m_height/2.0;
 		float h_z = m_depth/2.0;
 		
-		//if parent is selected, green color
+		//if selected paint in green color
 		if (m_parent->m_type == IS_SELECTED)
 		{
 			linecolor[0] = 0.0;
@@ -585,8 +622,9 @@ void GNRAssembly::draw() const
 			linecolor[2] = 0.0;
 			linecolor[3] = 0.0;
 		}
-		//if parent is group, red color
-		else if (m_parent->m_type == IS_GROUP)
+		
+		//if group selected paint in red color
+		if (m_parent->m_type == IS_GROUP && m_parent->m_parent->m_type != IS_ROOT)
 		{
 			linecolor[0] = 1.0;
 			linecolor[1] = 0.0;
@@ -601,14 +639,19 @@ void GNRAssembly::draw() const
 			{
 				glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, linecolor);
 				glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, linecolor);
-				//glMaterialfv(GL_FRONT_AND_BACK, GL_EMISSION, linecolor);
-				glLineWidth(4.0);
+				glMaterialfv(GL_FRONT_AND_BACK, GL_EMISSION, linecolor);
+				glLineWidth(10.0);
 				glBegin(GL_LINE_LOOP);
-				glVertex3f(m_x-h_x-0.1, m_y-h_y+0.1, m_z-h_z-0.1);
-				glVertex3f(m_x+h_x+0.1, m_y-h_y+0.1, m_z-h_z-0.1);
-				glVertex3f(m_x+h_x+0.1, m_y-h_y+0.1, m_z+h_z+0.1);
-				glVertex3f(m_x-h_x-0.1, m_y-h_y+0.1, m_z+h_z+0.1);
+				glVertex3f(m_x-h_x-0.05, m_y-h_y+0.02, m_z-h_z-0.05);
+				glVertex3f(m_x+h_x+0.05, m_y-h_y+0.02, m_z-h_z-0.05);
+				glVertex3f(m_x+h_x+0.05, m_y-h_y+0.02, m_z+h_z+0.05);
+				glVertex3f(m_x-h_x-0.05, m_y-h_y+0.02, m_z+h_z+0.05);
 				glEnd();
+				linecolor[0] = 0.0;
+				linecolor[1] = 0.0;
+				linecolor[2] = 0.0;
+				linecolor[3] = 0.0;
+				glMaterialfv(GL_FRONT_AND_BACK, GL_EMISSION, linecolor);
 			}
 			glPopMatrix();
 		}

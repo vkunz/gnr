@@ -215,6 +215,7 @@ void GNRApp::OnGNREvent(GNRNotifyEvent& event)
 		break;
 	case CREATEGROUP:
 		m_Scene->groupSelectedAssemblies();
+		m_Scene->glRefresh();
 		break;
 	case SETUNDOENABLED:
 		m_MainFrame->setUndoEnabled(event.GetInt());
@@ -231,7 +232,12 @@ void GNRApp::OnGNREvent(GNRNotifyEvent& event)
 void GNRApp::OnGLEvent(GNRGLNotifyEvent& event)
 {
 	//if button goes down, switch mediator to current operation
-	if (event.getMouseEvent().ButtonDown())
+	if (event.getMouseEvent().ButtonDClick(-1))
+	{
+		m_MouseCtrl->setSelected(event);
+	}
+	//if button goes down, switch mediator to current operation
+	else if (event.getMouseEvent().ButtonDown(-1))
 	{
 		m_MouseCtrl->setMediator(event);
 	}
@@ -240,13 +246,11 @@ void GNRApp::OnGLEvent(GNRGLNotifyEvent& event)
 	{
 		m_MouseCtrl->activateMediator(event);
 	}
-	
 	//if button goes up, create command-object for undo
-	else if (event.getMouseEvent().ButtonUp())
+	else if (event.getMouseEvent().ButtonUp(-1))
 	{
 		m_MouseCtrl->deactivateMediator();
 	}
-	
 	//if event is scroll-event, translate event to mediator
 	else if (event.getMouseEvent().GetWheelRotation())
 	{

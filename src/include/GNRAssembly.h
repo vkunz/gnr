@@ -17,6 +17,7 @@
 
 #include "GNREnum.h"
 #include "GNRFace.h"
+#include "GNRVertex.h"
 
 using std::list;
 using std::vector;
@@ -40,12 +41,15 @@ public:
 	float getWidth() const;
 	float getDepth() const;
 	float getMaximumSize() const;
+	GNRVertex& GNRAssembly::getCenterVertex() const;
 	
 	void setX(const float x);
 	void setY(const float y);
 	void setZ(const float z);
 	void setXY(const float x,const float y);
 	void setXZ(const float x,const float z);
+	void setXYZ(const float x, const float y, const float z);
+	void setCenterVertex(const GNRVertex& center);
 	
 	void setHeight(const float height);
 	void setWidth(const float width);

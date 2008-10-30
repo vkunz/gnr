@@ -73,6 +73,7 @@ public:
 	void showAssembly(GNRAssembly* assembly);
 	void ungroupAssembly(GNRAssembly* assembly);
 	void selectAssembly(GNRAssembly* assembly);
+	void minmax(float& min,float& max,float value);
 	
 	GNRScene();
 	virtual ~GNRScene();
