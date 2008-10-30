@@ -41,7 +41,7 @@ private:
 	GNRGLCanvas3D*  m_Canvas3D;
 	
 	//ID of actual selected assembly
-	int m_AssemblyID;
+	GNRAssembly* m_Assembly;
 	
 protected:
 
@@ -52,7 +52,7 @@ public:
 	GNRGLCamera* getGLCamera2D();
 	GNRGLCamera* getGLCamera3D();
 	
-	void setAssemblyID(int assemblyID);
+	void setAssembly(GNRAssembly* assembly);
 	void setCanvas2D(GNRGLCanvas2D* p);
 	void setCanvas3D(GNRGLCanvas3D* p);
 	GNRGLCanvas2D* getCanvas2D();
@@ -65,11 +65,14 @@ public:
 	void glRefresh2D();
 	void glRefresh3D();
 	
-	void deleteAssembly(GNRAssembly* assembly);
-	void restoreAssembly(GNRAssembly* assembly);
-	void hideAssembly(GNRAssembly* assembly);
-	void showAssembly(GNRAssembly* assembly);
+	void deleteSelectedAssemblies();
+	void hideSelectedAssemblies();
+	void groupSelectedAssemblies();
 	
+	void restoreAssembly(GNRAssembly* assembly);
+	void showAssembly(GNRAssembly* assembly);
+	void ungroupAssembly(GNRAssembly* assembly);
+	void selectAssembly(GNRAssembly* assembly);
 	
 	GNRScene();
 	virtual ~GNRScene();

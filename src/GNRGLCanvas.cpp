@@ -264,7 +264,7 @@ void GNRGLCanvas::prepareDraw()
  * @return      int             GL-Object-ID
  * @access      public
  */
-int GNRGLCanvas::selection(GNRAssembly* rootAssembly, GNRGLCamera* camera, int mouse_x, int mouse_y)
+GNRAssembly* GNRGLCanvas::selection(GNRAssembly* rootAssembly, GNRGLCamera* camera, int mouse_x, int mouse_y)
 {
 	SetCurrent();
 	// Set Up A Selection Buffer
@@ -340,13 +340,12 @@ int GNRGLCanvas::selection(GNRAssembly* rootAssembly, GNRGLCamera* camera, int m
 		//if choose > 0, an object was hit
 		if (choose > 0)
 		{
-			//return master ID of assembly
+			//return pointer to master of assembly
 			GNRAssembly* a = (GNRAssembly*)choose;
-			return a->getMasterID();
+			return a->getMaster();
 		}
-		return choose;
 	}
-	return 0;
+	return NULL;
 }
 
 /**

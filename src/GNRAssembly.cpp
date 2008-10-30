@@ -25,8 +25,7 @@ GNRAssembly::GNRAssembly(const string& name = "unnamed"):
 		m_phi(0.0), m_theta(0.0), m_rho(0.0),
 		m_scale_x(1.0), m_scale_y(1.0), m_scale_z(1.0),
 		m_width(1.0), m_height(1.0), m_depth(1.0),
-		m_type(IS_ROOT),
-		m_name(name), m_parent(NULL)
+		m_type(IS_ROOT), m_name(name), m_parent(NULL)
 {
 }
 
@@ -41,8 +40,7 @@ GNRAssembly::GNRAssembly(GNRAssembly* parent, const string& name = "unnamed"):
 		m_phi(0.0), m_theta(0.0), m_rho(0.0),
 		m_scale_x(1.0), m_scale_y(1.0), m_scale_z(1.0),
 		m_width(1.0), m_height(1.0), m_depth(1.0),
-		m_type(IS_ROOT),
-		m_name(name), m_parent(parent)
+		m_type(IS_ROOT), m_name(name), m_parent(parent)
 {
 }
 
@@ -57,8 +55,7 @@ GNRAssembly::GNRAssembly(const assemblyType& type, const string& name = "unnamed
 		m_phi(0.0), m_theta(0.0), m_rho(0.0),
 		m_scale_x(1.0), m_scale_y(1.0), m_scale_z(1.0),
 		m_width(1.0), m_height(1.0), m_depth(1.0),
-		m_type(type),
-		m_name(name), m_parent(NULL)
+		m_type(type), m_name(name), m_parent(NULL)
 {
 }
 
@@ -228,17 +225,22 @@ float GNRAssembly::getOverGround() const
 
 /**
  * get master id of current assembly
- * @return      int         int ID of master
+ * @return      GNRAssembly*         pointer to master
  * @access      public
  */
-int GNRAssembly::getMasterID()
+GNRAssembly* GNRAssembly::getMaster() const
 {
-	GNRAssembly* p = m_parent;
-	while (p->m_parent != NULL && p->m_parent->m_type != IS_ROOT)
+	GNRAssembly* master = m_parent;
+	
+	//while parent exists and type is not ROOT,
+	// SELECTED, HIDDEN or TRASH, move upwards
+	while (master->m_parent != NULL && master->m_parent->m_type > IS_TRASH)
 	{
-		p = p->m_parent;
+		master = master->m_parent;
 	}
-	return (int)p;
+	
+	//return master pointer
+	return master;
 }
 
 /**
@@ -517,6 +519,26 @@ void GNRAssembly::addPart(GNRAssembly* part)
 {
 	part->setParent(this);
 	m_part.push_back(part);
+}
+
+/**
+ * delete part in assembly
+ * @param       GNRAssembly      part to remove
+ * @access      public
+ */
+void GNRAssembly::delPart(GNRAssembly* part)
+{
+	m_part.remove(part);
+}
+
+/**
+ * get pointer to partlist for iteration
+ * @return      list<GNRAssembly*>      pointer to part list
+ * @access      public
+ */
+list<GNRAssembly*> GNRAssembly::getPartList()
+{
+	return m_part;
 }
 
 /**

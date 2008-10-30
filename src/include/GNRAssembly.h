@@ -73,6 +73,7 @@ public:
 	
 	void addFace(const GNRFace& newface);
 	void addPart(GNRAssembly* part);
+	void delPart(GNRAssembly* part);
 	
 	void setName(const string& name);
 	const string& getName() const;
@@ -82,7 +83,7 @@ public:
 	bool isType(const assemblyType& type);
 	
 	GNRAssembly* getParent() const;
-	int getMasterID();
+	GNRAssembly* getMaster() const;
 	void setParent(GNRAssembly* p);
 	
 	float getOverGround() const;
@@ -91,6 +92,7 @@ public:
 	
 	void draw() const;
 	void debugInfo() const;
+	list<GNRAssembly*> getPartList();
 	
 private:
 

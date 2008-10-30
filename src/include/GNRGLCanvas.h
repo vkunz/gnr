@@ -73,7 +73,7 @@ public:
 	void initLights();
 	void draw();
 	void endDraw();
-	int selection(GNRAssembly* rootAssembly, GNRGLCamera* camera, int mouse_x, int mouse_y);
+	GNRAssembly* selection(GNRAssembly* rootAssembly, GNRGLCamera* camera, int mouse_x, int mouse_y);
 	void drawBaseFloor(float fCenterX, float fCenterY, float fCenterZ, int fSize);
 	void setActive();
 };

@@ -21,9 +21,9 @@
  * @param       int         assemblyID int cast of pointer
  * @access      public
  */
-void GNRAssemblyMediator::setAssemblyID(int assemblyID)
+void GNRAssemblyMediator::setAssembly(GNRAssembly* assembly)
 {
-	m_Assembly = (GNRAssembly*)assemblyID;
+	m_Assembly = assembly;
 }
 
 /**

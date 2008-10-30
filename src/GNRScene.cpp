@@ -17,14 +17,16 @@
  */
 GNRScene::GNRScene()
 {
+	m_Assembly = NULL;
+	
 	m_GLCamera2D    = new GNRGLCamera();
 	m_GLCamera3D    = new GNRGLCamera();
 	
-	m_RootAssembly  = new GNRAssembly("scene");
-	m_Selected      = new GNRAssembly("selected");
+	m_RootAssembly  = new GNRAssembly(IS_ROOT,    "scene");
+	m_Selected      = new GNRAssembly(IS_SELECTED,"selected");
 	
-	m_Trash         = new GNRAssembly("trash");
-	m_Hidden        = new GNRAssembly("hidden");
+	m_Trash         = new GNRAssembly(IS_TRASH,   "trash");
+	m_Hidden        = new GNRAssembly(IS_HIDDEN,  "hidden");
 	
 	//put selected assembly in real world
 	m_RootAssembly->addPart(m_Selected);
@@ -52,9 +54,9 @@ GNRScene::~GNRScene()
  * set actual hit assembly id
  * @access      public
  */
-void GNRScene::setAssemblyID(int assemblyID)
+void GNRScene::setAssembly(GNRAssembly* assembly)
 {
-	m_AssemblyID = assemblyID;
+	m_Assembly = assembly;
 }
 
 /**
@@ -64,7 +66,7 @@ void GNRScene::setAssemblyID(int assemblyID)
  */
 GNRAssembly* GNRScene::getAssembly()
 {
-	return (GNRAssembly*)m_AssemblyID;
+	return m_Assembly;
 }
 
 /**
@@ -103,15 +105,17 @@ GNRGLCamera* GNRScene::getGLCamera3D()
  */
 void GNRScene::newRoom()
 {
+	m_Assembly = NULL;
+	
 	delete m_RootAssembly;
 	delete m_Trash;
 	delete m_Hidden;
 	
-	m_RootAssembly  = new GNRAssembly("scene");
-	m_Selected      = new GNRAssembly("selected");
+	m_RootAssembly  = new GNRAssembly(IS_ROOT,    "scene");
+	m_Selected      = new GNRAssembly(IS_SELECTED,"selected");
 	
-	m_Trash         = new GNRAssembly("trash");
-	m_Hidden        = new GNRAssembly("hidden");
+	m_Trash         = new GNRAssembly(IS_TRASH,   "trash");
+	m_Hidden        = new GNRAssembly(IS_HIDDEN,  "hidden");
 	
 	//put selected assembly in real world
 	m_RootAssembly->addPart(m_Selected);
@@ -196,4 +200,110 @@ void GNRScene::glRefresh3D()
 	m_Canvas3D->endDraw();
 }
 
+/**
+ * delete all selected assemblies (move to trash container)
+ * @access      public
+ */
+void GNRScene::deleteSelectedAssemblies()
+{
+	list<GNRAssembly*> parts = m_Selected->getPartList();
+	
+	for (list<GNRAssembly*>::iterator it = parts.begin(); it != parts.end(); ++it)
+	{
+		m_Trash->addPart((*it));
+		m_Selected->delPart((*it));
+	}
+}
 
+/**
+ * hide all selected assemblies (move to hidden container)
+ * @access      public
+ */
+void GNRScene::hideSelectedAssemblies()
+{
+	list<GNRAssembly*> parts = m_Selected->getPartList();
+	
+	for (list<GNRAssembly*>::iterator it = parts.begin(); it != parts.end(); ++it)
+	{
+		m_Hidden->addPart((*it));
+		m_Selected->delPart((*it));
+	}
+}
+
+/**
+ * group all selected assemblies and move to root
+ * @access      public
+ */
+void GNRScene::groupSelectedAssemblies()
+{
+	GNRAssembly* group = new GNRAssembly(IS_GROUP, "group");
+	
+	list<GNRAssembly*> parts = m_Selected->getPartList();
+	
+	for (list<GNRAssembly*>::iterator it = parts.begin(); it != parts.end(); ++it)
+	{
+		group->addPart((*it));
+		m_Selected->delPart((*it));
+	}
+	
+	m_RootAssembly->addPart(group);
+}
+
+/**
+ * restore assembly (move from trash container to root)
+ * @param       GNRAssembly*        pointer to assembly to restor
+ * @access      public
+ */
+void GNRScene::restoreAssembly(GNRAssembly* assembly)
+{
+	if (assembly != NULL)
+	{
+		m_RootAssembly->addPart(assembly);
+		m_Trash->delPart(assembly);
+	}
+}
+
+/**
+ * show actual assembly again (unhide, move out of hidden container)
+ * @param       GNRAssembly*        pointer to assembly to show
+ * @access      public
+ */
+void GNRScene::showAssembly(GNRAssembly* assembly)
+{
+
+}
+
+/**
+ * ungroup selected group and move all parts to selected container
+ * @param       GNRAssembly*        pointer to assembly for editing
+ * @access      public
+ */
+void GNRScene::ungroupAssembly(GNRAssembly* assembly)
+{
+
+}
+
+/**
+ * toggle selected assembly (later on CTRL
+ * @param       GNRAssembly*        pointer to assembly to delete
+ * @access      public
+ */
+void GNRScene::selectAssembly(GNRAssembly* assembly)
+{
+	if (assembly != NULL)
+	{
+		//is parent of assembly is not the select container
+		if (! assembly->getParent()->isType(IS_SELECTED))
+		{
+			//move assembly in selected container
+			m_Selected->addPart(assembly);
+			m_RootAssembly->delPart(assembly);
+		}
+		else
+		{
+			//move assembly in root
+			m_RootAssembly->addPart(assembly);
+			m_Selected->delPart(assembly);
+		}
+	}
+}

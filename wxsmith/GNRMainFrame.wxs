@@ -100,6 +100,41 @@
 					<help>Wände im 2D-Modus erstellen</help>
 				</object>
 			</object>
+			<object class="wxMenu" variable="Menu4" member="yes">
+				<label>&amp;Funktionen</label>
+				<object class="wxMenuItem" name="idMenuGroup" variable="MenuItem17" member="yes">
+					<label>&amp;Gruppe erstellen</label>
+					<accel>ALT-G</accel>
+					<help>Neue Gruppe erstellen...</help>
+				</object>
+				<object class="wxMenuItem" name="idMenuUngroup" variable="MenuItem18" member="yes">
+					<label>Gruppe ausflösen</label>
+					<accel>ALT-T</accel>
+					<help>Gruppe ausflösen...</help>
+				</object>
+				<object class="separator" />
+				<object class="wxMenuItem" name="idMenuInsertObject" variable="MenuItem21" member="yes">
+					<label>Objekt einfügen</label>
+					<help>Objekt einfügen...</help>
+				</object>
+				<object class="wxMenuItem" name="idMenuDeleteObject" variable="MenuItem19" member="yes">
+					<label>Objekt entfernen</label>
+					<help>Objekt entfernen...</help>
+				</object>
+				<object class="wxMenuItem" name="idMenuCopyObject" variable="MenuItem22" member="yes">
+					<label>Objekt kopieren</label>
+					<help>Objekt kopieren...</help>
+				</object>
+				<object class="separator" />
+				<object class="wxMenuItem" name="idMenuHideObject" variable="MenuItem20" member="yes">
+					<label>Objekt verstecken</label>
+					<help>Objekt verstecken...</help>
+				</object>
+				<object class="wxMenuItem" name="idMenuShowObject" variable="MenuItem23" member="yes">
+					<label>Objekt anzeigen</label>
+					<help>Objekt anzeigen...</help>
+				</object>
+			</object>
 			<object class="wxMenu" variable="Menu2" member="no">
 				<label>&amp;Hilfe</label>
 				<object class="wxMenuItem" name="idMenuHelp" variable="MenuItem5" member="no">

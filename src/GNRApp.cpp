@@ -232,7 +232,6 @@ void GNRApp::OnGLEvent(GNRGLNotifyEvent& event)
 	{
 		m_MouseCtrl->setMediator(event);
 	}
-	
 	//if button is down, translate event to mediator
 	else if (event.getMouseEvent().ButtonIsDown(-1))
 	{

@@ -12,6 +12,7 @@
 #define GNRMEDIATOR_H
 
 #include "GNRGLNotifyEvent.h"
+#include "GNRAssembly.h"
 #include "GNRGLCamera.h"
 #include "GNRNotifyEvent.h"
 
@@ -31,7 +32,7 @@ public:
 	void doSnapRotate(float& value);
 	
 	//has to be implemented in derived classes
-	virtual void setAssemblyID(int assemblyID) = 0;
+	virtual void setAssembly(GNRAssembly* assembly) = 0;
 	virtual void setGLCamera(GNRGLCamera* camera) = 0;
 	virtual void initialize(GNRGLNotifyEvent& event) = 0;
 	virtual int  translate(GNRGLNotifyEvent& event) = 0;

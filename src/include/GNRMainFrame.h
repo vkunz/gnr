@@ -73,6 +73,13 @@ private:
 	static const long idMenuRotateXZ;
 	static const long idMenuRotateXY;
 	static const long idMenuDrawWall;
+	static const long idMenuGroup;
+	static const long idMenuUngroup;
+	static const long idMenuInsertObject;
+	static const long idMenuDeleteObject;
+	static const long idMenuCopyObject;
+	static const long idMenuHideObject;
+	static const long idMenuShowObject;
 	static const long idMenuHelp;
 	static const long idMenuAbout;
 	static const long ID_StatusBar;
