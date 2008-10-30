@@ -10,41 +10,88 @@
 
 #include "GNRScene.h"
 
+/**
+ * construct scene and two assemblies (scene and grouper) plus
+ * two cameras for 2D and 3D
+ * @access      public
+ */
 GNRScene::GNRScene()
 {
-	m_RootAssembly  = new GNRAssembly("scene");
 	m_GLCamera2D    = new GNRGLCamera();
 	m_GLCamera3D    = new GNRGLCamera();
+	
+	m_RootAssembly  = new GNRAssembly("scene");
+	m_Selected      = new GNRAssembly("selected");
+	
+	m_Trash         = new GNRAssembly("trash");
+	m_Hidden        = new GNRAssembly("hidden");
+	
+	//put selected assembly in real world
+	m_RootAssembly->addPart(m_Selected);
+	
 	resetCamera();
 }
 
+/**
+ * destruct scene and two assemblies (scene and grouper) plus
+ * two cameras for 2D and 3D
+ * @access      public
+ */
 GNRScene::~GNRScene()
 {
 	delete m_GLCamera2D;
 	delete m_GLCamera3D;
+	
 	delete m_RootAssembly;
+	
+	delete m_Trash;
+	delete m_Hidden;
 }
 
+/**
+ * set actual hit assembly id
+ * @access      public
+ */
 void GNRScene::setAssemblyID(int assemblyID)
 {
 	m_AssemblyID = assemblyID;
 }
 
+/**
+ * get actual assembly pointer
+ * @return      GNRAssembly*    pointer to act. assembly
+ * @access      public
+ */
 GNRAssembly* GNRScene::getAssembly()
 {
 	return (GNRAssembly*)m_AssemblyID;
 }
 
+/**
+ * get root assembly pointer
+ * @return      GNRAssembly*    pointer to root assembly
+ * @access      public
+ */
 GNRAssembly* GNRScene::getRootAssembly()
 {
 	return m_RootAssembly;
 }
 
+/**
+ * get pointer to 2D cam
+ * @return      GNRAssembly*    pointer to 2D cam
+ * @access      public
+ */
 GNRGLCamera* GNRScene::getGLCamera2D()
 {
 	return m_GLCamera2D;
 }
 
+/**
+ * get pointer to 3D cam
+ * @return      GNRAssembly*    pointer to 3D cam
+ * @access      public
+ */
 GNRGLCamera* GNRScene::getGLCamera3D()
 {
 	return m_GLCamera3D;
@@ -57,7 +104,18 @@ GNRGLCamera* GNRScene::getGLCamera3D()
 void GNRScene::newRoom()
 {
 	delete m_RootAssembly;
-	m_RootAssembly = new GNRAssembly("scene");
+	delete m_Trash;
+	delete m_Hidden;
+	
+	m_RootAssembly  = new GNRAssembly("scene");
+	m_Selected      = new GNRAssembly("selected");
+	
+	m_Trash         = new GNRAssembly("trash");
+	m_Hidden        = new GNRAssembly("hidden");
+	
+	//put selected assembly in real world
+	m_RootAssembly->addPart(m_Selected);
+	
 	resetCamera();
 }
 
@@ -137,3 +195,5 @@ void GNRScene::glRefresh3D()
 	m_RootAssembly->draw();
 	m_Canvas3D->endDraw();
 }
+
+

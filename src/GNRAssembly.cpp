@@ -47,6 +47,22 @@ GNRAssembly::GNRAssembly(GNRAssembly* parent, const string& name = "unnamed"):
 }
 
 /**
+ * constructor of generic assembly with type
+ * @param       assemblyType   type of assembly
+ * @param       GNRAssembly*   pointer to parent
+ * @access      public
+ */
+GNRAssembly::GNRAssembly(const assemblyType& type, const string& name = "unnamed"):
+		m_x(0.0), m_y(0.0), m_z(0.0),
+		m_phi(0.0), m_theta(0.0), m_rho(0.0),
+		m_scale_x(1.0), m_scale_y(1.0), m_scale_z(1.0),
+		m_width(1.0), m_height(1.0), m_depth(1.0),
+		m_type(type),
+		m_name(name), m_parent(NULL)
+{
+}
+
+/**
  * destructor of generic assembly kills all his children
  * @access      public
  */
@@ -223,6 +239,25 @@ int GNRAssembly::getMasterID()
 		p = p->m_parent;
 	}
 	return (int)p;
+}
+
+/**
+ * get maximum size of object
+ * @return      float         size in meter
+ * @access      public
+ */
+float GNRAssembly::getMaximumSize() const
+{
+	float max = m_height;
+	if (m_width > max)
+	{
+		max = m_width;
+	}
+	if (m_depth > max)
+	{
+		max = m_depth;
+	}
+	return max;
 }
 
 /**

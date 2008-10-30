@@ -26,8 +26,16 @@ private:
 
 	//pointer for scene details
 	GNRAssembly*    m_RootAssembly;
+	
+	//pointer to separate containers
+	GNRAssembly*    m_Selected;
+	GNRAssembly*    m_Trash;
+	GNRAssembly*    m_Hidden;
+	
+	//both cameras
 	GNRGLCamera*    m_GLCamera2D;
 	GNRGLCamera*    m_GLCamera3D;
+	
 	//pointer to canvas
 	GNRGLCanvas2D*  m_Canvas2D;
 	GNRGLCanvas3D*  m_Canvas3D;
@@ -56,6 +64,12 @@ public:
 	void glRefresh();
 	void glRefresh2D();
 	void glRefresh3D();
+	
+	void deleteAssembly(GNRAssembly* assembly);
+	void restoreAssembly(GNRAssembly* assembly);
+	void hideAssembly(GNRAssembly* assembly);
+	void showAssembly(GNRAssembly* assembly);
+	
 	
 	GNRScene();
 	virtual ~GNRScene();

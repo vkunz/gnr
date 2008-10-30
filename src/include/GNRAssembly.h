@@ -27,8 +27,9 @@ class GNRAssembly
 public:
 
 	GNRAssembly();
-	GNRAssembly(const string &name);
+	GNRAssembly(const string& name);
 	GNRAssembly(GNRAssembly* parent, const string &name);
+	GNRAssembly(const assemblyType& type, const string& name);
 	
 	virtual ~GNRAssembly();
 	
@@ -39,6 +40,7 @@ public:
 	float getHeight() const;
 	float getWidth() const;
 	float getDepth() const;
+	float getMaximumSize() const;
 	
 	void setX(const float x);
 	void setY(const float y);
