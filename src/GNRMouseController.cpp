@@ -132,6 +132,16 @@ void GNRMouseController::activateMediator(GNRGLNotifyEvent& event)
 }
 
 /**
+ * tell mediator to stop translation and create command-object
+ * @param       GNRGLNotifyEvent      command event from canvas
+ * @access      public
+ */
+void GNRMouseController::deactivateMediator()
+{
+	m_Mediator->finalize();
+}
+
+/**
  * pass through the command event to the selected mediator
  * @param       GNRNotifyEvent      command event from canvas
  * @access      public

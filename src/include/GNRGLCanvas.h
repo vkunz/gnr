@@ -31,8 +31,10 @@ private:
 	void OnMouseWheel(wxMouseEvent& event);
 	void OnLeaveWindow(wxMouseEvent& event);
 	void OnEnterWindow(wxMouseEvent& event);
+	void OnKeyDown(wxKeyEvent& event);
 	void OnResize(wxSizeEvent& event);
 	void OnPaint(wxPaintEvent& event);
+	DECLARE_EVENT_TABLE()
 	
 protected:
 	int m_window_x, m_window_y;

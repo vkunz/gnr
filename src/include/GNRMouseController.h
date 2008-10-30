@@ -56,6 +56,7 @@ public:
 	void setMediator(GNRGLNotifyEvent& event);
 	void setAssemblyMediator(GNRGLNotifyEvent& event);
 	void activateMediator(GNRGLNotifyEvent& event);
+	void deactivateMediator();
 };
 
 #endif // GNRMOUSECONTROLLER_H

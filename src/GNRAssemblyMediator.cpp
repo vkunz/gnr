@@ -9,6 +9,8 @@
  */
 
 #include "GNRAssemblyMediator.h"
+#include "GNRUndoRedo.h"
+#include "GNRCommandAssembly.h"
 
 #if defined(__ATHOS_DEBUG__)
 #include <wx/log.h>
@@ -90,4 +92,25 @@ int GNRAssemblyMediator::translate(GNRGLNotifyEvent& event)
 	}
 	
 	return 0;
+}
+
+void GNRAssemblyMediator::finalize()
+{
+	//is active assembly, return
+	if (m_Assembly != NULL && (int)m_Assembly != 0)
+	{
+		GNRCommandAssembly* command = new GNRCommandAssembly;
+		command->setAssembly(m_Assembly);
+		GNRVertex old_pos(old_x, old_y, old_z);
+		command->setOldPosition(old_pos);
+		GNRVertex old_angles(phi_old, theta_old, rho_old);
+		command->setOldAngles(old_angles);
+		GNRVertex new_pos(m_Assembly->getX(), m_Assembly->getY(), m_Assembly->getZ());
+		command->setNewPosition(new_pos);
+		GNRVertex new_angles(m_Assembly->getPhi(), m_Assembly->getTheta(), m_Assembly->getRho());
+		command->setNewAngles(new_angles);
+		
+		GNRUndoRedo* undo = GNRUndoRedo::getInstance();
+		undo->enqueue(command);
+	}
 }

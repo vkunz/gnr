@@ -23,6 +23,7 @@ public:
 	void setAssemblyID(int WXUNUSED(assemblyID)) {};    //not needed in camera mediator
 	void initialize(GNRGLNotifyEvent& event);           //initialize camera mediator
 	int  translate(GNRGLNotifyEvent& event);            //perform translation to camera
+	void finalize();
 	
 protected:
 

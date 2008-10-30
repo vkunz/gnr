@@ -25,6 +25,8 @@ public:
 
 	GNRMainFrame(wxWindow* parent,wxWindowID id = -1);
 	virtual ~GNRMainFrame();
+	void setUndoEnabled(bool enabled);
+	void setRedoEnabled(bool enabled);
 	
 private:
 
@@ -41,6 +43,8 @@ private:
 	//*)
 	
 	//ToolBar Button Events
+	void OnToolbarUndo(wxCommandEvent& event);
+	void OnToolbarRedo(wxCommandEvent& event);
 	void OnToolbarMoveXZ(wxCommandEvent& event);
 	void OnToolbarMoveXY(wxCommandEvent& event);
 	void OnToolbarRotateXZ(wxCommandEvent& event);

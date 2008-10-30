@@ -28,6 +28,10 @@
 #define ZNEAR 0.1f
 #define ZFAR 100.0f
 
+BEGIN_EVENT_TABLE(GNRGLCanvas, wxGLCanvas)
+	EVT_KEY_DOWN(GNRGLCanvas::OnKeyDown)
+END_EVENT_TABLE()
+
 extern GNRMaterialLibrary mtllib;
 
 /**
@@ -585,36 +589,35 @@ void GNRGLCanvas::OnPaint(wxPaintEvent& event)
 	GetEventHandler()->ProcessEvent(myevent);
 	event.Skip();
 }
-
+/*
 // Convert Mouse-Coordinates to GL-Coordinates
-void GNRGLCanvas::getGLPos(int x, int y, GNRVertex* glcoords)
-{
+void GNRGLCanvas::getGLPos(int x, int y, GNRVertex* glcoords) {
 	SetCurrent();
 	glPushMatrix();
-	
+
 	GLdouble modelview[16], projection[16];
 	GLint viewport[4];
 	float z;
 	double xpos, ypos, zpos;
-	
+
 	glGetDoublev(GL_MODELVIEW_MATRIX, modelview);       //get the modelview matrix
 	glGetDoublev(GL_PROJECTION_MATRIX, projection);     //get the projection matrix
 	glGetIntegerv(GL_VIEWPORT, viewport);               //get the viewport
-	
+
 	//Read the window z co-ordinate (the z value on that point in unit cube)
 	glReadPixels((int)x, (int)(viewport[3]-y), 1, 1, GL_DEPTH_COMPONENT, GL_FLOAT, &z);
-	
+
 	//Unproject the window co-ordinates to find the world co-ordinates.
 	gluUnProject(x, viewport[3]-y, z, modelview, projection, viewport, &xpos, &ypos, &zpos);
-	
+
 	glPopMatrix();
-	
+
 	// return world coordinates
 	glcoords->setX(xpos);
 	glcoords->setY(ypos);
 	glcoords->setZ(zpos);
 }
-
+*/
 // Convert Mouse-Coordinates to GL-Coordinates
 void GNRGLCanvas::getGLDim(int x, int y, GNRVertex* glcoords)
 {
@@ -657,6 +660,16 @@ void GNRGLCanvas::getGLDim(int x, int y, GNRVertex* glcoords)
 void GNRGLCanvas::setActive()
 {
 	SetCurrent();
+}
+
+/**
+ * fetches the KeyDown
+ * @param       wxKeyEvent    Key-Event of current canvas
+ * @access      private
+ */
+void GNRGLCanvas::OnKeyDown(wxKeyEvent& event)
+{
+	wxLogDebug(wxT("Key-Event"));
 }
 
 /**

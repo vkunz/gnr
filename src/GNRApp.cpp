@@ -60,7 +60,7 @@ bool GNRApp::OnInit()
 		m_MouseCtrl     = new GNRMouseController(m_Scene);
 		m_TreeLibCtrl   = new GNRTreeLibraryController(m_TreeCtrlLib);
 		m_GridSceneCtrl = new GNRGridSceneController(m_Grid);
-		
+		m_UndoRedo      = GNRUndoRedo::getInstance();
 		
 		m_Scene->setCanvas2D(m_Canvas2D);
 		m_Scene->setCanvas3D(m_Canvas3D);
@@ -205,6 +205,20 @@ void GNRApp::OnGNREvent(GNRNotifyEvent& event)
 	case SCREENSHOT:
 		createScreenshot(event.GetString());
 		break;
+	case UNDO:
+		m_UndoRedo->undo();
+		m_Scene->glRefresh();
+		break;
+	case REDO:
+		m_UndoRedo->redo();
+		m_Scene->glRefresh();
+		break;
+	case SETUNDOENABLED:
+		m_MainFrame->setUndoEnabled(event.GetInt());
+		break;
+	case SETREDOENABLED:
+		m_MainFrame->setRedoEnabled(event.GetInt());
+		break;
 	}
 }
 
@@ -223,6 +237,12 @@ void GNRApp::OnGLEvent(GNRGLNotifyEvent& event)
 	else if (event.getMouseEvent().ButtonIsDown(-1))
 	{
 		m_MouseCtrl->activateMediator(event);
+	}
+	
+	//if button goes up, create command-object for undo
+	else if (event.getMouseEvent().ButtonUp())
+	{
+		m_MouseCtrl->deactivateMediator();
 	}
 	
 	//if event is scroll-event, translate event to mediator

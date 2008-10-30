@@ -35,6 +35,7 @@ public:
 	virtual void setGLCamera(GNRGLCamera* camera) = 0;
 	virtual void initialize(GNRGLNotifyEvent& event) = 0;
 	virtual int  translate(GNRGLNotifyEvent& event) = 0;
+	virtual void finalize() = 0;
 	
 protected:
 

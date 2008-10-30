@@ -22,6 +22,7 @@ public:
 	void setGLCamera(GNRGLCamera* WXUNUSED(camera)) {}; //not needed in assembly mediator
 	void initialize(GNRGLNotifyEvent& event);           //initialize assembly mediator
 	int  translate(GNRGLNotifyEvent& event);            //perform translation to assembly
+	void finalize();
 	
 protected:
 

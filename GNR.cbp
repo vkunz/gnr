@@ -104,6 +104,7 @@
 		<Unit filename="src\GNRAssemblyMediator.cpp" />
 		<Unit filename="src\GNRAssemblyMediator2D.cpp" />
 		<Unit filename="src\GNRAssemblyMediator3D.cpp" />
+		<Unit filename="src\GNRCommandAssembly.cpp" />
 		<Unit filename="src\GNRDebugFrame.cpp" />
 		<Unit filename="src\GNRFace.cpp" />
 		<Unit filename="src\GNRGLCamera.cpp" />
@@ -136,6 +137,7 @@
 		<Unit filename="src\GNRTCoord.cpp" />
 		<Unit filename="src\GNRTreeLibraryController.cpp" />
 		<Unit filename="src\GNRTreePanelLibrary.cpp" />
+		<Unit filename="src\GNRUndoRedo.cpp" />
 		<Unit filename="src\GNRVNT.cpp" />
 		<Unit filename="src\GNRVertex.cpp" />
 		<Unit filename="src\include\GNRApp.h" />
@@ -143,6 +145,8 @@
 		<Unit filename="src\include\GNRAssemblyMediator.h" />
 		<Unit filename="src\include\GNRAssemblyMediator2D.h" />
 		<Unit filename="src\include\GNRAssemblyMediator3D.h" />
+		<Unit filename="src\include\GNRCommand.h" />
+		<Unit filename="src\include\GNRCommandAssembly.h" />
 		<Unit filename="src\include\GNRDebugFrame.h" />
 		<Unit filename="src\include\GNREnum.h" />
 		<Unit filename="src\include\GNRExportFile.h" />
@@ -178,6 +182,7 @@
 		<Unit filename="src\include\GNRTCoord.h" />
 		<Unit filename="src\include\GNRTreeLibraryController.h" />
 		<Unit filename="src\include\GNRTreePanelLibrary.h" />
+		<Unit filename="src\include\GNRUndoRedo.h" />
 		<Unit filename="src\include\GNRVNT.h" />
 		<Unit filename="src\include\GNRVertex.h" />
 		<Unit filename="src\include\md5.h" />

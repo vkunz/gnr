@@ -72,3 +72,8 @@ int GNRGLCameraMediator::translate(GNRGLNotifyEvent& event)
 	
 	return 0;
 }
+
+void GNRGLCameraMediator::finalize()
+{
+
+}

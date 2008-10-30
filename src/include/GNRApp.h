@@ -29,6 +29,7 @@
 #include "GNRTreeLibraryController.h"
 #include "GNRTreePanelLibrary.h"
 #include "GNRGridPanelMyScene.h"
+#include "GNRUndoRedo.h"
 
 #if defined(__ATHOS_DEBUG__)
 #include <wx/log.h>
@@ -76,6 +77,8 @@ private:
 	
 	GNRTreePanelLibrary* m_TreePanelLibrary;
 	GNRGridPanelMyScene* m_GridPanelMyScene;
+	
+	GNRUndoRedo* m_UndoRedo;
 	
 	GNRScene* m_Scene;
 	GNRMouseController* m_MouseCtrl;

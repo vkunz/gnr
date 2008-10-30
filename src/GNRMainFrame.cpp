@@ -16,7 +16,7 @@
 #include <wx/string.h>
 
 
-#if defined(__ATHOS__DEBUG)
+#if defined(__ATHOS_DEBUG__)
 #include <wx/log.h>
 #endif
 
@@ -119,6 +119,8 @@ const long GNRMainFrame::ID_STATICTEXT2 = wxNewId();
 
 BEGIN_EVENT_TABLE(GNRMainFrame,wxFrame)
 	EVT_MENU(btn_room_new, GNRMainFrame::OnMenuNewRoom)
+	EVT_MENU(btn_undo, GNRMainFrame::OnToolbarUndo)
+	EVT_MENU(btn_redo, GNRMainFrame::OnToolbarRedo)
 	EVT_MENU(btn_move_xz, GNRMainFrame::OnToolbarMoveXZ)
 	EVT_MENU(btn_move_xy, GNRMainFrame::OnToolbarMoveXY)
 	EVT_MENU(btn_rotate_xz, GNRMainFrame::OnToolbarRotateXZ)
@@ -236,7 +238,9 @@ GNRMainFrame::GNRMainFrame(wxWindow* parent, wxWindowID WXUNUSED(id))
 	ToolBarItem[c++] = ToolBar1->AddTool(btn_room_save_as, _("Raum speichern unter"), wxBitmap(wxIcon(button_room_save_as_xpm)), wxNullBitmap, wxITEM_NORMAL, _("Raum speichern unter"), _("Raum speichern unter"));
 	ToolBar1->AddSeparator();
 	ToolBarItem[c++] = ToolBar1->AddTool(btn_undo, _("Rückgängig"), wxBitmap(wxIcon(button_undo_xpm)), wxNullBitmap, wxITEM_NORMAL, _("Rückgängig"), _("Rückgängig"));
+	ToolBarItem[c-1]->Enable(false);
 	ToolBarItem[c++] = ToolBar1->AddTool(btn_redo, _("Wiederherstellen"), wxBitmap(wxIcon(button_redo_xpm)), wxNullBitmap, wxITEM_NORMAL, _("Wiederherstellen"), _("Wiederherstellen"));
+	ToolBarItem[c-1]->Enable(false);
 	ToolBar1->AddSeparator();
 	ToolBarItem[c++] = ToolBar1->AddTool(btn_move_xz, _("Verschieben in X-Z-Richtung"), wxBitmap(wxIcon(button_move_xz_xpm)), wxNullBitmap, wxITEM_RADIO, _("Verschieben in X-Z-Richtung"), _("Verschieben in X-Z-Richtung"));
 	ToolBarItem[c++] = ToolBar1->AddTool(btn_move_xy, _("Verschieben in X-Y-Richtung"), wxBitmap(wxIcon(button_move_xy_xpm)), wxNullBitmap, wxITEM_RADIO, _("Verschieben in X-Y-Richtung"), _("Verschieben in X-Y-Richtung"));
@@ -517,4 +521,28 @@ void GNRMainFrame::OnSnapToGrid()
 	gnrevent.setSnapToAngle(snapAngle);
 	
 	GetEventHandler()->ProcessEvent(gnrevent);
+}
+
+void GNRMainFrame::OnToolbarUndo(wxCommandEvent& event)
+{
+	GNRNotifyEvent gnrevent(wxEVT_COMMAND_GNR_NOTIFY);
+	gnrevent.setGNREventType(UNDO);
+	GetEventHandler()->ProcessEvent(gnrevent);
+}
+
+void GNRMainFrame::OnToolbarRedo(wxCommandEvent& event)
+{
+	GNRNotifyEvent gnrevent(wxEVT_COMMAND_GNR_NOTIFY);
+	gnrevent.setGNREventType(REDO);
+	GetEventHandler()->ProcessEvent(gnrevent);
+}
+
+void GNRMainFrame::setUndoEnabled(bool enabled)
+{
+	ToolBar1->EnableTool(btn_undo, enabled);
+}
+
+void GNRMainFrame::setRedoEnabled(bool enabled)
+{
+	ToolBar1->EnableTool(btn_redo, enabled);
 }
