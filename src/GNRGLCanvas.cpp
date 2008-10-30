@@ -19,14 +19,13 @@
 #include "GNRNotifyEvent.h"
 #include "GNRGLNotifyEvent.h"
 #include "GNRMaterialLibrary.h"
+#include "GNRGlobalDefine.h"
+
 #include "resources/grid_24bit_rgb.xpm"
 
 #if defined(__ATHOS_DEBUG__)
 #include <wx/log.h>
 #endif
-
-#define ZNEAR 0.1f
-#define ZFAR 100.0f
 
 BEGIN_EVENT_TABLE(GNRGLCanvas, wxGLCanvas)
 	EVT_KEY_DOWN(GNRGLCanvas::OnKeyDown)
@@ -80,7 +79,6 @@ void GNRGLCanvas::connectEvents()
 	Connect(wxEVT_MIDDLE_UP, (wxObjectEventFunction)&GNRGLCanvas::OnMMouseUp);
 	Connect(wxEVT_RIGHT_DOWN, (wxObjectEventFunction)&GNRGLCanvas::OnRMouseDown);
 	Connect(wxEVT_RIGHT_UP, (wxObjectEventFunction)&GNRGLCanvas::OnRMouseUp);
-	Connect(wxEVT_LEFT_DCLICK, (wxObjectEventFunction)&GNRGLCanvas::OnLMouseDblClick);
 	Connect(wxEVT_LEFT_DOWN, (wxObjectEventFunction)&GNRGLCanvas::OnLMouseDown);
 	Connect(wxEVT_LEFT_UP, (wxObjectEventFunction)&GNRGLCanvas::OnLMouseUp);
 	Connect(wxEVT_LEAVE_WINDOW, (wxObjectEventFunction)&GNRGLCanvas::OnLeaveWindow);
@@ -521,23 +519,6 @@ void GNRGLCanvas::OnEnterWindow(wxMouseEvent& event)
 	myevent.setCanvasID(getCanvasID());
 	myevent.SetEventObject(this);
 	GetEventHandler()->ProcessEvent(myevent);
-}
-
-/**
- * fetches the double click event
- * @param       wxMouseEvent    Mouse-Event of current canvas
- * @access      private
- */
-void GNRGLCanvas::OnLMouseDblClick(wxMouseEvent& event)
-{
-	SetFocus();
-	Connect(wxEVT_MOUSEWHEEL, (wxObjectEventFunction)&GNRGLCanvas::OnMouseWheel);
-	//GNRMouse::dropControl(event);
-#if defined(__ATHOS_DEBUG__)
-	wxString msg;
-	msg << wxT("OnLMouseDblClick x=") << event.m_x << wxT(" y=") << event.m_y;
-	wxLogMessage(msg);
-#endif
 }
 
 /**

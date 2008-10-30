@@ -14,14 +14,11 @@
 #endif
 
 #include "GNRGLCanvas2D.h"
+#include "GNRGlobalDefine.h"
 
 #if defined(__ATHOS_DEBUG__)
 #include <wx/log.h>
 #endif
-
-#define ZNEAR 0.1f
-#define ZFAR 200.0f
-#define CAMH 2.0f
 
 /**
  * constructor of GNRGLCanvas2D

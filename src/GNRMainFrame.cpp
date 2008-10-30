@@ -215,6 +215,7 @@ GNRMainFrame::GNRMainFrame(wxWindow* parent, wxWindowID WXUNUSED(id))
 	int __wxStatusBarStyles_1[1] = { wxSB_NORMAL };
 	StatusBar1->SetFieldsCount(1,__wxStatusBarWidths_1);
 	StatusBar1->SetStatusStyles(1,__wxStatusBarStyles_1);
+	StatusBar1->SetStatusText(wxT("Willkommen zu GNR"));
 	SetStatusBar(StatusBar1);
 	
 	Connect(idMenuNewRoom,wxEVT_COMMAND_MENU_SELECTED,(wxObjectEventFunction)&GNRMainFrame::OnMenuNewRoom);

@@ -1,7 +1,7 @@
 /**
- * defines the gl2dcanvas class
- * @name        GNRGLCanvas2D.h
- * @date        2008-10-09
+ * defines the glcanvaspreview class
+ * @name        GNRGLCanvasPreview.h
+ * @date        2008-10-30
  * @author		Konstantin Balabin  <k.balabin@googlemail.com>
  * @author		Patrick Kracht      <patrick.kracht@googlemail.com>
  * @author		Thorsten Moll       <thorsten.moll@googlemail.com>
@@ -11,43 +11,29 @@
 #include <GL/glu.h>
 
 #include "GNRGLCanvasPreview.h"
-
-#define ZNEAR 0.1f
-#define ZFAR 200.0f
-#define CAMH 2.0f
+#include "GNRGlobalDefine.h"
 
 BEGIN_EVENT_TABLE(GNRGLCanvasPreview, wxGLCanvas)
+	EVT_LEFT_DOWN(GNRGLCanvasPreview::OnLMouseDown)
+	EVT_LEFT_UP(GNRGLCanvasPreview::OnLMouseUp)
+	EVT_MOTION(GNRGLCanvasPreview::OnMouseMove)
 	EVT_SIZE(GNRGLCanvasPreview::OnSize)
 	EVT_PAINT(GNRGLCanvasPreview::OnPaint)
-	EVT_ERASE_BACKGROUND(GNRGLCanvasPreview::OnEraseBackground)
-	EVT_MOUSE_EVENTS(GNRGLCanvasPreview::OnMouse)
 END_EVENT_TABLE()
 
 // ctor
 GNRGLCanvasPreview::GNRGLCanvasPreview(wxWindow* parent, wxWindowID id, const wxPoint& pos, const wxSize& size, long style, const wxString& name)
 		:wxGLCanvas(parent, id, pos, size, style, name)
 {
-	initialized = false;
-	
-	// initialize view matrix
-	beginx = 0.0f;
-	beginy = 0.0f;
-	zoom   = 45.0f;
+
+	InitGL();
+	roty = 0;
+	m_assembly = NULL;
 }
 
 // dtor
 GNRGLCanvasPreview::~GNRGLCanvasPreview()
 {
-}
-
-void GNRGLCanvasPreview::setPerspective()
-{
-	//gluPerspective(45.0f, (float)m_window_x / (float)m_window_y, ZNEAR, ZFAR);
-}
-
-canvasType GNRGLCanvasPreview::getCanvasID()
-{
-	return CANVASPREVIEW;
 }
 
 void GNRGLCanvasPreview::InitGL()
@@ -81,63 +67,85 @@ void GNRGLCanvasPreview::InitGL()
 	glEnable(GL_LIGHT1);
 	glEnable(GL_LIGHTING);
 	
-	glColorMaterial(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE);
-	glEnable(GL_COLOR_MATERIAL);
+	glClearDepth(1.0f);
+	glClearColor(0.5f, 0.5f, 0.5f, 1.0f);
 }
 
 void GNRGLCanvasPreview::OnPaint(wxPaintEvent& event)
 {
-	// Initialize OpenGL
-	if (!initialized)
-	{
-		InitGL();
-		ResetProjectionMode();
-		initialized = true;
-	}
-	
-	// Clear
-	glClearColor(0.3f, 0.4f, 0.6f, 1.0f);
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	
-	// Transformations
-	glLoadIdentity();
-	glTranslatef(0.0f, 0.0f, -20.0f);
-	GLfloat m[4][4];
-	glMultMatrixf(&m[0][0]);
-	
-	// Flush
-	glFlush();
-	
-	// Swap
-	SwapBuffers();
+	draw();
 }
 
 void GNRGLCanvasPreview::OnSize(wxSizeEvent& event)
 {
-
-}
-
-void GNRGLCanvasPreview::OnEraseBackground(wxEraseEvent& event)
-{
-
-}
-
-void GNRGLCanvasPreview::OnMouse(wxMouseEvent& event)
-{
-
-}
-
-void GNRGLCanvasPreview::ResetProjectionMode()
-{
+	// set current GL-Frame
+	SetCurrent();
+	
+	// get size of current canvas
 	int w, h;
 	GetClientSize(&w, &h);
+	
+	// set viewport with resolution
+	glViewport(0, 0, (GLint) w, (GLint) h);
+	
+	// Load and Reset Modelview
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+	gluPerspective(45.0f, (float)w / (float)h, ZNEAR, ZFAR);
+	
+	// Load and Reset Modelview
+	glMatrixMode(GL_MODELVIEW);
+	glLoadIdentity();
+}
+
+void GNRGLCanvasPreview::setAssembly(GNRAssembly* assembly)
+{
+	m_assembly = assembly;
+}
+
+void GNRGLCanvasPreview::draw()
+{
+	if (m_assembly != NULL)
 	{
-		SetCurrent();
-		glViewport(0, 0, (GLint) w, (GLint) h);
-		glMatrixMode(GL_PROJECTION);
+		// Clear
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		
+		// Transformations
 		glLoadIdentity();
-		gluPerspective(45.0f, (GLfloat)w/h, 1.0, 100.0);
-		glMatrixMode(GL_MODELVIEW);
-		glLoadIdentity();
+		
+		// scale image to fit in preview
+		float max_size = m_assembly->getMaximumSize();
+		glScalef(1/max_size, 1/max_size, 1/max_size);
+		
+		// rotate as user determines
+		glRotatef(roty, 0.0f, 1.0f, 0.0f);
+		
+		glTranslatef(0.0f, 0.0f, -5.0f);
+		
+		m_assembly->draw();
+		
+		// Flush
+		glFlush();
+		
+		// Swap
+		SwapBuffers();
 	}
+}
+
+void GNRGLCanvasPreview::OnLMouseDown(wxMouseEvent& event)
+{
+	m_mouse_x = event.GetX();
+	Connect(wxEVT_MOTION, (wxObjectEventFunction)&GNRGLCanvasPreview::OnMouseMove);
+}
+
+void GNRGLCanvasPreview::OnLMouseUp(wxMouseEvent& event)
+{
+	Disconnect(wxEVT_MOTION, (wxObjectEventFunction)&GNRGLCanvasPreview::OnMouseMove);
+}
+
+void GNRGLCanvasPreview::OnMouseMove(wxMouseEvent& event)
+{
+	roty += m_mouse_x - event.GetX();
+	m_mouse_x = event.GetX();
+	draw();
 }

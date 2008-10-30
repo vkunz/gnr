@@ -13,6 +13,7 @@
 
 #include "GNREnum.h"
 #include "GNRGLCanvas.h"
+#include "GNRAssembly.h"
 
 class GNRGLCanvasPreview : public wxGLCanvas
 {
@@ -28,25 +29,24 @@ public:
 	// dtor
 	virtual ~GNRGLCanvasPreview();
 	
+	void setAssembly(GNRAssembly* assembly);
+	void draw();
+	
 protected:
 
 private:
 
-	bool initialized;           // have OpenGL been initialized?
-	float beginx, beginy;       // position of mouse
-	float quat[4];              // orientation of object
-	float zoom;                 // field of view in degrees
-	
-	void setPerspective();
-	canvasType getCanvasID();
+	float roty;
+	float m_mouse_x;
+	GNRAssembly* m_assembly;
 	
 	void InitGL();
-	void ResetProjectionMode();
 	
+	void OnLMouseDown(wxMouseEvent& event);
+	void OnLMouseUp(wxMouseEvent& event);
+	void OnMouseMove(wxMouseEvent& event);
 	void OnPaint(wxPaintEvent& event);
 	void OnSize(wxSizeEvent& event);
-	void OnEraseBackground(wxEraseEvent& event);
-	void OnMouse(wxMouseEvent& event);
 	
 	DECLARE_EVENT_TABLE()
 };
