@@ -70,6 +70,13 @@ void GNRVertex::setZ(float z)
 	m_z = z;
 }
 
+void GNRVertex::setXYZ(const float x, const float y, const float z)
+{
+	m_x = x;
+	m_y = y;
+	m_z = z;
+}
+
 float GNRVertex::deltaX(GNRVertex* point)
 {
 	return m_x - point->m_x;

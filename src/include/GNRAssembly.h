@@ -26,7 +26,6 @@ class GNRAssembly
 {
 public:
 
-	GNRAssembly();
 	GNRAssembly(const string& name);
 	GNRAssembly(GNRAssembly* parent, const string &name);
 	GNRAssembly(const assemblyType& type, const string& name);

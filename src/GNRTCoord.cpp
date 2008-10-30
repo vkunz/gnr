@@ -27,6 +27,12 @@ void GNRTCoord::setY(float y)
 	m_x = y;
 }
 
+void GNRTCoord::setXY(float x, float y)
+{
+	m_x = x;
+	m_y = y;
+}
+
 float GNRTCoord::getX() const
 {
 	return m_x;
