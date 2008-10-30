@@ -49,6 +49,9 @@ GNRAssembly *GNRObjectImport::read(const string& fname)
 	m_root->addPart(m_wrapper);
 	m_matname = "white";
 	
+	//if no g or o in file, use this dummy
+	addAtomic("dummy");
+	
 	// 1st pass, gather v, vt and vn
 	ifstream ifs(fname.c_str());
 	while (ifs.good())
@@ -138,8 +141,12 @@ void GNRObjectImport::getO()
 	string objname;
 	stringstream ss(m_buf.substr(2, string::npos));
 	ss >> objname;
-	
-	m_act = new GNRAssembly(m_wrapper,objname);
+	addAtomic(objname);
+}
+
+void GNRObjectImport::addAtomic(string name)
+{
+	m_act = new GNRAssembly(m_wrapper,name);
 	m_act->setType(IS_ATOMIC);
 	m_wrapper->addPart(m_act);
 }
@@ -237,8 +244,11 @@ void GNRObjectImport::getF()
 		GNRVNT vnt(pv, pn ,pt);
 		face.addVNT(vnt);
 	}
+	
 	if (face.size() >= 3)
+	{
 		m_act->addFace(face);
+	}
 }
 
 void GNRObjectImport::getU()

@@ -24,7 +24,7 @@ void GNRAssemblyMediator3D::MoveXY(GNRGLNotifyEvent& event)
 	float new_x = old_x - (gl_xmax-gl_xmin)*(m_mouse_x - event.getMouseEvent().GetX())/window_w;
 	float new_y = old_y - (gl_ymax-gl_ymin)*(event.getMouseEvent().GetY() - m_mouse_y)/window_h;
 	
-	if (new_y < m_Assembly->getOverGround())
+	if (new_y <= (m_Assembly->getOverGround()*1.1))
 	{
 		new_y = m_Assembly->getOverGround();
 	}

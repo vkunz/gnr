@@ -570,6 +570,7 @@ void GNRAssembly::debugInfo() const
 	msg << wxT("\nsx=") << m_scale_x;
 	msg << wxT(" sy=") << m_scale_y;
 	msg << wxT(" sz=") << m_scale_z;
+	msg << wxT("\noG=") << (m_height * m_scale_y) / 2.0;
 	wxLogDebug(msg);
 #endif
 }

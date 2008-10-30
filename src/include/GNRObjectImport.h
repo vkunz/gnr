@@ -36,6 +36,7 @@ private:
 	void getVT();
 	
 	void minmax(float& min,float& max,float value);
+	void addAtomic(string name);
 	
 	vector<GNRVertex> m_vertex, m_normal;
 	vector<GNRTCoord> m_tcoord;
