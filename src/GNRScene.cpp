@@ -236,16 +236,19 @@ void GNRScene::hideSelectedAssemblies()
  */
 void GNRScene::groupSelectedAssemblies()
 {
-	GNRAssembly* group = new GNRAssembly(IS_GROUP, "group");
-	
 	list<GNRAssembly*> parts = m_Selected->getPartList();
 	
+	if (parts.size() <= 0)
+	{
+		return;
+	}
+	
+	GNRAssembly* group = new GNRAssembly(IS_GROUP, "group");
 	for (list<GNRAssembly*>::iterator it = parts.begin(); it != parts.end(); ++it)
 	{
 		group->addPart((*it));
 		m_Selected->delPart((*it));
 	}
-	
 	m_RootAssembly->addPart(group);
 }
 
@@ -298,12 +301,20 @@ void GNRScene::selectAssembly(GNRAssembly* assembly)
 			//move assembly in selected container
 			m_Selected->addPart(assembly);
 			m_RootAssembly->delPart(assembly);
+			
+			wxString msg;
+			msg << (int)assembly << wxT(" moved to IS_SELECTED!");
+			wxLogDebug(msg);
 		}
 		else
 		{
 			//move assembly in root
 			m_RootAssembly->addPart(assembly);
 			m_Selected->delPart(assembly);
+			
+			wxString msg;
+			msg << (int)assembly << wxT(" moved to IS_ROOT!");
+			wxLogDebug(msg);
 		}
 	}
 }

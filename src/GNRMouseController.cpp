@@ -193,6 +193,8 @@ void GNRMouseController::setAssemblyMediator(GNRGLNotifyEvent& event)
 	
 	//store selected assembly id in scene
 	m_Scene->setAssembly(selectedAssembly);
+	
+	//select assembly (move to IS_SELECTED group)
 	m_Scene->selectAssembly(selectedAssembly);
 	
 	//set assembly mediator target to selected object

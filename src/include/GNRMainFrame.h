@@ -55,6 +55,7 @@ private:
 	void OnSnapToGridBtn(wxCommandEvent& event);
 	void OnSnapToGridCtrl(wxSpinEvent& event);
 	void OnSnapToGridMenu(wxCommandEvent& event);
+	void OnGroupCreate(wxCommandEvent& WXUNUSED(event));
 	//global set snap to grid
 	void OnSnapToGrid();
 	

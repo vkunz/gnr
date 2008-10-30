@@ -213,6 +213,9 @@ void GNRApp::OnGNREvent(GNRNotifyEvent& event)
 		m_UndoRedo->redo();
 		m_Scene->glRefresh();
 		break;
+	case CREATEGROUP:
+		m_Scene->groupSelectedAssemblies();
+		break;
 	case SETUNDOENABLED:
 		m_MainFrame->setUndoEnabled(event.GetInt());
 		break;

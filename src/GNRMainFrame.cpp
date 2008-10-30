@@ -137,6 +137,8 @@ BEGIN_EVENT_TABLE(GNRMainFrame,wxFrame)
 	EVT_MENU(btn_create_screenshot, GNRMainFrame::OnCreateScreenshot)
 	EVT_MENU(btn_camera_reset, GNRMainFrame::OnCameraReset)
 	EVT_MENU(btn_snap_to_grid, GNRMainFrame::OnSnapToGridBtn)
+	//functions menu
+	EVT_MENU(idMenuGroup, GNRMainFrame::OnGroupCreate)
 	//settings menu sync to toolbar
 	EVT_MENU(idMenuSnapToGrid, GNRMainFrame::OnSnapToGridMenu)
 	EVT_MENU(idMenuMoveXZ, GNRMainFrame::OnToolbarMoveXZ)
@@ -568,6 +570,13 @@ void GNRMainFrame::OnToolbarRedo(wxCommandEvent& event)
 {
 	GNRNotifyEvent gnrevent(wxEVT_COMMAND_GNR_NOTIFY);
 	gnrevent.setGNREventType(REDO);
+	GetEventHandler()->ProcessEvent(gnrevent);
+}
+
+void GNRMainFrame::OnGroupCreate(wxCommandEvent& WXUNUSED(event))
+{
+	GNRNotifyEvent gnrevent(wxEVT_COMMAND_GNR_NOTIFY);
+	gnrevent.setGNREventType(CREATEGROUP);
 	GetEventHandler()->ProcessEvent(gnrevent);
 }
 
