@@ -81,9 +81,21 @@ int GNRAssemblyMediator::translate(GNRGLNotifyEvent& event)
 		MoveXY(event);
 		break;
 	case ROTATEXY:
+		if (m_Assembly->isType(IS_GROUP))
+		{
+			//forbid rotate in x-axis
+			RotateY(event);
+			return 0;
+		}
 		RotateXY(event);
 		break;
 	case ROTATEXZ:
+		if (m_Assembly->isType(IS_GROUP))
+		{
+			//forbid rotate in x and z-axis
+			RotateY(event);
+			return 0;
+		}
 		RotateXZ(event);
 		break;
 	default:

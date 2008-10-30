@@ -245,23 +245,30 @@ void GNRScene::groupSelectedAssemblies()
 	}
 	
 	GNRAssembly* group = new GNRAssembly(IS_GROUP, "group");
-	GNRAssembly* element;
 	
-	float min[3], max[3];
+	float min[3] = {10000.0,10000.0,10000.0};
+	float max[3] = {-10000.0,-10000.0,-10000.0};
 	
 	//first pass to get maximum cube and new center of group
 	for (list<GNRAssembly*>::iterator it = parts.begin(); it != parts.end(); ++it)
 	{
-		element = (*it);
-		minmax(min[0], max[0], element->getX());
-		minmax(min[1], max[1], element->getY());
-		minmax(min[2], max[2], element->getZ());
+		minmax(min[0], max[0], (*it)->getX());
+		minmax(min[1], max[1], (*it)->getY());
+		minmax(min[2], max[2], (*it)->getZ());
 	}
 	
 	//build new center as vertex for better calculation
 	GNRVertex new_center((max[0]+min[0])/2.0, (max[1]+min[1])/2.0, (max[2]+min[2])/2.0);
+	
+	wxString str;
+	str << wxT(" newX=") << (max[0]+min[0])/2.0;
+	str << wxT(" newY=") << (max[1]+min[1])/2.0;
+	str << wxT(" newZ=") << (max[2]+min[2])/2.0;
+	wxLogDebug(str);
+	
 	//move group center to new center
 	group->setCenterVertex(new_center);
+	group->setHeight((max[1]+min[1]));
 	//store obj center as vertex
 	GNRVertex obj_center;
 	

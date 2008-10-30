@@ -71,6 +71,18 @@ void GNRAssemblyMediator3D::RotateXY(GNRGLNotifyEvent& event)
 }
 
 /**
+ * rotate the object in Y dimension
+ * @param       GNRGLNotifyEvent         event from GLNotify
+ * @access      private
+ */
+void GNRAssemblyMediator3D::RotateY(GNRGLNotifyEvent& event)
+{
+	float new_theta = theta_old + 720.0f*(event.getMouseEvent().GetX() - m_mouse_x)/window_w;
+	doSnapRotate(new_theta);
+	m_Assembly->setTheta(new_theta);
+}
+
+/**
  * rotate the object in XZ dimension
  * @param       GNRGLNotifyEvent         event from GLNotify
  * @access      private

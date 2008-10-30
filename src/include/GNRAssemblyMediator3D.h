@@ -21,6 +21,7 @@ private:
 	void MoveXY(GNRGLNotifyEvent& event);
 	void MoveXZ(GNRGLNotifyEvent& event);
 	void RotateXY(GNRGLNotifyEvent& event);
+	void RotateY(GNRGLNotifyEvent& event);
 	void RotateXZ(GNRGLNotifyEvent& event);
 	
 };

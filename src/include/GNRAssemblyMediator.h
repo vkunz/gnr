@@ -29,6 +29,7 @@ protected:
 	virtual void MoveXY(GNRGLNotifyEvent& event) = 0;
 	virtual void MoveXZ(GNRGLNotifyEvent& event) = 0;
 	virtual void RotateXY(GNRGLNotifyEvent& event) = 0;
+	virtual void RotateY(GNRGLNotifyEvent& event) = 0;
 	virtual void RotateXZ(GNRGLNotifyEvent& event) = 0;
 	
 	GNRAssembly* m_Assembly;
