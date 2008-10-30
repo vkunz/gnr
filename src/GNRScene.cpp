@@ -316,5 +316,7 @@ void GNRScene::selectAssembly(GNRAssembly* assembly)
 			msg << (int)assembly << wxT(" moved to IS_ROOT!");
 			wxLogDebug(msg);
 		}
+		//repaint cause of box on floor
+		glRefresh();
 	}
 }

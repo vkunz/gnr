@@ -570,6 +570,49 @@ void GNRAssembly::draw() const
 	{
 		glLoadName((int)this);
 	}
+	else if (m_parent != NULL)
+	{
+		float linecolor[4] = {0.0,0.0,0.0,1.0};
+		float h_x = m_width/2.0;
+		float h_y = m_height/2.0;
+		float h_z = m_depth/2.0;
+		
+		//if parent is selected, green color
+		if (m_parent->m_type == IS_SELECTED)
+		{
+			linecolor[0] = 0.0;
+			linecolor[1] = 1.0;
+			linecolor[2] = 0.0;
+			linecolor[3] = 0.0;
+		}
+		//if parent is group, red color
+		else if (m_parent->m_type == IS_GROUP)
+		{
+			linecolor[0] = 1.0;
+			linecolor[1] = 0.0;
+			linecolor[2] = 0.0;
+			linecolor[3] = 0.0;
+		}
+		
+		//if parent type group or selected, draw square on floor
+		if (linecolor[3] == 0.0)
+		{
+			glPushMatrix();
+			{
+				glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, linecolor);
+				glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, linecolor);
+				//glMaterialfv(GL_FRONT_AND_BACK, GL_EMISSION, linecolor);
+				glLineWidth(4.0);
+				glBegin(GL_LINE_LOOP);
+				glVertex3f(m_x-h_x-0.1, m_y-h_y+0.1, m_z-h_z-0.1);
+				glVertex3f(m_x+h_x+0.1, m_y-h_y+0.1, m_z-h_z-0.1);
+				glVertex3f(m_x+h_x+0.1, m_y-h_y+0.1, m_z+h_z+0.1);
+				glVertex3f(m_x-h_x-0.1, m_y-h_y+0.1, m_z+h_z+0.1);
+				glEnd();
+			}
+			glPopMatrix();
+		}
+	}
 	
 	glMatrixMode(GL_MODELVIEW);
 	glPushMatrix();
