@@ -335,6 +335,7 @@ void GNRScene::ungroupSelectedAssemblies()
 	}
 	
 	GNRVertex grp_center;
+	GNRVertex grp_rotate;
 	GNRVertex obj_center;
 	GNRVertex ptr_object;
 	
@@ -348,6 +349,8 @@ void GNRScene::ungroupSelectedAssemblies()
 			grp_parts  = (*it)->getPartList();
 			//save center of group
 			grp_center = (*it)->getCenterVertex();
+			//save old rotation of whole group
+			grp_rotate = (*it)->getRotateVertex();
 			
 			//correct position of all group members
 			for (list<GNRAssembly*>::iterator child_it = grp_parts.begin(); child_it != grp_parts.end(); ++child_it)
@@ -356,16 +359,18 @@ void GNRScene::ungroupSelectedAssemblies()
 				m_Selected->addPart((*child_it));
 				(*it)->delPart((*child_it));
 				
-				//calculate new position to center of IS_SELECTED
-				ptr_object = (*child_it)->getCenterVertex()
-				             obj_center = ptr_object + grp_center;
+				//save old relative position of child
+				ptr_object = (*child_it)->getCenterVertex();
+				
+				//restore rotation from group to child
+				ptr_object.rotate(grp_rotate);
+				
+				//calculate new absolute position of child
+				obj_center = ptr_object + grp_center;
+				
+				//rotate child in same way as group and set new center
+				(*child_it)->setRotateVertex(grp_rotate);
 				(*child_it)->setCenterVertex(obj_center);
-				
-				//(*child_it)->setRotateVertex();
-				
-#warning "INFO: rotation has to be calculated by vertexes!"
-				//put the new child on the floor, please
-				//(*child_it)->putOnGround();
 			}
 			//remove group container from his parent
 			m_Selected->delPart(*it);

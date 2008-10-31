@@ -220,12 +220,12 @@ void GNRVertex::rotate(float phi, float theta, float rho)
  * @param   GNRVertex*  Vertex with values phi, theta, rho
  * @access      private
  */
-void GNRVertex::rotate(GNRVertex* angles)
+void GNRVertex::rotate(const GNRVertex& angles)
 {
 	// read out angles from vertex to use rotate3f
-	float phi = angles.getX();
+	float phi   = angles.getX();
 	float theta = angles.getY();
-	float rho = angles.getZ();
+	float rho   = angles.getZ();
 	
 	rotate(phi, theta, rho);
 }
