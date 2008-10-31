@@ -25,7 +25,7 @@ using std::string;
 class GNRFace
 {
 public:
-	GNRFace(const string& matname);
+	GNRFace();
 	GNRFace(const GNRFace& other);
 	
 	int size() const;
@@ -38,7 +38,6 @@ public:
 	
 private:
 	list<GNRVNT> m_vnt;
-	string m_matname;
 };
 
 #endif // _GNRFACE_H_

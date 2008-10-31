@@ -13,6 +13,7 @@
 
 #include <list>
 #include <vector>
+#include <map>
 #include <string>
 
 #include "GNREnum.h"
@@ -21,6 +22,8 @@
 
 using std::list;
 using std::vector;
+using std::map;
+using std::pair;
 using std::string;
 
 class GNRAssembly
@@ -41,7 +44,7 @@ public:
 	float getWidth() const;
 	float getDepth() const;
 	float getMaximumSize() const;
-	GNRVertex GNRAssembly::getCenterVertex() const;
+	GNRVertex getCenterVertex() const;
 	
 	void setX(const float x);
 	void setY(const float y);
@@ -79,6 +82,8 @@ public:
 	void addPart(GNRAssembly* part);
 	void delPart(GNRAssembly* part);
 	
+	void setChildMaterial(const GNRAssembly* child, const string& name);
+	
 	void setName(const string& name);
 	const string& getName() const;
 	
@@ -99,7 +104,6 @@ public:
 	list<GNRAssembly*> getPartList();
 	
 private:
-
 	float m_x, m_y, m_z;
 	float m_phi, m_theta, m_rho;
 	float m_scale_x, m_scale_y, m_scale_z;
@@ -111,6 +115,9 @@ private:
 	
 	list<GNRFace> m_face;
 	list<GNRAssembly*> m_part;
+	
+	//  ChildPtr ==> material_name
+	map<const GNRAssembly* const, const string> m_child_mat;
 };
 
 #endif // _GNRASSEMBLY_H_

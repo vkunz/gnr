@@ -348,7 +348,7 @@ void GNRObjectImport::getVT()
 
 void GNRObjectImport::getF()
 {
-	GNRFace face(m_matname);
+	GNRFace face;
 	
 	stringstream ss(m_buf.substr(2, string::npos));
 	string token;
@@ -404,4 +404,5 @@ void GNRObjectImport::getU()
 {
 	stringstream ss(m_buf.substr(6, string::npos));
 	ss >> m_matname;
+	m_wrapper->setChildMaterial(m_act, m_matname);
 }

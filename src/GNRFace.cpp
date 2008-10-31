@@ -9,8 +9,6 @@
  */
 
 #include "GNRFace.h"
-#include "GNRMaterial.h"
-#include "GNRMaterialLibrary.h"
 
 #include <GL/gl.h>
 
@@ -19,15 +17,12 @@
 using std::cout;
 using std::endl;
 
-extern GNRMaterialLibrary mtllib;
 
-GNRFace::GNRFace(const string& matname):
-		m_matname(matname)
+GNRFace::GNRFace()
 {
 }
 
-GNRFace::GNRFace(const GNRFace& other):
-		m_matname(other.m_matname)
+GNRFace::GNRFace(const GNRFace& other)
 {
 	for (list<GNRVNT>::const_iterator it = other.m_vnt.begin(); it != other.m_vnt.end(); ++it)
 	{
@@ -73,8 +68,6 @@ void GNRFace::setNormal()
 
 void GNRFace::draw() const
 {
-	mtllib.selectMaterial(m_matname);
-	
 	glBegin(GL_POLYGON);
 	{
 		for (list<GNRVNT>::const_iterator it = m_vnt.begin(); it != m_vnt.end(); ++it)

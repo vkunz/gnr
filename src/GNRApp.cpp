@@ -235,7 +235,7 @@ void GNRApp::OnGNREvent(GNRNotifyEvent& event)
 		m_Scene->glRefresh();
 		break;
 	case UNDOCREATEGROUP:
-#warning "INFO: check how to set undo and redo!"
+//#warning "INFO: check how to set undo and redo!"
 		m_Scene->ungroupOneAssembly(event.getAssemblyPtr());
 		m_Scene->glRefresh();
 		break;

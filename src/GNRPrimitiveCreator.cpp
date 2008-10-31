@@ -92,7 +92,7 @@ GNRFace* GNRPrimitiveCreator::createFace(GNRVertex& topLeft, GNRVertex& bottomLe
         GNRVertex& topRight, GNRVertex& normale)
 {
 
-	GNRFace* face = new GNRFace("white");
+	GNRFace* face = new GNRFace();
 	
 	GNRVertex* vector = new GNRVertex(topLeft);
 	GNRVertex* normal = new GNRVertex(normale);
