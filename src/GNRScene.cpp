@@ -273,7 +273,7 @@ void GNRScene::groupSelectedAssemblies()
 {
 	list<GNRAssembly*> parts = m_Selected->getPartList();
 	
-	if (parts.size() <= 1)
+	if (parts.size() < 1)
 	{
 		//no or only one part, don't waste time
 		return;
@@ -342,7 +342,7 @@ void GNRScene::ungroupSelectedAssemblies()
 	list<GNRAssembly*> sel_parts = m_Selected->getPartList();
 	list<GNRAssembly*> grp_parts;
 	
-	if (sel_parts.size() <= 1)
+	if (sel_parts.size() < 1)
 	{
 		//no or only one part, don't waste time
 		return;
@@ -398,7 +398,7 @@ void GNRScene::ungroupOneAssembly(GNRAssembly* assembly)
 {
 	list<GNRAssembly*> grp_parts = assembly->getPartList();
 	
-	if (grp_parts.size() <= 1)
+	if (grp_parts.size() < 1)
 	{
 		//no or only one part, don't waste time
 		return;
