@@ -105,6 +105,7 @@
 		<Unit filename="src\GNRAssemblyMediator2D.cpp" />
 		<Unit filename="src\GNRAssemblyMediator3D.cpp" />
 		<Unit filename="src\GNRCommandAssembly.cpp" />
+		<Unit filename="src\GNRCreatePrimitiveEvent.cpp" />
 		<Unit filename="src\GNRDebugFrame.cpp" />
 		<Unit filename="src\GNRFace.cpp" />
 		<Unit filename="src\GNRGLCamera.cpp" />
@@ -150,6 +151,7 @@
 		<Unit filename="src\include\GNRAssemblyMediator3D.h" />
 		<Unit filename="src\include\GNRCommand.h" />
 		<Unit filename="src\include\GNRCommandAssembly.h" />
+		<Unit filename="src\include\GNRCreatePrimitiveEvent.h" />
 		<Unit filename="src\include\GNRDebugFrame.h" />
 		<Unit filename="src\include\GNREnum.h" />
 		<Unit filename="src\include\GNRExportFile.h" />

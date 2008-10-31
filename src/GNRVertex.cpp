@@ -197,22 +197,29 @@ bool GNRVertex::normalize()
  * @param   float   angle to turn arround z
  * @access      private
  */
-void GNRVertex::rotate(float phi, float theta, float rho)
+void GNRVertex::rotate(float alpha, float beta, float gamma)
 {
-	double phi_rad   = phi * M_PI / 180.0;
-	double theta_rad = theta * M_PI / 180.0;
-	double rho_rad   = rho * M_PI / 180.0;
+	// convert from deg to rad
+	double alpha_rad = alpha * M_PI / 180.0;
+	double beta_rad = beta * M_PI / 180.0;
+	double gamma_rad = gamma * M_PI / 180.0;
 	
-	double sp = sin(phi_rad);
-	double st = sin(theta_rad);
-	double sr = sin(rho_rad);
-	double cp = cos(phi_rad);
-	double ct = cos(theta_rad);
-	double cr = cos(rho_rad);
+	double sa = sin(alpha_rad);
+	double sb = sin(beta_rad);
+	double sg = sin(gamma_rad);
+	double ca = cos(alpha_rad);
+	double cb = cos(beta_rad);
+	double cg = cos(gamma_rad);
 	
-	m_x = m_x*ct*cr + m_y*ct*sp - m_z*st;
-	m_y = m_x*sp*st*cr - m_x*cp*sr + m_y*sp*st*sr + m_y*cp*cr + m_z*sp*ct;
-	m_z = m_x*cp*st*cr + m_x*sp*sr + m_y*cp*st*sr - m_y*sp*cr + m_z*cp*ct;
+	// calculate the new values
+	float newx = m_x*ca*cb + m_y*(ca*sb*sg - sa*cg) + m_z*(ca*sb*cg + sa*sg);
+	float newy = m_x*sa*cb + m_y*(sa*sb*sg + ca*cg) + m_z*(sa*sb*cg - ca*sg);
+	float newz = -m_x*sb + m_y*(cb*sg) + m_z*(cb*cg);
+	
+	// write back the new values
+	m_x = newx;
+	m_y = newy;
+	m_z = newz;
 }
 
 /**
