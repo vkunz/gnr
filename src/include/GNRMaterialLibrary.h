@@ -31,8 +31,8 @@ public:
 	
 	void import(istream& is);
 	
-	void selectMaterial(const string& matname) const;
-	
+//	void selectMaterial(const string& matname) const;
+
 	const GNRMaterial& getMaterial(const string& matname) const;
 	
 private:

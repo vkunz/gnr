@@ -19,6 +19,7 @@
 #include "GNREnum.h"
 #include "GNRFace.h"
 #include "GNRVertex.h"
+#include "GNRMaterial.h"
 
 using std::list;
 using std::vector;
@@ -45,7 +46,7 @@ public:
 	float getDepth() const;
 	float getMaximumSize() const;
 	GNRVertex getCenterVertex() const;
-	GNRVertex GNRAssembly::getRotateVertex() const;
+	GNRVertex getRotateVertex() const;
 	
 	void setX(const float x);
 	void setY(const float y);
@@ -84,7 +85,7 @@ public:
 	void addPart(GNRAssembly* part);
 	void delPart(GNRAssembly* part);
 	
-	void setChildMaterial(const GNRAssembly* child, const string& name);
+	void setChildMaterial(const GNRAssembly* child, const GNRMaterial& mat);
 	
 	void setName(const string& name);
 	const string& getName() const;
@@ -107,9 +108,14 @@ public:
 	
 private:
 	float m_x, m_y, m_z;
+	
+	// Rotation along X-, Y-, and Z-Axis
 	float m_phi, m_theta, m_rho;
+	
 	float m_scale_x, m_scale_y, m_scale_z;
+	
 	float m_width, m_height, m_depth;
+	
 	assemblyType m_type;
 	string m_name;
 	
@@ -119,7 +125,7 @@ private:
 	list<GNRAssembly*> m_part;
 	
 	//  ChildPtr ==> material_name
-	map<const GNRAssembly* const, const string> m_child_mat;
+	map<const GNRAssembly* const, GNRMaterial> m_child_mat;
 };
 
 #endif // _GNRASSEMBLY_H_

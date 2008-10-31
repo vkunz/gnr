@@ -113,7 +113,7 @@ void GNRMaterial::setShininess(int s)
 	m_shininess = s;
 }
 
-void GNRMaterial::draw() const
+void GNRMaterial::set() const
 {
 // While the ambient, diffuse, specular and emission material parameters
 // all have alpha components, only the diffuse alpha component is used in

@@ -32,7 +32,7 @@ public:
 	void  setG(float g);
 	void  setB(float b);
 	
-	void getRGB(float&r, float& g, float& b) const;
+	void getRGB(float& r, float& g, float& b) const;
 	void setRGB(float r, float g, float b);
 	
 private:
@@ -61,7 +61,7 @@ public:
 	void setAlpha(float a);
 	void setShininess(int s);
 	
-	void draw() const;
+	void set() const;
 	
 private:
 	GNRColor m_ambient, m_diffuse, m_specular;

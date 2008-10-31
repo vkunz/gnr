@@ -12,6 +12,7 @@
 #include <wx/tokenzr.h>
 #include <wx/txtstrm.h>
 
+#include "GNRMaterialLibrary.h"
 #include "GNRObjectImport.h"
 #include "GNRVNT.h"
 #include "GNREnum.h"
@@ -29,6 +30,8 @@
 using std::ifstream;
 using std::stringstream;
 using std::string;
+
+extern GNRMaterialLibrary mtllib;
 
 // ctor
 GNRObjectImport::GNRObjectImport()
@@ -404,5 +407,5 @@ void GNRObjectImport::getU()
 {
 	stringstream ss(m_buf.substr(6, string::npos));
 	ss >> m_matname;
-	m_wrapper->setChildMaterial(m_act, m_matname);
+	m_wrapper->setChildMaterial(m_act, mtllib.getMaterial(m_matname));
 }

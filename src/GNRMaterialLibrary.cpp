@@ -162,16 +162,16 @@ GNRMaterialLibrary::GNRMaterialLibrary()
 	import(defaults);
 }
 
-void GNRMaterialLibrary::selectMaterial(const string& matname) const
-{
-	map<string, GNRMaterial>::const_iterator it = m_data.find(matname);
-	if (it == m_data.end())
-	{
-		it = m_data.find("default");
-	}
-	
-	it->second.draw();
-}
+//void GNRMaterialLibrary::selectMaterial(const string& matname) const
+//{
+//	map<string, GNRMaterial>::const_iterator it = m_data.find(matname);
+//	if (it == m_data.end())
+//	{
+//		it = m_data.find("default");
+//	}
+//
+//	it->second.draw();
+//}
 
 const GNRMaterial& GNRMaterialLibrary::getMaterial(const string& matname) const
 {

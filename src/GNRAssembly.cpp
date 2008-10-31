@@ -9,8 +9,7 @@
  */
 
 #include "GNRAssembly.h"
-#include "GNRMaterialLibrary.h"
-extern GNRMaterialLibrary mtllib;
+#include "GNRMaterial.h"
 
 #include <GL/gl.h>
 
@@ -622,9 +621,9 @@ void GNRAssembly::setNormals()
 	}
 }
 
-void GNRAssembly::setChildMaterial(const GNRAssembly* child, const string& name)
+void GNRAssembly::setChildMaterial(const GNRAssembly* child, const GNRMaterial& mat)
 {
-	m_child_mat.insert(pair<const GNRAssembly*, const string>(child, name));
+	m_child_mat.insert(pair<const GNRAssembly*, GNRMaterial>(child, mat));
 }
 
 /**
@@ -708,17 +707,14 @@ void GNRAssembly::draw() const
 		// draw the children
 		for (list<GNRAssembly*>::const_iterator it = m_part.begin(); it != m_part.end(); ++it)
 		{
-			map<const GNRAssembly* const, const string>::const_iterator it_mat = m_child_mat.find(*it);
+			// set Child-Material
+			map<const GNRAssembly* const, GNRMaterial>::const_iterator it_mat = m_child_mat.find(*it);
 			if (it_mat != m_child_mat.end())
 			{
-				string mat_name(it_mat->second);
-				mtllib.selectMaterial(mat_name);
-			}
-			else
-			{
-				mtllib.selectMaterial("white");
+				it_mat->second.set();
 			}
 			
+			// draw the Child
 			(*it)->draw();
 		}
 	}
