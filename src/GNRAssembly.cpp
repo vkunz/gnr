@@ -638,51 +638,38 @@ void GNRAssembly::draw() const
 	}
 	else if (m_parent != NULL)
 	{
-		float linecolor[4] = {0.0,0.0,0.0,1.0};
-		float h_x = m_width/2.0;
-		float h_y = m_height/2.0;
-		float h_z = m_depth/2.0;
+		float glowcolor[4] = {0.0,0.0,0.0,0.0};
 		
 		//if selected paint in green color
-		if (m_parent->m_type == IS_SELECTED && m_type != IS_GROUP)
+		if (m_parent->m_type == IS_SELECTED)
 		{
-			linecolor[0] = 0.0;
-			linecolor[1] = 1.0;
-			linecolor[2] = 0.0;
-			linecolor[3] = 0.0;
-		}
-		
-		//if group selected paint in red color
-		if (m_parent->m_type == IS_GROUP && m_parent->m_parent->m_type != IS_ROOT)
-		{
-			linecolor[0] = 1.0;
-			linecolor[1] = 0.0;
-			linecolor[2] = 0.0;
-			linecolor[3] = 0.0;
-		}
-		
-		//if parent type group or selected, draw square on floor
-		if (linecolor[3] == 0.0)
-		{
-			glPushMatrix();
+			if (m_type != IS_GROUP)
 			{
-				glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, linecolor);
-				glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, linecolor);
-				glMaterialfv(GL_FRONT_AND_BACK, GL_EMISSION, linecolor);
-				glLineWidth(10.0);
-				glBegin(GL_LINE_LOOP);
-				glVertex3f(m_x-h_x-0.05, m_y-h_y+0.02, m_z-h_z-0.05);
-				glVertex3f(m_x+h_x+0.05, m_y-h_y+0.02, m_z-h_z-0.05);
-				glVertex3f(m_x+h_x+0.05, m_y-h_y+0.02, m_z+h_z+0.05);
-				glVertex3f(m_x-h_x-0.05, m_y-h_y+0.02, m_z+h_z+0.05);
-				glEnd();
-				linecolor[0] = 0.0;
-				linecolor[1] = 0.0;
-				linecolor[2] = 0.0;
-				linecolor[3] = 0.0;
-				glMaterialfv(GL_FRONT_AND_BACK, GL_EMISSION, linecolor);
+				//paint blue glowing
+				glowcolor[0] = 0.0;
+				glowcolor[1] = 0.0;
+				glowcolor[2] = 0.8;
+				glowcolor[3] = 0.8;
 			}
-			glPopMatrix();
+			
+			if (m_type == IS_GROUP)
+			{
+				//paint red glowing
+				glowcolor[0] = 0.8;
+				glowcolor[1] = 0.0;
+				glowcolor[2] = 0.0;
+				glowcolor[3] = 0.8;
+			}
+			
+			//if parent type group or selected, draw square on floor
+			if (glowcolor[3] > 0.0)
+			{
+				glMaterialfv(GL_FRONT, GL_EMISSION, glowcolor);
+			}
+		}
+		else if (m_parent->m_type == IS_ROOT)
+		{
+			glMaterialfv(GL_FRONT, GL_EMISSION, glowcolor);
 		}
 	}
 	
