@@ -252,6 +252,12 @@ void GNRScene::groupSelectedAssemblies()
 	//first pass to get maximum cube and new center of group
 	for (list<GNRAssembly*>::iterator it = parts.begin(); it != parts.end(); ++it)
 	{
+		//kill possible empty groups in container
+		if ((*it)->getPartList().size() < 1)
+		{
+			m_Selected->delPart(*it);
+			continue;
+		}
 		minmax(min[0], max[0], (*it)->getX());
 		minmax(min[1], max[1], (*it)->getY());
 		minmax(min[2], max[2], (*it)->getZ());
@@ -313,6 +319,7 @@ void GNRScene::ungroupSelectedAssemblies()
 	//find all groups and free them
 	for (list<GNRAssembly*>::iterator it = sel_parts.begin(); it != sel_parts.end(); ++it)
 	{
+		//only for groups in the selected container
 		if ((*it)->isType(IS_GROUP))
 		{
 			//get partlist iterator
@@ -334,6 +341,8 @@ void GNRScene::ungroupSelectedAssemblies()
 				//put the new child on the floor, please
 				//(*child_it)->putOnGround();
 			}
+			//remove group container from his parent
+			m_Selected->delPart(*it);
 		}
 	}
 }
@@ -352,20 +361,23 @@ void GNRScene::ungroupOneAssembly(GNRAssembly* assembly)
 		return;
 	}
 	
-	GNRVertex grp_center;
+	GNRVertex grp_center = assembly->getCenterVertex();
 	GNRVertex obj_center;
 	
 	//find all groups and free them
 	for (list<GNRAssembly*>::iterator child_it = grp_parts.begin(); child_it != grp_parts.end(); ++child_it)
 	{
-		//move assembly from group to IS_SELECTED
-		m_RootAssembly->addPart((*child_it));
+		//move child from group to one level upwards
+		(assembly->getParent())->addPart((*child_it));
+		//kill part in group now
 		assembly->delPart((*child_it));
-		
-		//calculate new position to center of IS_SELECTED
+		//calculate new position relative to center of parent
 		obj_center = (*child_it)->getCenterVertex() + grp_center;
+		//set new center of child
 		(*child_it)->setCenterVertex(obj_center);
 	}
+	//remove empty group container from parent
+	(assembly->getParent())->delPart(assembly);
 }
 
 /**
