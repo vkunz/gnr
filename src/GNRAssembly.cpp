@@ -562,7 +562,7 @@ void GNRAssembly::delPart(GNRAssembly* part)
  * @return      GNRVertext      vertex to center of object
  * @access      public
  */
-GNRVertex& GNRAssembly::getCenterVertex() const
+GNRVertex GNRAssembly::getCenterVertex() const
 {
 	GNRVertex position(m_x, m_y, m_z);
 	return position;

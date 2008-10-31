@@ -12,6 +12,7 @@
 #define _GNRNOTIFYEVENT_H_
 
 #include "wx/event.h"
+#include "GNRAssembly.h"
 
 class GNRNotifyEvent : public wxNotifyEvent
 {
@@ -20,6 +21,7 @@ private:
 	int eventType;
 	int eventSnapToGrid;
 	int eventSnapToAngle;
+	GNRAssembly* assembly;
 	
 public:
 
@@ -29,6 +31,9 @@ public:
 	
 	void setGNREventType(int type);
 	int getGNREventType();
+	
+	void setAssemblyPtr(GNRAssembly* a);
+	GNRAssembly* getAssemblyPtr();
 	
 	void setSnapToGrid(int value);
 	int getSnapToGrid();

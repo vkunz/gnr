@@ -52,23 +52,35 @@ private:
 	void OnToolbarDrawWall(wxCommandEvent& event);
 	void OnCreateScreenshot(wxCommandEvent& event);
 	void OnCameraReset(wxCommandEvent& event);
+	void OnZoomIn(wxCommandEvent& WXUNUSED(event));
+	void OnZoomOut(wxCommandEvent& WXUNUSED(event));
 	void OnSnapToGridBtn(wxCommandEvent& event);
 	void OnSnapToGridCtrl(wxSpinEvent& event);
 	void OnSnapToGridMenu(wxCommandEvent& event);
 	void OnGroupCreate(wxCommandEvent& WXUNUSED(event));
 	void OnGroupModify(wxCommandEvent& WXUNUSED(event));
+	void OnDeleteSelected(wxCommandEvent& WXUNUSED(event));
 	//global set snap to grid
 	void OnSnapToGrid();
+	//global wheel simulation
+	void simulateMouseWheel(int direction);
 	
 	//(*Identifiers(GNRMainFrame)
 	static const long idMenuNewRoom;
 	static const long idMenuOpxOpen;
 	static const long idMenuOpxSave;
-	static const long idMenuOaxImport;
+	static const long idMenuQuit;
+	static const long idMenuUndo;
+	static const long idMenuRedo;
+	static const long idMenuDeleteObject;
+	static const long idMenuInsertObject;
+	static const long idMenuCopyObject;
+	static const long idMenuHideObject;
+	static const long idMenuShowObject;
+	static const long idMenuObjExport;
 	static const long idMenuOaxExport;
 	static const long idMenuObjImport;
-	static const long idMenuObjExport;
-	static const long idMenuQuit;
+	static const long idMenuOaxImport;
 	static const long idMenuSnapToGrid;
 	static const long idMenuMoveXZ;
 	static const long idMenuMoveXY;
@@ -77,11 +89,6 @@ private:
 	static const long idMenuDrawWall;
 	static const long idMenuGroup;
 	static const long idMenuUngroup;
-	static const long idMenuInsertObject;
-	static const long idMenuDeleteObject;
-	static const long idMenuCopyObject;
-	static const long idMenuHideObject;
-	static const long idMenuShowObject;
 	static const long idMenuHelp;
 	static const long idMenuAbout;
 	static const long ID_StatusBar;
@@ -115,16 +122,29 @@ private:
 	static const long ID_STATICTEXT2;
 	
 	//(*Declarations(GNRMainFrame)
+	wxMenuItem* MenuItem25;
 	wxMenu* Menu3;
 	wxMenuItem* MenuItem14;
 	wxMenuItem* MenuItem11;
 	wxMenuItem* MenuItem15;
+	wxMenuItem* MenuItem22;
+	wxMenuItem* MenuItem17;
 	wxMenuItem* MenuItem13;
 	wxMenuItem* MenuItem10;
 	wxMenuItem* MenuItem12;
+	wxMenuItem* MenuItem24;
+	wxMenuItem* MenuItem20;
+	wxMenu* Menu7;
 	wxStatusBar* StatusBar1;
+	wxMenuItem* MenuItem23;
+	wxMenuItem* MenuItem21;
 	wxMenuItem* MenuItem16;
+	wxMenu* Menu6;
 	wxMenuItem* MenuItem9;
+	wxMenuItem* MenuItem18;
+	wxMenu* Menu5;
+	wxMenu* Menu4;
+	wxMenuItem* MenuItem19;
 	//*)
 	
 	wxSpinCtrl* SpinCtrlTranslate;

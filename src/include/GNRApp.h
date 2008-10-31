@@ -51,6 +51,7 @@ private:
 	void initFrames();
 	void updateSplitters();
 	void updateSize();
+	void initialSetup();
 	
 	// MainFrame Menu-functions
 	void OPXOpen(wxString filename);

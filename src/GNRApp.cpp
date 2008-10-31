@@ -14,6 +14,7 @@
 #include "GNRObjectImport.h"
 #include "GNROpxImport.h"
 #include "GNRGLScreenshot.h"
+#include "GNRGlobalDefine.h"
 
 #if defined(__ATHOS_DEBUG__)
 #include <wx/log.h>
@@ -58,12 +59,16 @@ bool GNRApp::OnInit()
 		//build models
 		m_Scene         = new GNRScene();
 		m_MouseCtrl     = new GNRMouseController(m_Scene);
+		
 		m_TreeLibCtrl   = new GNRTreeLibraryController(m_TreeCtrlLib);
 		m_GridSceneCtrl = new GNRGridSceneController(m_Grid);
 		m_UndoRedo      = GNRUndoRedo::getInstance();
 		
 		m_Scene->setCanvas2D(m_Canvas2D);
 		m_Scene->setCanvas3D(m_Canvas3D);
+		
+		//initialize whole menus
+		initialSetup();
 	}
 	
 	return wxsOK;
@@ -221,6 +226,15 @@ void GNRApp::OnGNREvent(GNRNotifyEvent& event)
 		m_Scene->ungroupSelectedAssemblies();
 		m_Scene->glRefresh();
 		break;
+	case DELETESELECTED:
+		m_Scene->deleteSelectedAssemblies();
+		m_Scene->glRefresh();
+		break;
+	case UNDOCREATEGROUP:
+#warning "INFO: check how to set undo and redo!"
+		m_Scene->ungroupOneAssembly(event.getAssemblyPtr());
+		m_Scene->glRefresh();
+		break;
 	case SETUNDOENABLED:
 		m_MainFrame->setUndoEnabled(event.GetInt());
 		break;
@@ -273,6 +287,9 @@ void GNRApp::OPXOpen(wxString filename)
 {
 	// create importer and execute it
 	GNROpxImport import(m_Scene, filename);
+#if defined(__ATHOS_DEBUG__)
+	wxLogDebug(wxT("Leider noch nicht implementiert!"));
+#endif
 }
 
 /**
@@ -283,7 +300,7 @@ void GNRApp::OPXOpen(wxString filename)
 void GNRApp::OPXSave(wxString filename)
 {
 #if defined(__ATHOS_DEBUG__)
-	wxLogDebug(wxT("OPXSave: not implemented yet"));
+	wxLogDebug(wxT("Leider noch nicht implementiert!"));
 #endif
 }
 
@@ -299,6 +316,9 @@ void GNRApp::OAXImport(wxString filename)
 	
 	// loads file
 	//GNROaxImport oax_stream(stream);
+#if defined(__ATHOS_DEBUG__)
+	wxLogDebug(wxT("Leider noch nicht implementiert!"));
+#endif
 }
 
 /**
@@ -309,7 +329,7 @@ void GNRApp::OAXImport(wxString filename)
 void GNRApp::OAXExport(wxString filename)
 {
 #if defined(__ATHOS_DEBUG__)
-	wxLogDebug(wxT("OAXExport: not implemented yet"));
+	wxLogDebug(wxT("Leider noch nicht implementiert!"));
 #endif
 }
 
@@ -333,7 +353,7 @@ void GNRApp::OBJImport(wxString filename)
 void GNRApp::OBJExport(wxString filename)
 {
 #if defined(__ATHOS_DEBUG__)
-	wxLogDebug(wxT("OBJExport: not implemented yet"));
+	wxLogDebug(wxT("Leider noch nicht implementiert!"));
 #endif
 }
 
@@ -345,6 +365,21 @@ void GNRApp::createScreenshot(wxString filename)
 {
 	m_Canvas3D->setActive();
 	GNRGLScreenshot scr(filename);
+}
+
+/**
+ * throw event for inital setup
+ * @access      private
+ */
+void GNRApp::initialSetup()
+{
+	GNRNotifyEvent gnrevent(wxEVT_COMMAND_GNR_NOTIFY);
+	
+	gnrevent.setGNREventType(SNAPTOGRID);
+	gnrevent.setSnapToGrid(SNAP_IN_DEFAULT_GRID);
+	gnrevent.setSnapToAngle(SNAP_IN_DEFAULT_ANGLE);
+	
+	m_MouseCtrl->setSnapfunction(gnrevent);
 }
 
 // Code unser im Repo,

@@ -41,7 +41,7 @@ public:
 	float getWidth() const;
 	float getDepth() const;
 	float getMaximumSize() const;
-	GNRVertex& GNRAssembly::getCenterVertex() const;
+	GNRVertex GNRAssembly::getCenterVertex() const;
 	
 	void setX(const float x);
 	void setY(const float y);

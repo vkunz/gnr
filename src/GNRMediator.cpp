@@ -19,14 +19,15 @@
 //global static storage for all mediators
 canvasType GNRMediator::m_CanvasID;
 transType  GNRMediator::m_Translation;
-int GNRMediator::m_SnapGrid  = 1;
-int GNRMediator::m_SnapAngle = 1;
+int GNRMediator::m_SnapGrid  = SNAP_IN_DEFAULT_GRID;
+int GNRMediator::m_SnapAngle = SNAP_IN_DEFAULT_ANGLE;
 
 /**
  * constructor of GNRMediator is useless
  * @access      public
  */
-GNRMediator::GNRMediator() {}
+GNRMediator::GNRMediator()
+{}
 
 /**
  * destructor of GNRMediator is useless

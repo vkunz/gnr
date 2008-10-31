@@ -53,3 +53,13 @@ int GNRNotifyEvent::getSnapToAngle()
 {
 	return eventSnapToAngle;
 }
+
+void GNRNotifyEvent::setAssemblyPtr(GNRAssembly* a)
+{
+	assembly = a;
+}
+
+GNRAssembly* GNRNotifyEvent::getAssemblyPtr()
+{
+	return assembly;
+}

@@ -70,6 +70,7 @@ public:
 	void groupSelectedAssemblies();
 	void ungroupSelectedAssemblies();
 	
+	void ungroupOneAssembly(GNRAssembly* assembly);
 	void restoreAssembly(GNRAssembly* assembly);
 	void showAssembly(GNRAssembly* assembly);
 	void selectAssembly(GNRAssembly* assembly);

@@ -283,6 +283,13 @@ void GNRScene::groupSelectedAssemblies()
 	
 	//put new group in the world
 	m_RootAssembly->addPart(group);
+	
+#warning "INFO: check how to set undo and redo!"
+//	GNRCommandAssembly* command = new GNRCommandAssembly;
+//	command->setAssembly(group);
+//
+//	GNRUndoRedo* undo = GNRUndoRedo::getInstance();
+//	undo->enqueue(command);
 }
 
 /**
@@ -306,13 +313,12 @@ void GNRScene::ungroupSelectedAssemblies()
 	//find all groups and free them
 	for (list<GNRAssembly*>::iterator it = sel_parts.begin(); it != sel_parts.end(); ++it)
 	{
-		grp_center = (*it)->getCenterVertex();
 		if ((*it)->isType(IS_GROUP))
 		{
 			//get partlist iterator
 			grp_parts  = (*it)->getPartList();
 			//save center of group
-			obj_center = (*it)->getCenterVertex();
+			grp_center = (*it)->getCenterVertex();
 			
 			//correct position of all group members
 			for (list<GNRAssembly*>::iterator child_it = grp_parts.begin(); child_it != grp_parts.end(); ++child_it)
@@ -322,13 +328,43 @@ void GNRScene::ungroupSelectedAssemblies()
 				(*it)->delPart((*child_it));
 				
 				//calculate new position to center of IS_SELECTED
-				obj_center = grp_center - obj_center;
-				(*it)->setCenterVertex(obj_center);
-				
+				obj_center = (*child_it)->getCenterVertex() + grp_center;
+				(*child_it)->setCenterVertex(obj_center);
+#warning "INFO: rotation has to be calculated by vertexes!"
 				//put the new child on the floor, please
-				(*child_it)->putOnGround();
+				//(*child_it)->putOnGround();
 			}
 		}
+	}
+}
+
+/**
+ * ungroup selected assembly and move all parts to root
+ * @access      public
+ */
+void GNRScene::ungroupOneAssembly(GNRAssembly* assembly)
+{
+	list<GNRAssembly*> grp_parts = assembly->getPartList();
+	
+	if (grp_parts.size() <= 0)
+	{
+		//no parts, don't waste time
+		return;
+	}
+	
+	GNRVertex grp_center;
+	GNRVertex obj_center;
+	
+	//find all groups and free them
+	for (list<GNRAssembly*>::iterator child_it = grp_parts.begin(); child_it != grp_parts.end(); ++child_it)
+	{
+		//move assembly from group to IS_SELECTED
+		m_RootAssembly->addPart((*child_it));
+		assembly->delPart((*child_it));
+		
+		//calculate new position to center of IS_SELECTED
+		obj_center = (*child_it)->getCenterVertex() + grp_center;
+		(*child_it)->setCenterVertex(obj_center);
 	}
 }
 
