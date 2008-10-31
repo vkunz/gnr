@@ -636,3 +636,8 @@ void GNRMainFrame::simulateMouseWheel(int direction)
 	myevent.SetEventObject(this);
 	GetEventHandler()->ProcessEvent(myevent);
 }
+
+wxStatusBar* GNRMainFrame::getStatusbar()
+{
+	return  StatusBar1;
+}

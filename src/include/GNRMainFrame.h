@@ -28,6 +28,8 @@ public:
 	void setUndoEnabled(bool enabled);
 	void setRedoEnabled(bool enabled);
 	
+	wxStatusBar* getStatusbar();
+	
 private:
 
 	//(*Handlers(GNRMainFrame)

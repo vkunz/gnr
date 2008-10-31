@@ -15,7 +15,7 @@ GNRPrimitiveCreator::~GNRPrimitiveCreator()
 
 GNRAssembly* GNRPrimitiveCreator::createCuboid(const GNRVertex& position, const GNRVertex& angles, const GNRVertex& dimension)
 {
-	GNRAssembly* cuboid = new GNRAssembly("Cuboid");
+	GNRAssembly* cuboid = new GNRAssembly("cuboid");
 	
 	// set position of the cuboid
 	cuboid->setX(position.getX());
@@ -33,15 +33,15 @@ GNRAssembly* GNRPrimitiveCreator::createCuboid(const GNRVertex& position, const 
 	cuboid->setDepth(dimension.getZ());
 	
 	// prepare points
-	float x = position.getX() / 2.0;
-	float y = position.getY() / 2.0;
-	float z = position.getZ() / 2.0;
+	float x = dimension.getX() / 2.0;
+	float y = dimension.getY() / 2.0;
+	float z = dimension.getZ() / 2.0;
 	
 	// create front face
 	GNRVertex topLeft(-x, y, z);
 	GNRVertex bottomLeft(-x, -y, z);
 	GNRVertex bottomRight(x, -y, z);
-	GNRVertex topRight(-x, y, z);
+	GNRVertex topRight(x, y, z);
 	GNRVertex normal(0, 0, 1);
 	cuboid->addFace(*createFace(topLeft, bottomLeft, bottomRight, topRight, normal));
 	
@@ -78,10 +78,11 @@ GNRAssembly* GNRPrimitiveCreator::createCuboid(const GNRVertex& position, const 
 	cuboid->addFace(*createFace(topLeft, bottomLeft, bottomRight, topRight, normal));
 	
 	// create bottom face
-	topLeft.setXYZ(-x, -y, -z);
-	bottomLeft.setXYZ(-x, -y, z);
-	bottomRight.setXYZ(x, -y, z);
-	topRight.setXYZ(x, -y, -z);
+	bottomLeft.setXYZ(-x, -y, -z);
+	topLeft.setXYZ(-x, -y, z);
+	topRight.setXYZ(x, -y, z);
+	bottomRight.setXYZ(x, -y, -z);
+	
 	normal.setXYZ(0, -1, 0);
 	cuboid->addFace(*createFace(topLeft, bottomLeft, bottomRight, topRight, normal));
 	
@@ -116,7 +117,7 @@ GNRFace* GNRPrimitiveCreator::createFace(GNRVertex& topLeft, GNRVertex& bottomLe
 	normal = new GNRVertex(normale);
 	tcoord = new GNRTCoord(1, 1);
 	GNRVNT vnt4(vector, normal, tcoord);
-	face->addVNT(vnt);
+	face->addVNT(vnt4);
 	
 	return face;
 }

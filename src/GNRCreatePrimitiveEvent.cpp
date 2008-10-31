@@ -31,6 +31,11 @@ void GNRCreatePrimitiveEvent::setDimensions(GNRVertex dim)
 	m_dimensions = dim;
 }
 
+void GNRCreatePrimitiveEvent::setPrimitiveType(primitivesType type)
+{
+	m_type = type;
+}
+
 GNRVertex GNRCreatePrimitiveEvent::getPosition()
 {
 	return m_position;
@@ -45,3 +50,9 @@ GNRVertex GNRCreatePrimitiveEvent::getDimensions()
 {
 	return m_dimensions;
 }
+
+primitivesType GNRCreatePrimitiveEvent::getPrimitiveType()
+{
+	return m_type;
+}
+

@@ -21,7 +21,7 @@
 #include <wx/log.h>
 #endif
 
-class GNRScene
+class GNRScene: public wxEvtHandler
 {
 private:
 
@@ -78,6 +78,8 @@ public:
 	void showAssembly(GNRAssembly* assembly);
 	void selectAssembly(GNRAssembly* assembly);
 	void minmax(float& min,float& max,float value);
+	
+	void insertCuboid(GNRAssembly* cuboid);
 	
 	GNRScene();
 	virtual ~GNRScene();

@@ -63,3 +63,13 @@ GNRAssembly* GNRNotifyEvent::getAssemblyPtr()
 {
 	return assembly;
 }
+
+void GNRNotifyEvent::setFloat(float value)
+{
+	m_float = value;
+}
+
+float GNRNotifyEvent::getFloat()
+{
+	return m_float;
+}

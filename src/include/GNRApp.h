@@ -18,6 +18,7 @@
 #include <wx/treectrl.h>
 #include <wx/wfstream.h>
 
+#include "GNRCreatePrimitiveEvent.h"
 #include "GNRGLCanvas2D.h"
 #include "GNRGLCanvas3D.h"
 #include "GNRGLNotifyEvent.h"
@@ -45,6 +46,7 @@ private:
 	void OnGNREvent(GNRNotifyEvent& event);
 	void OnGLEvent(GNRGLNotifyEvent& event);
 	void OnLineDrawEvent(GNRLineDrawEvent& event);
+	void OnCreatePrimitiveEvent(GNRCreatePrimitiveEvent& event);
 	
 	//functions
 	void glRefresh();

@@ -64,6 +64,10 @@ void GNRMouseController::setMediator(GNRGLNotifyEvent& event)
 			{
 				m_Mediator = m_WallMediator;
 			}
+			else
+			{
+				m_Mediator = m_GLCameraMediator3D;
+			}
 		}
 		else
 		{

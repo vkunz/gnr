@@ -22,6 +22,7 @@ private:
 	int eventSnapToGrid;
 	int eventSnapToAngle;
 	GNRAssembly* assembly;
+	float m_float;
 	
 public:
 
@@ -40,6 +41,9 @@ public:
 	
 	void setSnapToAngle(int value);
 	int getSnapToAngle();
+	
+	void setFloat(float value);
+	float getFloat();
 	
 	DECLARE_DYNAMIC_CLASS(GNRNotifyEvent);
 };

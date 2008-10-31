@@ -9,6 +9,7 @@
  */
 
 #include "GNRScene.h"
+#include "GNRNotifyEvent.h"
 
 /**
  * construct scene and two assemblies (scene and grouper) plus
@@ -234,6 +235,19 @@ void GNRScene::drawLine(GNRLineDrawEvent& event)
 	glEnd();
 	
 	m_Canvas2D->endDraw();
+	
+	// calculate length of the line
+	float x = event.getEndPoint().getX() - event.getStartPoint().getX();
+	float y = event.getEndPoint().getY() - event.getStartPoint().getY();
+	float z = event.getEndPoint().getZ() - event.getStartPoint().getZ();
+	GNRVertex myvec(x, y, z);
+	float length = myvec.length();
+	
+	// send event to display length
+	GNRNotifyEvent gnrevent(wxEVT_COMMAND_GNR_NOTIFY);
+	gnrevent.setGNREventType(DISPLAYLENGTH);
+	gnrevent.setFloat(length);
+	ProcessEvent(gnrevent);
 }
 
 /**
@@ -477,4 +491,18 @@ void GNRScene::minmax(float& min,float& max,float value)
 	{
 		min = value;
 	}
+}
+
+void GNRScene::insertCuboid(GNRAssembly* cuboid)
+{
+	cuboid->setType(IS_ATOMIC);
+	// create new assembly
+	GNRAssembly* assembly = new GNRAssembly("cube");
+	assembly->setType(IS_PRIMITIVE);
+	
+	assembly->addPart(cuboid);
+	
+	m_RootAssembly->addPart(assembly);
+	
+	glRefresh();
 }

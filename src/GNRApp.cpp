@@ -11,6 +11,7 @@
 #include <wx/image.h>
 
 #include "GNRApp.h"
+#include "GNRPrimitiveCreator.h"
 #include "GNRObjectImport.h"
 #include "GNROpxImport.h"
 #include "GNRGLScreenshot.h"
@@ -29,7 +30,8 @@ GNRMaterialLibrary mtllib;
 BEGIN_EVENT_TABLE(GNRApp, wxApp)
 	EVT_GNR_NOTIFY(0, GNRApp::OnGNREvent)   //global event for redraw...
 	EVT_GL_NOTIFY(0, GNRApp::OnGLEvent)     //event for mouse and move in GL...
-	EVT_GNR_LINE_DRAW(0, GNRApp::OnLineDrawEvent)     //event for mouse and move in GL...
+	EVT_GNR_LINE_DRAW(0, GNRApp::OnLineDrawEvent)     //event to draw a line in gl
+	EVT_GNR_CREATE_PRIMITIVE(0, GNRApp::OnCreatePrimitiveEvent)     //event to draw a line in gl
 END_EVENT_TABLE()
 
 IMPLEMENT_APP(GNRApp);
@@ -172,9 +174,6 @@ void GNRApp::OnGNREvent(GNRNotifyEvent& event)
 		updateSplitters();
 		m_Scene->glRefresh();
 		break;
-	case GLREFRESH2D:
-		m_Scene->glRefresh2D();
-		break;
 	case NEWROOM:
 		m_Scene->newRoom();
 		m_Scene->glRefresh();
@@ -250,6 +249,10 @@ void GNRApp::OnGNREvent(GNRNotifyEvent& event)
 	case SETREDOENABLED:
 		m_MainFrame->setRedoEnabled(event.GetInt());
 		break;
+	case DISPLAYLENGTH:
+		wxString str;
+		str << wxT("Länge: ") << event.getFloat();
+		m_MainFrame->getStatusbar()->SetStatusText(str);
 	}
 }
 
@@ -292,6 +295,17 @@ void GNRApp::OnGLEvent(GNRGLNotifyEvent& event)
 void GNRApp::OnLineDrawEvent(GNRLineDrawEvent& event)
 {
 	m_Scene->drawLine(event);
+}
+
+void GNRApp::OnCreatePrimitiveEvent(GNRCreatePrimitiveEvent& event)
+{
+	GNRAssembly* assembly;
+	if (event.getPrimitiveType() == CUBOID)
+	{
+		GNRPrimitiveCreator creator;
+		assembly = creator.createCuboid(event.getPosition(), event.getAngles(), event.getDimensions());
+	}
+	m_Scene->insertCuboid(assembly);
 }
 
 /**

@@ -25,7 +25,7 @@ public:
 	void setAngles(GNRVertex angles);
 	void setDimensions(GNRVertex dim);
 	
-	primitivesType getPrimitiveTypes();
+	primitivesType getPrimitiveType();
 	
 	GNRVertex getPosition();
 	GNRVertex getAngles();

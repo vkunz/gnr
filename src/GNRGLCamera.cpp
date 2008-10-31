@@ -182,7 +182,7 @@ void GNRGLCamera::setAngles(float phi, float theta, float rho)
 	upVector.setX(0);
 	upVector.setY(1);
 	upVector.setZ(0);
-	upVector.rotate(0.0, 0.0, 0.0);
+	upVector.rotate(0.0, 0.0, rho);
 	upVector.normalize();
 	
 	rotatedX = phi;
