@@ -21,5 +21,6 @@ enum canvasType   { NONE = 1, CANVAS2D, CANVAS3D, CANVASPREVIEW };
 enum assemblyType { IS_ROOT = 0, IS_SELECTED, IS_HIDDEN, IS_TRASH, IS_ATOMIC, IS_WALL, IS_PRIMITIVE, IS_GROUP, IS_OBJECT,
                     IS_WRAPPER
                   };
+enum primitivesType { CUBOID = 0 };
 
 #endif // GNRENUM_H

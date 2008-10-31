@@ -192,6 +192,9 @@ bool GNRVertex::normalize()
 
 /**
  * Rotates the current vector using phi, theta, rho
+ * @param   float   angle to turn arround x
+ * @param   float   angle to turn arround y
+ * @param   float   angle to turn arround z
  * @access      private
  */
 void GNRVertex::rotate(float phi, float theta, float rho)
@@ -210,6 +213,21 @@ void GNRVertex::rotate(float phi, float theta, float rho)
 	m_x = m_x*ct*cr + m_y*ct*sp - m_z*st;
 	m_y = m_x*sp*st*cr - m_x*cp*sr + m_y*sp*st*sr + m_y*cp*cr + m_z*sp*ct;
 	m_z = m_x*cp*st*cr + m_x*sp*sr + m_y*cp*st*sr - m_y*sp*cr + m_z*cp*ct;
+}
+
+/**
+ * Rotates the current vector using phi, theta, rho
+ * @param   GNRVertex*  Vertex with values phi, theta, rho
+ * @access      private
+ */
+void GNRVertex::rotate(GNRVertex* angles)
+{
+	// read out angles from vertex to use rotate3f
+	float phi = angles.getX();
+	float theta = angles.getY();
+	float rho = angles.getZ();
+	
+	rotate(phi, theta, rho);
 }
 
 wxString GNRVertex::ToString()

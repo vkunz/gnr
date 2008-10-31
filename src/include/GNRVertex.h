@@ -54,6 +54,7 @@ public:
 	float length();
 	bool normalize();
 	void rotate(float phi, float theta, float rho);
+	void rotate(GNRVertex* angles);
 	
 	// return attributes
 	wxString ToString();

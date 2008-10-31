@@ -55,12 +55,7 @@ int GNRWallMediator::translate(GNRGLNotifyEvent& event)
 	myevent.setStartPoint(startPoint);
 	myevent.setEndPoint(endPoint);
 	ProcessEvent(myevent);
-	/*
-	    wxString str;
-	    str << wxT("x:") << startPoint.getX() << wxT("y:") << startPoint.getY() << wxT("z:") << startPoint.getZ() << wxT("\n");
-	    str << wxT("x:") << endPoint.getX() << wxT("y:") << endPoint.getY() << wxT("z:") << endPoint.getZ() << wxT("\n");
-	    wxLogDebug(str);
-	*/
+	
 	return 1;
 }
 
