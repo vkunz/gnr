@@ -122,6 +122,7 @@
 		<Unit filename="src\GNRGridSceneController.cpp" />
 		<Unit filename="src\GNRGridTable.cpp" />
 		<Unit filename="src\GNRImportFile.cpp" />
+		<Unit filename="src\GNRLineDrawEvent.cpp" />
 		<Unit filename="src\GNRMainFrame.cpp" />
 		<Unit filename="src\GNRMaterial.cpp" />
 		<Unit filename="src\GNRMaterialLibrary.cpp" />
@@ -141,6 +142,7 @@
 		<Unit filename="src\GNRUndoRedo.cpp" />
 		<Unit filename="src\GNRVNT.cpp" />
 		<Unit filename="src\GNRVertex.cpp" />
+		<Unit filename="src\GNRWallMediator.cpp" />
 		<Unit filename="src\include\GNRApp.h" />
 		<Unit filename="src\include\GNRAssembly.h" />
 		<Unit filename="src\include\GNRAssemblyMediator.h" />
@@ -168,6 +170,7 @@
 		<Unit filename="src\include\GNRGridSceneController.h" />
 		<Unit filename="src\include\GNRGridTable.h" />
 		<Unit filename="src\include\GNRImportFile.h" />
+		<Unit filename="src\include\GNRLineDrawEvent.h" />
 		<Unit filename="src\include\GNRMainFrame.h" />
 		<Unit filename="src\include\GNRMaterial.h" />
 		<Unit filename="src\include\GNRMaterialLibrary.h" />
@@ -187,6 +190,7 @@
 		<Unit filename="src\include\GNRUndoRedo.h" />
 		<Unit filename="src\include\GNRVNT.h" />
 		<Unit filename="src\include\GNRVertex.h" />
+		<Unit filename="src\include\GNRWallMediator.h" />
 		<Unit filename="src\include\md5.h" />
 		<Unit filename="src\md5.cpp" />
 		<Unit filename="src\resources\button-canvas2d-zoom-fit.xpm" />

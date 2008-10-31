@@ -26,8 +26,7 @@ int GNRMediator::m_SnapAngle = SNAP_IN_DEFAULT_ANGLE;
  * constructor of GNRMediator is useless
  * @access      public
  */
-GNRMediator::GNRMediator()
-{}
+GNRMediator::GNRMediator() {}
 
 /**
  * destructor of GNRMediator is useless

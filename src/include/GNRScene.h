@@ -15,6 +15,7 @@
 #include "GNRGLCamera.h"
 #include "GNRGLCanvas2D.h"
 #include "GNRGLCanvas3D.h"
+#include "GNRLineDrawEvent.h"
 
 #if defined(__ATHOS_DEBUG__)
 #include <wx/log.h>
@@ -64,6 +65,8 @@ public:
 	void glRefresh();
 	void glRefresh2D();
 	void glRefresh3D();
+	
+	void drawLine(GNRLineDrawEvent& event);
 	
 	void deleteSelectedAssemblies();
 	void hideSelectedAssemblies();

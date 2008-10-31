@@ -215,6 +215,27 @@ void GNRScene::deleteSelectedAssemblies()
 	}
 }
 
+void GNRScene::drawLine(GNRLineDrawEvent& event)
+{
+	//prepare and draw 2D top view of room
+	m_Canvas2D->prepareDraw();
+	m_GLCamera2D->render();
+	m_Canvas2D->initLights();
+	m_Canvas2D->drawBaseFloor(0.0, 0.0, 0.0, 32);
+	m_RootAssembly->draw();
+	
+	// draw line from start- to end-point
+	float lineColor[4] = {1.0, 0.0, 0.0, 0.0};
+	glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, lineColor);
+	glLineWidth(2.0f);
+	glBegin(GL_LINES);
+	glVertex3f(event.getStartPoint().getX(), event.getStartPoint().getY(), event.getStartPoint().getZ());
+	glVertex3f(event.getEndPoint().getX(), event.getEndPoint().getY(), event.getEndPoint().getZ());
+	glEnd();
+	
+	m_Canvas2D->endDraw();
+}
+
 /**
  * hide all selected assemblies (move to hidden container)
  * @access      public

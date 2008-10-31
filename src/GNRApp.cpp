@@ -29,6 +29,7 @@ GNRMaterialLibrary mtllib;
 BEGIN_EVENT_TABLE(GNRApp, wxApp)
 	EVT_GNR_NOTIFY(0, GNRApp::OnGNREvent)   //global event for redraw...
 	EVT_GL_NOTIFY(0, GNRApp::OnGLEvent)     //event for mouse and move in GL...
+	EVT_GNR_LINE_DRAW(0, GNRApp::OnLineDrawEvent)     //event for mouse and move in GL...
 END_EVENT_TABLE()
 
 IMPLEMENT_APP(GNRApp);
@@ -166,6 +167,9 @@ void GNRApp::OnGNREvent(GNRNotifyEvent& event)
 		updateSplitters();
 		m_Scene->glRefresh();
 		break;
+	case GLREFRESH2D:
+		m_Scene->glRefresh2D();
+		break;
 	case NEWROOM:
 		m_Scene->newRoom();
 		m_Scene->glRefresh();
@@ -259,23 +263,30 @@ void GNRApp::OnGLEvent(GNRGLNotifyEvent& event)
 	{
 		m_MouseCtrl->setMediator(event);
 	}
+	
 	//if button is down, translate event to mediator
 	else if (event.getMouseEvent().ButtonIsDown(-1))
 	{
 		m_MouseCtrl->activateMediator(event);
 	}
+	
 	//if button goes up, create command-object for undo
 	else if (event.getMouseEvent().ButtonUp(-1))
 	{
 		m_MouseCtrl->deactivateMediator();
 	}
+	
 	//if event is scroll-event, translate event to mediator
 	else if (event.getMouseEvent().GetWheelRotation())
 	{
 		m_MouseCtrl->setMediator(event);
 		m_MouseCtrl->activateMediator(event);
 	}
-	
+}
+
+void GNRApp::OnLineDrawEvent(GNRLineDrawEvent& event)
+{
+	m_Scene->drawLine(event);
 }
 
 /**

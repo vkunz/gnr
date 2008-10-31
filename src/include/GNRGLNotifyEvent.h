@@ -23,8 +23,8 @@ private:
 	int selectedObj;
 	canvasType canvasID;
 	int win_x, win_y;
-	float world_min_x, world_min_y;
-	float world_max_x, world_max_y;
+	float world_min_x, world_min_y, world_min_z;
+	float world_max_x, world_max_y, world_max_z;
 public:
 	GNRGLNotifyEvent(wxEventType commandType = wxEVT_NULL, int id = 0);
 	GNRGLNotifyEvent(const GNRGLNotifyEvent& event);
@@ -41,8 +41,10 @@ public:
 	int getWinY();
 	float getWorldXmin();
 	float getWorldYmin();
+	float getWorldZmin();
 	float getWorldXmax();
 	float getWorldYmax();
+	float getWorldZmax();
 	DECLARE_DYNAMIC_CLASS(GNRGLNotifyEvent);
 };
 

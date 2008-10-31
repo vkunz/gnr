@@ -79,6 +79,8 @@ void GNRGLNotifyEvent::setWorldSize(GNRVertex* glcoords)
 	world_max_x = glcoords[1].getX();
 	world_min_y = glcoords[0].getY();
 	world_max_y = glcoords[1].getY();
+	world_min_z = glcoords[0].getZ();
+	world_max_z = glcoords[1].getZ();
 }
 
 float GNRGLNotifyEvent::getWorldXmax()
@@ -91,6 +93,11 @@ float GNRGLNotifyEvent::getWorldYmax()
 	return world_max_y;
 }
 
+float GNRGLNotifyEvent::getWorldZmax()
+{
+	return world_max_z;
+}
+
 float GNRGLNotifyEvent::getWorldXmin()
 {
 	return world_min_x;
@@ -99,4 +106,9 @@ float GNRGLNotifyEvent::getWorldXmin()
 float GNRGLNotifyEvent::getWorldYmin()
 {
 	return world_min_y;
+}
+
+float GNRGLNotifyEvent::getWorldZmin()
+{
+	return world_min_z;
 }

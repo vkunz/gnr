@@ -27,6 +27,7 @@ GNRMouseController::GNRMouseController(GNRScene* scene)
 	m_AssemblyMediator3D = new GNRAssemblyMediator3D();
 	m_GLCameraMediator2D = new GNRGLCameraMediator2D();
 	m_GLCameraMediator3D = new GNRGLCameraMediator3D();
+	m_WallMediator       = new GNRWallMediator();
 	m_Mediator = m_AssemblyMediator3D;
 }
 
@@ -59,11 +60,10 @@ void GNRMouseController::setMediator(GNRGLNotifyEvent& event)
 	case LEFT_BUTTON:
 		if (m_Mediator->getTranslation() == DRAWWALL)
 		{
-			/*	//TODO WALL MEDIATOR
-				GNRAssemblyCuboid* cub = new GNRAssemblyCuboid();
-				m_WallMediator->setAssemblyID((int)GNRAssemblyCuboid);
-			
-				m_Mediator = m_WallMediator;*/
+			if (event.getCanvasID() == CANVAS2D)
+			{
+				m_Mediator = m_WallMediator;
+			}
 		}
 		else
 		{

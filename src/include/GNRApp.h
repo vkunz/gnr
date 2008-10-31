@@ -22,6 +22,7 @@
 #include "GNRGLCanvas3D.h"
 #include "GNRGLNotifyEvent.h"
 #include "GNRGridSceneController.h"
+#include "GNRLineDrawEvent.h"
 #include "GNRMainFrame.h"
 #include "GNRMouseController.h"
 #include "GNRNotifyEvent.h"
@@ -43,6 +44,7 @@ private:
 	//eventhandler
 	void OnGNREvent(GNRNotifyEvent& event);
 	void OnGLEvent(GNRGLNotifyEvent& event);
+	void OnLineDrawEvent(GNRLineDrawEvent& event);
 	
 	//functions
 	void glRefresh();

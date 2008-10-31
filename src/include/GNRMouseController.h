@@ -20,6 +20,7 @@
 #include "GNRGLNotifyEvent.h"
 #include "GNRMediator.h"
 #include "GNRScene.h"
+#include "GNRWallMediator.h"
 
 class GNRMouseController
 {
@@ -38,7 +39,7 @@ private:
 	GNRAssemblyMediator3D* m_AssemblyMediator3D;
 	GNRGLCameraMediator2D* m_GLCameraMediator2D;
 	GNRGLCameraMediator3D* m_GLCameraMediator3D;
-	//GNRWallMediator* m_WallMediator;
+	GNRWallMediator* m_WallMediator;
 	
 	int mouse_x;
 	int mouse_y;
