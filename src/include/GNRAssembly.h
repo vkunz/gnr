@@ -45,6 +45,7 @@ public:
 	float getDepth() const;
 	float getMaximumSize() const;
 	GNRVertex getCenterVertex() const;
+	GNRVertex GNRAssembly::getRotateVertex() const;
 	
 	void setX(const float x);
 	void setY(const float y);
@@ -53,6 +54,7 @@ public:
 	void setXZ(const float x,const float z);
 	void setXYZ(const float x, const float y, const float z);
 	void setCenterVertex(const GNRVertex& center);
+	void setRotateVertex(const GNRVertex& rotation);
 	
 	void setHeight(const float height);
 	void setWidth(const float width);

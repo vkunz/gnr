@@ -336,6 +336,7 @@ void GNRScene::ungroupSelectedAssemblies()
 	
 	GNRVertex grp_center;
 	GNRVertex obj_center;
+	GNRVertex ptr_object;
 	
 	//find all groups and free them
 	for (list<GNRAssembly*>::iterator it = sel_parts.begin(); it != sel_parts.end(); ++it)
@@ -356,8 +357,12 @@ void GNRScene::ungroupSelectedAssemblies()
 				(*it)->delPart((*child_it));
 				
 				//calculate new position to center of IS_SELECTED
-				obj_center = (*child_it)->getCenterVertex() + grp_center;
+				ptr_object = (*child_it)->getCenterVertex()
+				             obj_center = ptr_object + grp_center;
 				(*child_it)->setCenterVertex(obj_center);
+				
+				//(*child_it)->setRotateVertex();
+				
 #warning "INFO: rotation has to be calculated by vertexes!"
 				//put the new child on the floor, please
 				//(*child_it)->putOnGround();

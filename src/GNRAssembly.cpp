@@ -529,6 +529,18 @@ void GNRAssembly::setCenterVertex(const GNRVertex& center)
 }
 
 /**
+ * set vertex rotation
+ * @param       GNRVertex      vertex to rotate
+ * @access      public
+ */
+void GNRAssembly::setRotateVertex(const GNRVertex& rotation)
+{
+	m_phi   = rotation.getX();
+	m_theta = rotation.getY();
+	m_rho   = rotation.getZ();
+}
+
+/**
  * add face to assembly
  * @param       GNRFace      face to add
  * @access      public
@@ -568,6 +580,17 @@ GNRVertex GNRAssembly::getCenterVertex() const
 {
 	GNRVertex position(m_x, m_y, m_z);
 	return position;
+}
+
+/**
+ * get vertex rotation
+ * @return      GNRVertext      vertex rotation of object
+ * @access      public
+ */
+GNRVertex GNRAssembly::getRotateVertex() const
+{
+	GNRVertex rotation(m_phi, m_theta, m_rho);
+	return rotation;
 }
 
 /**
