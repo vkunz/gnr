@@ -59,7 +59,7 @@ void GNRGLCameraMediator3D::MoveXZ(GNRGLNotifyEvent& event)
  */
 void GNRGLCameraMediator3D::RotateXY(GNRGLNotifyEvent& event)
 {
-	float xangle = -(float)(m_mouse_y - event.getMouseEvent().GetY())/(float)window_h*360.0f;
+	float xangle = (float)(event.getMouseEvent().GetY() - m_mouse_y)/(float)window_h*360.0f;
 	float yangle = (float)(m_mouse_x - event.getMouseEvent().GetX())/(float)window_w*360.0f;
 	
 	doSnapRotate(xangle);
@@ -95,7 +95,7 @@ void GNRGLCameraMediator3D::RotateXY(GNRGLNotifyEvent& event)
  */
 void GNRGLCameraMediator3D::RotateXZ(GNRGLNotifyEvent& event)
 {
-	float xangle = (float)(m_mouse_y - event.getMouseEvent().GetY())/(float)window_h*360.0f;
+	float xangle = (float)(event.getMouseEvent().GetY() - m_mouse_y)/(float)window_h*360.0f;
 	float zangle = (float)(m_mouse_x - event.getMouseEvent().GetX())/(float)window_w*360.0f;
 	
 	doSnapRotate(xangle);

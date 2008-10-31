@@ -640,7 +640,7 @@ void GNRAssembly::draw() const
 	{
 		float glowcolor[4] = {0.0,0.0,0.0,0.0};
 		
-		//if selected paint in green color
+		//if selected paint in different colors
 		if (m_parent->m_type == IS_SELECTED)
 		{
 			if (m_type != IS_GROUP)
@@ -648,17 +648,17 @@ void GNRAssembly::draw() const
 				//paint blue glowing
 				glowcolor[0] = 0.0;
 				glowcolor[1] = 0.0;
-				glowcolor[2] = 0.8;
-				glowcolor[3] = 0.8;
+				glowcolor[2] = 1.0;
+				glowcolor[3] = 1.0;
 			}
 			
 			if (m_type == IS_GROUP)
 			{
-				//paint red glowing
-				glowcolor[0] = 0.8;
+				//paint blue glowing
+				glowcolor[0] = 1.0;
 				glowcolor[1] = 0.0;
 				glowcolor[2] = 0.0;
-				glowcolor[3] = 0.8;
+				glowcolor[3] = 1.0;
 			}
 			
 			//if parent type group or selected, draw square on floor
@@ -669,6 +669,7 @@ void GNRAssembly::draw() const
 		}
 		else if (m_parent->m_type == IS_ROOT)
 		{
+			//reset glow value for objects in root
 			glMaterialfv(GL_FRONT, GL_EMISSION, glowcolor);
 		}
 	}

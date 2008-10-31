@@ -132,12 +132,12 @@ void GNRScene::resetCamera()
 	//reset 2D cam to default
 	m_GLCamera2D->reset();
 	m_GLCamera2D->rotateX(-90);
-	m_GLCamera2D->changeDistance(4);
+	m_GLCamera2D->changeDistance(8);
 	
 	//reset 3D cam to default
 	m_GLCamera3D->reset();
-	m_GLCamera3D->changeDistance(2.5);
-	m_GLCamera3D->setAngles(20.0, 0.0, 0.0);
+	m_GLCamera3D->rotateX(-25);
+	m_GLCamera3D->changeDistance(8);
 }
 
 void GNRScene::setCanvas2D(GNRGLCanvas2D* p)
@@ -259,9 +259,9 @@ void GNRScene::groupSelectedAssemblies()
 {
 	list<GNRAssembly*> parts = m_Selected->getPartList();
 	
-	if (parts.size() <= 0)
+	if (parts.size() <= 1)
 	{
-		//no parts, don't waste time
+		//no or only one part, don't waste time
 		return;
 	}
 	
@@ -328,13 +328,13 @@ void GNRScene::ungroupSelectedAssemblies()
 	list<GNRAssembly*> sel_parts = m_Selected->getPartList();
 	list<GNRAssembly*> grp_parts;
 	
-	if (sel_parts.size() <= 0)
+	if (sel_parts.size() <= 1)
 	{
-		//no parts, don't waste time
+		//no or only one part, don't waste time
 		return;
 	}
 	
-	GNRVertex grp_center, grp_rotate, obj_center, ptr_object;
+	GNRVertex grp_center, grp_rotate, obj_center, ptr_object, ptr_rotate;
 	
 	//find all groups and free them
 	for (list<GNRAssembly*>::iterator it = sel_parts.begin(); it != sel_parts.end(); ++it)
@@ -358,6 +358,7 @@ void GNRScene::ungroupSelectedAssemblies()
 				
 				//save old relative position of child from group center
 				ptr_object = (*child_it)->getCenterVertex();
+				ptr_rotate = (*child_it)->getRotateVertex();
 				
 				//restore rotation from group to child around center
 				ptr_object.rotate(grp_rotate);
@@ -366,7 +367,7 @@ void GNRScene::ungroupSelectedAssemblies()
 				obj_center = ptr_object + grp_center;
 				
 				//rotate child in same way as group and set new center
-				(*child_it)->setRotateVertex(grp_rotate);
+				(*child_it)->setRotateVertex(grp_rotate + ptr_rotate);
 				(*child_it)->setCenterVertex(obj_center);
 			}
 			//remove group container from his parent
@@ -383,9 +384,9 @@ void GNRScene::ungroupOneAssembly(GNRAssembly* assembly)
 {
 	list<GNRAssembly*> grp_parts = assembly->getPartList();
 	
-	if (grp_parts.size() <= 0)
+	if (grp_parts.size() <= 1)
 	{
-		//no parts, don't waste time
+		//no or only one part, don't waste time
 		return;
 	}
 	
