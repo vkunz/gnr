@@ -107,12 +107,36 @@
 					<handler function="OnMenuOaxImport" entry="EVT_MENU" />
 				</object>
 			</object>
+			<object class="wxMenu" variable="Menu8" member="yes">
+				<label>&amp;Kamera</label>
+				<object class="wxMenuItem" name="idMenuZoomIn" variable="MenuItem26" member="yes">
+					<label>&amp;Einzoomen</label>
+					<accel>PGUP</accel>
+					<help>In die 2D Ansicht hereinzoomen...</help>
+				</object>
+				<object class="wxMenuItem" name="idMenuZoomOut" variable="MenuItem27" member="yes">
+					<label>&amp;Auszoomen</label>
+					<accel>PGDN</accel>
+					<help>Aus der 2D Ansicht herauszoomen...</help>
+				</object>
+				<object class="separator" />
+				<object class="wxMenuItem" name="idMenuZoomFit" variable="MenuItem28" member="yes">
+					<label>Au&amp;tomatisch</label>
+					<accel>CTRL+Z</accel>
+					<help>Ansicht an Bildschirm anpassen...</help>
+				</object>
+				<object class="wxMenuItem" name="idMenuZoomReset" variable="MenuItem29" member="yes">
+					<label>Aus&amp;ganszustand</label>
+					<accel>HOME</accel>
+					<help>Kamera in Ausganszustand zurücksetzen...</help>
+				</object>
+			</object>
 			<object class="wxMenu" variable="Menu3" member="yes">
 				<label>&amp;Einstellungen</label>
 				<object class="wxMenuItem" name="idMenuSnapToGrid" variable="MenuItem9" member="yes">
 					<label>Ein&amp;rasten aktivieren</label>
 					<accel>F4</accel>
-					<help>Einrasten aktivieren</help>
+					<help>Einrasten aktivieren...</help>
 					<check>1</check>
 				</object>
 				<object class="separator" />
@@ -143,7 +167,7 @@
 				<object class="wxMenuItem" name="idMenuDrawWall" variable="MenuItem16" member="yes">
 					<label>&amp;Wände erstellen</label>
 					<accel>F9</accel>
-					<help>Wände im 2D-Modus erstellen</help>
+					<help>Wände im 2D-Modus erstellen...</help>
 				</object>
 			</object>
 			<object class="wxMenu" variable="Menu7" member="yes">

@@ -83,6 +83,10 @@ private:
 	static const long idMenuOaxExport;
 	static const long idMenuObjImport;
 	static const long idMenuOaxImport;
+	static const long idMenuZoomIn;
+	static const long idMenuZoomOut;
+	static const long idMenuZoomFit;
+	static const long idMenuZoomReset;
 	static const long idMenuSnapToGrid;
 	static const long idMenuMoveXZ;
 	static const long idMenuMoveXY;
@@ -124,10 +128,12 @@ private:
 	static const long ID_STATICTEXT2;
 	
 	//(*Declarations(GNRMainFrame)
+	wxMenuItem* MenuItem26;
 	wxMenuItem* MenuItem25;
 	wxMenu* Menu3;
 	wxMenuItem* MenuItem14;
 	wxMenuItem* MenuItem11;
+	wxMenuItem* MenuItem29;
 	wxMenuItem* MenuItem15;
 	wxMenuItem* MenuItem22;
 	wxMenuItem* MenuItem17;
@@ -135,12 +141,15 @@ private:
 	wxMenuItem* MenuItem10;
 	wxMenuItem* MenuItem12;
 	wxMenuItem* MenuItem24;
+	wxMenuItem* MenuItem27;
 	wxMenuItem* MenuItem20;
+	wxMenuItem* MenuItem28;
 	wxMenu* Menu7;
 	wxStatusBar* StatusBar1;
 	wxMenuItem* MenuItem23;
 	wxMenuItem* MenuItem21;
 	wxMenuItem* MenuItem16;
+	wxMenu* Menu8;
 	wxMenu* Menu6;
 	wxMenuItem* MenuItem9;
 	wxMenuItem* MenuItem18;
