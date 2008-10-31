@@ -9,6 +9,7 @@
  * @author		Valentin Kunz       <athostr@googlemail.com>
  */
 
+#include "GNRGlobalDefine.h"
 #include "GNRMaterialLibrary.h"
 
 #include <fstream>
@@ -175,9 +176,15 @@ GNRMaterialLibrary::GNRMaterialLibrary()
 
 const GNRMaterial& GNRMaterialLibrary::getMaterial(const string& matname) const
 {
-	return m_data.find(matname)->second;
+	//check, if material name in data map
+	if (m_data.count(matname)>0)
+	{
+		//if found, return material
+		return m_data.find(matname)->second;
+	}
+	//else use default color
+	return m_data.find(DEFAULT_IMPORT_COLOR)->second;
 }
-
 
 void GNRMaterialLibrary::importFile(const string& fname)
 {

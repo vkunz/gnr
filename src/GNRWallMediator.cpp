@@ -34,9 +34,15 @@ void GNRWallMediator::initialize(GNRGLNotifyEvent& event)
 	m_mouse_x = event.getMouseEvent().GetX();
 	m_mouse_y = event.getMouseEvent().GetY();
 	
-	startPoint.setX(gl_xmin + (float) m_mouse_x / (float) window_w * (gl_xmax-gl_xmin));
+	float x = gl_xmin + (float) m_mouse_x / (float) window_w * (gl_xmax-gl_xmin);
+	float z = gl_zmax + (float) m_mouse_y / (float) window_h * (gl_zmin-gl_zmax);
+	
+	doSnapMove(x);
+	doSnapMove(z);
+	
+	startPoint.setX(x);
 	startPoint.setY(0.05);
-	startPoint.setZ(gl_zmax + (float) m_mouse_y / (float) window_h * (gl_zmin-gl_zmax));
+	startPoint.setZ(z);
 }
 
 void GNRWallMediator::setAssembly(GNRAssembly* assembly)
@@ -46,9 +52,16 @@ void GNRWallMediator::setAssembly(GNRAssembly* assembly)
 
 int GNRWallMediator::translate(GNRGLNotifyEvent& event)
 {
-	endPoint.setX(startPoint.getX() - (gl_xmax-gl_xmin)*(m_mouse_x - event.getMouseEvent().GetX())/window_w);
+
+	float x = startPoint.getX() - (gl_xmax-gl_xmin)*(m_mouse_x - event.getMouseEvent().GetX())/window_w;
+	float z = startPoint.getZ() - (gl_xmax-gl_xmin)/window_w*(m_mouse_y - event.getMouseEvent().GetY());
+	
+	doSnapMove(x);
+	doSnapMove(z);
+	
+	endPoint.setX(x);
 	endPoint.setY(0.05);
-	endPoint.setZ(startPoint.getZ() - (gl_xmax-gl_xmin)/window_w*(m_mouse_y - event.getMouseEvent().GetY()));
+	endPoint.setZ(z);
 	
 	// send event to draw current scene
 	GNRLineDrawEvent myevent(wxEVT_COMMAND_GNR_LINE_DRAW);

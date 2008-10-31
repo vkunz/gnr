@@ -22,7 +22,10 @@
 #define CAMERA_HEIGHT_MIN         0.10        //   10cm minimum height of cam
 #define CAMERA_DISTANCE_MIN       1.00        //  100cm minimum distance of cam
 
-#define ZNEAR                   0.1f          // near clipping plane of GL
+#define DEFAULT_FLOOR_SIZE       64
+#define DEFAULT_IMPORT_COLOR    "bone2"
+
+#define ZNEAR                     0.1f        // near clipping plane of GL
 #define ZFAR                    100.0f        // far clipping plane of GL
 
 #endif // GNRENUM_H

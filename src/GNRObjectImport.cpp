@@ -14,6 +14,7 @@
 
 #include "GNRMaterialLibrary.h"
 #include "GNRObjectImport.h"
+#include "GNRGlobalDefine.h"
 #include "GNRVNT.h"
 #include "GNREnum.h"
 #include "GNRFace.h"
@@ -43,6 +44,9 @@ GNRObjectImport::GNRObjectImport(wxString filename)
 	// set true -> file from filesystem
 	m_AsString = true;
 	
+	//set act pointer to null
+	m_act = NULL;
+	
 	// asign filepath
 	m_path = filename;
 	
@@ -66,6 +70,9 @@ GNRObjectImport::GNRObjectImport(wxInputStream* inStream, std::map<wxString, wxS
 {
 	// set false -> file from wxInputStream
 	m_AsString = false;
+	
+	//set act pointer to null
+	m_act = NULL;
 	
 	// asign map-pointer
 	m_mtl = mtl;
@@ -118,10 +125,7 @@ void GNRObjectImport::read(wxString& content)
 	
 	//appen root assembly for object
 	m_root->addPart(m_wrapper);
-	m_matname = "white";
-	
-	//if no g or o in file, use this dummy
-	addAtomic("dummy");
+	m_matname = DEFAULT_IMPORT_COLOR;
 	
 	// tokenize string
 	wxStringTokenizer tok(content, wxT("\n"));
@@ -163,6 +167,9 @@ void GNRObjectImport::read(wxString& content)
 		case 'g':
 			getO();
 			break;
+		case 'o':
+			getO();
+			break;
 		case 'u':
 			getU();
 		default:
@@ -199,10 +206,10 @@ GNRAssembly* GNRObjectImport::read(const string& fname)
 	
 	//appen root assembly for object
 	m_root->addPart(m_wrapper);
-	m_matname = "white";
+	m_matname = DEFAULT_IMPORT_COLOR;
 	
-	//if no g or o in file, use this dummy
-	addAtomic("dummy");
+	//add minimum one assembly, if no g or o occurs
+	addAtomic("noname");
 	
 	// 1st pass, gather v, vt and vn
 	ifstream ifs(fname.c_str());
@@ -262,9 +269,6 @@ GNRAssembly* GNRObjectImport::read(const string& fname)
 	m_root->setSize((m_xmax - m_xmin),(m_ymax - m_ymin),(m_zmax - m_zmin));
 	m_root->setScale(1.0,1.0,1.0);
 	m_root->putOnGround();
-	
-	m_root->debugInfo();
-	
 	return m_root;
 }
 

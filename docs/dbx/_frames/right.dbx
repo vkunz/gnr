@@ -156,7 +156,7 @@
 			redefinieren. Das Zeichnen der Wände, um die Ausmaße des Raums festzulegen, wird wohl auch erst 
 			in der kommenden Woche realisiert. Die Toolbar hingegen hast schon fast ihr endgültiges Aussehen, 
 			wenn auch noch nicht alle Funktionen bequem per Tastatur erreichbar sind.</para>
-			<para>TODO-Liste:</para>
+			<para>Offene Punkte:</para>
 			<itemizedlist>
 				<listitem>
 					<para>Einbau eines Bemaßungssystems für die importierten Objekte</para>
@@ -169,6 +169,31 @@
 				</listitem>
 				<listitem>
 					<para>Unterstützung der Schnittstelle zum Austausch von Modellen und Ansichtsinformationen</para>
+				</listitem>
+			</itemizedlist>
+			<title>31.10.2008</title>
+			<para>Es geht stetig aufwärts. Die vergangene Woche war sehr förderlich für das Projekt. Vielleicht sollten wird
+			vor dem Endspurt doch noch einmal einen Abend im Barfüßer verbringen. Seit dem letzten Update sind eine Menge
+			neuer Funktionen dazugekommen: Die Undo- und Redo-Funktion funktioniert schon auf Objekt-Aktionen bestens! Außerdem
+			besteht jetzt auch die Möglichkeit Objekte zu Gruppieren und zu schachteln. Der Status wird dann beim Selektieren
+			mit Eigenleuchten in verschiedenen Farben angezeigt und es können jetzt endlich auch eigene Wände gezogen werden.
+			Der Importer für die Bibliothek mit Vorschau und Bemaßung wird in den nächsten Tagen fertiggestellt sein.</para>
+			<para>TODO-Liste:</para>
+			<itemizedlist>
+				<listitem>
+					<para>Unterstützung der Schnittstelle zum Austausch von Modellen und Ansichtsinformationen</para>
+				</listitem>
+				<listitem>
+					<para>Dokumentation aktualisieren und Online-Hilfe erstellen</para>
+				</listitem>
+				<listitem>
+					<para>Fertigstellung der Bibliothek für die importierten Objekte</para>
+				</listitem>
+				<listitem>
+					<para>Anzeige erstellen, der die verwendeten Objekte zeigt</para>
+				</listitem>
+				<listitem>
+					<para>Ausgibige Test und Analysen des Codes wegen Optimierungen</para>
 				</listitem>
 			</itemizedlist>
 		</section>

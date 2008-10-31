@@ -52,8 +52,13 @@
 				<object class="separator" />
 				<object class="wxMenuItem" name="idMenuDeleteObject" variable="MenuItem19" member="yes">
 					<label>Objekte ent&amp;fernen</label>
-					<accel>CTRL+X</accel>
+					<accel>DEL</accel>
 					<help>Objekte entfernen...</help>
+				</object>
+				<object class="wxMenuItem" name="idMenuCutObject" variable="MenuItem30" member="yes">
+					<label>Objekte &amp;ausschneiden</label>
+					<accel>CTRL+X</accel>
+					<help>Objekte ausschneiden...</help>
 				</object>
 				<object class="wxMenuItem" name="idMenuInsertObject" variable="MenuItem21" member="yes">
 					<label>Objekte &amp;einfügen</label>

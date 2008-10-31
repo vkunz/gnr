@@ -81,6 +81,7 @@ const long GNRMainFrame::idMenuQuit = wxNewId();
 const long GNRMainFrame::idMenuUndo = wxNewId();
 const long GNRMainFrame::idMenuRedo = wxNewId();
 const long GNRMainFrame::idMenuDeleteObject = wxNewId();
+const long GNRMainFrame::idMenuCutObject = wxNewId();
 const long GNRMainFrame::idMenuInsertObject = wxNewId();
 const long GNRMainFrame::idMenuCopyObject = wxNewId();
 const long GNRMainFrame::idMenuHideObject = wxNewId();
@@ -185,6 +186,7 @@ GNRMainFrame::GNRMainFrame(wxWindow* parent, wxWindowID WXUNUSED(id))
 	wxMenuItem* MenuItem6;
 	wxMenuBar* MenuBar1;
 	wxMenu* Menu2;
+	wxMenuItem* MenuItem30;
 	
 	Create(parent, wxID_ANY, _("GNR - 3D Einrichtungsplaner"), wxDefaultPosition, wxDefaultSize, wxDEFAULT_FRAME_STYLE, _T("wxID_ANY"));
 	SetClientSize(wxSize(800,550));
@@ -210,8 +212,10 @@ GNRMainFrame::GNRMainFrame(wxWindow* parent, wxWindowID WXUNUSED(id))
 	MenuItem25 = new wxMenuItem(Menu4, idMenuRedo, _("&Wiederherstellen\tCTRL+Y"), _("Aktion wiederherstellen..."), wxITEM_NORMAL);
 	Menu4->Append(MenuItem25);
 	Menu4->AppendSeparator();
-	MenuItem19 = new wxMenuItem(Menu4, idMenuDeleteObject, _("Objekte ent&fernen\tCTRL+X"), _("Objekte entfernen..."), wxITEM_NORMAL);
+	MenuItem19 = new wxMenuItem(Menu4, idMenuDeleteObject, _("Objekte ent&fernen\tDEL"), _("Objekte entfernen..."), wxITEM_NORMAL);
 	Menu4->Append(MenuItem19);
+	MenuItem30 = new wxMenuItem(Menu4, idMenuCutObject, _("Objekte &ausschneiden\tCTRL+X"), _("Objekte ausschneiden..."), wxITEM_NORMAL);
+	Menu4->Append(MenuItem30);
 	MenuItem21 = new wxMenuItem(Menu4, idMenuInsertObject, _("Objekte &einfügen\tCTRL+V"), _("Objekte einfügen..."), wxITEM_NORMAL);
 	Menu4->Append(MenuItem21);
 	MenuItem22 = new wxMenuItem(Menu4, idMenuCopyObject, _("Objekte &kopieren\tCTRL+C"), _("Objekte kopieren..."), wxITEM_NORMAL);

@@ -112,5 +112,22 @@
 				<para>Abb.8: Immer mehr Funktionen</para>
 			</caption>
 		</mediaobject>
+		<para>Leider stimmen die Proportionen noch nicht so richtig, weil das Vorschaufenster noch
+		Probleme macht. Dafür kann man schon komfortabel Objekte gruppieren und degruppieren. Hier rot
+		entspricht selektiert und gruppiert, blau steht für selektiert und in keiner Gruppe. Weiterhin 
+		kann mann erkennen, dass jetzt Wände bequem auf dem virtuellen Boden gezogen werden können, die
+		dann als Primitive verfügbar sind. Eine Funktion zum Färben der einzelnen Objekte sollte in der
+		kommenden Woche auch noch diskutiert werden. Ansonsten stehen noch ettliche Umbaumaßnahmen und
+		Menü-Erweiterungen an, die in den letzten Tagen etwas zu kurz gekommen ist. Bisher sind insgesamt
+		nur etwas über 980 Stunden Arbeit in das Prjekt geflossen.
+		<ulink url="http://www.hs-ulm.de/upload/rlunde/projti5/Team1/_downloads/prototyp_7.jpg">Abb.9</ulink></para>
+		<mediaobject>
+			<imageobject>
+				<imagedata fileref="_images/prototyp_7_small.img?s=200" align="left" />
+			</imageobject>
+			<caption>
+				<para>Abb.9: Kurz vor der Vollendung</para>
+			</caption>
+		</mediaobject>
 	</section>
 </article>

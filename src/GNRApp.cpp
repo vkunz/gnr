@@ -299,13 +299,37 @@ void GNRApp::OnLineDrawEvent(GNRLineDrawEvent& event)
 
 void GNRApp::OnCreatePrimitiveEvent(GNRCreatePrimitiveEvent& event)
 {
-	GNRAssembly* assembly;
 	if (event.getPrimitiveType() == CUBOID)
 	{
+		GNRVertex origin(0.0,0.0,0.0);
+		GNRAssembly* atomic;
+		
 		GNRPrimitiveCreator creator;
-		assembly = creator.createCuboid(event.getPosition(), event.getAngles(), event.getDimensions());
+		
+		//create smallest part of primitive
+		atomic = creator.createCuboid(origin, origin, event.getDimensions());
+		atomic->setType(IS_ATOMIC);
+		
+		//create new parent assembly (group of primitives)
+		GNRAssembly* primitive = new GNRAssembly("wallcube");
+		
+		//put information of whole group in parent
+		primitive->setType(IS_PRIMITIVE);
+		primitive->setCenterVertex(event.getPosition());
+		primitive->setRotateVertex(event.getAngles());
+		primitive->setWidth(event.getDimensions().getX());
+		primitive->setHeight(event.getDimensions().getY());
+		primitive->setDepth(event.getDimensions().getZ());
+		
+		//tell the parent what color his child has got
+		primitive->setChildMaterial(atomic, mtllib.getMaterial(DEFAULT_IMPORT_COLOR));
+		
+		//insert cuboid in parent
+		primitive->addPart(atomic);
+		
+		//put whole in the world
+		m_Scene->insertAssembly(primitive);
 	}
-	m_Scene->insertCuboid(assembly);
 }
 
 /**

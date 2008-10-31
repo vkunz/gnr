@@ -10,6 +10,7 @@
 
 #include "GNRScene.h"
 #include "GNRNotifyEvent.h"
+#include "GNRGlobalDefine.h"
 
 /**
  * construct scene and two assemblies (scene and grouper) plus
@@ -181,7 +182,7 @@ void GNRScene::glRefresh2D()
 	m_Canvas2D->prepareDraw();
 	m_GLCamera2D->render();
 	m_Canvas2D->initLights();
-	m_Canvas2D->drawBaseFloor(0.0, 0.0, 0.0, 32);
+	m_Canvas2D->drawBaseFloor(0.0, 0.0, 0.0, DEFAULT_FLOOR_SIZE);
 	m_RootAssembly->draw();
 	m_Canvas2D->endDraw();
 }
@@ -196,7 +197,7 @@ void GNRScene::glRefresh3D()
 	m_Canvas3D->prepareDraw();
 	m_GLCamera3D->render();
 	m_Canvas3D->initLights();
-	m_Canvas3D->drawBaseFloor(0.0, 0.0, 0.0, 32);
+	m_Canvas3D->drawBaseFloor(0.0, 0.0, 0.0, DEFAULT_FLOOR_SIZE);
 	m_RootAssembly->draw();
 	m_Canvas3D->endDraw();
 }
@@ -222,7 +223,7 @@ void GNRScene::drawLine(GNRLineDrawEvent& event)
 	m_Canvas2D->prepareDraw();
 	m_GLCamera2D->render();
 	m_Canvas2D->initLights();
-	m_Canvas2D->drawBaseFloor(0.0, 0.0, 0.0, 32);
+	m_Canvas2D->drawBaseFloor(0.0, 0.0, 0.0, DEFAULT_FLOOR_SIZE);
 	m_RootAssembly->draw();
 	
 	// draw line from start- to end-point
@@ -493,16 +494,8 @@ void GNRScene::minmax(float& min,float& max,float value)
 	}
 }
 
-void GNRScene::insertCuboid(GNRAssembly* cuboid)
+void GNRScene::insertAssembly(GNRAssembly* assembly)
 {
-	cuboid->setType(IS_ATOMIC);
-	// create new assembly
-	GNRAssembly* assembly = new GNRAssembly("cube");
-	assembly->setType(IS_PRIMITIVE);
-	
-	assembly->addPart(cuboid);
-	
 	m_RootAssembly->addPart(assembly);
-	
 	glRefresh();
 }

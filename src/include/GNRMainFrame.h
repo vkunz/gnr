@@ -75,6 +75,7 @@ private:
 	static const long idMenuUndo;
 	static const long idMenuRedo;
 	static const long idMenuDeleteObject;
+	static const long idMenuCutObject;
 	static const long idMenuInsertObject;
 	static const long idMenuCopyObject;
 	static const long idMenuHideObject;

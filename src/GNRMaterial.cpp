@@ -58,7 +58,7 @@ void GNRColor::setB(float b)
 }
 
 GNRMaterial::GNRMaterial():
-		m_ambient(0.2, 0.2, 0.2), m_diffuse(0.8, 0.8, 0.8), m_specular(0.0, 0.0, 0.0),
+		m_ambient(0.8, 0.8, 0.8), m_diffuse(0.8, 0.8, 0.8), m_specular(0.5, 0.5, 0.5),
 		m_alpha(0.0), m_shininess(0)
 {
 }
