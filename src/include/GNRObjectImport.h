@@ -11,6 +11,10 @@
 #ifndef _GNROBJECTIMPORT_H_
 #define _GNROBJECTIMPORT_H_
 
+#include <map>
+#include <wx/txtstrm.h>
+#include <wx/wfstream.h>
+
 #include "GNRAssembly.h"
 #include "GNRImportFile.h"
 #include "GNRVertex.h"
@@ -23,10 +27,53 @@ using std::ifstream;
 class GNRObjectImport : public GNRImportFile
 {
 public:
-	virtual GNRAssembly* read(const string& fname);
+	// ctor
+	GNRObjectImport();
+	GNRObjectImport(wxString filename);
+	GNRObjectImport(wxInputStream* inStream, std::map<wxString, wxString>* mtl);
+	
+	// dtor
 	virtual ~GNRObjectImport();
 	
+	virtual GNRAssembly* read(const string& fname);
+	
+	void read(wxString& content);
+	
+	GNRAssembly* getAssembly();
+	
 private:
+	// attributes
+	// set if load from filesystem, else load as wxinputstream
+	bool m_AsString;
+	
+	// wxString to store the filepath
+	wxString m_path;
+	
+	// wxString to store current line
+	wxString m_line;
+	
+	// pointer to map, where mtl and textures are stored in
+	std::map<wxString, wxString>* m_mtl;
+	
+	// pointer to GNRAssembly
+	GNRAssembly* m_root;
+	
+	// pointer to actual GNRAssembly
+	GNRAssembly* m_act;
+	
+	// pointer to GNRAssembly - wrapper
+	GNRAssembly* m_wrapper;
+	
+	// functions
+	// parse string
+	void Parse(wxString& file);
+	
+	// LoadMtl
+	void LoadMtl();
+	
+	// parse material
+	void ParseMtl(wxString& mtl);
+	
 	void getF();
 	void getO();
 	void getU();
@@ -41,10 +88,6 @@ private:
 	vector<GNRVertex> m_vertex, m_normal;
 	vector<GNRTCoord> m_tcoord;
 	string m_matname;
-	
-	GNRAssembly* m_wrapper;
-	GNRAssembly* m_act;
-	GNRAssembly* m_root;
 	
 	ifstream m_ifs;
 	string m_buf;

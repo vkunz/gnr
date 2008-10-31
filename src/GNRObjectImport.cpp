@@ -8,6 +8,10 @@
  * @author		Valentin Kunz       <athostr@googlemail.com>
  */
 
+#include <wx/sstream.h>
+#include <wx/tokenzr.h>
+#include <wx/txtstrm.h>
+
 #include "GNRObjectImport.h"
 #include "GNRVNT.h"
 #include "GNREnum.h"
@@ -18,8 +22,6 @@
 #include <string>
 #include <limits>
 
-#include "wx/wx.h"
-
 #if defined(__ATHOS_DEBUG__)
 #include <wx/log.h>
 #endif
@@ -28,11 +30,158 @@ using std::ifstream;
 using std::stringstream;
 using std::string;
 
+// ctor
+GNRObjectImport::GNRObjectImport()
+{
+}
+
+GNRObjectImport::GNRObjectImport(wxString filename)
+{
+	// set true -> file from filesystem
+	m_AsString = true;
+	
+	// asign filepath
+	m_path = filename;
+	
+	// create wxFFileInputStream to get filecontent
+	wxFFileInputStream inFile(filename);
+	
+	// string to store filecontent
+	wxString content;
+	
+	// create wxStringOutputStream to store filecontent into string
+	wxStringOutputStream outStream(&content);
+	
+	// read inputstream and store data into outputstream
+	inFile.Read(outStream);
+	
+	// read
+	read(content);
+}
+
+GNRObjectImport::GNRObjectImport(wxInputStream* inStream, std::map<wxString, wxString>* mtl)
+{
+	// set false -> file from wxInputStream
+	m_AsString = false;
+	
+	// asign map-pointer
+	m_mtl = mtl;
+	
+	// string to store filecontent
+	wxString content;
+	
+	// create wxStringOutputStream to store filecontent into string
+	wxStringOutputStream outStringStream(&content);
+	
+	// read inputstream and store data into outputstream
+	inStream->Read(outStringStream);
+	
+	// read
+	read(content);
+}
+
+// dtor
 GNRObjectImport::~GNRObjectImport()
 {
 }
 
-GNRAssembly *GNRObjectImport::read(const string& fname)
+void GNRObjectImport::LoadMtl()
+{
+
+}
+
+void GNRObjectImport::ParseMtl(wxString& mtl)
+{
+
+}
+
+GNRAssembly* GNRObjectImport::getAssembly()
+{
+	return m_root;
+}
+
+void GNRObjectImport::read(wxString& content)
+{
+	m_xmin = m_ymin = m_zmin = std::numeric_limits<float>::max();
+	m_xmax = m_ymax = m_zmax = -m_xmin;
+	
+	//build base wrapper assembly
+	m_root = new GNRAssembly(string(m_path.AfterLast('\\').BeforeFirst('.').mb_str()));
+	m_root->setType(IS_OBJECT);
+	
+	//create root assembly for object
+	m_wrapper = new GNRAssembly("wrapper");
+	m_wrapper->setType(IS_WRAPPER);
+	
+	//appen root assembly for object
+	m_root->addPart(m_wrapper);
+	m_matname = "white";
+	
+	//if no g or o in file, use this dummy
+	addAtomic("dummy");
+	
+	// tokenize string
+	wxStringTokenizer tok(content, wxT("\n"));
+	
+	// 1st pass, gather v, vt and vn
+	while (tok.HasMoreTokens())
+	{
+		m_buf = string(tok.GetNextToken().mb_str());
+		if (m_buf.size() < 2)
+		{
+			continue;
+		}
+		
+		switch (m_buf[0])
+		{
+		case 'v':
+			getVs();
+			break;
+		default:
+			break;
+		}
+	}
+	
+	// 2nd pass, gather f, o, g and all the rest
+	tok.SetString(content, wxT("\n"));
+	while (tok.HasMoreTokens())
+	{
+		m_buf = string(tok.GetNextToken().mb_str());
+		if (m_buf.size() < 2)
+		{
+			continue;
+		}
+		
+		switch (m_buf[0])
+		{
+		case 'f':
+			getF();
+			break;
+		case 'g':
+			getO();
+			break;
+		case 'u':
+			getU();
+		default:
+			break;
+		}
+	}
+	
+	//scale factor 1.0 instead of scale, if glScalef before glTranslatef in assembly->draw
+	m_wrapper->setX(-1.0*(m_xmax + m_xmin)/2.0);
+	m_wrapper->setY(-1.0*(m_ymax + m_ymin)/2.0);
+	m_wrapper->setZ(-1.0*(m_zmax + m_zmin)/2.0);
+	m_wrapper->setNormals();
+	
+	//set real size and scale of object
+	m_root->setSize((m_xmax - m_xmin),(m_ymax - m_ymin),(m_zmax - m_zmin));
+	m_root->setScale(1.0,1.0,1.0);
+	m_root->putOnGround();
+	
+	m_root->debugInfo();
+}
+
+GNRAssembly* GNRObjectImport::read(const string& fname)
 {
 	m_xmin = m_ymin = m_zmin = std::numeric_limits<float>::max();
 	m_xmax = m_ymax = m_zmax = -m_xmin;
@@ -101,7 +250,9 @@ GNRAssembly *GNRObjectImport::read(const string& fname)
 	ifs.close();
 	
 	//scale factor 1.0 instead of scale, if glScalef before glTranslatef in assembly->draw
-	m_wrapper->setXYZ(-1.0*(m_xmax + m_xmin)/2.0, -1.0*(m_ymax + m_ymin)/2.0, -1.0*(m_zmax + m_zmin)/2.0);
+	m_wrapper->setX(-1.0*(m_xmax + m_xmin)/2.0);
+	m_wrapper->setY(-1.0*(m_ymax + m_ymin)/2.0);
+	m_wrapper->setZ(-1.0*(m_zmax + m_zmin)/2.0);
 	m_wrapper->setNormals();
 	
 	//set real size and scale of object
@@ -149,12 +300,13 @@ void GNRObjectImport::addAtomic(string name)
 	m_wrapper->addPart(m_act);
 }
 
-void GNRObjectImport::minmax(float& min,float& max,float value)
+void GNRObjectImport::minmax(float& min, float& max, float value)
 {
 	if (max < value)
 	{
 		max = value;
 	}
+	
 	if (min > value)
 	{
 		min = value;
@@ -184,7 +336,6 @@ void GNRObjectImport::getVN()
 	GNRVertex tmp(x, y, z);
 	m_normal.push_back(tmp);
 }
-
 
 void GNRObjectImport::getVT()
 {
