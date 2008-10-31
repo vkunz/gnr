@@ -154,9 +154,9 @@
 					<help>Neue Gruppe erstellen...</help>
 				</object>
 				<object class="wxMenuItem" name="idMenuUngroup" variable="MenuItem18" member="yes">
-					<label>Gruppe &amp;ausflösen</label>
+					<label>Gruppe &amp;auflösen</label>
 					<accel>CTRL+F</accel>
-					<help>Gruppe ausflösen...</help>
+					<help>Gruppe auflösen...</help>
 				</object>
 			</object>
 			<object class="wxMenu" variable="Menu2" member="no">

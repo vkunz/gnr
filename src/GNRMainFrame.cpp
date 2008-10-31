@@ -244,7 +244,7 @@ GNRMainFrame::GNRMainFrame(wxWindow* parent, wxWindowID WXUNUSED(id))
 	Menu7 = new wxMenu();
 	MenuItem17 = new wxMenuItem(Menu7, idMenuGroup, _("&Gruppe erstellen\tCTRL+G"), _("Neue Gruppe erstellen..."), wxITEM_NORMAL);
 	Menu7->Append(MenuItem17);
-	MenuItem18 = new wxMenuItem(Menu7, idMenuUngroup, _("Gruppe &ausflösen\tCTRL+F"), _("Gruppe ausflösen..."), wxITEM_NORMAL);
+	MenuItem18 = new wxMenuItem(Menu7, idMenuUngroup, _("Gruppe &auflösen\tCTRL+F"), _("Gruppe auflösen..."), wxITEM_NORMAL);
 	Menu7->Append(MenuItem18);
 	MenuBar1->Append(Menu7, _("Gr&uppen"));
 	Menu2 = new wxMenu();

@@ -334,10 +334,7 @@ void GNRScene::ungroupSelectedAssemblies()
 		return;
 	}
 	
-	GNRVertex grp_center;
-	GNRVertex grp_rotate;
-	GNRVertex obj_center;
-	GNRVertex ptr_object;
+	GNRVertex grp_center, grp_rotate, obj_center, ptr_object;
 	
 	//find all groups and free them
 	for (list<GNRAssembly*>::iterator it = sel_parts.begin(); it != sel_parts.end(); ++it)
@@ -355,17 +352,17 @@ void GNRScene::ungroupSelectedAssemblies()
 			//correct position of all group members
 			for (list<GNRAssembly*>::iterator child_it = grp_parts.begin(); child_it != grp_parts.end(); ++child_it)
 			{
-				//move assembly from group to IS_SELECTED
+				//move assembly from group to IS_SELECTED in (0|0|0)
 				m_Selected->addPart((*child_it));
 				(*it)->delPart((*child_it));
 				
-				//save old relative position of child
+				//save old relative position of child from group center
 				ptr_object = (*child_it)->getCenterVertex();
 				
-				//restore rotation from group to child
+				//restore rotation from group to child around center
 				ptr_object.rotate(grp_rotate);
 				
-				//calculate new absolute position of child
+				//calculate new position of child relative to (0|0|0)
 				obj_center = ptr_object + grp_center;
 				
 				//rotate child in same way as group and set new center

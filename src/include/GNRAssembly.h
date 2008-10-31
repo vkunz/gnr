@@ -31,7 +31,7 @@ class GNRAssembly
 public:
 
 	GNRAssembly(const string& name);
-	GNRAssembly(GNRAssembly* parent, const string &name);
+	GNRAssembly(GNRAssembly* parent, const string& name);
 	GNRAssembly(const assemblyType& type, const string& name);
 	
 	virtual ~GNRAssembly();
