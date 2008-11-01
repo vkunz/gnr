@@ -88,25 +88,6 @@ void GNRGLCanvas::connectEvents()
 	Connect(wxEVT_LEFT_DCLICK, (wxObjectEventFunction)&GNRGLCanvas::OnLMouseDblClick);
 }
 
-void GNRGLCanvas::setMatrix()
-{
-	GetClientSize(&m_window_x, &m_window_y);
-	float aspect = (float)m_window_x/(float)m_window_y;
-	
-	glMatrixMode(GL_PROJECTION);
-	glLoadIdentity();
-	gluPerspective(45.0, aspect, ZNEAR, ZFAR);
-	glViewport(0, 0, m_window_x, m_window_y);
-	
-	glMatrixMode(GL_MODELVIEW);
-	glLoadIdentity();
-	gluLookAt(
-	    0.0, 0.0, 2.0,
-	    0.0, 0.0, 0.0,
-	    0.0, 1.0, 0.0
-	);
-}
-
 void GNRGLCanvas::initLights()
 {
 	glEnable(GL_LIGHTING);
@@ -127,15 +108,13 @@ void GNRGLCanvas::initLights()
 }
 
 /**
- * does the initialization for the 3D canvas
+ * Does the general initialization for the OpenGL-Canvas, that has do be done at startup
  * @access      protected
  */
 void GNRGLCanvas::initGL()
 {
 	SetCurrent();
 	glClearColor(0.5, 0.5, 0.5, 0.0);
-	
-	setMatrix();
 	
 	glShadeModel(GL_SMOOTH);
 	
@@ -229,12 +208,11 @@ void GNRGLCanvas::loadFloorTexture()
 }
 
 /**
- * flush the buffer to screen
+ * Swap buffers to see the new content
  * @access      public
  */
 void GNRGLCanvas::endDraw()
 {
-	//setMatrix();
 	//glFlush();
 	SwapBuffers();
 }
@@ -304,7 +282,7 @@ GNRAssembly* GNRGLCanvas::selection(GNRAssembly* rootAssembly, GNRGLCamera* came
 		// Reset The Modelview Matrix
 		glLoadIdentity();
 		
-		//prepareDraw();
+		//set camera
 		camera->render();
 		
 		rootAssembly->draw();
@@ -386,6 +364,7 @@ void GNRGLCanvas::OnLMouseDblClick(wxMouseEvent& event)
 	SetFocus();
 	Connect(wxEVT_MOUSEWHEEL, (wxObjectEventFunction)&GNRGLCanvas::OnMouseWheel);
 	
+	// get dimensions of the GL-Canvas
 	GNRVertex* glcoords = new GNRVertex[2];
 	getGLDim(event.GetX(), event.GetY(), glcoords);
 	
@@ -626,7 +605,16 @@ void GNRGLCanvas::getGLPos(int x, int y, GNRVertex* glcoords) {
 	glcoords->setZ(zpos);
 }
 */
+
+
 // Convert Mouse-Coordinates to GL-Coordinates
+/**
+ * Read out top-left and bottom-right world-coordinates at z-value where the mouse clicked
+ * @param   int         Mouse-X-Coordinate
+ * @param   int         Mouse-Y-Coordinate
+ * @param   GNRVertex*  array to save the dimensions to
+ * @access      protected
+ */
 void GNRGLCanvas::getGLDim(int x, int y, GNRVertex* glcoords)
 {
 	SetCurrent();
@@ -662,7 +650,7 @@ void GNRGLCanvas::getGLDim(int x, int y, GNRVertex* glcoords)
 }
 
 /**
- * Set the Canvas as active
+ * Set the current canvas as active
  * @access      public
  */
 void GNRGLCanvas::setActive()

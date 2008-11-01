@@ -100,7 +100,7 @@ void GNRWallMediator::finalize()
 	float deltaZ = endPoint.getZ() - startPoint.getZ();
 	float length = sqrt(deltaX*deltaX + deltaZ*deltaZ);
 	
-	// set middle point of the wall
+	// set middle point ot sif the wall
 	GNRVertex middlePoint;
 	middlePoint.setX((endPoint.getX() + startPoint.getX()) / 2.0);
 	middlePoint.setY(WALLHIGHT / 2.0);
@@ -119,4 +119,3 @@ void GNRWallMediator::finalize()
 	myevent.setDimensions(dimension);
 	ProcessEvent(myevent);
 }
-

@@ -1,10 +1,28 @@
+/**
+ * The GNRGLScreenshot class implements the functionality to read out pixel-data
+ * from the GL frame-buffer and save it into a picture-format supported by WX
+ * @name        GNRGLScreenshot.cpp
+ * @date        2008-10-28
+ * @author		Konstantin Balabin  <k.balabin@googlemail.com>
+ * @author		Patrick Kracht      <patrick.kracht@googlemail.com>
+ * @author		Thorsten Moll       <thorsten.moll@googlemail.com>
+ * @author		Valentin Kunz       <athostr@googlemail.com>
+ */
+
 #include "GNRGLScreenshot.h"
 #include <GL/gl.h>
-#include <GL/glext.h>
 #include <wx/filedlg.h>
 #include <wx/image.h>
-#include <wx/log.h>
 
+#if defined(__ATHOS_DEBUG__)
+#include <wx/log.h>
+#endif
+
+/**
+ * constructor of GNRGLScreenshot
+ * @param       wxString       Filename, the picture should be stored to
+ * @access      public
+ */
 GNRGLScreenshot::GNRGLScreenshot(wxString filename)
 {
 	//ctor
@@ -13,14 +31,18 @@ GNRGLScreenshot::GNRGLScreenshot(wxString filename)
 	create();
 }
 
+/**
+ * Read out pixels from GL and save it to a picture
+ * @access      private
+ */
 void GNRGLScreenshot::create()
 {
 	int viewport[4];
 	glGetIntegerv(GL_VIEWPORT, viewport);
 	
+	// read out viewport-size
 	m_width = viewport[2];
 	m_height = viewport[3];
-	
 	
 	const size_t imageSizeInBytes = m_bytesPerPixel * size_t(m_width) * size_t(m_height);
 	
@@ -33,10 +55,16 @@ void GNRGLScreenshot::create()
 	
 	swapPixels(pPicData);
 	
+	// create an image and save it
 	wxImage mypic(m_width, m_height, pPicData);
 	mypic.SaveFile(m_filename);
 }
 
+/**
+ * Reverse pixels, given from bottom-left to top right by glReadPixels
+ * @param       unsigned char*      Pointer to picture-data-array
+ * @access      private
+ */
 // glReadPixels reads the given rectangle from bottom-left to top-right, so we must reverse it
 void GNRGLScreenshot::swapPixels(unsigned char* pPicData)
 {
@@ -56,6 +84,10 @@ void GNRGLScreenshot::swapPixels(unsigned char* pPicData)
 	}
 }
 
+/**
+ * destructor of GNRGLScreenshot
+ * @access      public
+ */
 GNRGLScreenshot::~GNRGLScreenshot()
 {
 	//dtor
