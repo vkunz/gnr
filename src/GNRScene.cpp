@@ -135,12 +135,12 @@ void GNRScene::resetCamera()
 	//reset 2D cam to default
 	m_GLCamera2D->reset();
 	m_GLCamera2D->rotateX(-90);
-	m_GLCamera2D->changeDistance(20);
+	m_GLCamera2D->changeDistance(16);
 	
 	//reset 3D cam to default
 	m_GLCamera3D->reset();
 	m_GLCamera3D->rotateX(-20);
-	m_GLCamera3D->changeDistance(20);
+	m_GLCamera3D->changeDistance(16);
 }
 
 void GNRScene::setCanvas2D(GNRGLCanvas2D* p)

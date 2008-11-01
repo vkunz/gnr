@@ -106,20 +106,20 @@ void GNRGLCanvas::setMatrix()
 void GNRGLCanvas::initLights()
 {
 	//define light source
-	light_ambientd[0] = 0.55;
-	light_ambientd[1] = 0.55;
-	light_ambientd[2] = 0.55;
-	light_ambientd[3] = 1.0;
+	light_ambientd[0] = 0.25;
+	light_ambientd[1] = 0.25;
+	light_ambientd[2] = 0.25;
+	light_ambientd[3] = 0.9;
 	
-	light_specular[0] = 0.55;
-	light_specular[1] = 0.55;
-	light_specular[2] = 0.55;
-	light_specular[3] = 1.0;
+	light_specular[0] = 0.25;
+	light_specular[1] = 0.25;
+	light_specular[2] = 0.25;
+	light_specular[3] = 0.8;
 	
 	//define light position
-	light_position[0] = 5.0;
-	light_position[1] = 35.0;
-	light_position[2] = 15.0;
+	light_position[0] = 15.0;
+	light_position[1] = 45.0;
+	light_position[2] = 25.0;
 	light_position[3] = 1.0;
 	
 	//define shadow color
@@ -153,7 +153,6 @@ void GNRGLCanvas::initGL()
 {
 	//set active canvas
 	SetCurrent();
-	
 	
 	glShadeModel(GL_SMOOTH);
 	

@@ -124,5 +124,7 @@ void GNRAssemblyMediator::finalize()
 		
 		GNRUndoRedo* undo = GNRUndoRedo::getInstance();
 		undo->enqueue(command);
+		
+		m_Assembly = NULL;
 	}
 }

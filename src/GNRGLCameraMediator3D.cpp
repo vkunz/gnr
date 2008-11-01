@@ -129,7 +129,7 @@ void GNRGLCameraMediator3D::RotateXZ(GNRGLNotifyEvent& event)
  */
 void GNRGLCameraMediator3D::ZoomIn(GNRGLNotifyEvent& event)
 {
-	float distance = event.getMouseEvent().GetWheelRotation() / 600.0;
+	float distance = event.getMouseEvent().GetWheelRotation() / 300.0;
 	
 	m_GLCamera->changeDistance(distance);
 }

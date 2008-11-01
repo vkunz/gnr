@@ -18,6 +18,10 @@ class GNRAssemblyMediator: public GNRMediator
 {
 public:
 
+	void GNRMediator()
+	{
+		m_Assembly = NULL;
+	};
 	void setAssembly(GNRAssembly* assembly);                 //set selected assembly id
 	void setGLCamera(GNRGLCamera* WXUNUSED(camera)) {}; //not needed in assembly mediator
 	void initialize(GNRGLNotifyEvent& event);           //initialize assembly mediator
