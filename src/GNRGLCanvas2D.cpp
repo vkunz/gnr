@@ -57,7 +57,7 @@ GNRGLCanvas2D::GNRGLCanvas2D(wxWindow* parent, wxGLContext* sharedContext, wxWin
  */
 void GNRGLCanvas2D::setPerspective()
 {
-	gluPerspective(45.0f, (float)m_window_x / (float)m_window_y, ZNEAR, ZFAR);
+	gluPerspective(GLU_PERSPECTIVE, (float)m_window_x / (float)m_window_y, ZNEAR, ZFAR);
 	//glOrtho(m_window_x*(-1.0f/m_camera_height), m_window_x*(1.0f/m_camera_height), m_window_y*(1.0f/m_camera_height), m_window_y*(-1.0f/m_camera_height), ZNEAR, ZFAR);
 }
 

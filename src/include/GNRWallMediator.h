@@ -32,6 +32,7 @@ private:
 	GNRVertex startPoint;
 	GNRVertex endPoint;
 	
+	bool moved;
 	float gl_xmax;
 	float gl_xmin;
 	float gl_zmax;

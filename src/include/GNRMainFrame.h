@@ -154,6 +154,7 @@ private:
 	wxMenu* Menu6;
 	wxMenuItem* MenuItem9;
 	wxMenuItem* MenuItem18;
+	wxMenuItem* MenuItem30;
 	wxMenu* Menu5;
 	wxMenu* Menu4;
 	wxMenuItem* MenuItem19;

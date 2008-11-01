@@ -56,7 +56,7 @@ GNRGLCanvas3D::GNRGLCanvas3D(wxWindow* parent, wxGLContext* sharedContext, wxWin
  */
 void GNRGLCanvas3D::setPerspective()
 {
-	gluPerspective(45.0f, (float)m_window_x / (float)m_window_y, ZNEAR, ZFAR);
+	gluPerspective(GLU_PERSPECTIVE, (float)m_window_x / (float)m_window_y, ZNEAR, ZFAR);
 }
 
 /**

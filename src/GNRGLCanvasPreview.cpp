@@ -118,7 +118,7 @@ void GNRGLCanvasPreview::OnSize(wxSizeEvent& event)
 	// Load and Reset Modelview
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
-	gluPerspective(45.0f, (float)w / (float)h, ZNEAR, ZFAR);
+	gluPerspective(GLU_PERSPECTIVE, (float)w / (float)h, ZNEAR, ZFAR);
 	
 	// Load and Reset Modelview
 	glMatrixMode(GL_MODELVIEW);

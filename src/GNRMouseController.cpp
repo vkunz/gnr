@@ -66,7 +66,7 @@ void GNRMouseController::setMediator(GNRGLNotifyEvent& event)
 			}
 			else
 			{
-				m_Mediator = m_GLCameraMediator3D;
+				setAssemblyMediator(event);
 			}
 		}
 		else

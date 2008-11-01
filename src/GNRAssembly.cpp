@@ -710,6 +710,39 @@ void GNRAssembly::draw() const
 }
 
 /**
+ * draw shadow of this assembly and all his children and push ID to glLoadName, if its atomic
+ * @access      public
+ */
+void GNRAssembly::drawShadow() const
+{
+	glPushMatrix();
+	{
+		//if importer scale factor 1.0, then scale before translate
+		glScalef(m_scale_x, m_scale_y, m_scale_z);
+		glTranslatef(m_x, m_y, m_z);
+		
+		//rotate in object center
+		glRotatef(m_phi, 1, 0, 0);
+		glRotatef(m_theta, 0, 1, 0);
+		glRotatef(m_rho, 0, 0, 1);
+		
+		// draw myself
+		for (list<GNRFace>::const_iterator it = m_face.begin(); it != m_face.end(); ++it)
+		{
+			it->draw();
+		}
+		
+		// draw the children
+		for (list<GNRAssembly*>::const_iterator it = m_part.begin(); it != m_part.end(); ++it)
+		{
+			// draw the Child
+			(*it)->drawShadow();
+		}
+	}
+	glPopMatrix();
+}
+
+/**
  * correct y-position over ground
  * @access      public
  */

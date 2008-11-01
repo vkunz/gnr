@@ -32,6 +32,7 @@ private:
 	GNRAssembly*    m_Selected;
 	GNRAssembly*    m_Trash;
 	GNRAssembly*    m_Hidden;
+	GNRAssembly*    m_Duplicator;
 	
 	//both cameras
 	GNRGLCamera*    m_GLCamera2D;
@@ -41,8 +42,13 @@ private:
 	GNRGLCanvas2D*  m_Canvas2D;
 	GNRGLCanvas3D*  m_Canvas3D;
 	
+	GNRGLCanvas*    m_GLOUT;
+	GNRGLCamera*    m_GLCAM;
+	
 	//ID of actual selected assembly
 	GNRAssembly* m_Assembly;
+	
+	void glRefreshCanvas();
 	
 protected:
 

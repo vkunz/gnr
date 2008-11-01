@@ -103,6 +103,8 @@ public:
 	void setNormals();
 	
 	void draw() const;
+	void drawShadow() const;
+	
 	void debugInfo() const;
 	list<GNRAssembly*> getPartList();
 	

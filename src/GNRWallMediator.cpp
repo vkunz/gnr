@@ -1,15 +1,4 @@
-/**
- * Handles mouse-movement to draw walls
- * @name        GNRWallMediator.cpp
- * @date        2008-10-31
- * @author		Konstantin Balabin  <k.balabin@googlemail.com>
- * @author		Patrick Kracht      <patrick.kracht@googlemail.com>
- * @author		Thorsten Moll       <thorsten.moll@googlemail.com>
- * @author		Valentin Kunz       <athostr@googlemail.com>
- */
-
 #include "GNRWallMediator.h"
-#include "GNRGlobalDefine.h"
 #include "GNRLineDrawEvent.h"
 #include "GNRCreatePrimitiveEvent.h"
 #include "math.h"
@@ -18,25 +7,27 @@
 #include <wx/log.h>
 #endif
 
-/**
- * constructor of GNRWallMediator
- * @access      public
- */
-GNRWallMediator::GNRWallMediator() {}
+#define WALLHIGHT 2.0
+#define WALLDEPTH 0.2
 
-/**
- * destructor of GNRWallMediator
- * @access      public
- */
-GNRWallMediator::~GNRWallMediator() {}
+GNRWallMediator::GNRWallMediator()
+{
+	//ctor
+}
 
-/**
- * sets values needed for later calculation and sets the startpoint to current mouse-position
- * @param   GNRGLNotifyEvent&    MouseEvent of the canvas
- * @access      public
- */
+GNRWallMediator::~GNRWallMediator()
+{
+	//dtor
+}
+
 void GNRWallMediator::initialize(GNRGLNotifyEvent& event)
 {
+	//backup old startpoint
+	endPoint = startPoint;
+	
+	//reset moved flag
+	moved = false;
+	
 	window_w = event.getWinX();
 	window_h = event.getWinY();
 	
@@ -56,18 +47,14 @@ void GNRWallMediator::initialize(GNRGLNotifyEvent& event)
 	doSnapMove(z);
 	
 	startPoint.setX(x);
-	startPoint.setY(0.05);
+	startPoint.setY(0.01);
 	startPoint.setZ(z);
 }
 
-/**
- * calculates the new position of the endpoint of the line and makes canvas draw this line
- * @param   GNRGLNotifyEvent&    MouseEvent of the canvas
- * @access      public
- */
 int GNRWallMediator::translate(GNRGLNotifyEvent& event)
 {
-
+	moved = true;
+	
 	float x = startPoint.getX() - (gl_xmax-gl_xmin)*(m_mouse_x - event.getMouseEvent().GetX())/window_w;
 	float z = startPoint.getZ() - (gl_xmax-gl_xmin)/window_w*(m_mouse_y - event.getMouseEvent().GetY());
 	
@@ -75,7 +62,7 @@ int GNRWallMediator::translate(GNRGLNotifyEvent& event)
 	doSnapMove(z);
 	
 	endPoint.setX(x);
-	endPoint.setY(0.05);
+	endPoint.setY(0.01);
 	endPoint.setZ(z);
 	
 	// send event to draw current scene
@@ -88,17 +75,13 @@ int GNRWallMediator::translate(GNRGLNotifyEvent& event)
 	return 1;
 }
 
-/**
- * finalizes the wall drawing an sends an event to get the wall-primitive created
- * @access      public
- */
 void GNRWallMediator::finalize()
 {
 	float deltaX = endPoint.getX() - startPoint.getX();
 	float deltaZ = endPoint.getZ() - startPoint.getZ();
 	float length = sqrt(deltaX*deltaX + deltaZ*deltaZ);
 	
-	// set middle point ot sif the wall
+	// set middle point of the wall
 	GNRVertex middlePoint;
 	middlePoint.setX((endPoint.getX() + startPoint.getX()) / 2.0);
 	middlePoint.setY(WALLHIGHT / 2.0);
@@ -116,4 +99,10 @@ void GNRWallMediator::finalize()
 	myevent.setAngles(orientation);
 	myevent.setDimensions(dimension);
 	ProcessEvent(myevent);
+	
+	if (moved)
+	{
+		//if moved, store endpoint
+		startPoint = endPoint;
+	}
 }

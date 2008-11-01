@@ -139,7 +139,7 @@ void GNRApp::initFrames()
 	
 	m_VerticalSplitter->SetSashPosition(305,true);
 	m_HorizontalSplitter_left->SetSashPosition(300,true);
-	m_HorizontalSplitter_right->SetSashPosition(150,true);
+	m_HorizontalSplitter_right->SetSashPosition(250,true);
 }
 
 /**
@@ -251,7 +251,8 @@ void GNRApp::OnGNREvent(GNRNotifyEvent& event)
 		break;
 	case DISPLAYLENGTH:
 		wxString str;
-		str << wxT("Länge: ") << event.getFloat();
+		int length = floor(1000.0 * event.getFloat());
+		str << wxT("Wandlänge: ") << length << wxT(" mm");
 		m_MainFrame->getStatusbar()->SetStatusText(str);
 	}
 }

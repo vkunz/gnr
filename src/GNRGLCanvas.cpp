@@ -88,43 +88,86 @@ void GNRGLCanvas::connectEvents()
 	Connect(wxEVT_LEFT_DCLICK, (wxObjectEventFunction)&GNRGLCanvas::OnLMouseDblClick);
 }
 
+void GNRGLCanvas::setMatrix()
+{
+	GetClientSize(&m_window_x, &m_window_y);
+	float aspect = (float)m_window_x/(float)m_window_y;
+	
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+	
+	gluPerspective(GLU_PERSPECTIVE, aspect, ZNEAR, ZFAR);
+	glViewport(0, 0, m_window_x, m_window_y);
+	
+	glMatrixMode(GL_MODELVIEW);
+	glLoadIdentity();
+}
+
 void GNRGLCanvas::initLights()
 {
-	glEnable(GL_LIGHTING);
+	//define light source
+	light_ambientd[0] = 0.55;
+	light_ambientd[1] = 0.55;
+	light_ambientd[2] = 0.55;
+	light_ambientd[3] = 1.0;
 	
-	glEnable(GL_LIGHT0);
+	light_specular[0] = 0.55;
+	light_specular[1] = 0.55;
+	light_specular[2] = 0.55;
+	light_specular[3] = 1.0;
 	
-	GLfloat light_ambientd[] = { 0.25, 0.25, 0.25, 1.0 };
-	GLfloat light_specular[] = { 0.35, 0.35, 0.35, 1.0 };
-	GLfloat light_position[] = { 1.5, 2.5, 1.0, 0.0 };
+	//define light position
+	light_position[0] = 5.0;
+	light_position[1] = 35.0;
+	light_position[2] = 15.0;
+	light_position[3] = 1.0;
+	
+	//define shadow color
+	shadow_color[0] = 0.2;
+	shadow_color[1] = 0.2;
+	shadow_color[2] = 0.2;
+	shadow_color[3] = 0.5;
+	
+	//normal of floor
+	floor_plane[0] = 0.0;
+	floor_plane[1] = 1.0;
+	floor_plane[2] = 0.0;
+	floor_plane[3] = 0.0;
 	
 	glLightfv(GL_LIGHT0, GL_AMBIENT_AND_DIFFUSE, light_ambientd);
 	glLightfv(GL_LIGHT0, GL_SPECULAR, light_specular);
 	glLightfv(GL_LIGHT0, GL_POSITION, light_position);
 	
-//	glLightf(GL_LIGHT0, GL_CONSTANT_ATTENUATION, 2.0);
-//	glLightf(GL_LIGHT0, GL_LINEAR_ATTENUATION, 1.0);
-//	glLightf(GL_LIGHT0, GL_QUADRATIC_ATTENUATION, 0.5);
+	glEnable(GL_LIGHTING);
+	glEnable(GL_LIGHT0);
+	glLightModeli(GL_LIGHT_MODEL_TWO_SIDE, 0);
+	
+	glClearColor(0.3, 0.3, 0.3, 1.0);
 }
 
 /**
- * Does the general initialization for the OpenGL-Canvas, that has do be done at startup
+ * does the initialization for the 3D canvas
  * @access      protected
  */
 void GNRGLCanvas::initGL()
 {
+	//set active canvas
 	SetCurrent();
-	glClearColor(0.5, 0.5, 0.5, 0.0);
+	
 	
 	glShadeModel(GL_SMOOTH);
 	
 	glDepthFunc(GL_LEQUAL);
 	glBlendFunc(GL_ONE_MINUS_SRC_ALPHA,GL_SRC_ALPHA);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	
 	glEnable(GL_BLEND);
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_LINE_SMOOTH);
 	glEnable(GL_POLYGON_SMOOTH);
+	glEnable(GL_CULL_FACE);
+	glEnable(GL_STENCIL_TEST);
+	glEnable(GL_POLYGON_OFFSET_FILL);
 	
 	glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);
 	glHint(GL_LINE_SMOOTH_HINT, GL_NICEST);
@@ -134,21 +177,10 @@ void GNRGLCanvas::initGL()
 	
 	loadFloorTexture();
 	
-	//glEnable(GL_CULL_FACE);
-	//glCullFace(GL_FRONT);
-	//glBlendFunc(GL_ONE, GL_ONE);
-	//glBlendFunc(GL_ONE_MINUS_SRC_ALPHA,GL_SRC_ALPHA);
-	//glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-	//glBlendFuncSeparate(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, GL_ONE_MINUS_DST_ALPHA, GL_ONE);
-	//glEnable(GL_ALPHA_TEST);
-	//glAlphaFunc(GL_GREATER, 0.1);
-	//glPolygonMode(GL_BACK, GL_FILL);
-	
-	glLineWidth(1.0f);
+	glLineWidth(10.0f);
 	glClearDepth(1.0f);
 	
-	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-	//glPolygonMode(GL_BACK, GL_NONE);
+	glPolygonMode(GL_FRONT, GL_FILL);
 	
 	glEnable(GL_NORMALIZE);
 }
@@ -158,14 +190,17 @@ void GNRGLCanvas::drawBaseFloor(float fCenterX, float fCenterY, float fCenterZ, 
 	float FloorColor[4] = { 1.0f, 1.0f, 1.0f, 0.0f };
 	
 	glEnable(GL_TEXTURE_2D);
+	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
 	
 	glMaterialfv(GL_FRONT, GL_SPECULAR, FloorColor);
 	glMaterialfv(GL_FRONT, GL_AMBIENT_AND_DIFFUSE, FloorColor);
+	glMaterialfv(GL_FRONT, GL_EMISSION, FloorColor);
 	glMaterialf(GL_FRONT, GL_SHININESS, 100.0);
 	
 	glBindTexture(GL_TEXTURE_2D, FloorTexture);
 	
 	glBegin(GL_QUADS);
+	
 	//set normal
 	glNormal3f(0.0, 1.0, 0.0);
 	//set starting edge half of size from center
@@ -195,26 +230,71 @@ void GNRGLCanvas::drawBaseFloor(float fCenterX, float fCenterY, float fCenterZ, 
 void GNRGLCanvas::loadFloorTexture()
 {
 	wxImage image(grid_24bit_rgb_xpm);
-	
 	glGenTextures(1, &FloorTexture);
 	glBindTexture(GL_TEXTURE_2D, FloorTexture);
-	
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
-	
 	gluBuild2DMipmaps(GL_TEXTURE_2D, 3, image.GetWidth(), image.GetHeight(), GL_RGB, GL_UNSIGNED_BYTE, image.GetData());
 }
 
-/**
- * Swap buffers to see the new content
- * @access      public
- */
-void GNRGLCanvas::endDraw()
+void GNRGLCanvas::SetShadowMatrix(float shadowMat[4][4], float groundplane[4], float lightpos[4])
+
+
+
+
 {
-	//glFlush();
-	SwapBuffers();
+	float dot = groundplane[X]*lightpos[X] + groundplane[Y]*lightpos[Y] + groundplane[Z]*lightpos[Z] + groundplane[W]*lightpos[W];
+	shadowMat[X][0] = dot - lightpos[X] * groundplane[X];
+	shadowMat[Y][0] = 0.f - lightpos[X] * groundplane[Y];
+	shadowMat[Z][0] = 0.f - lightpos[X] * groundplane[Z];
+	shadowMat[W][0] = 0.f - lightpos[X] * groundplane[W];
+	shadowMat[X][1] = 0.f - lightpos[Y] * groundplane[X];
+	shadowMat[Y][1] = dot - lightpos[Y] * groundplane[Y];
+	shadowMat[Z][1] = 0.f - lightpos[Y] * groundplane[Z];
+	shadowMat[W][1] = 0.f - lightpos[Y] * groundplane[W];
+	shadowMat[X][2] = 0.f - lightpos[Z] * groundplane[X];
+	shadowMat[Y][2] = 0.f - lightpos[Z] * groundplane[Y];
+	shadowMat[Z][2] = dot - lightpos[Z] * groundplane[Z];
+	shadowMat[W][2] = 0.f - lightpos[Z] * groundplane[W];
+	shadowMat[X][3] = 0.f - lightpos[W] * groundplane[X];
+	shadowMat[Y][3] = 0.f - lightpos[W] * groundplane[Y];
+	shadowMat[Z][3] = 0.f - lightpos[W] * groundplane[Z];
+	shadowMat[W][3] = dot - lightpos[W] * groundplane[W];
+	
+}
+
+void GNRGLCanvas::loadShadowMatrix()
+{
+	SetShadowMatrix(floor_shadow,floor_plane,light_position);
+	glMultMatrixf((float *) floor_shadow);
+}
+
+void GNRGLCanvas::shadowColorOn()
+{
+	glColor4f(shadow_color[0],shadow_color[1],shadow_color[2],shadow_color[3]);
+	glDisable(GL_TEXTURE_2D);
+	glDisable(GL_LIGHTING);
+	glDisable(GL_DEPTH_TEST);
+	glEnable(GL_BLEND);
+	glStencilOp(GL_KEEP, GL_KEEP, GL_INCR);
+}
+
+void GNRGLCanvas::shadowColorOff()
+{
+	glDisable(GL_BLEND);
+	glDisable(GL_STENCIL_TEST);
+	glEnable(GL_DEPTH_TEST);
+	glEnable(GL_LIGHTING);
+}
+
+void GNRGLCanvas::endPixelBuffer()
+{
+	glColorMask(GL_TRUE, GL_TRUE, GL_TRUE, GL_TRUE);
+	glDepthMask(GL_TRUE);
+	glStencilFunc(GL_EQUAL, 1, 0xFFFFFFFF);
+	glStencilOp(GL_KEEP, GL_KEEP, GL_KEEP);
 }
 
 /**
@@ -223,16 +303,23 @@ void GNRGLCanvas::endDraw()
  */
 void GNRGLCanvas::prepareDraw()
 {
-	// set current GL-Context as activ
 	SetCurrent();
-	
-	// Clear the Window
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	
-	glMatrixMode(GL_MODELVIEW);
-	
-	// Reset The Current Modelview Matrix
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
 	glLoadIdentity();
+}
+
+void GNRGLCanvas::endDraw()
+{
+	SwapBuffers();
+}
+
+void GNRGLCanvas::preparePixelBuffer()
+{
+	glColorMask(GL_FALSE, GL_FALSE, GL_FALSE, GL_FALSE);
+	glDepthMask(GL_FALSE);
+	glEnable(GL_STENCIL_TEST);
+	glStencilFunc(GL_ALWAYS, 1, 0xFFFFFFFF);
+	glStencilOp(GL_REPLACE, GL_REPLACE, GL_REPLACE);
 }
 
 /**
@@ -282,7 +369,7 @@ GNRAssembly* GNRGLCanvas::selection(GNRAssembly* rootAssembly, GNRGLCamera* came
 		// Reset The Modelview Matrix
 		glLoadIdentity();
 		
-		//set camera
+		//prepareDraw();
 		camera->render();
 		
 		rootAssembly->draw();
@@ -364,7 +451,6 @@ void GNRGLCanvas::OnLMouseDblClick(wxMouseEvent& event)
 	SetFocus();
 	Connect(wxEVT_MOUSEWHEEL, (wxObjectEventFunction)&GNRGLCanvas::OnMouseWheel);
 	
-	// get dimensions of the GL-Canvas
 	GNRVertex* glcoords = new GNRVertex[2];
 	getGLDim(event.GetX(), event.GetY(), glcoords);
 	
@@ -605,16 +691,7 @@ void GNRGLCanvas::getGLPos(int x, int y, GNRVertex* glcoords) {
 	glcoords->setZ(zpos);
 }
 */
-
-
 // Convert Mouse-Coordinates to GL-Coordinates
-/**
- * Read out top-left and bottom-right world-coordinates at z-value where the mouse clicked
- * @param   int         Mouse-X-Coordinate
- * @param   int         Mouse-Y-Coordinate
- * @param   GNRVertex*  array to save the dimensions to
- * @access      protected
- */
 void GNRGLCanvas::getGLDim(int x, int y, GNRVertex* glcoords)
 {
 	SetCurrent();
@@ -650,7 +727,7 @@ void GNRGLCanvas::getGLDim(int x, int y, GNRVertex* glcoords)
 }
 
 /**
- * Set the current canvas as active
+ * Set the Canvas as active
  * @access      public
  */
 void GNRGLCanvas::setActive()

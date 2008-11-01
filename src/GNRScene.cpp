@@ -24,11 +24,12 @@ GNRScene::GNRScene()
 	m_GLCamera2D    = new GNRGLCamera();
 	m_GLCamera3D    = new GNRGLCamera();
 	
-	m_RootAssembly  = new GNRAssembly(IS_ROOT,    "scene");
-	m_Selected      = new GNRAssembly(IS_SELECTED,"selected");
+	m_RootAssembly  = new GNRAssembly(IS_ROOT,        "scene");
+	m_Selected      = new GNRAssembly(IS_SELECTED,    "selected");
 	
-	m_Trash         = new GNRAssembly(IS_TRASH,   "trash");
-	m_Hidden        = new GNRAssembly(IS_HIDDEN,  "hidden");
+	m_Trash         = new GNRAssembly(IS_TRASH,       "trash");
+	m_Hidden        = new GNRAssembly(IS_HIDDEN,      "hidden");
+	m_Duplicator    = new GNRAssembly(IS_DUPLICATOR,  "duplicator");
 	
 	//put selected assembly in real world
 	m_RootAssembly->addPart(m_Selected);
@@ -134,12 +135,12 @@ void GNRScene::resetCamera()
 	//reset 2D cam to default
 	m_GLCamera2D->reset();
 	m_GLCamera2D->rotateX(-90);
-	m_GLCamera2D->changeDistance(8);
+	m_GLCamera2D->changeDistance(20);
 	
 	//reset 3D cam to default
 	m_GLCamera3D->reset();
-	m_GLCamera3D->rotateX(-25);
-	m_GLCamera3D->changeDistance(8);
+	m_GLCamera3D->rotateX(-20);
+	m_GLCamera3D->changeDistance(20);
 }
 
 void GNRScene::setCanvas2D(GNRGLCanvas2D* p)
@@ -173,18 +174,77 @@ void GNRScene::glRefresh()
 }
 
 /**
+ * refresh defines canvas with cam and cast shadows
+ * @access      private
+ */
+void GNRScene::glRefreshCanvas()
+{
+	//initialize only light source
+	m_GLOUT->initLights();
+	
+	//prepare and draw 2D top view of room
+	m_GLOUT->prepareDraw();
+	
+	//set camera for scene
+	m_GLCAM->render();
+	
+	/*NOW PREPARE THE PIXELBUFFER AND DRAW VIRTUAL FLOOR FOR CASTING SHADOWS*/
+	
+	//prepare pixelbuffer for shadows
+	m_GLOUT->preparePixelBuffer();
+	
+	//draw invisible floor for shadow projection
+	m_GLOUT->drawBaseFloor(0.0, 0.0, 0.0, DEFAULT_FLOOR_SIZE);
+	
+	//turn the color and depth buffers back on
+	m_GLOUT->endPixelBuffer();
+	
+	/*NOW CAST THE SHADOWS ON THE FLOOR AND KEEP IN PIXELBUFFER*/
+	
+	//draw real floor for casting shadows (1)
+	m_GLOUT->drawBaseFloor(0.0, 0.0, 0.0, DEFAULT_FLOOR_SIZE);
+	
+	//draw all shadows of objects
+	glPushMatrix();
+	{
+		//turn shadows on
+		m_GLOUT->shadowColorOn();
+		//load shadow projection matrix
+		m_GLOUT->loadShadowMatrix();
+		//draw shadows on prepainted floor (1)
+		glPushMatrix();
+		{
+			m_RootAssembly->drawShadow();
+		}
+		glPopMatrix();
+		//turn off shadows
+		m_GLOUT->shadowColorOff();
+	}
+	glPopMatrix();
+	
+	/*NOW DRAW ALL OBJECTS WITHOUT SHADOWS AND BLEND WITH SHADOWS*/
+	
+	//draw real objects
+	glPushMatrix();
+	{
+		m_GLOUT->initLights();
+		m_RootAssembly->draw();
+	}
+	glPopMatrix();
+	
+	//finish output and flush
+	m_GLOUT->endDraw();
+}
+
+/**
  * refresh only 2D canvas
  * @access      public
  */
 void GNRScene::glRefresh2D()
 {
-	//prepare and draw 2D top view of room
-	m_Canvas2D->prepareDraw();
-	m_GLCamera2D->render();
-	m_Canvas2D->initLights();
-	m_Canvas2D->drawBaseFloor(0.0, 0.0, 0.0, DEFAULT_FLOOR_SIZE);
-	m_RootAssembly->draw();
-	m_Canvas2D->endDraw();
+	m_GLOUT = m_Canvas2D;
+	m_GLCAM = m_GLCamera2D;
+	glRefreshCanvas();
 }
 
 /**
@@ -193,13 +253,9 @@ void GNRScene::glRefresh2D()
  */
 void GNRScene::glRefresh3D()
 {
-	//prepare and draw 3D view of room
-	m_Canvas3D->prepareDraw();
-	m_GLCamera3D->render();
-	m_Canvas3D->initLights();
-	m_Canvas3D->drawBaseFloor(0.0, 0.0, 0.0, DEFAULT_FLOOR_SIZE);
-	m_RootAssembly->draw();
-	m_Canvas3D->endDraw();
+	m_GLOUT = m_Canvas3D;
+	m_GLCAM = m_GLCamera3D;
+	glRefreshCanvas();
 }
 
 /**
@@ -224,22 +280,77 @@ void GNRScene::deleteSelectedAssemblies()
  */
 void GNRScene::drawLine(GNRLineDrawEvent& event)
 {
+	//initialize only light source
+	m_Canvas2D->initLights();
+	
 	//prepare and draw 2D top view of room
 	m_Canvas2D->prepareDraw();
+	
+	//set camera for scene
 	m_GLCamera2D->render();
-	m_Canvas2D->initLights();
+	
+	/*NOW PREPARE THE PIXELBUFFER AND DRAW VIRTUAL FLOOR FOR CASTING SHADOWS*/
+	
+	//prepare pixelbuffer for shadows
+	m_Canvas2D->preparePixelBuffer();
+	
+	//draw invisible floor for shadow projection
 	m_Canvas2D->drawBaseFloor(0.0, 0.0, 0.0, DEFAULT_FLOOR_SIZE);
-	m_RootAssembly->draw();
 	
-	// draw line from start- to end-point
-	float lineColor[4] = {1.0, 0.0, 0.0, 0.0};
-	glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, lineColor);
-	glLineWidth(2.0f);
-	glBegin(GL_LINES);
-	glVertex3f(event.getStartPoint().getX(), event.getStartPoint().getY(), event.getStartPoint().getZ());
-	glVertex3f(event.getEndPoint().getX(), event.getEndPoint().getY(), event.getEndPoint().getZ());
-	glEnd();
+	//turn the color and depth buffers back on
+	m_Canvas2D->endPixelBuffer();
 	
+	/*NOW CAST THE SHADOWS ON THE FLOOR AND KEEP IN PIXELBUFFER*/
+	
+	//draw real floor for casting shadows (1)
+	m_Canvas2D->drawBaseFloor(0.0, 0.0, 0.0, DEFAULT_FLOOR_SIZE);
+	
+	//draw all shadows of objects
+	glPushMatrix();
+	{
+		//turn shadows on
+		m_Canvas2D->shadowColorOn();
+		//load shadow projection matrix
+		m_Canvas2D->loadShadowMatrix();
+		//draw shadows on prepainted floor (1)
+		glPushMatrix();
+		{
+			m_RootAssembly->drawShadow();
+		}
+		glPopMatrix();
+		//turn off shadows
+		m_Canvas2D->shadowColorOff();
+	}
+	glPopMatrix();
+	
+	/*NOW DRAW ALL OBJECTS WITHOUT SHADOWS AND BLEND WITH SHADOWS*/
+	
+	//draw real objects
+	glPushMatrix();
+	{
+		//reinit lights
+		m_Canvas2D->initLights();
+		m_RootAssembly->draw();
+		
+		// draw line from start- to end-point
+		float lineColor[4] = {1.0, 0.0, 0.0, 0.0};
+		glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, lineColor);
+		glMaterialfv(GL_FRONT_AND_BACK, GL_EMISSION, lineColor);
+		glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, lineColor);
+		
+		//should be like the default wallsize
+		glLineWidth(100.0/(float)m_GLCamera2D->getDistance());
+		
+		glBegin(GL_LINES);
+		{
+			glVertex3f(event.getStartPoint().getX(), event.getStartPoint().getY(), event.getStartPoint().getZ());
+			glVertex3f(event.getEndPoint().getX(), event.getEndPoint().getY(), event.getEndPoint().getZ());
+		}
+		glEnd();
+	}
+	glPopMatrix();
+	
+	//put output to screen
 	m_Canvas2D->endDraw();
 	
 	// calculate length of the line

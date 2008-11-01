@@ -40,12 +40,23 @@ protected:
 	int m_window_x, m_window_y;
 	unsigned int FloorTexture;
 	
+	GLfloat light_ambientd[4];
+	GLfloat light_specular[4];
+	GLfloat light_position[4];
+	GLfloat shadow_color[4];
+	GLfloat floor_shadow[4][4];
+	GLfloat floor_plane[4];
+	
 	void initGL();
 	void connectEvents();
 	void reshape();
 	void loadFloorTexture();
+	void setMatrix();
 	void getGLPos(int x, int y, GNRVertex* glcoords);
 	void getGLDim(int x, int y, GNRVertex* glcoords);
+	
+	//shadow specific function for shadow projection
+	void SetShadowMatrix(float shadowMat[4][4], float groundplane[4], float lightpos[4]);
 	
 	virtual void setPerspective() = 0;
 	virtual canvasType getCanvasID() = 0;
@@ -69,10 +80,17 @@ public:
 	virtual ~GNRGLCanvas();
 	
 	// Drawing the GL-Scene
-	void prepareDraw();
 	void initLights();
-	void draw();
+	
+	void prepareDraw();
 	void endDraw();
+	
+	void loadShadowMatrix();
+	void shadowColorOn();
+	void shadowColorOff();
+	void preparePixelBuffer();
+	void endPixelBuffer();
+	
 	GNRAssembly* selection(GNRAssembly* rootAssembly, GNRGLCamera* camera, int mouse_x, int mouse_y);
 	void drawBaseFloor(float fCenterX, float fCenterY, float fCenterZ, int fSize);
 	void setActive();
