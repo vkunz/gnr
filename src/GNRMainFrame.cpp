@@ -368,7 +368,7 @@ void GNRMainFrame::OnMenuNewRoom(wxCommandEvent& WXUNUSED(event))
 
 void GNRMainFrame::OnMenuOpxOpen(wxCommandEvent& WXUNUSED(event))
 {
-	wxString filename = wxFileSelector(wxT("Datei wählen..."), wxT(""), wxT(""), wxT(""), wxT("OpxDatei (*.opx)|*.opx"));
+	const wxString& filename = wxFileSelector(wxT("Datei wählen..."), wxT(""), wxT(""), wxT(""), wxT("OpxDatei (*.opx)|*.opx"));
 	
 	// look if string is not empty
 	if (!filename.IsEmpty())
@@ -383,7 +383,7 @@ void GNRMainFrame::OnMenuOpxOpen(wxCommandEvent& WXUNUSED(event))
 
 void GNRMainFrame::OnMenuOpxSave(wxCommandEvent& WXUNUSED(event))
 {
-	wxString filename = wxFileSelector(wxT("Datei wählen..."), wxT(""), wxT(""), wxT(""), wxT("OpxDatei (*.opx)|*.opx"));
+	const wxString& filename = wxFileSelector(wxT("Datei wählen..."), wxT(""), wxT(""), wxT(""), wxT("OpxDatei (*.opx)|*.opx"));
 	
 	// look if string is not empty
 	if (!filename.IsEmpty())
@@ -398,7 +398,7 @@ void GNRMainFrame::OnMenuOpxSave(wxCommandEvent& WXUNUSED(event))
 
 void GNRMainFrame::OnMenuOaxImport(wxCommandEvent& WXUNUSED(event))
 {
-	wxString filename = wxFileSelector(wxT("Datei wählen..."), wxT(""), wxT(""), wxT(""), wxT("OaxDatei (*.oax)|*.oax"));
+	const wxString& filename = wxFileSelector(wxT("Datei wählen..."), wxT(""), wxT(""), wxT(""), wxT("OaxDatei (*.oax)|*.oax"));
 	
 	// look if string is not empty
 	if (!filename.IsEmpty())
@@ -413,7 +413,7 @@ void GNRMainFrame::OnMenuOaxImport(wxCommandEvent& WXUNUSED(event))
 
 void GNRMainFrame::OnMenuOaxExport(wxCommandEvent& WXUNUSED(event))
 {
-	wxString filename = wxFileSelector(wxT("Datei wählen..."), wxT(""), wxT(""), wxT(""), wxT("OaxDatei (*.oax)|*.oax"));
+	const wxString& filename = wxFileSelector(wxT("Datei wählen..."), wxT(""), wxT(""), wxT(""), wxT("OaxDatei (*.oax)|*.oax"));
 	
 	// look if string is not empty
 	if (!filename.IsEmpty())
@@ -428,7 +428,7 @@ void GNRMainFrame::OnMenuOaxExport(wxCommandEvent& WXUNUSED(event))
 
 void GNRMainFrame::OnMenuObjImport(wxCommandEvent& WXUNUSED(event))
 {
-	wxString filename = wxFileSelector(wxT("Datei wählen..."), wxT(""), wxT(""), wxT(""), wxT("ObjDatei (*.obj)|*.obj"));
+	const wxString& filename = wxFileSelector(wxT("Datei wahlen..."), wxT(""), wxT(""), wxT(""), wxT("ObjDatei (*.obj)|*.obj"));
 	
 	// look if string is not empty
 	if (!filename.IsEmpty())
@@ -443,7 +443,7 @@ void GNRMainFrame::OnMenuObjImport(wxCommandEvent& WXUNUSED(event))
 
 void GNRMainFrame::OnMenuObjExport(wxCommandEvent& WXUNUSED(event))
 {
-	wxString filename = wxFileSelector(wxT("Datei wählen..."), wxT(""), wxT(""), wxT(""), wxT("ObjDatei (*.obj)|*.obj"));
+	const wxString& filename = wxFileSelector(wxT("Datei wählen..."), wxT("Datei wählen..."), wxT(""), wxT("Datei wählen..."), wxT("ObjDatei (*.obj)|*.obj"));
 	
 	// look if string is not empty
 	if (!filename.IsEmpty())
@@ -534,7 +534,7 @@ void GNRMainFrame::OnCreateScreenshot(wxCommandEvent& event)
 	filetypes << wxT("|JPEG (*.jpg)|*.jpg");
 	filetypes << wxT("|BMP (*.bmp)|*.bmp");
 	filetypes << wxT("|TIFF (*.tif)|*.tif");
-	wxString filename = wxFileSelector(wxT("Bild speichern unter..."), wxT(""), wxT(""), wxT(""), filetypes, wxFD_SAVE);
+	const wxString& filename = wxFileSelector(wxT("Bild speichern unter..."), wxT(""), wxT(""), wxT(""), filetypes, wxFD_SAVE);
 	
 	if (!filename.IsEmpty())
 	{
