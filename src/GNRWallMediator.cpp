@@ -1,4 +1,15 @@
+/**
+ * Handles mouse-movement to draw walls
+ * @name        GNRWallMediator.cpp
+ * @date        2008-10-31
+ * @author		Konstantin Balabin  <k.balabin@googlemail.com>
+ * @author		Patrick Kracht      <patrick.kracht@googlemail.com>
+ * @author		Thorsten Moll       <thorsten.moll@googlemail.com>
+ * @author		Valentin Kunz       <athostr@googlemail.com>
+ */
+
 #include "GNRWallMediator.h"
+#include "GNRGlobalDefine.h"
 #include "GNRLineDrawEvent.h"
 #include "GNRCreatePrimitiveEvent.h"
 #include "math.h"
@@ -7,19 +18,23 @@
 #include <wx/log.h>
 #endif
 
-#define WALLHIGHT 2.0
-#define WALLDEPTH 0.2
+/**
+ * constructor of GNRWallMediator
+ * @access      public
+ */
+GNRWallMediator::GNRWallMediator() {}
 
-GNRWallMediator::GNRWallMediator()
-{
-	//ctor
-}
+/**
+ * destructor of GNRWallMediator
+ * @access      public
+ */
+GNRWallMediator::~GNRWallMediator() {}
 
-GNRWallMediator::~GNRWallMediator()
-{
-	//dtor
-}
-
+/**
+ * sets values needed for later calculation and sets the startpoint to current mouse-position
+ * @param   GNRGLNotifyEvent&    MouseEvent of the canvas
+ * @access      public
+ */
 void GNRWallMediator::initialize(GNRGLNotifyEvent& event)
 {
 	window_w = event.getWinX();
@@ -45,11 +60,11 @@ void GNRWallMediator::initialize(GNRGLNotifyEvent& event)
 	startPoint.setZ(z);
 }
 
-void GNRWallMediator::setAssembly(GNRAssembly* assembly)
-{
-	m_assembly = assembly;
-}
-
+/**
+ * calculates the new position of the endpoint of the line and makes canvas draw this line
+ * @param   GNRGLNotifyEvent&    MouseEvent of the canvas
+ * @access      public
+ */
 int GNRWallMediator::translate(GNRGLNotifyEvent& event)
 {
 
@@ -73,27 +88,10 @@ int GNRWallMediator::translate(GNRGLNotifyEvent& event)
 	return 1;
 }
 
-void GNRWallMediator::calculate()
-{
-	/*float deltaX = endPoint.getX() - startPoint.getX();
-	float deltaZ = endPoint.getZ() - startPoint.getZ();
-	float length = sqrt(deltaX*deltaX + deltaZ*deltaZ);
-	
-	GNRVertex middlePoint();
-	middlePoint.setX((endPoint.getX() + startPoint.getX()) / 2.0);
-	middlePoint.setY((endPoint.getY() + startPoint.getY()) / 2.0);
-	middlePoint.setZ((endPoint.getZ() + startPoint.getZ()) / 2.0);
-	
-	double beta = atan2(deltaZ, deltaX) * 180 / PI;
-	GNRVertex orientation(0, beta, 0);
-	
-	m_assembly->setLocationOffset(middlePoint);
-	m_assembly->setOrientationOffset(orientation);
-	m_assembly->setWidth(length);
-	m_assembly->setHeight(WALLHEIGHT);
-	m_assembly->setDepth(WALLDEPTH);*/
-}
-
+/**
+ * finalizes the wall drawing an sends an event to get the wall-primitive created
+ * @access      public
+ */
 void GNRWallMediator::finalize()
 {
 	float deltaX = endPoint.getX() - startPoint.getX();

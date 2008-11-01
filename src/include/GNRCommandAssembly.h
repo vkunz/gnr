@@ -1,3 +1,13 @@
+/**
+ * defines the GNRCommandAssembly-class
+ * @name        GNRCommandAssembly.h
+ * @date        2008-10-29
+ * @author		Konstantin Balabin  <k.balabin@googlemail.com>
+ * @author		Patrick Kracht      <patrick.kracht@googlemail.com>
+ * @author		Thorsten Moll       <thorsten.moll@googlemail.com>
+ * @author		Valentin Kunz       <athostr@googlemail.com>
+ */
+
 #ifndef _GNRCOMMANDASSEMBLY_H
 #define _GNRCOMMANDASSEMBLY_H
 

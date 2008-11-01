@@ -28,4 +28,7 @@
 #define ZNEAR                     0.1f        // near clipping plane of GL
 #define ZFAR                    100.0f        // far clipping plane of GL
 
+#define WALLHIGHT                2.0          // hight of a wall
+#define WALLDEPTH                0.2          // thickness of a wall
+
 #endif // GNRENUM_H

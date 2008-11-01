@@ -217,6 +217,11 @@ void GNRScene::deleteSelectedAssemblies()
 	}
 }
 
+/**
+ * draws a line, specified in the event to the 2D canvas
+ * @param   GNRLineDrawEvent    event with information about the line
+ * @access      public
+ */
 void GNRScene::drawLine(GNRLineDrawEvent& event)
 {
 	//prepare and draw 2D top view of room
@@ -494,6 +499,11 @@ void GNRScene::minmax(float& min,float& max,float value)
 	}
 }
 
+/**
+ * inserts a new assembly to the root-assembly
+ * @param   GNRAssembly*    pointer to the assembly, that should be insert
+ * @access      public
+ */
 void GNRScene::insertAssembly(GNRAssembly* assembly)
 {
 	m_RootAssembly->addPart(assembly);

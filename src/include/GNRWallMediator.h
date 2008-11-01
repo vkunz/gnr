@@ -1,3 +1,13 @@
+/**
+ * declares the GNRWallMediator-class
+ * @name        GNRWallMediator.h
+ * @date        2008-10-31
+ * @author		Konstantin Balabin  <k.balabin@googlemail.com>
+ * @author		Patrick Kracht      <patrick.kracht@googlemail.com>
+ * @author		Thorsten Moll       <thorsten.moll@googlemail.com>
+ * @author		Valentin Kunz       <athostr@googlemail.com>
+ */
+
 #ifndef _GNRWALL_H_
 #define _GNRWALL_H_
 
@@ -14,14 +24,13 @@ public:
 	virtual ~GNRWallMediator();
 	void initialize(GNRGLNotifyEvent& event);
 	int  translate(GNRGLNotifyEvent& event);
-	void setAssembly(GNRAssembly* assembly);
+	void setAssembly(GNRAssembly* assembly) {};
 	void setGLCamera(GNRGLCamera* camera) {};
 	void finalize();
 protected:
 private:
 	GNRVertex startPoint;
 	GNRVertex endPoint;
-	GNRAssembly* m_assembly;
 	
 	float gl_xmax;
 	float gl_xmin;
@@ -31,8 +40,6 @@ private:
 	int window_h;
 	int m_mouse_x;
 	int m_mouse_y;
-	
-	void calculate();
 };
 
 #endif // _GNRWALL_H_

@@ -1,18 +1,37 @@
+/**
+ * This class creates assemblies of primitives types
+ * @name        GNRPrimitiveCreator.cpp
+ * @date        2008-10-31
+ * @author		Konstantin Balabin  <k.balabin@googlemail.com>
+ * @author		Patrick Kracht      <patrick.kracht@googlemail.com>
+ * @author		Thorsten Moll       <thorsten.moll@googlemail.com>
+ * @author		Valentin Kunz       <athostr@googlemail.com>
+ */
+
 #include "GNRPrimitiveCreator.h"
 
 #include "GNRVNT.h"
 #include "GNRTCoord.h"
 
-GNRPrimitiveCreator::GNRPrimitiveCreator()
-{
-	//ctor
-}
+/**
+ * constructor of GNRPrimitiveCreator
+ * @access      public
+ */
+GNRPrimitiveCreator::GNRPrimitiveCreator() {}
 
-GNRPrimitiveCreator::~GNRPrimitiveCreator()
-{
-	//dtor
-}
+/**
+ * destructor of GNRPrimitiveCreator
+ * @access      public
+ */
+GNRPrimitiveCreator::~GNRPrimitiveCreator() {}
 
+/**
+ * creates a new cuboid assembly, calculates the vertexes, normals and sets position and angles
+ * @param   GNRVertex&  position of the assembly
+ * @param   GNRVertex&  rotation of the assembly
+ * @param   GNRVertex&  dimensions of the assembly
+ * @access      public
+ */
 GNRAssembly* GNRPrimitiveCreator::createCuboid(const GNRVertex& position, const GNRVertex& angles, const GNRVertex& dimension)
 {
 	GNRAssembly* cuboid = new GNRAssembly("cuboid");
@@ -89,6 +108,15 @@ GNRAssembly* GNRPrimitiveCreator::createCuboid(const GNRVertex& position, const 
 	return cuboid;
 }
 
+/**
+ * creates quadratic faces, out of vertexes and normals
+ * @param   GNRVertex&  top-left point of the quad
+ * @param   GNRVertex&  bottom-left point of the quad
+ * @param   GNRVertex&  bottom-right point of the quad
+ * @param   GNRVertex&  top-right point of the quad
+ * @param   GNRVertex&  normal of the quad
+ * @access      private
+ */
 GNRFace* GNRPrimitiveCreator::createFace(GNRVertex& topLeft, GNRVertex& bottomLeft, GNRVertex& bottomRight,
         GNRVertex& topRight, GNRVertex& normale)
 {

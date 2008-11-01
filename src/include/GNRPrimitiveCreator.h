@@ -1,3 +1,13 @@
+/**
+ * defines the GNRPrimitiveCreator
+ * @name        GNRPrimitiveCreator.h
+ * @date        2008-10-31
+ * @author		Konstantin Balabin  <k.balabin@googlemail.com>
+ * @author		Patrick Kracht      <patrick.kracht@googlemail.com>
+ * @author		Thorsten Moll       <thorsten.moll@googlemail.com>
+ * @author		Valentin Kunz       <athostr@googlemail.com>
+ */
+
 #ifndef _GNRPRIMITIVECREATOR_H_
 #define _GNRPRIMITIVECREATOR_H_
 

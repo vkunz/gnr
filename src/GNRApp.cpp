@@ -292,11 +292,19 @@ void GNRApp::OnGLEvent(GNRGLNotifyEvent& event)
 	}
 }
 
+/**
+ * handles line-draw-event to display a line in gl canvas
+ * @access      private
+ */
 void GNRApp::OnLineDrawEvent(GNRLineDrawEvent& event)
 {
 	m_Scene->drawLine(event);
 }
 
+/**
+ * handles createPrimitiveEvent and creates a new primitive
+ * @access      private
+ */
 void GNRApp::OnCreatePrimitiveEvent(GNRCreatePrimitiveEvent& event)
 {
 	if (event.getPrimitiveType() == CUBOID)

@@ -1,3 +1,15 @@
+/**
+ * GNRUndoRedo-Singleton-Class handels all possible undo and redo operations that can
+ * be done within the application. It manages the stacks and calls the derived command-classes
+ * to un-/redo their operations
+ * @name        GNRUndoRedo.cpp
+ * @date        2008-10-29
+ * @author		Konstantin Balabin  <k.balabin@googlemail.com>
+ * @author		Patrick Kracht      <patrick.kracht@googlemail.com>
+ * @author		Thorsten Moll       <thorsten.moll@googlemail.com>
+ * @author		Valentin Kunz       <athostr@googlemail.com>
+ */
+
 #include "GNRUndoRedo.h"
 #include "GNRNotifyEvent.h"
 #include "GNREnum.h"
@@ -9,16 +21,24 @@
 // initialize pointer
 GNRUndoRedo* GNRUndoRedo::pinstance = 0;
 
-GNRUndoRedo::GNRUndoRedo()
-{
-	//ctor
-}
+/**
+ * constructor of GNRUndoRedo
+ * @access      protected
+ */
+GNRUndoRedo::GNRUndoRedo() {}
 
-GNRUndoRedo::~GNRUndoRedo()
-{
-	//dtor
-}
+/**
+ * destructor of GNRUndoRedo
+ * @access      public
+ */
+GNRUndoRedo::~GNRUndoRedo() {}
 
+/**
+ * creates a new class if not instantiated or returns a pointer to the object, already
+ * instantiated before
+ * two cameras for 2D and 3D
+ * @access      public
+ */
 GNRUndoRedo* GNRUndoRedo::getInstance()
 {
 	if (pinstance == 0)
@@ -28,6 +48,11 @@ GNRUndoRedo* GNRUndoRedo::getInstance()
 	return pinstance;
 }
 
+/**
+ * adds a new command-object with information to un-/redo the operation to the stack
+ * @param   GNRCommand*     Pointer to a class derived from GNRCommand that handels un-/redo information
+ * @access      public
+ */
 void GNRUndoRedo::enqueue(GNRCommand* command)
 {
 	emptyRedoStack();
@@ -40,6 +65,10 @@ void GNRUndoRedo::enqueue(GNRCommand* command)
 	ProcessEvent(gnrevent);
 }
 
+/**
+ * unexecutes the last command, pushed to the undo-stack
+ * @access      public
+ */
 void GNRUndoRedo::undo()
 {
 	if (!m_undo.empty())
@@ -67,6 +96,10 @@ void GNRUndoRedo::undo()
 	}
 }
 
+/**
+ * executes the last command, pushed to redo-stack
+ * @access      public
+ */
 void GNRUndoRedo::redo()
 {
 	if (!m_redo.empty())
@@ -93,6 +126,10 @@ void GNRUndoRedo::redo()
 	}
 }
 
+/**
+ * deletes all command-objects from the redo stack
+ * @access      private
+ */
 void GNRUndoRedo::emptyRedoStack()
 {
 	GNRCommand* command;
