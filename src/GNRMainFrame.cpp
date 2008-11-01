@@ -8,6 +8,7 @@
  * @author		Valentin Kunz       <athostr@googlemail.com>
  */
 
+#include <wx/arrstr.h>
 #include <wx/artprov.h>
 #include <wx/image.h>
 #include <wx/intl.h>
@@ -426,9 +427,9 @@ void GNRMainFrame::OnMenuOaxExport(wxCommandEvent& WXUNUSED(event))
 	}
 }
 
-void GNRMainFrame::OnMenuObjImport(wxCommandEvent& WXUNUSED(event))
+void GNRMainFrame::OnMenuObjImport(wxCommandEvent& event)
 {
-	const wxString& filename = wxFileSelector(wxT("Datei wahlen..."), wxT(""), wxT(""), wxT(""), wxT("ObjDatei (*.obj)|*.obj"));
+	const wxString& filename = wxFileSelector(wxT("Datei wählen..."), wxT("Datei wählen..."), wxT(""), wxT("Datei wählen..."), wxT("ObjDatei (*.obj)|*.obj"));
 	
 	// look if string is not empty
 	if (!filename.IsEmpty())

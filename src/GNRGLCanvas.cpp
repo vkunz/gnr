@@ -106,27 +106,32 @@ void GNRGLCanvas::setMatrix()
 void GNRGLCanvas::initLights()
 {
 	//define light source
-	light_ambientd[0] = 0.25;
-	light_ambientd[1] = 0.25;
-	light_ambientd[2] = 0.25;
-	light_ambientd[3] = 0.9;
+	light_ambient[0] = 0.55;
+	light_ambient[1] = 0.55;
+	light_ambient[2] = 0.55;
+	light_ambient[3] = 1.0;
+	
+	light_diffuse[0] = 0.45;
+	light_diffuse[1] = 0.45;
+	light_diffuse[2] = 0.45;
+	light_diffuse[3] = 1.0;
 	
 	light_specular[0] = 0.25;
 	light_specular[1] = 0.25;
 	light_specular[2] = 0.25;
-	light_specular[3] = 0.8;
+	light_specular[3] = 1.0;
 	
 	//define light position
-	light_position[0] = 15.0;
-	light_position[1] = 45.0;
-	light_position[2] = 25.0;
+	light_position[0] = 20.0;
+	light_position[1] = 40.0;
+	light_position[2] = 12.0;
 	light_position[3] = 1.0;
 	
 	//define shadow color
 	shadow_color[0] = 0.2;
 	shadow_color[1] = 0.2;
 	shadow_color[2] = 0.2;
-	shadow_color[3] = 0.5;
+	shadow_color[3] = 0.4;
 	
 	//normal of floor
 	floor_plane[0] = 0.0;
@@ -134,13 +139,15 @@ void GNRGLCanvas::initLights()
 	floor_plane[2] = 0.0;
 	floor_plane[3] = 0.0;
 	
-	glLightfv(GL_LIGHT0, GL_AMBIENT_AND_DIFFUSE, light_ambientd);
+	glLightfv(GL_LIGHT0, GL_AMBIENT_AND_DIFFUSE, light_diffuse);
 	glLightfv(GL_LIGHT0, GL_SPECULAR, light_specular);
 	glLightfv(GL_LIGHT0, GL_POSITION, light_position);
 	
+	glLightModelfv(GL_LIGHT_MODEL_AMBIENT, light_ambient);
+	glLightModeli(GL_LIGHT_MODEL_TWO_SIDE, 1);
+	
 	glEnable(GL_LIGHTING);
 	glEnable(GL_LIGHT0);
-	glLightModeli(GL_LIGHT_MODEL_TWO_SIDE, 0);
 	
 	glClearColor(0.3, 0.3, 0.3, 1.0);
 }
@@ -159,6 +166,7 @@ void GNRGLCanvas::initGL()
 	glDepthFunc(GL_LEQUAL);
 	glBlendFunc(GL_ONE_MINUS_SRC_ALPHA,GL_SRC_ALPHA);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	glBlendFunc(GL_DST_COLOR, GL_SRC_COLOR);
 	
 	glEnable(GL_BLEND);
 	glEnable(GL_DEPTH_TEST);

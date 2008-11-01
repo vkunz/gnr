@@ -40,7 +40,8 @@ protected:
 	int m_window_x, m_window_y;
 	unsigned int FloorTexture;
 	
-	GLfloat light_ambientd[4];
+	GLfloat light_ambient[4];
+	GLfloat light_diffuse[4];
 	GLfloat light_specular[4];
 	GLfloat light_position[4];
 	GLfloat shadow_color[4];
