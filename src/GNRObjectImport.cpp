@@ -133,6 +133,11 @@ float GNRObjectImport::getOffsetZ()
 	return m_offsetZ;
 }
 
+GNRAssembly* GNRObjectImport::getWrapper()
+{
+	return m_wrapper;
+}
+
 void GNRObjectImport::read(wxString& content)
 {
 	m_xmin = m_ymin = m_zmin = std::numeric_limits<float>::max();

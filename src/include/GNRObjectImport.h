@@ -52,6 +52,9 @@ public:
 	// return z - offset
 	float getOffsetZ();
 	
+	// return wrapper
+	GNRAssembly* getWrapper();
+	
 private:
 	// attributes
 	// set if load from filesystem, else load as wxinputstream

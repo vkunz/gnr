@@ -9,8 +9,9 @@
  */
 
 #include <string>
-#include <wx/xml/xml.h>
+#include <wx/sstream.h>
 #include <wx/tokenzr.h>
+#include <wx/xml/xml.h>
 
 #include "GNROaxImport.h"
 #include "GNRObjectImport.h"
@@ -125,10 +126,17 @@ void GNROaxImport::Load(wxZipInputStream& stream)
 			// openEntry
 			stream.OpenEntry(*m_ptrZipEntry);
 			
-			//wxStreamBuffer blub(stream, wxStreamBuffer::read_write);
+			// temporary string
+			wxString tmp;
 			
-			// insert pail into map
-			//m_map.insert(std::pair<wxString, wxString*>(m_ptrZipEntry->GetName(), &stream));
+			// create wxStringOutputStream to get content of mtl file
+			wxStringOutputStream outString(&tmp);
+			
+			// read zipstream and store content into tmp
+			stream.Read(outString);
+			
+			// insert file name and its content into map
+			m_map->insert(std::pair<wxString, wxString>(m_ptrZipEntry->GetName(), tmp));
 			
 			// entry found
 			continue;
@@ -146,8 +154,6 @@ void GNROaxImport::Load(wxZipInputStream& stream)
 		{
 			// openEntry
 			stream.OpenEntry(*m_ptrZipEntry);
-			
-			
 			
 			// load objfile
 			LoadObj(stream);
@@ -709,26 +715,6 @@ void GNROaxImport::LoadObj(wxInputStream& stream)
 	// placeholder for GNRObjectImport-call
 	m_ptrAssembly = import.getAssembly();
 	
-	// set x-offset
-	m_ptrAssembly->setX(m_locationOffsetX);
-	
-	// set y-offset
-	m_ptrAssembly->setY(m_locationOffsetY);
-	
-	// set z-offset
-	m_ptrAssembly->setZ(m_locationOffsetZ);
-	
-	
-	// set x-orientation
-	m_ptrAssembly->setPhi(m_orientationOffsetX);
-	
-	// set y-orientation
-	m_ptrAssembly->setRho(m_orientationOffsetY);
-	
-	// set z-orientation
-	m_ptrAssembly->setTheta(m_orientationOffsetZ);
-	
-	
 	// set x-scale
 	m_ptrAssembly->setScaleX(m_scaleX);
 	
@@ -740,4 +726,25 @@ void GNROaxImport::LoadObj(wxInputStream& stream)
 	
 	// set assemly-name
 	m_ptrAssembly->setName(std::string(std::string(m_name.mb_str())));
+	
+	// temporary pointer to get access to wrapper
+	GNRAssembly* wrapper = import.getWrapper();
+	
+	// set x-offset
+	wrapper->setX(m_locationOffsetX);
+	
+	// set y-offset
+	wrapper->setY(m_locationOffsetY);
+	
+	// set z-offset
+	wrapper->setZ(m_locationOffsetZ);
+	
+	// set x-orientation
+	wrapper->setPhi(m_orientationOffsetX);
+	
+	// set y-orientation
+	wrapper->setRho(m_orientationOffsetY);
+	
+	// set z-orientation
+	wrapper->setTheta(m_orientationOffsetZ);
 }

@@ -432,11 +432,11 @@ void GNRApp::OAXExport(GNRFrameData* data)
 void GNRApp::OBJImport(wxString filename)
 {
 	// create objoaxconv
-	//m_ObjOaxConv = new GNRObjOaxConverter(filename, m_TreeLibCtrl->getAllCategories());
+	m_ObjOaxConv = new GNRObjOaxConverter(filename, m_TreeLibCtrl->getAllCategories());
 	
-	GNRObjectImport import(filename);
+	//GNRObjectImport import(filename);
 	
-	m_Scene->insertAssembly(import.getAssembly());
+	//m_Scene->insertAssembly(import.getAssembly());
 }
 
 /**
