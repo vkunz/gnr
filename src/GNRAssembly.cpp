@@ -27,7 +27,8 @@ GNRAssembly::GNRAssembly(const string& name = "unnamed"):
 		m_scale_x(1.0), m_scale_y(1.0), m_scale_z(1.0),
 		m_width(1.0), m_height(1.0), m_depth(1.0),
 		m_radius_bottom(0.0), m_radius_middle(0.0), m_radius_top(0.0),
-		m_type(IS_ROOT), m_name(name), m_parent(NULL)
+		m_type(IS_ROOT), m_name(name), m_parent(NULL),
+		m_dl_object(0), m_dl_shadow(0)
 {
 }
 
@@ -56,6 +57,7 @@ GNRAssembly::GNRAssembly(const GNRAssembly& assembly)
 	m_radius_bottom = assembly.m_radius_bottom;
 	m_radius_middle = assembly.m_radius_middle;
 	m_radius_top    = assembly.m_radius_top;
+	m_dl_object         = assembly.m_dl_object;
 	
 	// copy my faces
 	for (list<GNRFace>::const_iterator it = m_face.begin(); it != m_face.end(); ++it)
@@ -116,6 +118,8 @@ GNRAssembly* GNRAssembly::clone()
 	m_clone->m_radius_bottom = m_radius_bottom;
 	m_clone->m_radius_middle = m_radius_middle;
 	m_clone->m_radius_top    = m_radius_top;
+	m_clone->m_dl_object     = m_dl_object;
+	m_clone->m_dl_shadow     = m_dl_shadow;
 	
 	// copy my faces
 	for (list<GNRFace>::const_iterator it = m_face.begin(); it != m_face.end(); ++it)
@@ -162,7 +166,8 @@ GNRAssembly::GNRAssembly(GNRAssembly* parent, const string& name = "unnamed"):
 		m_scale_x(1.0), m_scale_y(1.0), m_scale_z(1.0),
 		m_width(1.0), m_height(1.0), m_depth(1.0),
 		m_radius_bottom(0.0), m_radius_middle(0.0), m_radius_top(0.0),
-		m_type(IS_ROOT), m_name(name), m_parent(parent)
+		m_type(IS_ROOT), m_name(name), m_parent(parent),
+		m_dl_object(0), m_dl_shadow(0)
 {
 }
 
@@ -178,7 +183,8 @@ GNRAssembly::GNRAssembly(const assemblyType& type, const string& name = "unnamed
 		m_scale_x(1.0), m_scale_y(1.0), m_scale_z(1.0),
 		m_width(1.0), m_height(1.0), m_depth(1.0),
 		m_radius_bottom(0.0), m_radius_middle(0.0), m_radius_top(0.0),
-		m_type(type), m_name(name), m_parent(NULL)
+		m_type(type), m_name(name), m_parent(NULL),
+		m_dl_object(0), m_dl_shadow(0)
 {
 }
 
@@ -880,11 +886,16 @@ void GNRAssembly::setChildMaterial(const GNRAssembly* child, const GNRMaterial& 
 	m_child_mat.insert(pair<const GNRAssembly*, GNRMaterial>(child, mat));
 }
 
+void GNRAssembly::setChildDisplayList(const GNRAssembly* child, const GLuint& dl)
+{
+	m_child_dl.insert(pair<const GNRAssembly*, GLuint>(child, dl));
+}
+
 /**
  * draw this assembly and all his children and push ID to glLoadName, if its atomic
  * @access      public
  */
-void GNRAssembly::draw() const
+void GNRAssembly::draw()
 {
 	if (m_type == IS_ATOMIC)
 	{
@@ -938,10 +949,25 @@ void GNRAssembly::draw() const
 		glRotatef(m_theta, 0, 1, 0);
 		glRotatef(m_rho, 0, 0, 1);
 		
-		// draw myself
-		for (list<GNRFace>::const_iterator it = m_face.begin(); it != m_face.end(); ++it)
+		if (glIsList(m_dl_object))
 		{
-			it->draw();
+			glCallList(m_dl_object);
+		}
+		else
+		{
+			//create new display list for myself
+			m_dl_object = glGenLists(1);
+			
+			//setup new display list
+			glNewList(m_dl_object,GL_COMPILE);
+			{
+				// draw myself to display list
+				for (list<GNRFace>::const_iterator it = m_face.begin(); it != m_face.end(); ++it)
+				{
+					it->draw();
+				}
+			}
+			glEndList();
 		}
 		
 		// draw the children
@@ -965,7 +991,7 @@ void GNRAssembly::draw() const
  * draw shadow of this assembly and all his children and push ID to glLoadName, if its atomic
  * @access      public
  */
-void GNRAssembly::drawShadow() const
+void GNRAssembly::drawShadow()
 {
 	glPushMatrix();
 	{
@@ -977,10 +1003,25 @@ void GNRAssembly::drawShadow() const
 		glRotatef(m_theta, 0, 1, 0);
 		glRotatef(m_rho, 0, 0, 1);
 		
-		// draw myself
-		for (list<GNRFace>::const_iterator it = m_face.begin(); it != m_face.end(); ++it)
+		if (glIsList(m_dl_shadow))
 		{
-			it->draw();
+			glCallList(m_dl_shadow);
+		}
+		else
+		{
+			//create new display list for my shadows
+			m_dl_shadow = glGenLists(1);
+			
+			//setup new display list
+			glNewList(m_dl_shadow,GL_COMPILE);
+			{
+				// draw my shadows to display list
+				for (list<GNRFace>::const_iterator it = m_face.begin(); it != m_face.end(); ++it)
+				{
+					it->draw();
+				}
+			}
+			glEndList();
 		}
 		
 		// draw the children

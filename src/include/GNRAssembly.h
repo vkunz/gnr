@@ -11,6 +11,10 @@
 #ifndef _GNRASSEMBLY_H_
 #define _GNRASSEMBLY_H_
 
+#ifdef _WIN32
+#include <gl/glu.h>
+#endif
+
 #include <list>
 #include <vector>
 #include <map>
@@ -100,6 +104,7 @@ public:
 	void delPart(GNRAssembly* part);
 	
 	void setChildMaterial(const GNRAssembly* child, const GNRMaterial& mat);
+	void setChildDisplayList(const GNRAssembly* child, const GLuint& dl);
 	
 	void setName(const string& name);
 	const string& getName() const;
@@ -117,8 +122,8 @@ public:
 	void putOnGround();
 	void setNormals();
 	
-	void draw() const;
-	void drawShadow() const;
+	void draw();
+	void drawShadow();
 	
 	void debugInfo() const;
 	list<GNRAssembly*> getPartList();
@@ -147,11 +152,18 @@ private:
 	
 	GNRAssembly* m_parent;
 	
-	list<GNRFace> m_face;
+	//my display list and shadows
+	GLuint m_dl_object;
+	GLuint m_dl_shadow;
+	
+	list<GNRFace>      m_face;
 	list<GNRAssembly*> m_part;
 	
-	//  ChildPtr ==> material_name
+	//ChildPtr ==> GNRMaterial
 	map<const GNRAssembly* const, GNRMaterial> m_child_mat;
+	
+	//ChildPtr ==> display list
+	map<const GNRAssembly* const, GLuint> m_child_dl;
 	
 	// list of tags
 	list<wxString> m_tags;

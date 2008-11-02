@@ -747,7 +747,4 @@ void GNROaxImport::LoadObj(wxInputStream& stream)
 	
 	// set z-orientation
 	wrapper->setTheta(m_orientationOffsetZ);
-	
-	//DEBUG
-	m_ptrAssembly->debugInfo();
 }
