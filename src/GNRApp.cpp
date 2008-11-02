@@ -368,6 +368,8 @@ void GNRApp::OnCreatePrimitiveEvent(GNRCreatePrimitiveEvent& event)
 		//put whole in the world
 		m_Scene->insertAssembly(primitive);
 	}
+	
+	m_Scene->glRefresh();
 }
 
 /**

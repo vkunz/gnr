@@ -91,6 +91,42 @@ void GNRGLCanvas::connectEvents()
 	Connect(wxEVT_LEFT_DCLICK, (wxObjectEventFunction)&GNRGLCanvas::OnLMouseDblClick);
 }
 
+/**
+ * Reconnecting the events needed for the Canvas
+ * @access      private
+ */
+void GNRGLCanvas::reconnectEvents()
+{
+	// Connect-methods to connect different Events with functions
+	Connect(wxEVT_MIDDLE_DOWN, (wxObjectEventFunction)&GNRGLCanvas::OnMMouseDown);
+	Connect(wxEVT_MIDDLE_UP, (wxObjectEventFunction)&GNRGLCanvas::OnMMouseUp);
+	Connect(wxEVT_RIGHT_DOWN, (wxObjectEventFunction)&GNRGLCanvas::OnRMouseDown);
+	Connect(wxEVT_RIGHT_UP, (wxObjectEventFunction)&GNRGLCanvas::OnRMouseUp);
+	Connect(wxEVT_LEFT_DOWN, (wxObjectEventFunction)&GNRGLCanvas::OnLMouseDown);
+	Connect(wxEVT_LEFT_UP, (wxObjectEventFunction)&GNRGLCanvas::OnLMouseUp);
+	Connect(wxEVT_LEAVE_WINDOW, (wxObjectEventFunction)&GNRGLCanvas::OnLeaveWindow);
+	Connect(wxEVT_LEFT_DCLICK, (wxObjectEventFunction)&GNRGLCanvas::OnLMouseDblClick);
+	Disconnect(wxEVT_ENTER_WINDOW, (wxObjectEventFunction)&GNRGLCanvas::OnEnterWindow);
+}
+
+/**
+ * Disconnecting the events needed for the Canvas
+ * @access      private
+ */
+void GNRGLCanvas::disconnectEvents()
+{
+	// Connect-methods to connect different Events with functions
+	Disconnect(wxEVT_MIDDLE_DOWN, (wxObjectEventFunction)&GNRGLCanvas::OnMMouseDown);
+	Disconnect(wxEVT_MIDDLE_UP, (wxObjectEventFunction)&GNRGLCanvas::OnMMouseUp);
+	Disconnect(wxEVT_RIGHT_DOWN, (wxObjectEventFunction)&GNRGLCanvas::OnRMouseDown);
+	Disconnect(wxEVT_RIGHT_UP, (wxObjectEventFunction)&GNRGLCanvas::OnRMouseUp);
+	Disconnect(wxEVT_LEFT_DOWN, (wxObjectEventFunction)&GNRGLCanvas::OnLMouseDown);
+	Disconnect(wxEVT_LEFT_UP, (wxObjectEventFunction)&GNRGLCanvas::OnLMouseUp);
+	Disconnect(wxEVT_LEAVE_WINDOW, (wxObjectEventFunction)&GNRGLCanvas::OnLeaveWindow);
+	Disconnect(wxEVT_LEFT_DCLICK, (wxObjectEventFunction)&GNRGLCanvas::OnLMouseDblClick);
+	Connect(wxEVT_ENTER_WINDOW, (wxObjectEventFunction)&GNRGLCanvas::OnEnterWindow);
+}
+
 void GNRGLCanvas::setMatrix()
 {
 	GetClientSize(&m_window_x, &m_window_y);
@@ -113,15 +149,18 @@ void GNRGLCanvas::initLights()
 	glLightfv(GL_LIGHT0, GL_SPECULAR, light_specular);
 	glLightfv(GL_LIGHT0, GL_POSITION, light_position[0]);
 	
-//	glLightfv(GL_LIGHT1, GL_AMBIENT_AND_DIFFUSE, light_diffuse);
+//	glLightfv(GL_LIGHT1, GL_DIFFUSE, light_diffuse);
+//  glLightfv(GL_LIGHT1, GL_AMBIENT, light_diffuse);
 //	glLightfv(GL_LIGHT1, GL_SPECULAR, light_specular);
 //	glLightfv(GL_LIGHT1, GL_POSITION, light_position[1]);
 //
-//	glLightfv(GL_LIGHT2, GL_AMBIENT_AND_DIFFUSE, light_diffuse);
+//	glLightfv(GL_LIGHT2, GL_DIFFUSE, light_diffuse);
+//  glLightfv(GL_LIGHT2, GL_AMBIENT, light_diffuse);
 //	glLightfv(GL_LIGHT2, GL_SPECULAR, light_specular);
 //	glLightfv(GL_LIGHT2, GL_POSITION, light_position[2]);
 //
-//	glLightfv(GL_LIGHT3, GL_AMBIENT_AND_DIFFUSE, light_diffuse);
+//	glLightfv(GL_LIGHT3, GL_DIFFUSE, light_diffuse);
+//  glLightfv(GL_LIGHT3, GL_AMBIENT, light_diffuse);
 //	glLightfv(GL_LIGHT3, GL_SPECULAR, light_specular);
 //	glLightfv(GL_LIGHT3, GL_POSITION, light_position[3]);
 
@@ -648,8 +687,7 @@ void GNRGLCanvas::OnMouseWheel(wxMouseEvent& event)
  */
 void GNRGLCanvas::OnLeaveWindow(wxMouseEvent& event)
 {
-	Disconnect(wxEVT_MOUSEWHEEL, (wxObjectEventFunction)&GNRGLCanvas::OnMouseWheel);
-	Disconnect(wxEVT_MOTION, (wxObjectEventFunction)&GNRGLCanvas::OnMouseMove);
+	disconnectEvents();
 	
 	// send Event to handle Mouse
 	GNRGLNotifyEvent myevent(wxEVT_COMMAND_GL_NOTIFY);
@@ -666,8 +704,7 @@ void GNRGLCanvas::OnLeaveWindow(wxMouseEvent& event)
  */
 void GNRGLCanvas::OnEnterWindow(wxMouseEvent& event)
 {
-	Connect(wxEVT_MOUSEWHEEL, (wxObjectEventFunction)&GNRGLCanvas::OnMouseWheel);
-	Disconnect(wxEVT_MOTION, (wxObjectEventFunction)&GNRGLCanvas::OnMouseMove);
+	reconnectEvents();
 	
 	// send Event to handle Mouse
 	GNRGLNotifyEvent myevent(wxEVT_COMMAND_GL_NOTIFY);

@@ -51,6 +51,8 @@ protected:
 	
 	void initGL();
 	void connectEvents();
+	void disconnectEvents();
+	void reconnectEvents();
 	void reshape();
 	void loadFloorTexture();
 	void setMatrix();

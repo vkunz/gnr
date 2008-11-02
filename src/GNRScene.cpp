@@ -408,13 +408,18 @@ void GNRScene::drawLine(GNRLineDrawEvent& event)
 	//draw real objects
 	glPushMatrix();
 	{
-		//reinit lights
-		m_Canvas2D->initLights();
-		m_RootAssembly->draw();
+		glPushMatrix();
+		{
+			//reinit lights
+			m_Canvas2D->initLights();
+			m_RootAssembly->draw();
+		}
+		glPopMatrix();
 		
 		// draw line from start- to end-point
 		float lineColor[4] = {1.0, 0.0, 0.0, 0.0};
-		glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, lineColor);
+		glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT,  lineColor);
+		glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE,  lineColor);
 		glMaterialfv(GL_FRONT_AND_BACK, GL_EMISSION, lineColor);
 		glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, lineColor);
 		
