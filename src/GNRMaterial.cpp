@@ -16,9 +16,21 @@
 using std::cout;
 using std::endl;
 
+GNRColor::GNRColor():
+		m_r(1.0), m_g(1.0), m_b(1.0)
+{
+}
+
 GNRColor::GNRColor(float r, float g, float b):
 		m_r(r), m_g(g), m_b(b)
 {
+}
+
+GNRColor::GNRColor(const GNRColor& color)
+{
+	m_r = color.m_r;
+	m_g = color.m_g;
+	m_b = color.m_b;
 }
 
 float GNRColor::getR() const
@@ -61,6 +73,15 @@ GNRMaterial::GNRMaterial():
 		m_ambient(0.8, 0.8, 0.8), m_diffuse(0.8, 0.8, 0.8), m_specular(0.5, 0.5, 0.5),
 		m_alpha(0.0), m_shininess(0)
 {
+}
+
+GNRMaterial::GNRMaterial(const GNRMaterial& material)
+{
+	m_ambient   = material.m_ambient;
+	m_diffuse   = material.m_diffuse;
+	m_specular  = material.m_specular;
+	m_alpha     = material.m_alpha;
+	m_shininess = material.m_shininess;
 }
 
 const GNRColor& GNRMaterial::getAmbient() const

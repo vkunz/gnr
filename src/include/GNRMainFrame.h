@@ -62,6 +62,11 @@ private:
 	void OnGroupCreate(wxCommandEvent& WXUNUSED(event));
 	void OnGroupModify(wxCommandEvent& WXUNUSED(event));
 	void OnDeleteSelected(wxCommandEvent& WXUNUSED(event));
+	void OnCloneSelected(wxCommandEvent& WXUNUSED(event));
+	void OnCopySelected(wxCommandEvent& WXUNUSED(event));
+	void OnInsertCopy(wxCommandEvent& WXUNUSED(event));
+	void OnCutSelected(wxCommandEvent& WXUNUSED(event));
+	
 	//global set snap to grid
 	void OnSnapToGrid();
 	//global wheel simulation
@@ -78,6 +83,7 @@ private:
 	static const long idMenuCutObject;
 	static const long idMenuInsertObject;
 	static const long idMenuCopyObject;
+	static const long idMenuCloneObject;
 	static const long idMenuHideObject;
 	static const long idMenuShowObject;
 	static const long idMenuObjExport;
@@ -129,6 +135,7 @@ private:
 	static const long ID_STATICTEXT2;
 	
 	//(*Declarations(GNRMainFrame)
+	wxMenuItem* MenuItem31;
 	wxMenuItem* MenuItem26;
 	wxMenuItem* MenuItem25;
 	wxMenu* Menu3;

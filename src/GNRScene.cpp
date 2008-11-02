@@ -274,6 +274,71 @@ void GNRScene::deleteSelectedAssemblies()
 }
 
 /**
+ * clone all selected assemblies
+ * @access      public
+ */
+void GNRScene::cloneSelectedAssemblies()
+{
+	list<GNRAssembly*> parts = m_Selected->getPartList();
+	
+	for (list<GNRAssembly*>::iterator it = parts.begin(); it != parts.end(); ++it)
+	{
+		GNRAssembly* a_copy = new GNRAssembly((**it));
+		(*a_copy) = (**it);
+		m_RootAssembly->addPart(a_copy);
+	}
+}
+
+/**
+ * copy all selected assemblies
+ * @access      public
+ */
+void GNRScene::copySelectedAssemblies()
+{
+	list<GNRAssembly*> parts = m_Selected->getPartList();
+	
+	for (list<GNRAssembly*>::iterator it = parts.begin(); it != parts.end(); ++it)
+	{
+		GNRAssembly* a_copy = new GNRAssembly((**it));
+		(*a_copy) = (**it);
+		m_Duplicator->addPart(a_copy);
+	}
+}
+
+/**
+ * cut all selected assemblies
+ * @access      public
+ */
+void GNRScene::cutSelectedAssemblies()
+{
+	list<GNRAssembly*> parts = m_Selected->getPartList();
+	
+	for (list<GNRAssembly*>::iterator it = parts.begin(); it != parts.end(); ++it)
+	{
+		GNRAssembly* a_copy = new GNRAssembly((**it));
+		(*a_copy) = (**it);
+		m_Duplicator->addPart(a_copy);
+		m_Selected->delPart((*it));
+	}
+}
+
+/**
+ * insert all copied assemblies
+ * @access      public
+ */
+void GNRScene::insertCopiedAssemblies()
+{
+	list<GNRAssembly*> parts = m_Duplicator->getPartList();
+	
+	for (list<GNRAssembly*>::iterator it = parts.begin(); it != parts.end(); ++it)
+	{
+		GNRAssembly* a_copy = new GNRAssembly((**it));
+		(*a_copy) = (**it);
+		m_RootAssembly->addPart(a_copy);
+	}
+}
+
+/**
  * draws a line, specified in the event to the 2D canvas
  * @param   GNRLineDrawEvent    event with information about the line
  * @access      public

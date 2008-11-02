@@ -85,6 +85,7 @@ const long GNRMainFrame::idMenuDeleteObject = wxNewId();
 const long GNRMainFrame::idMenuCutObject = wxNewId();
 const long GNRMainFrame::idMenuInsertObject = wxNewId();
 const long GNRMainFrame::idMenuCopyObject = wxNewId();
+const long GNRMainFrame::idMenuCloneObject = wxNewId();
 const long GNRMainFrame::idMenuHideObject = wxNewId();
 const long GNRMainFrame::idMenuShowObject = wxNewId();
 const long GNRMainFrame::idMenuObjExport = wxNewId();
@@ -152,6 +153,10 @@ BEGIN_EVENT_TABLE(GNRMainFrame,wxFrame)
 	EVT_MENU(idMenuGroup, GNRMainFrame::OnGroupCreate)
 	EVT_MENU(idMenuUngroup, GNRMainFrame::OnGroupModify)
 	EVT_MENU(idMenuDeleteObject, GNRMainFrame::OnDeleteSelected)
+	EVT_MENU(idMenuCloneObject, GNRMainFrame::OnCloneSelected)
+	EVT_MENU(idMenuCopyObject, GNRMainFrame::OnCopySelected)
+	EVT_MENU(idMenuCutObject, GNRMainFrame::OnCutSelected)
+	EVT_MENU(idMenuInsertObject, GNRMainFrame::OnInsertCopy)
 	EVT_MENU(idMenuUndo, GNRMainFrame::OnToolbarUndo)
 	EVT_MENU(idMenuRedo, GNRMainFrame::OnToolbarRedo)
 	EVT_MENU(idMenuZoomIn, GNRMainFrame::OnZoomIn)
@@ -218,8 +223,10 @@ GNRMainFrame::GNRMainFrame(wxWindow* parent, wxWindowID WXUNUSED(id))
 	Menu4->Append(MenuItem30);
 	MenuItem21 = new wxMenuItem(Menu4, idMenuInsertObject, _("Objekte &einfügen\tCTRL+V"), _("Objekte einfügen..."), wxITEM_NORMAL);
 	Menu4->Append(MenuItem21);
-	MenuItem22 = new wxMenuItem(Menu4, idMenuCopyObject, _("Objekte &kopieren\tCTRL+C"), _("Objekte kopieren..."), wxITEM_NORMAL);
+	MenuItem22 = new wxMenuItem(Menu4, idMenuCopyObject, _("Objekte k&opieren\tCTRL+C"), _("Objekte kopieren..."), wxITEM_NORMAL);
 	Menu4->Append(MenuItem22);
+	MenuItem31 = new wxMenuItem(Menu4, idMenuCloneObject, _("Objekte &klonen\tCTRL+D"), _("Objekte klonen..."), wxITEM_NORMAL);
+	Menu4->Append(MenuItem31);
 	Menu4->AppendSeparator();
 	MenuItem20 = new wxMenuItem(Menu4, idMenuHideObject, _("Objekte &verstecken\tCTRL+H"), _("Objekte verstecken..."), wxITEM_NORMAL);
 	Menu4->Append(MenuItem20);
@@ -626,6 +633,34 @@ void GNRMainFrame::OnDeleteSelected(wxCommandEvent& WXUNUSED(event))
 {
 	GNRNotifyEvent gnrevent(wxEVT_COMMAND_GNR_NOTIFY);
 	gnrevent.setGNREventType(DELETESELECTED);
+	GetEventHandler()->ProcessEvent(gnrevent);
+}
+
+void GNRMainFrame::OnCloneSelected(wxCommandEvent& WXUNUSED(event))
+{
+	GNRNotifyEvent gnrevent(wxEVT_COMMAND_GNR_NOTIFY);
+	gnrevent.setGNREventType(CLONESELECTED);
+	GetEventHandler()->ProcessEvent(gnrevent);
+}
+
+void GNRMainFrame::OnCopySelected(wxCommandEvent& WXUNUSED(event))
+{
+	GNRNotifyEvent gnrevent(wxEVT_COMMAND_GNR_NOTIFY);
+	gnrevent.setGNREventType(COPYSELECTED);
+	GetEventHandler()->ProcessEvent(gnrevent);
+}
+
+void GNRMainFrame::OnCutSelected(wxCommandEvent& WXUNUSED(event))
+{
+	GNRNotifyEvent gnrevent(wxEVT_COMMAND_GNR_NOTIFY);
+	gnrevent.setGNREventType(CUTSELECTED);
+	GetEventHandler()->ProcessEvent(gnrevent);
+}
+
+void GNRMainFrame::OnInsertCopy(wxCommandEvent& WXUNUSED(event))
+{
+	GNRNotifyEvent gnrevent(wxEVT_COMMAND_GNR_NOTIFY);
+	gnrevent.setGNREventType(INSERTCOPY);
 	GetEventHandler()->ProcessEvent(gnrevent);
 }
 

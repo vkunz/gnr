@@ -78,6 +78,10 @@ public:
 	void hideSelectedAssemblies();
 	void groupSelectedAssemblies();
 	void ungroupSelectedAssemblies();
+	void cloneSelectedAssemblies();
+	void copySelectedAssemblies();
+	void insertCopiedAssemblies();
+	void cutSelectedAssemblies();
 	
 	void ungroupOneAssembly(GNRAssembly* assembly);
 	void restoreAssembly(GNRAssembly* assembly);

@@ -238,8 +238,23 @@ void GNRApp::OnGNREvent(GNRNotifyEvent& event)
 		m_Scene->deleteSelectedAssemblies();
 		m_Scene->glRefresh();
 		break;
+	case CLONESELECTED:
+		m_Scene->cloneSelectedAssemblies();
+		m_Scene->glRefresh();
+		break;
+	case COPYSELECTED:
+		m_Scene->copySelectedAssemblies();
+		m_Scene->glRefresh();
+		break;
+	case CUTSELECTED:
+		m_Scene->cutSelectedAssemblies();
+		m_Scene->glRefresh();
+		break;
+	case INSERTCOPY:
+		m_Scene->insertCopiedAssemblies();
+		m_Scene->glRefresh();
+		break;
 	case UNDOCREATEGROUP:
-//#warning "INFO: check how to set undo and redo!"
 		m_Scene->ungroupOneAssembly(event.getAssemblyPtr());
 		m_Scene->glRefresh();
 		break;

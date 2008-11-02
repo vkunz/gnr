@@ -22,7 +22,9 @@ using std::map;
 class GNRColor
 {
 public:
+	GNRColor();
 	GNRColor(float r, float g, float b);
+	GNRColor(const GNRColor& color);
 	
 	float getR() const;
 	float getG() const;
@@ -43,6 +45,7 @@ class GNRMaterial
 {
 public:
 	GNRMaterial();
+	GNRMaterial(const GNRMaterial& material);
 	
 	const GNRColor& getAmbient() const;
 	const GNRColor& getDiffuse() const;

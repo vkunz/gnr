@@ -31,6 +31,54 @@ GNRAssembly::GNRAssembly(const string& name = "unnamed"):
 }
 
 /**
+ * copy constructor of generic assembly
+ * @param       string         name of assembly
+ * @access      public
+ */
+GNRAssembly::GNRAssembly(const GNRAssembly& assembly)
+{
+	m_x       = assembly.m_x;
+	m_y       = assembly.m_y;
+	m_z       = assembly.m_z;
+	m_phi     = assembly.m_phi;
+	m_theta   = assembly.m_theta;
+	m_rho     = assembly.m_rho;
+	m_scale_x = assembly.m_scale_x;
+	m_scale_y = assembly.m_scale_y;
+	m_scale_z = assembly.m_scale_z;
+	m_width   = assembly.m_width;
+	m_height  = assembly.m_height;
+	m_depth   = assembly.m_depth;
+	m_type    = assembly.m_type;
+	m_name    = assembly.m_name;
+	m_parent  = assembly.m_parent;
+	
+	// copy my faces
+	for (list<GNRFace>::const_iterator it = m_face.begin(); it != m_face.end(); ++it)
+	{
+		GNRFace a_face = (*it);
+		addFace(a_face);
+	}
+	
+	// copy the children
+	for (list<GNRAssembly*>::const_iterator it = m_part.begin(); it != m_part.end(); ++it)
+	{
+		// draw the Child
+		GNRAssembly* a_copy = new GNRAssembly("copy");
+		(*a_copy) = (**it);
+		addPart(a_copy);
+		
+		// set Child-Material
+		map<const GNRAssembly* const, GNRMaterial>::const_iterator it_mat = m_child_mat.find(*it);
+		if (it_mat != m_child_mat.end())
+		{
+			GNRMaterial a_mat = it_mat->second;
+			setChildMaterial(a_copy, a_mat);
+		}
+	}
+}
+
+/**
  * constructor of generic assembly with parent
  * @param       string         name of assembly
  * @param       GNRAssembly*   pointer to parent
@@ -73,6 +121,7 @@ GNRAssembly::~GNRAssembly()
 }
 
 /* ******* GETTER METHODS FOLLOWING ***** */
+
 /**
  * get position value x
  * @access      public

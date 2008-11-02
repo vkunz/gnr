@@ -66,9 +66,14 @@
 					<help>Objekte einfügen...</help>
 				</object>
 				<object class="wxMenuItem" name="idMenuCopyObject" variable="MenuItem22" member="yes">
-					<label>Objekte &amp;kopieren</label>
+					<label>Objekte k&amp;opieren</label>
 					<accel>CTRL+C</accel>
 					<help>Objekte kopieren...</help>
+				</object>
+				<object class="wxMenuItem" name="idMenuCloneObject" variable="MenuItem31" member="yes">
+					<label>Objekte &amp;klonen</label>
+					<accel>CTRL+D</accel>
+					<help>Objekte klonen...</help>
 				</object>
 				<object class="separator" />
 				<object class="wxMenuItem" name="idMenuHideObject" variable="MenuItem20" member="yes">
