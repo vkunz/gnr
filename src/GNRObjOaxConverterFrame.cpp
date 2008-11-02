@@ -130,6 +130,25 @@ GNRObjOaxConverterFrame::GNRObjOaxConverterFrame(wxWindow* parent, wxWindowID id
 GNRObjOaxConverterFrame::~GNRObjOaxConverterFrame()
 {
 	delete m_canvas;
+	
+	delete m_txcName;
+	
+	delete m_stxName;
+	delete m_stxCategory;
+	delete m_stxHeight;
+	delete m_stxDepth;
+	delete m_stxWidth;
+	
+	delete m_spcWidth;
+	delete m_spcHeight;
+	delete m_spcDepth;
+	
+	delete m_ckbProportion;
+	
+	delete m_cbxCategory;
+	
+	delete m_btnCreate;
+	delete m_btnCancel;
 }
 
 void GNRObjOaxConverterFrame::setAllCategories(std::vector<wxString>* ptrCat)
