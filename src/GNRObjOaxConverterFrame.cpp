@@ -198,23 +198,23 @@ void GNRObjOaxConverterFrame::OnBtnCreate(wxCommandEvent& WXUNUSED(event))
 	// get category and store into struct
 	m_frameData->m_category = m_cbxCategory->GetValue();
 	
-	// get width and store into struct
-	m_frameData->m_width = (m_spcWidth->GetValue() * 1000);
-	
-	// get depth and store into struct
-	m_frameData->m_depth = (m_spcDepth->GetValue() * 1000);
-	
-	// get height and store into struct
-	m_frameData->m_height = (m_spcHeight->GetValue() * 1000);
-	
 	// calc width-scale
-	m_frameData->m_scaleWidth = ((m_width / m_frameData->m_width) * 1000);
+	m_frameData->m_scaleWidth = (((m_width) / m_frameData->m_width));
 	
 	// calc y-scale
-	m_frameData->m_scaleDepth = ((m_depth / m_frameData->m_depth) * 1000);
+	m_frameData->m_scaleDepth = (((m_depth) / m_frameData->m_depth));
 	
 	// calc z-scale
-	m_frameData->m_scaleHeight = ((m_height / m_frameData->m_height) * 1000);
+	m_frameData->m_scaleHeight = (((m_height) / m_frameData->m_height));
+	
+	// get width and store into struct
+	m_frameData->m_width = (m_spcWidth->GetValue());
+	
+	// get depth and store into struct
+	m_frameData->m_depth = (m_spcDepth->GetValue());
+	
+	// get height and store into struct
+	m_frameData->m_height = (m_spcHeight->GetValue());
 	
 	// create event
 	GNRNotifyEvent gnrevent(wxEVT_COMMAND_GNR_NOTIFY);

@@ -103,11 +103,11 @@ void GNRObjOaxConverter::Load(wxString filename)
 	m_frameData->m_name = wxString(m_assembly->getName().c_str(), wxConvUTF8);
 	
 	// set width
-	m_frameData->m_width = (int)(m_assembly->getWidth() * 1000);
+	m_frameData->m_width = (int)(m_assembly->getWidth() * 1000.0);
 	
 	// set depth
-	m_frameData->m_depth = (int)(m_assembly->getDepth() * 1000);
+	m_frameData->m_depth = (int)(m_assembly->getDepth() * 1000.0);
 	
 	// set heigh
-	m_frameData->m_height = (int)(m_assembly->getHeight() * 1000);
+	m_frameData->m_height = (int)(m_assembly->getHeight() * 1000.0);
 }
