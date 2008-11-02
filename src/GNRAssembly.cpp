@@ -371,7 +371,7 @@ assemblyType GNRAssembly::getType() const
  */
 float GNRAssembly::getOverGround() const
 {
-	return (m_height * m_scale_y) / 2.0;
+	return (m_height*m_scale_y)/2.0;
 }
 
 /**
@@ -928,12 +928,10 @@ void GNRAssembly::draw() const
 		}
 	}
 	
-	glMatrixMode(GL_MODELVIEW);
 	glPushMatrix();
 	{
-		//if importer scale factor 1.0, then scale before translate
-		glScalef(m_scale_x, m_scale_y, m_scale_z);
 		glTranslatef(m_x, m_y, m_z);
+		glScalef(m_scale_x, m_scale_y, m_scale_z);
 		
 		//rotate in object center
 		glRotatef(m_phi, 1, 0, 0);
@@ -971,9 +969,8 @@ void GNRAssembly::drawShadow() const
 {
 	glPushMatrix();
 	{
-		//if importer scale factor 1.0, then scale before translate
-		glScalef(m_scale_x, m_scale_y, m_scale_z);
 		glTranslatef(m_x, m_y, m_z);
+		glScalef(m_scale_x, m_scale_y, m_scale_z);
 		
 		//rotate in object center
 		glRotatef(m_phi, 1, 0, 0);
@@ -1002,7 +999,7 @@ void GNRAssembly::drawShadow() const
  */
 void GNRAssembly::putOnGround()
 {
-	m_y = (m_height * m_scale_y) / 2.0;
+	m_y = (m_height*m_scale_y)/2.0;
 }
 
 /**

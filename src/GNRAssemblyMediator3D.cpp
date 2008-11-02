@@ -21,8 +21,8 @@
  */
 void GNRAssemblyMediator3D::MoveXY(GNRGLNotifyEvent& event)
 {
-	float new_x = old_x - (gl_xmax-gl_xmin)*(m_mouse_x - event.getMouseEvent().GetX())/window_w/scale_x;
-	float new_y = old_y - (gl_ymax-gl_ymin)*(event.getMouseEvent().GetY() - m_mouse_y)/window_h/scale_y;
+	float new_x = old_x - (gl_xmax-gl_xmin)*(m_mouse_x - event.getMouseEvent().GetX())/window_w;
+	float new_y = old_y - (gl_ymax-gl_ymin)*(event.getMouseEvent().GetY() - m_mouse_y)/window_h;
 	
 	if (new_y <= (m_Assembly->getOverGround()*1.1))
 	{
@@ -43,8 +43,8 @@ void GNRAssemblyMediator3D::MoveXY(GNRGLNotifyEvent& event)
  */
 void GNRAssemblyMediator3D::MoveXZ(GNRGLNotifyEvent& event)
 {
-	float new_x = old_x - (gl_xmax-gl_xmin)*(m_mouse_x - event.getMouseEvent().GetX())/window_w/scale_x;
-	float new_z = old_z - (gl_ymax-gl_ymin)*(m_mouse_y - event.getMouseEvent().GetY())/window_h*4.0f/scale_z;
+	float new_x = old_x - (gl_xmax-gl_xmin)*(m_mouse_x - event.getMouseEvent().GetX())/window_w;
+	float new_z = old_z - (gl_ymax-gl_ymin)*(m_mouse_y - event.getMouseEvent().GetY())/window_h*4.0f;
 	
 	doSnapMove(new_x);
 	doSnapMove(new_z);

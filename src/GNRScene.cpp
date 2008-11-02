@@ -697,6 +697,7 @@ void GNRScene::minmax(float& min,float& max,float value)
  */
 void GNRScene::insertAssembly(GNRAssembly* assembly)
 {
+	assembly->putOnGround();
 	m_RootAssembly->addPart(assembly);
 	glRefresh();
 }

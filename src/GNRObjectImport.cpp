@@ -226,9 +226,6 @@ void GNRObjectImport::read(wxString& content)
 	//set real size and scale of object
 	m_root->setSize((m_xmax - m_xmin),(m_ymax - m_ymin),(m_zmax - m_zmin));
 	m_root->setScale(1.0,1.0,1.0);
-	m_root->putOnGround();
-	
-	m_root->debugInfo();
 }
 
 GNRAssembly* GNRObjectImport::read(const string& fname)
