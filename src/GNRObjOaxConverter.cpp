@@ -57,6 +57,12 @@ void GNRObjOaxConverter::fillFrame()
 	// set assembly into canvas
 	m_canvas->setAssembly(m_assembly);
 	
+	// reshape canvas to adjust viewport
+	m_canvas->reshape();
+	
+	// draw the assembly
+	m_canvas->draw();
+	
 	// set categories
 	m_frame->setAllCategories(m_ptrVec);
 }

@@ -20,7 +20,6 @@
 BEGIN_EVENT_TABLE(GNRGLCanvasPreview, wxGLCanvas)
 	EVT_LEFT_DOWN(GNRGLCanvasPreview::OnLMouseDown)
 	EVT_LEFT_UP(GNRGLCanvasPreview::OnLMouseUp)
-	EVT_MOTION(GNRGLCanvasPreview::OnMouseMove)
 	EVT_SIZE(GNRGLCanvasPreview::OnSize)
 	EVT_PAINT(GNRGLCanvasPreview::OnPaint)
 END_EVENT_TABLE()
@@ -68,17 +67,17 @@ void GNRGLCanvasPreview::InitGL()
 	// cold blue light
 	static const GLfloat light1_color[4] = { 0.4f, 0.4f, 1.0f, 1.0f };
 	
-	/* remove back faces */
+	// remove back faces
 	glDisable(GL_CULL_FACE);
 	glEnable(GL_DEPTH_TEST);
 	
-	/* speedups */
+	// speedups
 	glEnable(GL_DITHER);
 	glShadeModel(GL_SMOOTH);
 	glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_FASTEST);
 	glHint(GL_POLYGON_SMOOTH_HINT, GL_FASTEST);
 	
-	/* light */
+	// light
 	glLightfv(GL_LIGHT0, GL_POSITION, light0_pos);
 	glLightfv(GL_LIGHT0, GL_DIFFUSE,  light0_color);
 	glLightfv(GL_LIGHT1, GL_POSITION, light1_pos);
@@ -98,20 +97,32 @@ void GNRGLCanvasPreview::InitGL()
  */
 void GNRGLCanvasPreview::OnPaint(wxPaintEvent& event)
 {
-#warning "INFO: @Thorsten, FIXME"
-	//draw();
+	draw();
+	event.Skip();
 }
 
 /**
- * Handles the OnSize-Event of the canvas and sizes the viewport
+ * Handles the OnSize-Event of the canvas
  * to the new canvas size
  * @param       wxSizeEvent       Size-Event of the canvas
  * @access      private
  */
 void GNRGLCanvasPreview::OnSize(wxSizeEvent& event)
 {
+	reshape();
+}
+
+/**
+ * reshapes the glcanvas-viewport to new canvas size
+ * @access      public
+ */
+void GNRGLCanvasPreview::reshape()
+{
 	// set current GL-Frame
 	SetCurrent();
+	
+	glClearDepth(1.0f);
+	glClearColor(0.5f, 0.5f, 0.5f, 1.0f);
 	
 	// get size of current canvas
 	int w, h;
@@ -148,6 +159,8 @@ void GNRGLCanvasPreview::draw()
 {
 	if (m_assembly != NULL)
 	{
+		SetCurrent();
+		
 		// Clear
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		

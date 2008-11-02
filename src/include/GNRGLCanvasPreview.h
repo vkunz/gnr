@@ -31,6 +31,7 @@ public:
 	
 	void setAssembly(GNRAssembly* assembly);
 	void draw();
+	void reshape();
 	
 protected:
 
