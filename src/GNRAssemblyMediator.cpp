@@ -35,6 +35,8 @@ void GNRAssemblyMediator::initialize(GNRGLNotifyEvent& event)
 {
 	if (m_Assembly != NULL)
 	{
+		m_initialized = true;
+		
 		old_x = m_Assembly->getX();
 		old_y = m_Assembly->getY();
 		old_z = m_Assembly->getZ();
@@ -66,7 +68,7 @@ void GNRAssemblyMediator::initialize(GNRGLNotifyEvent& event)
 int GNRAssemblyMediator::translate(GNRGLNotifyEvent& event)
 {
 	//if no active assembly, return
-	if (m_Assembly == NULL || (int)m_Assembly == 0)
+	if (!m_initialized || m_Assembly == NULL || (int)m_Assembly == 0)
 	{
 		return 1;
 	}
@@ -109,7 +111,7 @@ int GNRAssemblyMediator::translate(GNRGLNotifyEvent& event)
 void GNRAssemblyMediator::finalize()
 {
 	//is active assembly, return
-	if (m_Assembly != NULL && (int)m_Assembly != 0)
+	if (m_initialized && m_Assembly != NULL && (int)m_Assembly != 0)
 	{
 		GNRCommandAssembly* command = new GNRCommandAssembly;
 		command->setAssembly(m_Assembly);

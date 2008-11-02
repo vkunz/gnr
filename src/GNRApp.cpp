@@ -141,7 +141,7 @@ void GNRApp::initFrames()
 	
 	m_VerticalSplitter->SetSashPosition(305,true);
 	m_HorizontalSplitter_left->SetSashPosition(300,true);
-	m_HorizontalSplitter_right->SetSashPosition(250,true);
+	m_HorizontalSplitter_right->SetSashPosition(200,true);
 }
 
 /**
@@ -256,9 +256,17 @@ void GNRApp::OnGNREvent(GNRNotifyEvent& event)
 		m_Scene->insertCopiedAssemblies();
 		m_Scene->glRefresh();
 		break;
-	case UNDOCREATEGROUP:
-		m_Scene->ungroupOneAssembly(event.getAssemblyPtr());
+	case HIDESELECTED:
+		m_Scene->hideSelectedAssemblies();
 		m_Scene->glRefresh();
+		break;
+	case SHOWHIDDEN:
+//		m_Scene->showAssembly(event.getAssemblyPtr());
+//		m_Scene->glRefresh();
+		break;
+	case UNDOCREATEGROUP:
+//		m_Scene->ungroupOneAssembly(event.getAssemblyPtr());
+//		m_Scene->glRefresh();
 		break;
 	case SETUNDOENABLED:
 		m_MainFrame->setUndoEnabled(event.GetInt());
@@ -475,6 +483,8 @@ void GNRApp::initialSetup()
 	gnrevent.setSnapToAngle(SNAP_IN_DEFAULT_ANGLE);
 	
 	m_MouseCtrl->setSnapfunction(gnrevent);
+	
+	m_Scene->glRefresh();
 }
 
 // Code unser im Repo,

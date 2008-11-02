@@ -26,6 +26,7 @@ GNRAssembly::GNRAssembly(const string& name = "unnamed"):
 		m_phi(0.0), m_theta(0.0), m_rho(0.0),
 		m_scale_x(1.0), m_scale_y(1.0), m_scale_z(1.0),
 		m_width(1.0), m_height(1.0), m_depth(1.0),
+		m_radius_bottom(0.0), m_radius_middle(0.0), m_radius_top(0.0),
 		m_type(IS_ROOT), m_name(name), m_parent(NULL)
 {
 }
@@ -215,6 +216,33 @@ float GNRAssembly::getZ() const
 }
 
 /**
+ * get top radius of cylinder (maybe for cone if zero)
+ * @access      public
+ */
+float GNRAssembly::getRadiusTop() const
+{
+	return m_radius_top;
+}
+
+/**
+ * get middle radius of sphere
+ * @access      public
+ */
+float GNRAssembly::getRadiusMiddle() const
+{
+	return m_radius_middle;
+}
+
+/**
+ * get bottom radius of cylinder (maybe for cone if zero)
+ * @access      public
+ */
+float GNRAssembly::getRadiusBottom() const
+{
+	return m_radius_bottom;
+}
+
+/**
  * get height of whole assembly
  * @access      public
  */
@@ -390,6 +418,36 @@ bool GNRAssembly::isType(const assemblyType& type)
 
 /* ******* SETTER METHODS FOLLOWING ***** */
 /**
+ * set top radius for cylinder or cone
+ * @param       float       r
+ * @access      public
+ */
+void GNRAssembly::setRadiusTop(const float r)
+{
+	m_radius_top = r;
+}
+
+/**
+ * set middle radius for sphere
+ * @param       float       r
+ * @access      public
+ */
+void GNRAssembly::setRadiusMiddle(const float r)
+{
+	m_radius_middle = r;
+}
+
+/**
+ * set bottom radius for cylinder or cone
+ * @param       float       r
+ * @access      public
+ */
+void GNRAssembly::setRadiusBottom(const float r)
+{
+	m_radius_bottom = r;
+}
+
+/**
  * set position value x
  * @param       float       x
  * @access      public
@@ -455,6 +513,70 @@ void GNRAssembly::setXYZ(const float x, const float y, const float z)
 	m_x = x;
 	m_y = y;
 	m_z = z;
+}
+
+void GNRAssembly::setCone(const float x,const float y,const float z, const float height, const float r_top, const float r_bottom)
+{
+	m_x = x;
+	m_y = y;
+	m_z = z;
+	
+	m_radius_top    = r_top;
+	m_radius_middle = (r_top+r_bottom)/2.0;
+	m_radius_bottom = r_bottom;
+	
+	if (r_top > r_bottom)
+	{
+		m_width = r_top*2.0;
+	}
+	else
+	{
+		m_width = r_bottom*2.0;
+	}
+	
+	m_height = height;
+	m_depth  = m_width;
+}
+
+void GNRAssembly::setCylinder(const float x,const float y,const float z, const float height, const float radius)
+{
+	m_x = x;
+	m_y = y;
+	m_z = z;
+	
+	m_radius_top    = radius;
+	m_radius_middle = radius;
+	m_radius_bottom = radius;
+	
+	m_height = height;
+	m_depth  = radius*2.0;
+	m_width  = m_depth;
+}
+
+void GNRAssembly::setSphere(const float x,const float y,const float z, const float radius)
+{
+	m_x = x;
+	m_y = y;
+	m_z = z;
+	
+	m_radius_top    = 0.0;
+	m_radius_middle = radius;
+	m_radius_bottom = 0.0;
+	
+	m_height = radius*2.0;
+	m_depth  = m_height;
+	m_width  = m_height;
+}
+
+void GNRAssembly::setCuboid(const float x,const float y,const float z, const float width,const float height,const float depth)
+{
+	m_x = x;
+	m_y = y;
+	m_z = z;
+	
+	m_width  = width;
+	m_height = height;
+	m_depth  = depth;
 }
 
 /**

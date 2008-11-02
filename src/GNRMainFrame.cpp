@@ -157,6 +157,8 @@ BEGIN_EVENT_TABLE(GNRMainFrame,wxFrame)
 	EVT_MENU(idMenuCopyObject, GNRMainFrame::OnCopySelected)
 	EVT_MENU(idMenuCutObject, GNRMainFrame::OnCutSelected)
 	EVT_MENU(idMenuInsertObject, GNRMainFrame::OnInsertCopy)
+	EVT_MENU(idMenuHideObject, GNRMainFrame::OnHideSelected)
+	EVT_MENU(idMenuShowObject, GNRMainFrame::OnShowHidden)
 	EVT_MENU(idMenuUndo, GNRMainFrame::OnToolbarUndo)
 	EVT_MENU(idMenuRedo, GNRMainFrame::OnToolbarRedo)
 	EVT_MENU(idMenuZoomIn, GNRMainFrame::OnZoomIn)
@@ -640,6 +642,20 @@ void GNRMainFrame::OnCloneSelected(wxCommandEvent& WXUNUSED(event))
 {
 	GNRNotifyEvent gnrevent(wxEVT_COMMAND_GNR_NOTIFY);
 	gnrevent.setGNREventType(CLONESELECTED);
+	GetEventHandler()->ProcessEvent(gnrevent);
+}
+
+void GNRMainFrame::OnHideSelected(wxCommandEvent& WXUNUSED(event))
+{
+	GNRNotifyEvent gnrevent(wxEVT_COMMAND_GNR_NOTIFY);
+	gnrevent.setGNREventType(HIDESELECTED);
+	GetEventHandler()->ProcessEvent(gnrevent);
+}
+
+void GNRMainFrame::OnShowHidden(wxCommandEvent& WXUNUSED(event))
+{
+	GNRNotifyEvent gnrevent(wxEVT_COMMAND_GNR_NOTIFY);
+	gnrevent.setGNREventType(SHOWHIDDEN);
 	GetEventHandler()->ProcessEvent(gnrevent);
 }
 

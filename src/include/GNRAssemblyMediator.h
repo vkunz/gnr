@@ -20,7 +20,8 @@ public:
 
 	void GNRMediator()
 	{
-		m_Assembly = NULL;
+		m_Assembly    = NULL;
+		m_initialized = false;
 	};
 	void setAssembly(GNRAssembly* assembly);                 //set selected assembly id
 	void setGLCamera(GNRGLCamera* WXUNUSED(camera)) {}; //not needed in assembly mediator
@@ -53,6 +54,7 @@ protected:
 	int window_h;
 	int m_mouse_x;
 	int m_mouse_y;
+	bool m_initialized;
 	
 private:
 

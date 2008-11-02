@@ -64,6 +64,8 @@ private:
 	void OnDeleteSelected(wxCommandEvent& WXUNUSED(event));
 	void OnCloneSelected(wxCommandEvent& WXUNUSED(event));
 	void OnCopySelected(wxCommandEvent& WXUNUSED(event));
+	void OnHideSelected(wxCommandEvent& WXUNUSED(event));
+	void OnShowHidden(wxCommandEvent& WXUNUSED(event));
 	void OnInsertCopy(wxCommandEvent& WXUNUSED(event));
 	void OnCutSelected(wxCommandEvent& WXUNUSED(event));
 	

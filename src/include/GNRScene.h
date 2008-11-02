@@ -92,6 +92,7 @@ public:
 	void minmax(float& min,float& max,float value);
 	
 	void insertAssembly(GNRAssembly* cuboid);
+	void insertHiddenAssembly(GNRAssembly* assembly);
 	
 	GNRScene();
 	virtual ~GNRScene();

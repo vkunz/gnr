@@ -177,8 +177,8 @@ GNRGLCanvas3D* GNRScene::getCanvas3D()
  */
 void GNRScene::glRefresh()
 {
-	glRefresh2D();
 	glRefresh3D();
+	glRefresh2D();
 }
 
 /**
@@ -699,4 +699,14 @@ void GNRScene::insertAssembly(GNRAssembly* assembly)
 {
 	m_RootAssembly->addPart(assembly);
 	glRefresh();
+}
+
+/**
+ * inserts a new hidden assembly to the hidden assembly
+ * @param   GNRAssembly*    pointer to the assembly, that should be insert
+ * @access      public
+ */
+void GNRScene::insertHiddenAssembly(GNRAssembly* assembly)
+{
+	m_Hidden->addPart(assembly);
 }

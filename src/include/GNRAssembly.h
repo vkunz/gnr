@@ -42,6 +42,10 @@ public:
 	float getY() const;
 	float getZ() const;
 	
+	float getRadiusTop() const;
+	float getRadiusMiddle() const;
+	float getRadiusBottom() const;
+	
 	float getHeight() const;
 	float getWidth() const;
 	float getDepth() const;
@@ -57,6 +61,15 @@ public:
 	void setXYZ(const float x, const float y, const float z);
 	void setCenterVertex(const GNRVertex& center);
 	void setRotateVertex(const GNRVertex& rotation);
+	
+	void setRadiusBottom(const float r);
+	void setRadiusMiddle(const float r);
+	void setRadiusTop(const float r);
+	
+	void setCone(const float x,const float y,const float z, const float height, const float r_top, const float r_bottom);
+	void setCylinder(const float x,const float y,const float z, const float height, const float radius);
+	void setSphere(const float x,const float y,const float z, const float radius);
+	void setCuboid(const float x,const float y,const float z, const float width,const float height,const float depth);
 	
 	void setHeight(const float height);
 	void setWidth(const float width);
@@ -117,12 +130,17 @@ public:
 private:
 	float m_x, m_y, m_z;
 	
-	// Rotation along X-, Y-, and Z-Axis
+	//Rotation along X-, Y-, and Z-Axis
 	float m_phi, m_theta, m_rho;
 	
+	//scale factor for dimension correction
 	float m_scale_x, m_scale_y, m_scale_z;
 	
+	//whole size of assembly surrounding cube
 	float m_width, m_height, m_depth;
+	
+	//radius (middle = sphere, bottom & top = cone, cylinder)
+	float m_radius_bottom, m_radius_middle, m_radius_top;
 	
 	assemblyType m_type;
 	string m_name;
