@@ -35,7 +35,7 @@ const long GNRObjOaxConverterFrame::idTxcName       = wxNewId();
 GNRObjOaxConverterFrame::GNRObjOaxConverterFrame(wxWindow* parent, wxWindowID id)
 {
 	// create Frame
-	Create(parent, id, wxEmptyString, wxDefaultPosition, wxDefaultSize, wxCAPTION|wxSYSTEM_MENU|wxCLOSE_BOX|wxMINIMIZE_BOX|wxSTATIC_BORDER, wxT("ObjOaxConverter"));
+	Create(parent, id, wxT("OBJ importieren"), wxDefaultPosition, wxDefaultSize, wxCAPTION|wxSYSTEM_MENU|wxCLOSE_BOX|wxMINIMIZE_BOX|wxSTATIC_BORDER, wxT("ObjOaxConverter"));
 	
 	// set size
 	SetClientSize(wxSize(550, 350));
@@ -51,16 +51,16 @@ GNRObjOaxConverterFrame::GNRObjOaxConverterFrame(wxWindow* parent, wxWindowID id
 	m_ckbProportion->SetValue(true);
 	
 	// Combobox category
-	m_cbxCategory   = new wxComboBox(this, idCbxCategory, wxEmptyString, wxPoint(384,90), wxSize(130,24), 0, 0, 0);
+	m_cbxCategory   = new wxComboBox(this, idCbxCategory, wxT("Sonstige"), wxPoint(384,90), wxSize(130,24), 0, 0, 0);
 	
 	// SpinCtrl width
-	m_spcWidth      = new wxSpinCtrl(this, idSpcWidth, wxEmptyString, wxPoint(384,130), wxSize(130,24), wxTE_PROCESS_ENTER, 1, 10000, 1);
+	m_spcWidth      = new wxSpinCtrl(this, idSpcWidth, wxT("1"), wxPoint(384,130), wxSize(130,24), wxTE_PROCESS_ENTER, 1, 10000, 1);
 	
 	// SpinCtrl depth
-	m_spcDepth      = new wxSpinCtrl(this, idSpcDepth, wxEmptyString, wxPoint(384,170), wxSize(130,24), wxTE_PROCESS_ENTER, 1, 10000, 1);
+	m_spcDepth      = new wxSpinCtrl(this, idSpcDepth, wxT("1"), wxPoint(384,170), wxSize(130,24), wxTE_PROCESS_ENTER, 1, 10000, 1);
 	
 	// SpinCtrl height
-	m_spcHeight     = new wxSpinCtrl(this, idSpcHeight, wxEmptyString, wxPoint(384,210), wxSize(130,24), wxTE_PROCESS_ENTER, 1, 10000, 1);
+	m_spcHeight     = new wxSpinCtrl(this, idSpcHeight, wxT("1"), wxPoint(384,210), wxSize(130,24), wxTE_PROCESS_ENTER, 1, 10000, 1);
 	
 	// StaticText name
 	m_stxName       = new wxStaticText(this, idStxName, wxT("Name:"), wxPoint(280,54), wxSize(100,24), 0);
@@ -78,7 +78,7 @@ GNRObjOaxConverterFrame::GNRObjOaxConverterFrame(wxWindow* parent, wxWindowID id
 	m_stxHeight     = new wxStaticText(this, idStxHeight, wxT("H\u00F6he (mm):"), wxPoint(280,214), wxSize(100,24), 0);
 	
 	// TextCtrl name
-	m_txcName       = new wxTextCtrl(this, idTxcName, wxEmptyString, wxPoint(384,50), wxSize(130,24), wxTE_PROCESS_ENTER);
+	m_txcName       = new wxTextCtrl(this, idTxcName, wxT(""), wxPoint(384,50), wxSize(130,24), wxTE_PROCESS_ENTER);
 	
 	// connects m_btnCreate with OnBtnCreate()
 	Connect(idBtnCreate,wxEVT_COMMAND_BUTTON_CLICKED,(wxObjectEventFunction)&GNRObjOaxConverterFrame::OnBtnCreate);
@@ -110,9 +110,6 @@ GNRObjOaxConverterFrame::GNRObjOaxConverterFrame(wxWindow* parent, wxWindowID id
 	// connects m_txcname with OnTxcNameChanged on press Enter
 	Connect(idTxcName,wxEVT_COMMAND_TEXT_ENTER,(wxObjectEventFunction)&GNRObjOaxConverterFrame::OnTxcNameChanged);
 	
-	// connects m_txcName with OnTxcNameChanged
-	//Connect(idTxcName,wxEVT_COMMAND_TEXT_UPDATED,(wxObjectEventFunction)&GNRObjOaxConverterFrame::OnTxcNameChanged);
-	
 	// connects cbxCategory with OnCbxCategoryChanged on selected
 	Connect(idCbxCategory,wxEVT_COMMAND_COMBOBOX_SELECTED,(wxObjectEventFunction)&GNRObjOaxConverterFrame::OnCbxCategoryChanged);
 	
@@ -124,6 +121,9 @@ GNRObjOaxConverterFrame::GNRObjOaxConverterFrame(wxWindow* parent, wxWindowID id
 	
 	// create canvas
 	m_canvas = new GNRGLCanvasPreview(this, wxID_ANY, wxPoint(50, 50), wxSize(200, 200), wxSIMPLE_BORDER);
+	
+	// connects m_txcName with OnTxcNameChanged
+	Connect(idTxcName,wxEVT_COMMAND_TEXT_UPDATED,(wxObjectEventFunction)&GNRObjOaxConverterFrame::OnTxcNameChanged);
 }
 
 // dtor
@@ -164,10 +164,10 @@ void GNRObjOaxConverterFrame::setFrameData(GNRFrameData* data)
 void GNRObjOaxConverterFrame::setData()
 {
 	// set data
-	m_width = m_frameData->m_width;
-	m_depth = m_frameData->m_depth;
-	m_height = m_frameData->m_height;
-	m_name = m_frameData->m_name;
+	m_width    = m_frameData->m_width;
+	m_depth    = m_frameData->m_depth;
+	m_height   = m_frameData->m_height;
+	m_name     = m_frameData->m_name;
 	m_category = m_frameData->m_category;
 	
 	// if a dimension is greater than 10000, rescale
@@ -320,18 +320,12 @@ void GNRObjOaxConverterFrame::OnTxcNameChanged(wxCommandEvent& WXUNUSED(event))
 {
 	// get new Value
 	m_name = m_txcName->GetValue();
-	
-	// update frame
-	updateFrame();
 }
 
 void GNRObjOaxConverterFrame::OnCbxCategoryChanged(wxCommandEvent& WXUNUSED(event))
 {
 	// get new Value
 	m_category = m_cbxCategory->GetValue();
-	
-	// update frame
-	updateFrame();
 }
 
 void GNRObjOaxConverterFrame::updateFrame()
