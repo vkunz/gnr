@@ -112,6 +112,7 @@ public:
 	
 	// add a new Tag
 	void addTag(wxString tag);
+	list<wxString> getTagList();
 	
 private:
 	float m_x, m_y, m_z;

@@ -150,6 +150,9 @@ void GNRObjectImport::read(wxString& content)
 	m_root->addPart(m_wrapper);
 	m_matname = DEFAULT_IMPORT_COLOR;
 	
+	//add minimum one assembly, if no g or o occurs
+	addAtomic("noname");
+	
 	// tokenize string
 	wxStringTokenizer tok(content, wxT("\n"));
 	

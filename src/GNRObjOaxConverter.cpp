@@ -87,7 +87,7 @@ void GNRObjOaxConverter::Load(wxString filename)
 	// temp iterator
 	std::list<wxString>::iterator it;
 	
-	// get list
+	// get FileList
 	list = import.getFileList();
 	
 	// get all files from GNRObjectImport -> m_listFiles and stor to GNRFrameData -> m_listFiles
@@ -95,6 +95,9 @@ void GNRObjOaxConverter::Load(wxString filename)
 	{
 		m_frameData->m_listFiles.push_back(*it);
 	}
+	
+	// set one tag
+	m_frameData->m_tags.push_back(wxT("gnr"));
 	
 	// set name
 	m_frameData->m_name = wxString(m_assembly->getName().c_str(), wxConvUTF8);

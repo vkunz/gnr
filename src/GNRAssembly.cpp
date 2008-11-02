@@ -721,6 +721,11 @@ void GNRAssembly::addTag(wxString tag)
 	m_tags.push_back(tag);
 }
 
+list<wxString> GNRAssembly::getTagList()
+{
+	return m_tags;
+}
+
 /**
  * calculate normals for all faces (incl. parts)
  * @access      public

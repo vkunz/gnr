@@ -395,7 +395,11 @@ void GNRApp::OPXSave(wxString filename)
  */
 void GNRApp::OAXImport(wxString filename)
 {
+	// create importer and procceed
 	GNROaxImport in(filename);
+	
+	// get assembly
+	m_Scene->getRootAssembly()->addPart(in.getAssembly());
 }
 
 /**
@@ -407,6 +411,9 @@ void GNRApp::OAXExport(GNRFrameData* data)
 {
 	// create new OaxExport - object
 	GNROaxExport out(data);
+	
+	// successfull
+	delete m_ObjOaxConv;
 }
 
 /**
