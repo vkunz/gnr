@@ -11,11 +11,14 @@
 #include <wx/image.h>
 
 #include "GNRApp.h"
+#include "GNRGlobalDefine.h"
+#include "GNRGLScreenshot.h"
 #include "GNRPrimitiveCreator.h"
+#include "GNROaxExport.h"
+#include "GNROaxImport.h"
 #include "GNRObjectImport.h"
 #include "GNROpxImport.h"
-#include "GNRGLScreenshot.h"
-#include "GNRGlobalDefine.h"
+#include "GNRObjOaxConverter.h"
 
 #if defined(__ATHOS_DEBUG__)
 #include <wx/log.h>
@@ -47,7 +50,6 @@ bool GNRApp::OnInit()
 	
 	if (wxsOK)
 	{
-	
 		//build gui
 		initFrames();
 		
@@ -191,8 +193,8 @@ void GNRApp::OnGNREvent(GNRNotifyEvent& event)
 		m_Scene->glRefresh();
 		break;
 	case OAXEXPORT:
-		OAXExport(event.GetString());
-		m_Scene->glRefresh();
+		OAXExport(event.getFrameDataPointer());
+		//m_Scene->glRefresh();
 		break;
 	case OBJIMPORT:
 		OBJImport(event.GetString());
@@ -264,11 +266,15 @@ void GNRApp::OnGNREvent(GNRNotifyEvent& event)
 	case SETREDOENABLED:
 		m_MainFrame->setRedoEnabled(event.GetInt());
 		break;
+	case CANCELCONVERTION:
+		cancelConvertion();
+		break;
 	case DISPLAYLENGTH:
 		wxString str;
 		int length = floor(1000.0 * event.getFloat());
 		str << wxT("Wandlänge: ") << length << wxT(" mm");
 		m_MainFrame->getStatusbar()->SetStatusText(str);
+		break;
 	}
 }
 
@@ -389,14 +395,7 @@ void GNRApp::OPXSave(wxString filename)
  */
 void GNRApp::OAXImport(wxString filename)
 {
-	// creates InputStream of filename
-	wxFFileInputStream stream(filename);
-	
-	// loads file
-	//GNROaxImport oax_stream(stream);
-#if defined(__ATHOS_DEBUG__)
-	wxLogDebug(wxT("Leider noch nicht implementiert!"));
-#endif
+	GNROaxImport in(filename);
 }
 
 /**
@@ -404,11 +403,10 @@ void GNRApp::OAXImport(wxString filename)
  * @param       wxString        File to export to.
  * @access      private
  */
-void GNRApp::OAXExport(wxString filename)
+void GNRApp::OAXExport(GNRFrameData* data)
 {
-#if defined(__ATHOS_DEBUG__)
-	wxLogDebug(wxT("Leider noch nicht implementiert!"));
-#endif
+	// create new OaxExport - object
+	GNROaxExport out(data);
 }
 
 /**
@@ -418,9 +416,12 @@ void GNRApp::OAXExport(wxString filename)
  */
 void GNRApp::OBJImport(wxString filename)
 {
-	// generate new Importer, parse file
-	GNRObjectImport oi;
-	m_Scene->getRootAssembly()->addPart(oi.read((string)filename.mb_str()));
+	// create objoaxconv
+	m_ObjOaxConv = new GNRObjOaxConverter(filename, m_TreeLibCtrl->getAllCategories());
+	
+	//GNRObjectImport import(filename);
+	
+	//m_Scene->getRootAssembly()->addPart(import.getAssembly());
 }
 
 /**
@@ -443,6 +444,15 @@ void GNRApp::createScreenshot(wxString filename)
 {
 	m_Canvas3D->setActive();
 	GNRGLScreenshot scr(filename);
+}
+
+/**
+   * conververtion canceled
+   * @access     private
+  */
+void GNRApp::cancelConvertion()
+{
+	delete m_ObjOaxConv;
 }
 
 /**

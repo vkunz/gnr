@@ -76,6 +76,13 @@ GNRAssembly::GNRAssembly(const GNRAssembly& assembly)
 			setChildMaterial(a_copy, a_mat);
 		}
 	}
+	
+	// copy the tags
+	for (list<wxString>::const_iterator it_tags = m_tags.begin(); it_tags != m_tags.end(); ++it_tags)
+	{
+		wxString a_tag = (*it_tags);
+		addTag(a_tag);
+	}
 }
 
 /**
@@ -124,6 +131,13 @@ GNRAssembly* GNRAssembly::clone()
 			GNRMaterial a_mat = it_mat->second;
 			m_clone->setChildMaterial(a_copy, a_mat);
 		}
+	}
+	
+	// copy the tags
+	for (list<wxString>::const_iterator it_tags = m_tags.begin(); it_tags != m_tags.end(); ++it_tags)
+	{
+		wxString a_tag = (*it_tags);
+		m_clone->addTag(a_tag);
 	}
 	
 	return m_clone;
@@ -700,6 +714,11 @@ GNRVertex GNRAssembly::getRotateVertex() const
 list<GNRAssembly*> GNRAssembly::getPartList()
 {
 	return m_part;
+}
+
+void GNRAssembly::addTag(wxString tag)
+{
+	m_tags.push_back(tag);
 }
 
 /**

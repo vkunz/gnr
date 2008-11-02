@@ -54,6 +54,16 @@ int GNRNotifyEvent::getSnapToAngle()
 	return eventSnapToAngle;
 }
 
+void GNRNotifyEvent::setFrameDataPointer(GNRFrameData* data)
+{
+	m_data = data;
+}
+
+GNRFrameData* GNRNotifyEvent::getFrameDataPointer()
+{
+	return m_data;
+}
+
 void GNRNotifyEvent::setAssemblyPtr(GNRAssembly* a)
 {
 	assembly = a;

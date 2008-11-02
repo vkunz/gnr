@@ -130,6 +130,7 @@
 		<Unit filename="src\GNRMediator.cpp" />
 		<Unit filename="src\GNRMouseController.cpp" />
 		<Unit filename="src\GNRNotifyEvent.cpp" />
+		<Unit filename="src\GNROaxExport.cpp" />
 		<Unit filename="src\GNROaxImport.cpp" />
 		<Unit filename="src\GNRObjOaxConverter.cpp" />
 		<Unit filename="src\GNRObjOaxConverterFrame.cpp" />
@@ -156,6 +157,7 @@
 		<Unit filename="src\include\GNREnum.h" />
 		<Unit filename="src\include\GNRExportFile.h" />
 		<Unit filename="src\include\GNRFace.h" />
+		<Unit filename="src\include\GNRFrameData.h" />
 		<Unit filename="src\include\GNRGLCamera.h" />
 		<Unit filename="src\include\GNRGLCameraMediator.h" />
 		<Unit filename="src\include\GNRGLCameraMediator2D.h" />
@@ -167,7 +169,6 @@
 		<Unit filename="src\include\GNRGLNotifyEvent.h" />
 		<Unit filename="src\include\GNRGLScreenshot.h" />
 		<Unit filename="src\include\GNRGlobalDefine.h" />
-		<Unit filename="src\include\GNRGridPanelMyScene.h" />
 		<Unit filename="src\include\GNRGridRowData.h" />
 		<Unit filename="src\include\GNRGridSceneController.h" />
 		<Unit filename="src\include\GNRGridTable.h" />
@@ -179,6 +180,7 @@
 		<Unit filename="src\include\GNRMediator.h" />
 		<Unit filename="src\include\GNRMouseController.h" />
 		<Unit filename="src\include\GNRNotifyEvent.h" />
+		<Unit filename="src\include\GNROaxExport.h" />
 		<Unit filename="src\include\GNROaxImport.h" />
 		<Unit filename="src\include\GNRObjOaxConverter.h" />
 		<Unit filename="src\include\GNRObjOaxConverterFrame.h" />
@@ -189,6 +191,7 @@
 		<Unit filename="src\include\GNRTCoord.h" />
 		<Unit filename="src\include\GNRTreeLibraryController.h" />
 		<Unit filename="src\include\GNRTreePanelLibrary.h" />
+		<Unit filename="src\include\GNRTreePanelMyScene.h" />
 		<Unit filename="src\include\GNRUndoRedo.h" />
 		<Unit filename="src\include\GNRVNT.h" />
 		<Unit filename="src\include\GNRVertex.h" />

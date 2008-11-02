@@ -24,6 +24,7 @@
 #include "GNRGLNotifyEvent.h"
 #include "GNRGridSceneController.h"
 #include "GNRLineDrawEvent.h"
+#include "GNRObjOaxConverter.h"
 #include "GNRMainFrame.h"
 #include "GNRMouseController.h"
 #include "GNRNotifyEvent.h"
@@ -61,11 +62,13 @@ private:
 	void OPXOpen(wxString filename);
 	void OPXSave(wxString filename);
 	void OAXImport(wxString filename);
-	void OAXExport(wxString filename);
+	void OAXExport(GNRFrameData* data);
 	void OBJImport(wxString filename);
 	void OBJExport(wxString filename);
 	
 	void createScreenshot(wxString filename);
+	
+	void cancelConvertion();
 	
 	//attributes
 	//treectrl
@@ -79,6 +82,9 @@ private:
 	
 	//manages the grid
 	GNRGridSceneController* m_GridSceneCtrl;
+	
+	//pointer to GNRObjOaxConverter
+	GNRObjOaxConverter* m_ObjOaxConv;
 	
 	GNRTreePanelLibrary* m_TreePanelLibrary;
 	GNRGridPanelMyScene* m_GridPanelMyScene;

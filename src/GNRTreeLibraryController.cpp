@@ -41,6 +41,20 @@ GNRTreeLibraryController::~GNRTreeLibraryController()
 	// do nothing
 }
 
+std::vector<wxString>* GNRTreeLibraryController::getAllCategories()
+{
+	// create pointer of a vector
+	std::vector<wxString>* ptrCat =  new std::vector<wxString>;
+	
+	// walk through all categories and store string into vector
+	for (m_groupsit = m_groups.begin(); m_groupsit != m_groups.end(); m_groupsit++)
+	{
+		ptrCat->push_back(m_groupsit->first);
+	}
+	
+	return ptrCat;
+}
+
 /**
  * Open library.xml if exist and get all its data.
  */

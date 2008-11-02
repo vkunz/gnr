@@ -90,7 +90,7 @@ void GNROaxImport::Load(wxZipInputStream& stream)
 		m_ptrZipEntry = stream.GetNextEntry();
 	}
 	
-	// walk thorug all vector-entrys, skip .obj-files
+	// walk through all vector-entrys, skip .obj-files
 	for (m_vectorit = m_vector.begin(); m_vectorit != m_vector.end(); m_vectorit++)
 	{
 		// get actual zipEntry
@@ -125,10 +125,10 @@ void GNROaxImport::Load(wxZipInputStream& stream)
 			// openEntry
 			stream.OpenEntry(*m_ptrZipEntry);
 			
-			wxStreamBuffer blub(stream, wxStreamBuffer::read_write);
+			//wxStreamBuffer blub(stream, wxStreamBuffer::read_write);
 			
 			// insert pail into map
-			m_map.insert(std::pair<wxString, wxInputStream*>(m_ptrZipEntry->GetName(), &stream));
+			//m_map.insert(std::pair<wxString, wxString*>(m_ptrZipEntry->GetName(), &stream));
 			
 			// entry found
 			continue;
@@ -146,6 +146,8 @@ void GNROaxImport::Load(wxZipInputStream& stream)
 		{
 			// openEntry
 			stream.OpenEntry(*m_ptrZipEntry);
+			
+			
 			
 			// load objfile
 			LoadObj(stream);
@@ -196,8 +198,11 @@ void GNROaxImport::LoadAssemblyXml(wxInputStream& stream)
 	// create wxString to store propertyvalues
 	wxString value;
 	
+	// node to oaxml
+	node = xml.GetRoot();
+	
 	// node to assemblyInformation
-	node = xml.GetRoot()->GetChildren();
+	node = node->GetChildren();
 	
 	// node to name
 	node = node->GetChildren();
@@ -688,10 +693,7 @@ void GNROaxImport::LoadPrimitivesXml(wxInputStream& stream)
 #warning "INFO: Need to create an sphere here, waiting for api."
 			// primitive found
 			continue;
-			
 		}
-		
-		
 	}
 }
 
@@ -702,10 +704,10 @@ void GNROaxImport::LoadPrimitivesXml(wxInputStream& stream)
 void GNROaxImport::LoadObj(wxInputStream& stream)
 {
 	// create ObjectImportobject
-	GNRObjectImport import;
+	GNRObjectImport import(&stream, m_map);
 	
 	// placeholder for GNRObjectImport-call
-	//m_ptrAssembly = import.read()
+	m_ptrAssembly = import.getAssembly();
 	
 	// set x-offset
 	m_ptrAssembly->setX(m_locationOffsetX);

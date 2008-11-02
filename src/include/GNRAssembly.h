@@ -110,6 +110,9 @@ public:
 	void debugInfo() const;
 	list<GNRAssembly*> getPartList();
 	
+	// add a new Tag
+	void addTag(wxString tag);
+	
 private:
 	float m_x, m_y, m_z;
 	
@@ -130,6 +133,9 @@ private:
 	
 	//  ChildPtr ==> material_name
 	map<const GNRAssembly* const, GNRMaterial> m_child_mat;
+	
+	// list of tags
+	list<wxString> m_tags;
 };
 
 #endif // _GNRASSEMBLY_H_

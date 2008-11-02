@@ -11,14 +11,19 @@
 #ifndef _GNROBJOAXCONVERTERFRAME_H_
 #define _GNROBJOAXCONVERTERFRAME_H_
 
+#include <map>
+#include <vector>
 #include <wx/button.h>
 #include <wx/checkbox.h>
 #include <wx/combobox.h>
 #include <wx/frame.h>
 #include <wx/spinctrl.h>
 #include <wx/stattext.h>
+#include <wx/string.h>
 
+#include "GNRFrameData.h"
 #include "GNRGLCanvasPreview.h"
+#include "GNRGlobalDefine.h"
 
 class GNRObjOaxConverterFrame : public wxFrame
 {
@@ -28,6 +33,20 @@ public:
 	
 	// ctor
 	virtual ~GNRObjOaxConverterFrame();
+	
+	// functions
+	
+	// set categories to ComboBox
+	void setAllCategories(std::vector<wxString>* ptrCat);
+	
+	// set Data to fill the frame
+	void setFrameData(GNRFrameData* data);
+	
+	// set Data into internal attributes
+	void setData();
+	
+	// get canvas
+	GNRGLCanvasPreview* getCanvasPointer();
 	
 protected:
 
@@ -47,6 +66,18 @@ private:
 	static const long idStxDepth;
 	static const long idStxHeight;
 	static const long idTxtName;
+	
+	// width, depth, height
+	double m_width, m_depth, m_height;
+	
+	// scale width, depth, height
+	double m_scaleWidth, m_scaleDepth, m_scaleHeight;
+	
+	// object-name
+	wxString m_name;
+	
+	// object-category
+	wxString m_category;
 	
 	// Canvas
 	GNRGLCanvasPreview* m_canvas;
@@ -76,11 +107,23 @@ private:
 	// TextCtrl
 	wxTextCtrl* m_txcName;
 	
+	// pointer to struc which contain all data needed by frame
+	GNRFrameData* m_frameData;
+	
 	// functions
 	// handler
 	void OnBtnCancel(wxCommandEvent& event);
 	void OnBtnCreate(wxCommandEvent& event);
 	void OnClose(wxCloseEvent& event);
+	void OnSpcWidthChanged(wxSpinEvent& event);
+	void OnSpcDepthChanged(wxSpinEvent& event);
+	void OnSpcHeightChanged(wxSpinEvent& event);
+	
+	// update frame
+	void updateFrame();
+	
+	// maxfunction, return scale
+	double max(double width, double depth, double height);
 };
 
 #endif // _GNROBJOAXCONVERTERFRAME_H_

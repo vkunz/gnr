@@ -8,6 +8,13 @@
  * @author		Valentin Kunz       <athostr@googlemail.com>
  */
 
+#include <wx/spinctrl.h>
+
+#if defined(__ATHOS_DEBUG__)
+#include <wx/log.h>
+#endif
+
+#include "GNRNotifyEvent.h"
 #include "GNRObjOaxConverterFrame.h"
 
 const long GNRObjOaxConverterFrame::idBtnCreate     = wxNewId();
@@ -28,7 +35,7 @@ const long GNRObjOaxConverterFrame::idTxtName       = wxNewId();
 GNRObjOaxConverterFrame::GNRObjOaxConverterFrame(wxWindow* parent, wxWindowID id)
 {
 	// create Frame
-	Create(parent, id, wxEmptyString, wxDefaultPosition, wxDefaultSize, wxCAPTION|wxSYSTEM_MENU|wxCLOSE_BOX|wxSTAY_ON_TOP|wxMINIMIZE_BOX|wxSTATIC_BORDER, wxT("ObjOaxConverter"));
+	Create(parent, id, wxEmptyString, wxDefaultPosition, wxDefaultSize, wxCAPTION|wxSYSTEM_MENU|wxCLOSE_BOX|wxMINIMIZE_BOX|wxSTATIC_BORDER, wxT("ObjOaxConverter"));
 	
 	// set size
 	SetClientSize(wxSize(550, 350));
@@ -47,13 +54,13 @@ GNRObjOaxConverterFrame::GNRObjOaxConverterFrame(wxWindow* parent, wxWindowID id
 	m_cbxCategory   = new wxComboBox(this, idCbxCategory, wxEmptyString, wxPoint(384,90), wxSize(130,24), 0, 0, 0, wxDefaultValidator);
 	
 	// SpinCtrl width
-	m_spcWidth      = new wxSpinCtrl(this, idSpcWidth, wxEmptyString, wxPoint(384,130), wxSize(130,24), 0, 0, 100, 0);
+	m_spcWidth      = new wxSpinCtrl(this, idSpcWidth, wxEmptyString, wxPoint(384,130), wxSize(130,24), wxTE_PROCESS_ENTER, 0, 10000, 1);
 	
 	// SpinCtrl depth
-	m_spcDepth      = new wxSpinCtrl(this, idSpcDepth, wxEmptyString, wxPoint(384,170), wxSize(130,24), 0, 0, 100, 0);
+	m_spcDepth      = new wxSpinCtrl(this, idSpcDepth, wxEmptyString, wxPoint(384,170), wxSize(130,24), wxTE_PROCESS_ENTER, 0, 10000, 1);
 	
 	// SpinCtrl height
-	m_spcHeight     = new wxSpinCtrl(this, idSpcHeight, wxEmptyString, wxPoint(384,210), wxSize(130,24), 0, 0, 100, 0);
+	m_spcHeight     = new wxSpinCtrl(this, idSpcHeight, wxEmptyString, wxPoint(384,210), wxSize(130,24), wxTE_PROCESS_ENTER, 0, 10000, 1);
 	
 	// StaticText name
 	m_stxName       = new wxStaticText(this, idStxName, wxT("Name:"), wxPoint(280,54), wxSize(100,24), 0);
@@ -62,25 +69,43 @@ GNRObjOaxConverterFrame::GNRObjOaxConverterFrame(wxWindow* parent, wxWindowID id
 	m_stxCategory   = new wxStaticText(this, idStxCategory, wxT("Kategorie:"), wxPoint(280,94), wxSize(72,24), 0);
 	
 	// StaticText width
-	m_stxWidth      = new wxStaticText(this, idStxWidth, wxT("Breite:"), wxPoint(280,134), wxSize(100 ,24), 0);
+	m_stxWidth      = new wxStaticText(this, idStxWidth, wxT("Breite (mm):"), wxPoint(280,134), wxSize(100 ,24), 0);
 	
 	// StaticText depth
-	m_stxDepth      = new wxStaticText(this, idStxDepth, wxT("Tiefe:"), wxPoint(280,174), wxSize(100,24), 0);
+	m_stxDepth      = new wxStaticText(this, idStxDepth, wxT("Tiefe (mm):"), wxPoint(280,174), wxSize(100,24), 0);
 	
 	// StaticText height
-	m_stxHeight     = new wxStaticText(this, idStxHeight, wxT("H\u00F6he:"), wxPoint(280,214), wxSize(100,24), 0);
+	m_stxHeight     = new wxStaticText(this, idStxHeight, wxT("H\u00F6he (mm):"), wxPoint(280,214), wxSize(100,24), 0);
 	
 	// TextCtrl name
 	m_txcName       = new wxTextCtrl(this, idTxtName, wxEmptyString, wxPoint(384,50), wxSize(130,24), 0, wxDefaultValidator);
 	
-	// connects m_btnCancel with OnBtnCancel()
-	Connect(idBtnCancel,wxEVT_COMMAND_BUTTON_CLICKED,(wxObjectEventFunction)&GNRObjOaxConverterFrame::OnBtnCancel);
+	// connects m_btnCreate with OnBtnCreate()
+	Connect(idBtnCreate,wxEVT_COMMAND_BUTTON_CLICKED,(wxObjectEventFunction)&GNRObjOaxConverterFrame::OnBtnCreate);
 	
 	// connects m_btnCancel with OnBtnCancel()
 	Connect(idBtnCancel,wxEVT_COMMAND_BUTTON_CLICKED,(wxObjectEventFunction)&GNRObjOaxConverterFrame::OnBtnCancel);
 	
-	// connects X with OnClose()
+	// connects Close-Button with OnClose()
 	Connect(wxID_ANY,wxEVT_CLOSE_WINDOW,(wxObjectEventFunction)&GNRObjOaxConverterFrame::OnClose);
+	
+	// connects m_spcWidth with OnSpcWidthChanged
+	Connect(idSpcWidth,wxEVT_COMMAND_SPINCTRL_UPDATED,(wxObjectEventFunction)&GNRObjOaxConverterFrame::OnSpcWidthChanged);
+	
+	// connects m_spcDepth with OnSpcDepthChanged
+	Connect(idSpcDepth,wxEVT_COMMAND_SPINCTRL_UPDATED,(wxObjectEventFunction)&GNRObjOaxConverterFrame::OnSpcDepthChanged);
+	
+	// connects m_spcHeight with OnSpcHeightChanged
+	Connect(idSpcHeight,wxEVT_COMMAND_SPINCTRL_UPDATED,(wxObjectEventFunction)&GNRObjOaxConverterFrame::OnSpcHeightChanged);
+	
+	// connects m_spcWidth with OnSpcWidthChanged on press Enter
+	Connect(idSpcWidth,wxEVT_COMMAND_TEXT_ENTER,(wxObjectEventFunction)&GNRObjOaxConverterFrame::OnSpcWidthChanged);
+	
+	// connects m_spcDepth with OnSpcDepthChanged on press Enter
+	Connect(idSpcDepth,wxEVT_COMMAND_TEXT_ENTER,(wxObjectEventFunction)&GNRObjOaxConverterFrame::OnSpcDepthChanged);
+	
+	// connects m_spcHeight with OnSpcHeightChanged on press Enter
+	Connect(idSpcHeight,wxEVT_COMMAND_TEXT_ENTER,(wxObjectEventFunction)&GNRObjOaxConverterFrame::OnSpcHeightChanged);
 	
 	// create canvas
 	m_canvas = new GNRGLCanvasPreview(this, wxID_ANY, wxPoint(50, 50), wxSize(200, 200), wxSIMPLE_BORDER);
@@ -89,22 +114,224 @@ GNRObjOaxConverterFrame::GNRObjOaxConverterFrame(wxWindow* parent, wxWindowID id
 // dtor
 GNRObjOaxConverterFrame::~GNRObjOaxConverterFrame()
 {
-	// do nothing
+	delete m_canvas;
 }
+
+void GNRObjOaxConverterFrame::setAllCategories(std::vector<wxString>* ptrCat)
+{
+	// set standard category -> "Sonstiges"
+	m_category = (wxT("Sonstiges"));
+	
+	// set standard category -> "Sonstiges"
+	m_cbxCategory->SetValue(wxT("Sonstiges"));
+	
+	// create temporary iterator to extract all categories
+	std::vector<wxString>::iterator it;
+	
+	// walk through all entrys and get category-name
+	for (it = ptrCat->begin(); it != ptrCat->end(); it++)
+	{
+		m_cbxCategory->AppendString(*it);
+	}
+	
+	// append standard category, so it can be chosen again
+	m_cbxCategory->AppendString(wxT("Sonstiges"));
+	
+	// we took ownership of ptrCat, so we need to delete it
+	delete ptrCat;
+}
+
+void GNRObjOaxConverterFrame::setFrameData(GNRFrameData* data)
+{
+	m_frameData = data;
+}
+
+void GNRObjOaxConverterFrame::setData()
+{
+	// set data
+	m_width = m_frameData->m_width;
+	m_depth = m_frameData->m_depth;
+	m_height = m_frameData->m_height;
+	m_name = m_frameData->m_name;
+	m_category = m_frameData->m_category;
+	
+	// if a dimension is greater than 10000, rescale
+	if (m_width > 10000 || m_depth > 10000 || m_height > 10000)
+	{
+		// return max of dimenstions and get scale
+		double scale = (max(m_width, m_depth, m_height)) / 10000.0;
+		
+		// divide by scale
+		m_width = (int)(m_width / scale);
+		m_depth = (int)(m_depth / scale);
+		m_height = (int)(m_height / scale);
+	}
+	
+	// update frame
+	updateFrame();
+}
+
+GNRGLCanvasPreview* GNRObjOaxConverterFrame::getCanvasPointer()
+{
+	return m_canvas;
+}
+
 
 void GNRObjOaxConverterFrame::OnBtnCancel(wxCommandEvent& WXUNUSED(event))
 {
-	// destroy frame, everything is lost
-	Destroy();
+	// create event
+	GNRNotifyEvent gnrevent(wxEVT_COMMAND_GNR_NOTIFY);
+	
+	// set eventType
+	gnrevent.setGNREventType(CANCELCONVERTION);
+	
+	// broadcast event
+	GetEventHandler()->ProcessEvent(gnrevent);
 }
 
 void GNRObjOaxConverterFrame::OnBtnCreate(wxCommandEvent& WXUNUSED(event))
 {
-
+	// prepare data -> store into struct
+	// get objName and store into struct
+	m_frameData->m_name = m_txcName->GetValue();
+	
+	// get category and store into struct
+	m_frameData->m_category = m_cbxCategory->GetValue();
+	
+	// get width and store into struct
+	m_frameData->m_width = (m_spcWidth->GetValue() * 1000);
+	
+	// get depth and store into struct
+	m_frameData->m_depth = (m_spcDepth->GetValue() * 1000);
+	
+	// get height and store into struct
+	m_frameData->m_height = (m_spcHeight->GetValue() * 1000);
+	
+	// calc width-scale
+	m_frameData->m_scaleWidth = ((m_width / m_frameData->m_width) * 1000);
+	
+	// calc y-scale
+	m_frameData->m_scaleDepth = ((m_depth / m_frameData->m_depth) * 1000);
+	
+	// calc z-scale
+	m_frameData->m_scaleHeight = ((m_height / m_frameData->m_height) * 1000);
+	
+	// create event
+	GNRNotifyEvent gnrevent(wxEVT_COMMAND_GNR_NOTIFY);
+	
+	// set eventType
+	gnrevent.setGNREventType(OAXEXPORT);
+	
+	// set frameData pointer
+	gnrevent.setFrameDataPointer(m_frameData);
+	
+	// broadcast event
+	GetEventHandler()->ProcessEvent(gnrevent);
 }
 
 void GNRObjOaxConverterFrame::OnClose(wxCloseEvent& WXUNUSED(event))
 {
-	// destroy frame, everything is lost
-	Destroy();
+	// create event
+	GNRNotifyEvent gnrevent(wxEVT_COMMAND_GNR_NOTIFY);
+	
+	// set eventType
+	gnrevent.setGNREventType(CANCELCONVERTION);
+	
+	// broadcast event
+	GetEventHandler()->ProcessEvent(gnrevent);
+}
+
+void GNRObjOaxConverterFrame::OnSpcWidthChanged(wxSpinEvent& event)
+{
+	// check if aspect ratio is enabled
+	if (m_ckbProportion->GetValue())
+	{
+		// get scale, calc actual value divide by m_frameData-value
+		m_scaleWidth = (double)event.GetInt() / m_frameData->m_width;
+		
+		// set new m_width
+		m_width = event.GetInt();
+		
+		// set new dimenstions with new scale
+		m_depth = (m_scaleWidth * m_frameData->m_depth);
+		m_height = (m_scaleWidth * m_frameData->m_height);
+		
+		// update frame
+		updateFrame();
+	}
+}
+
+void GNRObjOaxConverterFrame::OnSpcDepthChanged(wxSpinEvent& event)
+{
+	// check if aspect ratio is enabled
+	if (m_ckbProportion->GetValue())
+	{
+		// get scale, calc actual value divide by m_frameData-value
+		m_scaleDepth = (float)event.GetInt() / m_frameData->m_depth;
+		
+		// set new m_width
+		m_depth = event.GetInt();
+		
+		// set new dimenstions with new scale
+		m_width = (int)(m_scaleDepth * m_frameData->m_width);
+		m_height = (int)(m_scaleDepth * m_frameData->m_height);
+		
+		// update frame
+		updateFrame();
+	}
+}
+
+void GNRObjOaxConverterFrame::OnSpcHeightChanged(wxSpinEvent& event)
+{
+	// check if aspect ratio is enabled
+	if (m_ckbProportion->GetValue())
+	{
+		// get scale, calc actual value divide by m_frameData-value
+		m_scaleHeight = (float)event.GetInt() / m_frameData->m_height;
+		
+		// set new m_width
+		m_height = event.GetInt();
+		
+		// set new dimenstions with new scale
+		m_width = (int)(m_scaleHeight * m_frameData->m_width);
+		m_depth = (int)(m_scaleHeight * m_frameData->m_depth);
+		
+		// update frame
+		updateFrame();
+	}
+}
+
+void GNRObjOaxConverterFrame::updateFrame()
+{
+	// update name
+	m_txcName->SetValue(m_name);
+	
+	// update category
+	m_cbxCategory->SetValue(m_category);
+	
+	// update width
+	m_spcWidth->SetValue((int)m_width);
+	
+	// update depth
+	m_spcDepth->SetValue((int)m_depth);
+	
+	// update height
+	m_spcHeight->SetValue((int)m_height);
+}
+
+double GNRObjOaxConverterFrame::max(double width, double depth, double height)
+{
+	double max = width;
+	
+	if (max < depth)
+	{
+		max = depth;
+	}
+	
+	if (max < height)
+	{
+		max = height;
+	}
+	
+	return max;
 }

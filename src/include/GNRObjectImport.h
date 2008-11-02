@@ -37,9 +37,20 @@ public:
 	
 	virtual GNRAssembly* read(const string& fname);
 	
-	void read(wxString& content);
+	// return filelist
+	std::list<wxString> getFileList();
 	
+	// return assembly
 	GNRAssembly* getAssembly();
+	
+	// return x - offset
+	float getOffsetX();
+	
+	// return y - offset
+	float getOffsetY();
+	
+	// return z - offset
+	float getOffsetZ();
 	
 private:
 	// attributes
@@ -49,8 +60,8 @@ private:
 	// wxString to store the filepath
 	wxString m_path;
 	
-	// wxString to store current line
-	wxString m_line;
+	// list of files which are needed by .obj-file
+	std::list<wxString> m_listFiles;
 	
 	// pointer to map, where mtl and textures are stored in
 	std::map<wxString, wxString>* m_mtl;
@@ -64,15 +75,24 @@ private:
 	// pointer to GNRAssembly - wrapper
 	GNRAssembly* m_wrapper;
 	
-	// functions
-	// parse string
-	void Parse(wxString& file);
+	// double to store the x - offfset
+	float m_offsetX;
 	
+	// double to store the x - offfset
+	float m_offsetY;
+	
+	// double to store the x - offfset
+	float m_offsetZ;
+	
+	// functions
 	// LoadMtl
 	void LoadMtl();
 	
 	// parse material
 	void ParseMtl(wxString& mtl);
+	
+	// read content and create assembly
+	void read(wxString& content);
 	
 	void getF();
 	void getO();

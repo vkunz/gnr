@@ -10,6 +10,10 @@
 
 #include <GL/glu.h>
 
+#if defined(__ATHOS_DEBUG__)
+#include <wx/log.h>
+#endif
+
 #include "GNRGLCanvasPreview.h"
 #include "GNRGlobalDefine.h"
 
@@ -94,7 +98,8 @@ void GNRGLCanvasPreview::InitGL()
  */
 void GNRGLCanvasPreview::OnPaint(wxPaintEvent& event)
 {
-	draw();
+#warning "INFO: @Thorsten, FIXME"
+	//draw();
 }
 
 /**

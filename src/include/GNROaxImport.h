@@ -72,7 +72,7 @@ private:
 	GNRAssembly* m_ptrAssembly;
 	
 	// map to store mtlfilenames and inputstream
-	std::map<wxString, wxInputStream*> m_map;
+	std::map<wxString, wxString>* m_map;
 	
 	// vector of all entrys
 	std::vector<wxZipEntry*> m_vector;

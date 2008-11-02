@@ -11,8 +11,10 @@
 #ifndef _GNRNOTIFYEVENT_H_
 #define _GNRNOTIFYEVENT_H_
 
-#include "wx/event.h"
+#include <wx/event.h>
 #include "GNRAssembly.h"
+
+#include "GNRObjOaxConverterFrame.h"
 
 class GNRNotifyEvent : public wxNotifyEvent
 {
@@ -22,6 +24,7 @@ private:
 	int eventSnapToGrid;
 	int eventSnapToAngle;
 	GNRAssembly* assembly;
+	GNRFrameData* m_data;
 	float m_float;
 	
 public:
@@ -41,6 +44,9 @@ public:
 	
 	void setSnapToAngle(int value);
 	int getSnapToAngle();
+	
+	void setFrameDataPointer(GNRFrameData* data);
+	GNRFrameData* getFrameDataPointer();
 	
 	void setFloat(float value);
 	float getFloat();
