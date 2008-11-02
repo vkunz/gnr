@@ -349,7 +349,7 @@ void GNRApp::OnCreatePrimitiveEvent(GNRCreatePrimitiveEvent& event)
 		atomic->setType(IS_ATOMIC);
 		
 		//create new parent assembly (group of primitives)
-		GNRAssembly* primitive = new GNRAssembly("wallcube");
+		GNRAssembly* primitive = new GNRAssembly(wxT("wallcube"));
 		
 		//put information of whole group in parent
 		primitive->setType(IS_PRIMITIVE);

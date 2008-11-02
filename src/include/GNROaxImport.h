@@ -18,6 +18,7 @@
 #include <wx/zipstrm.h>
 
 #include "GNRAssembly.h"
+#include "GNRObjectImport.h"
 
 /**
  * @class GNROaxImport

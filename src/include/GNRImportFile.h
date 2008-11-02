@@ -16,5 +16,5 @@ public:
 	GNRImportFile();
 	virtual ~GNRImportFile();
 	
-	virtual GNRAssembly* read(const string& fname) = 0;
+	GNRAssembly* read(const string& fname);
 };

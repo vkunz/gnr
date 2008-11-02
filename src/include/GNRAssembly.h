@@ -18,7 +18,7 @@
 #include <list>
 #include <vector>
 #include <map>
-#include <string>
+#include <wx/string.h>
 
 #include "GNREnum.h"
 #include "GNRFace.h"
@@ -29,15 +29,15 @@ using std::list;
 using std::vector;
 using std::map;
 using std::pair;
-using std::string;
 
 class GNRAssembly
 {
 public:
 
 	GNRAssembly(const string& name);
-	GNRAssembly(GNRAssembly* parent, const string& name);
-	GNRAssembly(const assemblyType& type, const string& name);
+	GNRAssembly(const wxString& name);
+	GNRAssembly(GNRAssembly* parent, const wxString& name);
+	GNRAssembly(const assemblyType& type, const wxString& name);
 	GNRAssembly(const GNRAssembly& assembly);
 	
 	virtual ~GNRAssembly();
@@ -106,8 +106,9 @@ public:
 	void setChildMaterial(const GNRAssembly* child, const GNRMaterial& mat);
 	void setChildDisplayList(const GNRAssembly* child, const GLuint& dl);
 	
+	void setName(const wxString& name);
 	void setName(const string& name);
-	const string& getName() const;
+	const wxString& getName() const;
 	
 	void setType(const assemblyType& type);
 	assemblyType getType() const;
@@ -148,7 +149,7 @@ private:
 	float m_radius_bottom, m_radius_middle, m_radius_top;
 	
 	assemblyType m_type;
-	string m_name;
+	wxString m_name;
 	
 	GNRAssembly* m_parent;
 	

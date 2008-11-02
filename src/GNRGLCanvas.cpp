@@ -268,11 +268,13 @@ void GNRGLCanvas::drawBaseFloor(float fCenterX, float fCenterY, float fCenterZ, 
 		//set starting edge half of size from center
 		float s = fSize/2;
 		float x = fCenterX - s, z = fCenterZ - s;
+		int start = -(int)s;
+		int end   = (int)s;
 		//draw fSize quads in x-axis
-		for (GLint i = -s; i < s; i++)
+		for (GLint i = start; i < end; i++)
 		{
 			//draw fSize quads in z-axis
-			for (GLint j = -s; j < s; j++)
+			for (GLint j = start; j < end; j++)
 			{
 				glTexCoord2f(0.0,0.0);
 				glVertex3f(j,fCenterY,i);

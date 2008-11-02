@@ -725,7 +725,7 @@ void GNROaxImport::LoadObj(wxInputStream& stream)
 	m_ptrAssembly->setScaleZ(m_scaleZ);
 	
 	// set assemly-name
-	m_ptrAssembly->setName(std::string(std::string(m_name.mb_str())));
+	m_ptrAssembly->setName(m_name);
 	
 	// temporary pointer to get access to wrapper
 	GNRAssembly* wrapper = import.getWrapper();

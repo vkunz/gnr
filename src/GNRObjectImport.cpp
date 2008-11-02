@@ -8,6 +8,7 @@
  * @author		Valentin Kunz       <athostr@googlemail.com>
  */
 
+#include <wx/string.h>
 #include <wx/sstream.h>
 #include <wx/tokenzr.h>
 #include <wx/txtstrm.h>
@@ -144,11 +145,11 @@ void GNRObjectImport::read(wxString& content)
 	m_xmax = m_ymax = m_zmax = -m_xmin;
 	
 	//build base wrapper assembly
-	m_root = new GNRAssembly(string(m_path.AfterLast('\\').BeforeFirst('.').mb_str()));
+	m_root = new GNRAssembly(wxString(m_path.AfterLast('\\').BeforeFirst('.')));
 	m_root->setType(IS_OBJECT);
 	
 	//create root assembly for object
-	m_wrapper = new GNRAssembly("wrapper");
+	m_wrapper = new GNRAssembly(wxT("wrapper"));
 	m_wrapper->setType(IS_WRAPPER);
 	
 	//appen root assembly for object
@@ -238,7 +239,7 @@ GNRAssembly* GNRObjectImport::read(const string& fname)
 	m_root->setType(IS_OBJECT);
 	
 	//create root assembly for object
-	m_wrapper = new GNRAssembly("wrapper");
+	m_wrapper = new GNRAssembly(wxT("wrapper"));
 	m_wrapper->setType(IS_WRAPPER);
 	
 	//appen root assembly for object
@@ -339,8 +340,8 @@ void GNRObjectImport::getO()
 
 void GNRObjectImport::addAtomic(string name)
 {
-	m_act = new GNRAssembly(m_wrapper,name);
-	m_act->setType(IS_ATOMIC);
+	m_act = new GNRAssembly(IS_ATOMIC,wxT("dummy"));
+	m_act->setName(name);
 	m_wrapper->addPart(m_act);
 }
 

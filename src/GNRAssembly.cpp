@@ -8,6 +8,7 @@
  * @author		Valentin Kunz       <athostr@googlemail.com>
  */
 
+#include <wx/string.h>
 #include "GNRAssembly.h"
 #include "GNRMaterial.h"
 
@@ -16,12 +17,13 @@
 #if defined(__ATHOS_DEBUG__)
 #include <wx/log.h>
 #endif
+
 /**
  * constructor of generic assembly
  * @param       string         name of assembly
  * @access      public
  */
-GNRAssembly::GNRAssembly(const string& name = "unnamed"):
+GNRAssembly::GNRAssembly(const wxString& name):
 		m_x(0.0), m_y(0.0), m_z(0.0),
 		m_phi(0.0), m_theta(0.0), m_rho(0.0),
 		m_scale_x(1.0), m_scale_y(1.0), m_scale_z(1.0),
@@ -30,6 +32,24 @@ GNRAssembly::GNRAssembly(const string& name = "unnamed"):
 		m_type(IS_ROOT), m_name(name), m_parent(NULL),
 		m_dl_object(0), m_dl_shadow(0)
 {
+}
+
+/**
+ * constructor of generic assembly
+ * @param       string         name of assembly
+ * @access      public
+ */
+GNRAssembly::GNRAssembly(const string& name):
+		m_x(0.0), m_y(0.0), m_z(0.0),
+		m_phi(0.0), m_theta(0.0), m_rho(0.0),
+		m_scale_x(1.0), m_scale_y(1.0), m_scale_z(1.0),
+		m_width(1.0), m_height(1.0), m_depth(1.0),
+		m_radius_bottom(0.0), m_radius_middle(0.0), m_radius_top(0.0),
+		m_type(IS_ROOT), m_parent(NULL),
+		m_dl_object(0), m_dl_shadow(0)
+{
+#warning "INFO: Really ugly converting string > wxString"
+	setName(name);
 }
 
 /**
@@ -71,7 +91,7 @@ GNRAssembly::GNRAssembly(const GNRAssembly& assembly)
 	for (list<GNRAssembly*>::const_iterator it = m_part.begin(); it != m_part.end(); ++it)
 	{
 		// draw the Child
-		GNRAssembly* a_copy = new GNRAssembly("copy");
+		GNRAssembly* a_copy = new GNRAssembly(wxT("copy"));
 		(*a_copy) = (**it);
 		addPart(a_copy);
 		
@@ -99,7 +119,7 @@ GNRAssembly::GNRAssembly(const GNRAssembly& assembly)
  */
 GNRAssembly* GNRAssembly::clone()
 {
-	GNRAssembly* m_clone = new GNRAssembly("clone");
+	GNRAssembly* m_clone = new GNRAssembly(wxT("clone"));
 	
 	m_clone->m_x       = m_x;
 	m_clone->m_y       = m_y;
@@ -161,7 +181,7 @@ GNRAssembly* GNRAssembly::clone()
  * @param       GNRAssembly*   pointer to parent
  * @access      public
  */
-GNRAssembly::GNRAssembly(GNRAssembly* parent, const string& name = "unnamed"):
+GNRAssembly::GNRAssembly(GNRAssembly* parent, const wxString& name):
 		m_x(0.0), m_y(0.0), m_z(0.0),
 		m_phi(0.0), m_theta(0.0), m_rho(0.0),
 		m_scale_x(1.0), m_scale_y(1.0), m_scale_z(1.0),
@@ -178,7 +198,7 @@ GNRAssembly::GNRAssembly(GNRAssembly* parent, const string& name = "unnamed"):
  * @param       GNRAssembly*   pointer to parent
  * @access      public
  */
-GNRAssembly::GNRAssembly(const assemblyType& type, const string& name = "unnamed"):
+GNRAssembly::GNRAssembly(const assemblyType& type, const wxString& name):
 		m_x(0.0), m_y(0.0), m_z(0.0),
 		m_phi(0.0), m_theta(0.0), m_rho(0.0),
 		m_scale_x(1.0), m_scale_y(1.0), m_scale_z(1.0),
@@ -346,7 +366,7 @@ float GNRAssembly::getScaleZ() const
  * @return      string      name of assembly
  * @access      public
  */
-const string& GNRAssembly::getName() const
+const wxString& GNRAssembly::getName() const
 {
 	return m_name;
 }
@@ -741,9 +761,21 @@ void GNRAssembly::setScale(const float x,const float y,const float z)
  * @param       string      name of assembly
  * @access      public
  */
-void GNRAssembly::setName(const string& name)
+void GNRAssembly::setName(const wxString& name)
 {
 	m_name = name;
+}
+
+/**
+ * set name of assembly
+ * @param       string      name of assembly
+ * @access      public
+ */
+void GNRAssembly::setName(const string& name)
+{
+#warning "INFO: Really ugly converting string > wxString"
+	wxString new_name(name.c_str(), wxConvUTF8);
+	m_name = new_name;
 }
 
 /**

@@ -97,15 +97,15 @@ void GNRScene::initContainers()
 {
 	m_Assembly = NULL;
 	
-	m_RootAssembly  = new GNRAssembly(IS_ROOT,        "scene");
-	m_Selected      = new GNRAssembly(IS_SELECTED,    "selected");
+	m_RootAssembly  = new GNRAssembly(IS_ROOT,        wxT("scene"));
+	m_Selected      = new GNRAssembly(IS_SELECTED,    wxT("selected"));
 	
 	//put selected assembly in real world
 	m_RootAssembly->addPart(m_Selected);
 	
-	m_Trash         = new GNRAssembly(IS_TRASH,       "trash");
-	m_Hidden        = new GNRAssembly(IS_HIDDEN,      "hidden");
-	m_Duplicator    = new GNRAssembly(IS_DUPLICATOR,  "duplicator");
+	m_Trash         = new GNRAssembly(IS_TRASH,       wxT("trash"));
+	m_Hidden        = new GNRAssembly(IS_HIDDEN,      wxT("hidden"));
+	m_Duplicator    = new GNRAssembly(IS_DUPLICATOR,  wxT("duplicator"));
 }
 
 /**
@@ -308,7 +308,7 @@ void GNRScene::cloneSelectedAssemblies()
 void GNRScene::copySelectedAssemblies()
 {
 	delete m_Duplicator;
-	m_Duplicator = new GNRAssembly(IS_DUPLICATOR,  "duplicator");
+	m_Duplicator = new GNRAssembly(IS_DUPLICATOR,  wxT("duplicator"));
 	
 	list<GNRAssembly*> parts = m_Selected->getPartList();
 	
@@ -326,7 +326,7 @@ void GNRScene::copySelectedAssemblies()
 void GNRScene::cutSelectedAssemblies()
 {
 	delete m_Duplicator;
-	m_Duplicator = new GNRAssembly(IS_DUPLICATOR,  "duplicator");
+	m_Duplicator = new GNRAssembly(IS_DUPLICATOR,  wxT("duplicator"));
 	
 	list<GNRAssembly*> parts = m_Selected->getPartList();
 	
@@ -476,7 +476,7 @@ void GNRScene::groupSelectedAssemblies()
 		return;
 	}
 	
-	GNRAssembly* group = new GNRAssembly(IS_GROUP, "group");
+	GNRAssembly* group = new GNRAssembly(IS_GROUP, wxT("group"));
 	
 	float min[3] = {10000.0,10000.0,10000.0};
 	float max[3] = {-10000.0,-10000.0,-10000.0};
