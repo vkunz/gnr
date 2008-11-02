@@ -53,6 +53,9 @@ GNRAssembly::GNRAssembly(const GNRAssembly& assembly)
 	m_type    = assembly.m_type;
 	m_name    = assembly.m_name;
 	m_parent  = assembly.m_parent;
+	m_radius_bottom = assembly.m_radius_bottom;
+	m_radius_middle = assembly.m_radius_middle;
+	m_radius_top    = assembly.m_radius_top;
 	
 	// copy my faces
 	for (list<GNRFace>::const_iterator it = m_face.begin(); it != m_face.end(); ++it)
@@ -110,6 +113,9 @@ GNRAssembly* GNRAssembly::clone()
 	m_clone->m_type    = m_type;
 	m_clone->m_name    = m_name;
 	m_clone->m_parent  = m_parent;
+	m_clone->m_radius_bottom = m_radius_bottom;
+	m_clone->m_radius_middle = m_radius_middle;
+	m_clone->m_radius_top    = m_radius_top;
 	
 	// copy my faces
 	for (list<GNRFace>::const_iterator it = m_face.begin(); it != m_face.end(); ++it)
@@ -155,6 +161,7 @@ GNRAssembly::GNRAssembly(GNRAssembly* parent, const string& name = "unnamed"):
 		m_phi(0.0), m_theta(0.0), m_rho(0.0),
 		m_scale_x(1.0), m_scale_y(1.0), m_scale_z(1.0),
 		m_width(1.0), m_height(1.0), m_depth(1.0),
+		m_radius_bottom(0.0), m_radius_middle(0.0), m_radius_top(0.0),
 		m_type(IS_ROOT), m_name(name), m_parent(parent)
 {
 }
@@ -170,6 +177,7 @@ GNRAssembly::GNRAssembly(const assemblyType& type, const string& name = "unnamed
 		m_phi(0.0), m_theta(0.0), m_rho(0.0),
 		m_scale_x(1.0), m_scale_y(1.0), m_scale_z(1.0),
 		m_width(1.0), m_height(1.0), m_depth(1.0),
+		m_radius_bottom(0.0), m_radius_middle(0.0), m_radius_top(0.0),
 		m_type(type), m_name(name), m_parent(NULL)
 {
 }
