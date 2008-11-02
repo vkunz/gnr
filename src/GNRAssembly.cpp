@@ -57,7 +57,8 @@ GNRAssembly::GNRAssembly(const GNRAssembly& assembly)
 	m_radius_bottom = assembly.m_radius_bottom;
 	m_radius_middle = assembly.m_radius_middle;
 	m_radius_top    = assembly.m_radius_top;
-	m_dl_object         = assembly.m_dl_object;
+	m_dl_object     = assembly.m_dl_object;
+	m_dl_shadow     = assembly.m_dl_shadow;
 	
 	// copy my faces
 	for (list<GNRFace>::const_iterator it = m_face.begin(); it != m_face.end(); ++it)
