@@ -65,7 +65,7 @@ private:
 	static const long idStxWidth;
 	static const long idStxDepth;
 	static const long idStxHeight;
-	static const long idTxtName;
+	static const long idTxcName;
 	
 	// width, depth, height
 	double m_width, m_depth, m_height;
@@ -118,6 +118,8 @@ private:
 	void OnSpcWidthChanged(wxSpinEvent& event);
 	void OnSpcDepthChanged(wxSpinEvent& event);
 	void OnSpcHeightChanged(wxSpinEvent& event);
+	void OnTxcNameChanged(wxCommandEvent& event);
+	void OnCbxCategoryChanged(wxCommandEvent& event);
 	
 	// update frame
 	void updateFrame();
