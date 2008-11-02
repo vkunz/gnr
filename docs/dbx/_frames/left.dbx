@@ -129,5 +129,14 @@
 				<para>Abb.9: Kurz vor der Vollendung</para>
 			</caption>
 		</mediaobject>
-	</section>
+		<para>Kurzes Update zu 
+		<ulink url="http://www.hs-ulm.de/upload/rlunde/projti5/Team1/_downloads/prototyp_8.jpg">Abb.10</ulink></para>
+		<mediaobject>
+			<imageobject>
+				<imagedata fileref="_images/prototyp_8_small.img?s=200" align="left" />
+			</imageobject>
+			<caption>
+				<para>Abb.10: Klonen und Anderes</para>
+			</caption>
+		</mediaobject>	</section>
 </article>

@@ -196,6 +196,12 @@
 					<para>Ausgibige Test und Analysen des Codes wegen Optimierungen</para>
 				</listitem>
 			</itemizedlist>
+			<title>02.11.2008</title>
+			<para>Ein kleiner Nightly-Build. Jetzt haben wir erste Schatten, wenn auch noch nicht
+			auf Performance getrimmt. Klonen, ausschneiden, kopieren usw. sind ebenfalls schon
+			implementiert, wenn auch noch etwas buggy. Wände zeichnen funktioniert jetzt ebenfalls
+			bestens. Am Meterial-Import muss noch gearbeitet werden, solange steht den extern
+			beschriebenen Objekt-Files nur die Standardfarbe zu.</para>
 		</section>
 	</section>
 </article>
