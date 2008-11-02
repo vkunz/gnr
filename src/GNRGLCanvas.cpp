@@ -234,44 +234,63 @@ void GNRGLCanvas::initGL()
 
 void GNRGLCanvas::drawBaseFloor(float fCenterX, float fCenterY, float fCenterZ, int fSize)
 {
+	//is valid display list, call list
+	if (glIsList(m_floor_DL))
+	{
+		glCallList(m_floor_DL);
+		return;
+	}
+	
 	float FloorColor[4] = { 0.8f, 0.8f, 0.8f, 0.2f };
 	
-	glEnable(GL_TEXTURE_2D);
-	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
+	//create new display list for floor
+	m_floor_DL = glGenLists(1);
 	
-	glMaterialfv(GL_FRONT, GL_SPECULAR, FloorColor);
-	glMaterialfv(GL_FRONT, GL_AMBIENT_AND_DIFFUSE, FloorColor);
-	glMaterialfv(GL_FRONT, GL_EMISSION, FloorColor);
-	glMaterialf(GL_FRONT, GL_SHININESS, 50.0);
-	
-	glBindTexture(GL_TEXTURE_2D, FloorTexture);
-	
-	glBegin(GL_QUADS);
-	
-	//set normal
-	glNormal3f(0.0, 1.0, 0.0);
-	//set starting edge half of size from center
-	float s = fSize/2;
-	float x = fCenterX - s, z = fCenterZ - s;
-	//draw fSize quads in x-axis
-	for (GLint i = -s; i < s; i++)
+	glNewList(m_floor_DL,GL_COMPILE);
 	{
-		//draw fSize quads in z-axis
-		for (GLint j = -s; j < s; j++)
+#if defined(__ATHOS_DEBUG__)
+		wxLogDebug(wxT("new GNRGLCanvas.glNewList.m_floor_DL"));
+#endif
+		
+		glEnable(GL_TEXTURE_2D);
+		glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
+		
+		glMaterialfv(GL_FRONT, GL_SPECULAR, FloorColor);
+		glMaterialfv(GL_FRONT, GL_AMBIENT_AND_DIFFUSE, FloorColor);
+		glMaterialfv(GL_FRONT, GL_EMISSION, FloorColor);
+		glMaterialf(GL_FRONT, GL_SHININESS, 50.0);
+		
+		glBindTexture(GL_TEXTURE_2D, FloorTexture);
+		
+		glBegin(GL_QUADS);
+		
+		//set normal
+		glNormal3f(0.0, 1.0, 0.0);
+		//set starting edge half of size from center
+		float s = fSize/2;
+		float x = fCenterX - s, z = fCenterZ - s;
+		//draw fSize quads in x-axis
+		for (GLint i = -s; i < s; i++)
 		{
-			glTexCoord2f(0.0,0.0);
-			glVertex3f(j,fCenterY,i);
-			glTexCoord2f(0.0,1.0);
-			glVertex3f(j,fCenterY,i+1.0f);
-			glTexCoord2f(1.0,1.0);
-			glVertex3f(j+1.0f,fCenterY,i+1.0f);
-			glTexCoord2f(1.0,0.0);
-			glVertex3f(j+1.0f,fCenterY,i);
+			//draw fSize quads in z-axis
+			for (GLint j = -s; j < s; j++)
+			{
+				glTexCoord2f(0.0,0.0);
+				glVertex3f(j,fCenterY,i);
+				glTexCoord2f(0.0,1.0);
+				glVertex3f(j,fCenterY,i+1.0f);
+				glTexCoord2f(1.0,1.0);
+				glVertex3f(j+1.0f,fCenterY,i+1.0f);
+				glTexCoord2f(1.0,0.0);
+				glVertex3f(j+1.0f,fCenterY,i);
+			}
 		}
+		glEnd();
+		
+		glDisable(GL_TEXTURE_2D);
 	}
-	glEnd();
-	
-	glDisable(GL_TEXTURE_2D);
+	glEndList();
+	//finish display list...
 }
 
 void GNRGLCanvas::loadFloorTexture()

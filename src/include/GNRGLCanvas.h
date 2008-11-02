@@ -38,6 +38,7 @@ private:
 	
 protected:
 	int m_window_x, m_window_y;
+	GLuint m_floor_DL;
 	unsigned int FloorTexture;
 	
 	GLfloat light_ambient[4];
