@@ -49,6 +49,8 @@ private:
 	GNRAssembly* m_Assembly;
 	
 	void glRefreshCanvas();
+	void initContainers();
+	void destroyContainers();
 	
 protected:
 

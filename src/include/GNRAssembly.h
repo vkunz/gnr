@@ -95,6 +95,7 @@ public:
 	assemblyType getType() const;
 	bool isType(const assemblyType& type);
 	
+	GNRAssembly* clone();
 	GNRAssembly* getParent() const;
 	GNRAssembly* getMaster() const;
 	void setParent(GNRAssembly* p);

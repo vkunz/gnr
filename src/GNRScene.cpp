@@ -19,20 +19,10 @@
  */
 GNRScene::GNRScene()
 {
-	m_Assembly = NULL;
+	initContainers();
 	
 	m_GLCamera2D    = new GNRGLCamera();
 	m_GLCamera3D    = new GNRGLCamera();
-	
-	m_RootAssembly  = new GNRAssembly(IS_ROOT,        "scene");
-	m_Selected      = new GNRAssembly(IS_SELECTED,    "selected");
-	
-	m_Trash         = new GNRAssembly(IS_TRASH,       "trash");
-	m_Hidden        = new GNRAssembly(IS_HIDDEN,      "hidden");
-	m_Duplicator    = new GNRAssembly(IS_DUPLICATOR,  "duplicator");
-	
-	//put selected assembly in real world
-	m_RootAssembly->addPart(m_Selected);
 	
 	resetCamera();
 }
@@ -44,13 +34,10 @@ GNRScene::GNRScene()
  */
 GNRScene::~GNRScene()
 {
+	destroyContainers();
+	
 	delete m_GLCamera2D;
 	delete m_GLCamera3D;
-	
-	delete m_RootAssembly;
-	
-	delete m_Trash;
-	delete m_Hidden;
 }
 
 /**
@@ -103,26 +90,47 @@ GNRGLCamera* GNRScene::getGLCamera3D()
 }
 
 /**
+ * init whole world of containers
+ * @access      public
+ */
+void GNRScene::initContainers()
+{
+	m_Assembly = NULL;
+	
+	m_RootAssembly  = new GNRAssembly(IS_ROOT,        "scene");
+	m_Selected      = new GNRAssembly(IS_SELECTED,    "selected");
+	
+	//put selected assembly in real world
+	m_RootAssembly->addPart(m_Selected);
+	
+	m_Trash         = new GNRAssembly(IS_TRASH,       "trash");
+	m_Hidden        = new GNRAssembly(IS_HIDDEN,      "hidden");
+	m_Duplicator    = new GNRAssembly(IS_DUPLICATOR,  "duplicator");
+}
+
+/**
+ * kill whole world of containers
+ * @access      public
+ */
+void GNRScene::destroyContainers()
+{
+	//selected is killed by root assembly
+	delete m_RootAssembly;
+	
+	//kill all temp containers
+	delete m_Trash;
+	delete m_Hidden;
+	delete m_Duplicator;
+}
+
+/**
  * clean up whole world
  * @access      public
  */
 void GNRScene::newRoom()
 {
-	m_Assembly = NULL;
-	
-	delete m_RootAssembly;
-	delete m_Trash;
-	delete m_Hidden;
-	
-	m_RootAssembly  = new GNRAssembly(IS_ROOT,    "scene");
-	m_Selected      = new GNRAssembly(IS_SELECTED,"selected");
-	
-	m_Trash         = new GNRAssembly(IS_TRASH,   "trash");
-	m_Hidden        = new GNRAssembly(IS_HIDDEN,  "hidden");
-	
-	//put selected assembly in real world
-	m_RootAssembly->addPart(m_Selected);
-	
+	destroyContainers();
+	initContainers();
 	resetCamera();
 }
 
@@ -283,9 +291,13 @@ void GNRScene::cloneSelectedAssemblies()
 	
 	for (list<GNRAssembly*>::iterator it = parts.begin(); it != parts.end(); ++it)
 	{
-		GNRAssembly* a_copy = new GNRAssembly((**it));
-		(*a_copy) = (**it);
-		m_RootAssembly->addPart(a_copy);
+		GNRAssembly* a_copy = (*it)->clone();
+		//move selected to world
+		m_RootAssembly->addPart((*it));
+		//remove selected
+		m_Selected->delPart((*it));
+		//copy clone in selected
+		m_Selected->addPart(a_copy);
 	}
 }
 
@@ -295,12 +307,14 @@ void GNRScene::cloneSelectedAssemblies()
  */
 void GNRScene::copySelectedAssemblies()
 {
+	delete m_Duplicator;
+	m_Duplicator = new GNRAssembly(IS_DUPLICATOR,  "duplicator");
+	
 	list<GNRAssembly*> parts = m_Selected->getPartList();
 	
 	for (list<GNRAssembly*>::iterator it = parts.begin(); it != parts.end(); ++it)
 	{
-		GNRAssembly* a_copy = new GNRAssembly((**it));
-		(*a_copy) = (**it);
+		GNRAssembly* a_copy = (*it)->clone();
 		m_Duplicator->addPart(a_copy);
 	}
 }
@@ -311,12 +325,14 @@ void GNRScene::copySelectedAssemblies()
  */
 void GNRScene::cutSelectedAssemblies()
 {
+	delete m_Duplicator;
+	m_Duplicator = new GNRAssembly(IS_DUPLICATOR,  "duplicator");
+	
 	list<GNRAssembly*> parts = m_Selected->getPartList();
 	
 	for (list<GNRAssembly*>::iterator it = parts.begin(); it != parts.end(); ++it)
 	{
-		GNRAssembly* a_copy = new GNRAssembly((**it));
-		(*a_copy) = (**it);
+		GNRAssembly* a_copy = (*it)->clone();
 		m_Duplicator->addPart(a_copy);
 		m_Selected->delPart((*it));
 	}
@@ -332,9 +348,8 @@ void GNRScene::insertCopiedAssemblies()
 	
 	for (list<GNRAssembly*>::iterator it = parts.begin(); it != parts.end(); ++it)
 	{
-		GNRAssembly* a_copy = new GNRAssembly((**it));
-		(*a_copy) = (**it);
-		m_RootAssembly->addPart(a_copy);
+		GNRAssembly* a_copy = (*it)->clone();
+		m_Selected->addPart(a_copy);
 	}
 }
 
