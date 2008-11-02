@@ -171,7 +171,7 @@ void GNROaxExport::createOaxStream()
 	else
 	{
 		// create new wxZipOutputStream object and use m_outStream as parent
-		m_outZip = new wxZipOutputStream(m_outStream);
+		m_outZip = new wxZipOutputStream(m_outStream, -1, wxConvUTF8);
 	}
 	
 	// create new xml entry

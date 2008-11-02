@@ -9,7 +9,6 @@
  */
 
 #include <wx/string.h>
-#include <wx/tokenzr.h>
 #include <wx/zipstrm.h>
 #include <wx/wfstream.h>
 #include <wx/xml/xml.h>
@@ -37,6 +36,9 @@ GNROpxImport::GNROpxImport(GNRScene* scene, wxString filename)
 	// set GNRScene pointer
 	m_camera = scene->getGLCamera3D();
 	
+	// asign scene
+	m_scene = scene;
+	
 	// load
 	Load(filename);
 }
@@ -56,8 +58,11 @@ GNROpxImport::~GNROpxImport()
  */
 void GNROpxImport::Load(GNRScene* scene, wxString filename)
 {
-	// set GNRScene pointer
+	// set GNRCamera pointer
 	m_camera = scene->getGLCamera3D();
+	
+	// asign scene
+	m_scene = scene;
 	
 	// load
 	Load(filename);
@@ -70,13 +75,16 @@ void GNROpxImport::Load(GNRScene* scene, wxString filename)
 void GNROpxImport::Load(wxString filename)
 {
 	// create inputstream of file
-	wxFFileInputStream fileIn(filename);
+	m_inFile = new wxFFileInputStream(filename);
 	
 	// create zipinpustream of fileIn
-	wxZipInputStream zipIn(fileIn);
+	m_inZip = new wxZipInputStream(*m_inFile);
+	
+	// create GNROaxImport
+	m_oaxImport = new GNROaxImport();
 	
 	// get first entry
-	m_ptrZipEntry = zipIn.GetNextEntry();
+	m_ptrZipEntry = m_inZip->GetNextEntry();
 	
 	// walk through all entrys and push them into vector
 	while (m_ptrZipEntry)
@@ -85,7 +93,7 @@ void GNROpxImport::Load(wxString filename)
 		m_vector.push_back(m_ptrZipEntry);
 		
 		// get next Entry
-		m_ptrZipEntry = zipIn.GetNextEntry();
+		m_ptrZipEntry = m_inZip->GetNextEntry();
 	}
 	
 	// walk through all vector-entrys, find *.xml
@@ -98,10 +106,10 @@ void GNROpxImport::Load(wxString filename)
 		if (m_ptrZipEntry->GetName().Matches(wxT("*.xml")))
 		{
 			// openEntry
-			zipIn.OpenEntry(*m_ptrZipEntry);
+			m_inZip->OpenEntry(*m_ptrZipEntry);
 			
 			// load xmlstream
-			LoadXml(zipIn);
+			LoadXml(*m_inZip);
 			
 			// entry found
 			continue;
@@ -118,120 +126,406 @@ void GNROpxImport::LoadXml(wxInputStream& stream)
 	// temporary attributes
 	double x, y, z;
 	
-	// temporary attribute tokenizer
-	wxStringTokenizer tok;
-	
 	// create xmldocument of inpustream
 	wxXmlDocument xml(stream);
 	
-	// create pointer to xmlnode
-	wxXmlNode* node;
+	// node to root
+	m_node = xml.GetRoot();
 	
-	// create pointer to xmlproperty
-	wxXmlProperty* prop;
-	
-	// create wxString to store propertyvalues
-	wxString value;
-	
-	// node to projectInformation
-	node = xml.GetRoot()->GetChildren();
+	// node to assemblyInformation
+	m_node = m_node->GetChildren();
 	
 	// node to name
-	node = node->GetChildren();
+	m_node = m_node->GetChildren();
 	
 	// get name
-	m_name = node->GetNodeContent();
+	m_name = m_node->GetNodeContent();
 	
 	// node to author
-	node = node->GetNext();
+	m_node = m_node->GetNext();
 	
 	// get author
-	m_author = node->GetNodeContent();
+	m_author = m_node->GetNodeContent();
 	
 	// node to projectInformation
-	node = node->GetParent();
+	m_node = m_node->GetParent();
 	
 	// node to data
-	node = node->GetNext();
+	m_node = m_node->GetNext();
 	
 	// node to camera
-	node = node->GetChildren();
+	m_node = m_node->GetChildren();
 	
 	// node to type
-	node = node->GetChildren();
+	m_node = m_node->GetChildren();
 	
 	// node to position
-	node = node->GetNext();
+	m_node = m_node->GetNext();
 	
 	// prop to location
-	prop = node->GetProperties();
+	m_prop = m_node->GetProperties();
 	
 	// get value of location
-	value = prop->GetValue();
+	m_value = m_prop->GetValue();
 	
 	// tokenize value
-	tok.SetString(value, wxT(" "));
+	m_tok.SetString(m_value, wxT(" "));
 	
 	// get camera x-position
-	tok.GetNextToken().ToDouble(&x);
+	m_tok.GetNextToken().ToDouble(&x);
 	
 	// get camera y-position
-	tok.GetNextToken().ToDouble(&y);
+	m_tok.GetNextToken().ToDouble(&y);
 	
 	// get camera z-position
-	tok.GetNextToken().ToDouble(&z);
+	m_tok.GetNextToken().ToDouble(&z);
 	
 	// set camera position
 	m_camera->setPosition(x, y, z);
 	
 	// prop to orientation
-	prop = prop->GetNext();
+	m_prop = m_prop->GetNext();
 	
 	// get value of orientation
-	value = prop->GetValue();
+	m_value = m_prop->GetValue();
 	
 	// tokenize value
-	tok.SetString(value, wxT(" "));
+	m_tok.SetString(m_value, wxT(" "));
 	
 	// get camera x-orientation
-	tok.GetNextToken().ToDouble(&x);
+	m_tok.GetNextToken().ToDouble(&x);
 	
 	// get camera y-orientation
-	tok.GetNextToken().ToDouble(&y);
+	m_tok.GetNextToken().ToDouble(&y);
 	
 	// get camera z-orientation
-	tok.GetNextToken().ToDouble(&z);
+	m_tok.GetNextToken().ToDouble(&z);
 	
 	// set camera orientation
 	m_camera->setAngles(x, y, z);
 	
 	// node to camera
-	node = node->GetParent();
+	m_node = m_node->GetParent();
 	
 	// node to lightsources
-	node = node->GetNext();
+	m_node = m_node->GetNext();
 	
 	// node to scene
-	node = node->GetNext();
+	m_node = m_node->GetNext();
 	
-	// node to first assembly or group
-	node = node->GetChildren();
+	// node to first scene children
+	m_node = m_node->GetChildren();
 	
-	// walk through all assembly-tags
-	while (node->GetName() == wxT("assembly"))
+	// set m_actual to m_scene->rootAssembly
+	m_actual = m_scene->getRootAssembly();
+	
+	// walk through all scene-children
+	while (m_node)
 	{
-		// do something with assembly
-		node = node->GetNext();
+		// check if is an assembly
+		if (m_node->GetName() == wxT("assembly"))
+		{
+			// create new Assembly
+			CreateAssembly(*m_inZip);
+		}
+		// check if is a group
+		else if (m_node->GetName() == wxT("group"))
+		{
+			// create new group
+			CreateGroup(*m_inZip);
+		}
+		
+		// check if next node is available
+		if (m_node->GetNext() == NULL)
+		{
+			break;
+		}
+		// everything ok, set next node
+		else
+		{
+			// set node to next children
+			m_node = m_node->GetNext();
+		}
 	}
-	
-#warning "INFO: Here todo someting, I'm waiting until monday(27.10.2008), if xml-format changes."
 }
 
 /**
  * Loads the given stream and get its all data.
  * @param       wxInputStream    Load obj-File as wxInputStream.
  */
-void GNROpxImport::LoadOax(wxInputStream& stream)
+GNRAssembly* GNROpxImport::LoadOax(wxZipInputStream& stream)
 {
+	// start oaximport and return assembly
+	m_oaxImport->Load(stream);
+	
+	// return assembly
+	return m_oaxImport->getAssembly();
+}
 
+void GNROpxImport::CreateAssembly(wxZipInputStream& stream)
+{
+	// temporary attributes
+	// GNRAssembly pointer
+	GNRAssembly* assembly;
+	
+	// flag if assembly is visible
+	bool isVisible;
+	
+	// double for converting
+	double x, y, z;
+	
+	// location
+	float locationX, locationY, locationZ;
+	
+	// orientation
+	float orientationX, orientationY, orientationZ;
+	
+	// prop to visible
+	m_prop = m_node->GetProperties();
+	
+	// set visibility
+	if (m_prop->GetValue() == wxT("true"))
+	{
+		isVisible = true;
+	}
+	else
+	{
+		isVisible = false;
+	}
+	
+	// m_prop to location
+	m_prop = m_prop->GetNext();
+	
+	// get value of location
+	m_value = m_prop->GetValue();
+	
+	// tokenize value
+	m_tok.SetString(m_value, wxT(" "));
+	
+	// get x-position
+	m_tok.GetNextToken().ToDouble(&x);
+	locationX = x;
+	
+	// get y-position
+	m_tok.GetNextToken().ToDouble(&y);
+	locationY = y;
+	
+	// get z-position
+	m_tok.GetNextToken().ToDouble(&z);
+	locationZ = z;
+	
+	// m_prop to orientation
+	m_prop = m_prop->GetNext();
+	
+	// get value of orientation
+	m_value = m_prop->GetValue();
+	
+	// tokenize value
+	m_tok.SetString(m_value, wxT(" "));
+	
+	// get x-orientation
+	m_tok.GetNextToken().ToDouble(&x);
+	orientationX = x;
+	
+	// get y-orientation
+	m_tok.GetNextToken().ToDouble(&y);
+	orientationY = y;
+	
+	// get z-orientation
+	m_tok.GetNextToken().ToDouble(&z);
+	orientationZ = z;
+	
+	// m_prop to ref
+	m_prop = m_prop->GetNext();
+	
+	// get filename
+	m_objFilename = m_prop->GetValue();
+	
+	// walk through all vector-entrys, find specified oax
+	for (m_vectorit = m_vector.begin(); m_vectorit != m_vector.end(); m_vectorit++)
+	{
+		// get actual zipEntry
+		m_ptrZipEntry = *m_vectorit;
+		
+		// set path separator
+		wxString sep = wxFileName::GetPathSeparator();
+		
+		// search entryname matches m_objFilename
+		if (m_ptrZipEntry->GetName().Matches(wxT("assemblies")+ sep + m_objFilename))
+		{
+			// openEntry
+			m_inZip->OpenEntry(*m_ptrZipEntry);
+			
+			// load xmlstream
+			assembly = LoadOax(*m_inZip);
+			
+			// entry found
+			continue;
+		}
+	}
+	
+	// set locationOffset
+	assembly->setXYZ(locationX, locationY, locationZ);
+	
+	// set orientationOffset x and z
+	assembly->setPhiTheta(orientationX, orientationZ);
+	
+	// set orientationOffset y
+	assembly->setRho(locationY);
+	
+	// check if m_actual is rootAssembly
+	if (m_actual == m_scene->getRootAssembly())
+	{
+		// if isVisible true, insert visble assembly
+		if (isVisible)
+		{
+			m_scene->insertAssembly(assembly);
+		}
+		// if not, insert hidden assembly
+		else
+		{
+			m_scene->insertHiddenAssembly(assembly);
+		}
+	}
+	else
+	{
+		m_actual->addPart(assembly);
+	}
+}
+
+void GNROpxImport::CreateGroup(wxZipInputStream& stream)
+{
+	// temporary attributes
+	// store visibility
+	bool isVisible;
+	
+	// double for converting
+	double x, y, z;
+	
+	// prop to visible
+	m_prop = m_node->GetProperties();
+	
+	// set visibility
+	if (m_prop->GetValue() == wxT("true"))
+	{
+		isVisible = true;
+	}
+	else
+	{
+		isVisible = false;
+	}
+	
+	// m_prop to name
+	m_prop = m_prop->GetNext();
+	
+	// create new Assembly -> new group
+	GNRAssembly* assembly = new GNRAssembly(m_prop->GetValue());
+	
+	// set type as group
+	assembly->setType(IS_GROUP);
+	
+	// set m_actual
+	m_actual = assembly;
+	
+	// m_prop to location
+	m_prop = m_prop->GetNext();
+	
+	// get value of location
+	m_value = m_prop->GetValue();
+	
+	// tokenize value
+	m_tok.SetString(m_value, wxT(" "));
+	
+	// get x-position
+	m_tok.GetNextToken().ToDouble(&x);
+	
+	// get y-position
+	m_tok.GetNextToken().ToDouble(&y);
+	
+	// get z-position
+	m_tok.GetNextToken().ToDouble(&z);
+	
+	// set location x, y, z
+	m_actual->setXYZ(x, y, z);
+	
+	// m_prop to orientation
+	m_prop = m_prop->GetNext();
+	
+	// get value of orientation
+	m_value = m_prop->GetValue();
+	
+	// tokenize value
+	m_tok.SetString(m_value, wxT(" "));
+	
+	// get x-orientation
+	m_tok.GetNextToken().ToDouble(&x);
+	
+	// get y-orientation
+	m_tok.GetNextToken().ToDouble(&y);
+	
+	// get z-orientation
+	m_tok.GetNextToken().ToDouble(&z);
+	
+	// set orientation x and z
+	m_actual->setPhiTheta(x, z);
+	
+	// set orientation y
+	m_actual->setRho(y);
+	
+	// set node to children
+	m_node = m_node->GetChildren();
+	
+	// walk through all scene-children
+	while (m_node)
+	{
+		// check if is an assembly
+		if (m_node->GetName() == wxT("assembly"))
+		{
+			// create new Assembly
+			CreateAssembly(*m_inZip);
+		}
+		// check if is a group
+		else if (m_node->GetName() == wxT("group"))
+		{
+			// create new group
+			CreateGroup(*m_inZip);
+		}
+		
+		// check if next node is available
+		if (m_node->GetNext() == NULL)
+		{
+			break;
+		}
+		// everything ok, set next node
+		else
+		{
+			// set node to next children
+			m_node = m_node->GetNext();
+		}
+	}
+	
+	// check if m_actual is rootAssembly
+	if (m_actual == m_scene->getRootAssembly())
+	{
+		// if isVisible true, insert visble assembly
+		if (isVisible)
+		{
+			m_scene->insertAssembly(assembly);
+		}
+		// if not, insert hidden assembly
+		else
+		{
+			m_scene->insertHiddenAssembly(assembly);
+		}
+	}
+	else
+	{
+		m_actual->addPart(assembly);
+	}
+	
+	// node to parent
+	m_node = m_node->GetParent();
+	
+	// m_actual to parent
+	m_actual = m_actual->getParent();
 }

@@ -11,10 +11,13 @@
 #ifndef _GNROPXIMPORT_H_
 #define _GNROPXIMPORT_H_
 
+#include <wx/tokenzr.h>
 #include <wx/wfstream.h>
+#include <wx/xml/xml.h>
 #include <wx/zipstrm.h>
 
 #include "GNRGLCamera.h"
+#include "GNROaxImport.h"
 #include "GNRScene.h"
 
 /**
@@ -45,11 +48,41 @@ protected:
 
 private:
 	// attributes
+	// string to store obj-filename
+	wxString m_objFilename;
+	
+	// pointer to GNRAssembly
+	GNRAssembly* m_actual;
+	
+	// pointer to oax-importer
+	GNROaxImport* m_oaxImport;
+	
+	// pointer to wxFFileInputStream
+	wxFFileInputStream* m_inFile;
+	
+	// pointer to wxZipInputStream
+	wxZipInputStream* m_inZip;
+	
 	// pointer of scene
+	GNRScene* m_scene;
+	
+	// pointer of camera
 	GNRGLCamera* m_camera;
 	
 	// pointer to actual zip entry
 	wxZipEntry* m_ptrZipEntry;
+	
+	// create pointer to xmlnode
+	wxXmlNode* m_node;
+	
+	// create pointer to xmlproperty
+	wxXmlProperty* m_prop;
+	
+	// create wxString to store propertyvalues
+	wxString m_value;
+	
+	// temporary attribute tokenizer
+	wxStringTokenizer m_tok;
 	
 	// vector of all entrys
 	std::vector<wxZipEntry*> m_vector;
@@ -71,7 +104,13 @@ private:
 	void LoadXml(wxInputStream& stream);
 	
 	// load oax
-	void LoadOax(wxInputStream& stream);
+	GNRAssembly* LoadOax(wxZipInputStream& stream);
+	
+	// create new assembly
+	void CreateAssembly(wxZipInputStream& stream);
+	
+	// create new group
+	void CreateGroup(wxZipInputStream& stream);
 };
 
 #endif // _GNROPXIMPORT_H_
