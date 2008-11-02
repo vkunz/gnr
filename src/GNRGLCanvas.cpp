@@ -251,10 +251,6 @@ void GNRGLCanvas::drawBaseFloor(float fCenterX, float fCenterY, float fCenterZ, 
 	
 	glNewList(m_floor_DL,GL_COMPILE);
 	{
-#if defined(__ATHOS_DEBUG__)
-		wxLogDebug(wxT("new GNRGLCanvas.glNewList.m_floor_DL"));
-#endif
-		
 		glEnable(GL_TEXTURE_2D);
 		glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
 		
@@ -808,9 +804,9 @@ void GNRGLCanvas::setActive()
  */
 void GNRGLCanvas::OnKeyDown(wxKeyEvent& event)
 {
-#if defined(__ATHOS_DEBUG__)
-	wxLogDebug(wxT("Key-Event"));
-#endif
+//#if defined(__ATHOS_DEBUG__)
+//	wxLogDebug(wxT("Key-Event"));
+//#endif
 }
 
 /**
