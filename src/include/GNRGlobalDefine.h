@@ -12,14 +12,14 @@
 #define GNRGLOBALDEFINE_H
 
 #define SNAP_IN_DEFAULT_GRID    500           //  500mm default
-#define SNAP_IN_DEFAULT_ANGLE    45           //   45° default
+#define SNAP_IN_DEFAULT_ANGLE    10           //   45° default
 #define SNAP_IN_MAXIMUM_UNIT   5000           // 5000mm maximum grid snap
 #define SNAP_IN_MINIMUM_UNIT     10           //   10cm minimum grid snap
 #define SNAP_IN_MAXIMUM_DEGREE   90           //   90° maximum degree
 #define SNAP_IN_MINIMUM_DEGREE   10           //   10° minimum degree
 #define SNAP_APPROACH_PERC        0.25f       //   25% of reached snap value
 
-#define CAMERA_HEIGHT_MIN         0.10        //   10cm minimum height of cam
+#define CAMERA_HEIGHT_MIN         1.00        //   10cm minimum height of cam
 #define CAMERA_DISTANCE_MIN       1.00        //  100cm minimum distance of cam
 
 #define DEFAULT_FLOOR_SIZE       64

@@ -106,32 +106,50 @@ void GNRGLCanvas::setMatrix()
 void GNRGLCanvas::initLights()
 {
 	//define light source
-	light_ambient[0] = 0.55;
-	light_ambient[1] = 0.55;
-	light_ambient[2] = 0.55;
-	light_ambient[3] = 1.0;
+	light_ambient[0] = 0.3;
+	light_ambient[1] = 0.3;
+	light_ambient[2] = 0.3;
+	light_ambient[3] = 0.0;
 	
-	light_diffuse[0] = 0.45;
-	light_diffuse[1] = 0.45;
-	light_diffuse[2] = 0.45;
-	light_diffuse[3] = 1.0;
+	light_diffuse[0] = 1.0;
+	light_diffuse[1] = 1.0;
+	light_diffuse[2] = 1.0;
+	light_diffuse[3] = 0.0;
 	
-	light_specular[0] = 0.25;
-	light_specular[1] = 0.25;
-	light_specular[2] = 0.25;
-	light_specular[3] = 1.0;
+	light_specular[0] = 0.1;
+	light_specular[1] = 0.1;
+	light_specular[2] = 0.1;
+	light_specular[3] = 0.0;
 	
-	//define light position
-	light_position[0] = 20.0;
-	light_position[1] = 40.0;
-	light_position[2] = 12.0;
-	light_position[3] = 1.0;
+	//define light position 1
+	light_position[0][0] = 30.0;
+	light_position[0][1] = 60.0;
+	light_position[0][2] = 20.0;
+	light_position[0][3] = 1.0;
+	
+	//define light position 2
+	light_position[1][0] = -64.0;
+	light_position[1][1] = 64.0;
+	light_position[1][2] = 64.0;
+	light_position[1][3] = 1.0;
+	
+	//define light position 3
+	light_position[2][0] = -64.0;
+	light_position[2][1] = 64.0;
+	light_position[2][2] = -64.0;
+	light_position[2][3] = 1.0;
+	
+	//define light position 4
+	light_position[3][0] = 64.0;
+	light_position[3][1] = 64.0;
+	light_position[3][2] = -64.0;
+	light_position[3][3] = 1.0;
 	
 	//define shadow color
-	shadow_color[0] = 0.2;
-	shadow_color[1] = 0.2;
-	shadow_color[2] = 0.2;
-	shadow_color[3] = 0.4;
+	shadow_color[0] = 0.3;
+	shadow_color[1] = 0.3;
+	shadow_color[2] = 0.3;
+	shadow_color[3] = 0.7;
 	
 	//normal of floor
 	floor_plane[0] = 0.0;
@@ -139,17 +157,33 @@ void GNRGLCanvas::initLights()
 	floor_plane[2] = 0.0;
 	floor_plane[3] = 0.0;
 	
-	glLightfv(GL_LIGHT0, GL_AMBIENT_AND_DIFFUSE, light_diffuse);
+	glLightfv(GL_LIGHT0, GL_DIFFUSE, light_diffuse);
+	glLightfv(GL_LIGHT0, GL_AMBIENT, light_ambient);
 	glLightfv(GL_LIGHT0, GL_SPECULAR, light_specular);
-	glLightfv(GL_LIGHT0, GL_POSITION, light_position);
+	glLightfv(GL_LIGHT0, GL_POSITION, light_position[0]);
 	
+//	glLightfv(GL_LIGHT1, GL_AMBIENT_AND_DIFFUSE, light_diffuse);
+//	glLightfv(GL_LIGHT1, GL_SPECULAR, light_specular);
+//	glLightfv(GL_LIGHT1, GL_POSITION, light_position[1]);
+//
+//	glLightfv(GL_LIGHT2, GL_AMBIENT_AND_DIFFUSE, light_diffuse);
+//	glLightfv(GL_LIGHT2, GL_SPECULAR, light_specular);
+//	glLightfv(GL_LIGHT2, GL_POSITION, light_position[2]);
+//
+//	glLightfv(GL_LIGHT3, GL_AMBIENT_AND_DIFFUSE, light_diffuse);
+//	glLightfv(GL_LIGHT3, GL_SPECULAR, light_specular);
+//	glLightfv(GL_LIGHT3, GL_POSITION, light_position[3]);
+
 	glLightModelfv(GL_LIGHT_MODEL_AMBIENT, light_ambient);
 	glLightModeli(GL_LIGHT_MODEL_TWO_SIDE, 1);
 	
 	glEnable(GL_LIGHTING);
 	glEnable(GL_LIGHT0);
-	
-	glClearColor(0.3, 0.3, 0.3, 1.0);
+//	glEnable(GL_LIGHT1);
+//	glEnable(GL_LIGHT2);
+//	glEnable(GL_LIGHT3);
+
+	glClearColor(0.2, 0.2, 0.2, 1.0);
 }
 
 /**
@@ -163,7 +197,11 @@ void GNRGLCanvas::initGL()
 	
 	glShadeModel(GL_SMOOTH);
 	
+	glFrontFace(GL_CCW);
+	glCullFace(GL_BACK);
+	
 	glDepthFunc(GL_LEQUAL);
+	
 	glBlendFunc(GL_ONE_MINUS_SRC_ALPHA,GL_SRC_ALPHA);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	glBlendFunc(GL_DST_COLOR, GL_SRC_COLOR);
@@ -174,27 +212,26 @@ void GNRGLCanvas::initGL()
 	glEnable(GL_POLYGON_SMOOTH);
 	glEnable(GL_CULL_FACE);
 	glEnable(GL_STENCIL_TEST);
-	glEnable(GL_POLYGON_OFFSET_FILL);
+	glEnable(GL_POLYGON_OFFSET_LINE);
+	glEnable(GL_POINT_SMOOTH);
 	
 	glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);
 	glHint(GL_LINE_SMOOTH_HINT, GL_NICEST);
 	glHint(GL_POLYGON_SMOOTH_HINT, GL_NICEST);
-	
-	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
 	
 	loadFloorTexture();
 	
 	glLineWidth(10.0f);
 	glClearDepth(1.0f);
 	
-	glPolygonMode(GL_FRONT, GL_FILL);
+	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 	
 	glEnable(GL_NORMALIZE);
 }
 
 void GNRGLCanvas::drawBaseFloor(float fCenterX, float fCenterY, float fCenterZ, int fSize)
 {
-	float FloorColor[4] = { 1.0f, 1.0f, 1.0f, 0.0f };
+	float FloorColor[4] = { 0.8f, 0.8f, 0.8f, 0.2f };
 	
 	glEnable(GL_TEXTURE_2D);
 	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
@@ -202,7 +239,7 @@ void GNRGLCanvas::drawBaseFloor(float fCenterX, float fCenterY, float fCenterZ, 
 	glMaterialfv(GL_FRONT, GL_SPECULAR, FloorColor);
 	glMaterialfv(GL_FRONT, GL_AMBIENT_AND_DIFFUSE, FloorColor);
 	glMaterialfv(GL_FRONT, GL_EMISSION, FloorColor);
-	glMaterialf(GL_FRONT, GL_SHININESS, 100.0);
+	glMaterialf(GL_FRONT, GL_SHININESS, 50.0);
 	
 	glBindTexture(GL_TEXTURE_2D, FloorTexture);
 	
@@ -211,22 +248,22 @@ void GNRGLCanvas::drawBaseFloor(float fCenterX, float fCenterY, float fCenterZ, 
 	//set normal
 	glNormal3f(0.0, 1.0, 0.0);
 	//set starting edge half of size from center
-	float s = (float)fSize/2.0;
+	float s = fSize/2;
 	float x = fCenterX - s, z = fCenterZ - s;
 	//draw fSize quads in x-axis
-	for (GLint i = 0; i < fSize; i++)
+	for (GLint i = -s; i < s; i++)
 	{
 		//draw fSize quads in z-axis
-		for (GLint j = 0; j < fSize; j++)
+		for (GLint j = -s; j < s; j++)
 		{
 			glTexCoord2f(0.0,0.0);
-			glVertex3f(x+j,fCenterY,z+i);
+			glVertex3f(j,fCenterY,i);
 			glTexCoord2f(0.0,1.0);
-			glVertex3f(x+j,fCenterY,z+i+1.0f);
+			glVertex3f(j,fCenterY,i+1.0f);
 			glTexCoord2f(1.0,1.0);
-			glVertex3f(x+j+1.0f,fCenterY,z+i+1.0f);
+			glVertex3f(j+1.0f,fCenterY,i+1.0f);
 			glTexCoord2f(1.0,0.0);
-			glVertex3f(x+j+1.0f,fCenterY,z+i);
+			glVertex3f(j+1.0f,fCenterY,i);
 		}
 	}
 	glEnd();
@@ -247,10 +284,6 @@ void GNRGLCanvas::loadFloorTexture()
 }
 
 void GNRGLCanvas::SetShadowMatrix(float shadowMat[4][4], float groundplane[4], float lightpos[4])
-
-
-
-
 {
 	float dot = groundplane[X]*lightpos[X] + groundplane[Y]*lightpos[Y] + groundplane[Z]*lightpos[Z] + groundplane[W]*lightpos[W];
 	shadowMat[X][0] = dot - lightpos[X] * groundplane[X];
@@ -274,7 +307,7 @@ void GNRGLCanvas::SetShadowMatrix(float shadowMat[4][4], float groundplane[4], f
 
 void GNRGLCanvas::loadShadowMatrix()
 {
-	SetShadowMatrix(floor_shadow,floor_plane,light_position);
+	SetShadowMatrix(floor_shadow,floor_plane,light_position[0]);
 	glMultMatrixf((float *) floor_shadow);
 }
 

@@ -43,7 +43,7 @@ protected:
 	GLfloat light_ambient[4];
 	GLfloat light_diffuse[4];
 	GLfloat light_specular[4];
-	GLfloat light_position[4];
+	GLfloat light_position[4][4];
 	GLfloat shadow_color[4];
 	GLfloat floor_shadow[4][4];
 	GLfloat floor_plane[4];

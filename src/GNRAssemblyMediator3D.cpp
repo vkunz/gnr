@@ -44,7 +44,7 @@ void GNRAssemblyMediator3D::MoveXY(GNRGLNotifyEvent& event)
 void GNRAssemblyMediator3D::MoveXZ(GNRGLNotifyEvent& event)
 {
 	float new_x = old_x - (gl_xmax-gl_xmin)*(m_mouse_x - event.getMouseEvent().GetX())/window_w;
-	float new_z = old_z - (gl_ymax-gl_ymin)*(m_mouse_y - event.getMouseEvent().GetY())/window_h*2.0f;
+	float new_z = old_z - (gl_ymax-gl_ymin)*(m_mouse_y - event.getMouseEvent().GetY())/window_h*4.0f;
 	
 	doSnapMove(new_x);
 	doSnapMove(new_z);

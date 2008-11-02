@@ -228,7 +228,7 @@ void GNRGLCamera::reset()
 	
 	rotatedX = rotatedY = rotatedZ = 0.0;
 	
-	m_distance = 2.5;
+	m_distance = 5.0;
 }
 
 /**

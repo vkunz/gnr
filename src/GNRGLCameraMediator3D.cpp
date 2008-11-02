@@ -68,6 +68,7 @@ void GNRGLCameraMediator3D::RotateXY(GNRGLNotifyEvent& event)
 	//rotate around the right-Vector
 	GNRVertex viewDir = old_viewDir*cos(xangle*M_PI/180.0) + old_upVector*sin(xangle*M_PI/180.0);
 	viewDir.normalize();
+	
 	GNRVertex upVector = old_rightVector * viewDir;
 	upVector.setY(1.0);
 	

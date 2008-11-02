@@ -338,7 +338,7 @@ GNRMainFrame::GNRMainFrame(wxWindow* parent, wxWindowID WXUNUSED(id))
 	//build input for rotation snapping
 	SpinCtrlRotate = new wxSpinCtrl(ToolBar1, ID_SPINCTRL_ROTATE, _T("Schrittweite in Grad"), wxPoint(0,0), wxSize(60,20), 0, SNAP_IN_MINIMUM_DEGREE, SNAP_IN_MAXIMUM_DEGREE, 10, _T("ID_SPINCTRL_ROTATE"));
 	StaticText2    = new wxStaticText(ToolBar1, ID_STATICTEXT2, _(" Grad"), wxPoint(3,13), wxSize(30,12), 0, _T("Schrittweite in Grad"));
-	SpinCtrlRotate->SetValue(_T("45"));
+	SpinCtrlRotate->SetValue(_T("10"));
 	ToolBarItem[c++] = ToolBar1->AddControl(SpinCtrlRotate);
 	ToolBarItem[c++] = ToolBar1->AddControl(StaticText2);
 	ToolBar1->AddSeparator();
