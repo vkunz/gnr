@@ -33,7 +33,7 @@ void GNRAssemblyMediator::setAssembly(GNRAssembly* assembly)
  */
 void GNRAssemblyMediator::initialize(GNRGLNotifyEvent& event)
 {
-	if (m_Assembly != NULL)
+	if (m_Assembly != NULL && (int)m_Assembly != 0)
 	{
 		m_initialized = true;
 		

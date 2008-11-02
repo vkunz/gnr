@@ -279,7 +279,7 @@ void GNRApp::OnGNREvent(GNRNotifyEvent& event)
 		break;
 	case DISPLAYLENGTH:
 		wxString str;
-		int length = floor(1000.0 * event.getFloat());
+		int length = (int)floor(1000.0 * event.getFloat());
 		str << wxT("Wandlänge: ") << length << wxT(" mm");
 		m_MainFrame->getStatusbar()->SetStatusText(str);
 		break;
@@ -432,11 +432,11 @@ void GNRApp::OAXExport(GNRFrameData* data)
 void GNRApp::OBJImport(wxString filename)
 {
 	// create objoaxconv
-	m_ObjOaxConv = new GNRObjOaxConverter(filename, m_TreeLibCtrl->getAllCategories());
+	//m_ObjOaxConv = new GNRObjOaxConverter(filename, m_TreeLibCtrl->getAllCategories());
 	
-	//GNRObjectImport import(filename);
+	GNRObjectImport import(filename);
 	
-	//m_Scene->getRootAssembly()->addPart(import.getAssembly());
+	m_Scene->insertAssembly(import.getAssembly());
 }
 
 /**

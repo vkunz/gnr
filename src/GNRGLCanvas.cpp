@@ -105,9 +105,41 @@ void GNRGLCanvas::setMatrix()
 
 void GNRGLCanvas::initLights()
 {
-	//set active canvas
-	SetCurrent();
+	glLightfv(GL_LIGHT0, GL_DIFFUSE, light_diffuse);
+	glLightfv(GL_LIGHT0, GL_AMBIENT, light_ambient);
+	glLightfv(GL_LIGHT0, GL_SPECULAR, light_specular);
+	glLightfv(GL_LIGHT0, GL_POSITION, light_position[0]);
 	
+//	glLightfv(GL_LIGHT1, GL_AMBIENT_AND_DIFFUSE, light_diffuse);
+//	glLightfv(GL_LIGHT1, GL_SPECULAR, light_specular);
+//	glLightfv(GL_LIGHT1, GL_POSITION, light_position[1]);
+//
+//	glLightfv(GL_LIGHT2, GL_AMBIENT_AND_DIFFUSE, light_diffuse);
+//	glLightfv(GL_LIGHT2, GL_SPECULAR, light_specular);
+//	glLightfv(GL_LIGHT2, GL_POSITION, light_position[2]);
+//
+//	glLightfv(GL_LIGHT3, GL_AMBIENT_AND_DIFFUSE, light_diffuse);
+//	glLightfv(GL_LIGHT3, GL_SPECULAR, light_specular);
+//	glLightfv(GL_LIGHT3, GL_POSITION, light_position[3]);
+
+	glLightModelfv(GL_LIGHT_MODEL_AMBIENT, light_ambient);
+	glLightModeli(GL_LIGHT_MODEL_TWO_SIDE, 1);
+	
+	glEnable(GL_LIGHTING);
+	glEnable(GL_LIGHT0);
+//	glEnable(GL_LIGHT1);
+//	glEnable(GL_LIGHT2);
+//	glEnable(GL_LIGHT3);
+
+	glClearColor(0.2, 0.2, 0.2, 1.0);
+}
+
+/**
+ * does the initialization for the 3D canvas
+ * @access      protected
+ */
+void GNRGLCanvas::initGL()
+{
 	//define light source
 	light_ambient[0] = 0.3;
 	light_ambient[1] = 0.3;
@@ -160,63 +192,30 @@ void GNRGLCanvas::initLights()
 	floor_plane[2] = 0.0;
 	floor_plane[3] = 0.0;
 	
-	glLightfv(GL_LIGHT0, GL_DIFFUSE, light_diffuse);
-	glLightfv(GL_LIGHT0, GL_AMBIENT, light_ambient);
-	glLightfv(GL_LIGHT0, GL_SPECULAR, light_specular);
-	glLightfv(GL_LIGHT0, GL_POSITION, light_position[0]);
-	
-//	glLightfv(GL_LIGHT1, GL_AMBIENT_AND_DIFFUSE, light_diffuse);
-//	glLightfv(GL_LIGHT1, GL_SPECULAR, light_specular);
-//	glLightfv(GL_LIGHT1, GL_POSITION, light_position[1]);
-//
-//	glLightfv(GL_LIGHT2, GL_AMBIENT_AND_DIFFUSE, light_diffuse);
-//	glLightfv(GL_LIGHT2, GL_SPECULAR, light_specular);
-//	glLightfv(GL_LIGHT2, GL_POSITION, light_position[2]);
-//
-//	glLightfv(GL_LIGHT3, GL_AMBIENT_AND_DIFFUSE, light_diffuse);
-//	glLightfv(GL_LIGHT3, GL_SPECULAR, light_specular);
-//	glLightfv(GL_LIGHT3, GL_POSITION, light_position[3]);
-
-	glLightModelfv(GL_LIGHT_MODEL_AMBIENT, light_ambient);
-	glLightModeli(GL_LIGHT_MODEL_TWO_SIDE, 1);
-	
-	glEnable(GL_LIGHTING);
-	glEnable(GL_LIGHT0);
-//	glEnable(GL_LIGHT1);
-//	glEnable(GL_LIGHT2);
-//	glEnable(GL_LIGHT3);
-
-	glClearColor(0.2, 0.2, 0.2, 1.0);
+	//calculate shadow matrix on init
 	SetShadowMatrix(floor_shadow,floor_plane,light_position[0]);
-}
-
-/**
- * does the initialization for the 3D canvas
- * @access      protected
- */
-void GNRGLCanvas::initGL()
-{
+	
 	//set active canvas
 	SetCurrent();
 	
 	glShadeModel(GL_SMOOTH);
 	
 	glFrontFace(GL_CCW);
-	glCullFace(GL_FRONT);
+	glCullFace(GL_BACK);
 	
 	glDepthFunc(GL_LEQUAL);
 	
 	glBlendFunc(GL_ONE_MINUS_SRC_ALPHA,GL_SRC_ALPHA);
-	//glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-	//glBlendFunc(GL_DST_COLOR, GL_SRC_COLOR);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	glBlendFunc(GL_DST_COLOR, GL_SRC_COLOR);
 	
 	glEnable(GL_BLEND);
 	glEnable(GL_DEPTH_TEST);
-	//glEnable(GL_LINE_SMOOTH);
-	//glEnable(GL_POLYGON_SMOOTH);
+	glEnable(GL_LINE_SMOOTH);
+	glEnable(GL_POLYGON_SMOOTH);
 	glEnable(GL_CULL_FACE);
 	glEnable(GL_STENCIL_TEST);
-	//glEnable(GL_POLYGON_OFFSET_LINE);
+	glEnable(GL_POLYGON_OFFSET_LINE);
 	glEnable(GL_POINT_SMOOTH);
 	
 	glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);
@@ -355,7 +354,6 @@ void GNRGLCanvas::prepareDraw()
 
 void GNRGLCanvas::endDraw()
 {
-	glFlush();
 	SwapBuffers();
 }
 
@@ -378,9 +376,6 @@ void GNRGLCanvas::preparePixelBuffer()
  */
 GNRAssembly* GNRGLCanvas::selection(GNRAssembly* rootAssembly, GNRGLCamera* camera, int mouse_x, int mouse_y)
 {
-	//set focus on frame
-	SetFocus();
-	//set current GL-Frame
 	SetCurrent();
 	// Set Up A Selection Buffer
 	GLuint	buffer[512];
@@ -470,11 +465,7 @@ GNRAssembly* GNRGLCanvas::selection(GNRAssembly* rootAssembly, GNRGLCamera* came
  */
 void GNRGLCanvas::OnLMouseDown(wxMouseEvent& event)
 {
-	//set focus on frame
 	SetFocus();
-	//set current GL-Frame
-	SetCurrent();
-	
 	Connect(wxEVT_MOUSEWHEEL, (wxObjectEventFunction)&GNRGLCanvas::OnMouseWheel);
 	
 	GNRVertex* glcoords = new GNRVertex[2];
@@ -501,11 +492,7 @@ void GNRGLCanvas::OnLMouseDown(wxMouseEvent& event)
  */
 void GNRGLCanvas::OnLMouseDblClick(wxMouseEvent& event)
 {
-	//set focus on frame
 	SetFocus();
-	//set current GL-Frame
-	SetCurrent();
-	
 	Connect(wxEVT_MOUSEWHEEL, (wxObjectEventFunction)&GNRGLCanvas::OnMouseWheel);
 	
 	GNRVertex* glcoords = new GNRVertex[2];
@@ -659,9 +646,6 @@ void GNRGLCanvas::OnLeaveWindow(wxMouseEvent& event)
  */
 void GNRGLCanvas::OnEnterWindow(wxMouseEvent& event)
 {
-	// set current GL-Frame
-	SetCurrent();
-	
 	Connect(wxEVT_MOUSEWHEEL, (wxObjectEventFunction)&GNRGLCanvas::OnMouseWheel);
 	Disconnect(wxEVT_MOTION, (wxObjectEventFunction)&GNRGLCanvas::OnMouseMove);
 	
@@ -680,9 +664,6 @@ void GNRGLCanvas::OnEnterWindow(wxMouseEvent& event)
  */
 void GNRGLCanvas::OnResize(wxSizeEvent& WXUNUSED(event))
 {
-	// set current GL-Frame
-	SetCurrent();
-	
 	//get canvas-size
 	GetClientSize(&m_window_x, &m_window_y);
 	
@@ -718,9 +699,6 @@ void GNRGLCanvas::reshape()
  */
 void GNRGLCanvas::OnPaint(wxPaintEvent& event)
 {
-	// set current GL-Frame
-	SetCurrent();
-	
 	// Event for Redrawing the Canvases
 	GNRNotifyEvent myevent(wxEVT_COMMAND_GNR_NOTIFY);
 	myevent.setGNREventType(GLREFRESH);
@@ -808,9 +786,9 @@ void GNRGLCanvas::setActive()
  */
 void GNRGLCanvas::OnKeyDown(wxKeyEvent& event)
 {
-//#if defined(__ATHOS_DEBUG__)
-//	wxLogDebug(wxT("Key-Event"));
-//#endif
+#if defined(__ATHOS_DEBUG__)
+	wxLogDebug(wxT("Key-Event"));
+#endif
 }
 
 /**

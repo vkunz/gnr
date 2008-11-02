@@ -187,11 +187,11 @@ void GNRScene::glRefresh()
  */
 void GNRScene::glRefreshCanvas()
 {
-	//initialize only light source
-	m_GLOUT->initLights();
-	
 	//prepare and draw 2D top view of room
 	m_GLOUT->prepareDraw();
+	
+	//initialize only light source
+	m_GLOUT->initLights();
 	
 	//set camera for scene
 	m_GLCAM->render();
