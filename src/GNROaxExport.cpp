@@ -165,7 +165,7 @@ void GNROaxExport::createOaxStream()
 		m_outStream = new wxFFileOutputStream(wxT("data\\") + m_frameData->m_name + wxT(".oax"));
 		
 		// create new wxZipOutputStream object
-		m_outZip = new wxZipOutputStream(m_outStream, -1, wxConvUTF8);
+		m_outZip = new wxZipOutputStream(m_outStream, -1);
 	}
 	// if not, use m_outStream
 	else
@@ -184,7 +184,9 @@ void GNROaxExport::createOaxStream()
 		wxFFileInputStream inFile((*it));
 		
 		// put nex entry
-		m_outZip->PutNextEntry((*it).AfterLast('\\'));
+		wxString filename = (*it).AfterLast('\\');
+		
+		m_outZip->PutNextEntry(filename);
 		
 		// copy data
 		inFile.Read(*m_outZip);

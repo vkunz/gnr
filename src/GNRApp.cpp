@@ -24,9 +24,9 @@
 #include <wx/log.h>
 #endif
 
-//!!quick && dirty!!
 #include "GNRMaterialLibrary.h"
 GNRMaterialLibrary mtllib;
+#warning "INFO: Has to be organized somewhere else?"
 //!!quick && dirty!!
 
 
