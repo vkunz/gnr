@@ -135,6 +135,7 @@
 		<Unit filename="src\GNRObjOaxConverter.cpp" />
 		<Unit filename="src\GNRObjOaxConverterFrame.cpp" />
 		<Unit filename="src\GNRObjectImport.cpp" />
+		<Unit filename="src\GNROpxExport.cpp" />
 		<Unit filename="src\GNROpxImport.cpp" />
 		<Unit filename="src\GNRPrimitiveCreator.cpp" />
 		<Unit filename="src\GNRScene.cpp" />
@@ -185,6 +186,7 @@
 		<Unit filename="src\include\GNRObjOaxConverter.h" />
 		<Unit filename="src\include\GNRObjOaxConverterFrame.h" />
 		<Unit filename="src\include\GNRObjectImport.h" />
+		<Unit filename="src\include\GNROpxExport.h" />
 		<Unit filename="src\include\GNROpxImport.h" />
 		<Unit filename="src\include\GNRPrimitiveCreator.h" />
 		<Unit filename="src\include\GNRScene.h" />

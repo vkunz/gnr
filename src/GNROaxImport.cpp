@@ -164,6 +164,19 @@ void GNROaxImport::Load(wxZipInputStream& stream)
 	}
 }
 
+void GNROaxImport::Load(wxInputStream& instream)
+{
+	// create zipstream
+	wxZipInputStream stream(instream);
+	
+	wxZipEntry* entry = stream.GetNextEntry();
+	
+	wxLogDebug(entry->GetName());
+	
+	// load stream
+	Load(stream);
+}
+
 /**
  * Parses @a filename as a InputFile stream and loads its data.
  * @param       wxString       Filename to read from.

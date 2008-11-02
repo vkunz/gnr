@@ -1,41 +1,40 @@
 /**
- * GNROaxExport
- * @name        GNROaxExport
- * @date        2008-09-30
+ * GNROpxExport
+ * @name        GNROpxExport.h
+ * @date        2008-11-02
  * @author		Konstantin Balabin  <k.balabin@googlemail.com>
  * @author		Patrick Kracht      <patrick.kracht@googlemail.com>
  * @author		Thorsten Moll       <thorsten.moll@googlemail.com>
  * @author		Valentin Kunz       <athostr@googlemail.com>
  */
 
-#ifndef _GNROAXEXPORT_H_
-#define _GNROAXEXPORT_H_
+#ifndef _GNROPXEXPORT_H_
+#define _GNROPXEXPORT_H_
 
+#include <wx/string.h>
 #include <wx/wfstream.h>
 #include <wx/xml/xml.h>
 #include <wx/zipstrm.h>
 
-#include "GNRAssembly.h"
-#include "GNRFrameData.h"
-#include "GNROaxExport.h"
+#include "GNRScene.h"
 
-class GNROaxExport
+class GNROpxExport
 {
 public:
-
 	// ctor
-	GNROaxExport(GNRFrameData* data);
+	GNROpxExport();
 	
-	GNROaxExport(GNRAssembly* assembly);
+	GNROpxExport(GNRScene* scene, wxString filename);
 	
 	// dtor
-	virtual ~GNROaxExport();
+	virtual ~GNROpxExport();
 	
 protected:
 
 private:
 	// attributes
-	bool m_saveToFileSystem;
+	// pointer to scene
+	GNRScene* m_scene;
 	
 	// create pointer to xmlnode
 	wxXmlNode* m_node;
@@ -45,9 +44,6 @@ private:
 	
 	// create pointer to xmlproperty
 	wxXmlProperty* m_prop;
-	
-	// container to store data
-	GNRFrameData* m_frameData;
 	
 	// pointer to wxZipOutputStream
 	wxZipOutputStream* m_outZip;
@@ -60,7 +56,7 @@ private:
 	void createXmlEntry();
 	
 	// create oax zip outputstream
-	void createOaxStream();
+	void createOpxStream();
 };
 
-#endif // _GNROAXEXPORT_H_
+#endif // _GNROPXEXPORT_H_

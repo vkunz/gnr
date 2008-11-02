@@ -393,7 +393,7 @@ void GNRMainFrame::OnMenuOpxOpen(wxCommandEvent& WXUNUSED(event))
 
 void GNRMainFrame::OnMenuOpxSave(wxCommandEvent& WXUNUSED(event))
 {
-	const wxString& filename = wxFileSelector(wxT("Datei wählen..."), wxT(""), wxT(""), wxT(""), wxT("OpxDatei (*.opx)|*.opx"));
+	const wxString& filename = wxFileSelector(wxT("Datei wählen..."), wxT(""), wxT(""), wxT(""), wxT("OpxDatei (*.opx)|*.opx"), wxFD_SAVE);
 	
 	// look if string is not empty
 	if (!filename.IsEmpty())
@@ -453,7 +453,7 @@ void GNRMainFrame::OnMenuObjImport(wxCommandEvent& event)
 
 void GNRMainFrame::OnMenuObjExport(wxCommandEvent& WXUNUSED(event))
 {
-	const wxString& filename = wxFileSelector(wxT("Datei wählen..."), wxT("Datei wählen..."), wxT(""), wxT("Datei wählen..."), wxT("ObjDatei (*.obj)|*.obj"));
+	const wxString& filename = wxFileSelector(wxT("Datei wählen..."), wxT("Datei wählen..."), wxT(""), wxT("Datei wählen..."), wxT("ObjDatei (*.obj)|*.obj"), wxFD_SAVE);
 	
 	// look if string is not empty
 	if (!filename.IsEmpty())

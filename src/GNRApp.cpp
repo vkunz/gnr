@@ -17,6 +17,7 @@
 #include "GNROaxExport.h"
 #include "GNROaxImport.h"
 #include "GNRObjectImport.h"
+#include "GNROpxExport.h"
 #include "GNROpxImport.h"
 #include "GNRObjOaxConverter.h"
 
@@ -393,9 +394,8 @@ void GNRApp::OPXOpen(wxString filename)
  */
 void GNRApp::OPXSave(wxString filename)
 {
-#if defined(__ATHOS_DEBUG__)
-	wxLogDebug(wxT("Leider noch nicht implementiert!"));
-#endif
+	// create new opx export object
+	GNROpxExport opxExport(m_Scene, filename);
 }
 
 /**

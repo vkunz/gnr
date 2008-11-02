@@ -104,7 +104,7 @@ private:
 	void LoadXml(wxInputStream& stream);
 	
 	// load oax
-	GNRAssembly* LoadOax(wxZipInputStream& stream);
+	GNRAssembly* LoadOax(wxInputStream& stream);
 	
 	// create new assembly
 	void CreateAssembly(wxZipInputStream& stream);

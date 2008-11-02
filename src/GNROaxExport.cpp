@@ -1,6 +1,6 @@
 /**
- * FrameData
- * @name        GNRFrameData.h
+ * GNROaxExport
+ * @name        GNROaxExport.cpp
  * @date        2008-09-30
  * @author		Konstantin Balabin  <k.balabin@googlemail.com>
  * @author		Patrick Kracht      <patrick.kracht@googlemail.com>
@@ -52,7 +52,7 @@ void GNROaxExport::createXmlEntry()
 	xml.SetVersion(wxT("1.0"));
 	
 	// set file encoding
-	xml.SetFileEncoding(wxT("UTF-8"));
+	xml.SetFileEncoding(wxT("utf-8"));
 	
 	// create root, future root
 	wxXmlNode* root = new wxXmlNode(wxXML_ELEMENT_NODE, wxT("oaxml"));
@@ -152,7 +152,10 @@ void GNROaxExport::createXmlEntry()
 	// create new entry
 	m_outZip->PutNextEntry(wxT("content.xml"));
 	
+	// save xml document to zipstream
 	xml.Save(*m_outZip);
+	
+	// close entry
 	m_outZip->CloseEntry();
 }
 
@@ -162,7 +165,7 @@ void GNROaxExport::createOaxStream()
 	if (m_saveToFileSystem)
 	{
 		// create FileOutputStream
-		m_outStream = new wxFFileOutputStream(wxT("data\\") + m_frameData->m_name + wxT(".oax"));
+		m_outStream = new wxFFileOutputStream(wxT("data") + wxFileName::GetPathSeparator() + m_frameData->m_name + wxT(".oax"));
 		
 		// create new wxZipOutputStream object
 		m_outZip = new wxZipOutputStream(m_outStream, -1);
@@ -171,7 +174,7 @@ void GNROaxExport::createOaxStream()
 	else
 	{
 		// create new wxZipOutputStream object and use m_outStream as parent
-		m_outZip = new wxZipOutputStream(m_outStream, -1, wxConvUTF8);
+		m_outZip = new wxZipOutputStream(m_outStream, -1);
 	}
 	
 	// create new xml entry
@@ -195,5 +198,6 @@ void GNROaxExport::createOaxStream()
 		m_outZip->CloseEntry();
 	}
 	
+	// close zip file
 	m_outZip->Close();
 }

@@ -50,6 +50,8 @@ public:
 	// load stream
 	void Load(wxZipInputStream& stream);
 	
+	void Load(wxInputStream& instream);
+	
 	// load file
 	void Load(wxString& filename);
 	

@@ -253,10 +253,13 @@ void GNROpxImport::LoadXml(wxInputStream& stream)
  * Loads the given stream and get its all data.
  * @param       wxInputStream    Load obj-File as wxInputStream.
  */
-GNRAssembly* GNROpxImport::LoadOax(wxZipInputStream& stream)
+GNRAssembly* GNROpxImport::LoadOax(wxInputStream& stream)
 {
+	// create new wxZipInputStream
+	wxZipInputStream inZip(stream);
+	
 	// start oaximport and return assembly
-	m_oaxImport->Load(stream);
+	m_oaxImport->Load(inZip);
 	
 	// return assembly
 	return m_oaxImport->getAssembly();
@@ -351,12 +354,12 @@ void GNROpxImport::CreateAssembly(wxZipInputStream& stream)
 		wxString sep = wxFileName::GetPathSeparator();
 		
 		// search entryname matches m_objFilename
-		if (m_ptrZipEntry->GetName().Matches(wxT("assemblies")+ sep + m_objFilename))
+		if (m_ptrZipEntry->GetName().Matches(wxT("assemblies") + sep + m_objFilename))
 		{
 			// openEntry
 			m_inZip->OpenEntry(*m_ptrZipEntry);
 			
-			// load xmlstream
+			// load oax
 			assembly = LoadOax(*m_inZip);
 			
 			// entry found
