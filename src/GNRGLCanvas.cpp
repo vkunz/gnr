@@ -33,6 +33,9 @@ END_EVENT_TABLE()
 
 extern GNRMaterialLibrary mtllib;
 
+//static display list for floor
+GLuint GNRGLCanvas::m_floor_DL;
+
 /**
  * constructor of GNRGLCanvas
  * @param       wxWindow*       Parent-Window

@@ -41,6 +41,10 @@ void GNRAssemblyMediator::initialize(GNRGLNotifyEvent& event)
 		old_y = m_Assembly->getY();
 		old_z = m_Assembly->getZ();
 		
+		scale_x = m_Assembly->getScaleX();
+		scale_y = m_Assembly->getScaleY();
+		scale_z = m_Assembly->getScaleZ();
+		
 		phi_old   = m_Assembly->getPhi();
 		theta_old = m_Assembly->getTheta();
 		rho_old   = m_Assembly->getRho();

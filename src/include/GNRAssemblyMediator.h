@@ -43,6 +43,9 @@ protected:
 	float old_x;
 	float old_y;
 	float old_z;
+	float scale_x;
+	float scale_y;
+	float scale_z;
 	float phi_old;
 	float theta_old;
 	float rho_old;
