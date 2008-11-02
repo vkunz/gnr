@@ -407,7 +407,7 @@ void GNRApp::OAXImport(wxString filename)
 	GNROaxImport in(filename);
 	
 	// get assembly
-	m_Scene->getRootAssembly()->addPart(in.getAssembly());
+	m_Scene->insertAssembly(in.getAssembly());
 }
 
 /**
