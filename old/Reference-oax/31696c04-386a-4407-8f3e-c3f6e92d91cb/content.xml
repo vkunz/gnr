@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<oaxml standard="oaxml.hs-ulm.de" version="0.1.0">
+	<assemblyInformation>
+		<name>Tie-Fighter</name>
+		<author>Athos</author>
+		<date>2008-09-22T10:02:00</date>
+		<tags>
+			<tag>Tie-Fighter</tag>
+			<tag>Starwars</tag>
+		</tags>
+	</assemblyInformation>
+	<data>
+		<obj scale="1.0 1.0 1.0" locationOffset="0 0 0" orientationOffset="0 0 0" ref="tie.obj"/>
+	</data>
+</oaxml>

@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<opxml standard="opxml.hs-ulm.de" version="0.1.0">
+	<projectInformation>
+		<name>ExampleProject</name>
+		<author>Athos</author>
+	</projectInformation>
+	<data>
+		<camera>
+			<type>perspective</type>
+			<position location="0 2.3 0.5" orientation="-90 0.2 0"/>
+		</camera>
+		<lightsources>
+			<lightsource active="true">
+				<position location="0.3 5 0"/>
+				<ambient color="0.7 0.457 0 0.7"/>
+				<diffuse color="0 0.4 0 0.2"/>
+				<specular color="0. 1 0 0.4 0.3"/>
+			</lightsource>
+			<lightsource active="true">
+				<position location="0.3 1.2 0.8"/>
+				<ambient color="0.7 0.457 0 0.7"/>
+				<diffuse color="0 0.4 0 0.2"/>
+				<specular color="0. 1 0 0.4 0.3"/>
+				<spot angle="45" orientation="-95 20.4 2"/>
+			</lightsource>
+		</lightsources>
+		<scene>
+			<assembly visible="true" location="0 0 2.4" orientation="0 10 0" ref="31696c04-386a-4407-8f3e-c3f6e92d91ca.oax"/>
+			<assembly visible="true" location="0 0.23 0" orientation="0 0 5" ref="31696c04-386a-4407-8f3e-c3f6e92d91cb.oax"/>
+			<group visible="true" name="Group1" location="0 0 0" orientation="0 0 0">
+				<assembly visible="true" location="0.2 0 0" orientation="30 0 0" ref="31696c04-386a-4407-8f3e-c3f6e92d91cc.oax"/>
+				<assembly visible="true" location="0 0 0.8" orientation="0 7 0" ref="31696c04-386a-4407-8f3e-c3f6e92d91cd.oax"/>
+				<group visible="true" name="Group4" location="0 0 0" orientation="0 0 0">
+					<assembly visible="false" location="0 0 10" orientation="0 0 50" ref="31696c04-386a-4407-8f3e-c3f6e92d91ca.oax"/>
+					<assembly visible="true" location="8 0 0" orientation="0 20 70" ref="31696c04-386a-4407-8f3e-c3f6e92d91cc.oax"/>
+				</group>
+			</group>
+			<group visible="true" name="Group2" location="0 0 0" orientation="0 0 0">
+				<assembly visible="false" location="0 0 10" orientation="0 0 50" ref="31696c04-386a-4407-8f3e-c3f6e92d91ca.oax"/>
+				<assembly visible="true" location="8 0 0" orientation="0 20 70" ref="31696c04-386a-4407-8f3e-c3f6e92d91cc.oax"/>
+			</group>
+		</scene>
+	</data>
+</opxml>

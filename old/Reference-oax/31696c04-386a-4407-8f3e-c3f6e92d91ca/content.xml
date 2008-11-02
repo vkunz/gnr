@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<oaxml standard="oaxml.hs-ulm.de" version="0.1.0">
+	<assemblyInformation>
+		<name>Apple IMac</name>
+		<author>Athos</author>
+		<tags>
+			<tag>PC</tag>
+			<tag>IMac</tag>
+		</tags>
+	</assemblyInformation>
+	<data>
+		<obj scale="0.5 0.5 0.5" locationOffset="0.2 0.8 1" orientationOffset="20 10 5" ref="apple_pc.obj"/>
+	</data>
+</oaxml>
