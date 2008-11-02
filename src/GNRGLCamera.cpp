@@ -201,6 +201,9 @@ void GNRGLCamera::changeDistance(float distance)
 	if (m_distance <= CAMERA_DISTANCE_MIN)
 	{
 		m_distance = CAMERA_DISTANCE_MIN;
+		GNRVertex oldViewPoint = viewPoint;
+		oldViewPoint.setY(viewPoint.getY()-m_distance);
+		setViewPoint(oldViewPoint);
 	}
 }
 
