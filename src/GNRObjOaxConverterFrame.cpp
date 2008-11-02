@@ -29,7 +29,7 @@ const long GNRObjOaxConverterFrame::idStxCategory   = wxNewId();
 const long GNRObjOaxConverterFrame::idStxWidth      = wxNewId();
 const long GNRObjOaxConverterFrame::idStxDepth      = wxNewId();
 const long GNRObjOaxConverterFrame::idStxHeight     = wxNewId();
-const long GNRObjOaxConverterFrame::idTxtName       = wxNewId();
+const long GNRObjOaxConverterFrame::idTxcName       = wxNewId();
 
 // ctor
 GNRObjOaxConverterFrame::GNRObjOaxConverterFrame(wxWindow* parent, wxWindowID id)
