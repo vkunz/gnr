@@ -48,6 +48,8 @@ private:
 	//ID of actual selected assembly
 	GNRAssembly* m_Assembly;
 	
+	bool m_shadows;
+	
 	void glRefreshCanvas();
 	void initContainers();
 	void destroyContainers();
@@ -74,6 +76,7 @@ public:
 	void glRefresh2D();
 	void glRefresh3D();
 	
+	void toggleShadows(bool status);
 	void drawLine(GNRLineDrawEvent& event);
 	
 	void deleteSelectedAssemblies();

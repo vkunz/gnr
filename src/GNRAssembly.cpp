@@ -365,6 +365,36 @@ const wxString& GNRAssembly::getName() const
 }
 
 /**
+ * get real width in meters
+ * @return      float      width in meters
+ * @access      public
+ */
+float GNRAssembly::getWidthMeters() const
+{
+	return m_scale_x*m_width;
+}
+
+/**
+ * get real height in meters
+ * @return      float      height in meters
+ * @access      public
+ */
+float GNRAssembly::getHeightMeters() const
+{
+	return m_scale_y*m_height;
+}
+
+/**
+ * get real depth in meters
+ * @return      float      depth in meters
+ * @access      public
+ */
+float GNRAssembly::getDepthMeters() const
+{
+	return m_scale_z*m_depth;
+}
+
+/**
  * get pointer to parent assembly
  * @return      GNRAssembly*      pointer to parent
  * @access      public
@@ -798,6 +828,18 @@ void GNRAssembly::setParent(GNRAssembly* p)
 void GNRAssembly::setType(const assemblyType& type)
 {
 	m_type = type;
+}
+
+/**
+ * move assembly by vertext
+ * @param       GNRVertex      vertex to center
+ * @access      public
+ */
+void GNRAssembly::move(const GNRVertex& center)
+{
+	m_x = m_x + center.getX();
+	m_y = m_y + center.getY();
+	m_z = m_z + center.getZ();
 }
 
 /**

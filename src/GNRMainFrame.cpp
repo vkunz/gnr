@@ -102,6 +102,7 @@ const long GNRMainFrame::idMenuMoveXY = wxNewId();
 const long GNRMainFrame::idMenuRotateXZ = wxNewId();
 const long GNRMainFrame::idMenuRotateXY = wxNewId();
 const long GNRMainFrame::idMenuDrawWall = wxNewId();
+const long GNRMainFrame::idMenuShadows = wxNewId();
 const long GNRMainFrame::idMenuGroup = wxNewId();
 const long GNRMainFrame::idMenuUngroup = wxNewId();
 const long GNRMainFrame::idMenuHelp = wxNewId();
@@ -142,7 +143,6 @@ BEGIN_EVENT_TABLE(GNRMainFrame,wxFrame)
 	EVT_MENU(btn_move_xy, GNRMainFrame::OnToolbarMoveXY)
 	EVT_MENU(btn_rotate_xz, GNRMainFrame::OnToolbarRotateXZ)
 	EVT_MENU(btn_rotate_xy, GNRMainFrame::OnToolbarRotateXY)
-	EVT_MENU(btn_rotate_xy, GNRMainFrame::OnToolbarRotateXY)
 	EVT_MENU(btn_draw_walls, GNRMainFrame::OnToolbarDrawWall)
 	EVT_MENU(btn_create_screenshot, GNRMainFrame::OnCreateScreenshot)
 	EVT_MENU(btn_camera_reset, GNRMainFrame::OnCameraReset)
@@ -167,6 +167,7 @@ BEGIN_EVENT_TABLE(GNRMainFrame,wxFrame)
 	EVT_MENU(idMenuZoomReset, GNRMainFrame::OnCameraReset)
 	//settings menu sync to toolbar
 	EVT_MENU(idMenuSnapToGrid, GNRMainFrame::OnSnapToGridMenu)
+	EVT_MENU(idMenuShadows, GNRMainFrame::OnShadowsMenu)
 	EVT_MENU(idMenuMoveXZ, GNRMainFrame::OnToolbarMoveXZ)
 	EVT_MENU(idMenuMoveXY, GNRMainFrame::OnToolbarMoveXY)
 	EVT_MENU(idMenuRotateXZ, GNRMainFrame::OnToolbarRotateXZ)
@@ -266,12 +267,16 @@ GNRMainFrame::GNRMainFrame(wxWindow* parent, wxWindowID WXUNUSED(id))
 	Menu3->Append(MenuItem12);
 	MenuItem13 = new wxMenuItem(Menu3, idMenuMoveXY, _("Verschieben X&Y\tF6"), _("Objekt verschieben entlang X- und Y-Achse..."), wxITEM_RADIO);
 	Menu3->Append(MenuItem13);
-	MenuItem14 = new wxMenuItem(Menu3, idMenuRotateXZ, _("&Rotieren XZ\tF7"), _("Objekt rotieren an X- und Z-Achse..."), wxITEM_RADIO);
+	MenuItem14 = new wxMenuItem(Menu3, idMenuRotateXZ, _("Ro&tieren XZ\tF7"), _("Objekt rotieren an X- und Z-Achse..."), wxITEM_RADIO);
 	Menu3->Append(MenuItem14);
 	MenuItem15 = new wxMenuItem(Menu3, idMenuRotateXY, _("R&otieren XY\tF8"), _("Objekt rotieren an X- und Y-Achse..."), wxITEM_RADIO);
 	Menu3->Append(MenuItem15);
 	MenuItem16 = new wxMenuItem(Menu3, idMenuDrawWall, _("&Wände erstellen\tF9"), _("Wände im 2D-Modus erstellen..."), wxITEM_NORMAL);
 	Menu3->Append(MenuItem16);
+	Menu3->AppendSeparator();
+	MenuItem32 = new wxMenuItem(Menu3, idMenuShadows, _("&Schatten aktivieren\tF10"), _("Schatten aktivieren..."), wxITEM_CHECK);
+	Menu3->Append(MenuItem32);
+	MenuItem32->Check(true);
 	MenuBar1->Append(Menu3, _("&Einstellungen"));
 	Menu7 = new wxMenu();
 	MenuItem17 = new wxMenuItem(Menu7, idMenuGroup, _("&Gruppe erstellen\tCTRL+G"), _("Neue Gruppe erstellen..."), wxITEM_NORMAL);
@@ -527,7 +532,7 @@ void GNRMainFrame::OnToolbarRotateXY(wxCommandEvent& WXUNUSED(event))
 
 void GNRMainFrame::OnToolbarDrawWall(wxCommandEvent& WXUNUSED(event))
 {
-	MenuItem15->Check(true);
+	MenuItem16->Check(true);
 	ToolBar1->ToggleTool(btn_draw_walls, true);
 	
 	GNRNotifyEvent myevent(wxEVT_COMMAND_GNR_NOTIFY);
@@ -569,6 +574,14 @@ void GNRMainFrame::OnSnapToGridMenu(wxCommandEvent& WXUNUSED(event))
 	//sync menu item and toolbar for snapping function
 	ToolBar1->ToggleTool(btn_snap_to_grid, MenuItem9->IsChecked());
 	OnSnapToGrid();
+}
+
+void GNRMainFrame::OnShadowsMenu(wxCommandEvent& WXUNUSED(event))
+{
+	GNRNotifyEvent gnrevent(wxEVT_COMMAND_GNR_NOTIFY);
+	gnrevent.setGNREventType(TOGGLESHADOWS);
+	gnrevent.setBoolean(MenuItem32->IsChecked());
+	GetEventHandler()->ProcessEvent(gnrevent);
 }
 
 void GNRMainFrame::OnSnapToGridBtn(wxCommandEvent& WXUNUSED(event))

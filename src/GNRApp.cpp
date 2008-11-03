@@ -278,6 +278,10 @@ void GNRApp::OnGNREvent(GNRNotifyEvent& event)
 	case CANCELCONVERTION:
 		cancelConvertion();
 		break;
+	case TOGGLESHADOWS:
+		m_Scene->toggleShadows(event.getBoolean());
+		m_Scene->glRefresh();
+		break;
 	case DISPLAYLENGTH:
 		wxString str;
 		int length = (int)floor(1000.0 * event.getFloat());

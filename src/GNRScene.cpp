@@ -19,6 +19,8 @@
  */
 GNRScene::GNRScene()
 {
+	m_shadows = true;
+	
 	initContainers();
 	
 	m_GLCamera2D    = new GNRGLCamera();
@@ -87,6 +89,16 @@ GNRGLCamera* GNRScene::getGLCamera2D()
 GNRGLCamera* GNRScene::getGLCamera3D()
 {
 	return m_GLCamera3D;
+}
+
+
+/**
+ * toggles shadows on and off
+ * @access      public
+ */
+void GNRScene::toggleShadows(bool status)
+{
+	m_shadows = status;
 }
 
 /**
@@ -190,52 +202,59 @@ void GNRScene::glRefreshCanvas()
 	//prepare and draw 2D top view of room
 	m_GLOUT->prepareDraw();
 	
-	//initialize only light source
-	m_GLOUT->initLights();
-	
 	//set camera for scene
 	m_GLCAM->render();
 	
 	/*NOW PREPARE THE PIXELBUFFER AND DRAW VIRTUAL FLOOR FOR CASTING SHADOWS*/
-	
-	//prepare pixelbuffer for shadows
-	m_GLOUT->preparePixelBuffer();
-	
-	//draw invisible floor for shadow projection
-	m_GLOUT->drawBaseFloor(0.0, 0.0, 0.0, DEFAULT_FLOOR_SIZE);
-	
-	//turn the color and depth buffers back on
-	m_GLOUT->endPixelBuffer();
-	
-	/*NOW CAST THE SHADOWS ON THE FLOOR AND KEEP IN PIXELBUFFER*/
-	
-	//draw real floor for casting shadows (1)
-	m_GLOUT->drawBaseFloor(0.0, 0.0, 0.0, DEFAULT_FLOOR_SIZE);
-	
-	//draw all shadows of objects
-	glPushMatrix();
+	if (m_shadows)
 	{
-		//turn shadows on
-		m_GLOUT->shadowColorOn();
-		//load shadow projection matrix
-		m_GLOUT->loadShadowMatrix();
-		//draw shadows on prepainted floor (1)
+		//initialize only light source
+		m_GLOUT->initLights();
+		
+		//prepare pixelbuffer for shadows
+		m_GLOUT->preparePixelBuffer();
+		
+		//draw invisible floor for shadow projection
+		m_GLOUT->drawBaseFloor(0.0, 0.0, 0.0, DEFAULT_FLOOR_SIZE);
+		
+		//turn the color and depth buffers back on
+		m_GLOUT->endPixelBuffer();
+		
+		/*NOW CAST THE SHADOWS ON THE FLOOR AND KEEP IN PIXELBUFFER*/
+		
+		m_GLOUT->drawBaseFloor(0.0, 0.0, 0.0, DEFAULT_FLOOR_SIZE);
+		
+		//draw all shadows of objects
 		glPushMatrix();
 		{
-			m_RootAssembly->drawShadow();
+			//turn shadows on
+			m_GLOUT->shadowColorOn();
+			//load shadow projection matrix
+			m_GLOUT->loadShadowMatrix();
+			//draw shadows on prepainted floor (1)
+			glPushMatrix();
+			{
+				m_RootAssembly->drawShadow();
+			}
+			glPopMatrix();
+			//turn off shadows
+			m_GLOUT->shadowColorOff();
 		}
 		glPopMatrix();
-		//turn off shadows
-		m_GLOUT->shadowColorOff();
+		
+		/*NOW DRAW ALL OBJECTS WITHOUT SHADOWS AND BLEND WITH SHADOWS*/
 	}
-	glPopMatrix();
-	
-	/*NOW DRAW ALL OBJECTS WITHOUT SHADOWS AND BLEND WITH SHADOWS*/
 	
 	//draw real objects
 	glPushMatrix();
 	{
 		m_GLOUT->initLights();
+		
+		if (! m_shadows)
+		{
+			m_GLOUT->drawBaseFloor(0.0, 0.0, 0.0, DEFAULT_FLOOR_SIZE);
+		}
+		
 		m_RootAssembly->draw();
 	}
 	glPopMatrix();
@@ -291,6 +310,7 @@ void GNRScene::cloneSelectedAssemblies()
 	
 	for (list<GNRAssembly*>::iterator it = parts.begin(); it != parts.end(); ++it)
 	{
+		//clone assembly from selected
 		GNRAssembly* a_copy = (*it)->clone();
 		//move selected to world
 		m_RootAssembly->addPart((*it));
@@ -298,6 +318,8 @@ void GNRScene::cloneSelectedAssemblies()
 		m_Selected->delPart((*it));
 		//copy clone in selected
 		m_Selected->addPart(a_copy);
+		//move assembly one width right
+		a_copy->move(GNRVertex(a_copy->getWidthMeters(),0.0,0.0));
 	}
 }
 

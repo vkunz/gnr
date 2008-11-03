@@ -29,6 +29,16 @@ void GNRNotifyEvent::setGNREventType(int type)
 	eventType = type;
 }
 
+bool GNRNotifyEvent::getBoolean()
+{
+	return eventBoolean;
+}
+
+void GNRNotifyEvent::setBoolean(bool status)
+{
+	eventBoolean = status;
+}
+
 int GNRNotifyEvent::getGNREventType()
 {
 	return eventType;

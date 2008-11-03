@@ -21,6 +21,7 @@ class GNRGLNotifyEvent : public wxNotifyEvent
 private:
 	wxMouseEvent event;
 	int selectedObj;
+	bool eventBoolean;
 	canvasType canvasID;
 	int win_x, win_y;
 	float world_min_x, world_min_y, world_min_z;

@@ -26,6 +26,7 @@ private:
 	GNRAssembly* assembly;
 	GNRFrameData* m_data;
 	float m_float;
+	bool eventBoolean;
 	
 public:
 
@@ -44,6 +45,9 @@ public:
 	
 	void setSnapToAngle(int value);
 	int getSnapToAngle();
+	
+	void setBoolean(bool status);
+	bool getBoolean();
 	
 	void setFrameDataPointer(GNRFrameData* data);
 	GNRFrameData* getFrameDataPointer();

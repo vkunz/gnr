@@ -842,7 +842,7 @@ void GNRGLCanvas::setActive()
  * @param       wxKeyEvent    Key-Event of current canvas
  * @access      private
  */
-void GNRGLCanvas::OnKeyDown(wxKeyEvent& event)
+void GNRGLCanvas::OnKeyDown(wxKeyEvent& WXUNUSED(event))
 {
 //#if defined(__ATHOS_DEBUG__)
 //	wxLogDebug(wxT("Key-Event"));

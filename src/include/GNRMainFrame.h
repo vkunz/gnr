@@ -59,6 +59,7 @@ private:
 	void OnSnapToGridBtn(wxCommandEvent& event);
 	void OnSnapToGridCtrl(wxSpinEvent& event);
 	void OnSnapToGridMenu(wxCommandEvent& event);
+	void OnShadowsMenu(wxCommandEvent& WXUNUSED(event));
 	void OnGroupCreate(wxCommandEvent& WXUNUSED(event));
 	void OnGroupModify(wxCommandEvent& WXUNUSED(event));
 	void OnDeleteSelected(wxCommandEvent& WXUNUSED(event));
@@ -102,6 +103,7 @@ private:
 	static const long idMenuRotateXZ;
 	static const long idMenuRotateXY;
 	static const long idMenuDrawWall;
+	static const long idMenuShadows;
 	static const long idMenuGroup;
 	static const long idMenuUngroup;
 	static const long idMenuHelp;
@@ -146,6 +148,7 @@ private:
 	wxMenuItem* MenuItem29;
 	wxMenuItem* MenuItem15;
 	wxMenuItem* MenuItem22;
+	wxMenuItem* MenuItem32;
 	wxMenuItem* MenuItem17;
 	wxMenuItem* MenuItem13;
 	wxMenuItem* MenuItem10;

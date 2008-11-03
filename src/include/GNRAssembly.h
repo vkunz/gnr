@@ -64,6 +64,7 @@ public:
 	void setXYZ(const float x, const float y, const float z);
 	void setCenterVertex(const GNRVertex& center);
 	void setRotateVertex(const GNRVertex& rotation);
+	void move(const GNRVertex& center);
 	
 	void setRadiusBottom(const float r);
 	void setRadiusMiddle(const float r);
@@ -92,6 +93,10 @@ public:
 	float getScaleX() const;
 	float getScaleY() const;
 	float getScaleZ() const;
+	
+	float getWidthMeters() const;
+	float getHeightMeters() const;
+	float getDepthMeters() const;
 	
 	void setScaleX(const float x);
 	void setScaleY(const float y);
