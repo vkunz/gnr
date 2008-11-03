@@ -166,7 +166,9 @@ void GNRGLCanvas::initLights()
 
 	glLightModelfv(GL_LIGHT_MODEL_AMBIENT, light_ambient);
 	glLightModeli(GL_LIGHT_MODEL_TWO_SIDE, 1);
-	
+	glLightModeli(GL_LIGHT_MODEL_LOCAL_VIEWER, 1);
+//	glLightModelfv(GL_LIGHT_MODEL_COLOR_CONTROL, GL_SEPARATE_SPECULAR_COLOR);
+
 	glEnable(GL_LIGHTING);
 	glEnable(GL_LIGHT0);
 //	glEnable(GL_LIGHT1);
@@ -306,9 +308,8 @@ void GNRGLCanvas::drawBaseFloor(float fCenterX, float fCenterY, float fCenterZ, 
 		glNormal3f(0.0, 1.0, 0.0);
 		//set starting edge half of size from center
 		float s = fSize/2;
-		float x = fCenterX - s, z = fCenterZ - s;
-		int start = -(int)s;
-		int end   = (int)s;
+		int start = -(int)(s + fCenterX);
+		int end   = (int)(s + fCenterZ);
 		//draw fSize quads in x-axis
 		for (GLint i = start; i < end; i++)
 		{

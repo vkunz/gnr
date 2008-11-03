@@ -57,37 +57,43 @@ GNRGLCanvasPreview::~GNRGLCanvasPreview()
  */
 void GNRGLCanvasPreview::InitGL()
 {
-	static const GLfloat light0_pos[4]   = { -50.0f, 50.0f, 0.0f, 0.0f };
+	//define light source
+	float light_ambient[4]  = {0.3,0.3,0.3,0.0};
+	float light_diffuse[4]  = {1.0,1.0,1.0,0.0};
+	float light_specular[4] = {0.1,0.1,0.1,0.0};
+	float light_position[4] = {30.0,60.0,20.0,1.0};
+	float shadow_color[4]   = {0.3,0.3,0.3,0.7};
+	float floor_plane[4]    = {0.0,1.0,0.0,0.0};
 	
-	// white light
-	static const GLfloat light0_color[4] = { 0.6f, 0.6f, 0.6f, 1.0f };
-	
-	static const GLfloat light1_pos[4]   = {  50.0f, 50.0f, 0.0f, 0.0f };
-	
-	// cold blue light
-	static const GLfloat light1_color[4] = { 0.4f, 0.4f, 1.0f, 1.0f };
-	
-	// remove back faces
-	glDisable(GL_CULL_FACE);
-	glEnable(GL_DEPTH_TEST);
-	
-	// speedups
-	glEnable(GL_DITHER);
 	glShadeModel(GL_SMOOTH);
-	glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_FASTEST);
-	glHint(GL_POLYGON_SMOOTH_HINT, GL_FASTEST);
+	glDepthFunc(GL_LEQUAL);
 	
-	// light
-	glLightfv(GL_LIGHT0, GL_POSITION, light0_pos);
-	glLightfv(GL_LIGHT0, GL_DIFFUSE,  light0_color);
-	glLightfv(GL_LIGHT1, GL_POSITION, light1_pos);
-	glLightfv(GL_LIGHT1, GL_DIFFUSE,  light1_color);
-	glEnable(GL_LIGHT0);
-	glEnable(GL_LIGHT1);
-	glEnable(GL_LIGHTING);
+	glEnable(GL_DEPTH_TEST);
+	glEnable(GL_LINE_SMOOTH);
+	glEnable(GL_POLYGON_SMOOTH);
+	
+	glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);
+	glHint(GL_LINE_SMOOTH_HINT, GL_NICEST);
+	glHint(GL_POLYGON_SMOOTH_HINT, GL_NICEST);
 	
 	glClearDepth(1.0f);
-	glClearColor(0.5f, 0.5f, 0.5f, 1.0f);
+	
+	glEnable(GL_NORMALIZE);
+	
+	glLightModelfv(GL_LIGHT_MODEL_AMBIENT, light_ambient);
+	glLightModeli(GL_LIGHT_MODEL_TWO_SIDE, 1);
+	glLightModeli(GL_LIGHT_MODEL_LOCAL_VIEWER, 1);
+	
+	glLightfv(GL_LIGHT0, GL_DIFFUSE, light_diffuse);
+	glLightfv(GL_LIGHT0, GL_AMBIENT, light_ambient);
+	glLightfv(GL_LIGHT0, GL_SPECULAR, light_specular);
+	glLightfv(GL_LIGHT0, GL_POSITION, light_position);
+	
+	
+	glEnable(GL_LIGHTING);
+	glEnable(GL_LIGHT0);
+	
+	glClearColor(0.3, 0.3, 0.3, 1.0);
 }
 
 /**
@@ -120,9 +126,6 @@ void GNRGLCanvasPreview::reshape()
 {
 	// set current GL-Frame
 	SetCurrent();
-	
-	glClearDepth(1.0f);
-	glClearColor(0.5f, 0.5f, 0.5f, 1.0f);
 	
 	// get size of current canvas
 	int w, h;
@@ -160,12 +163,11 @@ void GNRGLCanvasPreview::draw()
 	if (m_assembly != NULL)
 	{
 		SetCurrent();
-		
-		// Clear
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-		
-		// Transformations
 		glLoadIdentity();
+		
+		glEnable(GL_LIGHTING);
+		glEnable(GL_LIGHT0);
 		
 		// scale image to fit in preview
 		float max_size = m_assembly->getMaximumSize();
@@ -176,10 +178,11 @@ void GNRGLCanvasPreview::draw()
 		
 		glTranslatef(0.0f, 0.0f, -5.0f);
 		
-		m_assembly->draw();
-		
-		// Flush
-		glFlush();
+		glPushMatrix();
+		{
+			m_assembly->draw();
+		}
+		glPopMatrix();
 		
 		// Swap
 		SwapBuffers();

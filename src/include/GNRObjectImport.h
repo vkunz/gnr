@@ -35,8 +35,6 @@ public:
 	// dtor
 	virtual ~GNRObjectImport();
 	
-	GNRAssembly* read(const string& fname);
-	
 	// return filelist
 	std::list<wxString> getFileList();
 	

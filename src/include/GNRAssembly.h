@@ -34,7 +34,6 @@ class GNRAssembly
 {
 public:
 
-	GNRAssembly(const string& name);
 	GNRAssembly(const wxString& name);
 	GNRAssembly(GNRAssembly* parent, const wxString& name);
 	GNRAssembly(const assemblyType& type, const wxString& name);

@@ -35,24 +35,6 @@ GNRAssembly::GNRAssembly(const wxString& name):
 }
 
 /**
- * constructor of generic assembly
- * @param       string         name of assembly
- * @access      public
- */
-GNRAssembly::GNRAssembly(const string& name):
-		m_x(0.0), m_y(0.0), m_z(0.0),
-		m_phi(0.0), m_theta(0.0), m_rho(0.0),
-		m_scale_x(1.0), m_scale_y(1.0), m_scale_z(1.0),
-		m_width(1.0), m_height(1.0), m_depth(1.0),
-		m_radius_bottom(0.0), m_radius_middle(0.0), m_radius_top(0.0),
-		m_type(IS_ROOT), m_parent(NULL),
-		m_dl_object(0), m_dl_shadow(0)
-{
-#warning "INFO: Really ugly converting string > wxString"
-	setName(name);
-}
-
-/**
  * copy constructor of generic assembly
  * @param       string         name of assembly
  * @access      public

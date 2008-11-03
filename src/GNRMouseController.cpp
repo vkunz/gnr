@@ -66,11 +66,13 @@ void GNRMouseController::setMediator(GNRGLNotifyEvent& event)
 			}
 			else if (event.getCanvasID() == CANVAS3D)
 			{
+				m_Mediator = m_AssemblyMediator3D;
 				setAssemblyMediator(event);
 			}
 		}
 		else
 		{
+			m_Mediator = m_AssemblyMediator3D;
 			setAssemblyMediator(event);
 		}
 		break;
@@ -199,6 +201,10 @@ void GNRMouseController::setAssemblyMediator(GNRGLNotifyEvent& event)
 	{
 		//set assembly mediator target to selected object
 		m_Mediator->setAssembly(selectedAssembly);
+	}
+	else
+	{
+		m_Mediator->setAssembly(NULL);
 	}
 }
 

@@ -72,44 +72,44 @@ void GNRAssemblyMediator::initialize(GNRGLNotifyEvent& event)
 int GNRAssemblyMediator::translate(GNRGLNotifyEvent& event)
 {
 	//if no active assembly, return
-	if (!m_initialized || m_Assembly == NULL || (int)m_Assembly == 0)
+	if (m_initialized && m_Assembly != NULL && (int)m_Assembly > 0)
 	{
-		return 1;
+		//do specific translations
+		switch (m_Translation)
+		{
+		case MOVEXZ:
+			MoveXZ(event);
+			break;
+		case MOVEXY:
+			MoveXY(event);
+			break;
+		case ROTATEXY:
+			if (m_Assembly->isType(IS_GROUP))
+			{
+				//forbid rotate in x-axis
+				RotateY(event);
+				return 0;
+			}
+			RotateXY(event);
+			break;
+		case ROTATEXZ:
+			if (m_Assembly->isType(IS_GROUP))
+			{
+				//forbid rotate in x and z-axis
+				RotateY(event);
+				return 0;
+			}
+			RotateXZ(event);
+			break;
+		default:
+			MoveXZ(event);
+			break;
+		}
+		
+		return 0;
 	}
 	
-	//do specific translations
-	switch (m_Translation)
-	{
-	case MOVEXZ:
-		MoveXZ(event);
-		break;
-	case MOVEXY:
-		MoveXY(event);
-		break;
-	case ROTATEXY:
-		if (m_Assembly->isType(IS_GROUP))
-		{
-			//forbid rotate in x-axis
-			RotateY(event);
-			return 0;
-		}
-		RotateXY(event);
-		break;
-	case ROTATEXZ:
-		if (m_Assembly->isType(IS_GROUP))
-		{
-			//forbid rotate in x and z-axis
-			RotateY(event);
-			return 0;
-		}
-		RotateXZ(event);
-		break;
-	default:
-		MoveXZ(event);
-		break;
-	}
-	
-	return 0;
+	return 1;
 }
 
 void GNRAssemblyMediator::finalize()

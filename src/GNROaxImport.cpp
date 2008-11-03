@@ -171,7 +171,9 @@ void GNROaxImport::Load(wxInputStream& instream)
 	
 	wxZipEntry* entry = stream.GetNextEntry();
 	
+#if defined(__ATHOS_DEBUG__)
 	wxLogDebug(entry->GetName());
+#endif
 	
 	// load stream
 	Load(stream);

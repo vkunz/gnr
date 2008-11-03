@@ -34,7 +34,7 @@ GNRPrimitiveCreator::~GNRPrimitiveCreator() {}
  */
 GNRAssembly* GNRPrimitiveCreator::createCuboid(const GNRVertex& position, const GNRVertex& angles, const GNRVertex& dimension)
 {
-	GNRAssembly* cuboid = new GNRAssembly("cuboid");
+	GNRAssembly* cuboid = new GNRAssembly(wxT("cuboid"));
 	
 	// set position of the cuboid
 	cuboid->setX(position.getX());
