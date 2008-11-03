@@ -112,3 +112,43 @@ float GNRGLNotifyEvent::getWorldZmin()
 {
 	return world_min_z;
 }
+
+void GNRGLNotifyEvent::setCamRotatedX(const float angle)
+{
+	cam_rotated_x = angle;
+}
+
+float GNRGLNotifyEvent::getCamRotatedX()
+{
+	return cam_rotated_x;
+}
+
+void GNRGLNotifyEvent::setCamRotatedY(const float angle)
+{
+	cam_rotated_y = angle;
+}
+
+float GNRGLNotifyEvent::getCamRotatedY()
+{
+	return cam_rotated_y;
+}
+
+void GNRGLNotifyEvent::setCamRotatedZ(const float angle)
+{
+	cam_rotated_z = angle;
+}
+
+float GNRGLNotifyEvent::getCamRotatedZ()
+{
+	return cam_rotated_z;
+}
+
+void GNRGLNotifyEvent::setCamPosition(const GNRVertex& position)
+{
+	cam_position = position;
+}
+
+GNRVertex& GNRGLNotifyEvent::getCamPosition()
+{
+	return cam_position;
+}

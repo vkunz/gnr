@@ -122,6 +122,7 @@
 		<Unit filename="src\GNRGridRowData.cpp" />
 		<Unit filename="src\GNRGridSceneController.cpp" />
 		<Unit filename="src\GNRGridTable.cpp" />
+		<Unit filename="src\GNRHelpFrame.cpp" />
 		<Unit filename="src\GNRImportFile.cpp" />
 		<Unit filename="src\GNRLineDrawEvent.cpp" />
 		<Unit filename="src\GNRMainFrame.cpp" />
@@ -174,6 +175,7 @@
 		<Unit filename="src\include\GNRGridRowData.h" />
 		<Unit filename="src\include\GNRGridSceneController.h" />
 		<Unit filename="src\include\GNRGridTable.h" />
+		<Unit filename="src\include\GNRHelpFrame.h" />
 		<Unit filename="src\include\GNRImportFile.h" />
 		<Unit filename="src\include\GNRLineDrawEvent.h" />
 		<Unit filename="src\include\GNRMainFrame.h" />
@@ -235,6 +237,7 @@
 			<Option compilerVar="WINDRES" />
 		</Unit>
 		<Unit filename="wxsmith\GNRDebugFrame.wxs" />
+		<Unit filename="wxsmith\GNRHelpFrame.wxs" />
 		<Unit filename="wxsmith\GNRMainFrame.wxs" />
 		<Extensions>
 			<code_completion />
@@ -246,6 +249,7 @@
 				<resources>
 					<wxFrame wxs="wxsmith/GNRMainFrame.wxs" src="src\GNRMainFrame.cpp" hdr="src\include\GNRMainFrame.h" name="GNRMainFrame" language="CPP" />
 					<wxFrame wxs="wxsmith/GNRDebugFrame.wxs" src="src\GNRDebugFrame.cpp" hdr="src\include\GNRDebugFrame.h" name="GNRDebugFrame" language="CPP" />
+					<wxFrame wxs="wxsmith/GNRHelpFrame.wxs" src="src/GNRHelpFrame.cpp" hdr="src/include/GNRHelpFrame.h" name="GNRHelpFrame" language="CPP" />
 				</resources>
 			</wxsmith>
 		</Extensions>

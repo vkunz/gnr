@@ -24,8 +24,10 @@ private:
 	bool eventBoolean;
 	canvasType canvasID;
 	int win_x, win_y;
+	GNRVertex cam_position;
 	float world_min_x, world_min_y, world_min_z;
 	float world_max_x, world_max_y, world_max_z;
+	float cam_rotated_x, cam_rotated_y, cam_rotated_z;
 public:
 	GNRGLNotifyEvent(wxEventType commandType = wxEVT_NULL, int id = 0);
 	GNRGLNotifyEvent(const GNRGLNotifyEvent& event);
@@ -46,6 +48,14 @@ public:
 	float getWorldXmax();
 	float getWorldYmax();
 	float getWorldZmax();
+	void setCamRotatedX(const float angle);
+	float getCamRotatedX();
+	void setCamRotatedY(const float angle);
+	float getCamRotatedY();
+	void setCamRotatedZ(const float angle);
+	float getCamRotatedZ();
+	void setCamPosition(const GNRVertex& position);
+	GNRVertex& getCamPosition();
 	DECLARE_DYNAMIC_CLASS(GNRGLNotifyEvent);
 };
 

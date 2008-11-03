@@ -42,6 +42,7 @@ private:
 	void OnMenuObjExport(wxCommandEvent& event);
 	void OnMenuQuit(wxCommandEvent& event);
 	void OnMenuAbout(wxCommandEvent& event);
+	void OnMenuHelp(wxCommandEvent& WXUNUSED(event));
 	//*)
 	
 	//ToolBar Button Events

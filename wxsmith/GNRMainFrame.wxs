@@ -178,13 +178,13 @@
 					<label>&amp;Wände erstellen</label>
 					<accel>F9</accel>
 					<help>Wände im 2D-Modus erstellen...</help>
+					<radio>1</radio>
 				</object>
 				<object class="separator" />
 				<object class="wxMenuItem" name="idMenuShadows" variable="MenuItem32" member="yes">
 					<label>&amp;Schatten aktivieren</label>
 					<accel>F10</accel>
 					<help>Schatten aktivieren...</help>
-					<checked>1</checked>
 					<check>1</check>
 				</object>
 			</object>

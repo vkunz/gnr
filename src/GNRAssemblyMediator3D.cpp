@@ -21,8 +21,16 @@
  */
 void GNRAssemblyMediator3D::MoveXY(GNRGLNotifyEvent& event)
 {
-	float new_x = old_x - (gl_xmax-gl_xmin)*(m_mouse_x - event.getMouseEvent().GetX())/window_w;
-	float new_y = old_y - (gl_ymax-gl_ymin)*(event.getMouseEvent().GetY() - m_mouse_y)/window_h;
+	GNRVertex to_obj = cam_pos - obj_pos;
+	
+	float mouse_dx = to_obj.length()*(m_mouse_x - event.getMouseEvent().GetX())/window_w;
+	float mouse_dy = to_obj.length()*(m_mouse_y - event.getMouseEvent().GetY())/window_h;
+	
+	GNRVertex direction(mouse_dx,mouse_dy,0.0);
+	direction.rotate(0.0,cam_rot_y,0.0);
+	
+	float new_x = old_x - direction.getX();
+	float new_y = old_y + direction.getY();
 	
 	doSnapMove(new_x);
 	doSnapMove(new_y);
@@ -43,8 +51,22 @@ void GNRAssemblyMediator3D::MoveXY(GNRGLNotifyEvent& event)
  */
 void GNRAssemblyMediator3D::MoveXZ(GNRGLNotifyEvent& event)
 {
-	float new_x = old_x - (gl_xmax-gl_xmin)*(m_mouse_x - event.getMouseEvent().GetX())/window_w;
-	float new_z = old_z - (gl_ymax-gl_ymin)*(m_mouse_y - event.getMouseEvent().GetY())/window_h*4.0f;
+	GNRVertex to_obj = cam_pos - obj_pos;
+	
+	float mouse_dx = to_obj.length()*(m_mouse_x - event.getMouseEvent().GetX())/window_w;
+	float mouse_dy = to_obj.length()*(m_mouse_y - event.getMouseEvent().GetY())/window_h;
+	
+	GNRVertex direction(mouse_dx,0.0,mouse_dy);
+	direction.rotate(0.0,cam_rot_y,0.0);
+	
+	float new_x = old_x - direction.getX();
+	float new_z = old_z - direction.getZ();
+	
+#if defined(__ATHOS_DEBUG__)
+	wxString str;
+	str << wxT(" d:") << to_obj.length();
+	wxLogDebug(str);
+#endif
 	
 	doSnapMove(new_x);
 	doSnapMove(new_z);

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<wxsmith>
+	<object class="wxFrame" name="GNRHelpFrame">
+		<size>729,277</size>
+		<focused>1</focused>
+		<minsize>320,240</minsize>
+		<pos_arg>1</pos_arg>
+		<size_arg>1</size_arg>
+		<style>wxDEFAULT_FRAME_STYLE|wxCLOSE_BOX|wxMAXIMIZE_BOX|wxMINIMIZE_BOX</style>
+		<object class="wxHtmlWindow" name="ID_HTMLWINDOW1" variable="HtmlHelpWindow1" member="yes">
+			<url>help.html</url>
+			<htmlcode>&lt;b&gt;LOL&lt;/b&gt;</htmlcode>
+			<pos>0,104</pos>
+			<size>400,346</size>
+			<style>wxHW_SCROLLBAR_AUTO|wxNO_BORDER|wxVSCROLL|wxHSCROLL</style>
+		</object>
+	</object>
+</wxsmith>

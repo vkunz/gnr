@@ -24,6 +24,7 @@
 #include "GNREnum.h"
 #include "GNRGlobalDefine.h"
 #include "GNRMainFrame.h"
+#include "GNRHelpFrame.h"
 #include "GNRGLNotifyEvent.h"
 #include "GNRNotifyEvent.h"
 
@@ -165,6 +166,7 @@ BEGIN_EVENT_TABLE(GNRMainFrame,wxFrame)
 	EVT_MENU(idMenuZoomOut, GNRMainFrame::OnZoomOut)
 	EVT_MENU(idMenuZoomFit, GNRMainFrame::OnCameraReset)
 	EVT_MENU(idMenuZoomReset, GNRMainFrame::OnCameraReset)
+	EVT_MENU(idMenuHelp, GNRMainFrame::OnMenuHelp)
 	//settings menu sync to toolbar
 	EVT_MENU(idMenuSnapToGrid, GNRMainFrame::OnSnapToGridMenu)
 	EVT_MENU(idMenuShadows, GNRMainFrame::OnShadowsMenu)
@@ -271,12 +273,11 @@ GNRMainFrame::GNRMainFrame(wxWindow* parent, wxWindowID WXUNUSED(id))
 	Menu3->Append(MenuItem14);
 	MenuItem15 = new wxMenuItem(Menu3, idMenuRotateXY, _("R&otieren XY\tF8"), _("Objekt rotieren an X- und Y-Achse..."), wxITEM_RADIO);
 	Menu3->Append(MenuItem15);
-	MenuItem16 = new wxMenuItem(Menu3, idMenuDrawWall, _("&Wände erstellen\tF9"), _("Wände im 2D-Modus erstellen..."), wxITEM_NORMAL);
+	MenuItem16 = new wxMenuItem(Menu3, idMenuDrawWall, _("&Wände erstellen\tF9"), _("Wände im 2D-Modus erstellen..."), wxITEM_RADIO);
 	Menu3->Append(MenuItem16);
 	Menu3->AppendSeparator();
 	MenuItem32 = new wxMenuItem(Menu3, idMenuShadows, _("&Schatten aktivieren\tF10"), _("Schatten aktivieren..."), wxITEM_CHECK);
 	Menu3->Append(MenuItem32);
-	MenuItem32->Check(true);
 	MenuBar1->Append(Menu3, _("&Einstellungen"));
 	Menu7 = new wxMenu();
 	MenuItem17 = new wxMenuItem(Menu7, idMenuGroup, _("&Gruppe erstellen\tCTRL+G"), _("Neue Gruppe erstellen..."), wxITEM_NORMAL);
@@ -691,6 +692,12 @@ void GNRMainFrame::OnInsertCopy(wxCommandEvent& WXUNUSED(event))
 	GNRNotifyEvent gnrevent(wxEVT_COMMAND_GNR_NOTIFY);
 	gnrevent.setGNREventType(INSERTCOPY);
 	GetEventHandler()->ProcessEvent(gnrevent);
+}
+
+void GNRMainFrame::OnMenuHelp(wxCommandEvent& WXUNUSED(event))
+{
+	GNRHelpFrame* m_frame = new GNRHelpFrame(this,0);
+	m_frame->Show(true);
 }
 
 void GNRMainFrame::setUndoEnabled(bool enabled)

@@ -67,11 +67,17 @@ void GNRMouseController::setMediator(GNRGLNotifyEvent& event)
 			else if (event.getCanvasID() == CANVAS3D)
 			{
 				m_Mediator = m_AssemblyMediator3D;
+				event.setCamRotatedX(m_Scene->getGLCamera3D()->getRotatedX());
+				event.setCamRotatedY(m_Scene->getGLCamera3D()->getRotatedY());
+				event.setCamPosition(m_Scene->getGLCamera3D()->getPosition());
 				setAssemblyMediator(event);
 			}
 		}
 		else
 		{
+			event.setCamRotatedX(m_Scene->getGLCamera3D()->getRotatedX());
+			event.setCamRotatedY(m_Scene->getGLCamera3D()->getRotatedY());
+			event.setCamPosition(m_Scene->getGLCamera3D()->getPosition());
 			m_Mediator = m_AssemblyMediator3D;
 			setAssemblyMediator(event);
 		}

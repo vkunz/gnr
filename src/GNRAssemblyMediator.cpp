@@ -58,6 +58,14 @@ void GNRAssemblyMediator::initialize(GNRGLNotifyEvent& event)
 		gl_ymax = event.getWorldYmax();
 		gl_ymin = event.getWorldYmin();
 		
+		gl_zmax = event.getWorldZmax();
+		gl_zmin = event.getWorldZmin();
+		
+		cam_rot_x = event.getCamRotatedX();
+		cam_rot_y = event.getCamRotatedY();
+		cam_pos   = event.getCamPosition();
+		obj_pos   = m_Assembly->getCenterVertex();
+		
 		m_mouse_x = event.getMouseEvent().GetX();
 		m_mouse_y = event.getMouseEvent().GetY();
 	}

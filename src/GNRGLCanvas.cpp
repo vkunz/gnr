@@ -185,14 +185,14 @@ void GNRGLCanvas::initLights()
 void GNRGLCanvas::initGL()
 {
 	//define light source
-	light_ambient[0] = 0.3;
-	light_ambient[1] = 0.3;
-	light_ambient[2] = 0.3;
+	light_ambient[0] = 0.5;
+	light_ambient[1] = 0.5;
+	light_ambient[2] = 0.5;
 	light_ambient[3] = 0.0;
 	
-	light_diffuse[0] = 1.0;
-	light_diffuse[1] = 1.0;
-	light_diffuse[2] = 1.0;
+	light_diffuse[0] = 0.9;
+	light_diffuse[1] = 0.9;
+	light_diffuse[2] = 0.9;
 	light_diffuse[3] = 0.0;
 	
 	light_specular[0] = 0.1;
@@ -206,24 +206,24 @@ void GNRGLCanvas::initGL()
 	light_position[0][2] = 20.0;
 	light_position[0][3] = 1.0;
 	
-	//define light position 2
-	light_position[1][0] = -64.0;
-	light_position[1][1] = 64.0;
-	light_position[1][2] = 64.0;
-	light_position[1][3] = 1.0;
-	
-	//define light position 3
-	light_position[2][0] = -64.0;
-	light_position[2][1] = 64.0;
-	light_position[2][2] = -64.0;
-	light_position[2][3] = 1.0;
-	
-	//define light position 4
-	light_position[3][0] = 64.0;
-	light_position[3][1] = 64.0;
-	light_position[3][2] = -64.0;
-	light_position[3][3] = 1.0;
-	
+//	//define light position 2
+//	light_position[1][0] = -64.0;
+//	light_position[1][1] = 64.0;
+//	light_position[1][2] = 64.0;
+//	light_position[1][3] = 1.0;
+//
+//	//define light position 3
+//	light_position[2][0] = -64.0;
+//	light_position[2][1] = 64.0;
+//	light_position[2][2] = -64.0;
+//	light_position[2][3] = 1.0;
+//
+//	//define light position 4
+//	light_position[3][0] = 64.0;
+//	light_position[3][1] = 64.0;
+//	light_position[3][2] = -64.0;
+//	light_position[3][3] = 1.0;
+
 	//define shadow color
 	shadow_color[0] = 0.3;
 	shadow_color[1] = 0.3;

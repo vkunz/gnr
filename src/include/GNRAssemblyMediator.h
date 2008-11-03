@@ -38,25 +38,17 @@ protected:
 	virtual void RotateXZ(GNRGLNotifyEvent& event) = 0;
 	
 	GNRAssembly* m_Assembly;
+	GNRVertex cam_pos, obj_pos;
 	
 	//storage on mouse down
-	float old_x;
-	float old_y;
-	float old_z;
-	float scale_x;
-	float scale_y;
-	float scale_z;
-	float phi_old;
-	float theta_old;
-	float rho_old;
-	float gl_xmax;
-	float gl_ymax;
-	float gl_xmin;
-	float gl_ymin;
-	int window_w;
-	int window_h;
-	int m_mouse_x;
-	int m_mouse_y;
+	float old_x, old_y, old_z;
+	float scale_x, scale_y, scale_z;
+	float phi_old, theta_old, rho_old;
+	float gl_xmax, gl_ymax, gl_zmax;
+	float gl_xmin, gl_ymin, gl_zmin;
+	float cam_rot_x, cam_rot_y;
+	int window_w, window_h;
+	int m_mouse_x, m_mouse_y;
 	bool m_initialized;
 	
 private:
