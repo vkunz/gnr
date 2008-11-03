@@ -30,7 +30,7 @@ GNRAssembly::GNRAssembly(const wxString& name):
 		m_width(1.0), m_height(1.0), m_depth(1.0),
 		m_radius_bottom(0.0), m_radius_middle(0.0), m_radius_top(0.0),
 		m_type(IS_ROOT), m_name(name), m_parent(NULL),
-		m_dl_object(0), m_dl_shadow(0)
+		m_dl_object(0), m_dl_shadow(0), m_md5_obj_xml(wxEmptyString)
 {
 }
 
@@ -61,6 +61,7 @@ GNRAssembly::GNRAssembly(const GNRAssembly& assembly)
 	m_radius_top    = assembly.m_radius_top;
 	m_dl_object     = assembly.m_dl_object;
 	m_dl_shadow     = assembly.m_dl_shadow;
+	m_md5_obj_xml   = assembly.m_md5_obj_xml;
 	
 	// copy my faces
 	for (list<GNRFace>::const_iterator it = m_face.begin(); it != m_face.end(); ++it)
@@ -103,26 +104,27 @@ GNRAssembly* GNRAssembly::clone()
 {
 	GNRAssembly* m_clone = new GNRAssembly(wxT("clone"));
 	
-	m_clone->m_x       = m_x;
-	m_clone->m_y       = m_y;
-	m_clone->m_z       = m_z;
-	m_clone->m_phi     = m_phi;
-	m_clone->m_theta   = m_theta;
-	m_clone->m_rho     = m_rho;
-	m_clone->m_scale_x = m_scale_x;
-	m_clone->m_scale_y = m_scale_y;
-	m_clone->m_scale_z = m_scale_z;
-	m_clone->m_width   = m_width;
-	m_clone->m_height  = m_height;
-	m_clone->m_depth   = m_depth;
-	m_clone->m_type    = m_type;
-	m_clone->m_name    = m_name;
-	m_clone->m_parent  = m_parent;
+	m_clone->m_x             = m_x;
+	m_clone->m_y             = m_y;
+	m_clone->m_z             = m_z;
+	m_clone->m_phi           = m_phi;
+	m_clone->m_theta         = m_theta;
+	m_clone->m_rho           = m_rho;
+	m_clone->m_scale_x       = m_scale_x;
+	m_clone->m_scale_y       = m_scale_y;
+	m_clone->m_scale_z       = m_scale_z;
+	m_clone->m_width         = m_width;
+	m_clone->m_height        = m_height;
+	m_clone->m_depth         = m_depth;
+	m_clone->m_type          = m_type;
+	m_clone->m_name          = m_name;
+	m_clone->m_parent        = m_parent;
 	m_clone->m_radius_bottom = m_radius_bottom;
 	m_clone->m_radius_middle = m_radius_middle;
 	m_clone->m_radius_top    = m_radius_top;
 	m_clone->m_dl_object     = m_dl_object;
 	m_clone->m_dl_shadow     = m_dl_shadow;
+	m_clone->m_md5_obj_xml   = m_md5_obj_xml;
 	
 	// copy my faces
 	for (list<GNRFace>::const_iterator it = m_face.begin(); it != m_face.end(); ++it)
@@ -170,7 +172,7 @@ GNRAssembly::GNRAssembly(GNRAssembly* parent, const wxString& name):
 		m_width(1.0), m_height(1.0), m_depth(1.0),
 		m_radius_bottom(0.0), m_radius_middle(0.0), m_radius_top(0.0),
 		m_type(IS_ROOT), m_name(name), m_parent(parent),
-		m_dl_object(0), m_dl_shadow(0)
+		m_dl_object(0), m_dl_shadow(0), m_md5_obj_xml(wxEmptyString)
 {
 }
 
@@ -187,7 +189,7 @@ GNRAssembly::GNRAssembly(const assemblyType& type, const wxString& name):
 		m_width(1.0), m_height(1.0), m_depth(1.0),
 		m_radius_bottom(0.0), m_radius_middle(0.0), m_radius_top(0.0),
 		m_type(type), m_name(name), m_parent(NULL),
-		m_dl_object(0), m_dl_shadow(0)
+		m_dl_object(0), m_dl_shadow(0), m_md5_obj_xml(wxEmptyString)
 {
 }
 
@@ -230,6 +232,15 @@ float GNRAssembly::getY() const
 float GNRAssembly::getZ() const
 {
 	return m_z;
+}
+
+/**
+ * get position value z
+ * @access      public
+ */
+wxString GNRAssembly::getHash() const
+{
+	return m_md5_obj_xml;
 }
 
 /**
@@ -492,6 +503,15 @@ void GNRAssembly::setY(const float y)
 void GNRAssembly::setZ(const float z)
 {
 	m_z = z;
+}
+
+/**
+ * get position value z
+ * @access      public
+ */
+void GNRAssembly::setHash(const wxString& hash)
+{
+	m_md5_obj_xml = hash;
 }
 
 /**

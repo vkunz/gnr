@@ -113,6 +113,9 @@ public:
 	assemblyType getType() const;
 	bool isType(const assemblyType& type);
 	
+	const wxString& getHash() const;
+	void setHash(const wxString& hash);
+	
 	GNRAssembly* clone();
 	GNRAssembly* getParent() const;
 	GNRAssembly* getMaster() const;
@@ -155,6 +158,8 @@ private:
 	//my display list and shadows
 	GLuint m_dl_object;
 	GLuint m_dl_shadow;
+	
+	wxString m_md5_obj_xml;
 	
 	list<GNRFace>      m_face;
 	list<GNRAssembly*> m_part;
