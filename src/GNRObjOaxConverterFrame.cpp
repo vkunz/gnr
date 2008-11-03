@@ -293,6 +293,14 @@ void GNRObjOaxConverterFrame::OnSpcWidthChanged(wxSpinEvent& event)
 		// update frame
 		updateFrame();
 	}
+	else
+	{
+		// set new value
+		m_width = event.GetInt();
+		
+		// update frame
+		updateFrame();
+	}
 }
 
 void GNRObjOaxConverterFrame::OnSpcDepthChanged(wxSpinEvent& event)
@@ -313,6 +321,14 @@ void GNRObjOaxConverterFrame::OnSpcDepthChanged(wxSpinEvent& event)
 		// update frame
 		updateFrame();
 	}
+	else
+	{
+		// set new value
+		m_depth = event.GetInt();
+		
+		// update frame
+		updateFrame();
+	}
 }
 
 void GNRObjOaxConverterFrame::OnSpcHeightChanged(wxSpinEvent& event)
@@ -329,6 +345,14 @@ void GNRObjOaxConverterFrame::OnSpcHeightChanged(wxSpinEvent& event)
 		// set new dimenstions with new scale
 		m_width = (int)(m_scaleHeight * m_frameData->m_width);
 		m_depth = (int)(m_scaleHeight * m_frameData->m_depth);
+		
+		// update frame
+		updateFrame();
+	}
+	else
+	{
+		// set new value
+		m_height = event.GetInt();
 		
 		// update frame
 		updateFrame();

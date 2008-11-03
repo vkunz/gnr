@@ -238,7 +238,7 @@ float GNRAssembly::getZ() const
  * get position value z
  * @access      public
  */
-wxString GNRAssembly::getHash() const
+const wxString& GNRAssembly::getHash() const
 {
 	return m_md5_obj_xml;
 }
