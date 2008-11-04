@@ -20,7 +20,6 @@
 #include "GNROpxExport.h"
 #include "GNROpxImport.h"
 #include "GNRObjOaxConverter.h"
-#include "GNRSceneTreeNode.h"
 
 #if defined(__ATHOS_DEBUG__)
 #include <wx/log.h>
