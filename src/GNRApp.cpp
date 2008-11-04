@@ -194,7 +194,7 @@ void GNRApp::OnGNREvent(GNRNotifyEvent& event)
 		m_Scene->glRefresh();
 		break;
 	case OAXEXPORT:
-		OAXExport(event.getFrameDataPointer());
+		OAXExport(event.getAssemblyDataPointer());
 		//m_Scene->glRefresh();
 		break;
 	case OBJIMPORT:
@@ -421,7 +421,7 @@ void GNRApp::OAXImport(wxString filename)
  * @param       wxString        File to export to.
  * @access      private
  */
-void GNRApp::OAXExport(GNRFrameData* data)
+void GNRApp::OAXExport(GNRAssemblyData* data)
 {
 	// create new OaxExport - object
 	GNROaxExport out(data);

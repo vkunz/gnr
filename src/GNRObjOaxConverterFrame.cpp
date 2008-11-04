@@ -175,19 +175,19 @@ void GNRObjOaxConverterFrame::setAllCategories(std::vector<wxString>* ptrCat)
 	delete ptrCat;
 }
 
-void GNRObjOaxConverterFrame::setFrameData(GNRFrameData* data)
+void GNRObjOaxConverterFrame::setAssemblyData(GNRAssemblyData* data)
 {
-	m_frameData = data;
+	m_assemblyData = data;
 }
 
 void GNRObjOaxConverterFrame::setData()
 {
 	// set data
-	m_width    = m_frameData->m_width;
-	m_depth    = m_frameData->m_depth;
-	m_height   = m_frameData->m_height;
-	m_name     = m_frameData->m_name;
-	m_category = m_frameData->m_category;
+	m_width    = m_assemblyData->m_width;
+	m_depth    = m_assemblyData->m_depth;
+	m_height   = m_assemblyData->m_height;
+	m_name     = m_assemblyData->m_name;
+	m_category = m_assemblyData->m_category;
 	
 	// if a dimension is greater than 10000, rescale
 	if (m_width > 10000 || m_depth > 10000 || m_height > 10000)
@@ -227,28 +227,28 @@ void GNRObjOaxConverterFrame::OnBtnCreate(wxCommandEvent& WXUNUSED(event))
 {
 	// prepare data -> store into struct
 	// get objName and store into struct
-	m_frameData->m_name = m_txcName->GetValue();
+	m_assemblyData->m_name = m_txcName->GetValue();
 	
 	// get category and store into struct
-	m_frameData->m_category = m_cbxCategory->GetValue();
+	m_assemblyData->m_category = m_cbxCategory->GetValue();
 	
 	// calc width-scale
-	m_frameData->m_scaleWidth = (((m_width) / m_frameData->m_width));
+	m_assemblyData->m_scaleWidth = (((m_width) / m_assemblyData->m_width));
 	
 	// calc y-scale
-	m_frameData->m_scaleDepth = (((m_depth) / m_frameData->m_depth));
+	m_assemblyData->m_scaleDepth = (((m_depth) / m_assemblyData->m_depth));
 	
 	// calc z-scale
-	m_frameData->m_scaleHeight = (((m_height) / m_frameData->m_height));
+	m_assemblyData->m_scaleHeight = (((m_height) / m_assemblyData->m_height));
 	
 	// get width and store into struct
-	m_frameData->m_width = (m_spcWidth->GetValue());
+	m_assemblyData->m_width = (m_spcWidth->GetValue());
 	
 	// get depth and store into struct
-	m_frameData->m_depth = (m_spcDepth->GetValue());
+	m_assemblyData->m_depth = (m_spcDepth->GetValue());
 	
 	// get height and store into struct
-	m_frameData->m_height = (m_spcHeight->GetValue());
+	m_assemblyData->m_height = (m_spcHeight->GetValue());
 	
 	// create event
 	GNRNotifyEvent gnrevent(wxEVT_COMMAND_GNR_NOTIFY);
@@ -257,7 +257,7 @@ void GNRObjOaxConverterFrame::OnBtnCreate(wxCommandEvent& WXUNUSED(event))
 	gnrevent.setGNREventType(OAXEXPORT);
 	
 	// set frameData pointer
-	gnrevent.setFrameDataPointer(m_frameData);
+	gnrevent.setAssemblyDataPointer(m_assemblyData);
 	
 	// broadcast event
 	GetEventHandler()->ProcessEvent(gnrevent);
@@ -280,15 +280,15 @@ void GNRObjOaxConverterFrame::OnSpcWidthChanged(wxSpinEvent& event)
 	// check if aspect ratio is enabled
 	if (m_ckbProportion->GetValue())
 	{
-		// get scale, calc actual value divide by m_frameData-value
-		m_scaleWidth = (double)event.GetInt() / m_frameData->m_width;
+		// get scale, calc actual value divide by m_assemblyData-value
+		m_scaleWidth = (double)event.GetInt() / m_assemblyData->m_width;
 		
 		// set new m_width
 		m_width = event.GetInt();
 		
 		// set new dimenstions with new scale
-		m_depth = (m_scaleWidth * m_frameData->m_depth);
-		m_height = (m_scaleWidth * m_frameData->m_height);
+		m_depth = (m_scaleWidth * m_assemblyData->m_depth);
+		m_height = (m_scaleWidth * m_assemblyData->m_height);
 		
 		// update frame
 		updateFrame();
@@ -308,15 +308,15 @@ void GNRObjOaxConverterFrame::OnSpcDepthChanged(wxSpinEvent& event)
 	// check if aspect ratio is enabled
 	if (m_ckbProportion->GetValue())
 	{
-		// get scale, calc actual value divide by m_frameData-value
-		m_scaleDepth = (float)event.GetInt() / m_frameData->m_depth;
+		// get scale, calc actual value divide by m_assemblyData-value
+		m_scaleDepth = (float)event.GetInt() / m_assemblyData->m_depth;
 		
 		// set new m_width
 		m_depth = event.GetInt();
 		
 		// set new dimenstions with new scale
-		m_width = (int)(m_scaleDepth * m_frameData->m_width);
-		m_height = (int)(m_scaleDepth * m_frameData->m_height);
+		m_width = (int)(m_scaleDepth * m_assemblyData->m_width);
+		m_height = (int)(m_scaleDepth * m_assemblyData->m_height);
 		
 		// update frame
 		updateFrame();
@@ -336,15 +336,15 @@ void GNRObjOaxConverterFrame::OnSpcHeightChanged(wxSpinEvent& event)
 	// check if aspect ratio is enabled
 	if (m_ckbProportion->GetValue())
 	{
-		// get scale, calc actual value divide by m_frameData-value
-		m_scaleHeight = (float)event.GetInt() / m_frameData->m_height;
+		// get scale, calc actual value divide by m_assemblyData-value
+		m_scaleHeight = (float)event.GetInt() / m_assemblyData->m_height;
 		
 		// set new m_width
 		m_height = event.GetInt();
 		
 		// set new dimenstions with new scale
-		m_width = (int)(m_scaleHeight * m_frameData->m_width);
-		m_depth = (int)(m_scaleHeight * m_frameData->m_depth);
+		m_width = (int)(m_scaleHeight * m_assemblyData->m_width);
+		m_depth = (int)(m_scaleHeight * m_assemblyData->m_depth);
 		
 		// update frame
 		updateFrame();

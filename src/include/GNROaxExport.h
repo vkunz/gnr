@@ -16,7 +16,7 @@
 #include <wx/zipstrm.h>
 
 #include "GNRAssembly.h"
-#include "GNRFrameData.h"
+#include "GNRAssemblyData.h"
 #include "GNROaxExport.h"
 
 class GNROaxExport
@@ -24,7 +24,7 @@ class GNROaxExport
 public:
 
 	// ctor
-	GNROaxExport(GNRFrameData* data);
+	GNROaxExport(GNRAssemblyData* data);
 	
 	GNROaxExport(GNRAssembly* assembly);
 	
@@ -47,7 +47,7 @@ private:
 	wxXmlProperty* m_prop;
 	
 	// container to store data
-	GNRFrameData* m_frameData;
+	GNRAssemblyData* m_assemblyData;
 	
 	// pointer to wxZipOutputStream
 	wxZipOutputStream* m_outZip;

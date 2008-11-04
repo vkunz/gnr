@@ -21,7 +21,7 @@
 #include <wx/stattext.h>
 #include <wx/string.h>
 
-#include "GNRFrameData.h"
+#include "GNRAssemblyData.h"
 #include "GNRGLCanvasPreview.h"
 #include "GNRGlobalDefine.h"
 
@@ -40,7 +40,7 @@ public:
 	void setAllCategories(std::vector<wxString>* ptrCat);
 	
 	// set Data to fill the frame
-	void setFrameData(GNRFrameData* data);
+	void setAssemblyData(GNRAssemblyData* data);
 	
 	// set Data into internal attributes
 	void setData();
@@ -108,7 +108,7 @@ private:
 	wxTextCtrl* m_txcName;
 	
 	// pointer to struc which contain all data needed by frame
-	GNRFrameData* m_frameData;
+	GNRAssemblyData* m_assemblyData;
 	
 	// functions
 	// handler

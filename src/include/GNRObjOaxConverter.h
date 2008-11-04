@@ -37,7 +37,7 @@ private:
 	GNRAssembly* m_assembly;
 	
 	// pointer to frameData
-	GNRFrameData* m_frameData;
+	GNRAssemblyData* m_assemblyData;
 	
 	// vector to pointer of all categories
 	std::vector<wxString>* m_ptrVec;

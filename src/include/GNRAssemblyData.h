@@ -14,7 +14,7 @@
 #include <list>
 #include <wx/string.h>
 
-struct GNRFrameData
+struct GNRAssemblyData
 {
 	wxString m_name;
 	wxString m_category;

@@ -62,7 +62,7 @@ private:
 	void OPXOpen(wxString filename);
 	void OPXSave(wxString filename);
 	void OAXImport(wxString filename);
-	void OAXExport(GNRFrameData* data);
+	void OAXExport(GNRAssemblyData* data);
 	void OBJImport(wxString filename);
 	void OBJExport(wxString filename);
 	

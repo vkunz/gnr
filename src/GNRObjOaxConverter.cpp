@@ -46,7 +46,7 @@ void GNRObjOaxConverter::initFrame()
 void GNRObjOaxConverter::fillFrame()
 {
 	// set frameData
-	m_frame->setFrameData(m_frameData);
+	m_frame->setAssemblyData(m_assemblyData);
 	
 	// setData
 	m_frame->setData();
@@ -76,16 +76,16 @@ void GNRObjOaxConverter::Load(wxString filename)
 	m_assembly = import.getAssembly();
 	
 	// create new FrameData
-	m_frameData = new GNRFrameData();
+	m_assemblyData = new GNRAssemblyData();
 	
 	// get x - offset and store into frameData
-	m_frameData->m_offsetX = import.getOffsetX();
+	m_assemblyData->m_offsetX = import.getOffsetX();
 	
 	// get y - offset and store into frameData
-	m_frameData->m_offsetY = import.getOffsetY();
+	m_assemblyData->m_offsetY = import.getOffsetY();
 	
 	// get z - offset and store into frameData
-	m_frameData->m_offsetZ = import.getOffsetZ();
+	m_assemblyData->m_offsetZ = import.getOffsetZ();
 	
 	// tmp list
 	std::list<wxString> list;
@@ -99,21 +99,21 @@ void GNRObjOaxConverter::Load(wxString filename)
 	// get all files from GNRObjectImport -> m_listFiles and stor to GNRFrameData -> m_listFiles
 	for (it = list.begin(); it != list.end(); it++)
 	{
-		m_frameData->m_listFiles.push_back(*it);
+		m_assemblyData->m_listFiles.push_back(*it);
 	}
 	
 	// set one tag
-	m_frameData->m_tags.push_back(wxT("gnr"));
+	m_assemblyData->m_tags.push_back(wxT("gnr"));
 	
 	// set name
-	m_frameData->m_name = wxString(m_assembly->getName().c_str(), wxConvUTF8);
+	m_assemblyData->m_name = wxString(m_assembly->getName().c_str(), wxConvUTF8);
 	
 	// set width
-	m_frameData->m_width = (int)(m_assembly->getWidth() * 1000.0);
+	m_assemblyData->m_width = (int)(m_assembly->getWidth() * 1000.0);
 	
 	// set depth
-	m_frameData->m_depth = (int)(m_assembly->getDepth() * 1000.0);
+	m_assemblyData->m_depth = (int)(m_assembly->getDepth() * 1000.0);
 	
 	// set heigh
-	m_frameData->m_height = (int)(m_assembly->getHeight() * 1000.0);
+	m_assemblyData->m_height = (int)(m_assembly->getHeight() * 1000.0);
 }

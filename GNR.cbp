@@ -159,7 +159,7 @@
 		<Unit filename="src\include\GNREnum.h" />
 		<Unit filename="src\include\GNRExportFile.h" />
 		<Unit filename="src\include\GNRFace.h" />
-		<Unit filename="src\include\GNRFrameData.h" />
+		<Unit filename="src\include\GNRAssemblyData.h" />
 		<Unit filename="src\include\GNRGLCamera.h" />
 		<Unit filename="src\include\GNRGLCameraMediator.h" />
 		<Unit filename="src\include\GNRGLCameraMediator2D.h" />

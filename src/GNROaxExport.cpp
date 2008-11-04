@@ -13,13 +13,13 @@
 #include "GNROaxExport.h"
 
 // ctor
-GNROaxExport::GNROaxExport(GNRFrameData* data)
+GNROaxExport::GNROaxExport(GNRAssemblyData* data)
 {
 	// data from ObjOaxConv -> export to FileSystem
 	m_saveToFileSystem = true;
 	
 	// asign data
-	m_frameData = data;
+	m_assemblyData = data;
 	
 	// create oax output stream and store in internal pointer
 	createOaxStream();
@@ -31,7 +31,7 @@ GNROaxExport::GNROaxExport(GNRAssembly* assembly)
 	m_saveToFileSystem = false;
 	
 	// create a new GNRFrameData object
-	m_frameData = new GNRFrameData();
+	m_assemblyData = new GNRAssemblyData();
 }
 
 // dtor
@@ -76,22 +76,22 @@ void GNROaxExport::createXmlEntry()
 	m_node = new wxXmlNode(m_actual, wxXML_ELEMENT_NODE, wxT("obj"));
 	
 	// add scale attribute
-	conv << (float)m_frameData->m_scaleWidth;
+	conv << (float)m_assemblyData->m_scaleWidth;
 	conv += wxT(" ");
-	conv << (float)m_frameData->m_scaleHeight;
+	conv << (float)m_assemblyData->m_scaleHeight;
 	conv += wxT(" ");
-	conv << (float)m_frameData->m_scaleDepth;
+	conv << (float)m_assemblyData->m_scaleDepth;
 	m_node->AddProperty(wxT("scale"), conv);
 	
 	// emtpy conv
 	conv.Empty();
 	
 	// add locationOffset
-	conv << (float)m_frameData->m_offsetX;
+	conv << (float)m_assemblyData->m_offsetX;
 	conv += wxT(" ");
-	conv << (float)m_frameData->m_offsetY;
+	conv << (float)m_assemblyData->m_offsetY;
 	conv += wxT(" ");
-	conv << (float)m_frameData->m_offsetZ;
+	conv << (float)m_assemblyData->m_offsetZ;
 	m_node->AddProperty(wxT("locationOffset"), conv);
 	
 	// add orientationOffset
@@ -101,7 +101,7 @@ void GNROaxExport::createXmlEntry()
 	std::list<wxString>::iterator it;
 	
 	// set it to first entry
-	it = m_frameData->m_listFiles.begin();
+	it = m_assemblyData->m_listFiles.begin();
 	
 	// add ref
 	m_node->AddProperty(wxT("ref"), (*it).AfterLast('\\'));
@@ -122,7 +122,7 @@ void GNROaxExport::createXmlEntry()
 	m_actual = m_actual->GetChildren();
 	
 	// create tags
-	for (it = m_frameData->m_tags.begin(); it != m_frameData->m_tags.end(); it++)
+	for (it = m_assemblyData->m_tags.begin(); it != m_assemblyData->m_tags.end(); it++)
 	{
 		// create tag
 		m_node = new wxXmlNode(m_actual, wxXML_ELEMENT_NODE, wxT("tag"));
@@ -144,7 +144,7 @@ void GNROaxExport::createXmlEntry()
 	m_node = new wxXmlNode(m_actual, wxXML_ELEMENT_NODE, wxT("name"));
 	
 	// set m_actual to name
-	m_node->AddChild(new wxXmlNode(wxXML_TEXT_NODE, wxT("name"), m_frameData->m_name));
+	m_node->AddChild(new wxXmlNode(wxXML_TEXT_NODE, wxT("name"), m_assemblyData->m_name));
 	
 	// set root
 	xml.SetRoot(root);
@@ -165,7 +165,7 @@ void GNROaxExport::createOaxStream()
 	if (m_saveToFileSystem)
 	{
 		// create FileOutputStream
-		m_outStream = new wxFFileOutputStream(wxT("data\\") + m_frameData->m_name + wxT(".oax"));
+		m_outStream = new wxFFileOutputStream(wxT("data\\") + m_assemblyData->m_name + wxT(".oax"));
 		
 		// create new wxZipOutputStream object
 		m_outZip = new wxZipOutputStream(m_outStream, -1);
@@ -181,7 +181,7 @@ void GNROaxExport::createOaxStream()
 	createXmlEntry();
 	
 	// copy all needed files by this assembly
-	for (std::list<wxString>::const_iterator it = m_frameData->m_listFiles.begin(); it != m_frameData->m_listFiles.end(); it++)
+	for (std::list<wxString>::const_iterator it = m_assemblyData->m_listFiles.begin(); it != m_assemblyData->m_listFiles.end(); it++)
 	{
 		// create new inputstream
 		wxFFileInputStream inFile((*it));
