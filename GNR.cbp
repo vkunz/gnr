@@ -120,6 +120,8 @@
 		<Unit filename="src\GNRGLScreenshot.cpp" />
 		<Unit filename="src\GNRHelpFrame.cpp" />
 		<Unit filename="src\GNRImportFile.cpp" />
+		<Unit filename="src\GNRLibraryCategory.cpp" />
+		<Unit filename="src\GNRLibraryEntry.cpp" />
 		<Unit filename="src\GNRLineDrawEvent.cpp" />
 		<Unit filename="src\GNRMainFrame.cpp" />
 		<Unit filename="src\GNRMaterial.cpp" />
@@ -171,6 +173,8 @@
 		<Unit filename="src\include\GNRGlobalDefine.h" />
 		<Unit filename="src\include\GNRHelpFrame.h" />
 		<Unit filename="src\include\GNRImportFile.h" />
+		<Unit filename="src\include\GNRLibraryCategory.h" />
+		<Unit filename="src\include\GNRLibraryEntry.h" />
 		<Unit filename="src\include\GNRLineDrawEvent.h" />
 		<Unit filename="src\include\GNRMainFrame.h" />
 		<Unit filename="src\include\GNRMaterial.h" />
