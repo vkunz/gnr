@@ -24,9 +24,9 @@ class GNROaxExport
 public:
 
 	// ctor
-	GNROaxExport(GNRAssemblyData* data);
+	GNROaxExport(GNRAssemblyData* data, wxOutputStream* outStream);
 	
-	GNROaxExport(GNRAssembly* assembly);
+	GNROaxExport(GNRAssembly* assembly, wxString filepath);
 	
 	// dtor
 	virtual ~GNROaxExport();
@@ -53,7 +53,7 @@ private:
 	wxZipOutputStream* m_outZip;
 	
 	// pointer to wxOutputStream
-	wxFFileOutputStream* m_outStream;
+	wxOutputStream* m_outStream;
 	
 	// functions
 	// create xml zip entry

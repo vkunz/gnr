@@ -9,6 +9,7 @@
  */
 
 #include <wx/image.h>
+#include <wx/mstream.h>
 
 #include "GNRApp.h"
 #include "GNRGlobalDefine.h"
@@ -421,8 +422,23 @@ void GNRApp::OAXImport(wxString filename)
  */
 void GNRApp::OAXExport(GNRAssemblyData* data)
 {
+	// create new memory output stream
+	wxMemoryOutputStream memOut;
+	
+	// pointer to wxOutputStream
+	wxOutputStream* outStream = &memOut;
+	
 	// create new OaxExport - object
-	GNROaxExport out(data);
+	GNROaxExport out(data, outStream);
+	
+	// create new memory input stream
+	wxMemoryInputStream memIn(memOut);
+	
+	// pointer to wxInputStream
+	wxInputStream* inStream = &memIn;
+	
+	// add new entry
+	m_TreeLibCtrl->addEntry(data->m_name, data->m_category, *inStream);
 	
 	// successfull
 	delete m_ObjOaxConv;
@@ -437,10 +453,6 @@ void GNRApp::OBJImport(wxString filename)
 {
 	// create objoaxconv
 	m_ObjOaxConv = new GNRObjOaxConverter(filename, m_TreeLibCtrl->getAllCategories());
-	
-	//GNRObjectImport import(filename);
-	
-	//m_Scene->insertAssembly(import.getAssembly());
 }
 
 /**

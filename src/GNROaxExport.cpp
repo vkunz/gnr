@@ -13,22 +13,25 @@
 #include "GNROaxExport.h"
 
 // ctor
-GNROaxExport::GNROaxExport(GNRAssemblyData* data)
+GNROaxExport::GNROaxExport(GNRAssemblyData* data, wxOutputStream* outStream)
 {
-	// data from ObjOaxConv -> export to FileSystem
-	m_saveToFileSystem = true;
+	// data from ObjOaxConv -> export to library
+	m_saveToFileSystem = false;
 	
 	// asign data
 	m_assemblyData = data;
+	
+	// asign out stream
+	m_outStream = outStream;
 	
 	// create oax output stream and store in internal pointer
 	createOaxStream();
 }
 
-GNROaxExport::GNROaxExport(GNRAssembly* assembly)
+GNROaxExport::GNROaxExport(GNRAssembly* assembly, wxString filepath)
 {
-	// data from an Assembly -> return wxZipOutputStream
-	m_saveToFileSystem = false;
+	// data from an Assembly -> return oax-file
+	m_saveToFileSystem = true;
 	
 	// create a new GNRFrameData object
 	m_assemblyData = new GNRAssemblyData();
@@ -173,8 +176,7 @@ void GNROaxExport::createOaxStream()
 	// if not, use m_outStream
 	else
 	{
-		// create new wxZipOutputStream object and use m_outStream as parent
-		m_outZip = new wxZipOutputStream(m_outStream, -1);
+		m_outZip = new wxZipOutputStream(*m_outStream, -1);
 	}
 	
 	// create new xml entry
