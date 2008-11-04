@@ -72,6 +72,14 @@ wxString wxbuildinfo(wxbuildinfoformat format)
 #endif // wxUSE_UNICODE
 	}
 	
+	wxbuild << _T("\n\nGNR 3D Raumplaner\n\n");
+	wxbuild << _T("# if defined(PROGRAMMIERER)\n");
+	wxbuild << _T("# include \"Konstantin_Balabin.h\"\n");
+	wxbuild << _T("# includePatrick_Kracht.h\"\n");
+	wxbuild << _T("# includeThorsten_Moll.h\"\n");
+	wxbuild << _T("# includeValentin_Kunz.h\"\n");
+	wxbuild << _T("# endif");
+	
 	return wxbuild;
 }
 
@@ -198,7 +206,7 @@ GNRMainFrame::GNRMainFrame(wxWindow* parent, wxWindowID WXUNUSED(id))
 	wxMenuBar* MenuBar1;
 	wxMenu* Menu2;
 	
-	Create(parent, wxID_ANY, _("GNR - 3D Einrichtungsplaner"), wxDefaultPosition, wxDefaultSize, wxDEFAULT_FRAME_STYLE, _T("wxID_ANY"));
+	Create(parent, wxID_ANY, _("GNR - 3D Einrichtungsplaner [version 0.3.8.1alpha]"), wxDefaultPosition, wxDefaultSize, wxDEFAULT_FRAME_STYLE, _T("wxID_ANY"));
 	SetClientSize(wxSize(800,550));
 	Move(wxPoint(0,0));
 	SetMinSize(wxSize(800,480));

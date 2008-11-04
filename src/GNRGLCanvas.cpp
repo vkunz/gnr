@@ -166,9 +166,7 @@ void GNRGLCanvas::initLights()
 
 	glLightModelfv(GL_LIGHT_MODEL_AMBIENT, light_ambient);
 	glLightModeli(GL_LIGHT_MODEL_TWO_SIDE, 1);
-	glLightModeli(GL_LIGHT_MODEL_LOCAL_VIEWER, 1);
-//	glLightModelfv(GL_LIGHT_MODEL_COLOR_CONTROL, GL_SEPARATE_SPECULAR_COLOR);
-
+	
 	glEnable(GL_LIGHTING);
 	glEnable(GL_LIGHT0);
 //	glEnable(GL_LIGHT1);
@@ -185,14 +183,14 @@ void GNRGLCanvas::initLights()
 void GNRGLCanvas::initGL()
 {
 	//define light source
-	light_ambient[0] = 0.5;
-	light_ambient[1] = 0.5;
-	light_ambient[2] = 0.5;
+	light_ambient[0] = 0.3;
+	light_ambient[1] = 0.3;
+	light_ambient[2] = 0.3;
 	light_ambient[3] = 0.0;
 	
-	light_diffuse[0] = 0.9;
-	light_diffuse[1] = 0.9;
-	light_diffuse[2] = 0.9;
+	light_diffuse[0] = 1.0;
+	light_diffuse[1] = 1.0;
+	light_diffuse[2] = 1.0;
 	light_diffuse[3] = 0.0;
 	
 	light_specular[0] = 0.1;
@@ -206,28 +204,28 @@ void GNRGLCanvas::initGL()
 	light_position[0][2] = 20.0;
 	light_position[0][3] = 1.0;
 	
-//	//define light position 2
-//	light_position[1][0] = -64.0;
-//	light_position[1][1] = 64.0;
-//	light_position[1][2] = 64.0;
-//	light_position[1][3] = 1.0;
-//
-//	//define light position 3
-//	light_position[2][0] = -64.0;
-//	light_position[2][1] = 64.0;
-//	light_position[2][2] = -64.0;
-//	light_position[2][3] = 1.0;
-//
-//	//define light position 4
-//	light_position[3][0] = 64.0;
-//	light_position[3][1] = 64.0;
-//	light_position[3][2] = -64.0;
-//	light_position[3][3] = 1.0;
-
+	//define light position 2
+	light_position[1][0] = -64.0;
+	light_position[1][1] = 64.0;
+	light_position[1][2] = 64.0;
+	light_position[1][3] = 1.0;
+	
+	//define light position 3
+	light_position[2][0] = -64.0;
+	light_position[2][1] = 64.0;
+	light_position[2][2] = -64.0;
+	light_position[2][3] = 1.0;
+	
+	//define light position 4
+	light_position[3][0] = 64.0;
+	light_position[3][1] = 64.0;
+	light_position[3][2] = -64.0;
+	light_position[3][3] = 1.0;
+	
 	//define shadow color
-	shadow_color[0] = 0.2;
-	shadow_color[1] = 0.2;
-	shadow_color[2] = 0.2;
+	shadow_color[0] = 0.3;
+	shadow_color[1] = 0.3;
+	shadow_color[2] = 0.3;
 	shadow_color[3] = 0.7;
 	
 	//normal of floor
@@ -250,6 +248,8 @@ void GNRGLCanvas::initGL()
 	glDepthFunc(GL_LEQUAL);
 	
 	glBlendFunc(GL_ONE_MINUS_SRC_ALPHA,GL_SRC_ALPHA);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	glBlendFunc(GL_DST_COLOR, GL_SRC_COLOR);
 	
 	glEnable(GL_BLEND);
 	glEnable(GL_DEPTH_TEST);
@@ -306,8 +306,9 @@ void GNRGLCanvas::drawBaseFloor(float fCenterX, float fCenterY, float fCenterZ, 
 		glNormal3f(0.0, 1.0, 0.0);
 		//set starting edge half of size from center
 		float s = fSize/2;
-		int start = -(int)(s + fCenterX);
-		int end   = (int)(s + fCenterZ);
+		float x = fCenterX - s, z = fCenterZ - s;
+		int start = -(int)s;
+		int end   = (int)s;
 		//draw fSize quads in x-axis
 		for (GLint i = start; i < end; i++)
 		{
@@ -373,23 +374,21 @@ void GNRGLCanvas::loadShadowMatrix()
 
 void GNRGLCanvas::shadowColorOn()
 {
+	glColor4f(shadow_color[0],shadow_color[1],shadow_color[2],shadow_color[3]);
 	glDisable(GL_TEXTURE_2D);
 	glDisable(GL_LIGHTING);
-	glDisable(GL_LIGHT0);
 	glDisable(GL_DEPTH_TEST);
 	glEnable(GL_BLEND);
 	glStencilOp(GL_KEEP, GL_KEEP, GL_INCR);
 	glCullFace(GL_FRONT);
-	glColor4f(shadow_color[0],shadow_color[1],shadow_color[2],shadow_color[3]);
 }
 
 void GNRGLCanvas::shadowColorOff()
 {
-	glDisable(GL_STENCIL_TEST);
 	glDisable(GL_BLEND);
+	glDisable(GL_STENCIL_TEST);
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_LIGHTING);
-	glEnable(GL_LIGHT0);
 	glCullFace(GL_BACK);
 }
 
@@ -424,8 +423,6 @@ void GNRGLCanvas::preparePixelBuffer()
 	glEnable(GL_STENCIL_TEST);
 	glStencilFunc(GL_ALWAYS, 1, 0xFFFFFFFF);
 	glStencilOp(GL_REPLACE, GL_REPLACE, GL_REPLACE);
-	glDisable(GL_DEPTH_TEST);
-	glDisable(GL_DEPTH_TEST);
 }
 
 /**
@@ -844,7 +841,7 @@ void GNRGLCanvas::setActive()
  * @param       wxKeyEvent    Key-Event of current canvas
  * @access      private
  */
-void GNRGLCanvas::OnKeyDown(wxKeyEvent& WXUNUSED(event))
+void GNRGLCanvas::OnKeyDown(wxKeyEvent& event)
 {
 //#if defined(__ATHOS_DEBUG__)
 //	wxLogDebug(wxT("Key-Event"));
