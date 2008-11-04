@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<gnr>
+	<groups>
+		<group name="Stühle" groupid="1"/>
+		<group name="Tische" groupid="2"/>
+        <group name="Bänke" groupid="3"/>
+	</groups>
+	<entries>
+        <entry ref="Testteil.oax" groupid="1"/>
+	</entries>
+</gnr>
