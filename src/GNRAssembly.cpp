@@ -29,7 +29,7 @@ GNRAssembly::GNRAssembly(const wxString& name):
 		m_scale_x(1.0), m_scale_y(1.0), m_scale_z(1.0),
 		m_width(1.0), m_height(1.0), m_depth(1.0),
 		m_radius_bottom(0.0), m_radius_middle(0.0), m_radius_top(0.0),
-		m_type(IS_ROOT), m_name(name), m_parent(NULL),
+		m_type(IS_ROOT), m_name(name), m_parent(NULL), m_origin(NULL),
 		m_dl_object(0), m_dl_shadow(0), m_md5_obj_xml(wxEmptyString)
 {
 }
@@ -39,8 +39,19 @@ GNRAssembly::GNRAssembly(const wxString& name):
  * @param       string         name of assembly
  * @access      public
  */
-GNRAssembly::GNRAssembly(const GNRAssembly& assembly)
+GNRAssembly::GNRAssembly(GNRAssembly& assembly)
 {
+	if (assembly.m_origin == NULL)
+	{
+		//if assembly is original, set origin pointer
+		m_origin = &assembly;
+	}
+	else
+	{
+		//else set same origin, is clone from clone
+		m_origin = assembly.m_origin;
+	}
+	
 	m_x       = assembly.m_x;
 	m_y       = assembly.m_y;
 	m_z       = assembly.m_z;
@@ -62,13 +73,6 @@ GNRAssembly::GNRAssembly(const GNRAssembly& assembly)
 	m_dl_object     = assembly.m_dl_object;
 	m_dl_shadow     = assembly.m_dl_shadow;
 	m_md5_obj_xml   = assembly.m_md5_obj_xml;
-	
-	// copy my faces
-	for (list<GNRFace>::const_iterator it = m_face.begin(); it != m_face.end(); ++it)
-	{
-		GNRFace a_face = (*it);
-		addFace(a_face);
-	}
 	
 	// copy the children
 	for (list<GNRAssembly*>::const_iterator it = m_part.begin(); it != m_part.end(); ++it)
@@ -96,6 +100,24 @@ GNRAssembly::GNRAssembly(const GNRAssembly& assembly)
 }
 
 /**
+ * clone only display lists
+ * @return      GNRAssembly*         pointer to assembly
+ * @access      public
+ */
+GNRAssembly* GNRAssembly::cloneDisplayListFrom(GNRAssembly* assembly)
+{
+	//copy display list ids
+	m_dl_object = assembly->m_dl_object;
+	m_dl_shadow = assembly->m_dl_shadow;
+	
+	//point to origin (faces backup)
+	m_origin = assembly;
+	
+	//free memory
+	m_face.clear();
+}
+
+/**
  * clone of generic assembly
  * @return      GNRAssembly*         pointer to assembly
  * @access      public
@@ -103,6 +125,17 @@ GNRAssembly::GNRAssembly(const GNRAssembly& assembly)
 GNRAssembly* GNRAssembly::clone()
 {
 	GNRAssembly* m_clone = new GNRAssembly(wxT("clone"));
+	
+	if (m_origin == NULL)
+	{
+		//if assembly is original, set origin pointer
+		m_clone->m_origin = this;
+	}
+	else
+	{
+		//else set same origin, is clone from clone
+		m_clone->m_origin = m_origin;
+	}
 	
 	m_clone->m_x             = m_x;
 	m_clone->m_y             = m_y;
@@ -125,13 +158,6 @@ GNRAssembly* GNRAssembly::clone()
 	m_clone->m_dl_object     = m_dl_object;
 	m_clone->m_dl_shadow     = m_dl_shadow;
 	m_clone->m_md5_obj_xml   = m_md5_obj_xml;
-	
-	// copy my faces
-	for (list<GNRFace>::const_iterator it = m_face.begin(); it != m_face.end(); ++it)
-	{
-		GNRFace a_face = (*it);
-		m_clone->addFace(a_face);
-	}
 	
 	// copy the children
 	for (list<GNRAssembly*>::const_iterator it = m_part.begin(); it != m_part.end(); ++it)
@@ -171,7 +197,7 @@ GNRAssembly::GNRAssembly(GNRAssembly* parent, const wxString& name):
 		m_scale_x(1.0), m_scale_y(1.0), m_scale_z(1.0),
 		m_width(1.0), m_height(1.0), m_depth(1.0),
 		m_radius_bottom(0.0), m_radius_middle(0.0), m_radius_top(0.0),
-		m_type(IS_ROOT), m_name(name), m_parent(parent),
+		m_type(IS_ROOT), m_name(name), m_parent(parent), m_origin(NULL),
 		m_dl_object(0), m_dl_shadow(0), m_md5_obj_xml(wxEmptyString)
 {
 }
@@ -188,7 +214,7 @@ GNRAssembly::GNRAssembly(const assemblyType& type, const wxString& name):
 		m_scale_x(1.0), m_scale_y(1.0), m_scale_z(1.0),
 		m_width(1.0), m_height(1.0), m_depth(1.0),
 		m_radius_bottom(0.0), m_radius_middle(0.0), m_radius_top(0.0),
-		m_type(type), m_name(name), m_parent(NULL),
+		m_type(type), m_name(name), m_parent(NULL), m_origin(NULL),
 		m_dl_object(0), m_dl_shadow(0), m_md5_obj_xml(wxEmptyString)
 {
 }
@@ -201,7 +227,20 @@ GNRAssembly::~GNRAssembly()
 {
 	for (list<GNRAssembly*>::iterator it = m_part.begin(); it != m_part.end(); ++it)
 	{
+		//delete child
 		delete *it;
+	}
+	
+	if (glIsList(m_dl_object))
+	{
+		//delete object DL
+		glDeleteLists(m_dl_object,1);
+	}
+	
+	if (glIsList(m_dl_shadow))
+	{
+		//delete shadow DL
+		glDeleteLists(m_dl_shadow,1);
 	}
 }
 
@@ -442,6 +481,17 @@ GNRAssembly* GNRAssembly::getMaster() const
 	
 	//return master pointer
 	return master;
+}
+
+/**
+ * get origin id of current assembly
+ * @return      GNRAssembly*         pointer to origin
+ * @access      public
+ */
+GNRAssembly* GNRAssembly::getOrigin() const
+{
+	//return origin pointer
+	return m_origin;
 }
 
 /**
@@ -1028,6 +1078,7 @@ void GNRAssembly::draw()
 		
 		if (glIsList(m_dl_object))
 		{
+			//call display list of objects
 			glCallList(m_dl_object);
 		}
 		else
@@ -1051,7 +1102,7 @@ void GNRAssembly::draw()
 		for (list<GNRAssembly*>::const_iterator it = m_part.begin(); it != m_part.end(); ++it)
 		{
 			// set Child-Material
-			map<const GNRAssembly* const, GNRMaterial>::const_iterator it_mat = m_child_mat.find(*it);
+			map<const GNRAssembly* const, GNRMaterial>::iterator it_mat = m_child_mat.find(*it);
 			if (it_mat != m_child_mat.end())
 			{
 				it_mat->second.set();
@@ -1082,6 +1133,7 @@ void GNRAssembly::drawShadow()
 		
 		if (glIsList(m_dl_shadow))
 		{
+			//call display list of shadows
 			glCallList(m_dl_shadow);
 		}
 		else

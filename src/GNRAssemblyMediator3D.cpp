@@ -56,8 +56,8 @@ void GNRAssemblyMediator3D::MoveXZ(GNRGLNotifyEvent& event)
 {
 	GNRVertex to_obj = cam_pos - obj_pos;
 	
-	float mouse_dx = to_obj.length()*(m_mouse_x - event.getMouseEvent().GetX())/window_w*0.98;
-	float mouse_dy = to_obj.length()*(m_mouse_y - event.getMouseEvent().GetY())/window_h*0.98;
+	float mouse_dx = to_obj.length()*(m_mouse_x - event.getMouseEvent().GetX())/window_w*0.99;
+	float mouse_dy = to_obj.length()*(m_mouse_y - event.getMouseEvent().GetY())/window_h*0.99;
 	
 	GNRVertex direction(mouse_dx,0.0,mouse_dy);
 	direction.rotate(0.0,cam_rot_y,0.0);

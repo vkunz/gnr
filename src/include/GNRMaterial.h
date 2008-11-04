@@ -11,6 +11,8 @@
 #ifndef _GNRMATERIAL_H_
 #define _GNRMATERIAL_H_
 
+#include <GL/gl.h>
+
 #include "GNRMaterial.h"
 
 #include <string>
@@ -64,12 +66,13 @@ public:
 	void setAlpha(float a);
 	void setShininess(int s);
 	
-	void set() const;
+	void set();
 	
 private:
 	GNRColor m_ambient, m_diffuse, m_specular;
 	float m_alpha;
 	int m_shininess;
+	GLuint m_dl;
 };
 
 #endif // _GNRMATERIAL_H_

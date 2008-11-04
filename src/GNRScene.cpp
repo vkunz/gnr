@@ -126,7 +126,11 @@ void GNRScene::initContainers()
  */
 void GNRScene::destroyContainers()
 {
-	//selected is killed by root assembly
+	//disconnect selected part
+	m_RootAssembly->delPart(m_Selected);
+	
+	//selected is killed, then root
+	delete m_Selected;
 	delete m_RootAssembly;
 	
 	//kill all temp containers
@@ -383,8 +387,8 @@ void GNRScene::insertCopiedAssemblies()
 void GNRScene::drawLine(GNRLineDrawEvent& event)
 {
 	//initialize only light source
-	m_Canvas2D->initLights();
-	
+//	m_Canvas2D->initLights();
+
 	//prepare and draw 2D top view of room
 	m_Canvas2D->prepareDraw();
 	
@@ -404,14 +408,13 @@ void GNRScene::drawLine(GNRLineDrawEvent& event)
 	
 	/*NOW CAST THE SHADOWS ON THE FLOOR AND KEEP IN PIXELBUFFER*/
 	
-	//draw real floor for casting shadows (1)
-	m_Canvas2D->drawBaseFloor(0.0, 0.0, 0.0, DEFAULT_FLOOR_SIZE);
-	
 	//draw all shadows of objects
 	glPushMatrix();
 	{
 		//turn shadows on
 		m_Canvas2D->shadowColorOn();
+		//draw real floor for casting shadows (1)
+		m_Canvas2D->drawBaseFloor(0.0, 0.0, 0.0, DEFAULT_FLOOR_SIZE);
 		//load shadow projection matrix
 		m_Canvas2D->loadShadowMatrix();
 		//draw shadows on prepainted floor (1)

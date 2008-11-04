@@ -37,7 +37,7 @@ public:
 	GNRAssembly(const wxString& name);
 	GNRAssembly(GNRAssembly* parent, const wxString& name);
 	GNRAssembly(const assemblyType& type, const wxString& name);
-	GNRAssembly(const GNRAssembly& assembly);
+	GNRAssembly(GNRAssembly& assembly);
 	
 	virtual ~GNRAssembly();
 	
@@ -122,6 +122,8 @@ public:
 	void setHash(const wxString& hash);
 	
 	GNRAssembly* clone();
+	GNRAssembly* cloneDisplayListFrom(GNRAssembly* assembly);
+	GNRAssembly* getOrigin() const;
 	GNRAssembly* getParent() const;
 	GNRAssembly* getMaster() const;
 	void setParent(GNRAssembly* p);
@@ -159,6 +161,7 @@ private:
 	wxString m_name;
 	
 	GNRAssembly* m_parent;
+	GNRAssembly* m_origin;
 	
 	//my display list and shadows
 	GLuint m_dl_object;

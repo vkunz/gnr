@@ -373,21 +373,23 @@ void GNRGLCanvas::loadShadowMatrix()
 
 void GNRGLCanvas::shadowColorOn()
 {
-	glColor4f(shadow_color[0],shadow_color[1],shadow_color[2],shadow_color[3]);
 	glDisable(GL_TEXTURE_2D);
 	glDisable(GL_LIGHTING);
+	glDisable(GL_LIGHT0);
 	glDisable(GL_DEPTH_TEST);
 	glEnable(GL_BLEND);
 	glStencilOp(GL_KEEP, GL_KEEP, GL_INCR);
 	glCullFace(GL_FRONT);
+	glColor4f(shadow_color[0],shadow_color[1],shadow_color[2],shadow_color[3]);
 }
 
 void GNRGLCanvas::shadowColorOff()
 {
-	glDisable(GL_BLEND);
 	glDisable(GL_STENCIL_TEST);
+	glDisable(GL_BLEND);
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_LIGHTING);
+	glEnable(GL_LIGHT0);
 	glCullFace(GL_BACK);
 }
 
@@ -422,6 +424,8 @@ void GNRGLCanvas::preparePixelBuffer()
 	glEnable(GL_STENCIL_TEST);
 	glStencilFunc(GL_ALWAYS, 1, 0xFFFFFFFF);
 	glStencilOp(GL_REPLACE, GL_REPLACE, GL_REPLACE);
+	glDisable(GL_DEPTH_TEST);
+	glDisable(GL_DEPTH_TEST);
 }
 
 /**
