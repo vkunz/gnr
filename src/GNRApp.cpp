@@ -20,6 +20,7 @@
 #include "GNROpxExport.h"
 #include "GNROpxImport.h"
 #include "GNRObjOaxConverter.h"
+#include "GNRSceneTreeNode.h"
 
 #if defined(__ATHOS_DEBUG__)
 #include <wx/log.h>
@@ -67,7 +68,7 @@ bool GNRApp::OnInit()
 		m_MouseCtrl     = new GNRMouseController(m_Scene);
 		
 		m_TreeLibCtrl   = new GNRTreeLibraryController(m_TreeCtrlLib);
-		m_GridSceneCtrl = new GNRGridSceneController(m_Grid);
+		m_TreeSceneCtrl = new GNRTreeSceneController(m_TreeCtrlScene);
 		m_UndoRedo      = GNRUndoRedo::getInstance();
 		
 		m_Scene->setCanvas2D(m_Canvas2D);
@@ -106,13 +107,11 @@ void GNRApp::initFrames()
 	
 	//create tree and models panel
 	m_TreePanelLibrary = new GNRTreePanelLibrary(m_HorizontalSplitter_left, wxID_ANY);
-	m_GridPanelMyScene = new GNRGridPanelMyScene(m_HorizontalSplitter_left, wxID_ANY);
+	m_TreePanelMyScene = new GNRTreePanelMyScene(m_HorizontalSplitter_left, wxID_ANY);
 	
-	//create m_TreeCntr
+	//create TreeCntr
 	m_TreeCtrlLib = new wxTreeCtrl(m_TreePanelLibrary, wxID_ANY, wxPoint(0, 0), m_TreePanelLibrary->GetSize(), wxTR_DEFAULT_STYLE, wxDefaultValidator, wxT("TreePanelLibrary"));
-	
-	//create m_Grid
-	m_Grid = new wxGrid(m_GridPanelMyScene, wxID_ANY, wxPoint(0, 0), m_GridPanelMyScene->GetSize(), wxWANTS_CHARS, wxT("GridPanelMyScene"));
+	m_TreeCtrlScene = new wxTreeCtrl(m_TreePanelMyScene, wxID_ANY, wxPoint(0, 0), m_TreePanelMyScene->GetSize(), wxTR_DEFAULT_STYLE, wxDefaultValidator, wxT("TreePanelMyScene"));
 	
 	//create two canvas panels
 	m_Canvas2D = new GNRGLCanvas2D(m_HorizontalSplitter_right, -1);
@@ -125,7 +124,7 @@ void GNRApp::initFrames()
 	
 	//initialize both treepanels
 	m_HorizontalSplitter_left->Initialize(m_TreePanelLibrary);
-	m_HorizontalSplitter_left->Initialize(m_GridPanelMyScene);
+	m_HorizontalSplitter_left->Initialize(m_TreePanelMyScene);
 	
 	//initialize both canvases
 	m_HorizontalSplitter_right->Initialize(m_Canvas2D);
@@ -135,7 +134,7 @@ void GNRApp::initFrames()
 	m_HorizontalSplitter_right->SplitHorizontally(m_Canvas2D, m_Canvas3D);
 	
 	//split left splitter in upper (library) and lower (myscene) treeview
-	m_HorizontalSplitter_left->SplitHorizontally(m_TreePanelLibrary, m_GridPanelMyScene);
+	m_HorizontalSplitter_left->SplitHorizontally(m_TreePanelLibrary, m_TreePanelMyScene);
 	
 	//split vertical (main) splitter in left and right splitter
 	m_VerticalSplitter->SplitVertically(m_HorizontalSplitter_left, m_HorizontalSplitter_right);
@@ -162,8 +161,8 @@ void GNRApp::updateSize()
 	// update size of m_TreeCtrlLib
 	m_TreeCtrlLib->SetSize(m_TreePanelLibrary->GetSize());
 	
-	// update size of m_Grid
-	m_Grid->SetSize(m_GridPanelMyScene->GetSize());
+	// update size of m_TreeCtrlScene
+	m_TreeCtrlScene->SetSize(m_TreePanelMyScene->GetSize());
 }
 
 /**

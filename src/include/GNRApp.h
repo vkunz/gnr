@@ -13,7 +13,6 @@
 
 #include <wx/app.h>
 #include <wx/glcanvas.h>
-#include <wx/grid.h>
 #include <wx/splitter.h>
 #include <wx/treectrl.h>
 #include <wx/wfstream.h>
@@ -22,7 +21,6 @@
 #include "GNRGLCanvas2D.h"
 #include "GNRGLCanvas3D.h"
 #include "GNRGLNotifyEvent.h"
-#include "GNRGridSceneController.h"
 #include "GNRLineDrawEvent.h"
 #include "GNRObjOaxConverter.h"
 #include "GNRMainFrame.h"
@@ -30,8 +28,9 @@
 #include "GNRNotifyEvent.h"
 #include "GNRScene.h"
 #include "GNRTreeLibraryController.h"
+#include "GNRTreeSceneController.h"
 #include "GNRTreePanelLibrary.h"
-#include "GNRGridPanelMyScene.h"
+#include "GNRTreePanelMyScene.h"
 #include "GNRUndoRedo.h"
 
 #if defined(__ATHOS_DEBUG__)
@@ -73,21 +72,18 @@ private:
 	//attributes
 	//treectrl
 	wxTreeCtrl* m_TreeCtrlLib;
+	wxTreeCtrl* m_TreeCtrlScene;
 	
 	//manges the treectrl
 	GNRTreeLibraryController* m_TreeLibCtrl;
+	GNRTreeSceneController* m_TreeSceneCtrl;
 	
-	//grid
-	wxGrid* m_Grid;
-	
-	//manages the grid
-	GNRGridSceneController* m_GridSceneCtrl;
 	
 	//pointer to GNRObjOaxConverter
 	GNRObjOaxConverter* m_ObjOaxConv;
 	
 	GNRTreePanelLibrary* m_TreePanelLibrary;
-	GNRGridPanelMyScene* m_GridPanelMyScene;
+	GNRTreePanelMyScene* m_TreePanelMyScene;
 	
 	GNRUndoRedo* m_UndoRedo;
 	
