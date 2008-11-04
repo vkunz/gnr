@@ -225,9 +225,9 @@ void GNRGLCanvas::initGL()
 //	light_position[3][3] = 1.0;
 
 	//define shadow color
-	shadow_color[0] = 0.3;
-	shadow_color[1] = 0.3;
-	shadow_color[2] = 0.3;
+	shadow_color[0] = 0.2;
+	shadow_color[1] = 0.2;
+	shadow_color[2] = 0.2;
 	shadow_color[3] = 0.7;
 	
 	//normal of floor
@@ -250,8 +250,6 @@ void GNRGLCanvas::initGL()
 	glDepthFunc(GL_LEQUAL);
 	
 	glBlendFunc(GL_ONE_MINUS_SRC_ALPHA,GL_SRC_ALPHA);
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-	glBlendFunc(GL_DST_COLOR, GL_SRC_COLOR);
 	
 	glEnable(GL_BLEND);
 	glEnable(GL_DEPTH_TEST);

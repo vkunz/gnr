@@ -367,6 +367,7 @@ GNRMainFrame::GNRMainFrame(wxWindow* parent, wxWindowID WXUNUSED(id))
 	//turn on snapping on menu by default
 	ToolBar1->ToggleTool(btn_snap_to_grid,true);
 	MenuItem9->Check(true);
+	MenuItem32->Check(true);
 }
 
 GNRMainFrame::~GNRMainFrame()
