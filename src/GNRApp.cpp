@@ -81,7 +81,7 @@ bool GNRApp::OnInit()
 #warning "INFO: Who wants some test?"
 		//start tests right here
 #if defined(__ATHOS_DEBUG__)
-		m_Tests->sizeXsizeLoopsLoadClean(m_Scene,4,5);
+		//m_Tests->sizeXsizeLoopsLoadClean(m_Scene,4,5);
 #endif
 	}
 	
