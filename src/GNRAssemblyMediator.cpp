@@ -17,6 +17,16 @@
 #endif
 
 /**
+ * constructor of GNRAssemblyMediator
+ * @access      public
+ */
+GNRAssemblyMediator::GNRAssemblyMediator()
+{
+	m_Assembly    = NULL;
+	m_initialized = false;
+};
+
+/**
  * set active assembly which was hit by selection
  * @param       int         assemblyID int cast of pointer
  * @access      public
@@ -24,6 +34,9 @@
 void GNRAssemblyMediator::setAssembly(GNRAssembly* assembly)
 {
 	m_Assembly = assembly;
+	wxString str;
+	str << wxT("assembly") << (int) assembly;
+	wxLogDebug(str);
 }
 
 /**
@@ -33,7 +46,7 @@ void GNRAssemblyMediator::setAssembly(GNRAssembly* assembly)
  */
 void GNRAssemblyMediator::initialize(GNRGLNotifyEvent& event)
 {
-	if (m_Assembly != NULL && (int)m_Assembly != 0)
+	if (m_Assembly != NULL)
 	{
 		m_initialized = true;
 		
