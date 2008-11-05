@@ -34,9 +34,7 @@ GNRAssemblyMediator::GNRAssemblyMediator()
 void GNRAssemblyMediator::setAssembly(GNRAssembly* assembly)
 {
 	m_Assembly = assembly;
-	wxString str;
-	str << wxT("assembly") << (int) assembly;
-	wxLogDebug(str);
+	m_initialized = false;
 }
 
 /**
@@ -93,7 +91,7 @@ void GNRAssemblyMediator::initialize(GNRGLNotifyEvent& event)
 int GNRAssemblyMediator::translate(GNRGLNotifyEvent& event)
 {
 	//if no active assembly, return
-	if (m_initialized && m_Assembly != NULL && (int)m_Assembly > 0)
+	if (m_initialized && m_Assembly != NULL)
 	{
 		//do specific translations
 		switch (m_Translation)

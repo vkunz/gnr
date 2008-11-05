@@ -230,18 +230,6 @@ GNRAssembly::~GNRAssembly()
 		//delete child
 		delete *it;
 	}
-	
-	if (glIsList(m_dl_object) && m_origin != NULL)
-	{
-		//delete object DL
-		glDeleteLists(m_dl_object,1);
-	}
-	
-	if (glIsList(m_dl_shadow) && m_origin != NULL)
-	{
-		//delete shadow DL
-		glDeleteLists(m_dl_shadow,1);
-	}
 }
 
 /* ******* GETTER METHODS FOLLOWING ***** */

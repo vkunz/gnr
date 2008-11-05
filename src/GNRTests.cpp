@@ -19,19 +19,20 @@ void GNRTests::sizeXsizeLoopsLoadClean(GNRScene* scene, const int loops = 10, co
 	str << loops << wxT(" Durchläufe mit ") << size << wxT(" x ") << size << wxT(" Kuben...");
 	wxMessageBox(str);
 	
-	for (int h = -loops/2; h<loops/2; ++h)
+	for (int h = -loops/2; h<loops/2+1; ++h)
 	{
-		for (int i = -size/2; i<=size/2; ++i)
+		for (int i = -size/2; i<size/2+1; ++i)
 		{
-			for (int j = -size/2; j<=size/2; ++j)
+			for (int j = -size/2; j<size/2+1; ++j)
 			{
 				//build importer and load jumbo
+				//GNROaxImport in(wxT("data\\apple-ibook-2001.oax"));
 				GNROaxImport in(wxT("data\\cube_green_1x1.oax"));
 				//get assembly
 				GNRAssembly* dummy = in.getAssembly();
 				//move dummy around
-				dummy->setX(i*1.5);
-				dummy->setZ(j*1.5);
+				dummy->setX(i*1.0);
+				dummy->setZ(j*1.0);
 				//insert in scene
 				scene->insertAssembly(dummy);
 			}

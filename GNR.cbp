@@ -17,6 +17,7 @@
 					<Add option="-g" />
 					<Add option="-D__WXDEBUG__" />
 					<Add option="-D__ATHOS_DEBUG__" />
+					<Add option="-DDETECT_LEAKS" />
 					<Add directory="$(#wx)\lib\gcc_lib\mswud" />
 				</Compiler>
 				<ResourceCompiler>
