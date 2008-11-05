@@ -18,12 +18,11 @@
 
 GNRHelpFrame::GNRHelpFrame(wxWindow* parent, wxWindowID id)
 {
-	Create(parent, id, wxT("Hilfe"), wxDefaultPosition, wxDefaultSize, wxCAPTION|wxSYSTEM_MENU|wxCLOSE_BOX|wxMINIMIZE_BOX|wxSTATIC_BORDER, wxT("ObjOaxConverter"));
-	SetClientSize(wxSize(550, 350));
+	Create(parent, id, wxT("GNR - Hilfe"), wxDefaultPosition, wxDefaultSize, wxCAPTION|wxSYSTEM_MENU|wxCLOSE_BOX|wxMINIMIZE_BOX|wxSTATIC_BORDER, wxT("ObjOaxConverter"));
+	SetClientSize(wxSize(600, 400));
 	
 	m_window = new wxHtmlWindow(this, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxHW_DEFAULT_STYLE, wxT("HTML - Hilfe"));
-	
-	m_window->SetPage(wxT("<h1>test</h1>"));
+	m_window->LoadPage(wxT("help/help.html"));
 }
 
 GNRHelpFrame::~GNRHelpFrame()
