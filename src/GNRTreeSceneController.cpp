@@ -78,10 +78,10 @@ void GNRTreeSceneController::evaluateTree(GNRSceneTreeNode* node, wxTreeItemId i
 		evaluateTree(myNode, newID);
 	}
 	
-	GNRAssemblyData* assemblyData;
-	while (assemblyData = node->getAssemblyData())
+	GNRTreeSceneItemData* itemData;
+	while (itemData = node->getTreeItem())
 	{
-		m_treeCtrl->AppendItem(id, assemblyData->m_name);
+		m_treeCtrl->AppendItem(id, itemData->getName());
 	}
 	
 }

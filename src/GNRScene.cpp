@@ -12,6 +12,7 @@
 #include "GNRNotifyEvent.h"
 #include "GNRGlobalDefine.h"
 #include "GNRSceneTreeNode.h"
+#include "GNRTreeSceneItemData.h"
 
 // initialize pointer
 GNRScene* GNRScene::pinstance = 0;
@@ -778,9 +779,9 @@ void GNRScene::createSceneTree(GNRAssembly* assembly, GNRSceneTreeNode* node)
 {
 	if (assembly->getType() == IS_OBJECT || assembly->getType() == IS_PRIMITIVE)
 	{
-		GNRAssemblyData* data = new GNRAssemblyData;
-		data->m_name = assembly->getName();
-		node->addAssemblyData(data);
+		GNRTreeSceneItemData* data = new GNRTreeSceneItemData;
+		data->setName(assembly->getName());
+		node->addTreeItem(data);
 	}
 	else if (assembly->getType() == IS_GROUP)
 	{

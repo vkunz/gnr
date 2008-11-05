@@ -7,7 +7,7 @@
 GNRSceneTreeNode::GNRSceneTreeNode()
 {
 	m_iterSceneTreeNode = NULL;
-	m_iterAssemblyData = NULL;
+	m_iterTreeItem = NULL;
 }
 
 /**
@@ -16,7 +16,7 @@ GNRSceneTreeNode::GNRSceneTreeNode()
  */
 GNRSceneTreeNode::~GNRSceneTreeNode()
 {
-	for (std::list<GNRAssemblyData*>::iterator it = m_listAssemblyData.begin(); it != m_listAssemblyData.end(); ++it)
+	for (std::list<GNRTreeSceneItemData*>::iterator it = m_listTreeItem.begin(); it != m_listTreeItem.end(); ++it)
 	{
 		delete(*it);
 	}
@@ -41,9 +41,9 @@ void GNRSceneTreeNode::addTreeNode(GNRSceneTreeNode* node)
  * @param   GNRAssemblyData*   Pointer to the new GNRAssemblyData
  * @access      public
  */
-void GNRSceneTreeNode::addAssemblyData(GNRAssemblyData* data)
+void GNRSceneTreeNode::addTreeItem(GNRTreeSceneItemData* data)
 {
-	m_listAssemblyData.push_back(data);
+	m_listTreeItem.push_back(data);
 }
 
 /**
@@ -75,18 +75,18 @@ GNRSceneTreeNode* GNRSceneTreeNode::getTreeNode()
  * @return   GNRAssemblyDate*   Pointer to next GNRAssemblyData
  * @access      public
  */
-GNRAssemblyData* GNRSceneTreeNode::getAssemblyData()
+GNRTreeSceneItemData* GNRSceneTreeNode::getTreeItem()
 {
 	// if iterator not set yet, set it to first record
-	if (m_iterAssemblyData == NULL)
+	if (m_iterTreeItem == NULL)
 	{
-		m_iterAssemblyData = m_listAssemblyData.begin();
+		m_iterTreeItem = m_listTreeItem.begin();
 	}
 	
 	// if iterator not already at the end return
-	if (m_iterAssemblyData != m_listAssemblyData.end())
+	if (m_iterTreeItem != m_listTreeItem.end())
 	{
-		return *m_iterAssemblyData++;
+		return *m_iterTreeItem++;
 	}
 	else
 	{

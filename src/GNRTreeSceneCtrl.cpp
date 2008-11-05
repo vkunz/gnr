@@ -22,5 +22,13 @@ GNRTreeSceneCtrl::~GNRTreeSceneCtrl()
 
 void GNRTreeSceneCtrl::OnItemRClick(wxTreeEvent& event)
 {
-
+	/*wxTreeItemId itemId = event.GetItem();
+	MyTreeItemData *item = itemId.IsOk() ? (MyTreeItemData *)GetItemData(itemId)
+	                                     : NULL;
+	
+	wxLogMessage(wxT("Item \"%s\" right clicked"), item ? item->GetDesc()
+	                                                    : _T(""));
+	
+	event.Skip();
+	wxLogDebug(wxT("itemKlick"));*/
 }
