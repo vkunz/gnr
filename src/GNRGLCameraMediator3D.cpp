@@ -21,9 +21,12 @@
  */
 void GNRGLCameraMediator3D::MoveXY(GNRGLNotifyEvent& event)
 {
+	float distance = m_GLCamera->getDistance();
+	
 	GNRVertex up(0.0,1.0,0.0);
-	float distX = (float)(m_mouse_x - event.getMouseEvent().GetX())/(float)(window_w)*10.0;
-	float distY = (float)(event.getMouseEvent().GetY() - m_mouse_y)/(float)(window_h)*10.0;
+	
+	float distX = (float)(m_mouse_x - event.getMouseEvent().GetX())/(float)(window_w)*distance;
+	float distY = (float)(event.getMouseEvent().GetY() - m_mouse_y)/(float)(window_h)*distance;
 	
 //	doSnapMove(distX);
 //	doSnapMove(distY);
@@ -41,9 +44,12 @@ void GNRGLCameraMediator3D::MoveXY(GNRGLNotifyEvent& event)
  */
 void GNRGLCameraMediator3D::MoveXZ(GNRGLNotifyEvent& event)
 {
+	float distance = m_GLCamera->getDistance();
+	
 	GNRVertex front = old_viewDir;
-	float distX = (float)(m_mouse_x - event.getMouseEvent().GetX())/(float)(window_w)*10.0;
-	float distZ = (float)(m_mouse_y - event.getMouseEvent().GetY())/(float)(window_h)*10.0;
+	
+	float distX = (float)(m_mouse_x - event.getMouseEvent().GetX())/(float)(window_w)*distance;
+	float distZ = (float)(m_mouse_y - event.getMouseEvent().GetY())/(float)(window_h)*distance;
 	
 //	doSnapMove(distX);
 //	doSnapMove(distZ);

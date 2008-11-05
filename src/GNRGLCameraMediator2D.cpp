@@ -16,8 +16,10 @@
 
 void GNRGLCameraMediator2D::MoveXY(GNRGLNotifyEvent& event)
 {
-	float distX = (float)(m_mouse_x - event.getMouseEvent().GetX())/(float)(window_w)*1.5*m_distance;
-	float distY = (float)(event.getMouseEvent().GetY() - m_mouse_y)/(float)(window_h)*1.5*m_distance;
+	float distance = m_GLCamera->getDistance();
+	
+	float distX = (float)(m_mouse_x - event.getMouseEvent().GetX())/(float)(window_w)*distance;
+	float distY = (float)(event.getMouseEvent().GetY() - m_mouse_y)/(float)(window_h)*distance;
 	
 //	doSnapMove(distX);
 //	doSnapMove(distY);

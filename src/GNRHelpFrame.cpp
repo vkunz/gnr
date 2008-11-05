@@ -23,9 +23,7 @@ GNRHelpFrame::GNRHelpFrame(wxWindow* parent, wxWindowID id)
 	
 	m_window = new wxHtmlWindow(this, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxHW_DEFAULT_STYLE, wxT("HTML - Hilfe"));
 	
-	m_window->LoadPage(wxT("help.html"));
-	
-#warning "INFO: TODO QUICKLY!!!"
+	m_window->SetPage(wxT("<h1>test</h1>"));
 }
 
 GNRHelpFrame::~GNRHelpFrame()
