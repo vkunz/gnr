@@ -32,6 +32,7 @@
 #include "GNRTreeSceneController.h"
 #include "GNRTreePanelLibrary.h"
 #include "GNRTreePanelMyScene.h"
+#include "GNRTreeSceneCtrl.h"
 #include "GNRUndoRedo.h"
 
 #if defined(__ATHOS_DEBUG__)
@@ -73,7 +74,7 @@ private:
 	//attributes
 	//treectrl
 	wxTreeCtrl* m_TreeCtrlLib;
-	wxTreeCtrl* m_TreeCtrlScene;
+	GNRTreeSceneCtrl* m_TreeCtrlScene;
 	
 	//manges the treectrl
 	GNRTreeLibraryController* m_TreeLibCtrl;

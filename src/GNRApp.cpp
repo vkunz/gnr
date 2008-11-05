@@ -118,7 +118,7 @@ void GNRApp::initFrames()
 	
 	//create TreeCntr
 	m_TreeCtrlLib = new wxTreeCtrl(m_TreePanelLibrary, wxID_ANY, wxPoint(0, 0), m_TreePanelLibrary->GetSize(), wxTR_DEFAULT_STYLE, wxDefaultValidator, wxT("TreePanelLibrary"));
-	m_TreeCtrlScene = new wxTreeCtrl(m_TreePanelMyScene, wxID_ANY, wxPoint(0, 0), m_TreePanelMyScene->GetSize(), wxTR_DEFAULT_STYLE, wxDefaultValidator, wxT("TreePanelMyScene"));
+	m_TreeCtrlScene = new GNRTreeSceneCtrl(m_TreePanelMyScene, wxID_ANY, wxPoint(0, 0), m_TreePanelMyScene->GetSize(), wxTR_DEFAULT_STYLE, wxDefaultValidator, wxT("TreePanelMyScene"));
 	
 	//create two canvas panels
 	m_Canvas2D = new GNRGLCanvas2D(m_HorizontalSplitter_right, -1);

@@ -793,7 +793,7 @@ void GNRScene::createSceneTree(GNRAssembly* assembly, GNRSceneTreeNode* node)
 			createSceneTree((*it), newNode);
 		}
 	}
-	else if (assembly->getType() == IS_ROOT)
+	else if (assembly->getType() == IS_ROOT || assembly->getType() == IS_SELECTED)
 	{
 		list<GNRAssembly*> parts = assembly->getPartList();
 		for (list<GNRAssembly*>::const_iterator it = parts.begin(); it != parts.end(); ++it)
