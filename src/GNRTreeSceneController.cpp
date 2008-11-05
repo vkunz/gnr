@@ -12,6 +12,7 @@
 #include <wx/xml/xml.h>
 
 #include "GNRTreeSceneController.h"
+#include "GNRSceneTreeItem.h"
 
 #if defined(__ATHOS_DEBUG__)
 #include <wx/log.h>
@@ -25,12 +26,6 @@ GNRTreeSceneController::GNRTreeSceneController(wxTreeCtrl* treectrl)
 {
 	// store Pointer to TreeCtrl
 	m_treeCtrl = treectrl;
-	
-	// open library.xml and store its data
-	openLibrary();
-	
-	// build treeCtrl
-	buildTreeCtrl();
 }
 
 /**
@@ -41,111 +36,6 @@ GNRTreeSceneController::~GNRTreeSceneController()
 	// do nothing
 }
 
-std::vector<wxString>* GNRTreeSceneController::getAllCategories()
-{
-	// create pointer of a vector
-	std::vector<wxString>* ptrCat =  new std::vector<wxString>;
-	
-	// walk through all categories and store string into vector
-	for (m_groupsit = m_groups.begin(); m_groupsit != m_groups.end(); m_groupsit++)
-	{
-		ptrCat->push_back(m_groupsit->first);
-	}
-	
-	return ptrCat;
-}
-
-/**
- * Open library.xml if exist and get all its data.
- */
-void GNRTreeSceneController::openLibrary()
-{
-	// string to store groupname
-	wxString Name;
-	
-	// integer to store groupId
-	unsigned long int groupId;
-	
-	// create pointer to xmlnode
-	wxXmlNode* node;
-	
-	// create pointer to xmlproperty
-	wxXmlProperty* prop;
-	
-	// get library.xml as FileInputStream
-	wxFFileInputStream inFile(wxT("library.xml"));
-	
-	// create xmldocument of inpustream
-	wxXmlDocument xml(inFile);
-	
-	// node to groups
-	node = xml.GetRoot()->GetChildren();
-	
-	// node to first group
-	node = node->GetChildren();
-	
-	// walk through all group-tags
-	while (node)
-	{
-		// set prop to first propertie of actual node
-		prop = node->GetProperties();
-		
-		// get name of prop
-		Name = prop->GetValue();
-		
-		// get groupid of prop
-		prop->GetValue().ToULong(&groupId);
-		
-		// stores data into map
-		m_groups.insert(std::pair<wxString, unsigned long int>(Name, groupId));
-		
-		// check if next exist, if not, leave
-		if (node->GetNext() == NULL)
-		{
-			break;
-		}
-		// everything ok, set next node
-		else
-		{
-			// set node to next group
-			node = node->GetNext();
-		}
-	}
-	
-	// node to groups
-	node = node->GetParent();
-	
-	// node to entries
-	node = node->GetChildren();
-	
-	// walk through all group-tags
-	while (node)
-	{
-		// set prop to first propertie of actual node
-		prop = node->GetProperties();
-		
-		// get ref of prop
-		Name = prop->GetValue();
-		
-		// get groupid of prop
-		prop->GetValue().ToULong(&groupId);
-		
-		// stores data into map
-		m_entries.insert(std::pair<wxString, unsigned long int>(Name, groupId));
-		
-		// check if there is no next node, leave
-		if (node->GetNext() == NULL)
-		{
-			break;
-		}
-		// everything ok, set next node
-		else
-		{
-			// set node to next group
-			node = node->GetNext();
-		}
-	}
-}
 
 /**
  * Build TreeControll on actual data.
@@ -153,11 +43,65 @@ void GNRTreeSceneController::openLibrary()
 void GNRTreeSceneController::buildTreeCtrl()
 {
 	// set root
-	wxTreeItemId tiid = m_treeCtrl->AddRoot(wxT("GNRBibliothek"));
+	//wxTreeItemId tiid = m_treeCtrl->AddRoot(wxT("Szene"));
+	
+	//wxTreeItemId newId = m_treeCtrl->(tiid, wxT("abc"), 2, 2, item);
+	
+	
+	return;
+	
+	//wxTreeItemId tiid = m_treeCtrl->AddRoot(wxT("GNRBibliothek"));
 	
 	// walk through all groups and append to root
-	for (m_groupsit = m_groups.begin(); m_groupsit != m_groups.end(); m_groupsit++)
+	//for (m_groupsit = m_groups.begin(); m_groupsit != m_groups.end(); m_groupsit++) {
+	//	m_treeCtrl->AppendItem(tiid, m_groupsit->first);
+	//}
+}
+
+
+void GNRTreeSceneController::traverseTree(GNRSceneTreeNode* node, wxTreeItemId id)
+{
+	GNRSceneTreeNode* myNode;
+	while (myNode = node->getTreeNode())
 	{
-		m_treeCtrl->AppendItem(tiid, m_groupsit->first);
+		evaluateTree(myNode, id);
 	}
+}
+
+
+void GNRTreeSceneController::evaluateTree(GNRSceneTreeNode* node, wxTreeItemId id)
+{
+	GNRSceneTreeNode* myNode;
+	wxTreeItemId newID;
+	while (myNode = node->getTreeNode())
+	{
+		newID = m_treeCtrl->AppendItem(id, myNode->getName());
+		evaluateTree(myNode, newID);
+	}
+	
+	GNRAssemblyData* assemblyData;
+	while (assemblyData = node->getAssemblyData())
+	{
+		m_treeCtrl->AppendItem(id, assemblyData->m_name);
+	}
+	
+}
+
+void GNRTreeSceneController::updateTree(GNRSceneTreeNode* tree)
+{
+	// reset tree
+	m_treeCtrl->DeleteAllItems();
+	
+	// set root
+	wxTreeItemId rootID = m_treeCtrl->AddRoot(wxT("Root"));
+	
+	// build Tree
+	evaluateTree(tree, rootID);
+	
+	// expand root + scene
+	m_treeCtrl->Expand(rootID);
+	wxTreeItemIdValue cookie;
+	m_treeCtrl->Expand(m_treeCtrl->GetFirstChild(rootID, cookie));
+	
+	delete tree;
 }

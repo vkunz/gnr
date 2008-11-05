@@ -81,7 +81,7 @@ bool GNRApp::OnInit()
 #warning "INFO: Who wants some test?"
 		//start tests right here
 #if defined(__ATHOS_DEBUG__)
-		//m_Tests->sizeXsizeLoopsLoadClean(m_Scene,4,5);
+		m_Tests->sizeXsizeLoopsLoadClean(m_Scene,20,10);
 #endif
 	}
 	
@@ -289,10 +289,16 @@ void GNRApp::OnGNREvent(GNRNotifyEvent& event)
 		m_Scene->glRefresh();
 		break;
 	case DISPLAYLENGTH:
-		wxString str;
+	{
 		int length = (int)floor(1000.0 * event.getFloat());
+		wxString str;
 		str << wxT("Wandlänge: ") << length << wxT(" mm");
 		m_MainFrame->getStatusbar()->SetStatusText(str);
+		break;
+	}
+	case REFRESHSCENETREE:
+		GNRSceneTreeNode* tree = m_Scene->createSceneTree();
+		m_TreeSceneCtrl->updateTree(tree);
 		break;
 	}
 }

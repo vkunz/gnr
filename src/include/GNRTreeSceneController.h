@@ -11,9 +11,8 @@
 #ifndef _GNRTreeSceneController_H_
 #define _GNRTreeSceneController_H_
 
-#include <map>
-#include <vector>
 #include <wx/treectrl.h>
+#include "GNRSceneTreeNode.h"
 
 /**
  * @class GNRTreeSceneController
@@ -29,8 +28,7 @@ public:
 	// dtor
 	virtual ~GNRTreeSceneController();
 	
-	// functions
-	std::vector<wxString>* getAllCategories();
+	void updateTree(GNRSceneTreeNode* tree);
 	
 protected:
 
@@ -38,17 +36,10 @@ private:
 	// attributes
 	wxTreeCtrl* m_treeCtrl;
 	
-	// map to store groupname and groupid
-	std::map<wxString, unsigned long int> m_groups;
-	std::map<wxString, unsigned long int>::iterator m_groupsit;
-	
-	// map to store entryreference and groupid
-	std::map<wxString, unsigned long int> m_entries;
-	std::map<wxString, unsigned long int>::iterator m_entriesit;
-	
-	// functions
-	void openLibrary();
 	void buildTreeCtrl();
+	
+	void traverseTree(GNRSceneTreeNode* node, wxTreeItemId id);
+	void evaluateTree(GNRSceneTreeNode* node, wxTreeItemId id);
 };
 
 #endif // _GNRTreeSceneController_H_

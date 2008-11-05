@@ -11,6 +11,7 @@
 #include "GNRScene.h"
 #include "GNRNotifyEvent.h"
 #include "GNRGlobalDefine.h"
+#include "GNRSceneTreeNode.h"
 
 /**
  * construct scene and two assemblies (scene and grouper) plus
@@ -740,6 +741,11 @@ void GNRScene::insertAssembly(GNRAssembly* assembly)
 	assembly->putOnGround();
 	m_RootAssembly->addPart(assembly);
 	glRefresh();
+	
+	// send event to refresh Scene-Tree
+	GNRNotifyEvent gnrevent(wxEVT_COMMAND_GNR_NOTIFY);
+	gnrevent.setGNREventType(REFRESHSCENETREE);
+	ProcessEvent(gnrevent);
 }
 
 /**
@@ -750,4 +756,46 @@ void GNRScene::insertAssembly(GNRAssembly* assembly)
 void GNRScene::insertHiddenAssembly(GNRAssembly* assembly)
 {
 	m_Hidden->addPart(assembly);
+}
+
+GNRSceneTreeNode* GNRScene::createSceneTree()
+{
+	// create scene tree
+	GNRSceneTreeNode* scene = new GNRSceneTreeNode;
+	scene->setName(wxT("Szene"));
+	createSceneTree(m_RootAssembly, scene);
+	
+	// create root-Node and insert all other trees
+	GNRSceneTreeNode* root = new GNRSceneTreeNode;
+	root->addTreeNode(scene);
+	return root;
+}
+
+void GNRScene::createSceneTree(GNRAssembly* assembly, GNRSceneTreeNode* node)
+{
+	if (assembly->getType() == IS_OBJECT || assembly->getType() == IS_PRIMITIVE)
+	{
+		GNRAssemblyData* data = new GNRAssemblyData;
+		data->m_name = assembly->getName();
+		node->addAssemblyData(data);
+	}
+	else if (assembly->getType() == IS_GROUP)
+	{
+		GNRSceneTreeNode* newNode = new GNRSceneTreeNode;
+		newNode->setName(assembly->getName());
+		node->addTreeNode(newNode);
+		list<GNRAssembly*> parts = assembly->getPartList();
+		for (list<GNRAssembly*>::const_iterator it = parts.begin(); it != parts.end(); ++it)
+		{
+			createSceneTree((*it), newNode);
+		}
+	}
+	else if (assembly->getType() == IS_ROOT)
+	{
+		list<GNRAssembly*> parts = assembly->getPartList();
+		for (list<GNRAssembly*>::const_iterator it = parts.begin(); it != parts.end(); ++it)
+		{
+			createSceneTree((*it), node);
+		}
+	}
 }

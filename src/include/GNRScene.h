@@ -16,6 +16,7 @@
 #include "GNRGLCanvas2D.h"
 #include "GNRGLCanvas3D.h"
 #include "GNRLineDrawEvent.h"
+#include "GNRSceneTreeNode.h"
 
 #if defined(__ATHOS_DEBUG__)
 #include <wx/log.h>
@@ -53,6 +54,7 @@ private:
 	void glRefreshCanvas();
 	void initContainers();
 	void destroyContainers();
+	void createSceneTree(GNRAssembly* assembly, GNRSceneTreeNode* node);
 	
 protected:
 
@@ -96,6 +98,8 @@ public:
 	
 	void insertAssembly(GNRAssembly* cuboid);
 	void insertHiddenAssembly(GNRAssembly* assembly);
+	
+	GNRSceneTreeNode* createSceneTree();
 	
 	GNRScene();
 	virtual ~GNRScene();
