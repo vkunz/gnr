@@ -24,6 +24,7 @@
 					<Add directory="$(#wx)\lib\gcc_lib\mswud" />
 				</ResourceCompiler>
 				<Linker>
+					<Add library="libwxmsw28ud_html.a" />
 					<Add library="libwxmsw28ud_core.a" />
 					<Add library="libwxbase28ud.a" />
 					<Add library="libwxpngd.a" />
@@ -53,6 +54,7 @@
 				</ResourceCompiler>
 				<Linker>
 					<Add option="-s" />
+					<Add library="libwxmsw28u_html.a" />
 					<Add library="libwxmsw28u_core.a" />
 					<Add library="libwxbase28u.a" />
 					<Add library="libwxpng.a" />
