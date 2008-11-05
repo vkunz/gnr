@@ -51,11 +51,10 @@ std::vector<GNRLibraryEntry>* GNRLibrary::getEntries()
 	return m_ptrEntries;
 }
 
-void GNRLibrary::addEntry(wxInputStream& inStream)
+void GNRLibrary::addEntry(wxString reference, wxInputStream& inStream, bool newCat)
 {
-	// strings to store md5-hash
-	wxString objHash;
-	wxString xmlHash;
+	// empty xml document
+	wxXmlDocument xml;
 	
 	// pointer to wxZipEntry
 	wxZipEntry* entry;
@@ -84,8 +83,20 @@ void GNRLibrary::addEntry(wxInputStream& inStream)
 		// copy all entries except the old xml
 		if (entry->GetName().Matches(wxT("*.xml")))
 		{
+			//open entry
+			inzip.OpenEntry(*entry);
+			
+			// new xml
+			xml.Load(inzip);
+			
+			// close entry
+			inzip.CloseEntry();
+			
 			// do not copy entry, set next entry
 			entry = inzip.GetNextEntry();
+			
+			// create new xml
+			createXml(xml, outzip, newCat);
 		}
 		
 		// copy all entries
@@ -95,64 +106,8 @@ void GNRLibrary::addEntry(wxInputStream& inStream)
 		entry = inzip.GetNextEntry();
 	}
 	
-	// make zip of inputStream
-	wxZipInputStream inZip(inStream);
-	
-	// entry to first inZip entry
-	entry = inZip.GetNextEntry();
-	
-	// walk through all entrys and push them into vector
-	while (entry)
-	{
-		// check if .xml
-		if (entry->GetName().Matches(wxT("*.xml")))
-		{
-			// make string of inputstream
-			wxStringOutputStream strout(&xmlHash);
-			
-			// open zip stream
-			inZip.OpenEntry(*entry);
-			
-			// read and write to strout
-			inZip.Read(strout);
-			
-#if defined(__ATHOS_DEBUG__)
-			wxLogDebug(xmlHash);
-#endif
-			// close zip entry
-			inZip.CloseEntry();
-			
-			// get hash
-			xmlHash = MD5wxString(xmlHash);
-		}
-		
-		if (entry->GetName().Matches(wxT("*.obj")))
-		{
-			// make string of inputstream
-			wxStringOutputStream strout(&objHash);
-			
-			// open zip entry
-			inZip.OpenEntry(*entry);
-			
-			// read and write to strout
-			inZip.Read(strout);
-			
-			// close zip entry
-			inZip.CloseEntry();
-			
-			// get hash
-			objHash = MD5wxString(objHash);
-		}
-		
-		// get next Entry
-		entry = inZip.GetNextEntry();
-	}
-	
-	// reset stream position to read again
-	inStream.SeekI(0);
-	
 	// new entry
-	outzip.PutNextEntry(objHash + xmlHash + wxT(".oax"));
+	outzip.PutNextEntry(reference);
 	
 	// copy d ata
 	inStream.Read(outzip);
@@ -194,9 +149,6 @@ void GNRLibrary::openLibrary()
 {
 	// string to store groupname
 	wxString Name;
-	
-	// integer to store groupId
-	unsigned int groupId;
 	
 	// check if file exist
 	if (!wxFileExists(m_fileName.GetFullPath()))
@@ -293,9 +245,6 @@ void GNRLibrary::LoadXml(wxInputStream& inStream)
 	
 	// store id
 	unsigned int categoryId;
-	
-	// open m_zipEntry
-	//m_inZip->OpenEntry(*m_zipEntry);
 	
 	// create xml document of m_inZip
 	wxXmlDocument xml(inStream);
@@ -470,4 +419,59 @@ void GNRLibrary::addCategory(wxString& name, unsigned int& categoryId, unsigned 
 void GNRLibrary::addEntry(wxString& name, wxString& reference, unsigned int& categoryId)
 {
 	m_ptrEntries->push_back(GNRLibraryEntry(name, reference, categoryId));
+}
+
+void GNRLibrary::createXml(wxXmlDocument& xml, wxZipOutputStream& out, bool newCat)
+{
+	// node pointer
+	wxXmlNode* node;
+	
+	// node to root
+	node = xml.GetRoot();
+	
+	// node to categories
+	node = node->GetChildren();
+	
+	// if true => new category
+	if (newCat)
+	{
+		// new node
+		wxXmlNode* newCatChild = new wxXmlNode(wxXML_ELEMENT_NODE, wxT("category"));
+		
+		// add attributes
+		newCatChild->AddProperty(wxT("name"), m_ptrCategories->back().getName());
+		wxString cat, parent;
+		cat << m_ptrCategories->back().getCategoryId();
+		parent << m_ptrCategories->back().getParentId();
+		newCatChild->AddProperty(wxT("categoryId"), cat);
+		newCatChild->AddProperty(wxT("parentId"), parent);
+		
+		// add child
+		node->AddChild(newCatChild);
+	}
+	
+	// node to entries
+	node = node->GetNext();
+	
+	// new node
+	wxXmlNode* newChild = new wxXmlNode(wxXML_ELEMENT_NODE, wxT("entry"));
+	
+	// add attributes
+	newChild->AddProperty(wxT("name"), m_ptrEntries->back().getName());
+	newChild->AddProperty(wxT("reference"), m_ptrEntries->back().getReference());
+	wxString tmp;
+	tmp << m_ptrEntries->back().getCategoryId();
+	newChild->AddProperty(wxT("categoryId"), tmp);
+	
+	// add child
+	node->AddChild(newChild);
+	
+	// new zipEntry
+	out.PutNextEntry(wxT("library.xml"));
+	
+	// copy data into entry
+	xml.Save(out);
+	
+	// close entry
+	out.CloseEntry();
 }

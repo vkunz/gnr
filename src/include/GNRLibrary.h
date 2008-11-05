@@ -4,6 +4,7 @@
 #include <vector>
 #include <wx/filename.h>
 #include <wx/string.h>
+#include <wx/xml/xml.h>
 
 #include "GNRLibraryCategory.h"
 #include "GNRLibraryEntry.h"
@@ -27,7 +28,7 @@ public:
 	std::vector<GNRLibraryEntry>* getEntries();
 	
 	// add ne oax to library
-	void addEntry(wxInputStream& inStream);
+	void addEntry(wxString reference, wxInputStream& inStream, bool newCat);
 	
 protected:
 
@@ -63,6 +64,9 @@ private:
 	
 	// add new entry from xml
 	void addEntry(wxString& name, wxString& reference, unsigned int& categoryId);
+	
+	// create new xml
+	void createXml(wxXmlDocument& xml, wxZipOutputStream& out, bool newCat);
 };
 
 #endif // _GNRLIBRARY_H_

@@ -53,6 +53,9 @@ private:
 	// TreeControl to manage
 	wxTreeCtrl* m_treeCtrl;
 	
+	// flag if new cat
+	bool m_newCat;
+	
 	// GNRLibrary pointer
 	GNRLibrary* m_library;
 	
@@ -70,7 +73,7 @@ private:
 	void buildTreeCtrl();
 	
 	// adds a new category
-	void addCategory(wxString& name);
+	unsigned int addCategory(wxString& name);
 	
 	// create imagelist
 	void createImageList(int size = 16);

@@ -81,44 +81,131 @@ std::vector<wxString>* GNRTreeLibraryController::getAllCategories()
 
 void GNRTreeLibraryController::addEntry(wxString& name, wxString& categoryname, wxInputStream& instream)
 {
-	m_library->addEntry(instream);
+	// if found
+	bool found = false;
 	
-//
-//    // create new outputzip
-//    wxZipOutputStream tmpout(outzip);
-//
-//    // copy all meta data
-//    tmpout.CopyArchiveMetaData();
-//
-//    // entry to first entry
-//    entry = inZip.GetNextEntry();
-//
-//    while(entry)
-//    {
-//        tmpout.CopyEntry(entry, inZip);
-//
-//        entry = inZip.GetNextEntry();
-//    }
-//
-//    //add entry
-//    outzip.PutNextEntry(objhash + xmlhash + wxT(".oax"));
-//
-//    // close outzip entry
-//    outzip.CloseEntry();
-//
-//    // reset inFile
-//    inFile.reset();
-//
-//    // close outzip
-//    outzip.Close();
-//
-//    // commit tmp file
-//    outFile.Commit();
+	// strings to store md5-hash
+	wxString objHash;
+	wxString xmlHash;
+	
+	// pointer to wxZipEntry
+	wxZipEntry* entry;
+	
+	// make zip of inputStream
+	wxZipInputStream inZip(instream);
+	
+	// entry to first inZip entry
+	entry = inZip.GetNextEntry();
+	
+	// walk through all entries and look for xml and obj
+	while (entry)
+	{
+		// check if .xml
+		if (entry->GetName().Matches(wxT("*.xml")))
+		{
+			// make string of inputstream
+			wxStringOutputStream strout(&xmlHash);
+			
+			// open zip stream
+			inZip.OpenEntry(*entry);
+			
+			// read and write to strout
+			inZip.Read(strout);
+			
+			// close zip entry
+			inZip.CloseEntry();
+			
+			// get hash
+			xmlHash = MD5wxString(xmlHash);
+		}
+		
+		if (entry->GetName().Matches(wxT("*.obj")))
+		{
+			// make string of inputstream
+			wxStringOutputStream strout(&objHash);
+			
+			// open zip entry
+			inZip.OpenEntry(*entry);
+			
+			// read and write to strout
+			inZip.Read(strout);
+			
+			// close zip entry
+			inZip.CloseEntry();
+			
+			// get hash
+			objHash = MD5wxString(objHash);
+		}
+		
+		// get next Entry
+		entry = inZip.GetNextEntry();
+	}
+	
+	// reset stream
+	instream.SeekI(0);
+	
+	// reference
+	wxString ref = objHash + xmlHash + wxT(".oax");
+	
+	// iterator
+	std::vector<GNRLibraryEntry>::iterator it;
+	
+	for (it = m_ptrEntries->begin(); it != m_ptrEntries->end(); it++)
+	{
+		if (it->getReference() == ref)
+		{
+			// set found
+			found = true;
+		}
+	}
+	
+	if (!found)
+	{
+		// cat-id
+		unsigned int cat = addCategory(categoryname);
+		
+		// new entry
+		m_ptrEntries->push_back(GNRLibraryEntry(name, ref, cat));
+		
+		// add physical to library
+		m_library->addEntry(ref, instream, m_newCat);
+		
+		// rebuild
+		buildTreeCtrl();
+	}
 }
 
-void GNRTreeLibraryController::addCategory(wxString& name)
+unsigned int GNRTreeLibraryController::addCategory(wxString& name)
 {
-	m_ptrCategories->push_back(GNRLibraryCategory(name, m_ptrCategories->size() + 1, 0));
+	// check if already exist
+	m_newCat = true;
+	
+	unsigned int ret;
+	
+	// iterator
+	std::vector<GNRLibraryCategory>::iterator it;
+	
+	for (it = m_ptrCategories->begin(); it != m_ptrCategories->end(); it++)
+	{
+		if (it->getName() == name)
+		{
+			// set ret
+			ret = it->getCategoryId();
+			
+			// set found
+			m_newCat = false;
+		}
+	}
+	
+	// not found, create new one
+	if (m_newCat)
+	{
+		m_ptrCategories->push_back(GNRLibraryCategory(name, m_ptrCategories->size() + 1, 0));
+		
+		ret = (m_ptrCategories->size());
+	}
+	
+	return ret;
 }
 
 void GNRTreeLibraryController::createImageList(int size)
@@ -156,6 +243,9 @@ void GNRTreeLibraryController::createImageList(int size)
  */
 void GNRTreeLibraryController::buildTreeCtrl()
 {
+	// delete old tree
+	m_treeCtrl->DeleteAllItems();
+	
 	// local map to store categoryid and wxTreeItemId
 	std::map<unsigned int, wxTreeItemId> groups;
 	
@@ -168,11 +258,15 @@ void GNRTreeLibraryController::buildTreeCtrl()
 	// ent iterator
 	std::vector<GNRLibraryEntry>::iterator entit;
 	
+	// groups iterator
+	std::map<unsigned int, wxTreeItemId>::iterator groit;
+	
 	// local wxTreeItemId
 	wxTreeItemId tiid;
+	wxTreeItemId root;
 	
 	// set root
-	tiid = m_treeCtrl->AddRoot(wxT("GNRBibliothek"));
+	root = tiid = m_treeCtrl->AddRoot(wxT("GNRBibliothek"));
 	
 	// store root tiid
 	groups.insert(std::pair<unsigned int, wxTreeItemId>(0, tiid));
@@ -202,4 +296,13 @@ void GNRTreeLibraryController::buildTreeCtrl()
 		// store tiid into map
 		//entries.insert(std::pari<unsigned int, wxTreeItemId>(
 	}
+	
+	// sort
+	for (groit = groups.begin(); groit != groups.end(); groit++)
+	{
+		m_treeCtrl->SortChildren(groit->second);
+	}
+	
+	// expand root
+	m_treeCtrl->Expand(root);
 }

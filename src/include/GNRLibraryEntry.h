@@ -18,11 +18,14 @@ public:
 	// returns content as string
 	wxString toString();
 	
+	// retunrs name
+	wxString getName();
+	
 	// returns categoryId
 	unsigned int getCategoryId();
 	
-	// retunrs name
-	wxString getName();
+	// returns reference
+	wxString getReference();
 	
 protected:
 

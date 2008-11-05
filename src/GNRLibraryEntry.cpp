@@ -41,3 +41,8 @@ unsigned int GNRLibraryEntry::getCategoryId()
 {
 	return m_categoryId;
 }
+
+wxString GNRLibraryEntry::getReference()
+{
+	return m_reference;
+}
