@@ -1,6 +1,6 @@
 /**
- * defines the GNRCommandAssembly-class
- * @name        GNRCommandAssembly.h
+ * defines the GNRCommandTransform-class
+ * @name        GNRCommandTransform.h
  * @date        2008-10-29
  * @author		Konstantin Balabin  <k.balabin@googlemail.com>
  * @author		Patrick Kracht      <patrick.kracht@googlemail.com>
@@ -8,19 +8,19 @@
  * @author		Valentin Kunz       <athostr@googlemail.com>
  */
 
-#ifndef _GNRCOMMANDASSEMBLY_H
-#define _GNRCOMMANDASSEMBLY_H
+#ifndef _GNRCommandTransform_H
+#define _GNRCommandTransform_H
 
 #include "GNRCommand.h"
 #include "GNRAssembly.h"
 #include "GNRVertex.h"
 
 
-class GNRCommandAssembly: public GNRCommand
+class GNRCommandTransform: public GNRCommand
 {
 public:
-	GNRCommandAssembly();
-	virtual ~GNRCommandAssembly();
+	GNRCommandTransform();
+	virtual ~GNRCommandTransform();
 	void execute();
 	void unexecute();
 	void setAssembly(GNRAssembly* assembly);
@@ -47,4 +47,4 @@ private:
 	float new_rho;
 };
 
-#endif // _GNRCOMMANDASSEMBLY_H
+#endif // _GNRCommandTransform_H

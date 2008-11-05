@@ -65,7 +65,7 @@ bool GNRApp::OnInit()
 		
 		//build models
 		m_Tests         = new GNRTests();
-		m_Scene         = new GNRScene();
+		m_Scene         = GNRScene::getInstance();
 		m_MouseCtrl     = new GNRMouseController(m_Scene);
 		
 		m_TreeLibCtrl   = new GNRTreeLibraryController(m_TreeCtrlLib);

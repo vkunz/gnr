@@ -25,7 +25,8 @@
 class GNRScene: public wxEvtHandler
 {
 private:
-
+	static GNRScene* pinstance;
+	
 	//pointer for scene details
 	GNRAssembly*    m_RootAssembly;
 	
@@ -57,9 +58,13 @@ private:
 	void createSceneTree(GNRAssembly* assembly, GNRSceneTreeNode* node);
 	
 protected:
-
+	GNRScene();
+	
 public:
-
+	static GNRScene* getInstance();
+	
+	virtual ~GNRScene();
+	
 	GNRAssembly* getRootAssembly();
 	GNRAssembly* getAssembly();
 	GNRGLCamera* getGLCamera2D();
@@ -100,10 +105,6 @@ public:
 	void insertHiddenAssembly(GNRAssembly* assembly);
 	
 	GNRSceneTreeNode* createSceneTree();
-	
-	GNRScene();
-	virtual ~GNRScene();
-	
 };
 
 #endif // GNRSCENE_H

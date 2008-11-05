@@ -10,7 +10,7 @@
 
 #include "GNRAssemblyMediator.h"
 #include "GNRUndoRedo.h"
-#include "GNRCommandAssembly.h"
+#include "GNRCommandTransform.h"
 
 #if defined(__ATHOS_DEBUG__)
 #include <wx/log.h>
@@ -136,7 +136,7 @@ void GNRAssemblyMediator::finalize()
 	//is active assembly, return
 	if (m_initialized && m_Assembly != NULL && (int)m_Assembly != 0)
 	{
-		GNRCommandAssembly* command = new GNRCommandAssembly;
+		GNRCommandTransform* command = new GNRCommandTransform;
 		command->setAssembly(m_Assembly);
 		GNRVertex old_pos(old_x, old_y, old_z);
 		command->setOldPosition(old_pos);

@@ -34,7 +34,7 @@ GNRUndoRedo::GNRUndoRedo() {}
 GNRUndoRedo::~GNRUndoRedo() {}
 
 /**
- * creates a new class if not instantiated or returns a pointer to the object, already
+ * creates a new class if not instantiated or returns a pointer to the object if already
  * instantiated before
  * two cameras for 2D and 3D
  * @access      public

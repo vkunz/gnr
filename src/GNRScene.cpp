@@ -13,10 +13,13 @@
 #include "GNRGlobalDefine.h"
 #include "GNRSceneTreeNode.h"
 
+// initialize pointer
+GNRScene* GNRScene::pinstance = 0;
+
 /**
  * construct scene and two assemblies (scene and grouper) plus
  * two cameras for 2D and 3D
- * @access      public
+ * @access      protected
  */
 GNRScene::GNRScene()
 {
@@ -41,6 +44,21 @@ GNRScene::~GNRScene()
 	
 	delete m_GLCamera2D;
 	delete m_GLCamera3D;
+}
+
+/**
+ * creates a new class if not instantiated or returns a pointer to the object if already
+ * instantiated before
+ * two cameras for 2D and 3D
+ * @access      public
+ */
+GNRScene* GNRScene::getInstance()
+{
+	if (pinstance == 0)
+	{
+		pinstance = new GNRScene;
+	}
+	return pinstance;
 }
 
 /**
@@ -303,6 +321,11 @@ void GNRScene::deleteSelectedAssemblies()
 		m_Trash->addPart((*it));
 		m_Selected->delPart((*it));
 	}
+	
+	// send event to refresh Scene-Tree
+	GNRNotifyEvent gnrevent(wxEVT_COMMAND_GNR_NOTIFY);
+	gnrevent.setGNREventType(REFRESHSCENETREE);
+	ProcessEvent(gnrevent);
 }
 
 /**
@@ -326,6 +349,11 @@ void GNRScene::cloneSelectedAssemblies()
 		//move assembly one width right
 		a_copy->move(GNRVertex(a_copy->getWidthMeters(),0.0,0.0));
 	}
+	
+	// send event to refresh Scene-Tree
+	GNRNotifyEvent gnrevent(wxEVT_COMMAND_GNR_NOTIFY);
+	gnrevent.setGNREventType(REFRESHSCENETREE);
+	ProcessEvent(gnrevent);
 }
 
 /**
@@ -378,6 +406,11 @@ void GNRScene::insertCopiedAssemblies()
 		GNRAssembly* a_copy = (*it)->clone();
 		m_Selected->addPart(a_copy);
 	}
+	
+	// send event to refresh Scene-Tree
+	GNRNotifyEvent gnrevent(wxEVT_COMMAND_GNR_NOTIFY);
+	gnrevent.setGNREventType(REFRESHSCENETREE);
+	ProcessEvent(gnrevent);
 }
 
 /**
@@ -569,6 +602,11 @@ void GNRScene::groupSelectedAssemblies()
 //
 //	GNRUndoRedo* undo = GNRUndoRedo::getInstance();
 //	undo->enqueue(command);
+
+	// send event to refresh Scene-Tree
+	GNRNotifyEvent gnrevent(wxEVT_COMMAND_GNR_NOTIFY);
+	gnrevent.setGNREventType(REFRESHSCENETREE);
+	ProcessEvent(gnrevent);
 }
 
 /**
@@ -626,6 +664,11 @@ void GNRScene::ungroupSelectedAssemblies()
 			m_Selected->delPart(*it);
 		}
 	}
+	
+	// send event to refresh Scene-Tree
+	GNRNotifyEvent gnrevent(wxEVT_COMMAND_GNR_NOTIFY);
+	gnrevent.setGNREventType(REFRESHSCENETREE);
+	ProcessEvent(gnrevent);
 }
 
 /**

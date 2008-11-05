@@ -1,7 +1,7 @@
 /**
  * This class handels all the information, needed to undo/redo a translation to an assembly
  * and also performs these operations
- * @name        GNRCommandAssembly.cpp
+ * @name        GNRCommandTransform.cpp
  * @date        2008-10-29
  * @author		Konstantin Balabin  <k.balabin@googlemail.com>
  * @author		Patrick Kracht      <patrick.kracht@googlemail.com>
@@ -9,29 +9,29 @@
  * @author		Valentin Kunz       <athostr@googlemail.com>
  */
 
-#include "GNRCommandAssembly.h"
+#include "GNRCommandTransform.h"
 
 #if defined(__ATHOS_DEBUG__)
 #include <wx/log.h>
 #endif
 
 /**
- * constructor of GNRCommandAssembly
+ * constructor of GNRCommandTransform
  * @access      public
  */
-GNRCommandAssembly::GNRCommandAssembly() {}
+GNRCommandTransform::GNRCommandTransform() {}
 
 /**
- * destructor of GNRCommandAssembly
+ * destructor of GNRCommandTransform
  * @access      public
  */
-GNRCommandAssembly::~GNRCommandAssembly() {}
+GNRCommandTransform::~GNRCommandTransform() {}
 
 /**
  * Performes the redo-operation and moves the object back to the new position
  * @access      public
  */
-void GNRCommandAssembly::execute()
+void GNRCommandTransform::execute()
 {
 	m_usedAssembly->setX(new_x);
 	m_usedAssembly->setY(new_y);
@@ -46,7 +46,7 @@ void GNRCommandAssembly::execute()
  * Performes the undo-operation and moves the object back to the originally position
  * @access      public
  */
-void GNRCommandAssembly::unexecute()
+void GNRCommandTransform::unexecute()
 {
 	m_usedAssembly->setX(old_x);
 	m_usedAssembly->setY(old_y);
@@ -62,7 +62,7 @@ void GNRCommandAssembly::unexecute()
  * @param   GNRAssembly*    assembly, the transformation is done with
  * @access      public
  */
-void GNRCommandAssembly::setAssembly(GNRAssembly* assembly)
+void GNRCommandTransform::setAssembly(GNRAssembly* assembly)
 {
 	m_usedAssembly = assembly;
 }
@@ -72,7 +72,7 @@ void GNRCommandAssembly::setAssembly(GNRAssembly* assembly)
  * @param   GNRVertex&  old position of the assembly
  * @access      public
  */
-void GNRCommandAssembly::setOldPosition(GNRVertex& old_pos)
+void GNRCommandTransform::setOldPosition(GNRVertex& old_pos)
 {
 	old_x = old_pos.getX();
 	old_y = old_pos.getY();
@@ -84,7 +84,7 @@ void GNRCommandAssembly::setOldPosition(GNRVertex& old_pos)
  * @param   GNRVertex&  old angles of assembly
  * @access      public
  */
-void GNRCommandAssembly::setOldAngles(GNRVertex& old_angles)
+void GNRCommandTransform::setOldAngles(GNRVertex& old_angles)
 {
 	old_phi     = old_angles.getX();
 	old_theta   = old_angles.getY();
@@ -96,7 +96,7 @@ void GNRCommandAssembly::setOldAngles(GNRVertex& old_angles)
  * @param   GNRVertex&  new position of assembly
  * @access      public
  */
-void GNRCommandAssembly::setNewPosition(GNRVertex& new_pos)
+void GNRCommandTransform::setNewPosition(GNRVertex& new_pos)
 {
 	new_x = new_pos.getX();
 	new_y = new_pos.getY();
@@ -108,7 +108,7 @@ void GNRCommandAssembly::setNewPosition(GNRVertex& new_pos)
  * @param   GNRVertex&  new angles of assembly
  * @access      public
  */
-void GNRCommandAssembly::setNewAngles(GNRVertex& new_angles)
+void GNRCommandTransform::setNewAngles(GNRVertex& new_angles)
 {
 	new_phi     = new_angles.getX();
 	new_theta   = new_angles.getY();
