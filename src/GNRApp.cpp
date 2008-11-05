@@ -64,6 +64,7 @@ bool GNRApp::OnInit()
 #endif
 		
 		//build models
+		m_Tests         = new GNRTests();
 		m_Scene         = new GNRScene();
 		m_MouseCtrl     = new GNRMouseController(m_Scene);
 		
@@ -76,6 +77,9 @@ bool GNRApp::OnInit()
 		
 		//initialize whole menus
 		initialSetup();
+		
+		//start tests right here
+		//m_Tests->sizeXsizeLoopsLoadClean(m_Scene,10,10);
 	}
 	
 	return wxsOK;

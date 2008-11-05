@@ -73,12 +73,12 @@ wxString wxbuildinfo(wxbuildinfoformat format)
 	}
 	
 	wxbuild << _T("\n\nGNR 3D Raumplaner\n\n");
-	wxbuild << _T("# if defined(PROGRAMMIERER)\n");
-	wxbuild << _T("# include \"Konstantin_Balabin.h\"\n");
-	wxbuild << _T("# includePatrick_Kracht.h\"\n");
-	wxbuild << _T("# includeThorsten_Moll.h\"\n");
-	wxbuild << _T("# includeValentin_Kunz.h\"\n");
-	wxbuild << _T("# endif");
+	wxbuild << _T("#if defined(PROGRAMMIERER)\n");
+	wxbuild << _T(" #include \"Konstantin_Balabin.h\"\n");
+	wxbuild << _T(" #include \"Patrick_Kracht.h\"\n");
+	wxbuild << _T(" #include \"Thorsten_Moll.h\"\n");
+	wxbuild << _T(" #include \"Valentin_Kunz.h\"\n");
+	wxbuild << _T("#endif");
 	
 	return wxbuild;
 }

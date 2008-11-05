@@ -48,6 +48,7 @@ class GNRMaterial
 public:
 	GNRMaterial();
 	GNRMaterial(const GNRMaterial& material);
+	~GNRMaterial();
 	
 	const GNRColor& getAmbient() const;
 	const GNRColor& getDiffuse() const;
@@ -66,13 +67,12 @@ public:
 	void setAlpha(float a);
 	void setShininess(int s);
 	
-	void set();
+	void set() const;
 	
 private:
 	GNRColor m_ambient, m_diffuse, m_specular;
 	float m_alpha;
 	int m_shininess;
-	GLuint m_dl;
 };
 
 #endif // _GNRMATERIAL_H_

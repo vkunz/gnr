@@ -118,6 +118,9 @@
 		<Unit filename="src\GNRGLCanvasPreview.cpp" />
 		<Unit filename="src\GNRGLNotifyEvent.cpp" />
 		<Unit filename="src\GNRGLScreenshot.cpp" />
+		<Unit filename="src\GNRGridRowData.cpp" />
+		<Unit filename="src\GNRGridSceneController.cpp" />
+		<Unit filename="src\GNRGridTable.cpp" />
 		<Unit filename="src\GNRHelpFrame.cpp" />
 		<Unit filename="src\GNRImportFile.cpp" />
 		<Unit filename="src\GNRLibrary.cpp" />
@@ -140,6 +143,7 @@
 		<Unit filename="src\GNRPrimitiveCreator.cpp" />
 		<Unit filename="src\GNRScene.cpp" />
 		<Unit filename="src\GNRTCoord.cpp" />
+		<Unit filename="src\GNRTests.cpp" />
 		<Unit filename="src\GNRTreeLibraryController.cpp" />
 		<Unit filename="src\GNRTreePanelLibrary.cpp" />
 		<Unit filename="src\GNRTreePanelMyScene.cpp" />
@@ -172,6 +176,9 @@
 		<Unit filename="src\include\GNRGLNotifyEvent.h" />
 		<Unit filename="src\include\GNRGLScreenshot.h" />
 		<Unit filename="src\include\GNRGlobalDefine.h" />
+		<Unit filename="src\include\GNRGridRowData.h" />
+		<Unit filename="src\include\GNRGridSceneController.h" />
+		<Unit filename="src\include\GNRGridTable.h" />
 		<Unit filename="src\include\GNRHelpFrame.h" />
 		<Unit filename="src\include\GNRImportFile.h" />
 		<Unit filename="src\include\GNRLibrary.h" />
@@ -194,6 +201,7 @@
 		<Unit filename="src\include\GNRPrimitiveCreator.h" />
 		<Unit filename="src\include\GNRScene.h" />
 		<Unit filename="src\include\GNRTCoord.h" />
+		<Unit filename="src\include\GNRTests.h" />
 		<Unit filename="src\include\GNRTreeLibraryController.h" />
 		<Unit filename="src\include\GNRTreePanelLibrary.h" />
 		<Unit filename="src\include\GNRTreePanelMyScene.h" />
@@ -233,6 +241,8 @@
 		<Unit filename="src\resources\cube.xpm" />
 		<Unit filename="src\resources\grid_24bit_rgb.xpm" />
 		<Unit filename="src\resources\grid_dummy_24bit_rgb.xpm" />
+		<Unit filename="src\resources\icon_library_assembly.xpm" />
+		<Unit filename="src\resources\icon_library_folder.xpm" />
 		<Unit filename="src\resources\please-wait.xpm" />
 		<Unit filename="src\resources\resource.rc">
 			<Option compilerVar="WINDRES" />

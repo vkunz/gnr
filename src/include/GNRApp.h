@@ -27,6 +27,7 @@
 #include "GNRMouseController.h"
 #include "GNRNotifyEvent.h"
 #include "GNRScene.h"
+#include "GNRTests.h"
 #include "GNRTreeLibraryController.h"
 #include "GNRTreeSceneController.h"
 #include "GNRTreePanelLibrary.h"
@@ -87,6 +88,7 @@ private:
 	
 	GNRUndoRedo* m_UndoRedo;
 	
+	GNRTests* m_Tests;
 	GNRScene* m_Scene;
 	GNRMouseController* m_MouseCtrl;
 	GNRMainFrame* m_MainFrame;

@@ -49,8 +49,6 @@ protected:
 	GLfloat floor_shadow[4][4];
 	GLfloat floor_plane[4];
 	
-	GLuint shadowMapTexture;
-	
 	void initGL();
 	void connectEvents();
 	void disconnectEvents();

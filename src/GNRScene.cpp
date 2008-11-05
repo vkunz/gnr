@@ -386,47 +386,52 @@ void GNRScene::insertCopiedAssemblies()
  */
 void GNRScene::drawLine(GNRLineDrawEvent& event)
 {
-	//initialize only light source
-//	m_Canvas2D->initLights();
-
+	m_GLOUT = m_Canvas2D;
+	m_GLCAM = m_GLCamera2D;
+	
 	//prepare and draw 2D top view of room
-	m_Canvas2D->prepareDraw();
+	m_GLOUT->prepareDraw();
 	
 	//set camera for scene
-	m_GLCamera2D->render();
+	m_GLCAM->render();
 	
 	/*NOW PREPARE THE PIXELBUFFER AND DRAW VIRTUAL FLOOR FOR CASTING SHADOWS*/
-	
-	//prepare pixelbuffer for shadows
-	m_Canvas2D->preparePixelBuffer();
-	
-	//draw invisible floor for shadow projection
-	m_Canvas2D->drawBaseFloor(0.0, 0.0, 0.0, DEFAULT_FLOOR_SIZE);
-	
-	//turn the color and depth buffers back on
-	m_Canvas2D->endPixelBuffer();
-	
-	/*NOW CAST THE SHADOWS ON THE FLOOR AND KEEP IN PIXELBUFFER*/
-	
-	//draw all shadows of objects
-	glPushMatrix();
+	if (m_shadows)
 	{
-		//turn shadows on
-		m_Canvas2D->shadowColorOn();
-		//draw real floor for casting shadows (1)
-		m_Canvas2D->drawBaseFloor(0.0, 0.0, 0.0, DEFAULT_FLOOR_SIZE);
-		//load shadow projection matrix
-		m_Canvas2D->loadShadowMatrix();
-		//draw shadows on prepainted floor (1)
+		//initialize only light source
+		m_GLOUT->initLights();
+		
+		//prepare pixelbuffer for shadows
+		m_GLOUT->preparePixelBuffer();
+		
+		//draw invisible floor for shadow projection
+		m_GLOUT->drawBaseFloor(0.0, 0.0, 0.0, DEFAULT_FLOOR_SIZE);
+		
+		//turn the color and depth buffers back on
+		m_GLOUT->endPixelBuffer();
+		
+		/*NOW CAST THE SHADOWS ON THE FLOOR AND KEEP IN PIXELBUFFER*/
+		
+		m_GLOUT->drawBaseFloor(0.0, 0.0, 0.0, DEFAULT_FLOOR_SIZE);
+		
+		//draw all shadows of objects
 		glPushMatrix();
 		{
-			m_RootAssembly->drawShadow();
+			//turn shadows on
+			m_GLOUT->shadowColorOn();
+			//load shadow projection matrix
+			m_GLOUT->loadShadowMatrix();
+			//draw shadows on prepainted floor (1)
+			glPushMatrix();
+			{
+				m_RootAssembly->drawShadow();
+			}
+			glPopMatrix();
+			//turn off shadows
+			m_GLOUT->shadowColorOff();
 		}
 		glPopMatrix();
-		//turn off shadows
-		m_Canvas2D->shadowColorOff();
 	}
-	glPopMatrix();
 	
 	/*NOW DRAW ALL OBJECTS WITHOUT SHADOWS AND BLEND WITH SHADOWS*/
 	
@@ -435,8 +440,13 @@ void GNRScene::drawLine(GNRLineDrawEvent& event)
 	{
 		glPushMatrix();
 		{
-			//reinit lights
-			m_Canvas2D->initLights();
+			m_GLOUT->initLights();
+			
+			if (! m_shadows)
+			{
+				m_GLOUT->drawBaseFloor(0.0, 0.0, 0.0, DEFAULT_FLOOR_SIZE);
+			}
+			
 			m_RootAssembly->draw();
 		}
 		glPopMatrix();
@@ -461,7 +471,7 @@ void GNRScene::drawLine(GNRLineDrawEvent& event)
 	glPopMatrix();
 	
 	//put output to screen
-	m_Canvas2D->endDraw();
+	m_GLOUT->endDraw();
 	
 	// calculate length of the line
 	float x = event.getEndPoint().getX() - event.getStartPoint().getX();

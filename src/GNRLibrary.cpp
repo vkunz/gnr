@@ -116,8 +116,9 @@ void GNRLibrary::addEntry(wxInputStream& inStream)
 			// read and write to strout
 			inZip.Read(strout);
 			
+#if defined(__ATHOS_DEBUG__)
 			wxLogDebug(xmlHash);
-			
+#endif
 			// close zip entry
 			inZip.CloseEntry();
 			

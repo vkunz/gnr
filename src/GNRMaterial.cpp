@@ -134,44 +134,33 @@ void GNRMaterial::setShininess(int s)
 	m_shininess = s;
 }
 
-void GNRMaterial::set()
+void GNRMaterial::set() const
 {
 // While the ambient, diffuse, specular and emission material parameters
 // all have alpha components, only the diffuse alpha component is used in
 // the lighting computation.
 
-	if (glIsList(m_dl))
-	{
-		//call display list of materials and dont waste time
-		glCallList(m_dl);
-		return;
-	}
+	float mat[4];
+	mat[3] = m_alpha;
 	
-	//else create new display list for materials
-	m_dl = glGenLists(1);
+	mat[0] = m_ambient.getR();
+	mat[1] = m_ambient.getG();
+	mat[2] = m_ambient.getB();
+	glMaterialfv(GL_FRONT, GL_AMBIENT, mat);
 	
-	//setup new display list
-	glNewList(m_dl,GL_COMPILE);
-	{
-		float mat[4];
-		mat[3] = m_alpha;
-		
-		mat[0] = m_ambient.getR();
-		mat[1] = m_ambient.getG();
-		mat[2] = m_ambient.getB();
-		glMaterialfv(GL_FRONT, GL_AMBIENT, mat);
-		
-		mat[0] = m_diffuse.getR();
-		mat[1] = m_diffuse.getG();
-		mat[2] = m_diffuse.getB();
-		glMaterialfv(GL_FRONT, GL_DIFFUSE, mat);
-		
-		mat[0] = m_specular.getR();
-		mat[1] = m_specular.getG();
-		mat[2] = m_specular.getB();
-		glMaterialfv(GL_FRONT, GL_SPECULAR, mat);
-		
-		glMateriali(GL_FRONT, GL_SHININESS, m_shininess);
-	}
-	glEndList();
+	mat[0] = m_diffuse.getR();
+	mat[1] = m_diffuse.getG();
+	mat[2] = m_diffuse.getB();
+	glMaterialfv(GL_FRONT, GL_DIFFUSE, mat);
+	
+	mat[0] = m_specular.getR();
+	mat[1] = m_specular.getG();
+	mat[2] = m_specular.getB();
+	glMaterialfv(GL_FRONT, GL_SPECULAR, mat);
+	
+	glMateriali(GL_FRONT, GL_SHININESS, m_shininess);
+}
+
+GNRMaterial::~GNRMaterial()
+{
 }

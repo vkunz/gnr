@@ -1,6 +1,7 @@
 #ifndef _GNRLIBRARY_H_
 #define _GNRLIBRARY_H_
 
+#include <vector>
 #include <wx/filename.h>
 #include <wx/string.h>
 
