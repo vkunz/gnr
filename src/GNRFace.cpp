@@ -1,5 +1,6 @@
 /**
  * GNRFace
+ * @note        [TODO]
  * @name        GNRFace.cpp
  * @date        2008-10-05
  * @author		Konstantin Balabin  <k.balabin@googlemail.com>
@@ -11,17 +12,23 @@
 #include "GNRFace.h"
 
 #include <GL/gl.h>
-
 #include <iostream>
 
 using std::cout;
 using std::endl;
 
-
+/**
+ * constructor
+ * @access      public
+ */
 GNRFace::GNRFace()
 {
 }
 
+/**
+ * copy constructor
+ * @access      public
+ */
 GNRFace::GNRFace(const GNRFace& other)
 {
 	for (list<GNRVNT>::const_iterator it = other.m_vnt.begin(); it != other.m_vnt.end(); ++it)
@@ -30,16 +37,34 @@ GNRFace::GNRFace(const GNRFace& other)
 	}
 }
 
+/**
+ * TODO:DESCRIPTION
+ * @param
+ * @return
+ * @access
+ */
 int GNRFace::size() const
 {
 	return m_vnt.size();
 }
 
+/**
+ * TODO:DESCRIPTION
+ * @param
+ * @return
+ * @access
+ */
 void GNRFace::addVNT(GNRVNT& vnt)
 {
 	m_vnt.push_back(vnt);
 }
 
+/**
+ * TODO:DESCRIPTION
+ * @param
+ * @return
+ * @access
+ */
 void GNRFace::setNormal()
 {
 	list<GNRVNT>::iterator it = m_vnt.begin();
@@ -66,6 +91,12 @@ void GNRFace::setNormal()
 	}
 }
 
+/**
+ * TODO:DESCRIPTION
+ * @param
+ * @return
+ * @access
+ */
 void GNRFace::draw() const
 {
 	glBegin(GL_POLYGON);
@@ -77,4 +108,3 @@ void GNRFace::draw() const
 	}
 	glEnd();
 }
-

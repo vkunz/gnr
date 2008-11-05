@@ -1,6 +1,7 @@
 /**
  * the gl-camera class implements functions to move and rotate the
  * camera in a whole scene. rotating is done in 3rd person
+ * @note        [DONE]
  * @name        GNRGLCamera.cpp
  * @date        2008-10-23
  * @author		Konstantin Balabin  <k.balabin@googlemail.com>

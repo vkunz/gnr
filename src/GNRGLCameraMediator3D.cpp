@@ -1,5 +1,6 @@
 /**
  * GNRGLCameraMediator3D
+ * @note        [FINISHED]
  * @name        GNRGLCameraMediator3D.cpp
  * @date        2008-10-25
  * @author      Konstantin Balabin  <k.balabin@googlemail.com>
@@ -10,10 +11,6 @@
 
 #include "GNRGLCameraMediator3D.h"
 
-#if defined(__ATHOS_DEBUG__)
-#include <wx/log.h>
-#endif
-
 /**
  * move the camera in XY dimension
  * @param GNRGLNotifyEvent event from GLNotify
@@ -21,19 +18,21 @@
  */
 void GNRGLCameraMediator3D::MoveXY(GNRGLNotifyEvent& event)
 {
-	float distance = m_GLCamera->getDistance();
-	
+	//set real world up vector
 	GNRVertex up(0.0,1.0,0.0);
 	
+	//remember distance of cam for speed up
+	float distance = m_GLCamera->getDistance();
+	
+	//calculate translation scale on 2D screen
 	float distX = (float)(m_mouse_x - event.getMouseEvent().GetX())/(float)(window_w)*distance;
 	float distY = (float)(event.getMouseEvent().GetY() - m_mouse_y)/(float)(window_h)*distance;
 	
-//	doSnapMove(distX);
-//	doSnapMove(distY);
-
+	//move viewpoint by right vector and up vector with scale
 	GNRVertex viewPoint = old_viewPoint + (old_rightVector*distX);
 	viewPoint = viewPoint + (up*distY);
 	
+	//set new camera viewpoint
 	m_GLCamera->setViewPoint(viewPoint);
 }
 
@@ -44,21 +43,24 @@ void GNRGLCameraMediator3D::MoveXY(GNRGLNotifyEvent& event)
  */
 void GNRGLCameraMediator3D::MoveXZ(GNRGLNotifyEvent& event)
 {
-	float distance = m_GLCamera->getDistance();
-	
+	//store vector to viewdir
 	GNRVertex front = old_viewDir;
 	
+	//remember distance of cam for speed up
+	float distance = m_GLCamera->getDistance();
+	
+	//calculate translation scale on 2D screen
 	float distX = (float)(m_mouse_x - event.getMouseEvent().GetX())/(float)(window_w)*distance;
 	float distZ = (float)(m_mouse_y - event.getMouseEvent().GetY())/(float)(window_h)*distance;
 	
-//	doSnapMove(distX);
-//	doSnapMove(distZ);
-
+	//set y-direction to zero
 	front.setY(0.0);
 	
+	//move viewpoint by right vector and front vector with scale
 	GNRVertex viewPoint = old_viewPoint + (old_rightVector*distX);
 	viewPoint = viewPoint + (front*-distZ);
 	
+	//set new camera viewpoint
 	m_GLCamera->setViewPoint(viewPoint);
 }
 
@@ -69,34 +71,35 @@ void GNRGLCameraMediator3D::MoveXZ(GNRGLNotifyEvent& event)
  */
 void GNRGLCameraMediator3D::RotateXY(GNRGLNotifyEvent& event)
 {
+	//calculate rotation from 2D screen movement
 	float xangle = (float)(event.getMouseEvent().GetY() - m_mouse_y)/(float)window_h*360.0f;
 	float yangle = (float)(m_mouse_x - event.getMouseEvent().GetX())/(float)window_w*360.0f;
 	
-//	doSnapRotate(xangle);
-//	doSnapRotate(yangle);
-
 	//rotate around the right-Vector
 	GNRVertex viewDir = old_viewDir*cos(xangle*M_PI/180.0) + old_upVector*sin(xangle*M_PI/180.0);
 	viewDir.normalize();
 	
+	//calculate new up vector and set y-axis to one
 	GNRVertex upVector = old_rightVector * viewDir;
 	upVector.setY(1.0);
 	
-	//Rotate viewdir around the up vector:
-	//viewDir = viewDir*cos(yangle*M_PI/180.0) + old_rightVector*sin(yangle*M_PI/180.0);
-	//viewDir.normalize();
-	
-	upVector.rotate(0, yangle, 0);
+	//rotate vectors by mouse move in x-axiy
 	GNRVertex rightVector(old_rightVector);
-	rightVector.rotate(0, yangle, 0);
+	upVector.rotate(0, yangle, 0);
 	viewDir.rotate(0, yangle, 0);
-//	GNRVertex rightVector = viewDir * upVector;
-
+	rightVector.rotate(0, yangle, 0);
+	
+	//normalize vectors
+	rightVector.normalize();
+	upVector.normalize();
+	viewDir.normalize();
+	
+	//set new camera position and rotation
 	m_GLCamera->setRotatedX(old_rotatedX + xangle);
 	m_GLCamera->setRotatedY(old_rotatedY + yangle);
-	m_GLCamera->setViewDir(viewDir);
-	m_GLCamera->setUpVector(upVector);
 	m_GLCamera->setRightVector(rightVector);
+	m_GLCamera->setUpVector(upVector);
+	m_GLCamera->setViewDir(viewDir);
 }
 
 /**
@@ -106,12 +109,10 @@ void GNRGLCameraMediator3D::RotateXY(GNRGLNotifyEvent& event)
  */
 void GNRGLCameraMediator3D::RotateXZ(GNRGLNotifyEvent& event)
 {
+	//calculate rotation from 2D screen movement
 	float xangle = (float)(event.getMouseEvent().GetY() - m_mouse_y)/(float)window_h*360.0f;
 	float zangle = (float)(m_mouse_x - event.getMouseEvent().GetX())/(float)window_w*360.0f;
 	
-//	doSnapRotate(xangle);
-//	doSnapRotate(zangle);
-
 	//Rotate viewdir around the right vector:
 	GNRVertex viewDir = old_viewDir*cos(xangle*M_PI/180.0) + old_upVector*sin(xangle*M_PI/180.0);
 	viewDir.normalize();
@@ -125,7 +126,9 @@ void GNRGLCameraMediator3D::RotateXZ(GNRGLNotifyEvent& event)
 	
 	//now compute the new UpVector (by cross product)
 	upVector = (viewDir * rightVector)*-1;
+	upVector.normalize();
 	
+	//set new camera position and rotation
 	m_GLCamera->setRotatedX(old_rotatedX + xangle);
 	m_GLCamera->setRotatedZ(old_rotatedZ + zangle);
 	m_GLCamera->setViewDir(viewDir);
@@ -140,7 +143,9 @@ void GNRGLCameraMediator3D::RotateXZ(GNRGLNotifyEvent& event)
  */
 void GNRGLCameraMediator3D::ZoomIn(GNRGLNotifyEvent& event)
 {
+	//get delta distance for zoom
 	float distance = event.getMouseEvent().GetWheelRotation() / 200.0;
 	
+	//change distance of cam
 	m_GLCamera->changeDistance(distance);
 }

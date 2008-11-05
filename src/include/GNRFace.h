@@ -1,5 +1,6 @@
 /**
  * GNRFace
+ * @note        [DONE]
  * @name        GNRFace.h
  * @date        2008-09-30
  * @author		Konstantin Balabin  <k.balabin@googlemail.com>
@@ -25,19 +26,18 @@ using std::string;
 class GNRFace
 {
 public:
+
 	GNRFace();
 	GNRFace(const GNRFace& other);
-	
 	int size() const;
-	
 	void addVNT(GNRVNT& vnt);
-	
 	void setNormal();
-	
 	void draw() const;
 	
 private:
+
 	list<GNRVNT> m_vnt;
+	
 };
 
 #endif // _GNRFACE_H_

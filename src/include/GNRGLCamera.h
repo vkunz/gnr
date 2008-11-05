@@ -1,5 +1,6 @@
 /**
  * defines a camera-class for the opengl scene
+ * @note        [DONE]
  * @name        GNRGLCamera.h
  * @date        2008-10-23
  * @author		Konstantin Balabin  <k.balabin@googlemail.com>

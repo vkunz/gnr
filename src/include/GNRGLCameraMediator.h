@@ -1,5 +1,6 @@
 /**
  * GNRGLCameraMediator
+ * @note        [DONE]
  * @name        GNRGLCameraMediator.h
  * @date        2008-10-05
  * @author		Konstantin Balabin  <k.balabin@googlemail.com>
@@ -19,10 +20,10 @@ class GNRGLCameraMediator: public GNRMediator
 {
 public:
 
-	void setGLCamera(GNRGLCamera* camera);              //set pointer to access camera
+	void setGLCamera(GNRGLCamera* camera);                   //set pointer to access camera
 	void setAssembly(GNRAssembly* WXUNUSED(assembly)) {};    //not needed in camera mediator
-	void initialize(GNRGLNotifyEvent& event);           //initialize camera mediator
-	int  translate(GNRGLNotifyEvent& event);            //perform translation to camera
+	void initialize(GNRGLNotifyEvent& event);                //initialize camera mediator
+	int  translate(GNRGLNotifyEvent& event);                 //perform translation to camera
 	void finalize();
 	
 protected:
@@ -41,7 +42,6 @@ protected:
 	int window_w;
 	int window_h;
 	float m_distance;
-	
 	GNRVertex old_viewPoint;
 	GNRVertex old_viewDir;
 	GNRVertex old_rightVector;

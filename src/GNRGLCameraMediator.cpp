@@ -1,5 +1,6 @@
 /**
  * GNRGLCameraMediator
+ * @note        [DONE]
  * @name        GNRGLCameraMediator.cpp
  * @date        2008-10-25
  * @author      Konstantin Balabin  <k.balabin@googlemail.com>
@@ -10,22 +11,28 @@
 
 #include "GNRGLCameraMediator.h"
 
-#if defined(__ATHOS_DEBUG__)
-#include <wx/log.h>
-#endif
-
-
+/**
+ * set camera pointer
+ * @param   GNRGLCamera     pointer to cam
+ * @access  private
+ */
 void GNRGLCameraMediator::setGLCamera(GNRGLCamera* camera)
 {
 	m_GLCamera = camera;
 }
 
+/**
+ * init all needed values for camera translation
+ * @param   GNRGLNotifyEvent      event from gl canvas
+ * @access  private
+ */
 void GNRGLCameraMediator::initialize(GNRGLNotifyEvent& event)
 {
 	//do initialize stuff here
 	m_mouse_x = event.getMouseEvent().GetX();
 	m_mouse_y = event.getMouseEvent().GetY();
 	
+	//store cam data
 	old_viewPoint   = m_GLCamera->getViewPoint();
 	old_viewDir     = m_GLCamera->getViewDir();
 	old_rightVector = m_GLCamera->getRightVector();
@@ -35,19 +42,26 @@ void GNRGLCameraMediator::initialize(GNRGLNotifyEvent& event)
 	old_rotatedZ    = m_GLCamera->getRotatedZ();
 	m_distance      = m_GLCamera->getDistance();
 	
+	//window size (2D screen)
 	window_w = event.getWinX();
 	window_h = event.getWinY();
 }
 
+/**
+ * do translation to selected camera
+ * @param   GNRGLNotifyEvent      event from gl canvas
+ * @access  private
+ */
 int GNRGLCameraMediator::translate(GNRGLNotifyEvent& event)
 {
-	//do specific translations
+	//do specific translations on wheel event only
 	if (event.getMouseEvent().GetWheelRotation())
 	{
 		ZoomIn(event);
 		return 0;
 	}
 	
+	//call translation dependend methods
 	switch (m_Translation)
 	{
 	case MOVEXZ:
@@ -70,7 +84,10 @@ int GNRGLCameraMediator::translate(GNRGLNotifyEvent& event)
 	return 0;
 }
 
+/**
+ * no finalize needed here, only assembly for undo and redo
+ * @access  private
+ */
 void GNRGLCameraMediator::finalize()
 {
-
 }

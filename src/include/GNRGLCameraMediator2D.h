@@ -1,5 +1,6 @@
 /**
  * GNRGLCameraMediator2D
+ * @note        [FINISHED]
  * @name        GNRGLCameraMediator2D.h
  * @date        2008-10-05
  * @author		Konstantin Balabin  <k.balabin@googlemail.com>

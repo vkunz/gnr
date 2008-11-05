@@ -168,6 +168,11 @@ void GNRScene::newRoom()
 	destroyContainers();
 	initContainers();
 	resetCamera();
+	
+	// send event to refresh Scene-Tree
+	GNRNotifyEvent gnrevent(wxEVT_COMMAND_GNR_NOTIFY);
+	gnrevent.setGNREventType(REFRESHSCENETREE);
+	ProcessEvent(gnrevent);
 }
 
 /**
