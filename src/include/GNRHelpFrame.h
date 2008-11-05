@@ -3,7 +3,6 @@
 
 #include <wx/frame.h>
 #include <wx/html/htmlwin.h>
-#include <wx/html/helpfrm.h>
 
 class GNRHelpFrame: public wxFrame
 {
@@ -17,7 +16,8 @@ protected:
 	static const long ID_HTMLWINDOW1;
 	
 private:
-
+	wxHtmlWindow* m_window;
+	
 };
 
 #endif
