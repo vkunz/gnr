@@ -347,7 +347,7 @@ void GNRScene::cloneSelectedAssemblies()
 		//copy clone in selected
 		m_Selected->addPart(a_copy);
 		//move assembly one width right
-		a_copy->move(GNRVertex(a_copy->getWidthMeters(),0.0,0.0));
+		a_copy->move(GNRVertex(a_copy->getWidthMeters()+0.5,0.0,0.0));
 	}
 	
 	// send event to refresh Scene-Tree
@@ -596,13 +596,6 @@ void GNRScene::groupSelectedAssemblies()
 	//put new group in the world
 	m_RootAssembly->addPart(group);
 	
-#warning "INFO: check how to set undo and redo!"
-//	GNRCommandAssembly* command = new GNRCommandAssembly;
-//	command->setAssembly(group);
-//
-//	GNRUndoRedo* undo = GNRUndoRedo::getInstance();
-//	undo->enqueue(command);
-
 	// send event to refresh Scene-Tree
 	GNRNotifyEvent gnrevent(wxEVT_COMMAND_GNR_NOTIFY);
 	gnrevent.setGNREventType(REFRESHSCENETREE);
@@ -669,39 +662,6 @@ void GNRScene::ungroupSelectedAssemblies()
 	GNRNotifyEvent gnrevent(wxEVT_COMMAND_GNR_NOTIFY);
 	gnrevent.setGNREventType(REFRESHSCENETREE);
 	ProcessEvent(gnrevent);
-}
-
-/**
- * ungroup selected assembly and move all parts to root
- * @access      public
- */
-void GNRScene::ungroupOneAssembly(GNRAssembly* assembly)
-{
-	list<GNRAssembly*> grp_parts = assembly->getPartList();
-	
-	if (grp_parts.size() < 1)
-	{
-		//no or only one part, don't waste time
-		return;
-	}
-	
-	GNRVertex grp_center = assembly->getCenterVertex();
-	GNRVertex obj_center;
-	
-	//find all groups and free them
-	for (list<GNRAssembly*>::iterator child_it = grp_parts.begin(); child_it != grp_parts.end(); ++child_it)
-	{
-		//move child from group to one level upwards
-		(assembly->getParent())->addPart((*child_it));
-		//kill part in group now
-		assembly->delPart((*child_it));
-		//calculate new position relative to center of parent
-		obj_center = (*child_it)->getCenterVertex() + grp_center;
-		//set new center of child
-		(*child_it)->setCenterVertex(obj_center);
-	}
-	//remove empty group container from parent
-	(assembly->getParent())->delPart(assembly);
 }
 
 /**

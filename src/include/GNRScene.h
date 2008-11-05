@@ -95,7 +95,6 @@ public:
 	void insertCopiedAssemblies();
 	void cutSelectedAssemblies();
 	
-	void ungroupOneAssembly(GNRAssembly* assembly);
 	void restoreAssembly(GNRAssembly* assembly);
 	void showAssembly(GNRAssembly* assembly);
 	void selectAssembly(GNRAssembly* assembly);

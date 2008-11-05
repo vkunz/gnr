@@ -39,4 +39,6 @@ void GNRTests::sizeXsizeLoopsLoadClean(GNRScene* scene, const int loops = 10, co
 		}
 		scene->newRoom();
 	}
+	
+	wxMessageBox(wxT("FERTIG!"));
 }

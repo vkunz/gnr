@@ -175,6 +175,9 @@
 		<Unit filename="src\include\GNRGLNotifyEvent.h" />
 		<Unit filename="src\include\GNRGLScreenshot.h" />
 		<Unit filename="src\include\GNRGlobalDefine.h" />
+		<Unit filename="src\include\GNRGridRowData.h" />
+		<Unit filename="src\include\GNRGridSceneController.h" />
+		<Unit filename="src\include\GNRGridTable.h" />
 		<Unit filename="src\include\GNRHelpFrame.h" />
 		<Unit filename="src\include\GNRImportFile.h" />
 		<Unit filename="src\include\GNRLibrary.h" />

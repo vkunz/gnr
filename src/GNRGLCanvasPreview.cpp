@@ -173,10 +173,10 @@ void GNRGLCanvasPreview::draw()
 		float max_size = m_assembly->getMaximumSize();
 		glScalef(1/max_size, 1/max_size, 1/max_size);
 		
+		glTranslatef(0.0f, 0.0f, -5.0f);
+		
 		// rotate as user determines
 		glRotatef(roty, 0.0f, 1.0f, 0.0f);
-		
-		glTranslatef(0.0f, 0.0f, -5.0f);
 		
 		glPushMatrix();
 		{
