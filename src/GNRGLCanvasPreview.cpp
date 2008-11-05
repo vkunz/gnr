@@ -22,6 +22,7 @@ BEGIN_EVENT_TABLE(GNRGLCanvasPreview, wxGLCanvas)
 	EVT_LEFT_UP(GNRGLCanvasPreview::OnLMouseUp)
 	EVT_SIZE(GNRGLCanvasPreview::OnSize)
 	EVT_PAINT(GNRGLCanvasPreview::OnPaint)
+	EVT_LEAVE_WINDOW(GNRGLCanvasPreview::OnLeaveWindow)
 END_EVENT_TABLE()
 
 /**
@@ -52,25 +53,45 @@ GNRGLCanvasPreview::~GNRGLCanvasPreview()
 }
 
 /**
+ * init lights
+ * @access      private
+ */
+void GNRGLCanvasPreview::InitLights()
+{
+	//define light source
+	float light_ambient[4]  = {0.4,0.4,0.4,0.0};
+	float light_diffuse[4]  = {0.5,0.5,0.5,0.0};
+	float light_specular[4] = {0.1,0.1,0.1,0.0};
+	float light_position[4] = {5.0,10.0,-20.0,1.0};
+	
+	glLightfv(GL_LIGHT0, GL_DIFFUSE, light_diffuse);
+	glLightfv(GL_LIGHT0, GL_AMBIENT, light_ambient);
+	glLightfv(GL_LIGHT0, GL_SPECULAR, light_specular);
+	glLightfv(GL_LIGHT0, GL_POSITION, light_position);
+	
+	glLightModelfv(GL_LIGHT_MODEL_AMBIENT, light_ambient);
+	glLightModeli(GL_LIGHT_MODEL_TWO_SIDE, 1);
+	
+	glEnable(GL_LIGHTING);
+	glEnable(GL_LIGHT0);
+	
+	glClearColor(0.5, 0.5, 0.5, 1.0);
+}
+
+/**
  * does the main initialization of the canvas that has to be done on creation
  * @access      private
  */
 void GNRGLCanvasPreview::InitGL()
 {
-	//define light source
-	float light_ambient[4]  = {0.3,0.3,0.3,0.0};
-	float light_diffuse[4]  = {1.0,1.0,1.0,0.0};
-	float light_specular[4] = {0.1,0.1,0.1,0.0};
-	float light_position[4] = {30.0,60.0,20.0,1.0};
-	float shadow_color[4]   = {0.3,0.3,0.3,0.7};
-	float floor_plane[4]    = {0.0,1.0,0.0,0.0};
-	
 	glShadeModel(GL_SMOOTH);
 	glDepthFunc(GL_LEQUAL);
 	
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_LINE_SMOOTH);
 	glEnable(GL_POLYGON_SMOOTH);
+	glEnable(GL_POLYGON_OFFSET_LINE);
+	glEnable(GL_POINT_SMOOTH);
 	
 	glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);
 	glHint(GL_LINE_SMOOTH_HINT, GL_NICEST);
@@ -78,22 +99,9 @@ void GNRGLCanvasPreview::InitGL()
 	
 	glClearDepth(1.0f);
 	
+	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+	
 	glEnable(GL_NORMALIZE);
-	
-	glLightModelfv(GL_LIGHT_MODEL_AMBIENT, light_ambient);
-	glLightModeli(GL_LIGHT_MODEL_TWO_SIDE, 1);
-	glLightModeli(GL_LIGHT_MODEL_LOCAL_VIEWER, 1);
-	
-	glLightfv(GL_LIGHT0, GL_DIFFUSE, light_diffuse);
-	glLightfv(GL_LIGHT0, GL_AMBIENT, light_ambient);
-	glLightfv(GL_LIGHT0, GL_SPECULAR, light_specular);
-	glLightfv(GL_LIGHT0, GL_POSITION, light_position);
-	
-	
-	glEnable(GL_LIGHTING);
-	glEnable(GL_LIGHT0);
-	
-	glClearColor(0.3, 0.3, 0.3, 1.0);
 }
 
 /**
@@ -166,25 +174,25 @@ void GNRGLCanvasPreview::draw()
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		glLoadIdentity();
 		
+		glDisable(GL_BLEND);
+		glDisable(GL_STENCIL_TEST);
+		glEnable(GL_DEPTH_TEST);
 		glEnable(GL_LIGHTING);
-		glEnable(GL_LIGHT0);
+		glCullFace(GL_BACK);
 		
 		// scale image to fit in preview
 		float max_size = m_assembly->getMaximumSize();
-		glScalef(1/max_size, 1/max_size, 1/max_size);
 		
-		glTranslatef(0.0f, 0.0f, -5.0f);
+		gluLookAt(2.0,2.0,2.0,0.0,0.0,0.0,0.0,1.0,0.0);
+		
+		InitLights();
 		
 		// rotate as user determines
 		glRotatef(roty, 0.0f, 1.0f, 0.0f);
+		glScalef(1.0/max_size, 1.0/max_size, 1.0/max_size);
 		
-		glPushMatrix();
-		{
-			m_assembly->draw();
-		}
-		glPopMatrix();
+		m_assembly->draw();
 		
-		// Swap
 		SwapBuffers();
 	}
 }
@@ -198,6 +206,16 @@ void GNRGLCanvasPreview::OnLMouseDown(wxMouseEvent& event)
 {
 	m_mouse_x = event.GetX();
 	Connect(wxEVT_MOTION, (wxObjectEventFunction)&GNRGLCanvasPreview::OnMouseMove);
+}
+
+/**
+ * Handles the LeftMouseUp-Event of the canvas
+ * @param       wxMouseEvent       Mouse-Event of the canvas
+ * @access      private
+ */
+void GNRGLCanvasPreview::OnLeaveWindow(wxMouseEvent& event)
+{
+	Disconnect(wxEVT_MOTION, (wxObjectEventFunction)&GNRGLCanvasPreview::OnMouseMove);
 }
 
 /**

@@ -42,12 +42,14 @@ private:
 	GNRAssembly* m_assembly;
 	
 	void InitGL();
+	void InitLights();
 	
 	void OnLMouseDown(wxMouseEvent& event);
 	void OnLMouseUp(wxMouseEvent& event);
 	void OnMouseMove(wxMouseEvent& event);
 	void OnPaint(wxPaintEvent& event);
 	void OnSize(wxSizeEvent& event);
+	void OnLeaveWindow(wxMouseEvent& event);
 	
 	DECLARE_EVENT_TABLE()
 };

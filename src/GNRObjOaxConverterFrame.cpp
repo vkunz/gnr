@@ -120,7 +120,7 @@ GNRObjOaxConverterFrame::GNRObjOaxConverterFrame(wxWindow* parent, wxWindowID id
 	Connect(idCbxCategory,wxEVT_COMMAND_TEXT_UPDATED,(wxObjectEventFunction)&GNRObjOaxConverterFrame::OnCbxCategoryChanged);
 	
 	// create canvas
-	m_canvas = new GNRGLCanvasPreview(this, wxID_ANY, wxPoint(50, 50), wxSize(200, 200), wxSIMPLE_BORDER);
+	m_canvas = new GNRGLCanvasPreview(this, wxID_ANY, wxPoint(50, 50), wxSize(200, 200), wxNO_BORDER);
 	
 	// connects m_txcName with OnTxcNameChanged
 	Connect(idTxcName,wxEVT_COMMAND_TEXT_UPDATED,(wxObjectEventFunction)&GNRObjOaxConverterFrame::OnTxcNameChanged);

@@ -22,11 +22,11 @@
 #define CAMERA_HEIGHT_MIN         0.10        //   10cm minimum height of cam
 #define CAMERA_DISTANCE_MIN       0.50        //   50cm minimum distance of cam
 
-#define DEFAULT_FLOOR_SIZE       64
+#define DEFAULT_FLOOR_SIZE       128
 #define DEFAULT_IMPORT_COLOR    "archwhite2"
 
 #define ZNEAR                     0.001f      // near clipping plane of GL
-#define ZFAR                    100.0f        // far clipping plane of GL
+#define ZFAR                    500.0f        // far clipping plane of GL
 #define GLU_PERSPECTIVE          30.0f        // gluPerspective
 
 #define WALLHIGHT                2.0          // hight of a wall
