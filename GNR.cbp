@@ -119,9 +119,6 @@
 		<Unit filename="src\GNRGLCanvasPreview.cpp" />
 		<Unit filename="src\GNRGLNotifyEvent.cpp" />
 		<Unit filename="src\GNRGLScreenshot.cpp" />
-		<Unit filename="src\GNRGridRowData.cpp" />
-		<Unit filename="src\GNRGridSceneController.cpp" />
-		<Unit filename="src\GNRGridTable.cpp" />
 		<Unit filename="src\GNRHelpFrame.cpp" />
 		<Unit filename="src\GNRImportFile.cpp" />
 		<Unit filename="src\GNRLibrary.cpp" />
@@ -143,7 +140,6 @@
 		<Unit filename="src\GNROpxImport.cpp" />
 		<Unit filename="src\GNRPrimitiveCreator.cpp" />
 		<Unit filename="src\GNRScene.cpp" />
-		<Unit filename="src\GNRSceneTreeItem.cpp" />
 		<Unit filename="src\GNRSceneTreeNode.cpp" />
 		<Unit filename="src\GNRTCoord.cpp" />
 		<Unit filename="src\GNRTests.cpp" />
@@ -179,9 +175,6 @@
 		<Unit filename="src\include\GNRGLNotifyEvent.h" />
 		<Unit filename="src\include\GNRGLScreenshot.h" />
 		<Unit filename="src\include\GNRGlobalDefine.h" />
-		<Unit filename="src\include\GNRGridRowData.h" />
-		<Unit filename="src\include\GNRGridSceneController.h" />
-		<Unit filename="src\include\GNRGridTable.h" />
 		<Unit filename="src\include\GNRHelpFrame.h" />
 		<Unit filename="src\include\GNRImportFile.h" />
 		<Unit filename="src\include\GNRLibrary.h" />
@@ -203,7 +196,6 @@
 		<Unit filename="src\include\GNROpxImport.h" />
 		<Unit filename="src\include\GNRPrimitiveCreator.h" />
 		<Unit filename="src\include\GNRScene.h" />
-		<Unit filename="src\include\GNRSceneTreeItem.h" />
 		<Unit filename="src\include\GNRSceneTreeNode.h" />
 		<Unit filename="src\include\GNRTCoord.h" />
 		<Unit filename="src\include\GNRTests.h" />

@@ -12,7 +12,6 @@
 #include <wx/xml/xml.h>
 
 #include "GNRTreeSceneController.h"
-#include "GNRSceneTreeItem.h"
 
 #if defined(__ATHOS_DEBUG__)
 #include <wx/log.h>
