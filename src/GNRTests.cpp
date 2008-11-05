@@ -1,3 +1,4 @@
+#include <wx/msgdlg.h>
 #include "GNROaxImport.h"
 #include "GNRTests.h"
 
@@ -13,6 +14,11 @@ GNRTests::~GNRTests()
 
 void GNRTests::sizeXsizeLoopsLoadClean(GNRScene* scene, const int loops = 10, const int size = 10)
 {
+	wxString str;
+	str << wxT("Test (sizeXsizeLoopsLoadClean) beginnt!\n");
+	str << loops << wxT(" Durchläufe mit ") << size << wxT(" x ") << size << wxT(" Kuben...");
+	wxMessageBox(str);
+	
 	for (int h = -loops/2; h<loops/2; ++h)
 	{
 		for (int i = -size/2; i<=size/2; ++i)
@@ -21,13 +27,13 @@ void GNRTests::sizeXsizeLoopsLoadClean(GNRScene* scene, const int loops = 10, co
 			{
 				//build importer and load jumbo
 				GNROaxImport in(wxT("data\\cube_green_1x1.oax"));
-				// get assembly
+				//get assembly
 				GNRAssembly* dummy = in.getAssembly();
-				//insert in scene
-				scene->insertAssembly(dummy);
 				//move dummy around
 				dummy->setX(i*1.5);
 				dummy->setZ(j*1.5);
+				//insert in scene
+				scene->insertAssembly(dummy);
 			}
 		}
 		scene->newRoom();

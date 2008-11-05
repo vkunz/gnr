@@ -78,6 +78,7 @@ bool GNRApp::OnInit()
 		//initialize whole menus
 		initialSetup();
 		
+#warning "INFO: Who wants some test?"
 		//start tests right here
 		//m_Tests->sizeXsizeLoopsLoadClean(m_Scene,10,10);
 	}
