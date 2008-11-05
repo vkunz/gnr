@@ -24,6 +24,7 @@
 
 #include "resources/icon_library_folder.xpm"
 #include "resources/icon_library_assembly.xpm"
+#include "resources/icon_library_container.xpm"
 
 #if defined(__ATHOS_DEBUG__)
 #include <wx/log.h>
@@ -216,10 +217,11 @@ void GNRTreeLibraryController::createImageList(int size)
 	// should correspond to TreeCtrlIcon_xxx enum
 	wxBusyCursor wait;
 	
-	// 2 icons
-	wxIcon icons[2];
-	icons[0] = wxIcon(icon_library_folder_xpm);
-	icons[1] = wxIcon(icon_library_assembly_xpm);
+	// 3 icons
+	wxIcon icons[3];
+	icons[0] = wxIcon(icon_library_container_xpm);
+	icons[1] = wxIcon(icon_library_folder_xpm);
+	icons[2] = wxIcon(icon_library_assembly_xpm);
 	
 	int sizeOrig = icons[0].GetWidth();
 	
@@ -267,6 +269,8 @@ void GNRTreeLibraryController::buildTreeCtrl()
 	
 	// set root
 	root = tiid = m_treeCtrl->AddRoot(wxT("GNRBibliothek"));
+	
+	m_treeCtrl->SetItemImage(tiid, (int)TreeCtrlIcon_Root);
 	
 	// store root tiid
 	groups.insert(std::pair<unsigned int, wxTreeItemId>(0, tiid));

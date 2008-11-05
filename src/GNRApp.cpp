@@ -505,14 +505,23 @@ void GNRApp::cancelConvertion()
  */
 void GNRApp::initialSetup()
 {
-	GNRNotifyEvent gnrevent(wxEVT_COMMAND_GNR_NOTIFY);
+	//build initial snap to grid settings
+	GNRNotifyEvent setup_snap(wxEVT_COMMAND_GNR_NOTIFY);
+	setup_snap.setGNREventType(SNAPTOGRID);
+	setup_snap.setSnapToGrid(SNAP_IN_DEFAULT_GRID);
+	setup_snap.setSnapToAngle(SNAP_IN_DEFAULT_ANGLE);
 	
-	gnrevent.setGNREventType(SNAPTOGRID);
-	gnrevent.setSnapToGrid(SNAP_IN_DEFAULT_GRID);
-	gnrevent.setSnapToAngle(SNAP_IN_DEFAULT_ANGLE);
+	//activate snap function on start
+	m_MouseCtrl->setSnapfunction(setup_snap);
 	
-	m_MouseCtrl->setSnapfunction(gnrevent);
+	//send event to refresh Scene-Tree
+	GNRNotifyEvent setup_tree(wxEVT_COMMAND_GNR_NOTIFY);
+	setup_tree.setGNREventType(REFRESHSCENETREE);
 	
+	//process event for tree
+	ProcessEvent(setup_tree);
+	
+	//refresh canvas
 	m_Scene->glRefresh();
 }
 

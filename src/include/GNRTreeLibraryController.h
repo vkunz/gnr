@@ -31,7 +31,8 @@ class GNRTreeLibraryController
 public:
 	enum
 	{
-		TreeCtrlIcon_Folder = 0,
+		TreeCtrlIcon_Root = 0,
+		TreeCtrlIcon_Folder,
 		TreeCtrlIcon_Assembly
 	};
 	
