@@ -92,6 +92,16 @@ GNRAssembly* GNRScene::getRootAssembly()
 }
 
 /**
+ * get hidden assembly pointer
+ * @return      GNRAssembly*    pointer to hidden assembly
+ * @access      public
+ */
+GNRAssembly* GNRScene::getHiddden()
+{
+	return m_Hidden;
+}
+
+/**
  * get pointer to 2D cam
  * @return      GNRAssembly*    pointer to 2D cam
  * @access      public

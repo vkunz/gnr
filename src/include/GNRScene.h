@@ -66,6 +66,7 @@ public:
 	virtual ~GNRScene();
 	
 	GNRAssembly* getRootAssembly();
+	GNRAssembly* getHiddden();
 	GNRAssembly* getAssembly();
 	GNRGLCamera* getGLCamera2D();
 	GNRGLCamera* getGLCamera3D();
