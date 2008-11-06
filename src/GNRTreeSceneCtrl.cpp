@@ -1,5 +1,4 @@
 #include "GNRTreeSceneCtrl.h"
-#include "GNRTreeSceneItemData.h"
 
 #include <wx/menu.h>
 
@@ -14,7 +13,6 @@ BEGIN_EVENT_TABLE(GNRTreeSceneCtrl, wxTreeCtrl)
 	EVT_TREE_ITEM_MENU(wxID_ANY, GNRTreeSceneCtrl::OnItemMenu)
 	EVT_MENU(idMenuEdit, GNRTreeSceneCtrl::OnEdit)
 	EVT_MENU(idMenuAbout, GNRTreeSceneCtrl::OnAbout)
-	//EVT_TREE_ITEM_RIGHT_CLICK(wxID_ANY, GNRTreeSceneCtrl::OnItemRClick)
 END_EVENT_TABLE()
 
 GNRTreeSceneCtrl::GNRTreeSceneCtrl(wxWindow *parent, const wxWindowID id, const wxPoint& pos, const wxSize& size, long style,
@@ -34,9 +32,9 @@ void GNRTreeSceneCtrl::OnItemMenu(wxTreeEvent& event)
 {
 	m_currentTreeID = event.GetItem();
 	
-	GNRTreeSceneItemData* item = (GNRTreeSceneItemData *)GetItemData(m_currentTreeID);
+	treeItemData = (GNRTreeSceneItemData *)GetItemData(m_currentTreeID);
 	
-	if (item != NULL)
+	if (treeItemData != NULL)
 	{
 		wxPoint clientpt = event.GetPoint();
 		ShowMenu(m_currentTreeID, clientpt);
@@ -49,28 +47,24 @@ void GNRTreeSceneCtrl::OnItemMenu(wxTreeEvent& event)
 void GNRTreeSceneCtrl::ShowMenu(wxTreeItemId id, const wxPoint& pt)
 {
 	// create dropdown-menu
-	wxMenu menu(GetItemText(id));
+	wxMenu menu;
 	menu.Append(idMenuEdit, wxT("&Bearbeiten"));
 	menu.AppendSeparator();
-	menu.Append(idMenuAbout, wxT("&About"));
+	menu.Append(idMenuAbout, wxT("&Anzeigen/Verbergen"));
 	
 	PopupMenu(&menu, pt);
 }
 
 void GNRTreeSceneCtrl::OnEdit(wxCommandEvent& WXUNUSED(event))
 {
-#ifdef __ATHOS_DEBUG__
-	wxLogDebug(wxT("OnEdit"));
-#endif
-	
+	m_assemblyDataFrame = new GNRAssemblyDataFrame;
+	m_assemblyDataFrame->Show();
+	m_assemblyDataFrame->fillFields(treeItemData->getAssembly());
 }
 
 void GNRTreeSceneCtrl::OnAbout(wxCommandEvent& WXUNUSED(event))
 {
 	wxString str;
-	GNRTreeSceneItemData* item = (GNRTreeSceneItemData *)GetItemData(m_currentTreeID);
-	str << wxT("Klicked on ") << item->getName();
-#ifdef __ATHOS_DEBUG__
-	wxLogDebug(str);
-#endif
+	str << wxT("Klicked on ") << treeItemData->getName();
+	//wxLogDebug(str);
 }

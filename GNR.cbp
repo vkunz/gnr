@@ -104,6 +104,7 @@
 		</Linker>
 		<Unit filename="src\GNRApp.cpp" />
 		<Unit filename="src\GNRAssembly.cpp" />
+		<Unit filename="src\GNRAssemblyDataFrame.cpp" />
 		<Unit filename="src\GNRAssemblyMediator.cpp" />
 		<Unit filename="src\GNRAssemblyMediator2D.cpp" />
 		<Unit filename="src\GNRAssemblyMediator3D.cpp" />
@@ -159,6 +160,7 @@
 		<Unit filename="src\include\GNRApp.h" />
 		<Unit filename="src\include\GNRAssembly.h" />
 		<Unit filename="src\include\GNRAssemblyData.h" />
+		<Unit filename="src\include\GNRAssemblyDataFrame.h" />
 		<Unit filename="src\include\GNRAssemblyMediator.h" />
 		<Unit filename="src\include\GNRAssemblyMediator2D.h" />
 		<Unit filename="src\include\GNRAssemblyMediator3D.h" />

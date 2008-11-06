@@ -2,6 +2,8 @@
 #define _GNRTREESCENECTRL_H_
 
 #include <wx/treectrl.h>
+#include "GNRTreeSceneItemData.h"
+#include "GNRAssemblyDataFrame.h"
 
 class GNRTreeSceneCtrl: public wxTreeCtrl
 {
@@ -18,6 +20,9 @@ private:
 	void ShowMenu(wxTreeItemId id, const wxPoint& pt);
 	
 	wxTreeItemId m_currentTreeID;
+	GNRTreeSceneItemData* treeItemData;
+	
+	GNRAssemblyDataFrame* m_assemblyDataFrame;
 	
 	static const long idMenuEdit;
 	static const long idMenuAbout;

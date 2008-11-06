@@ -40,6 +40,9 @@ GNRObjOaxConverterFrame::GNRObjOaxConverterFrame(wxWindow* parent, wxWindowID id
 	// set size
 	SetClientSize(wxSize(550, 350));
 	
+	// use window color of user
+	SetBackgroundColour(wxNullColour);
+	
 	// Button create
 	m_btnCreate     = new wxButton(this, idBtnCreate, wxT("Erstellen"), wxPoint(328,304), wxDefaultSize, 0);
 	

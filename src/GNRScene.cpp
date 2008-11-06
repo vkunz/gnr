@@ -773,9 +773,15 @@ GNRSceneTreeNode* GNRScene::createSceneTree()
 	scene->setName(wxT("Szene"));
 	createSceneTree(m_RootAssembly, scene);
 	
+	// create trash tree
+	GNRSceneTreeNode* trash = new GNRSceneTreeNode;
+	trash->setName(wxT("Papierkorb"));
+	createSceneTree(m_Trash, trash);
+	
 	// create root-Node and insert all other trees
 	GNRSceneTreeNode* root = new GNRSceneTreeNode;
 	root->addTreeNode(scene);
+	root->addTreeNode(trash);
 	return root;
 }
 
@@ -799,7 +805,7 @@ void GNRScene::createSceneTree(GNRAssembly* assembly, GNRSceneTreeNode* node)
 			createSceneTree((*it), newNode);
 		}
 	}
-	else if (assembly->getType() == IS_ROOT || assembly->getType() == IS_SELECTED)
+	else if (assembly->getType() == IS_ROOT || assembly->getType() == IS_TRASH || assembly->getType() == IS_SELECTED)
 	{
 		list<GNRAssembly*> parts = assembly->getPartList();
 		for (list<GNRAssembly*>::const_iterator it = parts.begin(); it != parts.end(); ++it)
