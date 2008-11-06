@@ -5,7 +5,7 @@
  * @access      public
  */
 GNRSceneTreeNode::GNRSceneTreeNode():
-	m_STN_valid(false), m_TI_valid(false)
+		m_STN_valid(false), m_TI_valid(false)
 {
 }
 
@@ -51,7 +51,7 @@ void GNRSceneTreeNode::addTreeItem(GNRTreeSceneItemData* data)
 GNRSceneTreeNode* GNRSceneTreeNode::getTreeNode()
 {
 	// if iterator not set yet, set it to first record
-
+	
 	if (!m_STN_valid)
 	{
 		m_iterSceneTreeNode = m_listSceneTreeNode.begin();

@@ -62,7 +62,7 @@ void GNRTreeSceneCtrl::OnEdit(wxCommandEvent& WXUNUSED(event))
 #ifdef __ATHOS_DEBUG__
 	wxLogDebug(wxT("OnEdit"));
 #endif
-
+	
 }
 
 void GNRTreeSceneCtrl::OnAbout(wxCommandEvent& WXUNUSED(event))
