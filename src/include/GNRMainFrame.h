@@ -32,34 +32,32 @@ public:
 	
 private:
 
-	void OnMenuNewRoom(wxCommandEvent& event);
-	void OnMenuOaxImport(wxCommandEvent& event);
-	void OnMenuOaxExport(wxCommandEvent& event);
-	void OnMenuOpxOpen(wxCommandEvent& event);
-	void OnMenuOpxSave(wxCommandEvent& event);
-	void OnMenuObjImport(wxCommandEvent& event);
-	void OnMenuObjExport(wxCommandEvent& event);
-	void OnMenuQuit(wxCommandEvent& event);
-	void OnMenuAbout(wxCommandEvent& event);
+	void OnMenuNewRoom(wxCommandEvent& WXUNUSED(event));
+	void OnMenuOaxImport(wxCommandEvent& WXUNUSED(event));
+	void OnMenuOaxExport(wxCommandEvent& WXUNUSED(event));
+	void OnMenuOpxOpen(wxCommandEvent& WXUNUSED(event));
+	void OnMenuOpxSave(wxCommandEvent& WXUNUSED(event));
+	void OnMenuObjImport(wxCommandEvent& WXUNUSED(event));
+	void OnMenuObjExport(wxCommandEvent& WXUNUSED(event));
+	void OnMenuQuit(wxCommandEvent& WXUNUSED(event));
+	void OnMenuAbout(wxCommandEvent& WXUNUSED(event));
 	void OnMenuHelp(wxCommandEvent& WXUNUSED(event));
 	
 	//ToolBar Button Events
-	void OnToolbarOpen(wxCommandEvent& event);
-	void OnToolbarSave(wxCommandEvent& event);
-	void OnToolbarUndo(wxCommandEvent& event);
-	void OnToolbarRedo(wxCommandEvent& event);
-	void OnToolbarMoveXZ(wxCommandEvent& event);
-	void OnToolbarMoveXY(wxCommandEvent& event);
-	void OnToolbarRotateXZ(wxCommandEvent& event);
-	void OnToolbarRotateXY(wxCommandEvent& event);
-	void OnToolbarDrawWall(wxCommandEvent& event);
-	void OnCreateScreenshot(wxCommandEvent& event);
-	void OnCameraReset(wxCommandEvent& event);
+	void OnToolbarUndo(wxCommandEvent& WXUNUSED(event));
+	void OnToolbarRedo(wxCommandEvent& WXUNUSED(event));
+	void OnToolbarMoveXZ(wxCommandEvent& WXUNUSED(event));
+	void OnToolbarMoveXY(wxCommandEvent& WXUNUSED(event));
+	void OnToolbarRotateXZ(wxCommandEvent& WXUNUSED(event));
+	void OnToolbarRotateXY(wxCommandEvent& WXUNUSED(event));
+	void OnToolbarDrawWall(wxCommandEvent& WXUNUSED(event));
+	void OnCreateScreenshot(wxCommandEvent& WXUNUSED(event));
+	void OnCameraReset(wxCommandEvent& WXUNUSED(event));
 	void OnZoomIn(wxCommandEvent& WXUNUSED(event));
 	void OnZoomOut(wxCommandEvent& WXUNUSED(event));
-	void OnSnapToGridBtn(wxCommandEvent& event);
-	void OnSnapToGridCtrl(wxSpinEvent& event);
-	void OnSnapToGridMenu(wxCommandEvent& event);
+	void OnSnapToGridBtn(wxCommandEvent& WXUNUSED(event));
+	void OnSnapToGridCtrl(wxSpinEvent& WXUNUSED(event));
+	void OnSnapToGridMenu(wxCommandEvent& WXUNUSED(event));
 	void OnShadowsMenu(wxCommandEvent& WXUNUSED(event));
 	void OnGroupCreate(wxCommandEvent& WXUNUSED(event));
 	void OnGroupModify(wxCommandEvent& WXUNUSED(event));

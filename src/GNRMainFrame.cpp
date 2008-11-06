@@ -44,30 +44,9 @@
 #include "resources/button-snap-to-grid.xpm"
 #include "resources/button-draw-walls.xpm"
 
-//helper functions
-enum wxbuildinfoformat
+wxString wxbuildinfo()
 {
-	short_f, long_f
-};
-
-wxString wxbuildinfo(wxbuildinfoformat format)
-{
-	wxString wxbuild(wxVERSION_STRING);
-	
-	if (format == long_f)
-	{
-#if defined(__WXMSW__)
-		wxbuild << _T("-Windows");
-#elif defined(__UNIX__)
-		wxbuild << _T("-Linux");
-#endif
-		
-#if wxUSE_UNICODE
-		wxbuild << _T("-Unicode build");
-#else
-		wxbuild << _T("-ANSI build");
-#endif // wxUSE_UNICODE
-	}
+	wxString wxbuild;
 	
 	wxbuild << _T("\n\nGNR 3D Raumplaner\n\n");
 	wxbuild << _T("#if defined(PROGRAMMIERER)\n");
@@ -137,8 +116,8 @@ const long GNRMainFrame::ID_STATICTEXT2 = wxNewId();
 BEGIN_EVENT_TABLE(GNRMainFrame,wxFrame)
 	//toolbar buttons
 	EVT_MENU(btn_room_new, GNRMainFrame::OnMenuNewRoom)         //button new room
-	EVT_MENU(btn_room_open, GNRMainFrame::OnToolbarOpen)        //button open
-	EVT_MENU(btn_room_save, GNRMainFrame::OnToolbarSave)        //button save
+	EVT_MENU(btn_room_open, GNRMainFrame::OnMenuOpxOpen)        //button open
+	EVT_MENU(btn_room_save, GNRMainFrame::OnMenuOpxSave)        //button save
 	EVT_MENU(btn_undo, GNRMainFrame::OnToolbarUndo)             //button undo
 	EVT_MENU(btn_redo, GNRMainFrame::OnToolbarRedo)             //button redo
 	EVT_MENU(btn_move_xz, GNRMainFrame::OnToolbarMoveXZ)        //button move xy
@@ -204,8 +183,8 @@ GNRMainFrame::GNRMainFrame(wxWindow* parent, wxWindowID WXUNUSED(id))
 	//create main frame and set size
 	Create(parent, wxID_ANY, _("GNR - 3D Einrichtungsplaner"), wxDefaultPosition, wxDefaultSize, wxDEFAULT_FRAME_STYLE, _T("wxID_ANY"));
 	Move(wxPoint(0,0));
-	SetClientSize(wxSize(width-8,height-27));
-	SetMinSize(wxSize(width,height));
+	SetClientSize(wxSize(width,height-19));
+	SetMinSize(wxSize(width+8,height+8));
 	SetFocus();
 	
 	//build menu bar
@@ -247,9 +226,6 @@ GNRMainFrame::GNRMainFrame(wxWindow* parent, wxWindowID WXUNUSED(id))
 	ParentMenu_Export = new wxMenu();
 	MenuItem7 = new wxMenuItem(ParentMenu_Export, idMenuObjExport, _("OBJ E&xportieren\tALT+O"), _("Object-Datei exportieren..."), wxITEM_NORMAL);
 	ParentMenu_Export->Append(MenuItem7);
-	MenuItem11 = new wxMenuItem(ParentMenu_Export, idMenuOaxExport, _("OAX Ex&portieren\tCTRL+O"), _("OAX Exportieren..."), wxITEM_NORMAL);
-	ParentMenu_Export->Append(MenuItem11);
-	ParentMenu_Export->AppendSeparator();
 	MenuItem33 = new wxMenuItem(ParentMenu_Export, idMenuOnScreenshot, _("&Screenshot erstellen\tF12"), _("Screenshot der 3D-Szene erstellen..."), wxITEM_NORMAL);
 	ParentMenu_Export->Append(MenuItem33);
 	MenuBar->Append(ParentMenu_Export, _("E&xportieren"));
@@ -311,7 +287,7 @@ GNRMainFrame::GNRMainFrame(wxWindow* parent, wxWindowID WXUNUSED(id))
 	//generate toolbar and buttons
 	int c = 0;
 	ToolBar1 = new wxToolBar(this, ID_TOOLBAR, wxDefaultPosition, wxDefaultSize, wxTB_HORIZONTAL|wxNO_BORDER, _T("ID_TOOLBAR1"));
-	ToolBar1->SetToolBitmapSize(wxSize(32,32));
+	ToolBar1->SetToolBitmapSize(wxSize(24,24));
 	ToolBarItem[c++] = ToolBar1->AddTool(btn_room_new, _("Raum erstellen"), wxBitmap(wxIcon(button_room_new_xpm)), wxNullBitmap, wxITEM_NORMAL, _("Raum erstellen   [CTRL+N]"), _("Raum erstellen"));
 	ToolBarItem[c++] = ToolBar1->AddTool(btn_room_open, _("Raum öffnen"), wxBitmap(wxIcon(button_room_open_xpm)), wxNullBitmap, wxITEM_NORMAL, _("Raum öffnen"), _("Raum öffnen"));
 	ToolBarItem[c++] = ToolBar1->AddTool(btn_room_save, _("Raum speichern"), wxBitmap(wxIcon(button_room_save_xpm)), wxNullBitmap, wxITEM_NORMAL, _("Raum speichern"), _("Raum speichern"));
@@ -345,7 +321,7 @@ GNRMainFrame::GNRMainFrame(wxWindow* parent, wxWindowID WXUNUSED(id))
 	ToolBar1->AddSeparator();
 	
 	//build input for rotation snapping
-	SpinCtrlRotate = new wxSpinCtrl(ToolBar1, ID_SPINCTRL_ROTATE, _T("Schrittweite in Grad"), wxPoint(0,0), wxSize(40,20), 0, SNAP_IN_MINIMUM_DEGREE, SNAP_IN_MAXIMUM_DEGREE, 10, _T("ID_SPINCTRL_ROTATE"));
+	SpinCtrlRotate = new wxSpinCtrl(ToolBar1, ID_SPINCTRL_ROTATE, _T("Schrittweite in Grad"), wxPoint(0,0), wxSize(44,20), 0, SNAP_IN_MINIMUM_DEGREE, SNAP_IN_MAXIMUM_DEGREE, 10, _T("ID_SPINCTRL_ROTATE"));
 	StaticText2    = new wxStaticText(ToolBar1, ID_STATICTEXT2, _(" Grad"), wxPoint(3,13), wxSize(30,12), 0, _T("Schrittweite in Grad"));
 	SpinCtrlRotate->SetValue(_T("10"));
 	ToolBarItem[c++] = ToolBar1->AddControl(SpinCtrlRotate);
@@ -379,7 +355,7 @@ void GNRMainFrame::OnMenuNewRoom(wxCommandEvent& WXUNUSED(event))
 
 void GNRMainFrame::OnMenuOpxOpen(wxCommandEvent& WXUNUSED(event))
 {
-	const wxString& filename = wxFileSelector(wxT("Datei wählen..."), wxT(""), wxT(""), wxT(""), wxT("OpxDatei (*.opx)|*.opx"));
+	const wxString& filename = wxFileSelector(wxT("Szene als OPX öffnen..."), wxT(""), wxT(""), wxT(""), wxT("OpxDatei (*.opx)|*.opx"));
 	
 	// look if string is not empty
 	if (!filename.IsEmpty())
@@ -394,7 +370,7 @@ void GNRMainFrame::OnMenuOpxOpen(wxCommandEvent& WXUNUSED(event))
 
 void GNRMainFrame::OnMenuOpxSave(wxCommandEvent& WXUNUSED(event))
 {
-	const wxString& filename = wxFileSelector(wxT("Datei wählen..."), wxT(""), wxT(""), wxT(""), wxT("OpxDatei (*.opx)|*.opx"), wxFD_SAVE);
+	const wxString& filename = wxFileSelector(wxT("Szene als OPX speichern..."), wxT(""), wxT(""), wxT(""), wxT("OpxDatei (*.opx)|*.opx"), wxFD_SAVE);
 	
 	// look if string is not empty
 	if (!filename.IsEmpty())
@@ -409,7 +385,7 @@ void GNRMainFrame::OnMenuOpxSave(wxCommandEvent& WXUNUSED(event))
 
 void GNRMainFrame::OnMenuOaxImport(wxCommandEvent& WXUNUSED(event))
 {
-	const wxString& filename = wxFileSelector(wxT("Datei wählen..."), wxT(""), wxT(""), wxT(""), wxT("OaxDatei (*.oax)|*.oax"));
+	const wxString& filename = wxFileSelector(wxT("Object als OAX importieren..."), wxT(""), wxT(""), wxT(""), wxT("OaxDatei (*.oax)|*.oax"));
 	
 	// look if string is not empty
 	if (!filename.IsEmpty())
@@ -424,7 +400,7 @@ void GNRMainFrame::OnMenuOaxImport(wxCommandEvent& WXUNUSED(event))
 
 void GNRMainFrame::OnMenuOaxExport(wxCommandEvent& WXUNUSED(event))
 {
-	const wxString& filename = wxFileSelector(wxT("Datei wählen..."), wxT(""), wxT(""), wxT(""), wxT("OaxDatei (*.oax)|*.oax"));
+	const wxString& filename = wxFileSelector(wxT("Object als OAX exportieren..."), wxT(""), wxT(""), wxT(""), wxT("OaxDatei (*.oax)|*.oax"));
 	
 	// look if string is not empty
 	if (!filename.IsEmpty())
@@ -437,9 +413,9 @@ void GNRMainFrame::OnMenuOaxExport(wxCommandEvent& WXUNUSED(event))
 	}
 }
 
-void GNRMainFrame::OnMenuObjImport(wxCommandEvent& event)
+void GNRMainFrame::OnMenuObjImport(wxCommandEvent& WXUNUSED(event))
 {
-	const wxString& filename = wxFileSelector(wxT("Datei wählen..."), wxT("Datei wählen..."), wxT(""), wxT("Datei wählen..."), wxT("ObjDatei (*.obj)|*.obj"));
+	const wxString& filename = wxFileSelector(wxT("Object als OBJ importieren..."), wxT("Datei wählen..."), wxT(""), wxT("Datei wählen..."), wxT("ObjDatei (*.obj)|*.obj"));
 	
 	// look if string is not empty
 	if (!filename.IsEmpty())
@@ -454,7 +430,7 @@ void GNRMainFrame::OnMenuObjImport(wxCommandEvent& event)
 
 void GNRMainFrame::OnMenuObjExport(wxCommandEvent& WXUNUSED(event))
 {
-	const wxString& filename = wxFileSelector(wxT("Datei wählen..."), wxT("Datei wählen..."), wxT(""), wxT("Datei wählen..."), wxT("ObjDatei (*.obj)|*.obj"), wxFD_SAVE);
+	const wxString& filename = wxFileSelector(wxT("Szene als OBJ exportieren..."), wxT("Datei wählen..."), wxT(""), wxT("Datei wählen..."), wxT("ObjDatei (*.obj)|*.obj"), wxFD_SAVE);
 	
 	// look if string is not empty
 	if (!filename.IsEmpty())
@@ -474,7 +450,7 @@ void GNRMainFrame::OnMenuQuit(wxCommandEvent& WXUNUSED(event))
 
 void GNRMainFrame::OnMenuAbout(wxCommandEvent& WXUNUSED(event))
 {
-	wxString msg = wxbuildinfo(long_f);
+	wxString msg = wxbuildinfo();
 	wxMessageBox(msg, _("GNR"));
 }
 
@@ -538,14 +514,14 @@ void GNRMainFrame::OnToolbarDrawWall(wxCommandEvent& WXUNUSED(event))
 	GetEventHandler()->ProcessEvent(myevent);
 }
 
-void GNRMainFrame::OnCreateScreenshot(wxCommandEvent& event)
+void GNRMainFrame::OnCreateScreenshot(wxCommandEvent& WXUNUSED(event))
 {
 	wxString filetypes;
 	filetypes << wxT("PNG (*.png)|*.png");
 	filetypes << wxT("|JPEG (*.jpg)|*.jpg");
 	filetypes << wxT("|BMP (*.bmp)|*.bmp");
 	filetypes << wxT("|TIFF (*.tif)|*.tif");
-	const wxString& filename = wxFileSelector(wxT("Bild speichern unter..."), wxT(""), wxT(""), wxT(""), filetypes, wxFD_SAVE);
+	const wxString& filename = wxFileSelector(wxT("Screenshot speichern unter..."), wxT(""), wxT(""), wxT(""), filetypes, wxFD_SAVE);
 	
 	if (!filename.IsEmpty())
 	{
@@ -612,24 +588,14 @@ void GNRMainFrame::OnSnapToGrid()
 	GetEventHandler()->ProcessEvent(gnrevent);
 }
 
-void GNRMainFrame::OnToolbarOpen(wxCommandEvent& event)
-{
-	//TODO
-}
-
-void GNRMainFrame::OnToolbarSave(wxCommandEvent& event)
-{
-	//TODO
-}
-
-void GNRMainFrame::OnToolbarUndo(wxCommandEvent& event)
+void GNRMainFrame::OnToolbarUndo(wxCommandEvent& WXUNUSED(event))
 {
 	GNRNotifyEvent gnrevent(wxEVT_COMMAND_GNR_NOTIFY);
 	gnrevent.setGNREventType(UNDO);
 	GetEventHandler()->ProcessEvent(gnrevent);
 }
 
-void GNRMainFrame::OnToolbarRedo(wxCommandEvent& event)
+void GNRMainFrame::OnToolbarRedo(wxCommandEvent& WXUNUSED(event))
 {
 	GNRNotifyEvent gnrevent(wxEVT_COMMAND_GNR_NOTIFY);
 	gnrevent.setGNREventType(REDO);
