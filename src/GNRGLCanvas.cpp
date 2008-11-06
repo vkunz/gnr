@@ -147,32 +147,14 @@ void GNRGLCanvas::initLights()
 	glLightfv(GL_LIGHT0, GL_DIFFUSE, light_diffuse);
 	glLightfv(GL_LIGHT0, GL_AMBIENT, light_ambient);
 	glLightfv(GL_LIGHT0, GL_SPECULAR, light_specular);
-	glLightfv(GL_LIGHT0, GL_POSITION, light_position[0]);
+	glLightfv(GL_LIGHT0, GL_POSITION, light_position);
 	
-//	glLightfv(GL_LIGHT1, GL_DIFFUSE, light_diffuse);
-//  glLightfv(GL_LIGHT1, GL_AMBIENT, light_diffuse);
-//	glLightfv(GL_LIGHT1, GL_SPECULAR, light_specular);
-//	glLightfv(GL_LIGHT1, GL_POSITION, light_position[1]);
-//
-//	glLightfv(GL_LIGHT2, GL_DIFFUSE, light_diffuse);
-//  glLightfv(GL_LIGHT2, GL_AMBIENT, light_diffuse);
-//	glLightfv(GL_LIGHT2, GL_SPECULAR, light_specular);
-//	glLightfv(GL_LIGHT2, GL_POSITION, light_position[2]);
-//
-//	glLightfv(GL_LIGHT3, GL_DIFFUSE, light_diffuse);
-//  glLightfv(GL_LIGHT3, GL_AMBIENT, light_diffuse);
-//	glLightfv(GL_LIGHT3, GL_SPECULAR, light_specular);
-//	glLightfv(GL_LIGHT3, GL_POSITION, light_position[3]);
-
 	glLightModelfv(GL_LIGHT_MODEL_AMBIENT, light_ambient);
 	glLightModeli(GL_LIGHT_MODEL_TWO_SIDE, 1);
 	
 	glEnable(GL_LIGHTING);
 	glEnable(GL_LIGHT0);
-//	glEnable(GL_LIGHT1);
-//	glEnable(GL_LIGHT2);
-//	glEnable(GL_LIGHT3);
-
+	
 	glClearColor(0.2, 0.2, 0.2, 1.0);
 }
 
@@ -199,34 +181,16 @@ void GNRGLCanvas::initGL()
 	light_specular[3] = 0.0;
 	
 	//define light position 1
-	light_position[0][0] = 30.0;
-	light_position[0][1] = 60.0;
-	light_position[0][2] = 20.0;
-	light_position[0][3] = 1.0;
-	
-	//define light position 2
-	light_position[1][0] = -64.0;
-	light_position[1][1] = 64.0;
-	light_position[1][2] = 64.0;
-	light_position[1][3] = 1.0;
-	
-	//define light position 3
-	light_position[2][0] = -64.0;
-	light_position[2][1] = 64.0;
-	light_position[2][2] = -64.0;
-	light_position[2][3] = 1.0;
-	
-	//define light position 4
-	light_position[3][0] = 64.0;
-	light_position[3][1] = 64.0;
-	light_position[3][2] = -64.0;
-	light_position[3][3] = 1.0;
+	light_position[0] = 30.0;
+	light_position[1] = 60.0;
+	light_position[2] = 20.0;
+	light_position[3] = 1.0;
 	
 	//define shadow color
-	shadow_color[0] = 0.3;
-	shadow_color[1] = 0.3;
-	shadow_color[2] = 0.3;
-	shadow_color[3] = 0.7;
+	shadow_color[0] = 0.2;
+	shadow_color[1] = 0.2;
+	shadow_color[2] = 0.2;
+	shadow_color[3] = 0.6;
 	
 	//normal of floor
 	floor_plane[0] = 0.0;
@@ -235,21 +199,21 @@ void GNRGLCanvas::initGL()
 	floor_plane[3] = 0.0;
 	
 	//calculate shadow matrix on init
-	SetShadowMatrix(floor_shadow,floor_plane,light_position[0]);
+	SetShadowMatrix(floor_shadow,floor_plane,light_position);
 	
 	//set active canvas
 	SetCurrent();
 	
 	glShadeModel(GL_SMOOTH);
 	
-	glFrontFace(GL_CCW);
+	//glFrontFace(GL_CCW);
 	glCullFace(GL_BACK);
 	
 	glDepthFunc(GL_LEQUAL);
 	
 	glBlendFunc(GL_ONE_MINUS_SRC_ALPHA,GL_SRC_ALPHA);
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-	glBlendFunc(GL_DST_COLOR, GL_SRC_COLOR);
+	//glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	//glBlendFunc(GL_DST_COLOR, GL_SRC_COLOR);
 	
 	glEnable(GL_BLEND);
 	glEnable(GL_DEPTH_TEST);
@@ -283,7 +247,7 @@ void GNRGLCanvas::drawBaseFloor(float fCenterX, float fCenterY, float fCenterZ, 
 		return;
 	}
 	
-	float FloorColor[4] = { 0.8f, 0.8f, 0.8f, 0.2f };
+	float FloorColor[4] = { 0.9f, 0.9f, 0.9f, 0.0f };
 	
 	//create new display list for floor
 	m_floor_DL = glGenLists(1);
@@ -385,7 +349,7 @@ void GNRGLCanvas::shadowColorOn()
 
 void GNRGLCanvas::shadowColorOff()
 {
-	glDisable(GL_BLEND);
+	//glDisable(GL_BLEND);
 	glDisable(GL_STENCIL_TEST);
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_LIGHTING);
