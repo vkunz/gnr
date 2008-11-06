@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <wxsmith>
 	<object class="wxFrame" name="GNRDebugFrame">
-		<pos>0,575</pos>
-		<size>800,100</size>
+		<pos>0,608</pos>
+		<size>700,100</size>
 		<id_arg>0</id_arg>
 		<style>wxCAPTION|wxSYSTEM_MENU|wxRESIZE_BORDER|wxMAXIMIZE_BOX|wxMINIMIZE_BOX</style>
 		<object class="wxTextCtrl" name="ID_TextCtrl" variable="TextCtrl" member="yes">

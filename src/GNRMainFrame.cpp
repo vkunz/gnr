@@ -33,7 +33,6 @@
 #include "resources/button-room-new.xpm"
 #include "resources/button-room-open.xpm"
 #include "resources/button-room-save.xpm"
-#include "resources/button-room-save-as.xpm"
 #include "resources/button-exit.xpm"
 #include "resources/button-move-xy.xpm"
 #include "resources/button-move-xz.xpm"
@@ -42,10 +41,8 @@
 #include "resources/button-canvas2d-zoom-in.xpm"
 #include "resources/button-canvas2d-zoom-out.xpm"
 #include "resources/button-canvas2d-zoom-fit.xpm"
-#include "resources/button-reset-camera.xpm"
 #include "resources/button-snap-to-grid.xpm"
 #include "resources/button-draw-walls.xpm"
-#include "resources/button_screenshot.xpm"
 
 //helper functions
 enum wxbuildinfoformat
@@ -83,7 +80,6 @@ wxString wxbuildinfo(wxbuildinfoformat format)
 	return wxbuild;
 }
 
-//(*IdInit(GNRMainFrame)
 const long GNRMainFrame::idMenuNewRoom = wxNewId();
 const long GNRMainFrame::idMenuOpxOpen = wxNewId();
 const long GNRMainFrame::idMenuOpxSave = wxNewId();
@@ -99,12 +95,12 @@ const long GNRMainFrame::idMenuHideObject = wxNewId();
 const long GNRMainFrame::idMenuShowObject = wxNewId();
 const long GNRMainFrame::idMenuObjExport = wxNewId();
 const long GNRMainFrame::idMenuOaxExport = wxNewId();
+const long GNRMainFrame::idMenuOnScreenshot = wxNewId();
 const long GNRMainFrame::idMenuObjImport = wxNewId();
 const long GNRMainFrame::idMenuOaxImport = wxNewId();
 const long GNRMainFrame::idMenuZoomIn = wxNewId();
 const long GNRMainFrame::idMenuZoomOut = wxNewId();
-const long GNRMainFrame::idMenuZoomFit = wxNewId();
-const long GNRMainFrame::idMenuZoomReset = wxNewId();
+const long GNRMainFrame::idMenuCameraReset = wxNewId();
 const long GNRMainFrame::idMenuSnapToGrid = wxNewId();
 const long GNRMainFrame::idMenuMoveXZ = wxNewId();
 const long GNRMainFrame::idMenuMoveXY = wxNewId();
@@ -116,48 +112,45 @@ const long GNRMainFrame::idMenuGroup = wxNewId();
 const long GNRMainFrame::idMenuUngroup = wxNewId();
 const long GNRMainFrame::idMenuHelp = wxNewId();
 const long GNRMainFrame::idMenuAbout = wxNewId();
-const long GNRMainFrame::ID_StatusBar = wxNewId();
-//*)
+const long GNRMainFrame::ID_STATUSBAR = wxNewId();
 const long GNRMainFrame::btn_room_new = wxNewId();
 const long GNRMainFrame::btn_room_open = wxNewId();
 const long GNRMainFrame::btn_room_save = wxNewId();
-const long GNRMainFrame::btn_room_save_as = wxNewId();
 const long GNRMainFrame::btn_quit = wxNewId();
 const long GNRMainFrame::btn_undo = wxNewId();
 const long GNRMainFrame::btn_redo = wxNewId();
 const long GNRMainFrame::btn_zoom_in = wxNewId();
 const long GNRMainFrame::btn_zoom_out = wxNewId();
-const long GNRMainFrame::btn_zoom_fit = wxNewId();
+const long GNRMainFrame::btn_camera_reset = wxNewId();
 const long GNRMainFrame::btn_move_xy = wxNewId();
 const long GNRMainFrame::btn_move_xz = wxNewId();
 const long GNRMainFrame::btn_rotate_xy = wxNewId();
 const long GNRMainFrame::btn_rotate_xz = wxNewId();
-const long GNRMainFrame::btn_create_screenshot = wxNewId();
-const long GNRMainFrame::btn_camera_reset = wxNewId();
 const long GNRMainFrame::btn_snap_to_grid = wxNewId();
 const long GNRMainFrame::btn_draw_walls = wxNewId();
-
-const long GNRMainFrame::ID_ToolBar = wxNewId();
-
+const long GNRMainFrame::ID_TOOLBAR = wxNewId();
 const long GNRMainFrame::ID_SPINCTRL_TRANS  = wxNewId();
 const long GNRMainFrame::ID_SPINCTRL_ROTATE = wxNewId();
 const long GNRMainFrame::ID_STATICTEXT1 = wxNewId();
 const long GNRMainFrame::ID_STATICTEXT2 = wxNewId();
 
 BEGIN_EVENT_TABLE(GNRMainFrame,wxFrame)
-	EVT_MENU(btn_room_new, GNRMainFrame::OnMenuNewRoom)
-	EVT_MENU(btn_undo, GNRMainFrame::OnToolbarUndo)
-	EVT_MENU(btn_redo, GNRMainFrame::OnToolbarRedo)
-	EVT_MENU(btn_move_xz, GNRMainFrame::OnToolbarMoveXZ)
-	EVT_MENU(btn_move_xy, GNRMainFrame::OnToolbarMoveXY)
-	EVT_MENU(btn_rotate_xz, GNRMainFrame::OnToolbarRotateXZ)
-	EVT_MENU(btn_rotate_xy, GNRMainFrame::OnToolbarRotateXY)
-	EVT_MENU(btn_draw_walls, GNRMainFrame::OnToolbarDrawWall)
-	EVT_MENU(btn_create_screenshot, GNRMainFrame::OnCreateScreenshot)
-	EVT_MENU(btn_camera_reset, GNRMainFrame::OnCameraReset)
-	EVT_MENU(btn_zoom_in, GNRMainFrame::OnZoomIn)
-	EVT_MENU(btn_zoom_out, GNRMainFrame::OnZoomOut)
-	EVT_MENU(btn_snap_to_grid, GNRMainFrame::OnSnapToGridBtn)
+	//toolbar buttons
+	EVT_MENU(btn_room_new, GNRMainFrame::OnMenuNewRoom)         //button new room
+	EVT_MENU(btn_room_open, GNRMainFrame::OnToolbarOpen)        //button open
+	EVT_MENU(btn_room_save, GNRMainFrame::OnToolbarSave)        //button save
+	EVT_MENU(btn_undo, GNRMainFrame::OnToolbarUndo)             //button undo
+	EVT_MENU(btn_redo, GNRMainFrame::OnToolbarRedo)             //button redo
+	EVT_MENU(btn_move_xz, GNRMainFrame::OnToolbarMoveXZ)        //button move xy
+	EVT_MENU(btn_move_xy, GNRMainFrame::OnToolbarMoveXY)        //button move xz
+	EVT_MENU(btn_rotate_xz, GNRMainFrame::OnToolbarRotateXZ)    //button rotate xy
+	EVT_MENU(btn_rotate_xy, GNRMainFrame::OnToolbarRotateXY)    //button rotate xz
+	EVT_MENU(btn_draw_walls, GNRMainFrame::OnToolbarDrawWall)   //button draw wall
+	EVT_MENU(btn_zoom_in, GNRMainFrame::OnZoomIn)               //button zoom in
+	EVT_MENU(btn_zoom_out, GNRMainFrame::OnZoomOut)             //button zoom out
+	EVT_MENU(btn_camera_reset, GNRMainFrame::OnCameraReset)     //button reset camera
+	EVT_MENU(btn_snap_to_grid, GNRMainFrame::OnSnapToGridBtn)   //button toggle snap
+	EVT_MENU(btn_quit, GNRMainFrame::OnMenuQuit)                //button quit
 	//menu file
 	EVT_MENU(idMenuNewRoom, GNRMainFrame::OnMenuNewRoom)
 	EVT_MENU(idMenuOpxOpen, GNRMainFrame::OnMenuOpxOpen)
@@ -176,14 +169,14 @@ BEGIN_EVENT_TABLE(GNRMainFrame,wxFrame)
 	//menu export
 	EVT_MENU(idMenuObjExport, GNRMainFrame::OnMenuObjExport)
 	EVT_MENU(idMenuOaxExport, GNRMainFrame::OnMenuOaxExport)
+	EVT_MENU(idMenuOnScreenshot, GNRMainFrame::OnCreateScreenshot)
 	//menu import
 	EVT_MENU(idMenuObjImport, GNRMainFrame::OnMenuObjImport)
 	EVT_MENU(idMenuOaxImport, GNRMainFrame::OnMenuOaxImport)
 	//menu camera
 	EVT_MENU(idMenuZoomIn, GNRMainFrame::OnZoomIn)
 	EVT_MENU(idMenuZoomOut, GNRMainFrame::OnZoomOut)
-	EVT_MENU(idMenuZoomFit, GNRMainFrame::OnCameraReset)
-	EVT_MENU(idMenuZoomReset, GNRMainFrame::OnCameraReset)
+	EVT_MENU(idMenuCameraReset, GNRMainFrame::OnCameraReset)
 	//menu settings
 	EVT_MENU(idMenuSnapToGrid, GNRMainFrame::OnSnapToGridMenu)
 	EVT_MENU(idMenuMoveXZ, GNRMainFrame::OnToolbarMoveXZ)
@@ -205,130 +198,123 @@ END_EVENT_TABLE()
 
 GNRMainFrame::GNRMainFrame(wxWindow* parent, wxWindowID WXUNUSED(id))
 {
-	//(*Initialize(GNRMainFrame)
-	wxMenuItem* MenuItem8;
-	wxMenuItem* MenuItem7;
-	wxMenuItem* MenuItem5;
-	wxMenuItem* MenuItem2;
-	wxMenuItem* MenuItem1;
-	wxMenuItem* MenuItem4;
-	wxMenu* Menu1;
-	wxMenuItem* MenuItem3;
-	wxMenuItem* MenuItem6;
-	wxMenuBar* MenuBar1;
-	wxMenu* Menu2;
+	int width  = 800;
+	int height = 600;
 	
-	Create(parent, wxID_ANY, _("GNR - 3D Einrichtungsplaner [version 0.3.8.1alpha]"), wxDefaultPosition, wxDefaultSize, wxDEFAULT_FRAME_STYLE, _T("wxID_ANY"));
-	SetClientSize(wxSize(800,550));
+	//create main frame and set size
+	Create(parent, wxID_ANY, _("GNR - 3D Einrichtungsplaner"), wxDefaultPosition, wxDefaultSize, wxDEFAULT_FRAME_STYLE, _T("wxID_ANY"));
 	Move(wxPoint(0,0));
-	SetMinSize(wxSize(800,480));
+	SetClientSize(wxSize(width-8,height-27));
+	SetMinSize(wxSize(width,height));
 	SetFocus();
-	MenuBar1 = new wxMenuBar();
-	Menu1 = new wxMenu();
-	MenuItem8 = new wxMenuItem(Menu1, idMenuNewRoom, _("&Neuer leerer Raum\tCTRL+N"), _("Raum leeren..."), wxITEM_NORMAL);
-	Menu1->Append(MenuItem8);
-	Menu1->AppendSeparator();
-	MenuItem3 = new wxMenuItem(Menu1, idMenuOpxOpen, _("OPX &Öffnen\tCTRL+O"), _("vorhandene Datei öffnen..."), wxITEM_NORMAL);
-	Menu1->Append(MenuItem3);
-	MenuItem4 = new wxMenuItem(Menu1, idMenuOpxSave, _("OPX &Speichern\tCTRL+S"), _("Datei speichern..."), wxITEM_NORMAL);
-	Menu1->Append(MenuItem4);
-	Menu1->AppendSeparator();
-	MenuItem1 = new wxMenuItem(Menu1, idMenuQuit, _("GNR Schließen\tALT+F4"), _("GNR beenden..."), wxITEM_NORMAL);
-	Menu1->Append(MenuItem1);
-	MenuBar1->Append(Menu1, _("&Datei"));
-	Menu4 = new wxMenu();
-	MenuItem24 = new wxMenuItem(Menu4, idMenuUndo, _("&Rückgänig\tCTRL+Z"), _("Aktion rückgänig machen..."), wxITEM_NORMAL);
-	Menu4->Append(MenuItem24);
-	MenuItem25 = new wxMenuItem(Menu4, idMenuRedo, _("&Wiederherstellen\tCTRL+Y"), _("Aktion wiederherstellen..."), wxITEM_NORMAL);
-	Menu4->Append(MenuItem25);
-	Menu4->AppendSeparator();
-	MenuItem19 = new wxMenuItem(Menu4, idMenuDeleteObject, _("Objekte ent&fernen\tDEL"), _("Objekte entfernen..."), wxITEM_NORMAL);
-	Menu4->Append(MenuItem19);
-	MenuItem30 = new wxMenuItem(Menu4, idMenuCutObject, _("Objekte &ausschneiden\tCTRL+X"), _("Objekte ausschneiden..."), wxITEM_NORMAL);
-	Menu4->Append(MenuItem30);
-	MenuItem21 = new wxMenuItem(Menu4, idMenuInsertObject, _("Objekte &einfügen\tCTRL+V"), _("Objekte einfügen..."), wxITEM_NORMAL);
-	Menu4->Append(MenuItem21);
-	MenuItem22 = new wxMenuItem(Menu4, idMenuCopyObject, _("Objekte k&opieren\tCTRL+C"), _("Objekte kopieren..."), wxITEM_NORMAL);
-	Menu4->Append(MenuItem22);
-	MenuItem31 = new wxMenuItem(Menu4, idMenuCloneObject, _("Objekte &klonen\tCTRL+D"), _("Objekte klonen..."), wxITEM_NORMAL);
-	Menu4->Append(MenuItem31);
-	Menu4->AppendSeparator();
-	MenuItem20 = new wxMenuItem(Menu4, idMenuHideObject, _("Objekte &verstecken\tCTRL+H"), _("Objekte verstecken..."), wxITEM_NORMAL);
-	Menu4->Append(MenuItem20);
-	MenuItem23 = new wxMenuItem(Menu4, idMenuShowObject, _("Objekte &anzeigen\tCTRL+J"), _("Objekte anzeigen..."), wxITEM_NORMAL);
-	Menu4->Append(MenuItem23);
-	MenuBar1->Append(Menu4, _("&Bearbeiten"));
-	Menu5 = new wxMenu();
-	MenuItem7 = new wxMenuItem(Menu5, idMenuObjExport, _("OBJ E&xportieren\tALT+O"), _("Object-Datei exportieren..."), wxITEM_NORMAL);
-	Menu5->Append(MenuItem7);
-	MenuItem11 = new wxMenuItem(Menu5, idMenuOaxExport, _("OAX Ex&portieren\tCTRL+O"), _("OAX Exportieren..."), wxITEM_NORMAL);
-	Menu5->Append(MenuItem11);
-	MenuBar1->Append(Menu5, _("E&xportieren"));
-	Menu6 = new wxMenu();
-	MenuItem6 = new wxMenuItem(Menu6, idMenuObjImport, _("OBJ &Importieren\tALT+I"), _("Object-Datei importieren..."), wxITEM_NORMAL);
-	Menu6->Append(MenuItem6);
-	MenuItem10 = new wxMenuItem(Menu6, idMenuOaxImport, _("OAX I&mportieren\tCTRL+I"), _("OAX Importieren..."), wxITEM_NORMAL);
-	Menu6->Append(MenuItem10);
-	MenuBar1->Append(Menu6, _("&Importieren"));
-	Menu8 = new wxMenu();
-	MenuItem26 = new wxMenuItem(Menu8, idMenuZoomIn, _("&Einzoomen\tPGUP"), _("In die 2D Ansicht hereinzoomen..."), wxITEM_NORMAL);
-	Menu8->Append(MenuItem26);
-	MenuItem27 = new wxMenuItem(Menu8, idMenuZoomOut, _("&Auszoomen\tPGDN"), _("Aus der 2D Ansicht herauszoomen..."), wxITEM_NORMAL);
-	Menu8->Append(MenuItem27);
-	Menu8->AppendSeparator();
-	MenuItem28 = new wxMenuItem(Menu8, idMenuZoomFit, _("Au&tomatisch\tCTRL+Z"), _("Ansicht an Bildschirm anpassen..."), wxITEM_NORMAL);
-	Menu8->Append(MenuItem28);
-	MenuItem29 = new wxMenuItem(Menu8, idMenuZoomReset, _("Aus&ganszustand\tHOME"), _("Kamera in Ausganszustand zurücksetzen..."), wxITEM_NORMAL);
-	Menu8->Append(MenuItem29);
-	MenuBar1->Append(Menu8, _("&Kamera"));
-	Menu3 = new wxMenu();
-	MenuItem9 = new wxMenuItem(Menu3, idMenuSnapToGrid, _("Ein&rasten aktivieren\tF4"), _("Einrasten aktivieren..."), wxITEM_CHECK);
-	Menu3->Append(MenuItem9);
-	Menu3->AppendSeparator();
-	MenuItem12 = new wxMenuItem(Menu3, idMenuMoveXZ, _("Verschieben X&Z\tF5"), _("Objekt verschieben entlang X- und Z-Achse..."), wxITEM_RADIO);
-	Menu3->Append(MenuItem12);
-	MenuItem13 = new wxMenuItem(Menu3, idMenuMoveXY, _("Verschieben X&Y\tF6"), _("Objekt verschieben entlang X- und Y-Achse..."), wxITEM_RADIO);
-	Menu3->Append(MenuItem13);
-	MenuItem14 = new wxMenuItem(Menu3, idMenuRotateXZ, _("Ro&tieren XZ\tF7"), _("Objekt rotieren an X- und Z-Achse..."), wxITEM_RADIO);
-	Menu3->Append(MenuItem14);
-	MenuItem15 = new wxMenuItem(Menu3, idMenuRotateXY, _("R&otieren XY\tF8"), _("Objekt rotieren an X- und Y-Achse..."), wxITEM_RADIO);
-	Menu3->Append(MenuItem15);
-	MenuItem16 = new wxMenuItem(Menu3, idMenuDrawWall, _("&Wände erstellen\tF9"), _("Wände im 2D-Modus erstellen..."), wxITEM_RADIO);
-	Menu3->Append(MenuItem16);
-	Menu3->AppendSeparator();
-	MenuItem32 = new wxMenuItem(Menu3, idMenuShadows, _("&Schatten aktivieren\tF10"), _("Schatten aktivieren..."), wxITEM_CHECK);
-	Menu3->Append(MenuItem32);
-	MenuBar1->Append(Menu3, _("&Einstellungen"));
-	Menu7 = new wxMenu();
-	MenuItem17 = new wxMenuItem(Menu7, idMenuGroup, _("&Gruppe erstellen\tCTRL+G"), _("Neue Gruppe erstellen..."), wxITEM_NORMAL);
-	Menu7->Append(MenuItem17);
-	MenuItem18 = new wxMenuItem(Menu7, idMenuUngroup, _("Gruppe &auflösen\tCTRL+F"), _("Gruppe auflösen..."), wxITEM_NORMAL);
-	Menu7->Append(MenuItem18);
-	MenuBar1->Append(Menu7, _("Gr&uppen"));
-	Menu2 = new wxMenu();
-	MenuItem5 = new wxMenuItem(Menu2, idMenuHelp, _("&Hilfe\tF1"), _("Hilfe zur Anwendung"), wxITEM_NORMAL);
-	Menu2->Append(MenuItem5);
-	MenuItem2 = new wxMenuItem(Menu2, idMenuAbout, _("&Über\tALT+F1"), _("Informationen über GNR..."), wxITEM_NORMAL);
-	Menu2->Append(MenuItem2);
-	MenuBar1->Append(Menu2, _("&Hilfe"));
-	SetMenuBar(MenuBar1);
-	StatusBar1 = new wxStatusBar(this, ID_StatusBar, 0, _T("ID_StatusBar"));
+	
+	//build menu bar
+	MenuBar = new wxMenuBar();
+	ParentMenu_File = new wxMenu();
+	MenuItem8 = new wxMenuItem(ParentMenu_File, idMenuNewRoom, _("&Neuer leerer Raum\tCTRL+N"), _("Raum leeren..."), wxITEM_NORMAL);
+	ParentMenu_File->Append(MenuItem8);
+	ParentMenu_File->AppendSeparator();
+	MenuItem3 = new wxMenuItem(ParentMenu_File, idMenuOpxOpen, _("OPX &Öffnen\tCTRL+O"), _("vorhandene Datei öffnen..."), wxITEM_NORMAL);
+	ParentMenu_File->Append(MenuItem3);
+	MenuItem4 = new wxMenuItem(ParentMenu_File, idMenuOpxSave, _("OPX &Speichern\tCTRL+S"), _("Datei speichern..."), wxITEM_NORMAL);
+	ParentMenu_File->Append(MenuItem4);
+	ParentMenu_File->AppendSeparator();
+	MenuItem1 = new wxMenuItem(ParentMenu_File, idMenuQuit, _("GNR Schließen\tALT+F4"), _("GNR beenden..."), wxITEM_NORMAL);
+	ParentMenu_File->Append(MenuItem1);
+	MenuBar->Append(ParentMenu_File, _("&Datei"));
+	ParentMenu_Edit = new wxMenu();
+	MenuItem24 = new wxMenuItem(ParentMenu_Edit, idMenuUndo, _("&Rückgänig\tCTRL+Z"), _("Aktion rückgänig machen..."), wxITEM_NORMAL);
+	ParentMenu_Edit->Append(MenuItem24);
+	MenuItem25 = new wxMenuItem(ParentMenu_Edit, idMenuRedo, _("&Wiederherstellen\tCTRL+Y"), _("Aktion wiederherstellen..."), wxITEM_NORMAL);
+	ParentMenu_Edit->Append(MenuItem25);
+	ParentMenu_Edit->AppendSeparator();
+	MenuItem19 = new wxMenuItem(ParentMenu_Edit, idMenuDeleteObject, _("Objekte ent&fernen\tDEL"), _("Objekte entfernen..."), wxITEM_NORMAL);
+	ParentMenu_Edit->Append(MenuItem19);
+	MenuItem30 = new wxMenuItem(ParentMenu_Edit, idMenuCutObject, _("Objekte &ausschneiden\tCTRL+X"), _("Objekte ausschneiden..."), wxITEM_NORMAL);
+	ParentMenu_Edit->Append(MenuItem30);
+	MenuItem21 = new wxMenuItem(ParentMenu_Edit, idMenuInsertObject, _("Objekte &einfügen\tCTRL+V"), _("Objekte einfügen..."), wxITEM_NORMAL);
+	ParentMenu_Edit->Append(MenuItem21);
+	MenuItem22 = new wxMenuItem(ParentMenu_Edit, idMenuCopyObject, _("Objekte k&opieren\tCTRL+C"), _("Objekte kopieren..."), wxITEM_NORMAL);
+	ParentMenu_Edit->Append(MenuItem22);
+	MenuItem31 = new wxMenuItem(ParentMenu_Edit, idMenuCloneObject, _("Objekte &klonen\tCTRL+D"), _("Objekte klonen..."), wxITEM_NORMAL);
+	ParentMenu_Edit->Append(MenuItem31);
+	ParentMenu_Edit->AppendSeparator();
+	MenuItem20 = new wxMenuItem(ParentMenu_Edit, idMenuHideObject, _("Objekte &verstecken\tCTRL+H"), _("Objekte verstecken..."), wxITEM_NORMAL);
+	ParentMenu_Edit->Append(MenuItem20);
+	MenuItem23 = new wxMenuItem(ParentMenu_Edit, idMenuShowObject, _("Objekte &anzeigen\tCTRL+J"), _("Objekte anzeigen..."), wxITEM_NORMAL);
+	ParentMenu_Edit->Append(MenuItem23);
+	MenuBar->Append(ParentMenu_Edit, _("&Bearbeiten"));
+	ParentMenu_Export = new wxMenu();
+	MenuItem7 = new wxMenuItem(ParentMenu_Export, idMenuObjExport, _("OBJ E&xportieren\tALT+O"), _("Object-Datei exportieren..."), wxITEM_NORMAL);
+	ParentMenu_Export->Append(MenuItem7);
+	MenuItem11 = new wxMenuItem(ParentMenu_Export, idMenuOaxExport, _("OAX Ex&portieren\tCTRL+O"), _("OAX Exportieren..."), wxITEM_NORMAL);
+	ParentMenu_Export->Append(MenuItem11);
+	ParentMenu_Export->AppendSeparator();
+	MenuItem33 = new wxMenuItem(ParentMenu_Export, idMenuOnScreenshot, _("&Screenshot erstellen\tF12"), _("Screenshot der 3D-Szene erstellen..."), wxITEM_NORMAL);
+	ParentMenu_Export->Append(MenuItem33);
+	MenuBar->Append(ParentMenu_Export, _("E&xportieren"));
+	ParentMenu_Import = new wxMenu();
+	MenuItem6 = new wxMenuItem(ParentMenu_Import, idMenuObjImport, _("OBJ &Importieren\tALT+I"), _("Object-Datei importieren..."), wxITEM_NORMAL);
+	ParentMenu_Import->Append(MenuItem6);
+	MenuItem10 = new wxMenuItem(ParentMenu_Import, idMenuOaxImport, _("OAX I&mportieren\tCTRL+I"), _("OAX Importieren..."), wxITEM_NORMAL);
+	ParentMenu_Import->Append(MenuItem10);
+	MenuBar->Append(ParentMenu_Import, _("&Importieren"));
+	ParentMenu_Camera = new wxMenu();
+	MenuItem26 = new wxMenuItem(ParentMenu_Camera, idMenuZoomIn, _("&Einzoomen\tPGUP"), _("In die 2D Ansicht hereinzoomen..."), wxITEM_NORMAL);
+	ParentMenu_Camera->Append(MenuItem26);
+	MenuItem27 = new wxMenuItem(ParentMenu_Camera, idMenuZoomOut, _("&Auszoomen\tPGDN"), _("Aus der 2D Ansicht herauszoomen..."), wxITEM_NORMAL);
+	ParentMenu_Camera->Append(MenuItem27);
+	ParentMenu_Camera->AppendSeparator();
+	MenuItem29 = new wxMenuItem(ParentMenu_Camera, idMenuCameraReset, _("Aus&ganszustand\tHOME"), _("Kamera in Ausganszustand zurücksetzen..."), wxITEM_NORMAL);
+	ParentMenu_Camera->Append(MenuItem29);
+	MenuBar->Append(ParentMenu_Camera, _("&Kamera"));
+	ParentMenu_Settings = new wxMenu();
+	MenuItem9 = new wxMenuItem(ParentMenu_Settings, idMenuSnapToGrid, _("Ein&rasten aktivieren\tF4"), _("Einrasten aktivieren..."), wxITEM_CHECK);
+	ParentMenu_Settings->Append(MenuItem9);
+	ParentMenu_Settings->AppendSeparator();
+	MenuItem12 = new wxMenuItem(ParentMenu_Settings, idMenuMoveXZ, _("Verschieben X&Z\tF5"), _("Objekt verschieben entlang X- und Z-Achse..."), wxITEM_RADIO);
+	ParentMenu_Settings->Append(MenuItem12);
+	MenuItem13 = new wxMenuItem(ParentMenu_Settings, idMenuMoveXY, _("Verschieben X&Y\tF6"), _("Objekt verschieben entlang X- und Y-Achse..."), wxITEM_RADIO);
+	ParentMenu_Settings->Append(MenuItem13);
+	MenuItem14 = new wxMenuItem(ParentMenu_Settings, idMenuRotateXZ, _("Ro&tieren XZ\tF7"), _("Objekt rotieren an X- und Z-Achse..."), wxITEM_RADIO);
+	ParentMenu_Settings->Append(MenuItem14);
+	MenuItem15 = new wxMenuItem(ParentMenu_Settings, idMenuRotateXY, _("R&otieren XY\tF8"), _("Objekt rotieren an X- und Y-Achse..."), wxITEM_RADIO);
+	ParentMenu_Settings->Append(MenuItem15);
+	MenuItem16 = new wxMenuItem(ParentMenu_Settings, idMenuDrawWall, _("&Wände erstellen\tF9"), _("Wände im 2D-Modus erstellen..."), wxITEM_RADIO);
+	ParentMenu_Settings->Append(MenuItem16);
+	ParentMenu_Settings->AppendSeparator();
+	MenuItem32 = new wxMenuItem(ParentMenu_Settings, idMenuShadows, _("&Schatten aktivieren\tF10"), _("Schatten aktivieren..."), wxITEM_CHECK);
+	ParentMenu_Settings->Append(MenuItem32);
+	MenuBar->Append(ParentMenu_Settings, _("&Einstellungen"));
+	ParentMenu_Groups = new wxMenu();
+	MenuItem17 = new wxMenuItem(ParentMenu_Groups, idMenuGroup, _("&Gruppe erstellen\tCTRL+G"), _("Neue Gruppe erstellen..."), wxITEM_NORMAL);
+	ParentMenu_Groups->Append(MenuItem17);
+	MenuItem18 = new wxMenuItem(ParentMenu_Groups, idMenuUngroup, _("Gruppe &auflösen\tCTRL+F"), _("Gruppe auflösen..."), wxITEM_NORMAL);
+	ParentMenu_Groups->Append(MenuItem18);
+	MenuBar->Append(ParentMenu_Groups, _("Gr&uppen"));
+	ParentMenu_Help = new wxMenu();
+	MenuItem5 = new wxMenuItem(ParentMenu_Help, idMenuHelp, _("&Hilfe\tF1"), _("Hilfe zur Anwendung"), wxITEM_NORMAL);
+	ParentMenu_Help->Append(MenuItem5);
+	MenuItem2 = new wxMenuItem(ParentMenu_Help, idMenuAbout, _("&Über\tALT+F1"), _("Informationen über GNR..."), wxITEM_NORMAL);
+	ParentMenu_Help->Append(MenuItem2);
+	MenuBar->Append(ParentMenu_Help, _("&Hilfe"));
+	SetMenuBar(MenuBar);
+	
+	//build and set status bar
+	StatusBar = new wxStatusBar(this, ID_STATUSBAR, 0, _T("ID_STATUSBAR"));
 	int __wxStatusBarWidths_1[1] = { -1 };
 	int __wxStatusBarStyles_1[1] = { wxSB_NORMAL };
-	StatusBar1->SetFieldsCount(1,__wxStatusBarWidths_1);
-	StatusBar1->SetStatusStyles(1,__wxStatusBarStyles_1);
-	SetStatusBar(StatusBar1);
-	
-	//*)
+	StatusBar->SetFieldsCount(1,__wxStatusBarWidths_1);
+	StatusBar->SetStatusStyles(1,__wxStatusBarStyles_1);
+	SetStatusBar(StatusBar);
 	
 	//generate toolbar and buttons
 	int c = 0;
-	ToolBar1 = new wxToolBar(this, ID_ToolBar, wxDefaultPosition, wxDefaultSize, wxTB_HORIZONTAL|wxNO_BORDER, _T("ID_TOOLBAR1"));
-	ToolBar1->SetToolBitmapSize(wxSize(24,24));
+	ToolBar1 = new wxToolBar(this, ID_TOOLBAR, wxDefaultPosition, wxDefaultSize, wxTB_HORIZONTAL|wxNO_BORDER, _T("ID_TOOLBAR1"));
+	ToolBar1->SetToolBitmapSize(wxSize(32,32));
 	ToolBarItem[c++] = ToolBar1->AddTool(btn_room_new, _("Raum erstellen"), wxBitmap(wxIcon(button_room_new_xpm)), wxNullBitmap, wxITEM_NORMAL, _("Raum erstellen   [CTRL+N]"), _("Raum erstellen"));
 	ToolBarItem[c++] = ToolBar1->AddTool(btn_room_open, _("Raum öffnen"), wxBitmap(wxIcon(button_room_open_xpm)), wxNullBitmap, wxITEM_NORMAL, _("Raum öffnen"), _("Raum öffnen"));
 	ToolBarItem[c++] = ToolBar1->AddTool(btn_room_save, _("Raum speichern"), wxBitmap(wxIcon(button_room_save_xpm)), wxNullBitmap, wxITEM_NORMAL, _("Raum speichern"), _("Raum speichern"));
-	ToolBarItem[c++] = ToolBar1->AddTool(btn_room_save_as, _("Raum speichern unter"), wxBitmap(wxIcon(button_room_save_as_xpm)), wxNullBitmap, wxITEM_NORMAL, _("Raum speichern unter"), _("Raum speichern unter"));
 	ToolBar1->AddSeparator();
 	ToolBarItem[c++] = ToolBar1->AddTool(btn_undo, _("Rückgängig"), wxBitmap(wxIcon(button_undo_xpm)), wxNullBitmap, wxITEM_NORMAL, _("Rückgängig   [CTRL+Z]"), _("Rückgängig"));
 	ToolBarItem[c-1]->Enable(false);
@@ -343,10 +329,7 @@ GNRMainFrame::GNRMainFrame(wxWindow* parent, wxWindowID WXUNUSED(id))
 	ToolBar1->AddSeparator();
 	ToolBarItem[c++] = ToolBar1->AddTool(btn_zoom_in, _("Draufsicht einzoomen"), wxBitmap(wxIcon(button_canvas2d_zoom_in_xpm)), wxNullBitmap, wxITEM_NORMAL, _("Draufsicht einzoomen   [PGUP]"), _("Draufsicht einzoomen"));
 	ToolBarItem[c++] = ToolBar1->AddTool(btn_zoom_out, _("Draufsicht auszoomen"), wxBitmap(wxIcon(button_canvas2d_zoom_out_xpm)), wxNullBitmap, wxITEM_NORMAL, _("Draufsicht auszoomen   [PGDN]"), _("Draufsicht auszoomen"));
-	ToolBarItem[c++] = ToolBar1->AddTool(btn_zoom_fit, _("Draufsicht einpassen"), wxBitmap(wxIcon(button_canvas2d_zoom_fit_xpm)), wxNullBitmap, wxITEM_NORMAL, _("Draufsicht in Ansicht einpassen   [CTRL+Z]"), _("Draufsicht in Ansicht einpassen"));
-	ToolBar1->AddSeparator();
-	ToolBarItem[c++] = ToolBar1->AddTool(btn_create_screenshot, _("Screenshot erstellen"), wxBitmap(wxIcon(button_screenshot_xpm)), wxNullBitmap, wxITEM_NORMAL, _("Screenshot der 3D-Szene erstellen   [PRINT]"), _("Screenshot der 3D-Szene erstellen"));
-	ToolBarItem[c++] = ToolBar1->AddTool(btn_camera_reset, _("Kamera zurücksetzen"), wxBitmap(wxIcon(button_reset_camera_xpm)), wxNullBitmap, wxITEM_NORMAL, _("Kamera in 3D zurücksetzen   [HOME]"), _("Kamera in 3D zurücksetzen"));
+	ToolBarItem[c++] = ToolBar1->AddTool(btn_camera_reset, _("Kamera zurücksetzen"), wxBitmap(wxIcon(button_canvas2d_zoom_fit_xpm)), wxNullBitmap, wxITEM_NORMAL, _("Kamera zurücksetzen   [HOME]"), _("Kamera zurücksetzen"));
 	ToolBar1->AddSeparator();
 	
 	//toggle button for snap to grid function
@@ -354,7 +337,7 @@ GNRMainFrame::GNRMainFrame(wxWindow* parent, wxWindowID WXUNUSED(id))
 	ToolBar1->AddSeparator();
 	
 	//build input for grid snapping
-	SpinCtrlTranslate = new wxSpinCtrl(ToolBar1, ID_SPINCTRL_TRANS, _T("Schrittweite in mm"), wxPoint(0,0), wxSize(60,20), 0, SNAP_IN_MINIMUM_UNIT, SNAP_IN_MAXIMUM_UNIT, 10, _T("ID_SPINCTRL_TRANS"));
+	SpinCtrlTranslate = new wxSpinCtrl(ToolBar1, ID_SPINCTRL_TRANS, _T("Schrittweite in mm"), wxPoint(0,0), wxSize(55,20), 0, SNAP_IN_MINIMUM_UNIT, SNAP_IN_MAXIMUM_UNIT, 10, _T("ID_SPINCTRL_TRANS"));
 	StaticText1       = new wxStaticText(ToolBar1, ID_STATICTEXT1, _(" mm"), wxPoint(3,13), wxSize(20,12), 0, _T("Schrittweite in mm"));
 	SpinCtrlTranslate->SetValue(_T("500"));
 	ToolBarItem[c++] = ToolBar1->AddControl(SpinCtrlTranslate);
@@ -362,7 +345,7 @@ GNRMainFrame::GNRMainFrame(wxWindow* parent, wxWindowID WXUNUSED(id))
 	ToolBar1->AddSeparator();
 	
 	//build input for rotation snapping
-	SpinCtrlRotate = new wxSpinCtrl(ToolBar1, ID_SPINCTRL_ROTATE, _T("Schrittweite in Grad"), wxPoint(0,0), wxSize(60,20), 0, SNAP_IN_MINIMUM_DEGREE, SNAP_IN_MAXIMUM_DEGREE, 10, _T("ID_SPINCTRL_ROTATE"));
+	SpinCtrlRotate = new wxSpinCtrl(ToolBar1, ID_SPINCTRL_ROTATE, _T("Schrittweite in Grad"), wxPoint(0,0), wxSize(40,20), 0, SNAP_IN_MINIMUM_DEGREE, SNAP_IN_MAXIMUM_DEGREE, 10, _T("ID_SPINCTRL_ROTATE"));
 	StaticText2    = new wxStaticText(ToolBar1, ID_STATICTEXT2, _(" Grad"), wxPoint(3,13), wxSize(30,12), 0, _T("Schrittweite in Grad"));
 	SpinCtrlRotate->SetValue(_T("10"));
 	ToolBarItem[c++] = ToolBar1->AddControl(SpinCtrlRotate);
@@ -600,7 +583,7 @@ void GNRMainFrame::OnShadowsMenu(wxCommandEvent& WXUNUSED(event))
 void GNRMainFrame::OnSnapToGridBtn(wxCommandEvent& WXUNUSED(event))
 {
 	//sync menu item and toolbar for snapping function
-	MenuItem9->Check(ToolBarItem[16]->IsToggled());
+	MenuItem9->Check(ToolBarItem[13]->IsToggled());
 	OnSnapToGrid();
 }
 
@@ -617,7 +600,7 @@ void GNRMainFrame::OnSnapToGrid()
 	int snapGrid  = SpinCtrlTranslate->GetValue();
 	int snapAngle = SpinCtrlRotate->GetValue();
 	
-	if (!ToolBarItem[16]->IsToggled())
+	if (!ToolBarItem[13]->IsToggled())
 	{
 		snapAngle = 1;
 		snapGrid  = 1;
@@ -627,6 +610,16 @@ void GNRMainFrame::OnSnapToGrid()
 	gnrevent.setSnapToAngle(snapAngle);
 	
 	GetEventHandler()->ProcessEvent(gnrevent);
+}
+
+void GNRMainFrame::OnToolbarOpen(wxCommandEvent& event)
+{
+	//TODO
+}
+
+void GNRMainFrame::OnToolbarSave(wxCommandEvent& event)
+{
+	//TODO
 }
 
 void GNRMainFrame::OnToolbarUndo(wxCommandEvent& event)
@@ -745,5 +738,5 @@ void GNRMainFrame::simulateMouseWheel(int direction)
 
 wxStatusBar* GNRMainFrame::getStatusbar()
 {
-	return  StatusBar1;
+	return  StatusBar;
 }
