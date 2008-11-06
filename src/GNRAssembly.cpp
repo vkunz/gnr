@@ -1036,8 +1036,16 @@ void GNRAssembly::setChildDisplayList(const GNRAssembly* child, const GLuint& dl
  */
 void GNRAssembly::draw()
 {
+	//if hidden, abort draw
+	if (!m_visible)
+	{
+		return;
+	}
+	
+	//start drawing glow colors on selection
 	if (m_type == IS_ATOMIC)
 	{
+		//if its an atomic part, set name
 		glLoadName((int)this);
 	}
 	else if (m_parent != NULL)
@@ -1133,6 +1141,13 @@ void GNRAssembly::draw()
  */
 void GNRAssembly::drawShadow()
 {
+	//if hidden, abort draw
+	if (!m_visible)
+	{
+		return;
+	}
+	
+	//draw shadows, if object visible
 	glPushMatrix();
 	{
 		glTranslatef(m_x, m_y, m_z);
