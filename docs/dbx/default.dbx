@@ -2,12 +2,540 @@
 <!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.4//EN"
 "http://www.oasis-open.org/docbook/xml/4.4/docbookx.dtd">
 <article role="webpage">
-	<articleinfo>
-	<date>09.10.2008</date>
-		<author>
-			<surname>Kracht</surname>
-			<firstname>Patrick</firstname>
-		</author>
-	</articleinfo>
-	<title>Projekt-Homepage Team 1</title>
+
+  <articleinfo>
+    <date>06.11.2008</date>
+    <author>
+      <surname>Kracht</surname>
+      <firstname>Patrick</firstname>
+    </author>
+  </articleinfo>
+  
+  <title>Homepage Team 1</title>
+  
+	<section>
+		<title>Projekt-Homepage Team 1</title>
+		<itemizedlist>
+			<listitem>
+				<para>Zeitraum des Projekts vom 29.09.2008 bis 10.11.2008</para>
+			</listitem>
+			<listitem>
+				<para>Letztes Update vom 6. November 2008, 15:41 Uhr</para>
+			</listitem>
+		</itemizedlist>
+		<subtitle>Das Vorgehensmodell - XP</subtitle>
+		<para>Unser gewähltes Vorgehensmodell - <ulink url="http://de.wikipedia.org/wiki/Extreme_Programming">Extreme-Programming</ulink> im eigentlichen Sinne - lässt
+		keine detaillierte Planung vorausgehen. Es ist vielmehr eine agile Programmiermethode 
+		die bevorstehende Aufgabe zu lösen. Leider ist unser Team etwas klein geraten, was uns 
+		im Punkt "Risikomanagement" dazu gezwungen hat, möglichst schnelle - wenn auch nur
+		suboptimale - Lösungen zu finden und weiter zu verfolgen.</para>
+		<para>Im Laufe des Projekts sind auf diese Weise recht brauchbare Ansätze entstanden, 
+		wobei wir auf der anderen Seite auch enorme Probleme an manchen Stellen produziert haben. 
+		Diese Fehler während der eigentlichen Entwicklung zu beseitigen ist dabei die größte 
+		Herausforderung.</para>
+		<subtitle>3D Raumplaner</subtitle>
+		<para>Unsere Aufgabe ist es nun - in knapp sechs Wochen - einen Raumplaner zu 
+		entwickeln, der folgende Anforderungen erfüllt:</para>
+		<itemizedlist>
+			<listitem>
+				<para>Grafische Modellierung von Räumen und 
+				Einrichtungskomponenten</para>
+			</listitem>
+			<listitem>
+				<para>Realistische 3D-Darstellung</para>
+			</listitem>
+			<listitem>
+				<para>Visuelles Platzieren von Einrichtungsgegenständen 
+				bei freier Wahl des Beobachterstandpunkts</para>
+			</listitem>
+			<listitem>
+				<para>Intelligente Modellierungsunterstützung durch 
+				Schnappfunktionen</para>
+			</listitem>
+			<listitem>
+				<para>Verfügbarkeit geeigneter Messwerkzeuge zur exakt 
+				maßstabsgerechten Modellierung</para>
+			</listitem>
+			<listitem>
+				<para>Einlesen und Abspeichern von Einrichtungskomponenten 
+				im .obj/.mtl-Format</para>
+			</listitem>
+			<listitem>
+				<para>Verlustfreie Speicherung eines Modells in einem 
+				proprietären XML-Format</para>
+			</listitem>
+			<listitem>
+				<para>Export eines Modells im .obj/.mtl-Format</para>
+			</listitem>
+			<listitem>
+				<para>Export von 3D-Darstellungen in gängigen 
+				Grafikformaten</para>
+			</listitem>
+			<listitem>
+				<para>Standardisierte Schnittstelle zum Austausch 
+				von Modellen und Ansichtsinformationen</para>
+			</listitem>
+		</itemizedlist>
+	</section>
+	
+	<section>
+		<title>Die Vorbereitungen</title>
+		<section>
+			<para>Uns allen ist es nicht erspart geblieben, die Semesterferien vollständig 
+			zur "Beschaffung finanzieller Mittel" und zur Wahl des geeigneten Praktikumsplatzes
+			zu nutzen. Zu Beginn des Semesters am 29.09.2008 startete die erste Phase:</para>
+			<subtitle>Einarbeitung und erste Experimente!</subtitle>
+			<para>Wir haben uns schon zu Beginn des Projekts auf <ulink url="http://www.codeblocks.org/downloads/binaries">Code::Blocks 8.02</ulink> als
+			IDE geeinigt, da wir der alle Meinung sind, dass manche OpenSource Programme
+			ein guter Ersatz für teils sehr kostspielige Alternativen sind. Zudem sollte
+			unser Programm auch auf Linux portierbar sein, da unser Entwickler Konstantin
+			Balabin unter keinen Umständen auf Windows wechseln wollte. Durch den Einsatz
+			von <ulink url="http://docs.wxwidgets.org/trunk/">wxWidgets</ulink> (bzw. GTK unter Linux) 
+			und dem geeigneten Makefile für den <ulink url="http://gcc.gnu.org/">GNU Compiler</ulink> sollte
+			das kein Problem darstellen.</para>
+			<para>Die Aufteilung unseres Teams ist eher dynamischer Natur. Das bedeutet,
+			dass jeder wenigstens rudimentäre Kenntnisse von der Technik der anderen Mitglieder
+			haben sollte - was nicht immer einfach ist. Gerade WX in Kombination mit OpenGL,
+			wie wir es eingesetzt haben, scheint nicht gerade trivial zu sein. Die kommenden Wochen
+			werden sehr viel Zeit in Anspruch nehmen...</para>
+		</section>
+	</section>
+	
+	<section>
+		<title>Unser Team</title>
+		<para>Unser Team besteht nur aus vier Studenten der Technischen Informatik, 
+		die ihr Möglichstes tun, um mit den anderen Gruppen mithalten zu können. Die
+		Aufteilung und Spezialisierung der einzelnen Team-Mitglieder entstand sozusagen
+		"on-the-fly", da wir uns sehr schnell in die neue Materie einarbeiten mussten.</para>
+		<table>
+			<title>Team-Mitglieder</title>
+			<tgroup cols="2">
+				<thead>
+					<row>
+						<entry>Nachname, Vorname</entry>
+						<entry>Aufgaben, Spezialisierung</entry>
+					</row>
+				</thead>
+				<tbody>
+					<row>
+						<entry>Kracht, Patrick</entry>
+						<entry>Projekt Manager, Developer, Programming Assistant, WEB</entry>
+					</row>
+					<row>
+						<entry>Kunz, Valentin</entry>
+						<entry>Programmer, Developer, Problem Solver, OBJ/MTL</entry>
+					</row>
+					<row>
+						<entry>Moll, Thorsten</entry>
+						<entry>Programmer, Developer, OpenGL Specialist, Events</entry>
+					</row>
+					<row>
+						<entry>Balabin, Konstantin</entry>
+						<entry>Programmer, Developer, Assembly Master, Spike Solutions</entry>
+					</row>
+				</tbody>
+			</tgroup>
+		</table>
+	</section>
+
+	<section>
+		<title>Vorschau</title>
+		<para>
+		<mediaobject>
+			<imageobject>
+				<imagedata fileref="_images/vorbild_small.img?s=200" align="left" />
+			</imageobject>
+			<caption>
+				<para>Abb.1: Das Vorbild: "Home Sweet 3D"</para>
+			</caption>
+		</mediaobject>
+		Hier kann die Entwicklung unseres Programms vom ersten Byte bis zum aktuellen 
+		Stand verfolgt werden. Begonnen haben wir mit einer optischen Vorlage durch das
+		OpenSource Java-Programm "Home Sweet 3D" von <ulink url="http://sweethome3d.sourceforge.net/download.html">eTeks</ulink>,
+		das uns eine grober Vorstellung von der geforderten Oberfläche verschafft.
+		</para>
+		
+		<para>
+		<mediaobject>
+			<imageobject>
+				<imagedata fileref="_images/prototyp_0_small.img?s=200" align="left" />
+			</imageobject>
+			<caption>
+				<para>Abb.2: Der erste Prototyp - die GUI</para>
+			</caption>
+		</mediaobject>
+		Die ersten Schritte mit wxWidgets ermöglichen schon eine kleine
+		minimalistische GUI. Der erste Grundstein für unser Projekt ist gelegt.
+		</para>
+		
+		<para>
+		<mediaobject>
+			<imageobject>
+				<imagedata fileref="_images/prototyp_1_small.img?s=200" align="left" />
+			</imageobject>
+			<caption>
+				<para>Abb.3: Die erste OpenGL-Canvas</para>
+			</caption>
+		</mediaobject>
+		Die ersten Tests mit dem GLCanvas. Die Objekte erscheinen noch
+		etwas dimensionslos, da Licht und Schatten noch Fremdwörter sind.
+		</para>
+		
+		<para>
+		<mediaobject>
+			<imageobject>
+				<imagedata fileref="_images/prototyp_2_small.img?s=200" align="left" />
+			</imageobject>
+			<caption>
+				<para>Abb.4: Erste Anzeige - wxGLCanvas</para>
+			</caption>
+		</mediaobject>
+		Das wxGLCanvas bietet schon die Möglichkeit 3D-Formen darzustellen. Hier
+		ein kleiner Prototyp mit einer bunten Pyramide, wobei die beiden Frames noch
+		für sich stehen. Die nächste Version sollte den sogenannten Shared Context Modus
+		unterstützen.
+		</para>
+		
+		<para>
+		<mediaobject>
+			<imageobject>
+				<imagedata fileref="_images/prototyp_3_small.img?s=200" align="left" />
+			</imageobject>
+			<caption>
+				<para>Abb.5: OBJ-Import funktioniert</para>
+			</caption>
+		</mediaobject>
+		Der OBJ-Importer funktioniert schon einmal rudimentär. Wie im Screenshot 
+		(hoffentlich) zu erkennen ist, wurde hier ein iMac im OBJ-Format importiert und
+		zerlegt. Das obere Frame zeigt die Ansicht von oben, das untere die 3D-Darstellung.
+		</para>
+		
+		<para>
+		<mediaobject>
+			<imageobject>
+				<imagedata fileref="_images/prototyp_4_small.img?s=200" align="left" />
+			</imageobject>
+			<caption>
+				<para>Abb.6: Licht und Schatten</para>
+			</caption>
+		</mediaobject>
+		Es werde Licht! Endlich klappt der OBJ-Import mit Normalen reibungslos (sofern
+		die Normalen angegeben sind - falls nicht, müssen sie noch berechnet werden). Auch
+		von der Performance sind wir restlos begeistert: Die F18_Hornet.obj mit 7.5MB lädt
+		in ein paar Sekunden und wird auch flüssig dargestellt.
+		</para>
+		
+		<para>
+		<mediaobject>
+			<imageobject>
+				<imagedata fileref="_images/prototyp_5_small.img?s=200" align="left" />
+			</imageobject>
+			<caption>
+				<para>Abb.7: Normierte Objekte in Farbe</para>
+			</caption>
+		</mediaobject>
+		Die Oberflächen-Informationen werden jetzt (fast) immer korrekt eingelesen. Auch
+		das Berechnen der Normalen (falls keine im OBJ angegeben waren) funktioniert schon recht gut.
+		Das Beispiel zeigt schon die aktuellen Möglichkeiten, wie man Räume einrichten könnte, jedoch
+		ohne Kollisionserkennung und Skalierung. Alle Objekte werden auf die Standardgröße 1 normiert.
+		</para>
+		
+		<para>
+		<mediaobject>
+			<imageobject>
+				<imagedata fileref="_images/prototyp_6_small.img?s=200" align="left" />
+			</imageobject>
+			<caption>
+				<para>Abb.8: Immer mehr Funktionen</para>
+			</caption>
+		</mediaobject>
+		Die GUI hat sich bereits in großen Schritten der Oberfläche von Home Sweet 3D
+		angenähert und bietet im Vergleich zur Vorgängerversion schon eine deutlich komfortablere
+		Handhabung - insbesondere die Snap-to-Grid Funktion und die neue Steuerung der Kamera haben
+		sich merklich verbessert. Die Menüstruktur hat sich auch um einige Punkte erweitert.
+		</para>
+		
+		<para>
+		<mediaobject>
+			<imageobject>
+				<imagedata fileref="_images/prototyp_7_small.img?s=200" align="left" />
+			</imageobject>
+			<caption>
+				<para>Abb.9: Kurz vor der Vollendung</para>
+			</caption>
+		</mediaobject>
+		Leider stimmen die Proportionen noch nicht so richtig, weil das Vorschaufenster noch
+		Probleme macht. Dafür kann man schon komfortabel Objekte gruppieren und degruppieren. Hier rot
+		entspricht selektiert und gruppiert, blau steht für selektiert und in keiner Gruppe. Weiterhin 
+		können jetzt Wände bequem auf dem virtuellen Boden gezogen werden.
+		</para>
+		
+		<para>
+		<mediaobject>
+			<imageobject>
+				<imagedata fileref="_images/prototyp_8_small.img?s=200" align="left" />
+			</imageobject>
+			<caption>
+				<para>Abb.10: Klonen und Anderes</para>
+			</caption>
+		</mediaobject>
+		Eine Funktion zum Färben der einzelnen Objekte sollte in der
+		kommenden Woche auch noch diskutiert werden. Ansonsten stehen noch ettliche Umbaumaßnahmen und
+		Menü-Erweiterungen an, die in den letzten Tagen etwas zu kurz gekommen ist. Bisher sind insgesamt
+		nur etwas über 980 Stunden Arbeit in das Prjekt geflossen.
+		</para>
+		
+	</section>
+
+	<section>
+		<title>Unser Fortschritt</title>
+		<section>
+			<title>30.09.2008</title>
+			<para>Aller Anfang ist schwer! Darum haben wir uns zunächst auf 
+			die Suche gemacht, was es denn Vergleichbares im Web zu finden gibt:
+			Home Sweet 3D! Ein OpenSource Java Programm, das eigentlich sehr
+			gut auf die beschriebenen Anforderungen passt: Leider in der falschen
+			Programmiersprache. Das Layout und der Funktionsumfang sollte aber für 
+			den Anfang als Vorbild genügen.</para>
+			<para>Als nächstes stehen auf der Tagesordnung:</para>
+			<itemizedlist>
+				<listitem>
+					<para>Einarbeitung in wxWidgets</para>
+				</listitem>
+				<listitem>
+					<para>Einarbeitung in OpenGL mit wxWidgets</para>
+				</listitem>
+				<listitem>
+					<para>Tests von Strukturen und Möglichkeiten</para>
+				</listitem>
+			</itemizedlist>
+			<title>05.10.2008</title>
+			<para>Die letzten Tage waren sehr anstrengend! Jede Menge neue Möglichkeiten
+			und Probleme. Die ersten Prototypen sind optisch noch nicht sehr ansprechend,
+			aber uns wird langsam die Tragweite - unserer Entscheidung mit wxWidgets und OpenGL
+			zu arbeiten - in immer größerem Umfang bewusst. Es wartet noch sehr viel Arbeit
+			auf uns...</para>
+			<para>Pläne für das weitere Vorgehen:</para>
+			<itemizedlist>
+				<listitem>
+					<para>OpenGL zu verstehen und gezielt einzusetzen</para>
+				</listitem>
+				<listitem>
+					<para>Entwicklung einer Oberfläche um weitere Tests zu erleichtern</para>
+				</listitem>
+			</itemizedlist>
+			<title>09.10.2008</title>
+			<para>Die erste Woche ist wie im Fluge vergangen und wir sind wieder ein paar
+			Schritte weiter. Die Möglichkeiten, die uns das OpenGL bietet sind Segen und Fluch
+			zugleich. Wir haben es endlich geschafft eine Interaktion von Benutzer und OpenGL
+			zu realisieren. Unsere erste Anzeige zeigt schon eine 3-dimensionale Pyramide, die 
+			sich verschieben und drehen lässt.</para>
+			<para>Probleme die es zu Lösen gilt:</para>
+			<itemizedlist>
+				<listitem>
+					<para>Events der OpenGL-Frames zielgerichtet abzufangen und zu verarbeiten</para>
+				</listitem>
+				<listitem>
+					<para>Ideen sammeln, um die interne OBJ-Repräsentation zu ermöglichen</para>
+				</listitem>
+			</itemizedlist>
+			<title>12.10.2008</title>
+			<para>Nach längeren Diskussionen und Problemen mit der internen Struktur unseres Projekts 
+			haben wir uns entschlossen unser Konzept grundlegend zu verändern.</para>
+			<para>Aktuelle Hürden:</para>
+			<itemizedlist>
+				<listitem>
+					<para>Realisierung eines passenden Controllers für OpenGL und die Frames</para>
+				</listitem>
+				<listitem>
+					<para>Komplettes Re-Design der internen Struktur und Klassen</para>
+				</listitem>
+			</itemizedlist>
+			<title>15.10.2008</title>
+			<para>Zwei Wochen sind ins Land gegangen und wir haben unseren ersten Tiefpunkt erreicht 
+			(unter <ulink url="http://www.scheissprojekt.de/">www.scheissprojekt.de</ulink> nachzulesen).
+			Unser Programm ist jetzt auf dem Weg eine komplett neue Struktur zu bekommen. Nach kleinen 
+			Differenzen innerhalb der Gruppe konnte aber trotzdem das neue Konzept (teils) erfolgreich 
+			umgesetzt werden. Wir haben jedoch die Möglichkeit verloren, unsere Objekte verschieben 
+			oder drehen zu können...</para>
+			<para>Ausblicke für die nächste Version:</para>
+			<itemizedlist>
+				<listitem>
+					<para>Komplette Integration des Controllers</para>
+				</listitem>
+				<listitem>
+					<para>Umbau der Steuerung über die Maus als Proxy für die Objekte</para>
+				</listitem>
+				<listitem>
+					<para>OpenGL mit Licht und Schatten</para>
+				</listitem>
+			</itemizedlist>
+			<title>17.10.2008</title>
+			<para>Der Controller läuft jetzt endlich wie gewünscht! Durch den Umbau haben wir viel an
+			Flexibilität wiedergewonnen und können jetzt schon mehrere Objekte importieren. Auch das
+			Verschieben und Drehen der Importe ist jetzt möglich - wenn auch noch etwas fehlerhaft.</para>
+			<para>Bisheriges Vorhaben für die nächste Woche:</para>
+			<itemizedlist>
+				<listitem>
+					<para>Intuitives Verschieben der Objekte per Drag'n'Drop optimieren</para>
+				</listitem>
+				<listitem>
+					<para>Die Betrachtungsmöglichkeiten der Kamera ausbauen und optimieren</para>
+				</listitem>
+				<listitem>
+					<para>Darstellung der Lichter und Oberflächen in OpenGL verbessern</para>
+				</listitem>
+			</itemizedlist>
+			<title>22.10.2008</title>
+			<para>Wir haben einen entscheidenden Durchbruch in der OBJ-Darstellung errungen!
+			Lichter und Oberflächen werden jetzt korrekt dargestellt, wenn auch zur Zeit noch grau
+			in grau! In Kürze werden auch die MTL-Daten in die Objekte eingebaut, sobald der Parser 
+			perfekt funktioniert. Die Positionierung der Objekte im Raum ist noch suboptimal, sollte
+			aber in der nächsten Version behoben sein. Auch die Steuerung der Kamera lässt noch zu
+			sehr wünschen übrig.</para>
+			<para>Angestrebte Verbesserungen:</para>
+			<itemizedlist>
+				<listitem>
+					<para>Den Objekten Farbe verleihen und die Darstellung verbessern</para>
+				</listitem>
+				<listitem>
+					<para>Fertigstellung der Kamerasteuerung für die beiden Ansichten</para>
+				</listitem>
+			</itemizedlist>
+			<title>24.10.2008</title>
+			<para>Es stehen noch etwas mehr als zwei Wochen zur Verfügung und unser Projekt entwickelt sich 
+			gerade extrem schnell und etwas unkontrolliert. Farben werden schon angezeigt und das Bewegen der 
+			Objekte funktioniert entsprechend. Über das Feature "Schnappfunktion" muss noch diskutiert werden, 
+			inwiefern es ohne Kollisionserkennung realisieren lässt. Die Bibliothek für den Objekt-Import wird 
+			demnächst in Angriff genommen. Leider werden wir wieder einen Tag verlieren, da wir wieder 
+			grundlegende Veränderungen am System vornehmen müssen, um die Erweiterbarkeit und die Kapselung 
+			der einzelnen Funktionen erhalten zu können.</para>
+			<para>Die Wochenplanung:</para>
+			<itemizedlist>
+				<listitem>
+					<para>Implementierung eines TreeViews für die Objekt-Bibliothek mit Drag'n'Drop-Funktionalität</para>
+				</listitem>
+				<listitem>
+					<para>Implementierung einer Tabelle für die Objekte der Szenerie mit zusätzlichen Optionen</para>
+				</listitem>
+				<listitem>
+					<para>Erweiterung der Menüführung mit Tastaturkürzeln</para>
+				</listitem>
+				<listitem>
+					<para>Intelligente Schnappfunktion auf ein Raster und durch Kollisionserkennung an Objekten</para>
+				</listitem>
+			</itemizedlist>
+			<title>27.10.2008</title>
+			<para>Die letzen zwei Wochen sind angebrochen! Die Schnappfunktion ist jetzt zumindest auf ein 
+			virtuelles Raster zuschaltbar, jedoch scheint die Kollisionserkennung aber im Hinblick auf die 
+			Kürze des Projekts nicht realisierbar zu sein. Der Grundstein für die Objekt-Bibliothek
+			und die Liste der Objekte in der Szene ist bereits gelegt. Im Laufe der Woche sollten beide
+			Funktionen rudimentär implementiert sein und es ermöglichen, die Dimensionen der Objekte zu
+			redefinieren. Das Zeichnen der Wände, um die Ausmaße des Raums festzulegen, wird wohl auch erst 
+			in der kommenden Woche realisiert. Die Toolbar hingegen hast schon fast ihr endgültiges Aussehen, 
+			wenn auch noch nicht alle Funktionen bequem per Tastatur erreichbar sind.</para>
+			<para>Offene Punkte:</para>
+			<itemizedlist>
+				<listitem>
+					<para>Einbau eines Bemaßungssystems für die importierten Objekte</para>
+				</listitem>
+				<listitem>
+					<para>Zeichnen von Wänden, um die Ausmaße des Raumes zu definieren</para>
+				</listitem>
+				<listitem>
+					<para>Einsatz von Display-Listen zum Zeichnen der Objekte in OpenGL, um die Performance zu steigern</para>
+				</listitem>
+				<listitem>
+					<para>Unterstützung der Schnittstelle zum Austausch von Modellen und Ansichtsinformationen</para>
+				</listitem>
+			</itemizedlist>
+			<title>31.10.2008</title>
+			<para>Es geht stetig aufwärts. Die vergangene Woche war sehr förderlich für das Projekt. Vielleicht sollten wird
+			vor dem Endspurt doch noch einmal einen Abend im Barfüßer verbringen. Seit dem letzten Update sind eine Menge
+			neuer Funktionen dazugekommen: Die Undo- und Redo-Funktion funktioniert schon auf Objekt-Aktionen bestens! Außerdem
+			besteht jetzt auch die Möglichkeit Objekte zu Gruppieren und zu schachteln. Der Status wird dann beim Selektieren
+			mit Eigenleuchten in verschiedenen Farben angezeigt und es können jetzt endlich auch eigene Wände gezogen werden.
+			Der Importer für die Bibliothek mit Vorschau und Bemaßung wird in den nächsten Tagen fertiggestellt sein.</para>
+			<para>TODO-Liste:</para>
+			<itemizedlist>
+				<listitem>
+					<para>Unterstützung der Schnittstelle zum Austausch von Modellen und Ansichtsinformationen</para>
+				</listitem>
+				<listitem>
+					<para>Dokumentation aktualisieren und Online-Hilfe erstellen</para>
+				</listitem>
+				<listitem>
+					<para>Fertigstellung der Bibliothek für die importierten Objekte</para>
+				</listitem>
+				<listitem>
+					<para>Anzeige erstellen, der die verwendeten Objekte zeigt</para>
+				</listitem>
+				<listitem>
+					<para>Ausgibige Test und Analysen des Codes wegen Optimierungen</para>
+				</listitem>
+			</itemizedlist>
+			<title>02.11.2008</title>
+			<para>Ein kleiner Nightly-Build. Jetzt haben wir erste Schatten, wenn auch noch nicht
+			auf Performance getrimmt. Klonen, ausschneiden, kopieren usw. sind ebenfalls schon
+			implementiert, wenn auch noch etwas buggy. Wände zeichnen funktioniert jetzt ebenfalls
+			bestens. Am Meterial-Import muss noch gearbeitet werden, solange steht den extern
+			beschriebenen Objekt-Files nur die Standardfarbe zu.</para>
+		</section>
+	</section>
+
+	<section>
+		<title>Fazit</title>
+		<para>Positives und Negatives folgt...</para>
+	</section>
+	<section>
+		<title>Quellen und Anhang</title>
+		<section>
+			<title>Verwendete Tools und Bibliotheken</title>
+			<itemizedlist role="linklist">
+				<listitem>
+					<para><ulink url="http://www.codeblocks.org/downloads/binaries">Code::Blocks 8.02, OpenSource C++ IDE</ulink></para>
+				</listitem>
+				<listitem>
+					<para><ulink url="http://gcc.gnu.org/">GCC, GNU Compiler Collection</ulink></para>
+				</listitem>
+				<listitem>
+					<para><ulink url="http://www.mingw.org/">MinGW, minimale WIN32 spezifische Headers und Bibliotheken</ulink></para>
+				</listitem>
+				<listitem>
+					<para><ulink url="http://www.projity.com/">OpenProj, OpenSource Alternative zu Microsoft Project</ulink></para>
+				</listitem>
+				<listitem>
+					<para><ulink url="http://argouml.tigris.org/">ArgoUML, OpenSource UML modeling tool</ulink></para>
+				</listitem>
+			</itemizedlist>
+			<title>Books, Manuals und Tutorials</title>
+			<itemizedlist role="linklist">
+				<listitem>
+					<para><ulink url="http://docs.wxwidgets.org/trunk/">wxWidgets 2.9.0, C++ Cross-Platform GUI Toolkit</ulink></para>
+				</listitem>
+				<listitem>
+					<para><ulink url="http://www.glprogramming.com/red/">OpenGL Programming Guide</ulink></para>
+				</listitem>
+				<listitem>
+					<para><ulink url="http://www.fileformat.info/format/wavefrontobj/">Wavefront OBJ File Format Summary</ulink></para>
+				</listitem>
+				<listitem>
+					<para><ulink url="http://books.google.de/books?id=CyMsvtgnq0QC">Cross-Platform GUI Programming with wxWidgets</ulink></para>
+				</listitem>
+			</itemizedlist>
+			<title>Genutzte Web-Services</title>
+			<itemizedlist role="linklist">
+				<listitem>
+					<para><ulink url="http://code.google.com/">Google Code</ulink></para>
+				</listitem>
+				<listitem>
+					<para><ulink url="http://groups.google.de/">Google Groups</ulink></para>
+				</listitem>
+				<listitem>
+					<para><ulink url="http://books.google.de/">Google Books</ulink></para>
+				</listitem>
+			</itemizedlist>
+		</section>
+	</section>
+
 </article>
