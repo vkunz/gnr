@@ -98,7 +98,7 @@ void GNRApp::initFrames()
 	
 	//main splitter window
 	m_VerticalSplitter = new wxSplitterWindow(m_MainFrame, -1, wxPoint(0,0), wxDefaultSize, wxSP_3D|wxSP_NO_XP_THEME|wxSP_LIVE_UPDATE);
-	m_VerticalSplitter->SetMinimumPaneSize(305);
+	m_VerticalSplitter->SetMinimumPaneSize(200);
 	
 	//create splitter for left panel with tree and models
 	m_HorizontalSplitter_left = new wxSplitterWindow(m_VerticalSplitter, -1, wxPoint(0,0), wxDefaultSize, wxSP_3D|wxSP_NO_XP_THEME|wxSP_LIVE_UPDATE);
@@ -146,7 +146,7 @@ void GNRApp::initFrames()
 	//split vertical (main) splitter in left and right splitter
 	m_VerticalSplitter->SplitVertically(m_HorizontalSplitter_left, m_HorizontalSplitter_right);
 	
-	m_VerticalSplitter->SetSashPosition(305,true);
+	m_VerticalSplitter->SetSashPosition(200,true);
 	m_HorizontalSplitter_left->SetSashPosition(300,true);
 	m_HorizontalSplitter_right->SetSashPosition(200,true);
 }

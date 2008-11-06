@@ -104,7 +104,6 @@
 		</Linker>
 		<Unit filename="src\GNRApp.cpp" />
 		<Unit filename="src\GNRAssembly.cpp" />
-		<Unit filename="src\GNRAssemblyDataFrame.cpp" />
 		<Unit filename="src\GNRAssemblyMediator.cpp" />
 		<Unit filename="src\GNRAssemblyMediator2D.cpp" />
 		<Unit filename="src\GNRAssemblyMediator3D.cpp" />
@@ -160,7 +159,6 @@
 		<Unit filename="src\include\GNRApp.h" />
 		<Unit filename="src\include\GNRAssembly.h" />
 		<Unit filename="src\include\GNRAssemblyData.h" />
-		<Unit filename="src\include\GNRAssemblyDataFrame.h" />
 		<Unit filename="src\include\GNRAssemblyMediator.h" />
 		<Unit filename="src\include\GNRAssemblyMediator2D.h" />
 		<Unit filename="src\include\GNRAssemblyMediator3D.h" />
@@ -230,34 +228,24 @@
 		<Unit filename="src\resources\button-draw-cylinder.xpm" />
 		<Unit filename="src\resources\button-draw-walls.xpm" />
 		<Unit filename="src\resources\button-exit.xpm" />
-		<Unit filename="src\resources\button-group-add.xpm" />
-		<Unit filename="src\resources\button-help-bulb.xpm" />
 		<Unit filename="src\resources\button-move-xy.xpm" />
 		<Unit filename="src\resources\button-move-xz.xpm" />
-		<Unit filename="src\resources\button-move.xpm" />
 		<Unit filename="src\resources\button-redo.xpm" />
-		<Unit filename="src\resources\button-reset-camera.xpm" />
-		<Unit filename="src\resources\button-room-export.xpm" />
 		<Unit filename="src\resources\button-room-new.xpm" />
 		<Unit filename="src\resources\button-room-open.xpm" />
-		<Unit filename="src\resources\button-room-save-as.xpm" />
 		<Unit filename="src\resources\button-room-save.xpm" />
 		<Unit filename="src\resources\button-snap-to-grid.xpm" />
 		<Unit filename="src\resources\button-undo.xpm" />
 		<Unit filename="src\resources\button-world-rotate-xy.xpm" />
 		<Unit filename="src\resources\button-world-rotate-xz.xpm" />
-		<Unit filename="src\resources\button-world-sphere.xpm" />
-		<Unit filename="src\resources\button_screenshot.xpm" />
-		<Unit filename="src\resources\cube.xpm" />
 		<Unit filename="src\resources\grid_24bit_rgb.xpm" />
-		<Unit filename="src\resources\grid_dummy_24bit_rgb.xpm" />
 		<Unit filename="src\resources\icon_library_assembly.xpm" />
+		<Unit filename="src\resources\icon_library_container.xpm" />
 		<Unit filename="src\resources\icon_library_folder.xpm" />
 		<Unit filename="src\resources\please-wait.xpm" />
 		<Unit filename="src\resources\resource.rc">
 			<Option compilerVar="WINDRES" />
 		</Unit>
-		<Unit filename="wxsmith\GNRAssemblyDataFrame.wxs" />
 		<Unit filename="wxsmith\GNRDebugFrame.wxs" />
 		<Unit filename="wxsmith\GNRHelpFrame.wxs" />
 		<Unit filename="wxsmith\GNRMainFrame.wxs" />
