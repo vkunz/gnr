@@ -104,6 +104,7 @@
 		</Linker>
 		<Unit filename="src\GNRApp.cpp" />
 		<Unit filename="src\GNRAssembly.cpp" />
+		<Unit filename="src\GNRAssemblyDataFrame.cpp" />
 		<Unit filename="src\GNRAssemblyMediator.cpp" />
 		<Unit filename="src\GNRAssemblyMediator2D.cpp" />
 		<Unit filename="src\GNRAssemblyMediator3D.cpp" />
@@ -145,6 +146,7 @@
 		<Unit filename="src\GNRSceneTreeNode.cpp" />
 		<Unit filename="src\GNRTCoord.cpp" />
 		<Unit filename="src\GNRTests.cpp" />
+		<Unit filename="src\GNRTreeControlEvent.cpp" />
 		<Unit filename="src\GNRTreeLibraryController.cpp" />
 		<Unit filename="src\GNRTreePanelLibrary.cpp" />
 		<Unit filename="src\GNRTreePanelMyScene.cpp" />
@@ -158,6 +160,7 @@
 		<Unit filename="src\include\GNRApp.h" />
 		<Unit filename="src\include\GNRAssembly.h" />
 		<Unit filename="src\include\GNRAssemblyData.h" />
+		<Unit filename="src\include\GNRAssemblyDataFrame.h" />
 		<Unit filename="src\include\GNRAssemblyMediator.h" />
 		<Unit filename="src\include\GNRAssemblyMediator2D.h" />
 		<Unit filename="src\include\GNRAssemblyMediator3D.h" />
@@ -206,6 +209,7 @@
 		<Unit filename="src\include\GNRSceneTreeNode.h" />
 		<Unit filename="src\include\GNRTCoord.h" />
 		<Unit filename="src\include\GNRTests.h" />
+		<Unit filename="src\include\GNRTreeControlEvent.h" />
 		<Unit filename="src\include\GNRTreeLibraryController.h" />
 		<Unit filename="src\include\GNRTreePanelLibrary.h" />
 		<Unit filename="src\include\GNRTreePanelMyScene.h" />
@@ -253,6 +257,7 @@
 		<Unit filename="src\resources\resource.rc">
 			<Option compilerVar="WINDRES" />
 		</Unit>
+		<Unit filename="wxsmith\GNRAssemblyDataFrame.wxs" />
 		<Unit filename="wxsmith\GNRDebugFrame.wxs" />
 		<Unit filename="wxsmith\GNRHelpFrame.wxs" />
 		<Unit filename="wxsmith\GNRMainFrame.wxs" />
@@ -267,6 +272,7 @@
 					<wxFrame wxs="wxsmith/GNRMainFrame.wxs" src="src\GNRMainFrame.cpp" hdr="src\include\GNRMainFrame.h" name="GNRMainFrame" language="CPP" />
 					<wxFrame wxs="wxsmith/GNRDebugFrame.wxs" src="src\GNRDebugFrame.cpp" hdr="src\include\GNRDebugFrame.h" name="GNRDebugFrame" language="CPP" />
 					<wxFrame wxs="wxsmith/GNRHelpFrame.wxs" src="src/GNRHelpFrame.cpp" hdr="src/include/GNRHelpFrame.h" name="GNRHelpFrame" language="CPP" />
+					<wxFrame wxs="wxsmith/GNRAssemblyDataFrame.wxs" src=".\src\GNRAssemblyDataFrame.cpp" hdr=".\src\include\GNRAssemblyDataFrame.h" name="GNRAssemblyDataFrame" language="CPP" />
 				</resources>
 			</wxsmith>
 		</Extensions>
