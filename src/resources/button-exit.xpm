@@ -1,5 +1,5 @@
 /* XPM */
-static char * button_exit_xpm[] = {
+static const char * button_exit_xpm[] = {
 "24 24 140 2",
 "  	c None",
 ". 	c #000000",

@@ -1,5 +1,5 @@
 /* XPM */
-static char * button_draw_cube_xpm[] = {
+static const char * button_draw_cube_xpm[] = {
 "24 24 93 2",
 "  	c None",
 ". 	c #0A0A0A",

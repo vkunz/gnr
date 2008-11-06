@@ -1,5 +1,5 @@
 /* XPM */
-static char * button_canvas2d_zoom_fit_xpm[] = {
+static const char * button_canvas2d_zoom_fit_xpm[] = {
 "24 24 123 2",
 "  	c None",
 ". 	c #343434",

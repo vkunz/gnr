@@ -1,5 +1,5 @@
 /* XPM */
-static char * button_draw_walls_xpm[] = {
+static const char * button_draw_walls_xpm[] = {
 "24 24 7 1",
 " 	c None",
 ".	c #000000",

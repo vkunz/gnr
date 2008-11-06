@@ -1,5 +1,5 @@
 /* XPM */
-static char * button_canvas2d_zoom_in_xpm[] = {
+static const char * button_canvas2d_zoom_in_xpm[] = {
 "24 24 132 2",
 "  	c None",
 ". 	c #343434",

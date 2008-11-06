@@ -1,5 +1,5 @@
 /* XPM */
-static char * button_room_open_xpm[] = {
+static const char * button_room_open_xpm[] = {
 "24 24 222 2",
 "  	c None",
 ". 	c #A0A0A0",

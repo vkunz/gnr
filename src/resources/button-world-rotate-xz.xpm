@@ -1,5 +1,5 @@
 /* XPM */
-static char * button_world_rotate_xz_xpm[] = {
+static const char * button_world_rotate_xz_xpm[] = {
 "24 24 33 1",
 " 	c None",
 ".	c #AFAFAF",

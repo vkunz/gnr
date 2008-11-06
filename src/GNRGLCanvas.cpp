@@ -165,9 +165,9 @@ void GNRGLCanvas::initLights()
 void GNRGLCanvas::initGL()
 {
 	//define light source
-	light_ambient[0] = 0.3;
-	light_ambient[1] = 0.3;
-	light_ambient[2] = 0.3;
+	light_ambient[0] = 0.2;
+	light_ambient[1] = 0.2;
+	light_ambient[2] = 0.2;
 	light_ambient[3] = 0.0;
 	
 	light_diffuse[0] = 1.0;
@@ -207,7 +207,7 @@ void GNRGLCanvas::initGL()
 	glShadeModel(GL_SMOOTH);
 	
 	//glFrontFace(GL_CCW);
-	glCullFace(GL_BACK);
+	//glCullFace(GL_BACK);
 	
 	glDepthFunc(GL_LEQUAL);
 	
@@ -219,10 +219,10 @@ void GNRGLCanvas::initGL()
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_LINE_SMOOTH);
 	glEnable(GL_POLYGON_SMOOTH);
-	glEnable(GL_CULL_FACE);
+	//glEnable(GL_CULL_FACE);
 	glEnable(GL_STENCIL_TEST);
-	glEnable(GL_POLYGON_OFFSET_LINE);
-	glEnable(GL_POINT_SMOOTH);
+	//glEnable(GL_POLYGON_OFFSET_LINE);
+	//glEnable(GL_POINT_SMOOTH);
 	
 	glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);
 	glHint(GL_LINE_SMOOTH_HINT, GL_NICEST);
@@ -268,11 +268,14 @@ void GNRGLCanvas::drawBaseFloor(float fCenterX, float fCenterY, float fCenterZ, 
 		
 		//set normal
 		glNormal3f(0.0, 1.0, 0.0);
+		
 		//set starting edge half of size from center
 		float s = fSize/2;
-		float x = fCenterX - s, z = fCenterZ - s;
+		
+		//calculate start and end
 		int start = -(int)s;
 		int end   = (int)s;
+		
 		//draw fSize quads in x-axis
 		for (GLint i = start; i < end; i++)
 		{
@@ -280,13 +283,13 @@ void GNRGLCanvas::drawBaseFloor(float fCenterX, float fCenterY, float fCenterZ, 
 			for (GLint j = start; j < end; j++)
 			{
 				glTexCoord2f(0.0,0.0);
-				glVertex3f(j,fCenterY,i);
+				glVertex3f(j+fCenterX,fCenterY,i+fCenterZ);
 				glTexCoord2f(0.0,1.0);
-				glVertex3f(j,fCenterY,i+1.0f);
+				glVertex3f(j+fCenterX,fCenterY,i+fCenterZ+1.0f);
 				glTexCoord2f(1.0,1.0);
-				glVertex3f(j+1.0f,fCenterY,i+1.0f);
+				glVertex3f(j+fCenterX+1.0f,fCenterY,i+fCenterZ+1.0f);
 				glTexCoord2f(1.0,0.0);
-				glVertex3f(j+1.0f,fCenterY,i);
+				glVertex3f(j+fCenterX+1.0f,fCenterY,i+fCenterZ);
 			}
 		}
 		glEnd();
@@ -344,7 +347,7 @@ void GNRGLCanvas::shadowColorOn()
 	glDisable(GL_DEPTH_TEST);
 	glEnable(GL_BLEND);
 	glStencilOp(GL_KEEP, GL_KEEP, GL_INCR);
-	glCullFace(GL_FRONT);
+	//glCullFace(GL_FRONT);
 }
 
 void GNRGLCanvas::shadowColorOff()
@@ -353,7 +356,7 @@ void GNRGLCanvas::shadowColorOff()
 	glDisable(GL_STENCIL_TEST);
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_LIGHTING);
-	glCullFace(GL_BACK);
+	//glCullFace(GL_BACK);
 }
 
 void GNRGLCanvas::endPixelBuffer()

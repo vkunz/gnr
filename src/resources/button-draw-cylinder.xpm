@@ -1,5 +1,5 @@
 /* XPM */
-static char * button_draw_cylinder_xpm[] = {
+static const char * button_draw_cylinder_xpm[] = {
 "24 24 115 2",
 "  	c None",
 ". 	c #0B0B0B",
