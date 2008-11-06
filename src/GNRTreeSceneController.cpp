@@ -81,7 +81,7 @@ void GNRTreeSceneController::evaluateTree(GNRSceneTreeNode* node, wxTreeItemId i
 	GNRTreeSceneItemData* itemData;
 	while (itemData = node->getTreeItem())
 	{
-		m_treeCtrl->AppendItem(id, itemData->getName());
+		m_treeCtrl->AppendItem(id, itemData->getName(), 0, 0, itemData);
 	}
 	
 }
@@ -92,6 +92,7 @@ void GNRTreeSceneController::updateTree(GNRSceneTreeNode* tree)
 	m_treeCtrl->DeleteAllItems();
 	
 	// set root
+	GNRTreeSceneItemData* rootData = new GNRTreeSceneItemData;
 	wxTreeItemId rootID = m_treeCtrl->AddRoot(wxT("Root"));
 	
 	// build Tree

@@ -16,14 +16,12 @@ GNRSceneTreeNode::GNRSceneTreeNode()
  */
 GNRSceneTreeNode::~GNRSceneTreeNode()
 {
-	for (std::list<GNRTreeSceneItemData*>::iterator it = m_listTreeItem.begin(); it != m_listTreeItem.end(); ++it)
-	{
-		delete(*it);
-	}
 	for (std::list<GNRSceneTreeNode*>::iterator it = m_listSceneTreeNode.begin(); it != m_listSceneTreeNode.end(); ++it)
 	{
 		delete(*it);
 	}
+	
+	// GNRTreeSceneItemData gets deleted by the tree itself
 }
 
 /**

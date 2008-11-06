@@ -786,6 +786,7 @@ void GNRScene::createSceneTree(GNRAssembly* assembly, GNRSceneTreeNode* node)
 	{
 		GNRTreeSceneItemData* data = new GNRTreeSceneItemData;
 		data->setName(assembly->getName());
+		data->setAssembly(assembly);
 		node->addTreeItem(data);
 	}
 	else if (assembly->getType() == IS_GROUP)

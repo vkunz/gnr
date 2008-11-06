@@ -12,6 +12,15 @@ public:
 protected:
 private:
 	void OnItemRClick(wxTreeEvent& event);
+	void OnItemMenu(wxTreeEvent& event);
+	void OnEdit(wxCommandEvent& WXUNUSED(event));
+	void OnAbout(wxCommandEvent& WXUNUSED(event));
+	void ShowMenu(wxTreeItemId id, const wxPoint& pt);
+	
+	wxTreeItemId m_currentTreeID;
+	
+	static const long idMenuEdit;
+	static const long idMenuAbout;
 	
 	DECLARE_EVENT_TABLE()
 };
