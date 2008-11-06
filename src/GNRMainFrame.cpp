@@ -158,37 +158,49 @@ BEGIN_EVENT_TABLE(GNRMainFrame,wxFrame)
 	EVT_MENU(btn_zoom_in, GNRMainFrame::OnZoomIn)
 	EVT_MENU(btn_zoom_out, GNRMainFrame::OnZoomOut)
 	EVT_MENU(btn_snap_to_grid, GNRMainFrame::OnSnapToGridBtn)
-	//functions menu
-	EVT_MENU(idMenuGroup, GNRMainFrame::OnGroupCreate)
-	EVT_MENU(idMenuUngroup, GNRMainFrame::OnGroupModify)
-	EVT_MENU(idMenuDeleteObject, GNRMainFrame::OnDeleteSelected)
-	EVT_MENU(idMenuCloneObject, GNRMainFrame::OnCloneSelected)
-	EVT_MENU(idMenuCopyObject, GNRMainFrame::OnCopySelected)
-	EVT_MENU(idMenuCutObject, GNRMainFrame::OnCutSelected)
-	EVT_MENU(idMenuInsertObject, GNRMainFrame::OnInsertCopy)
-	EVT_MENU(idMenuHideObject, GNRMainFrame::OnHideSelected)
-	EVT_MENU(idMenuShowObject, GNRMainFrame::OnShowHidden)
+	//menu file
+	EVT_MENU(idMenuNewRoom, GNRMainFrame::OnMenuNewRoom)
+	EVT_MENU(idMenuOpxOpen, GNRMainFrame::OnMenuOpxOpen)
+	EVT_MENU(idMenuOpxSave, GNRMainFrame::OnMenuOpxSave)
+	EVT_MENU(idMenuQuit, GNRMainFrame::OnMenuQuit)
+	//menu edit
 	EVT_MENU(idMenuUndo, GNRMainFrame::OnToolbarUndo)
 	EVT_MENU(idMenuRedo, GNRMainFrame::OnToolbarRedo)
+	EVT_MENU(idMenuDeleteObject, GNRMainFrame::OnDeleteSelected)
+	EVT_MENU(idMenuCutObject, GNRMainFrame::OnCutSelected)
+	EVT_MENU(idMenuInsertObject, GNRMainFrame::OnInsertCopy)
+	EVT_MENU(idMenuCopyObject, GNRMainFrame::OnCopySelected)
+	EVT_MENU(idMenuCloneObject, GNRMainFrame::OnCloneSelected)
+	EVT_MENU(idMenuHideObject, GNRMainFrame::OnHideSelected)
+	EVT_MENU(idMenuShowObject, GNRMainFrame::OnShowHidden)
+	//menu export
+	EVT_MENU(idMenuObjExport, GNRMainFrame::OnMenuObjExport)
+	EVT_MENU(idMenuOaxExport, GNRMainFrame::OnMenuOaxExport)
+	//menu import
+	EVT_MENU(idMenuObjImport, GNRMainFrame::OnMenuObjImport)
+	EVT_MENU(idMenuOaxImport, GNRMainFrame::OnMenuOaxImport)
+	//menu camera
 	EVT_MENU(idMenuZoomIn, GNRMainFrame::OnZoomIn)
 	EVT_MENU(idMenuZoomOut, GNRMainFrame::OnZoomOut)
 	EVT_MENU(idMenuZoomFit, GNRMainFrame::OnCameraReset)
 	EVT_MENU(idMenuZoomReset, GNRMainFrame::OnCameraReset)
-	EVT_MENU(idMenuHelp, GNRMainFrame::OnMenuHelp)
-	//settings menu sync to toolbar
+	//menu settings
 	EVT_MENU(idMenuSnapToGrid, GNRMainFrame::OnSnapToGridMenu)
-	EVT_MENU(idMenuShadows, GNRMainFrame::OnShadowsMenu)
 	EVT_MENU(idMenuMoveXZ, GNRMainFrame::OnToolbarMoveXZ)
 	EVT_MENU(idMenuMoveXY, GNRMainFrame::OnToolbarMoveXY)
 	EVT_MENU(idMenuRotateXZ, GNRMainFrame::OnToolbarRotateXZ)
 	EVT_MENU(idMenuRotateXY, GNRMainFrame::OnToolbarRotateXY)
-	EVT_MENU(idMenuRotateXY, GNRMainFrame::OnToolbarRotateXY)
 	EVT_MENU(idMenuDrawWall, GNRMainFrame::OnToolbarDrawWall)
+	EVT_MENU(idMenuShadows, GNRMainFrame::OnShadowsMenu)
+	//menu group
+	EVT_MENU(idMenuGroup, GNRMainFrame::OnGroupCreate)
+	EVT_MENU(idMenuUngroup, GNRMainFrame::OnGroupModify)
+	//menu help
+	EVT_MENU(idMenuHelp, GNRMainFrame::OnMenuHelp)
+	EVT_MENU(idMenuAbout, GNRMainFrame::OnMenuAbout)
 	//set snap to grid on spinctrl change
 	EVT_SPINCTRL(ID_SPINCTRL_ROTATE, GNRMainFrame::OnSnapToGridCtrl)
 	EVT_SPINCTRL(ID_SPINCTRL_TRANS, GNRMainFrame::OnSnapToGridCtrl)
-	//quit application
-	EVT_MENU(btn_quit, GNRMainFrame::OnMenuQuit)
 END_EVENT_TABLE()
 
 GNRMainFrame::GNRMainFrame(wxWindow* parent, wxWindowID WXUNUSED(id))
@@ -307,15 +319,6 @@ GNRMainFrame::GNRMainFrame(wxWindow* parent, wxWindowID WXUNUSED(id))
 	StatusBar1->SetStatusStyles(1,__wxStatusBarStyles_1);
 	SetStatusBar(StatusBar1);
 	
-	Connect(idMenuNewRoom,wxEVT_COMMAND_MENU_SELECTED,(wxObjectEventFunction)&GNRMainFrame::OnMenuNewRoom);
-	Connect(idMenuOpxOpen,wxEVT_COMMAND_MENU_SELECTED,(wxObjectEventFunction)&GNRMainFrame::OnMenuOpxOpen);
-	Connect(idMenuOpxSave,wxEVT_COMMAND_MENU_SELECTED,(wxObjectEventFunction)&GNRMainFrame::OnMenuOpxSave);
-	Connect(idMenuQuit,wxEVT_COMMAND_MENU_SELECTED,(wxObjectEventFunction)&GNRMainFrame::OnMenuQuit);
-	Connect(idMenuObjExport,wxEVT_COMMAND_MENU_SELECTED,(wxObjectEventFunction)&GNRMainFrame::OnMenuObjExport);
-	Connect(idMenuOaxExport,wxEVT_COMMAND_MENU_SELECTED,(wxObjectEventFunction)&GNRMainFrame::OnMenuOaxExport);
-	Connect(idMenuObjImport,wxEVT_COMMAND_MENU_SELECTED,(wxObjectEventFunction)&GNRMainFrame::OnMenuObjImport);
-	Connect(idMenuOaxImport,wxEVT_COMMAND_MENU_SELECTED,(wxObjectEventFunction)&GNRMainFrame::OnMenuOaxImport);
-	Connect(idMenuAbout,wxEVT_COMMAND_MENU_SELECTED,(wxObjectEventFunction)&GNRMainFrame::OnMenuAbout);
 	//*)
 	
 	//generate toolbar and buttons
