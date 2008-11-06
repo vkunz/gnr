@@ -262,7 +262,7 @@ void GNRObjectImport::addAtomic(string name)
 	m_act = new GNRAssembly(IS_ATOMIC,wxT("dummy"));
 	m_act->setName(name);
 	m_wrapper->addPart(m_act);
-	m_wrapper->setChildMaterial(m_act, mtllib.getMaterial(m_matname));
+	//m_wrapper->setChildMaterial(m_act, mtllib.getMaterial(m_matname));
 }
 
 void GNRObjectImport::minmax(float& min, float& max, float value)
@@ -369,4 +369,5 @@ void GNRObjectImport::getU()
 {
 	stringstream ss(m_buf.substr(6, string::npos));
 	ss >> m_matname;
+	m_wrapper->setChildMaterial(m_act, mtllib.getMaterial(m_matname));
 }

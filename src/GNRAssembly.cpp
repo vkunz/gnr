@@ -29,8 +29,10 @@ GNRAssembly::GNRAssembly(const wxString& name):
 		m_scale_x(1.0), m_scale_y(1.0), m_scale_z(1.0),
 		m_width(1.0), m_height(1.0), m_depth(1.0),
 		m_radius_bottom(0.0), m_radius_middle(0.0), m_radius_top(0.0),
-		m_type(IS_ROOT), m_name(name), m_parent(NULL), m_origin(NULL),
-		m_dl_object(0), m_dl_shadow(0), m_md5_obj_xml(wxEmptyString)
+		m_type(IS_ROOT), m_name(name), m_visible(true),
+		m_parent(NULL), m_origin(NULL),
+		m_dl_object(0), m_dl_shadow(0),
+		m_md5_obj_xml(wxEmptyString)
 {
 }
 
@@ -197,8 +199,10 @@ GNRAssembly::GNRAssembly(GNRAssembly* parent, const wxString& name):
 		m_scale_x(1.0), m_scale_y(1.0), m_scale_z(1.0),
 		m_width(1.0), m_height(1.0), m_depth(1.0),
 		m_radius_bottom(0.0), m_radius_middle(0.0), m_radius_top(0.0),
-		m_type(IS_ROOT), m_name(name), m_parent(parent), m_origin(NULL),
-		m_dl_object(0), m_dl_shadow(0), m_md5_obj_xml(wxEmptyString)
+		m_type(IS_ROOT), m_name(name), m_visible(true),
+		m_parent(parent), m_origin(NULL),
+		m_dl_object(0), m_dl_shadow(0),
+		m_md5_obj_xml(wxEmptyString)
 {
 }
 
@@ -214,8 +218,10 @@ GNRAssembly::GNRAssembly(const assemblyType& type, const wxString& name):
 		m_scale_x(1.0), m_scale_y(1.0), m_scale_z(1.0),
 		m_width(1.0), m_height(1.0), m_depth(1.0),
 		m_radius_bottom(0.0), m_radius_middle(0.0), m_radius_top(0.0),
-		m_type(type), m_name(name), m_parent(NULL), m_origin(NULL),
-		m_dl_object(0), m_dl_shadow(0), m_md5_obj_xml(wxEmptyString)
+		m_type(type), m_name(name), m_visible(true),
+		m_parent(NULL), m_origin(NULL),
+		m_dl_object(0), m_dl_shadow(0),
+		m_md5_obj_xml(wxEmptyString)
 {
 }
 
@@ -233,6 +239,15 @@ GNRAssembly::~GNRAssembly()
 }
 
 /* ******* GETTER METHODS FOLLOWING ***** */
+
+/**
+ * get visibility
+ * @access      public
+ */
+bool GNRAssembly::isVisible() const
+{
+	return m_visible;
+}
 
 /**
  * get position value x
@@ -541,6 +556,15 @@ void GNRAssembly::setRadiusMiddle(const float r)
 void GNRAssembly::setRadiusBottom(const float r)
 {
 	m_radius_bottom = r;
+}
+
+/**
+ * get visibility
+ * @access      public
+ */
+void GNRAssembly::setVisible(bool status)
+{
+	m_visible = status;
 }
 
 /**

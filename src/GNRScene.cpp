@@ -92,16 +92,6 @@ GNRAssembly* GNRScene::getRootAssembly()
 }
 
 /**
- * get hidden assembly pointer
- * @return      GNRAssembly*    pointer to hidden assembly
- * @access      public
- */
-GNRAssembly* GNRScene::getHiddden()
-{
-	return m_Hidden;
-}
-
-/**
  * get pointer to 2D cam
  * @return      GNRAssembly*    pointer to 2D cam
  * @access      public
@@ -146,7 +136,6 @@ void GNRScene::initContainers()
 	m_RootAssembly->addPart(m_Selected);
 	
 	m_Trash         = new GNRAssembly(IS_TRASH,       wxT("trash"));
-	m_Hidden        = new GNRAssembly(IS_HIDDEN,      wxT("hidden"));
 	m_Duplicator    = new GNRAssembly(IS_DUPLICATOR,  wxT("duplicator"));
 }
 
@@ -165,7 +154,6 @@ void GNRScene::destroyContainers()
 	
 	//kill all temp containers
 	delete m_Trash;
-	delete m_Hidden;
 	delete m_Duplicator;
 }
 
@@ -547,8 +535,9 @@ void GNRScene::hideSelectedAssemblies()
 	
 	for (list<GNRAssembly*>::iterator it = parts.begin(); it != parts.end(); ++it)
 	{
-		m_Hidden->addPart((*it));
+		m_RootAssembly->addPart((*it));
 		m_Selected->delPart((*it));
+		(*it)->setVisible(false);
 	}
 }
 
@@ -701,7 +690,7 @@ void GNRScene::restoreAssembly(GNRAssembly* assembly)
  */
 void GNRScene::showAssembly(GNRAssembly* assembly)
 {
-
+	assembly->setVisible(true);
 }
 
 /**
@@ -774,7 +763,7 @@ void GNRScene::insertAssembly(GNRAssembly* assembly)
  */
 void GNRScene::insertHiddenAssembly(GNRAssembly* assembly)
 {
-	m_Hidden->addPart(assembly);
+	//TODO
 }
 
 GNRSceneTreeNode* GNRScene::createSceneTree()

@@ -41,6 +41,7 @@ public:
 	
 	virtual ~GNRAssembly();
 	
+	bool isVisible() const;
 	float getX() const;
 	float getY() const;
 	float getZ() const;
@@ -56,6 +57,7 @@ public:
 	GNRVertex getCenterVertex() const;
 	GNRVertex getRotateVertex() const;
 	
+	void setVisible(bool status);
 	void setX(const float x);
 	void setY(const float y);
 	void setZ(const float z);
@@ -159,6 +161,9 @@ private:
 	
 	assemblyType m_type;
 	wxString m_name;
+	
+	//visible flag
+	bool m_visible;
 	
 	GNRAssembly* m_parent;
 	GNRAssembly* m_origin;

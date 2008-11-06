@@ -33,7 +33,6 @@ private:
 	//pointer to separate containers
 	GNRAssembly*    m_Selected;
 	GNRAssembly*    m_Trash;
-	GNRAssembly*    m_Hidden;
 	GNRAssembly*    m_Duplicator;
 	
 	//both cameras
@@ -96,8 +95,8 @@ public:
 	void insertCopiedAssemblies();
 	void cutSelectedAssemblies();
 	
-	void restoreAssembly(GNRAssembly* assembly);
 	void showAssembly(GNRAssembly* assembly);
+	void restoreAssembly(GNRAssembly* assembly);
 	void selectAssembly(GNRAssembly* assembly);
 	void minmax(float& min,float& max,float value);
 	

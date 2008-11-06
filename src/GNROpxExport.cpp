@@ -157,19 +157,7 @@ void GNROpxExport::createXmlEntry()
 	// get partlist of rootassembly
 	list = m_scene->getRootAssembly()->getPartList();
 	
-	// visible
-	m_hidden = false;
-	
 	// create scene, add groups and assemblies
-	createScene(m_node, list);
-	
-	// hidden
-	m_hidden = true;
-	
-	// get partlist of hiddenassembly
-	list = m_scene->getHiddden()->getPartList();
-	
-	// create scene, add hidden groups and assemblies
 	createScene(m_node, list);
 	
 	// set root
