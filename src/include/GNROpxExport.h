@@ -33,6 +33,8 @@ protected:
 
 private:
 	// attributes
+	bool m_hidden;
+	
 	// pointer to scene
 	GNRScene* m_scene;
 	
@@ -57,6 +59,15 @@ private:
 	
 	// create oax zip outputstream
 	void createOpxStream();
+	
+	// create scene and write to xml
+	void createScene(wxXmlNode* node, std::list<GNRAssembly*> list);
+	
+	// create assembly entry and write to xml
+	void createAssembly(wxXmlNode* node, GNRAssembly* assembly);
+	
+	// create group and write to xml
+	void createGroup(wxXmlNode* node, GNRAssembly* assembly);
 };
 
 #endif // _GNROPXEXPORT_H_
