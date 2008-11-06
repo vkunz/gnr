@@ -4,10 +4,9 @@
  * constructor of GNRSceneTreeNode
  * @access      public
  */
-GNRSceneTreeNode::GNRSceneTreeNode()
+GNRSceneTreeNode::GNRSceneTreeNode():
+	m_STN_valid(false), m_TI_valid(false)
 {
-	m_iterSceneTreeNode = NULL;
-	m_iterTreeItem = NULL;
 }
 
 /**
@@ -52,9 +51,11 @@ void GNRSceneTreeNode::addTreeItem(GNRTreeSceneItemData* data)
 GNRSceneTreeNode* GNRSceneTreeNode::getTreeNode()
 {
 	// if iterator not set yet, set it to first record
-	if (m_iterSceneTreeNode == NULL)
+
+	if (!m_STN_valid)
 	{
 		m_iterSceneTreeNode = m_listSceneTreeNode.begin();
+		m_STN_valid = true;
 	}
 	
 	// if iterator not already at the end return
@@ -76,9 +77,10 @@ GNRSceneTreeNode* GNRSceneTreeNode::getTreeNode()
 GNRTreeSceneItemData* GNRSceneTreeNode::getTreeItem()
 {
 	// if iterator not set yet, set it to first record
-	if (m_iterTreeItem == NULL)
+	if (!m_TI_valid)
 	{
 		m_iterTreeItem = m_listTreeItem.begin();
+		m_TI_valid = true;
 	}
 	
 	// if iterator not already at the end return

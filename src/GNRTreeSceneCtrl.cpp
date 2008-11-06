@@ -59,7 +59,10 @@ void GNRTreeSceneCtrl::ShowMenu(wxTreeItemId id, const wxPoint& pt)
 
 void GNRTreeSceneCtrl::OnEdit(wxCommandEvent& WXUNUSED(event))
 {
+#ifdef __ATHOS_DEBUG__
 	wxLogDebug(wxT("OnEdit"));
+#endif
+
 }
 
 void GNRTreeSceneCtrl::OnAbout(wxCommandEvent& WXUNUSED(event))
@@ -67,5 +70,7 @@ void GNRTreeSceneCtrl::OnAbout(wxCommandEvent& WXUNUSED(event))
 	wxString str;
 	GNRTreeSceneItemData* item = (GNRTreeSceneItemData *)GetItemData(m_currentTreeID);
 	str << wxT("Klicked on ") << item->getName();
+#ifdef __ATHOS_DEBUG__
 	wxLogDebug(str);
+#endif
 }

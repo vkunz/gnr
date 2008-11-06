@@ -1,8 +1,9 @@
-
 #include <wx/sstream.h>
 #include <wx/wfstream.h>
 #include <wx/xml/xml.h>
 #include <wx/zipstrm.h>
+
+#include <memory>
 
 #if defined(__ATHOS_DEBUG__)
 #include <wx/log.h>

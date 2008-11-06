@@ -26,6 +26,7 @@ private:
 	
 	wxString m_name;
 	
+	bool m_STN_valid, m_TI_valid;
 };
 
 #endif // _GNRSCENETREENODE_H_
