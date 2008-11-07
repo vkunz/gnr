@@ -18,6 +18,7 @@ const long GNRTreeSceneCtrl::idMenuSelect   = wxNewId();
 const long GNRTreeSceneCtrl::idMenuDeselect = wxNewId();
 const long GNRTreeSceneCtrl::idMenuDelete   = wxNewId();
 const long GNRTreeSceneCtrl::idMenuUndelete = wxNewId();
+const long GNRTreeSceneCtrl::idMenuEmptyTrash = wxNewId();
 
 BEGIN_EVENT_TABLE(GNRTreeSceneCtrl, wxTreeCtrl)
 	EVT_TREE_ITEM_MENU(wxID_ANY, GNRTreeSceneCtrl::OnItemMenu)
@@ -30,6 +31,7 @@ BEGIN_EVENT_TABLE(GNRTreeSceneCtrl, wxTreeCtrl)
 	EVT_MENU(idMenuDeselect, GNRTreeSceneCtrl::OnDeselect)
 	EVT_MENU(idMenuDelete, GNRTreeSceneCtrl::OnDelete)
 	EVT_MENU(idMenuUndelete, GNRTreeSceneCtrl::OnUndelete)
+	EVT_MENU(idMenuEmptyTrash, GNRTreeSceneCtrl::OnEmptyTrash)
 END_EVENT_TABLE()
 
 /**
@@ -68,11 +70,17 @@ void GNRTreeSceneCtrl::OnItemMenu(wxTreeEvent& event)
 	
 	if (treeItemData != NULL)
 	{
+		// build menu for item-operation
 		wxPoint clientpt = event.GetPoint();
-		buildMenu(m_currentTreeID, clientpt);
+		buildMenu(clientpt);
 	}
-	
-	event.Skip();
+	else if (m_currentTreeID.IsOk() && GetItemText(m_currentTreeID) == wxT("Papierkorb"))
+	{
+		// build menu to empty trash
+		wxMenu menu;
+		menu.Append(idMenuEmptyTrash, wxT("Papierkorb leeren"));
+		PopupMenu(&menu, event.GetPoint());
+	}
 }
 
 /**
@@ -98,7 +106,7 @@ void GNRTreeSceneCtrl::OnItemActivated(wxTreeEvent& event)
  * @param       wxPoint         position, the menu should be displayed
  * @access      private
  */
-void GNRTreeSceneCtrl::buildMenu(wxTreeItemId id, const wxPoint& pt)
+void GNRTreeSceneCtrl::buildMenu(const wxPoint& pt)
 {
 	// create dropdown-menu
 	wxMenu menu;
@@ -216,7 +224,7 @@ void GNRTreeSceneCtrl::OnDeselect(wxCommandEvent& WXUNUSED(event))
 
 void GNRTreeSceneCtrl::OnDelete(wxCommandEvent& WXUNUSED(event))
 {
-	// send event to handle select
+	// send event to handle delete
 	GNRTreeControlEvent treeEvent(wxEVT_COMMAND_GNR_TREE_CONTROL);
 	treeEvent.setEventType(SCENEDELETE);
 	treeEvent.setAssembly(treeItemData->getAssembly());
@@ -225,12 +233,17 @@ void GNRTreeSceneCtrl::OnDelete(wxCommandEvent& WXUNUSED(event))
 
 void GNRTreeSceneCtrl::OnUndelete(wxCommandEvent& WXUNUSED(event))
 {
-	// send event to handle select
+	// send event to handle undelete
 	GNRTreeControlEvent treeEvent(wxEVT_COMMAND_GNR_TREE_CONTROL);
 	treeEvent.setEventType(SCENEUNDELETE);
 	treeEvent.setAssembly(treeItemData->getAssembly());
 	ProcessEvent(treeEvent);
 }
 
-
-
+void GNRTreeSceneCtrl::OnEmptyTrash(wxCommandEvent& WXUNUSED(event))
+{
+	// send event to handle emptytrash
+	GNRNotifyEvent notifyEvent(wxEVT_COMMAND_GNR_NOTIFY);
+	notifyEvent.setGNREventType(EMPTYTRASH);
+	ProcessEvent(notifyEvent);
+}

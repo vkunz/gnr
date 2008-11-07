@@ -182,6 +182,10 @@ void GNRApp::OnGNREvent(GNRNotifyEvent& event)
 		updateSplitters();
 		m_Scene->glRefresh();
 		break;
+	case REFRESHSCENETREE:
+		GNRSceneTreeNode* tree = m_Scene->createSceneTree();
+		m_TreeSceneCtrl->updateTree(tree);
+		break;
 	case NEWROOM:
 		m_Scene->newRoom();
 		m_Scene->glRefresh();
@@ -287,9 +291,9 @@ void GNRApp::OnGNREvent(GNRNotifyEvent& event)
 		m_MainFrame->getStatusbar()->SetStatusText(str);
 		break;
 	}
-	case REFRESHSCENETREE:
-		GNRSceneTreeNode* tree = m_Scene->createSceneTree();
-		m_TreeSceneCtrl->updateTree(tree);
+	case EMPTYTRASH:
+#warning "PAAAAATTTTRRRRIIICCKKKK i need emptytrash()"
+		wxLogDebug(wxT("emptytrash"));
 		break;
 	}
 }

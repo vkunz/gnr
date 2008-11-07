@@ -23,8 +23,9 @@ private:
 	void OnDeselect(wxCommandEvent& WXUNUSED(event));
 	void OnDelete(wxCommandEvent& WXUNUSED(event));
 	void OnUndelete(wxCommandEvent& WXUNUSED(event));
+	void OnEmptyTrash(wxCommandEvent& WXUNUSED(event));
 	
-	void buildMenu(wxTreeItemId id, const wxPoint& pt);
+	void buildMenu(const wxPoint& pt);
 	void createAssemblyDataFrame();
 	
 	wxTreeItemId m_currentTreeID;
@@ -40,6 +41,7 @@ private:
 	static const long idMenuDeselect;
 	static const long idMenuDelete;
 	static const long idMenuUndelete;
+	static const long idMenuEmptyTrash;
 	
 	DECLARE_EVENT_TABLE()
 };
