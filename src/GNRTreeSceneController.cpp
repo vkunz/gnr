@@ -47,7 +47,25 @@ void GNRTreeSceneController::evaluateTree(GNRSceneTreeNode* node, wxTreeItemId i
 	wxTreeItemId newID;
 	while (myNode = node->getTreeNode())
 	{
-		newID = m_treeCtrl->AppendItem(id, myNode->getName());
+		if (myNode->getOwnTreeItem() == NULL)
+		{
+			newID = m_treeCtrl->AppendItem(id, myNode->getName());
+		}
+		else
+		{
+			newID = m_treeCtrl->AppendItem(id, myNode->getOwnTreeItem()->getAssembly()->getName(), -1, -1, myNode->getOwnTreeItem());
+			
+			// make selected bold
+			if (myNode->getOwnTreeItem()->getAssembly()->getMaster()->getType() == IS_SELECTED)
+			{
+				m_treeCtrl->SetItemBold(newID);
+			}
+			// make hidden italic
+			if (myNode->getOwnTreeItem()->getAssembly()->isVisible() == false)
+			{
+				m_treeCtrl->SetItemFont(newID, *wxITALIC_FONT);
+			}
+		}
 		evaluateTree(myNode, newID);
 	}
 	
@@ -56,9 +74,9 @@ void GNRTreeSceneController::evaluateTree(GNRSceneTreeNode* node, wxTreeItemId i
 	wxTreeItemId tmpID;
 	while (itemData = node->getTreeItem())
 	{
-		tmpID = m_treeCtrl->AppendItem(id, itemData->getName(), -1, -1, itemData);
+		tmpID = m_treeCtrl->AppendItem(id, itemData->getAssembly()->getName(), -1, -1, itemData);
 		// make selected bold
-		if (itemData->getAssembly()->getMaster()->isType(IS_SELECTED))
+		if (itemData->getAssembly()->getMaster()->getType() == IS_SELECTED)
 		{
 			m_treeCtrl->SetItemBold(tmpID);
 		}

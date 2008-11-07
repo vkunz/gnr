@@ -13,14 +13,12 @@ public:
 	virtual ~GNRTreeSceneItemData();
 	
 	void setAssembly(GNRAssembly* assembly);
-	void setName(wxString name);
 	
 	GNRAssembly* getAssembly();
-	wxString getName();
+	GNRAssembly* getMaster();
 protected:
 private:
 	GNRAssembly* m_assembly;
-	wxString m_name;
 };
 
 #endif // GNRTreeSceneItemData_H

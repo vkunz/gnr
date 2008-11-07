@@ -1,6 +1,9 @@
 #include "GNRTreeSceneCtrl.h"
 
 #include <wx/menu.h>
+#include <wx/textdlg.h>
+
+#include "GNRNotifyEvent.h"
 #include "GNRTreeControlEvent.h"
 
 #if defined(__ATHOS_DEBUG__)
@@ -8,6 +11,7 @@
 #endif
 
 const long GNRTreeSceneCtrl::idMenuEdit     = wxNewId();
+const long GNRTreeSceneCtrl::idMenuRename   = wxNewId();
 const long GNRTreeSceneCtrl::idMenuVisible  = wxNewId();
 const long GNRTreeSceneCtrl::idMenuHide     = wxNewId();
 const long GNRTreeSceneCtrl::idMenuSelect   = wxNewId();
@@ -17,7 +21,9 @@ const long GNRTreeSceneCtrl::idMenuUndelete = wxNewId();
 
 BEGIN_EVENT_TABLE(GNRTreeSceneCtrl, wxTreeCtrl)
 	EVT_TREE_ITEM_MENU(wxID_ANY, GNRTreeSceneCtrl::OnItemMenu)
+	EVT_TREE_ITEM_ACTIVATED(wxID_ANY, GNRTreeSceneCtrl::OnItemActivated)
 	EVT_MENU(idMenuEdit, GNRTreeSceneCtrl::OnEdit)
+	EVT_MENU(idMenuRename, GNRTreeSceneCtrl::OnRename)
 	EVT_MENU(idMenuVisible, GNRTreeSceneCtrl::OnVisible)
 	EVT_MENU(idMenuHide, GNRTreeSceneCtrl::OnHide)
 	EVT_MENU(idMenuSelect, GNRTreeSceneCtrl::OnSelect)
@@ -69,6 +75,22 @@ void GNRTreeSceneCtrl::OnItemMenu(wxTreeEvent& event)
 	event.Skip();
 }
 
+/**
+ * gets called by double-klick on a item
+ * @param       wxTreeEvent&    event with information to clicked item
+ * @access      private
+ */
+void GNRTreeSceneCtrl::OnItemActivated(wxTreeEvent& event)
+{
+	m_currentTreeID = event.GetItem();
+	
+	treeItemData = (GNRTreeSceneItemData *)GetItemData(m_currentTreeID);
+	
+	if (treeItemData != NULL && treeItemData->getAssembly()->getType() != IS_GROUP)
+	{
+		createAssemblyDataFrame();
+	}
+}
 
 /**
  * builds dropdown menu for items, depending on state of clicked item
@@ -88,18 +110,18 @@ void GNRTreeSceneCtrl::buildMenu(wxTreeItemId id, const wxPoint& pt)
 	else
 	{
 		// no trash; add other options
-		menu.Append(idMenuEdit, wxT("&Bearbeiten"));
-		menu.AppendSeparator();
 		
-		// visible?
-		if (treeItemData->getAssembly()->isVisible())
+		// group or item?
+		if (treeItemData->getAssembly()->getType() != IS_GROUP)
 		{
-			menu.Append(idMenuHide, wxT("&Verbergen"));
+			menu.Append(idMenuEdit, wxT("&Bearbeiten"));
 		}
 		else
 		{
-			menu.Append(idMenuVisible, wxT("&Anzeigen"));
+			menu.Append(idMenuRename, wxT("&Umbennenen"));
 		}
+		
+		menu.AppendSeparator();
 		
 		// selected?
 		if (treeItemData->getAssembly()->getMaster()->getType() == IS_SELECTED)
@@ -111,6 +133,16 @@ void GNRTreeSceneCtrl::buildMenu(wxTreeItemId id, const wxPoint& pt)
 			menu.Append(idMenuSelect, wxT("&Selektieren"));
 		}
 		
+		// visible?
+		if (treeItemData->getAssembly()->isVisible())
+		{
+			menu.Append(idMenuHide, wxT("&Verbergen"));
+		}
+		else
+		{
+			menu.Append(idMenuVisible, wxT("&Anzeigen"));
+		}
+		
 		menu.Append(idMenuDelete, wxT("&Löschen"));
 	}
 	
@@ -119,9 +151,31 @@ void GNRTreeSceneCtrl::buildMenu(wxTreeItemId id, const wxPoint& pt)
 
 void GNRTreeSceneCtrl::OnEdit(wxCommandEvent& WXUNUSED(event))
 {
+	createAssemblyDataFrame();
+}
+
+void GNRTreeSceneCtrl::createAssemblyDataFrame()
+{
 	m_assemblyDataFrame = new GNRAssemblyDataFrame;
 	m_assemblyDataFrame->Show();
 	m_assemblyDataFrame->fillFields(treeItemData->getAssembly());
+}
+
+void GNRTreeSceneCtrl::OnRename(wxCommandEvent& WXUNUSED(event))
+{
+	// create dialog and ask for name
+	wxTextEntryDialog ted(this, wxT("Neuer Name"));
+	if (ted.ShowModal() == wxID_CANCEL)
+	{
+		// if pressed cancel, do nothing
+		return;
+	}
+	treeItemData->getAssembly()->setName(ted.GetValue());
+	
+	// send event to refresh Scene-Tree
+	GNRNotifyEvent gnrevent(wxEVT_COMMAND_GNR_NOTIFY);
+	gnrevent.setGNREventType(REFRESHSCENETREE);
+	ProcessEvent(gnrevent);
 }
 
 void GNRTreeSceneCtrl::OnVisible(wxCommandEvent& WXUNUSED(event))
@@ -147,7 +201,7 @@ void GNRTreeSceneCtrl::OnSelect(wxCommandEvent& WXUNUSED(event))
 	// send event to handle select
 	GNRTreeControlEvent treeEvent(wxEVT_COMMAND_GNR_TREE_CONTROL);
 	treeEvent.setEventType(SCENESELECT);
-	treeEvent.setAssembly(treeItemData->getAssembly());
+	treeEvent.setAssembly(treeItemData->getMaster());
 	ProcessEvent(treeEvent);
 }
 
@@ -177,3 +231,6 @@ void GNRTreeSceneCtrl::OnUndelete(wxCommandEvent& WXUNUSED(event))
 	treeEvent.setAssembly(treeItemData->getAssembly());
 	ProcessEvent(treeEvent);
 }
+
+
+

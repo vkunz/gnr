@@ -74,7 +74,6 @@ const long GNRMainFrame::idMenuInsertObject = wxNewId();
 const long GNRMainFrame::idMenuCopyObject = wxNewId();
 const long GNRMainFrame::idMenuCloneObject = wxNewId();
 const long GNRMainFrame::idMenuHideObject = wxNewId();
-const long GNRMainFrame::idMenuShowObject = wxNewId();
 const long GNRMainFrame::idMenuObjExport = wxNewId();
 const long GNRMainFrame::idMenuOaxExport = wxNewId();
 const long GNRMainFrame::idMenuOnScreenshot = wxNewId();
@@ -147,7 +146,6 @@ BEGIN_EVENT_TABLE(GNRMainFrame,wxFrame)
 	EVT_MENU(idMenuCopyObject, GNRMainFrame::OnCopySelected)
 	EVT_MENU(idMenuCloneObject, GNRMainFrame::OnCloneSelected)
 	EVT_MENU(idMenuHideObject, GNRMainFrame::OnHideSelected)
-	EVT_MENU(idMenuShowObject, GNRMainFrame::OnShowHidden)
 	//menu export
 	EVT_MENU(idMenuObjExport, GNRMainFrame::OnMenuObjExport)
 	EVT_MENU(idMenuOaxExport, GNRMainFrame::OnMenuOaxExport)
@@ -228,8 +226,6 @@ GNRMainFrame::GNRMainFrame(wxWindow* parent, wxWindowID WXUNUSED(id))
 	ParentMenu_Edit->AppendSeparator();
 	MenuItem20 = new wxMenuItem(ParentMenu_Edit, idMenuHideObject, _("Objekte &verstecken\tCTRL+H"), _("Objekte verstecken..."), wxITEM_NORMAL);
 	ParentMenu_Edit->Append(MenuItem20);
-	MenuItem23 = new wxMenuItem(ParentMenu_Edit, idMenuShowObject, _("Objekte &anzeigen\tCTRL+J"), _("Objekte anzeigen..."), wxITEM_NORMAL);
-	ParentMenu_Edit->Append(MenuItem23);
 	MenuBar->Append(ParentMenu_Edit, _("&Bearbeiten"));
 	ParentMenu_Export = new wxMenu();
 	MenuItem7 = new wxMenuItem(ParentMenu_Export, idMenuObjExport, _("OBJ E&xportieren\tALT+O"), _("Object-Datei exportieren..."), wxITEM_NORMAL);
@@ -642,13 +638,6 @@ void GNRMainFrame::OnHideSelected(wxCommandEvent& WXUNUSED(event))
 {
 	GNRNotifyEvent gnrevent(wxEVT_COMMAND_GNR_NOTIFY);
 	gnrevent.setGNREventType(HIDESELECTED);
-	GetEventHandler()->ProcessEvent(gnrevent);
-}
-
-void GNRMainFrame::OnShowHidden(wxCommandEvent& WXUNUSED(event))
-{
-	GNRNotifyEvent gnrevent(wxEVT_COMMAND_GNR_NOTIFY);
-	gnrevent.setGNREventType(SHOWHIDDEN);
 	GetEventHandler()->ProcessEvent(gnrevent);
 }
 

@@ -841,15 +841,21 @@ void GNRScene::createSceneTree(GNRAssembly* assembly, GNRSceneTreeNode* node)
 {
 	if (assembly->getType() == IS_OBJECT || assembly->getType() == IS_PRIMITIVE)
 	{
+		// generate ItemData for object and insert to node
 		GNRTreeSceneItemData* data = new GNRTreeSceneItemData;
-		data->setName(assembly->getName());
 		data->setAssembly(assembly);
 		node->addTreeItem(data);
 	}
 	else if (assembly->getType() == IS_GROUP)
 	{
+		// generate ItemData for group
+		GNRTreeSceneItemData* data = new GNRTreeSceneItemData;
+		data->setAssembly(assembly);
+		
+		// generate new node
 		GNRSceneTreeNode* newNode = new GNRSceneTreeNode;
-		newNode->setName(assembly->getName());
+		newNode->setOwnTreeItem(data);
+		
 		node->addTreeNode(newNode);
 		list<GNRAssembly*> parts = assembly->getPartList();
 		for (list<GNRAssembly*>::const_iterator it = parts.begin(); it != parts.end(); ++it)

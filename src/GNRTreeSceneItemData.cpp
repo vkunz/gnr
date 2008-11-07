@@ -20,12 +20,7 @@ GNRAssembly* GNRTreeSceneItemData::getAssembly()
 	return m_assembly;
 }
 
-void GNRTreeSceneItemData::setName(wxString name)
+GNRAssembly* GNRTreeSceneItemData::getMaster()
 {
-	m_name = name;
-}
-
-wxString GNRTreeSceneItemData::getName()
-{
-	return m_name;
+	return m_assembly->getMaster();
 }

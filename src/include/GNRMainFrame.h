@@ -65,7 +65,6 @@ private:
 	void OnCloneSelected(wxCommandEvent& WXUNUSED(event));
 	void OnCopySelected(wxCommandEvent& WXUNUSED(event));
 	void OnHideSelected(wxCommandEvent& WXUNUSED(event));
-	void OnShowHidden(wxCommandEvent& WXUNUSED(event));
 	void OnInsertCopy(wxCommandEvent& WXUNUSED(event));
 	void OnCutSelected(wxCommandEvent& WXUNUSED(event));
 	
@@ -87,7 +86,6 @@ private:
 	static const long idMenuCopyObject;
 	static const long idMenuCloneObject;
 	static const long idMenuHideObject;
-	static const long idMenuShowObject;
 	static const long idMenuObjExport;
 	static const long idMenuOaxExport;
 	static const long idMenuOnScreenshot;

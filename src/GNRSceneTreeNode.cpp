@@ -7,6 +7,7 @@
 GNRSceneTreeNode::GNRSceneTreeNode():
 		m_STN_valid(false), m_TI_valid(false)
 {
+	m_itemData = NULL;
 }
 
 /**
@@ -34,8 +35,8 @@ void GNRSceneTreeNode::addTreeNode(GNRSceneTreeNode* node)
 }
 
 /**
- * add a new child AssemblyData to current Node
- * @param   GNRAssemblyData*   Pointer to the new GNRAssemblyData
+ * add a new child GNRTreeSceneItemData to current Node
+ * @param   GNRTreeSceneItemData*   Pointer to the new GNRAssemblyData
  * @access      public
  */
 void GNRSceneTreeNode::addTreeItem(GNRTreeSceneItemData* data)
@@ -70,8 +71,8 @@ GNRSceneTreeNode* GNRSceneTreeNode::getTreeNode()
 }
 
 /**
- * get next SceneTreeNode
- * @return   GNRAssemblyDate*   Pointer to next GNRAssemblyData
+ * get next child ItemData
+ * @return   GNRSceneTreeNode*   Pointer to next GNRSceneTreeNode
  * @access      public
  */
 GNRTreeSceneItemData* GNRSceneTreeNode::getTreeItem()
@@ -112,4 +113,24 @@ void GNRSceneTreeNode::setName(wxString name)
 wxString GNRSceneTreeNode::getName()
 {
 	return m_name;
+}
+
+/**
+ * set ItemData of this Node
+ * @param   GNRTreeSceneItemData*   GNRTreeSceneItemData of this node
+ * @access      public
+ */
+void GNRSceneTreeNode::setOwnTreeItem(GNRTreeSceneItemData* data)
+{
+	m_itemData = data;
+}
+
+/**
+ * get ItemData of this Node
+ * @return  GNRTreeSceneItemData*   GNRTreeSceneItemData of this node
+ * @access      public
+ */
+GNRTreeSceneItemData* GNRSceneTreeNode::getOwnTreeItem()
+{
+	return m_itemData;
 }

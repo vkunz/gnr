@@ -80,8 +80,6 @@ bool GNRApp::OnInit()
 		//initialize whole menus
 		initialSetup();
 		
-#warning "INFO: Who wants some test?"
-		//start tests right here
 #if defined(__ATHOS_DEBUG__)
 		//m_Tests->sizeXsizeLoopsLoadClean(m_Scene,5,20);
 #endif
@@ -267,14 +265,6 @@ void GNRApp::OnGNREvent(GNRNotifyEvent& event)
 	case HIDESELECTED:
 		m_Scene->hideSelectedAssemblies();
 		m_Scene->glRefresh();
-		break;
-	case SHOWHIDDEN:
-//		m_Scene->showAssembly(event.getAssemblyPtr());
-//		m_Scene->glRefresh();
-		break;
-	case UNDOCREATEGROUP:
-//		m_Scene->ungroupOneAssembly(event.getAssemblyPtr());
-//		m_Scene->glRefresh();
 		break;
 	case SETUNDOENABLED:
 		m_MainFrame->setUndoEnabled(event.GetInt());

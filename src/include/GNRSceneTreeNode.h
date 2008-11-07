@@ -11,10 +11,12 @@ public:
 	virtual ~GNRSceneTreeNode();
 	void addTreeNode(GNRSceneTreeNode* node);
 	void addTreeItem(GNRTreeSceneItemData* data);
+	void setOwnTreeItem(GNRTreeSceneItemData* data);
 	void setName(wxString name);
 	
 	GNRSceneTreeNode* getTreeNode();
 	GNRTreeSceneItemData* getTreeItem();
+	GNRTreeSceneItemData* getOwnTreeItem();
 	wxString getName();
 protected:
 private:
@@ -23,6 +25,8 @@ private:
 	
 	std::list<GNRSceneTreeNode*>::iterator m_iterSceneTreeNode;
 	std::list<GNRTreeSceneItemData*>::iterator m_iterTreeItem;
+	
+	GNRTreeSceneItemData* m_itemData;
 	
 	wxString m_name;
 	
