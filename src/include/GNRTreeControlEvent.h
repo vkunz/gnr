@@ -2,7 +2,9 @@
 #define _GNRTREECONTROLEVENT_H_
 
 #include <wx/event.h>
+#include "GNRAssembly.h"
 #include "GNREnum.h"
+
 
 class GNRTreeControlEvent: public wxNotifyEvent
 {
@@ -21,11 +23,16 @@ public:
 	wxString getNewName();
 	void setNewName(wxString name);
 	
+	GNRAssembly* getAssembly();
+	void setAssembly(GNRAssembly* assembly);
+	
 protected:
 private:
 	treeEventType m_eventType;
 	bool m_cat;
 	wxString m_newName;
+	GNRAssembly* m_assembly;
+	
 	DECLARE_DYNAMIC_CLASS(GNRTreeControlEvent);
 };
 

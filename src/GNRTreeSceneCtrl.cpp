@@ -1,6 +1,7 @@
 #include "GNRTreeSceneCtrl.h"
 
 #include <wx/menu.h>
+#include "GNRTreeControlEvent.h"
 
 #if defined(__ATHOS_DEBUG__)
 #include <wx/log.h>
@@ -125,30 +126,54 @@ void GNRTreeSceneCtrl::OnEdit(wxCommandEvent& WXUNUSED(event))
 
 void GNRTreeSceneCtrl::OnVisible(wxCommandEvent& WXUNUSED(event))
 {
-
+	// send event to handle setVisible
+	GNRTreeControlEvent treeEvent(wxEVT_COMMAND_GNR_TREE_CONTROL);
+	treeEvent.setEventType(SCENEVISIBLE);
+	treeEvent.setAssembly(treeItemData->getAssembly());
+	ProcessEvent(treeEvent);
 }
 
 void GNRTreeSceneCtrl::OnHide(wxCommandEvent& WXUNUSED(event))
 {
-
+	// send event to handle setHide
+	GNRTreeControlEvent treeEvent(wxEVT_COMMAND_GNR_TREE_CONTROL);
+	treeEvent.setEventType(SCENEHIDE);
+	treeEvent.setAssembly(treeItemData->getAssembly());
+	ProcessEvent(treeEvent);
 }
 
 void GNRTreeSceneCtrl::OnSelect(wxCommandEvent& WXUNUSED(event))
 {
-
+	// send event to handle select
+	GNRTreeControlEvent treeEvent(wxEVT_COMMAND_GNR_TREE_CONTROL);
+	treeEvent.setEventType(SCENESELECT);
+	treeEvent.setAssembly(treeItemData->getAssembly());
+	ProcessEvent(treeEvent);
 }
 
 void GNRTreeSceneCtrl::OnDeselect(wxCommandEvent& WXUNUSED(event))
 {
-
+	// send event to handle deselect
+	GNRTreeControlEvent treeEvent(wxEVT_COMMAND_GNR_TREE_CONTROL);
+	treeEvent.setEventType(SCENEDESELECT);
+	treeEvent.setAssembly(treeItemData->getAssembly());
+	ProcessEvent(treeEvent);
 }
 
 void GNRTreeSceneCtrl::OnDelete(wxCommandEvent& WXUNUSED(event))
 {
-
+	// send event to handle select
+	GNRTreeControlEvent treeEvent(wxEVT_COMMAND_GNR_TREE_CONTROL);
+	treeEvent.setEventType(SCENEDELETE);
+	treeEvent.setAssembly(treeItemData->getAssembly());
+	ProcessEvent(treeEvent);
 }
 
 void GNRTreeSceneCtrl::OnUndelete(wxCommandEvent& WXUNUSED(event))
 {
-
+	// send event to handle select
+	GNRTreeControlEvent treeEvent(wxEVT_COMMAND_GNR_TREE_CONTROL);
+	treeEvent.setEventType(SCENEUNDELETE);
+	treeEvent.setAssembly(treeItemData->getAssembly());
+	ProcessEvent(treeEvent);
 }

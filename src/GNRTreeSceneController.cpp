@@ -91,6 +91,9 @@ void GNRTreeSceneController::updateTree(GNRSceneTreeNode* tree)
 	wxTreeItemIdValue cookie;
 	m_treeCtrl->Expand(m_treeCtrl->GetFirstChild(rootID, cookie));
 	
+	// sort children of scene
+	m_treeCtrl->SortChildren(m_treeCtrl->GetFirstChild(rootID, cookie));
+	
 	// delete given internal tree
 	delete tree;
 }

@@ -337,6 +337,24 @@ void GNRApp::OnGNRTreeEvent(GNRTreeControlEvent& event)
 			m_TreeLibCtrl->renameEntry(event.GetString(), event.getNewName());
 		}
 		break;
+	case SCENEVISIBLE:
+		m_Scene->showAssembly(event.getAssembly());
+		break;
+	case SCENEHIDE:
+		m_Scene->hideAssembly(event.getAssembly());
+		break;
+	case SCENESELECT:
+		m_Scene->selectAssembly(event.getAssembly());
+		break;
+	case SCENEDESELECT:
+		m_Scene->selectAssembly(event.getAssembly());
+		break;
+	case SCENEDELETE:
+		m_Scene->deleteAssembly(event.getAssembly());
+		break;
+	case SCENEUNDELETE:
+		m_Scene->restoreAssembly(event.getAssembly());
+		break;
 	}
 }
 

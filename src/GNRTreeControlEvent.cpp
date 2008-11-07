@@ -49,3 +49,13 @@ void GNRTreeControlEvent::setNewName(wxString name)
 {
 	m_newName = name;
 }
+
+GNRAssembly* GNRTreeControlEvent::getAssembly()
+{
+	return m_assembly;
+}
+
+void GNRTreeControlEvent::setAssembly(GNRAssembly* assembly)
+{
+	m_assembly = assembly;
+}
