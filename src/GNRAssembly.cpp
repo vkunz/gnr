@@ -1022,7 +1022,8 @@ void GNRAssembly::setNormals()
 
 void GNRAssembly::setChildMaterial(const GNRAssembly* child, const GNRMaterial& mat)
 {
-	m_child_mat.insert(pair<const GNRAssembly*, GNRMaterial>(child, mat));
+	m_child_mat[child] = mat;
+	//m_child_mat.insert(pair<const GNRAssembly*, GNRMaterial>(child, mat));
 }
 
 void GNRAssembly::setChildDisplayList(const GNRAssembly* child, const GLuint& dl)

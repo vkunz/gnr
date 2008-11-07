@@ -259,10 +259,10 @@ void GNRObjectImport::getO()
 
 void GNRObjectImport::addAtomic(string name)
 {
-	m_act = new GNRAssembly(IS_ATOMIC,wxT("dummy"));
+	m_act = new GNRAssembly(IS_ATOMIC,wxT("part"));
 	m_act->setName(name);
 	m_wrapper->addPart(m_act);
-	//m_wrapper->setChildMaterial(m_act, mtllib.getMaterial(m_matname));
+	m_wrapper->setChildMaterial(m_act, mtllib.getMaterial(m_matname));
 }
 
 void GNRObjectImport::minmax(float& min, float& max, float value)
