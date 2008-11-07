@@ -308,7 +308,7 @@ void GNRApp::OnGNRTreeEvent(GNRTreeControlEvent& event)
 {
 	switch (event.getEventType())
 	{
-	case TREEDELETE:
+	case LIBRARYDELETE:
 		if (event.getCat())
 		{
 			m_TreeLibCtrl->deleteCategory(event.GetString());
@@ -318,16 +318,16 @@ void GNRApp::OnGNRTreeEvent(GNRTreeControlEvent& event)
 			m_TreeLibCtrl->deleteEntry(event.GetString());
 		}
 		break;
-	case TREEPASTE:
+	case LIBRARYPASTE:
 	
 		break;
-	case TREEEXPORT:
+	case LIBRARYEXPORT:
 	
 		break;
-	case TREENEWCAT:
+	case LIBRARYNEWCAT:
 		m_TreeLibCtrl->addCategory(event.GetString(), event.getNewName());
 		break;
-	case TREERENAME:
+	case LIBRARYRENAME:
 		if (event.getCat())
 		{
 			m_TreeLibCtrl->renameCategory(event.GetString(), event.getNewName());

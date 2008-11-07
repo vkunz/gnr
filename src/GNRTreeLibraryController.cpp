@@ -212,22 +212,22 @@ unsigned int GNRTreeLibraryController::addCategory(wxString& name)
 
 void GNRTreeLibraryController::deleteCategory(wxString name)
 {
-	wxLogDebug(wxT("deleteCat"));
+	//wxLogDebug(wxT("deleteCat"));
 }
 
 void GNRTreeLibraryController::deleteEntry(wxString name)
 {
-	wxLogDebug(wxT("deleteEnt"));
+	//wxLogDebug(wxT("deleteEnt"));
 }
 
 void GNRTreeLibraryController::renameCategory(wxString name, wxString newName)
 {
-	wxLogDebug(wxT("renameCat"));
+	//wxLogDebug(wxT("renameCat"));
 }
 
 void GNRTreeLibraryController::renameEntry(wxString name, wxString newName)
 {
-	wxLogDebug(wxT("renameEnt"));
+	//wxLogDebug(wxT("renameEnt"));
 }
 
 void GNRTreeLibraryController::addCategory(wxString parentName, wxString catName)

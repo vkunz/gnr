@@ -2,6 +2,7 @@
 #define _GNRTREECONTROLEVENT_H_
 
 #include <wx/event.h>
+#include "GNREnum.h"
 
 class GNRTreeControlEvent: public wxNotifyEvent
 {
@@ -11,8 +12,8 @@ public:
 	virtual wxEvent* Clone() const;
 	virtual ~GNRTreeControlEvent();
 	
-	int getEventType();
-	void setEventType(int type);
+	treeEventType getEventType();
+	void setEventType(treeEventType type);
 	
 	bool getCat();
 	void setCat(bool cat);
@@ -22,7 +23,7 @@ public:
 	
 protected:
 private:
-	int m_eventType;
+	treeEventType m_eventType;
 	bool m_cat;
 	wxString m_newName;
 	DECLARE_DYNAMIC_CLASS(GNRTreeControlEvent);

@@ -89,7 +89,7 @@ void GNRTreeLibraryCtrl::OnRename(wxTreeEvent& event)
 	GNRTreeControlEvent gnr(wxEVT_COMMAND_GNR_TREE_CONTROL);
 	
 	// set event type
-	gnr.setEventType(TREERENAME);
+	gnr.setEventType(LIBRARYRENAME);
 	
 	m_currentTreeID = event.GetItem();
 	
@@ -112,7 +112,7 @@ void GNRTreeLibraryCtrl::OnDelete(wxTreeEvent& event)
 	GNRTreeControlEvent gnr(wxEVT_COMMAND_GNR_TREE_CONTROL);
 	
 	// set event type
-	gnr.setEventType(TREEDELETE);
+	gnr.setEventType(LIBRARYDELETE);
 	
 	// set name
 	GNRTreeLibraryItemData* item = (GNRTreeLibraryItemData*)GetItemData(m_currentTreeID);
@@ -139,7 +139,7 @@ void GNRTreeLibraryCtrl::OnNewCategory(wxTreeEvent& event)
 	GNRTreeControlEvent gnr(wxEVT_COMMAND_GNR_TREE_CONTROL);
 	
 	// set event type
-	gnr.setEventType(TREENEWCAT);
+	gnr.setEventType(LIBRARYNEWCAT);
 	
 	// set name
 	GNRTreeLibraryItemData* item = (GNRTreeLibraryItemData*)GetItemData(m_currentTreeID);
@@ -158,7 +158,7 @@ void GNRTreeLibraryCtrl::OnPaste(wxTreeEvent& event)
 	GNRTreeControlEvent gnr(wxEVT_COMMAND_GNR_TREE_CONTROL);
 	
 	// set event type
-	gnr.setEventType(TREEPASTE);
+	gnr.setEventType(LIBRARYPASTE);
 	
 	// set name
 	GNRTreeLibraryItemData* item = (GNRTreeLibraryItemData*)GetItemData(m_currentTreeID);
@@ -174,7 +174,7 @@ void GNRTreeLibraryCtrl::OnExport(wxTreeEvent& event)
 	GNRTreeControlEvent gnr(wxEVT_COMMAND_GNR_TREE_CONTROL);
 	
 	// set event type
-	gnr.setEventType(TREEEXPORT);
+	gnr.setEventType(LIBRARYEXPORT);
 	
 	// set name
 	GNRTreeLibraryItemData* item = (GNRTreeLibraryItemData*)GetItemData(m_currentTreeID);

@@ -20,12 +20,12 @@ GNRTreeControlEvent::~GNRTreeControlEvent()
 	//dtor
 }
 
-int GNRTreeControlEvent::getEventType()
+treeEventType GNRTreeControlEvent::getEventType()
 {
 	return m_eventType;
 }
 
-void GNRTreeControlEvent::setEventType(int type)
+void GNRTreeControlEvent::setEventType(treeEventType type)
 {
 	m_eventType = type;
 }
