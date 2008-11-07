@@ -380,6 +380,7 @@ void GNRGLCanvas::prepareDraw()
 
 void GNRGLCanvas::endDraw()
 {
+	glFlush();
 	SwapBuffers();
 }
 

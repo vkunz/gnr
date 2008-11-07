@@ -94,6 +94,7 @@ public:
 	void copySelectedAssemblies();
 	void insertCopiedAssemblies();
 	void cutSelectedAssemblies();
+	void deleteTrashAssemblies();
 	
 	void showAssembly(GNRAssembly* assembly);
 	void hideAssembly(GNRAssembly* assembly);

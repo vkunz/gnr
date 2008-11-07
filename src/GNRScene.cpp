@@ -333,6 +333,24 @@ void GNRScene::deleteSelectedAssemblies()
 }
 
 /**
+ * empty trash bin
+ * @access      public
+ */
+void GNRScene::deleteTrashAssemblies()
+{
+#warning "has to check for clones and originals! quick done so far!"
+	//delete trash and create new one
+	delete m_Trash;
+	
+	m_Trash = new GNRAssembly(IS_TRASH, wxT("trash"));
+	
+	// send event to refresh Scene-Tree
+	GNRNotifyEvent gnrevent(wxEVT_COMMAND_GNR_NOTIFY);
+	gnrevent.setGNREventType(REFRESHSCENETREE);
+	ProcessEvent(gnrevent);
+}
+
+/**
  * delete a given assembly (move to trash container)
  * @access      public
  */

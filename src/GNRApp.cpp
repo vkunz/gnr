@@ -292,8 +292,7 @@ void GNRApp::OnGNREvent(GNRNotifyEvent& event)
 		break;
 	}
 	case EMPTYTRASH:
-#warning "PAAAAATTTTRRRRIIICCKKKK i need emptytrash()"
-		wxLogDebug(wxT("emptytrash"));
+		m_Scene->deleteTrashAssemblies();
 		break;
 	}
 }
