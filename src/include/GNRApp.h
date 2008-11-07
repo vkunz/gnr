@@ -28,7 +28,9 @@
 #include "GNRNotifyEvent.h"
 #include "GNRScene.h"
 #include "GNRTests.h"
+#include "GNRTreeControlEvent.h"
 #include "GNRTreeLibraryController.h"
+#include "GNRTreeLibraryCtrl.h"
 #include "GNRTreeSceneController.h"
 #include "GNRTreePanelLibrary.h"
 #include "GNRTreePanelMyScene.h"
@@ -46,6 +48,7 @@ private:
 
 	//eventhandler
 	void OnGNREvent(GNRNotifyEvent& event);
+	void OnGNRTreeEvent(GNRTreeControlEvent& event);
 	void OnGLEvent(GNRGLNotifyEvent& event);
 	void OnLineDrawEvent(GNRLineDrawEvent& event);
 	void OnCreatePrimitiveEvent(GNRCreatePrimitiveEvent& event);
@@ -73,7 +76,7 @@ private:
 	
 	//attributes
 	//treectrl
-	wxTreeCtrl* m_TreeCtrlLib;
+	GNRTreeLibraryCtrl* m_TreeCtrlLib;
 	GNRTreeSceneCtrl* m_TreeCtrlScene;
 	
 	//manges the treectrl

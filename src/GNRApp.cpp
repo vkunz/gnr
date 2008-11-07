@@ -21,6 +21,7 @@
 #include "GNROpxExport.h"
 #include "GNROpxImport.h"
 #include "GNRObjOaxConverter.h"
+#include "GNRTreeControlEvent.h"
 
 #if defined(__ATHOS_DEBUG__)
 #include <wx/log.h>
@@ -33,9 +34,10 @@ GNRMaterialLibrary mtllib;
 
 
 BEGIN_EVENT_TABLE(GNRApp, wxApp)
-	EVT_GNR_NOTIFY(0, GNRApp::OnGNREvent)   //global event for redraw...
-	EVT_GL_NOTIFY(0, GNRApp::OnGLEvent)     //event for mouse and move in GL...
-	EVT_GNR_LINE_DRAW(0, GNRApp::OnLineDrawEvent)     //event to draw a line in gl
+	EVT_GNR_TREE_CONTROL(0, GNRApp::OnGNRTreeEvent)                                 // tree events
+	EVT_GNR_NOTIFY(0, GNRApp::OnGNREvent)                           //global event for redraw...
+	EVT_GL_NOTIFY(0, GNRApp::OnGLEvent)                             //event for mouse and move in GL...
+	EVT_GNR_LINE_DRAW(0, GNRApp::OnLineDrawEvent)                   //event to draw a line in gl
 	EVT_GNR_CREATE_PRIMITIVE(0, GNRApp::OnCreatePrimitiveEvent)     //event to draw a line in gl
 END_EVENT_TABLE()
 
@@ -108,7 +110,6 @@ void GNRApp::initFrames()
 	m_HorizontalSplitter_right = new wxSplitterWindow(m_VerticalSplitter, -1, wxPoint(0,0), wxDefaultSize, wxSP_3D|wxSP_NO_XP_THEME|wxSP_LIVE_UPDATE);
 	m_HorizontalSplitter_right->SetMinimumPaneSize(100);
 	
-	
 	//show mainframe
 	m_MainFrame->Show(true);
 	
@@ -117,7 +118,7 @@ void GNRApp::initFrames()
 	m_TreePanelMyScene = new GNRTreePanelMyScene(m_HorizontalSplitter_left, wxID_ANY);
 	
 	//create TreeCntr
-	m_TreeCtrlLib = new wxTreeCtrl(m_TreePanelLibrary, wxID_ANY, wxPoint(0, 0), m_TreePanelLibrary->GetSize(), wxTR_DEFAULT_STYLE, wxDefaultValidator, wxT("TreePanelLibrary"));
+	m_TreeCtrlLib = new GNRTreeLibraryCtrl(m_TreePanelLibrary, wxID_ANY);
 	m_TreeCtrlScene = new GNRTreeSceneCtrl(m_TreePanelMyScene, wxNewId(), wxPoint(0, 0), m_TreePanelMyScene->GetSize(), wxTR_DEFAULT_STYLE, wxDefaultValidator, wxT("TreePanelMyScene"));
 	
 	//create two canvas panels
@@ -299,6 +300,42 @@ void GNRApp::OnGNREvent(GNRNotifyEvent& event)
 	case REFRESHSCENETREE:
 		GNRSceneTreeNode* tree = m_Scene->createSceneTree();
 		m_TreeSceneCtrl->updateTree(tree);
+		break;
+	}
+}
+
+void GNRApp::OnGNRTreeEvent(GNRTreeControlEvent& event)
+{
+	switch (event.getEventType())
+	{
+	case TREEDELETE:
+		if (event.getCat())
+		{
+			m_TreeLibCtrl->deleteCategory(event.GetString());
+		}
+		else
+		{
+			m_TreeLibCtrl->deleteEntry(event.GetString());
+		}
+		break;
+	case TREEPASTE:
+	
+		break;
+	case TREEEXPORT:
+	
+		break;
+	case TREENEWCAT:
+		m_TreeLibCtrl->addCategory(event.GetString(), event.getNewName());
+		break;
+	case TREERENAME:
+		if (event.getCat())
+		{
+			m_TreeLibCtrl->renameCategory(event.GetString(), event.getNewName());
+		}
+		else
+		{
+			m_TreeLibCtrl->renameEntry(event.GetString(), event.getNewName());
+		}
 		break;
 	}
 }

@@ -148,6 +148,8 @@
 		<Unit filename="src\GNRTests.cpp" />
 		<Unit filename="src\GNRTreeControlEvent.cpp" />
 		<Unit filename="src\GNRTreeLibraryController.cpp" />
+		<Unit filename="src\GNRTreeLibraryCtrl.cpp" />
+		<Unit filename="src\GNRTreeLibraryItemData.cpp" />
 		<Unit filename="src\GNRTreePanelLibrary.cpp" />
 		<Unit filename="src\GNRTreePanelMyScene.cpp" />
 		<Unit filename="src\GNRTreeSceneController.cpp" />
@@ -211,6 +213,8 @@
 		<Unit filename="src\include\GNRTests.h" />
 		<Unit filename="src\include\GNRTreeControlEvent.h" />
 		<Unit filename="src\include\GNRTreeLibraryController.h" />
+		<Unit filename="src\include\GNRTreeLibraryCtrl.h" />
+		<Unit filename="src\include\GNRTreeLibraryItemData.h" />
 		<Unit filename="src\include\GNRTreePanelLibrary.h" />
 		<Unit filename="src\include\GNRTreePanelMyScene.h" />
 		<Unit filename="src\include\GNRTreeSceneController.h" />

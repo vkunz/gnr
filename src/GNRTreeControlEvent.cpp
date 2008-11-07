@@ -19,3 +19,33 @@ GNRTreeControlEvent::~GNRTreeControlEvent()
 {
 	//dtor
 }
+
+int GNRTreeControlEvent::getEventType()
+{
+	return m_eventType;
+}
+
+void GNRTreeControlEvent::setEventType(int type)
+{
+	m_eventType = type;
+}
+
+bool GNRTreeControlEvent::getCat()
+{
+	return m_cat;
+}
+
+void GNRTreeControlEvent::setCat(bool cat)
+{
+	m_cat = cat;
+}
+
+wxString GNRTreeControlEvent::getNewName()
+{
+	return m_newName;
+}
+
+void GNRTreeControlEvent::setNewName(wxString name)
+{
+	m_newName = name;
+}

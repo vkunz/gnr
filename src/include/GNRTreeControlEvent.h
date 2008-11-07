@@ -10,8 +10,21 @@ public:
 	GNRTreeControlEvent(const GNRTreeControlEvent& event);
 	virtual wxEvent* Clone() const;
 	virtual ~GNRTreeControlEvent();
+	
+	int getEventType();
+	void setEventType(int type);
+	
+	bool getCat();
+	void setCat(bool cat);
+	
+	wxString getNewName();
+	void setNewName(wxString name);
+	
 protected:
 private:
+	int m_eventType;
+	bool m_cat;
+	wxString m_newName;
 	DECLARE_DYNAMIC_CLASS(GNRTreeControlEvent);
 };
 

@@ -13,13 +13,13 @@
 
 #include <map>
 #include <vector>
-#include <wx/treectrl.h>
 #include <wx/wfstream.h>
 #include <wx/zipstrm.h>
 
 #include "GNRLibrary.h"
 #include "GNRLibraryCategory.h"
 #include "GNRLibraryEntry.h"
+#include "GNRTreeLibraryCtrl.h"
 
 /**
  * @class GNRTreeLibraryController
@@ -37,7 +37,7 @@ public:
 	};
 	
 	// ctor
-	GNRTreeLibraryController(wxTreeCtrl* treectrl);
+	GNRTreeLibraryController(GNRTreeLibraryCtrl* treectrl);
 	
 	// dtor
 	virtual ~GNRTreeLibraryController();
@@ -47,6 +47,22 @@ public:
 	
 	// adds a new entry from import
 	void addEntry(wxString& name, wxString& categoryname, wxInputStream& instream);
+	
+	// delete a category
+	void deleteCategory(wxString name);
+	
+	// delete an entry
+	void deleteEntry(wxString name);
+	
+	// delete a category
+	void renameCategory(wxString name, wxString newName);
+	
+	// rename an entry
+	void renameEntry(wxString name, wxString newName);
+	
+	// add new category
+	void addCategory(wxString parentName, wxString newName);
+	
 protected:
 
 private:

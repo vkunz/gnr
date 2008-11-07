@@ -20,6 +20,7 @@
 #include <wx/xml/xml.h>
 
 #include "GNRTreeLibraryController.h"
+#include "GNRTreeLibraryItemData.h"
 #include "md5.h"
 
 #include "resources/icon_library_folder.xpm"
@@ -34,7 +35,7 @@
  * Constructor.
  * @param       wxTreeCtrl*     Assigns pointer to wxTreeCtrl.
  */
-GNRTreeLibraryController::GNRTreeLibraryController(wxTreeCtrl* treectrl)
+GNRTreeLibraryController::GNRTreeLibraryController(GNRTreeLibraryCtrl* treectrl)
 {
 	// store Pointer to TreeCtrl
 	m_treeCtrl = treectrl;
@@ -209,6 +210,31 @@ unsigned int GNRTreeLibraryController::addCategory(wxString& name)
 	return ret;
 }
 
+void GNRTreeLibraryController::deleteCategory(wxString name)
+{
+	wxLogDebug(wxT("deleteCat"));
+}
+
+void GNRTreeLibraryController::deleteEntry(wxString name)
+{
+	wxLogDebug(wxT("deleteEnt"));
+}
+
+void GNRTreeLibraryController::renameCategory(wxString name, wxString newName)
+{
+	wxLogDebug(wxT("renameCat"));
+}
+
+void GNRTreeLibraryController::renameEntry(wxString name, wxString newName)
+{
+	wxLogDebug(wxT("renameEnt"));
+}
+
+void GNRTreeLibraryController::addCategory(wxString parentName, wxString catName)
+{
+
+}
+
 void GNRTreeLibraryController::createImageList(int size)
 {
 	// Make an image list containing small icons
@@ -278,8 +304,15 @@ void GNRTreeLibraryController::buildTreeCtrl()
 	// walk through all groups and append to tree control
 	for (catit = m_ptrCategories->begin(); catit != m_ptrCategories->end(); catit++)
 	{
+		// new itemdata
+		GNRTreeLibraryItemData* itemData = new GNRTreeLibraryItemData();
+		
+		// set category
+		itemData->setCat(true);
+		itemData->setName(catit->getName());
+		
 		// append to treectrl
-		tiid = m_treeCtrl->AppendItem(groups[catit->getParentId()], catit->getName());
+		tiid = m_treeCtrl->AppendItem(groups[catit->getParentId()], catit->getName(), -1, -1, itemData);
 		
 		// set image
 		m_treeCtrl->SetItemImage(tiid, (int)TreeCtrlIcon_Folder);
@@ -291,8 +324,15 @@ void GNRTreeLibraryController::buildTreeCtrl()
 	// walk through all entrys and append to tree control
 	for (entit = m_ptrEntries->begin(); entit != m_ptrEntries->end(); entit++)
 	{
+		// new itemdata
+		GNRTreeLibraryItemData* itemData = new GNRTreeLibraryItemData();
+		
+		// set category
+		itemData->setCat(false);
+		itemData->setName(entit->getName());
+		
 		// append to treectrl
-		tiid = m_treeCtrl->AppendItem(groups[entit->getCategoryId()], entit->getName());
+		tiid = m_treeCtrl->AppendItem(groups[entit->getCategoryId()], entit->getName(), -1, -1, itemData);
 		
 		// set image
 		m_treeCtrl->SetItemImage(tiid, (int)TreeCtrlIcon_Assembly);
