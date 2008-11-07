@@ -45,11 +45,11 @@ private:
 	void InitLights();
 	
 	void OnLMouseDown(wxMouseEvent& event);
-	void OnLMouseUp(wxMouseEvent& event);
 	void OnMouseMove(wxMouseEvent& event);
 	void OnPaint(wxPaintEvent& event);
-	void OnSize(wxSizeEvent& event);
-	void OnLeaveWindow(wxMouseEvent& event);
+	void OnLMouseUp(wxMouseEvent& WXUNUSED(event));
+	void OnSize(wxSizeEvent& WXUNUSED(event));
+	void OnLeaveWindow(wxMouseEvent& WXUNUSED(event));
 	
 	DECLARE_EVENT_TABLE()
 };

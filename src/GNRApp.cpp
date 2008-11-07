@@ -27,12 +27,6 @@
 #include <wx/log.h>
 #endif
 
-#include "GNRMaterialLibrary.h"
-GNRMaterialLibrary mtllib;
-#warning "INFO: Has to be organized somewhere else?"
-//!!quick && dirty!!
-
-
 BEGIN_EVENT_TABLE(GNRApp, wxApp)
 	EVT_GNR_TREE_CONTROL(0, GNRApp::OnGNRTreeEvent)                                 // tree events
 	EVT_GNR_NOTIFY(0, GNRApp::OnGNREvent)                           //global event for redraw...
@@ -428,11 +422,8 @@ void GNRApp::OnCreatePrimitiveEvent(GNRCreatePrimitiveEvent& event)
 		GNRVertex origin(0.0,0.0,0.0);
 		GNRAssembly* atomic;
 		
+		//get creator instance
 		GNRPrimitiveCreator creator;
-		
-		//create smallest part of primitive
-		atomic = creator.createCuboid(origin, origin, event.getDimensions());
-		atomic->setType(IS_ATOMIC);
 		
 		//create new parent assembly (group of primitives)
 		GNRAssembly* primitive = new GNRAssembly(wxT("wallcube"));
@@ -445,10 +436,16 @@ void GNRApp::OnCreatePrimitiveEvent(GNRCreatePrimitiveEvent& event)
 		primitive->setHeight(event.getDimensions().getY());
 		primitive->setDepth(event.getDimensions().getZ());
 		
-		//tell the parent what color his child has got
-		primitive->setChildMaterial(atomic, mtllib.getMaterial(DEFAULT_IMPORT_COLOR));
+		//create smallest part of primitive
+		creator.createCuboid(origin, origin, event.getDimensions());
 		
-		//insert cuboid in parent
+		//set color to default
+		creator.setMaterial(primitive, DEFAULT_IMPORT_COLOR);
+		
+		//get the primitive
+		atomic = creator.getPrimitive();
+		
+		//insert 'small' cuboid in parent
 		primitive->addPart(atomic);
 		
 		//put whole in the world

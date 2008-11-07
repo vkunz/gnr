@@ -18,6 +18,7 @@
 #include "GNRAssembly.h"
 #include "GNRImportFile.h"
 #include "GNRVertex.h"
+#include "GNRMaterialLibrary.h"
 
 #include <string>
 #include <fstream>
@@ -54,6 +55,10 @@ public:
 	GNRAssembly* getWrapper();
 	
 private:
+
+	//access to default values
+	GNRMaterialLibrary m_matlib;
+	
 	// attributes
 	// set if load from filesystem, else load as wxinputstream
 	bool m_AsString;

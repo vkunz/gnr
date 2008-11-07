@@ -102,24 +102,6 @@ GNRAssembly::GNRAssembly(GNRAssembly& assembly)
 }
 
 /**
- * clone only display lists
- * @return      GNRAssembly*         pointer to assembly
- * @access      public
- */
-GNRAssembly* GNRAssembly::cloneDisplayListFrom(GNRAssembly* assembly)
-{
-	//copy display list ids
-	m_dl_object = assembly->m_dl_object;
-	m_dl_shadow = assembly->m_dl_shadow;
-	
-	//point to origin (faces backup)
-	m_origin = assembly;
-	
-	//free memory
-	m_face.clear();
-}
-
-/**
  * clone of generic assembly
  * @return      GNRAssembly*         pointer to assembly
  * @access      public
@@ -247,6 +229,15 @@ GNRAssembly::~GNRAssembly()
 bool GNRAssembly::isVisible() const
 {
 	return m_visible;
+}
+
+/**
+ * ask is he's a clone or not
+ * @access      public
+ */
+bool GNRAssembly::isOriginal() const
+{
+	return (m_origin == NULL);
 }
 
 /**
@@ -484,6 +475,26 @@ GNRAssembly* GNRAssembly::getMaster() const
 	
 	//return master pointer
 	return master;
+}
+
+/**
+ * get master id of current assembly
+ * @return      bool         if is in selected group
+ * @access      public
+ */
+bool GNRAssembly::isSelected() const
+{
+	GNRAssembly* parent = m_parent;
+	
+	//while parent exists and type is not ROOT,
+	// move upwards and head for selected container
+	while (parent->m_parent != NULL && parent->m_parent->m_type != IS_SELECTED)
+	{
+		parent = parent->m_parent;
+	}
+	
+	//return true, if parent type = selected
+	return (parent->m_parent != NULL && parent->m_parent->m_type == IS_SELECTED);
 }
 
 /**
@@ -867,7 +878,6 @@ void GNRAssembly::setName(const wxString& name)
  */
 void GNRAssembly::setName(const string& name)
 {
-#warning "INFO: Really ugly converting string > wxString"
 	wxString new_name(name.c_str(), wxConvUTF8);
 	m_name = new_name;
 }
@@ -1023,7 +1033,6 @@ void GNRAssembly::setNormals()
 void GNRAssembly::setChildMaterial(const GNRAssembly* child, const GNRMaterial& mat)
 {
 	m_child_mat[child] = mat;
-	//m_child_mat.insert(pair<const GNRAssembly*, GNRMaterial>(child, mat));
 }
 
 void GNRAssembly::setChildDisplayList(const GNRAssembly* child, const GLuint& dl)
@@ -1136,6 +1145,40 @@ void GNRAssembly::draw()
 		}
 	}
 	glPopMatrix();
+}
+
+/**
+ * find clone of origin and return true if found
+ * @access      public
+ */
+bool GNRAssembly::findCloneOf(const GNRAssembly* origin) const
+{
+	//search for the clone of origin
+	for (list<GNRAssembly*>::const_iterator it = m_part.begin(); it != m_part.end(); ++it)
+	{
+		if (origin == (*it)->getOrigin())
+		{
+			return true;
+		}
+	}
+	return false;
+}
+
+/**
+ * find hash string and return true if found
+ * @access      public
+ */
+bool GNRAssembly::findHash(const wxString& hash) const
+{
+	//search for the same hash and return
+	for (list<GNRAssembly*>::const_iterator it = m_part.begin(); it != m_part.end(); ++it)
+	{
+		if (hash == (*it)->getHash())
+		{
+			return true;
+		}
+	}
+	return false;
 }
 
 /**

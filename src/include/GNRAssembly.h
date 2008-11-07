@@ -41,6 +41,10 @@ public:
 	
 	virtual ~GNRAssembly();
 	
+	bool findCloneOf(const GNRAssembly* origin) const;
+	bool findHash(const wxString& hash) const;
+	bool isOriginal() const;
+	bool isSelected() const;
 	bool isVisible() const;
 	float getX() const;
 	float getY() const;
@@ -124,7 +128,6 @@ public:
 	void setHash(const wxString& hash);
 	
 	GNRAssembly* clone();
-	GNRAssembly* cloneDisplayListFrom(GNRAssembly* assembly);
 	GNRAssembly* getOrigin() const;
 	GNRAssembly* getParent() const;
 	GNRAssembly* getMaster() const;

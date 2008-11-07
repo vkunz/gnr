@@ -38,6 +38,7 @@ extern GNRMaterialLibrary mtllib;
 // ctor
 GNRObjectImport::GNRObjectImport()
 {
+	GNRMaterialLibrary m_matlib = GNRMaterialLibrary();
 }
 
 GNRObjectImport::GNRObjectImport(wxString filename)
@@ -262,7 +263,7 @@ void GNRObjectImport::addAtomic(string name)
 	m_act = new GNRAssembly(IS_ATOMIC,wxT("part"));
 	m_act->setName(name);
 	m_wrapper->addPart(m_act);
-	m_wrapper->setChildMaterial(m_act, mtllib.getMaterial(m_matname));
+	m_wrapper->setChildMaterial(m_act, m_matlib.getMaterial(m_matname));
 }
 
 void GNRObjectImport::minmax(float& min, float& max, float value)
@@ -369,5 +370,5 @@ void GNRObjectImport::getU()
 {
 	stringstream ss(m_buf.substr(6, string::npos));
 	ss >> m_matname;
-	m_wrapper->setChildMaterial(m_act, mtllib.getMaterial(m_matname));
+	m_wrapper->setChildMaterial(m_act, m_matlib.getMaterial(m_matname));
 }

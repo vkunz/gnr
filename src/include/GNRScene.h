@@ -34,6 +34,7 @@ private:
 	GNRAssembly*    m_Selected;
 	GNRAssembly*    m_Trash;
 	GNRAssembly*    m_Duplicator;
+	GNRAssembly*    m_Originals;
 	
 	//both cameras
 	GNRGLCamera*    m_GLCamera2D;

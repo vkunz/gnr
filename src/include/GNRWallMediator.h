@@ -24,8 +24,8 @@ public:
 	virtual ~GNRWallMediator();
 	void initialize(GNRGLNotifyEvent& event);
 	int  translate(GNRGLNotifyEvent& event);
-	void setAssembly(GNRAssembly* assembly) {};
-	void setGLCamera(GNRGLCamera* camera) {};
+	void setAssembly(GNRAssembly* WXUNUSED(assembly)) {};
+	void setGLCamera(GNRGLCamera* WXUNUSED(camera)) {};
 	void finalize();
 protected:
 private:

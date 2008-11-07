@@ -204,8 +204,8 @@ GNRMainFrame::GNRMainFrame(wxWindow* parent, wxWindowID WXUNUSED(id))
 	//create main frame and set size
 	Create(parent, wxID_ANY, title, wxDefaultPosition, wxDefaultSize, wxDEFAULT_FRAME_STYLE, _T("wxID_ANY"));
 	Move(wxPoint(0,0));
-	SetClientSize(wxSize(width,height-19));
-	SetMinSize(wxSize(width+8,height+8));
+	SetClientSize(wxSize(width-8,height-27));
+	SetMinSize(wxSize(width,height));
 	SetFocus();
 	SetIcon(wxICON(GNR_ICON));
 	

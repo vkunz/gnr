@@ -137,6 +137,7 @@ void GNRScene::initContainers()
 	
 	m_Trash         = new GNRAssembly(IS_TRASH,       wxT("trash"));
 	m_Duplicator    = new GNRAssembly(IS_DUPLICATOR,  wxT("duplicator"));
+	m_Originals     = new GNRAssembly(IS_ORIGINAL,    wxT("originals"));
 }
 
 /**
@@ -155,6 +156,7 @@ void GNRScene::destroyContainers()
 	//kill all temp containers
 	delete m_Trash;
 	delete m_Duplicator;
+	delete m_Originals;
 }
 
 /**
@@ -352,7 +354,20 @@ void GNRScene::resetSelectedAssemblies()
  */
 void GNRScene::deleteTrashAssemblies()
 {
-#warning "has to check for clones and originals! quick done so far!"
+	list<GNRAssembly*> trash = m_Trash->getPartList();
+	
+	for (list<GNRAssembly*>::iterator it = trash.begin(); it != trash.end(); ++it)
+	{
+		//it is an original and there are some clones in the scene
+		if ((*it)->getOrigin() == NULL && m_RootAssembly->findCloneOf((*it)))
+		{
+			//save original, will be killed in
+			// destructor or on new room
+			m_Originals->addPart((*it));
+			m_Trash->delPart((*it));
+		}
+	}
+	
 	//delete trash and create new one
 	delete m_Trash;
 	
@@ -402,7 +417,7 @@ void GNRScene::cloneSelectedAssemblies()
 		//copy clone in selected
 		m_Selected->addPart(a_copy);
 		//move assembly one width right
-		a_copy->move(GNRVertex(a_copy->getWidthMeters()+0.5,0.0,0.0));
+		a_copy->move(GNRVertex(a_copy->getWidthMeters(),0.0,0.0));
 	}
 	
 	// send event to refresh Scene-Tree

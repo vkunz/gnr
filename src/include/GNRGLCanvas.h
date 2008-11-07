@@ -23,7 +23,7 @@ private:
 	void OnMMouseDown(wxMouseEvent& event);
 	void OnMMouseUp(wxMouseEvent& event);
 	void OnRMouseDown(wxMouseEvent& event);
-	void OnRMouseUp(wxMouseEvent& event);
+	void OnRMouseUp(wxMouseEvent& WXUNUSED(event));
 	void OnLMouseDown(wxMouseEvent& event);
 	void OnLMouseUp(wxMouseEvent& event);
 	void OnMouseMove(wxMouseEvent& event);

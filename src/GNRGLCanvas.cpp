@@ -18,7 +18,6 @@
 #include "GNRGLCanvas.h"
 #include "GNRNotifyEvent.h"
 #include "GNRGLNotifyEvent.h"
-#include "GNRMaterialLibrary.h"
 #include "GNRGlobalDefine.h"
 
 #include "resources/grid_24bit_rgb.xpm"
@@ -30,8 +29,6 @@
 BEGIN_EVENT_TABLE(GNRGLCanvas, wxGLCanvas)
 	EVT_KEY_DOWN(GNRGLCanvas::OnKeyDown)
 END_EVENT_TABLE()
-
-extern GNRMaterialLibrary mtllib;
 
 //static display list for floor
 GLuint GNRGLCanvas::m_floor_DL;
@@ -626,7 +623,7 @@ void GNRGLCanvas::OnRMouseDown(wxMouseEvent& event)
  * @param       wxMouseEvent    Mouse-Event of current canvas
  * @access      private
  */
-void GNRGLCanvas::OnRMouseUp(wxMouseEvent& event)
+void GNRGLCanvas::OnRMouseUp(wxMouseEvent& WXUNUSED(event))
 {
 	//nothing anymore
 }

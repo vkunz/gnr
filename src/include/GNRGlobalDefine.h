@@ -33,7 +33,7 @@
 #define WALLDEPTH                0.2          // thickness of a wall
 
 #define SOFTWARE_TITLE         "GNR - 3D Einrichtungsplaner"
-#define SOFTWARE_VERSION       "0.4.2.4 BETA" //additional version info
+#define SOFTWARE_VERSION       "0.4.4.6 BETA" //additional version info
 #define SOFTWARE_WIN_WIDTH     800            //width of application window
 #define SOFTWARE_WIN_HEIGHT    600            //height of application windows
 

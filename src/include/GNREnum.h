@@ -25,7 +25,7 @@ enum transType    { MOVEXZ = 0, MOVEXY, ROTATEXY, ROTATEXZ, DRAWWALL };
 enum buttonType   { LEFT_BUTTON = 1, MIDDLE_BUTTON, RIGHT_BUTTON };
 enum canvasType   { NONE = 1, CANVAS2D, CANVAS3D, CANVASPREVIEW };
 enum assemblyType { IS_ROOT = 0, IS_SELECTED, IS_TRASH, IS_ATOMIC, IS_WALL, IS_PRIMITIVE, IS_GROUP, IS_OBJECT,
-                    IS_WRAPPER, IS_DUPLICATOR
+                    IS_WRAPPER, IS_ORIGINAL, IS_DUPLICATOR
                   };
 enum primitivesType { CUBOID = 0 };
 enum { X, Y, Z, W };

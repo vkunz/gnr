@@ -14,16 +14,23 @@
 #include "GNRAssembly.h"
 #include "GNRVertex.h"
 #include "GNRFace.h"
+#include "GNRMaterialLibrary.h"
+
+#include <string>
 
 class GNRPrimitiveCreator
 {
 public:
 	GNRPrimitiveCreator();
 	virtual ~GNRPrimitiveCreator();
-	GNRAssembly* createCuboid(const GNRVertex& position, const GNRVertex& angles, const GNRVertex& dimension);
+	void createCuboid(const GNRVertex& position, const GNRVertex& angles, const GNRVertex& dimension);
+	void setMaterial(GNRAssembly* parent, const string& name);
+	GNRAssembly* getPrimitive();
 protected:
 private:
 	GNRFace* createFace(GNRVertex& topLeft, GNRVertex& bottomLeft, GNRVertex& bottomRight, GNRVertex& topRight, GNRVertex& normal);
+	GNRMaterialLibrary m_matlib;
+	GNRAssembly* m_primitive;
 };
 
 #endif // _GNRPRIMITIVECREATOR_H_

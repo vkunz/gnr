@@ -124,7 +124,7 @@ void GNRGLCanvasPreview::OnPaint(wxPaintEvent& event)
  * @param       wxSizeEvent       Size-Event of the canvas
  * @access      private
  */
-void GNRGLCanvasPreview::OnSize(wxSizeEvent& event)
+void GNRGLCanvasPreview::OnSize(wxSizeEvent& WXUNUSED(event))
 {
 	reshape();
 }
@@ -217,7 +217,7 @@ void GNRGLCanvasPreview::OnLMouseDown(wxMouseEvent& event)
  * @param       wxMouseEvent       Mouse-Event of the canvas
  * @access      private
  */
-void GNRGLCanvasPreview::OnLeaveWindow(wxMouseEvent& event)
+void GNRGLCanvasPreview::OnLeaveWindow(wxMouseEvent& WXUNUSED(event))
 {
 	Disconnect(wxEVT_MOTION, (wxObjectEventFunction)&GNRGLCanvasPreview::OnMouseMove);
 }
@@ -227,7 +227,7 @@ void GNRGLCanvasPreview::OnLeaveWindow(wxMouseEvent& event)
  * @param       wxMouseEvent       Mouse-Event of the canvas
  * @access      private
  */
-void GNRGLCanvasPreview::OnLMouseUp(wxMouseEvent& event)
+void GNRGLCanvasPreview::OnLMouseUp(wxMouseEvent& WXUNUSED(event))
 {
 	Disconnect(wxEVT_MOTION, (wxObjectEventFunction)&GNRGLCanvasPreview::OnMouseMove);
 }
