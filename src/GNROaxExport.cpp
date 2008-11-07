@@ -168,7 +168,8 @@ void GNROaxExport::createOaxStream()
 	if (m_saveToFileSystem)
 	{
 		// create FileOutputStream
-		m_outStream = new wxFFileOutputStream(wxT("data\\") + m_assemblyData->m_name + wxT(".oax"));
+		//m_outStream = new wxFFileOutputStream(wxT("data\\") + m_assemblyData->m_name + wxT(".oax"));
+		m_outStream = new wxFFileOutputStream(m_assemblyData->m_name + wxT(".oax"));
 		
 		// create new wxZipOutputStream object
 		m_outZip = new wxZipOutputStream(m_outStream, -1);

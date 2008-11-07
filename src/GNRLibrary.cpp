@@ -16,7 +16,8 @@
 GNRLibrary::GNRLibrary()
 {
 	// set filename to standard lib
-	m_fileName = (wxFileName::GetCwd() + wxFileName::GetPathSeparator() + wxT("data") + wxFileName::GetPathSeparator() + wxT("library.gnr"));
+	//m_fileName = (wxFileName::GetCwd() + wxFileName::GetPathSeparator() + wxT("data") + wxFileName::GetPathSeparator() + wxT("library.gnr"));
+	m_fileName = (wxFileName::GetCwd() + wxFileName::GetPathSeparator() + wxT("library.gnr"));
 	
 	// new categories vector
 	m_ptrCategories = new std::vector<GNRLibraryCategory>;

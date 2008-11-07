@@ -21,6 +21,10 @@
 #include <wx/log.h>
 #endif
 
+#if !defined(__WXMSW__) && !defined(__WXPM__)
+#include "resources/gnr_icon.xpm"
+#endif
+
 #include "GNREnum.h"
 #include "GNRGlobalDefine.h"
 #include "GNRMainFrame.h"
@@ -48,7 +52,7 @@ wxString wxbuildinfo()
 {
 	wxString wxbuild;
 	
-	wxbuild << _T("\n\nGNR 3D Raumplaner\n\n");
+	wxbuild << _T("< GNR 3D Raumplaner >\n\n");
 	wxbuild << _T("#if defined(PROGRAMMIERER)\n");
 	wxbuild << _T(" #include \"Konstantin_Balabin.h\"\n");
 	wxbuild << _T(" #include \"Patrick_Kracht.h\"\n");
@@ -177,15 +181,20 @@ END_EVENT_TABLE()
 
 GNRMainFrame::GNRMainFrame(wxWindow* parent, wxWindowID WXUNUSED(id))
 {
-	int width  = 800;
-	int height = 600;
+	int width  = SOFTWARE_WIN_WIDTH;
+	int height = SOFTWARE_WIN_HEIGHT;
+	
+	//build title from define
+	wxString title;
+	title << wxT(SOFTWARE_TITLE) << wxT(" [Version ") << wxT(SOFTWARE_VERSION) << wxT("]");
 	
 	//create main frame and set size
-	Create(parent, wxID_ANY, _("GNR - 3D Einrichtungsplaner"), wxDefaultPosition, wxDefaultSize, wxDEFAULT_FRAME_STYLE, _T("wxID_ANY"));
+	Create(parent, wxID_ANY, title, wxDefaultPosition, wxDefaultSize, wxDEFAULT_FRAME_STYLE, _T("wxID_ANY"));
 	Move(wxPoint(0,0));
 	SetClientSize(wxSize(width,height-19));
 	SetMinSize(wxSize(width+8,height+8));
 	SetFocus();
+	SetIcon(wxICON(GNR_ICON));
 	
 	//build menu bar
 	MenuBar = new wxMenuBar();
