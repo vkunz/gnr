@@ -24,6 +24,7 @@ private:
 	static const long idMenuPaste;
 	static const long idMenuExport;
 	static const long idMenuCreateCat;
+	static const long idMenuRename;
 	
 	// functions
 	void showMenu(wxTreeItemId id, const wxPoint& pt, bool cat);
@@ -35,6 +36,7 @@ private:
 	void OnNewCategory(wxTreeEvent& event);
 	void OnExport(wxTreeEvent& event);
 	void OnPaste(wxTreeEvent& event);
+	void OnMenuRename(wxTreeEvent& event);
 };
 
 #endif // _GNRTREELIBRARYCTRL_H_

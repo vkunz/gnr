@@ -54,9 +54,6 @@ private:
 	// pointer to GNRAssembly
 	GNRAssembly* m_actual;
 	
-	// pointer to oax-importer
-	GNROaxImport* m_oaxImport;
-	
 	// pointer to wxFFileInputStream
 	wxFFileInputStream* m_inFile;
 	
@@ -71,18 +68,6 @@ private:
 	
 	// pointer to actual zip entry
 	wxZipEntry* m_ptrZipEntry;
-	
-	// create pointer to xmlnode
-	wxXmlNode* m_node;
-	
-	// create pointer to xmlproperty
-	wxXmlProperty* m_prop;
-	
-	// create wxString to store propertyvalues
-	wxString m_value;
-	
-	// temporary attribute tokenizer
-	wxStringTokenizer m_tok;
 	
 	// vector of all entrys
 	std::vector<wxZipEntry*> m_vector;
@@ -101,10 +86,10 @@ private:
 	void Load(wxString filename);
 	
 	// load xml
-	void LoadXml(wxInputStream& stream);
+	void loadXml(wxInputStream& stream);
 	
 	// load oax
-	GNRAssembly* LoadOax(wxInputStream& stream);
+	GNRAssembly* loadOax(wxString reference);
 	
 	// create new assembly
 	void CreateAssembly(wxZipInputStream& stream);

@@ -63,6 +63,9 @@ public:
 	// add new category
 	void addCategory(wxString parentName, wxString newName);
 	
+	// paste an entry into scene
+	void pasteEntry(wxString reference);
+	
 protected:
 
 private:

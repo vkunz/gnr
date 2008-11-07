@@ -12,11 +12,13 @@
 #include "GNRLibrary.h"
 #include "md5.h"
 
+// set id
+unsigned int GNRLibrary::m_categoryId = 0;
+
 // ctor
 GNRLibrary::GNRLibrary()
 {
 	// set filename to standard lib
-	//m_fileName = (wxFileName::GetCwd() + wxFileName::GetPathSeparator() + wxT("data") + wxFileName::GetPathSeparator() + wxT("library.gnr"));
 	m_fileName = (wxFileName::GetCwd() + wxFileName::GetPathSeparator() + wxT("library.gnr"));
 	
 	// new categories vector
@@ -24,15 +26,6 @@ GNRLibrary::GNRLibrary()
 	
 	// new entries vector
 	m_ptrEntries = new std::vector<GNRLibraryEntry>;
-	
-	// open library
-	openLibrary();
-}
-
-GNRLibrary::GNRLibrary(wxString filename)
-{
-	// set library to file
-	m_fileName.Assign(filename);
 	
 	// open library
 	openLibrary();
@@ -97,8 +90,8 @@ void GNRLibrary::addEntry(wxString reference, wxInputStream& inStream, bool newC
 			// do not copy entry, set next entry
 			entry = inzip.GetNextEntry();
 			
-			// create new xml
-			createXml(xml, outzip, newCat);
+			// add entry into xml
+			addXmlEntry(xml, outzip, newCat);
 		}
 		
 		// copy all entries
@@ -111,7 +104,7 @@ void GNRLibrary::addEntry(wxString reference, wxInputStream& inStream, bool newC
 	// new entry
 	outzip.PutNextEntry(reference);
 	
-	// copy d ata
+	// copy data
 	inStream.Read(outzip);
 	
 	// close entry
@@ -125,6 +118,118 @@ void GNRLibrary::addEntry(wxString reference, wxInputStream& inStream, bool newC
 	
 	// generate new file
 	outFile.Commit();
+}
+
+void GNRLibrary::deleteEntry(wxString reference)
+{
+	// empty xml document
+	wxXmlDocument xml;
+	
+	// pointer to wxZipEntry
+	wxZipEntry* entry;
+	
+	// input file to open library
+	std::auto_ptr<wxFFileInputStream> inFile(new wxFFileInputStream(m_fileName.GetFullPath()));
+	
+	// temp output file to store new lib
+	wxTempFileOutputStream outFile(m_fileName.GetFullPath());
+	
+	// zip input stream
+	wxZipInputStream inzip(*inFile);
+	
+	// zip output stream
+	wxZipOutputStream outzip(outFile);
+	
+	// copy meta data
+	outzip.CopyArchiveMetaData(inzip);
+	
+	// get first entry of inzip
+	entry = inzip.GetNextEntry();
+	
+	// copy all entries
+	while (entry)
+	{
+		// copy all entries except the old xml
+		if (entry->GetName().Matches(wxT("*.xml")))
+		{
+			//open entry
+			inzip.OpenEntry(*entry);
+			
+			// new xml
+			xml.Load(inzip);
+			
+			// close entry
+			inzip.CloseEntry();
+			
+			// do not copy entry, set next entry
+			entry = inzip.GetNextEntry();
+			
+			// delete entry in xml
+			deleteXmlEntry(xml, outzip, reference);
+		}
+		
+		// copy all entries except the one, to be deleted
+		if (!entry->GetName() == reference)
+		{
+			// copy entry
+			outzip.CopyEntry(entry, inzip);
+			
+			// get next entry
+			entry = inzip.GetNextEntry();
+		}
+		
+		// get next entry
+		entry = inzip.GetNextEntry();
+	}
+	
+	// close file
+	inFile.reset();
+	
+	// generate new file
+	outFile.Commit();
+}
+
+wxMemoryOutputStream* GNRLibrary::getEntryData(wxString reference)
+{
+	// wxZipEntry pointer
+	wxZipEntry* entry;
+	
+	// fileinput
+	wxFFileInputStream inFile(m_fileName.GetFullPath());
+	
+	// zip input
+	wxZipInputStream inZip(inFile);
+	
+	// memoryoutputstream to return
+	wxMemoryOutputStream* memOut = new wxMemoryOutputStream;
+	
+	// get first entry
+	entry = inZip.GetNextEntry();
+	
+	// walk through all entries
+	while (entry)
+	{
+		// check if entry found
+		if (entry->GetName() == reference)
+		{
+			// open entry
+			inZip.OpenEntry(*entry);
+			
+			// copy data into memOut
+			inZip.Read(*memOut);
+			
+			// close entry
+			inZip.CloseEntry();
+			
+			// found
+			break;
+		}
+		
+		// get next entry
+		entry = inZip.GetNextEntry();
+	}
+	
+	return memOut;
 }
 
 unsigned int GNRLibrary::getParentId(wxString name)
@@ -246,7 +351,7 @@ void GNRLibrary::LoadXml(wxInputStream& inStream)
 	wxString reference;
 	
 	// store id
-	unsigned int categoryId;
+	unsigned int categoryId = 1;
 	
 	// create xml document of m_inZip
 	wxXmlDocument xml(inStream);
@@ -416,6 +521,7 @@ void GNRLibrary::LoadXml(wxInputStream& inStream)
 void GNRLibrary::addCategory(wxString& name, unsigned int& categoryId, unsigned int& parentId)
 {
 	m_ptrCategories->push_back(GNRLibraryCategory(name, categoryId, parentId));
+	m_categoryId = categoryId;
 }
 
 void GNRLibrary::addEntry(wxString& name, wxString& reference, unsigned int& categoryId)
@@ -423,7 +529,7 @@ void GNRLibrary::addEntry(wxString& name, wxString& reference, unsigned int& cat
 	m_ptrEntries->push_back(GNRLibraryEntry(name, reference, categoryId));
 }
 
-void GNRLibrary::createXml(wxXmlDocument& xml, wxZipOutputStream& out, bool newCat)
+void GNRLibrary::addXmlEntry(wxXmlDocument& xml, wxZipOutputStream& out, bool newCat)
 {
 	// node pointer
 	wxXmlNode* node;
@@ -476,4 +582,66 @@ void GNRLibrary::createXml(wxXmlDocument& xml, wxZipOutputStream& out, bool newC
 	
 	// close entry
 	out.CloseEntry();
+}
+
+void GNRLibrary::deleteXmlEntry(wxXmlDocument& xml, wxZipOutputStream& out, wxString& reference)
+{
+	// node pointer
+	wxXmlNode* node;
+	
+	// node pointer
+	wxXmlNode* delNode;
+	
+	// property pointer
+	wxXmlProperty* prop;
+	
+	// node to root
+	node = xml.GetRoot();
+	
+	// node to categories
+	node = node->GetChildren();
+	
+	// node to entries
+	node = node->GetNext();
+	
+	// node to first entry
+	node = node->GetChildren();
+	
+	// walk through all children
+	while (node)
+	{
+		// prop to name
+		prop = node->GetProperties();
+		
+		// prop to ref
+		prop = prop->GetNext();
+		
+		// check if found
+		if (prop->GetValue() == reference)
+		{
+			// set delNode to node
+			delNode = node;
+			
+			// found
+			break;
+		}
+	}
+	
+	// node to parent
+	node = node->GetParent();
+	
+	// delete childen of node
+	node->RemoveChild(delNode);
+	
+	// new zipEntry
+	out.PutNextEntry(wxT("library.xml"));
+	
+	// copy data into entry
+	xml.Save(out);
+	
+	// close entry
+	out.CloseEntry();
+	
+	// delete old node
+	delete delNode;
 }

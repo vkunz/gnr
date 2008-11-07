@@ -14,6 +14,7 @@ const long GNRTreeLibraryCtrl::idMenuDelete     = wxNewId();
 const long GNRTreeLibraryCtrl::idMenuPaste      = wxNewId();
 const long GNRTreeLibraryCtrl::idMenuExport     = wxNewId();
 const long GNRTreeLibraryCtrl::idMenuCreateCat  = wxNewId();
+const long GNRTreeLibraryCtrl::idMenuRename     = wxNewId();
 
 // ctor
 GNRTreeLibraryCtrl::GNRTreeLibraryCtrl(wxWindow* parent, wxWindowID id)
@@ -39,12 +40,14 @@ GNRTreeLibraryCtrl::GNRTreeLibraryCtrl(wxWindow* parent, wxWindowID id)
 	
 	// connects pase with OnPaste
 	Connect(idMenuPaste,wxEVT_COMMAND_MENU_SELECTED,(wxObjectEventFunction)&GNRTreeLibraryCtrl::OnPaste);
+	
+	// connects rename with OnMenuRename
+	Connect(idMenuRename,wxEVT_COMMAND_MENU_SELECTED,(wxObjectEventFunction)&GNRTreeLibraryCtrl::OnMenuRename);
 }
 
 // dtor
 GNRTreeLibraryCtrl::~GNRTreeLibraryCtrl()
 {
-	// do nothing
 }
 
 void GNRTreeLibraryCtrl::showMenu(wxTreeItemId id, const wxPoint& pt, bool cat)
@@ -52,21 +55,25 @@ void GNRTreeLibraryCtrl::showMenu(wxTreeItemId id, const wxPoint& pt, bool cat)
 	// create dropdown-menu
 	wxMenu menu(GetItemText(id));
 	
+	// check if category or assembly
 	if (cat)
 	{
 		// menu for categories
 		menu.Append(idMenuCreateCat, wxT("&Neue Kategorie"));
 		menu.Append(idMenuDelete, wxT("&L\u00F6schen"));
+		menu.Append(idMenuRename, wxT("Umbenennen"));
 	}
 	else
 	{
 		// menu for assemblies
 		menu.Append(idMenuPaste, wxT("&Einf\u00FCgen"));
 		menu.Append(idMenuDelete, wxT("&L\u00F6schen"));
+		menu.Append(idMenuRename, wxT("Umbenennen"));
 		menu.AppendSeparator();
 		menu.Append(idMenuExport, wxT("E&xportieren"));
 	}
 	
+	// show menu
 	PopupMenu(&menu, pt);
 }
 
@@ -91,12 +98,14 @@ void GNRTreeLibraryCtrl::OnRename(wxTreeEvent& event)
 	// set event type
 	gnr.setEventType(LIBRARYRENAME);
 	
+	// set itemid
 	m_currentTreeID = event.GetItem();
 	
 	// set name
 	GNRTreeLibraryItemData* item = (GNRTreeLibraryItemData*)GetItemData(m_currentTreeID);
-	gnr.SetInt(m_currentTreeID);
 	gnr.SetString(item->getName());
+	
+	// set new name
 	gnr.setNewName(event.GetLabel());
 	
 	// set cat
@@ -179,6 +188,33 @@ void GNRTreeLibraryCtrl::OnExport(wxTreeEvent& event)
 	// set name
 	GNRTreeLibraryItemData* item = (GNRTreeLibraryItemData*)GetItemData(m_currentTreeID);
 	gnr.SetString(item->getName());
+	
+	// fire event
+	ProcessEvent(gnr);
+}
+
+void GNRTreeLibraryCtrl::OnMenuRename(wxTreeEvent& event)
+{
+	wxTextEntryDialog ted(this, wxT("Neuer Name:"));
+	
+	if (ted.ShowModal() == wxID_CANCEL)
+	{
+		// if pressed cancel, do nothing
+		return;
+	}
+	
+	// create event
+	GNRTreeControlEvent gnr(wxEVT_COMMAND_GNR_TREE_CONTROL);
+	
+	// set event type
+	gnr.setEventType(LIBRARYMENURENAME);
+	
+	// set name
+	GNRTreeLibraryItemData* item = (GNRTreeLibraryItemData*)GetItemData(m_currentTreeID);
+	gnr.SetString(item->getName());
+	
+	// set new name
+	gnr.setNewName(ted.GetValue());
 	
 	// fire event
 	ProcessEvent(gnr);

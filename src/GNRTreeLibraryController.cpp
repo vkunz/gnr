@@ -19,6 +19,8 @@
 #include <wx/wfstream.h>
 #include <wx/xml/xml.h>
 
+#include "GNROaxImport.h"
+#include "GNRScene.h"
 #include "GNRTreeLibraryController.h"
 #include "GNRTreeLibraryItemData.h"
 #include "md5.h"
@@ -61,7 +63,6 @@ GNRTreeLibraryController::GNRTreeLibraryController(GNRTreeLibraryCtrl* treectrl)
  */
 GNRTreeLibraryController::~GNRTreeLibraryController()
 {
-	// do nothing
 }
 
 std::vector<wxString>* GNRTreeLibraryController::getAllCategories()
@@ -182,16 +183,19 @@ unsigned int GNRTreeLibraryController::addCategory(wxString& name)
 	// check if already exist
 	m_newCat = true;
 	
+	// return
 	unsigned int ret;
 	
 	// iterator
 	std::vector<GNRLibraryCategory>::iterator it;
 	
+	// walk through all categories
 	for (it = m_ptrCategories->begin(); it != m_ptrCategories->end(); it++)
 	{
+		// category found
 		if (it->getName() == name)
 		{
-			// set ret
+			// set return
 			ret = it->getCategoryId();
 			
 			// set found
@@ -202,27 +206,51 @@ unsigned int GNRTreeLibraryController::addCategory(wxString& name)
 	// not found, create new one
 	if (m_newCat)
 	{
-		m_ptrCategories->push_back(GNRLibraryCategory(name, m_ptrCategories->size() + 1, 0));
+		// increment id
+		GNRLibrary::m_categoryId += 1;
 		
-		ret = (m_ptrCategories->size());
+		// new category
+		m_ptrCategories->push_back(GNRLibraryCategory(name, GNRLibrary::m_categoryId, 0));
+		
+		// set return
+		ret = GNRLibrary::m_categoryId;
 	}
 	
+	// return
 	return ret;
 }
 
 void GNRTreeLibraryController::deleteCategory(wxString name)
 {
-	//wxLogDebug(wxT("deleteCat"));
+	// new message dialog
+	wxMessageDialog md(NULL, wxT("Alle Unterobjekte werden mitgel\u00F6scht. M\u00F6chten Sie fortfahren?"), wxT("Frage"), wxYES_NO);
+	
+	if (md.ShowModal() == wxID_YES)
+	{
+	}
 }
 
 void GNRTreeLibraryController::deleteEntry(wxString name)
 {
-	//wxLogDebug(wxT("deleteEnt"));
+	// entry iterator
+	std::vector<GNRLibraryEntry>::iterator it;
+	
+	// walk through all entries, find the one to delete
+	for (it = m_ptrEntries->begin(); it != m_ptrEntries->end(); it++)
+	{
+		if ((it)->getReference() == name)
+		{
+			// delete entry
+			m_ptrEntries->erase(it);
+		}
+	}
+	
+	// delete physically
+	m_library->deleteEntry(name);
 }
 
 void GNRTreeLibraryController::renameCategory(wxString name, wxString newName)
 {
-	//wxLogDebug(wxT("renameCat"));
 }
 
 void GNRTreeLibraryController::renameEntry(wxString name, wxString newName)
@@ -233,6 +261,45 @@ void GNRTreeLibraryController::renameEntry(wxString name, wxString newName)
 void GNRTreeLibraryController::addCategory(wxString parentName, wxString catName)
 {
 
+}
+
+void GNRTreeLibraryController::pasteEntry(wxString reference)
+{
+	// oax import
+	GNROaxImport import;
+	
+	// get scene
+	GNRScene* scene = GNRScene::getInstance();
+	
+	// wxMemoryOutputStream to store oax data
+	wxMemoryOutputStream* memOut;
+	
+	// get data
+	memOut = m_library->getEntryData(reference);
+	
+	// wxMemoryInputStream to store oax data
+	wxMemoryInputStream memIn(*memOut);
+	
+	// wxZipInputStream
+	wxZipInputStream inZip(memIn);
+	
+	// import
+	import.Load(inZip);
+	
+	// assembly pointer
+	GNRAssembly* assembly = import.getAssembly();
+	
+	// set hash
+	assembly->setHash(reference.BeforeFirst('.'));
+	
+	// insert assembly
+	scene->insertAssembly(assembly);
+	
+	// update gl
+	scene->glRefresh();
+	
+	// delete memOut
+	delete memOut;
 }
 
 void GNRTreeLibraryController::createImageList(int size)
@@ -263,6 +330,7 @@ void GNRTreeLibraryController::createImageList(int size)
 		}
 	}
 	
+	// asign images
 	m_treeCtrl->AssignImageList(images);
 }
 
@@ -275,33 +343,37 @@ void GNRTreeLibraryController::buildTreeCtrl()
 	m_treeCtrl->DeleteAllItems();
 	
 	// local map to store categoryid and wxTreeItemId
-	std::map<unsigned int, wxTreeItemId> groups;
+	std::map<unsigned int, wxTreeItemId> catId;
 	
-	// local map to store entryid and wxTreeItemid
-	std::map<unsigned int, wxTreeItemId> entries;
-	
-	// cat iterator
+	// category iterator
 	std::vector<GNRLibraryCategory>::iterator catit;
 	
-	// ent iterator
+	// entry iterator
 	std::vector<GNRLibraryEntry>::iterator entit;
 	
-	// groups iterator
-	std::map<unsigned int, wxTreeItemId>::iterator groit;
+	// category-id iterator
+	std::map<unsigned int, wxTreeItemId>::iterator catIdit;
 	
 	// local wxTreeItemId
 	wxTreeItemId tiid;
 	wxTreeItemId root;
 	
-	// set root
-	root = tiid = m_treeCtrl->AddRoot(wxT("GNRBibliothek"));
+	// new itemdata
+	GNRTreeLibraryItemData* itemData = new GNRTreeLibraryItemData();
 	
+	// set category
+	itemData->setCat(true);
+	
+	// set root
+	root = tiid = m_treeCtrl->AddRoot(wxT("GNRBibliothek"), -1, -1, itemData);
+	
+	// set root image
 	m_treeCtrl->SetItemImage(tiid, (int)TreeCtrlIcon_Root);
 	
 	// store root tiid
-	groups.insert(std::pair<unsigned int, wxTreeItemId>(0, tiid));
+	catId.insert(std::pair<unsigned int, wxTreeItemId>(0, tiid));
 	
-	// walk through all groups and append to tree control
+	// walk through all categories and append to tree control
 	for (catit = m_ptrCategories->begin(); catit != m_ptrCategories->end(); catit++)
 	{
 		// new itemdata
@@ -312,13 +384,13 @@ void GNRTreeLibraryController::buildTreeCtrl()
 		itemData->setName(catit->getName());
 		
 		// append to treectrl
-		tiid = m_treeCtrl->AppendItem(groups[catit->getParentId()], catit->getName(), -1, -1, itemData);
+		tiid = m_treeCtrl->AppendItem(catId[catit->getParentId()], catit->getName(), -1, -1, itemData);
 		
 		// set image
 		m_treeCtrl->SetItemImage(tiid, (int)TreeCtrlIcon_Folder);
 		
 		// store tiid into map
-		groups.insert(std::pair<unsigned int, wxTreeItemId>(catit->getCategoryId(), tiid));
+		catId.insert(std::pair<unsigned int, wxTreeItemId>(catit->getCategoryId(), tiid));
 	}
 	
 	// walk through all entrys and append to tree control
@@ -327,24 +399,21 @@ void GNRTreeLibraryController::buildTreeCtrl()
 		// new itemdata
 		GNRTreeLibraryItemData* itemData = new GNRTreeLibraryItemData();
 		
-		// set category
+		// set assembly
 		itemData->setCat(false);
-		itemData->setName(entit->getName());
+		itemData->setName(entit->getReference());
 		
 		// append to treectrl
-		tiid = m_treeCtrl->AppendItem(groups[entit->getCategoryId()], entit->getName(), -1, -1, itemData);
+		tiid = m_treeCtrl->AppendItem(catId[entit->getCategoryId()], entit->getName(), -1, -1, itemData);
 		
 		// set image
 		m_treeCtrl->SetItemImage(tiid, (int)TreeCtrlIcon_Assembly);
-		
-		// store tiid into map
-		//entries.insert(std::pari<unsigned int, wxTreeItemId>(
 	}
 	
 	// sort
-	for (groit = groups.begin(); groit != groups.end(); groit++)
+	for (catIdit = catId.begin(); catIdit != catId.end(); catIdit++)
 	{
-		m_treeCtrl->SortChildren(groit->second);
+		m_treeCtrl->SortChildren(catIdit->second);
 	}
 	
 	// expand root

@@ -44,6 +44,9 @@ GNRObjOaxConverterFrame::GNRObjOaxConverterFrame(wxWindow* parent, wxWindowID id
 	// set size
 	SetClientSize(wxSize(550, 350));
 	
+	// make frame modal
+	MakeModal();
+	
 	// use window color of user
 	SetBackgroundColour(wxNullColour);
 	
@@ -223,6 +226,9 @@ GNRGLCanvasPreview* GNRObjOaxConverterFrame::getCanvasPointer()
 
 void GNRObjOaxConverterFrame::OnBtnCancel(wxCommandEvent& WXUNUSED(event))
 {
+	// disable modal
+	MakeModal(false);
+	
 	// create event
 	GNRNotifyEvent gnrevent(wxEVT_COMMAND_GNR_NOTIFY);
 	
@@ -235,6 +241,9 @@ void GNRObjOaxConverterFrame::OnBtnCancel(wxCommandEvent& WXUNUSED(event))
 
 void GNRObjOaxConverterFrame::OnBtnCreate(wxCommandEvent& WXUNUSED(event))
 {
+	// disable modal
+	MakeModal(false);
+	
 	// prepare data -> store into struct
 	// get objName and store into struct
 	m_assemblyData->m_name = m_txcName->GetValue();
@@ -275,6 +284,9 @@ void GNRObjOaxConverterFrame::OnBtnCreate(wxCommandEvent& WXUNUSED(event))
 
 void GNRObjOaxConverterFrame::OnClose(wxCloseEvent& WXUNUSED(event))
 {
+	// disable modal
+	MakeModal(false);
+	
 	// create event
 	GNRNotifyEvent gnrevent(wxEVT_COMMAND_GNR_NOTIFY);
 	

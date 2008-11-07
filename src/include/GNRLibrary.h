@@ -3,6 +3,7 @@
 
 #include <vector>
 #include <wx/filename.h>
+#include <wx/mstream.h>
 #include <wx/string.h>
 #include <wx/xml/xml.h>
 
@@ -15,10 +16,12 @@ public:
 	// ctor
 	GNRLibrary();
 	
-	GNRLibrary(wxString filename);
-	
 	// dtor
 	virtual ~GNRLibrary();
+	
+	// attributes
+	// static variable to store id
+	static unsigned int m_categoryId;
 	
 	// functions
 	// retunrs m_ptrCategories
@@ -29,6 +32,12 @@ public:
 	
 	// add ne oax to library
 	void addEntry(wxString reference, wxInputStream& inStream, bool newCat);
+	
+	// delete entry
+	void deleteEntry(wxString reference);
+	
+	// get entry
+	wxMemoryOutputStream* getEntryData(wxString reference);
 	
 protected:
 
@@ -65,8 +74,11 @@ private:
 	// add new entry from xml
 	void addEntry(wxString& name, wxString& reference, unsigned int& categoryId);
 	
-	// create new xml
-	void createXml(wxXmlDocument& xml, wxZipOutputStream& out, bool newCat);
+	// add new entry to XML
+	void addXmlEntry(wxXmlDocument& xml, wxZipOutputStream& out, bool newCat);
+	
+	// delete XML entry
+	void deleteXmlEntry(wxXmlDocument& xml, wxZipOutputStream& out, wxString& reference);
 };
 
 #endif // _GNRLIBRARY_H_

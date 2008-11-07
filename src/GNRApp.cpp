@@ -313,7 +313,7 @@ void GNRApp::OnGNRTreeEvent(GNRTreeControlEvent& event)
 		}
 		break;
 	case LIBRARYPASTE:
-	
+		m_TreeLibCtrl->pasteEntry(event.GetString());
 		break;
 	case LIBRARYEXPORT:
 	
@@ -322,6 +322,16 @@ void GNRApp::OnGNRTreeEvent(GNRTreeControlEvent& event)
 		m_TreeLibCtrl->addCategory(event.GetString(), event.getNewName());
 		break;
 	case LIBRARYRENAME:
+		if (event.getCat())
+		{
+			m_TreeLibCtrl->renameCategory(event.GetString(), event.getNewName());
+		}
+		else
+		{
+			m_TreeLibCtrl->renameEntry(event.GetString(), event.getNewName());
+		}
+		break;
+	case LIBRARYMENURENAME:
 		if (event.getCat())
 		{
 			m_TreeLibCtrl->renameCategory(event.GetString(), event.getNewName());
