@@ -62,6 +62,7 @@ private:
 	
 	void OnChange(wxCommandEvent& WXUNUSED(event));
 	void OnCancel(wxCommandEvent& WXUNUSED(event));
+	void OnClose(wxCloseEvent& WXUNUSED(event));
 	void OnWidthChange(wxCommandEvent& event);
 	void OnHeightChange(wxCommandEvent& event);
 	void OnDepthChange(wxCommandEvent& event);

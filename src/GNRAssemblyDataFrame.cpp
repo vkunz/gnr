@@ -25,6 +25,7 @@ const long GNRAssemblyDataFrame::idBtnCancel = wxNewId();
 
 
 BEGIN_EVENT_TABLE(GNRAssemblyDataFrame,wxFrame)
+	EVT_CLOSE(GNRAssemblyDataFrame::OnClose)
 	EVT_BUTTON(idBtnChange, GNRAssemblyDataFrame::OnChange)
 	EVT_BUTTON(idBtnCancel, GNRAssemblyDataFrame::OnCancel)
 	EVT_TEXT(idtxcWidth, GNRAssemblyDataFrame::OnWidthChange)
@@ -35,6 +36,7 @@ END_EVENT_TABLE()
 GNRAssemblyDataFrame::GNRAssemblyDataFrame(wxWindow* parent,wxWindowID id,const wxPoint& pos,const wxSize& size)
 {
 	Create(parent, id, wxT("Objekt-Eigenschaften"), wxDefaultPosition, wxDefaultSize, wxDEFAULT_FRAME_STYLE, _T("id"));
+	MakeModal();
 	SetClientSize(wxSize(350, 300));
 	SetBackgroundColour(wxNullColour);
 	SetIcon(wxICON(GNR_ICON));
@@ -118,11 +120,19 @@ void GNRAssemblyDataFrame::OnChange(wxCommandEvent& WXUNUSED(event))
 	myevent.SetEventObject(this);
 	GetEventHandler()->ProcessEvent(myevent);
 	
+	MakeModal(false);
 	Destroy();
 }
 
 void GNRAssemblyDataFrame::OnCancel(wxCommandEvent& WXUNUSED(event))
 {
+	MakeModal(false);
+	Destroy();
+}
+
+void GNRAssemblyDataFrame::OnClose(wxCloseEvent& WXUNUSED(event))
+{
+	MakeModal(false);
 	Destroy();
 }
 
