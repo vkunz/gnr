@@ -7,27 +7,52 @@
 #endif
 
 const long GNRTreeSceneCtrl::idMenuEdit     = wxNewId();
-const long GNRTreeSceneCtrl::idMenuAbout    = wxNewId();
+const long GNRTreeSceneCtrl::idMenuVisible  = wxNewId();
+const long GNRTreeSceneCtrl::idMenuHide     = wxNewId();
+const long GNRTreeSceneCtrl::idMenuSelect   = wxNewId();
+const long GNRTreeSceneCtrl::idMenuDeselect = wxNewId();
+const long GNRTreeSceneCtrl::idMenuDelete   = wxNewId();
+const long GNRTreeSceneCtrl::idMenuUndelete = wxNewId();
 
 BEGIN_EVENT_TABLE(GNRTreeSceneCtrl, wxTreeCtrl)
 	EVT_TREE_ITEM_MENU(wxID_ANY, GNRTreeSceneCtrl::OnItemMenu)
 	EVT_MENU(idMenuEdit, GNRTreeSceneCtrl::OnEdit)
-	EVT_MENU(idMenuAbout, GNRTreeSceneCtrl::OnAbout)
+	EVT_MENU(idMenuVisible, GNRTreeSceneCtrl::OnVisible)
+	EVT_MENU(idMenuHide, GNRTreeSceneCtrl::OnHide)
+	EVT_MENU(idMenuSelect, GNRTreeSceneCtrl::OnSelect)
+	EVT_MENU(idMenuDeselect, GNRTreeSceneCtrl::OnDeselect)
+	EVT_MENU(idMenuDelete, GNRTreeSceneCtrl::OnDelete)
+	EVT_MENU(idMenuUndelete, GNRTreeSceneCtrl::OnUndelete)
 END_EVENT_TABLE()
 
+/**
+ * constructor of GNRTreeSceneCtrl
+ * @param       wxWindow*       parent of TreeCtrl
+ * @param       wxWindowID      wx-id for window
+ * @param       wxPoint         TreeCtrl-position
+ * @param       wxSize          size of TreeCtrl
+ * @param       long            TreeCtrl-style
+ * @param       wxValidator     validator for input
+ * @param       wxString        name of TreeCtrl
+ * @access      public
+ */
 GNRTreeSceneCtrl::GNRTreeSceneCtrl(wxWindow *parent, const wxWindowID id, const wxPoint& pos, const wxSize& size, long style,
                                    const wxValidator &validator, const wxString &name) : wxTreeCtrl(parent, id, pos, size, style, validator, name)
 {
 	m_currentTreeID = 0;
 }
 
+/**
+ * destructor of GNRTreeSceneCtrl
+ * @access      public
+ */
 GNRTreeSceneCtrl::~GNRTreeSceneCtrl() {}
 
-void GNRTreeSceneCtrl::OnItemRClick(wxTreeEvent& event)
-{
-
-}
-
+/**
+ * gets called by right click on tree-item, reads tree-item and initiates menu-building
+ * @param       wxTreeEvent&    event with information to clicked item
+ * @access      private
+ */
 void GNRTreeSceneCtrl::OnItemMenu(wxTreeEvent& event)
 {
 	m_currentTreeID = event.GetItem();
@@ -37,20 +62,56 @@ void GNRTreeSceneCtrl::OnItemMenu(wxTreeEvent& event)
 	if (treeItemData != NULL)
 	{
 		wxPoint clientpt = event.GetPoint();
-		ShowMenu(m_currentTreeID, clientpt);
+		buildMenu(m_currentTreeID, clientpt);
 	}
 	
 	event.Skip();
 }
 
 
-void GNRTreeSceneCtrl::ShowMenu(wxTreeItemId id, const wxPoint& pt)
+/**
+ * builds dropdown menu for items, depending on state of clicked item
+ * @param       wxTreeItemId    id of clicked item
+ * @param       wxPoint         position, the menu should be displayed
+ * @access      private
+ */
+void GNRTreeSceneCtrl::buildMenu(wxTreeItemId id, const wxPoint& pt)
 {
 	// create dropdown-menu
 	wxMenu menu;
-	menu.Append(idMenuEdit, wxT("&Bearbeiten"));
-	menu.AppendSeparator();
-	menu.Append(idMenuAbout, wxT("&Anzeigen/Verbergen"));
+	
+	if (treeItemData->getAssembly()->getMaster()->getType() == IS_TRASH)
+	{
+		menu.Append(idMenuUndelete, wxT("&Wiederherstellen"));
+	}
+	else
+	{
+		// no trash; add other options
+		menu.Append(idMenuEdit, wxT("&Bearbeiten"));
+		menu.AppendSeparator();
+		
+		// visible?
+		if (treeItemData->getAssembly()->isVisible())
+		{
+			menu.Append(idMenuHide, wxT("&Verbergen"));
+		}
+		else
+		{
+			menu.Append(idMenuVisible, wxT("&Anzeigen"));
+		}
+		
+		// selected?
+		if (treeItemData->getAssembly()->getMaster()->getType() == IS_SELECTED)
+		{
+			menu.Append(idMenuDeselect, wxT("&Deselektieren"));
+		}
+		else
+		{
+			menu.Append(idMenuSelect, wxT("&Selektieren"));
+		}
+		
+		menu.Append(idMenuDelete, wxT("&Löschen"));
+	}
 	
 	PopupMenu(&menu, pt);
 }
@@ -62,9 +123,32 @@ void GNRTreeSceneCtrl::OnEdit(wxCommandEvent& WXUNUSED(event))
 	m_assemblyDataFrame->fillFields(treeItemData->getAssembly());
 }
 
-void GNRTreeSceneCtrl::OnAbout(wxCommandEvent& WXUNUSED(event))
+void GNRTreeSceneCtrl::OnVisible(wxCommandEvent& WXUNUSED(event))
 {
-	wxString str;
-	str << wxT("Klicked on ") << treeItemData->getName();
-	//wxLogDebug(str);
+
+}
+
+void GNRTreeSceneCtrl::OnHide(wxCommandEvent& WXUNUSED(event))
+{
+
+}
+
+void GNRTreeSceneCtrl::OnSelect(wxCommandEvent& WXUNUSED(event))
+{
+
+}
+
+void GNRTreeSceneCtrl::OnDeselect(wxCommandEvent& WXUNUSED(event))
+{
+
+}
+
+void GNRTreeSceneCtrl::OnDelete(wxCommandEvent& WXUNUSED(event))
+{
+
+}
+
+void GNRTreeSceneCtrl::OnUndelete(wxCommandEvent& WXUNUSED(event))
+{
+
 }

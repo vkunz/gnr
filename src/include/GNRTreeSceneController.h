@@ -36,9 +36,6 @@ private:
 	// attributes
 	wxTreeCtrl* m_treeCtrl;
 	
-	void buildTreeCtrl();
-	
-	void traverseTree(GNRSceneTreeNode* node, wxTreeItemId id);
 	void evaluateTree(GNRSceneTreeNode* node, wxTreeItemId id);
 };
 

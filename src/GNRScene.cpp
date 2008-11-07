@@ -539,6 +539,11 @@ void GNRScene::hideSelectedAssemblies()
 		m_Selected->delPart((*it));
 		(*it)->setVisible(false);
 	}
+	
+	// send event to refresh Scene-Tree
+	GNRNotifyEvent gnrevent(wxEVT_COMMAND_GNR_NOTIFY);
+	gnrevent.setGNREventType(REFRESHSCENETREE);
+	ProcessEvent(gnrevent);
 }
 
 /**
@@ -718,6 +723,11 @@ void GNRScene::selectAssembly(GNRAssembly* assembly)
 		//repaint cause of box on floor
 		glRefresh();
 	}
+	
+	// send event to refresh Scene-Tree
+	GNRNotifyEvent gnrevent(wxEVT_COMMAND_GNR_NOTIFY);
+	gnrevent.setGNREventType(REFRESHSCENETREE);
+	ProcessEvent(gnrevent);
 }
 
 /**

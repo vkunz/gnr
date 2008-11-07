@@ -107,8 +107,14 @@ void GNRAssemblyDataFrame::OnChange(wxCommandEvent& WXUNUSED(event))
 	
 	m_assembly->setVisible(m_cbxVisible->IsChecked());
 	
+	// send event to refresh canvas
 	GNRNotifyEvent myevent(wxEVT_COMMAND_GNR_NOTIFY);
 	myevent.setGNREventType(GLREFRESH);
+	myevent.SetEventObject(this);
+	GetEventHandler()->ProcessEvent(myevent);
+	
+	// send event to refresh tree
+	myevent.setGNREventType(REFRESHSCENETREE);
 	myevent.SetEventObject(this);
 	GetEventHandler()->ProcessEvent(myevent);
 	

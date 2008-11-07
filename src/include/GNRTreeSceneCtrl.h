@@ -13,11 +13,16 @@ public:
 	virtual ~GNRTreeSceneCtrl();
 protected:
 private:
-	void OnItemRClick(wxTreeEvent& event);
 	void OnItemMenu(wxTreeEvent& event);
 	void OnEdit(wxCommandEvent& WXUNUSED(event));
-	void OnAbout(wxCommandEvent& WXUNUSED(event));
-	void ShowMenu(wxTreeItemId id, const wxPoint& pt);
+	void OnVisible(wxCommandEvent& WXUNUSED(event));
+	void OnHide(wxCommandEvent& WXUNUSED(event));
+	void OnSelect(wxCommandEvent& WXUNUSED(event));
+	void OnDeselect(wxCommandEvent& WXUNUSED(event));
+	void OnDelete(wxCommandEvent& WXUNUSED(event));
+	void OnUndelete(wxCommandEvent& WXUNUSED(event));
+	
+	void buildMenu(wxTreeItemId id, const wxPoint& pt);
 	
 	wxTreeItemId m_currentTreeID;
 	GNRTreeSceneItemData* treeItemData;
@@ -25,7 +30,12 @@ private:
 	GNRAssemblyDataFrame* m_assemblyDataFrame;
 	
 	static const long idMenuEdit;
-	static const long idMenuAbout;
+	static const long idMenuVisible;
+	static const long idMenuHide;
+	static const long idMenuSelect;
+	static const long idMenuDeselect;
+	static const long idMenuDelete;
+	static const long idMenuUndelete;
 	
 	DECLARE_EVENT_TABLE()
 };

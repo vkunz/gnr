@@ -20,6 +20,7 @@
 /**
  * Constructor.
  * @param       wxTreeCtrl*     Assigns pointer to wxTreeCtrl.
+ * @access  public
  */
 GNRTreeSceneController::GNRTreeSceneController(wxTreeCtrl* treectrl)
 {
@@ -29,47 +30,19 @@ GNRTreeSceneController::GNRTreeSceneController(wxTreeCtrl* treectrl)
 
 /**
  * Virtual Destructor.
+ * @access  public
  */
-GNRTreeSceneController::~GNRTreeSceneController()
-{
-	// do nothing
-}
-
+GNRTreeSceneController::~GNRTreeSceneController() {}
 
 /**
- * Build TreeControll on actual data.
+ * walk through tree and insert all items from nodes to scene-tree
+ * @param   GNRSceneTreeNode*   Pointer to root-Node of (part-) tree
+ * @param   wxTreeItemId        id, the items are insert to
+ * @access  private
  */
-void GNRTreeSceneController::buildTreeCtrl()
-{
-	// set root
-	//wxTreeItemId tiid = m_treeCtrl->AddRoot(wxT("Szene"));
-	
-	//wxTreeItemId newId = m_treeCtrl->(tiid, wxT("abc"), 2, 2, item);
-	
-	
-	return;
-	
-	//wxTreeItemId tiid = m_treeCtrl->AddRoot(wxT("GNRBibliothek"));
-	
-	// walk through all groups and append to root
-	//for (m_groupsit = m_groups.begin(); m_groupsit != m_groups.end(); m_groupsit++) {
-	//	m_treeCtrl->AppendItem(tiid, m_groupsit->first);
-	//}
-}
-
-
-void GNRTreeSceneController::traverseTree(GNRSceneTreeNode* node, wxTreeItemId id)
-{
-	GNRSceneTreeNode* myNode;
-	while (myNode = node->getTreeNode())
-	{
-		evaluateTree(myNode, id);
-	}
-}
-
-
 void GNRTreeSceneController::evaluateTree(GNRSceneTreeNode* node, wxTreeItemId id)
 {
+	// start evaluation of childern to a new itemid
 	GNRSceneTreeNode* myNode;
 	wxTreeItemId newID;
 	while (myNode = node->getTreeNode())
@@ -78,14 +51,30 @@ void GNRTreeSceneController::evaluateTree(GNRSceneTreeNode* node, wxTreeItemId i
 		evaluateTree(myNode, newID);
 	}
 	
+	// append items of current node to current itemid
 	GNRTreeSceneItemData* itemData;
+	wxTreeItemId tmpID;
 	while (itemData = node->getTreeItem())
 	{
-		m_treeCtrl->AppendItem(id, itemData->getName(), -1, -1, itemData);
+		tmpID = m_treeCtrl->AppendItem(id, itemData->getName(), -1, -1, itemData);
+		// make selected bold
+		if (itemData->getAssembly()->getMaster()->isType(IS_SELECTED))
+		{
+			m_treeCtrl->SetItemBold(tmpID);
+		}
+		// make hidden italic
+		if (itemData->getAssembly()->isVisible() == false)
+		{
+			m_treeCtrl->SetItemFont(tmpID, *wxITALIC_FONT);
+		}
 	}
-	
 }
 
+/**
+ * builds new scene-treectrl
+ * @param       GNRSceneTreeNode*        pointer to tree-root
+ * @access      public
+ */
 void GNRTreeSceneController::updateTree(GNRSceneTreeNode* tree)
 {
 	// reset tree
@@ -102,5 +91,6 @@ void GNRTreeSceneController::updateTree(GNRSceneTreeNode* tree)
 	wxTreeItemIdValue cookie;
 	m_treeCtrl->Expand(m_treeCtrl->GetFirstChild(rootID, cookie));
 	
+	// delete given internal tree
 	delete tree;
 }
