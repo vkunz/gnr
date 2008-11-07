@@ -240,6 +240,8 @@
 		<Unit filename="src\resources\button-undo.xpm" />
 		<Unit filename="src\resources\button-world-rotate-xy.xpm" />
 		<Unit filename="src\resources\button-world-rotate-xz.xpm" />
+		<Unit filename="src\resources\gnr_icon.ico" />
+		<Unit filename="src\resources\gnr_icon.xpm" />
 		<Unit filename="src\resources\grid_24bit_rgb.xpm" />
 		<Unit filename="src\resources\icon_library_assembly.xpm" />
 		<Unit filename="src\resources\icon_library_container.xpm" />
