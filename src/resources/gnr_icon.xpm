@@ -1,5 +1,5 @@
 /* XPM */
-static const char * gnr_icon_xpm[] = {
+static const char * GNR_ICON[] = {
 "29 31 459 2",
 "  	c None",
 ". 	c #B0B0B0",

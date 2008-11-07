@@ -16,7 +16,6 @@
 #include <wx/msgdlg.h>
 #include <wx/string.h>
 
-
 #if defined(__ATHOS_DEBUG__)
 #include <wx/log.h>
 #endif

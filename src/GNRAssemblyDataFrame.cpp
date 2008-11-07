@@ -10,6 +10,10 @@
 #include <wx/log.h>
 #endif
 
+#if !defined(__WXMSW__) && !defined(__WXPM__)
+#include "resources/gnr_icon.xpm"
+#endif
+
 const long GNRAssemblyDataFrame::idtxcName = wxNewId();
 const long GNRAssemblyDataFrame::idtxcWidth = wxNewId();
 const long GNRAssemblyDataFrame::idtxcHeight = wxNewId();
@@ -33,6 +37,7 @@ GNRAssemblyDataFrame::GNRAssemblyDataFrame(wxWindow* parent,wxWindowID id,const 
 	Create(parent, id, wxT("Objekt-Eigenschaften"), wxDefaultPosition, wxDefaultSize, wxDEFAULT_FRAME_STYLE, _T("id"));
 	SetClientSize(wxSize(350, 300));
 	SetBackgroundColour(wxNullColour);
+	SetIcon(wxICON(GNR_ICON));
 	
 	m_stxName = new wxStaticText(this, -1, wxT("Name:"), wxPoint(30,34), wxSize(80,22), 0);
 	m_txcName = new wxTextCtrl(this, idtxcName, wxT(""), wxPoint(120,30), wxSize(150,22), 0, wxDefaultValidator);
