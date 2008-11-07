@@ -333,6 +333,20 @@ void GNRScene::deleteSelectedAssemblies()
 }
 
 /**
+ * reset selected assemblies on ground
+ * @access      public
+ */
+void GNRScene::resetSelectedAssemblies()
+{
+	list<GNRAssembly*> parts = m_Selected->getPartList();
+	
+	for (list<GNRAssembly*>::iterator it = parts.begin(); it != parts.end(); ++it)
+	{
+		(*it)->resetOnGround();
+	}
+}
+
+/**
  * empty trash bin
  * @access      public
  */

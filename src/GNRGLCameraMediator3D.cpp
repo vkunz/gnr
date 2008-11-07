@@ -72,12 +72,18 @@ void GNRGLCameraMediator3D::MoveXZ(GNRGLNotifyEvent& event)
 void GNRGLCameraMediator3D::RotateXY(GNRGLNotifyEvent& event)
 {
 	//calculate rotation from 2D screen movement
-	float xangle = (float)(event.getMouseEvent().GetY() - m_mouse_y)/(float)window_h*360.0f;
+	float xangle = (float)(event.getMouseEvent().GetY() - m_mouse_y)/(float)window_h*180.0f;
 	float yangle = (float)(m_mouse_x - event.getMouseEvent().GetX())/(float)window_w*360.0f;
 	
 	//rotate around the right-Vector
 	GNRVertex viewDir = old_viewDir*cos(xangle*M_PI/180.0) + old_upVector*sin(xangle*M_PI/180.0);
 	viewDir.normalize();
+	
+	//stop moving, you'll loose your room
+	if (viewDir.getY() > 0)
+	{
+		return;
+	}
 	
 	//calculate new up vector and set y-axis to one
 	GNRVertex upVector = old_rightVector * viewDir;
@@ -110,12 +116,18 @@ void GNRGLCameraMediator3D::RotateXY(GNRGLNotifyEvent& event)
 void GNRGLCameraMediator3D::RotateXZ(GNRGLNotifyEvent& event)
 {
 	//calculate rotation from 2D screen movement
-	float xangle = (float)(event.getMouseEvent().GetY() - m_mouse_y)/(float)window_h*360.0f;
+	float xangle = (float)(event.getMouseEvent().GetY() - m_mouse_y)/(float)window_h*180.0f;
 	float zangle = (float)(m_mouse_x - event.getMouseEvent().GetX())/(float)window_w*360.0f;
 	
 	//Rotate viewdir around the right vector:
 	GNRVertex viewDir = old_viewDir*cos(xangle*M_PI/180.0) + old_upVector*sin(xangle*M_PI/180.0);
 	viewDir.normalize();
+	
+	//stop moving, you'll loose your room
+	if (viewDir.getY() > 0)
+	{
+		return;
+	}
 	
 	//now compute the new UpVector (by cross product)
 	GNRVertex upVector = (viewDir * old_rightVector) *-1;

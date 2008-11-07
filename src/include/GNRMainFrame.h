@@ -53,6 +53,7 @@ private:
 	void OnToolbarDrawWall(wxCommandEvent& WXUNUSED(event));
 	void OnCreateScreenshot(wxCommandEvent& WXUNUSED(event));
 	void OnCameraReset(wxCommandEvent& WXUNUSED(event));
+	void OnResetObject(wxCommandEvent& WXUNUSED(event));
 	void OnZoomIn(wxCommandEvent& WXUNUSED(event));
 	void OnZoomOut(wxCommandEvent& WXUNUSED(event));
 	void OnSnapToGridBtn(wxCommandEvent& WXUNUSED(event));
@@ -105,6 +106,7 @@ private:
 	static const long idMenuUngroup;
 	static const long idMenuHelp;
 	static const long idMenuAbout;
+	static const long idMenuResetObject;
 	//ToolBar Buttons
 	static const long btn_room_new;
 	static const long btn_room_open;
@@ -119,6 +121,7 @@ private:
 	static const long btn_rotate_xy;
 	static const long btn_rotate_xz;
 	static const long btn_draw_walls;
+	static const long btn_reset_object;
 	static const long btn_create_screenshot;
 	static const long btn_camera_reset;
 	static const long btn_snap_to_grid;
@@ -158,6 +161,7 @@ private:
 	wxMenuItem* MenuItem20;
 	wxMenuItem* MenuItem28;
 	wxMenuItem* MenuItem23;
+	wxMenuItem* MenuItem34;
 	wxMenuItem* MenuItem21;
 	wxMenuItem* MenuItem16;
 	wxMenuItem* MenuItem18;

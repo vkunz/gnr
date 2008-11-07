@@ -133,6 +133,7 @@ public:
 	float getOverGround() const;
 	void putOnGround();
 	void setNormals();
+	void resetOnGround();
 	
 	void draw();
 	void drawShadow();

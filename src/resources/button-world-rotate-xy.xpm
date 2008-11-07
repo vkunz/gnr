@@ -13,7 +13,7 @@ static const char * button_world_rotate_xy_xpm[] = {
 "=	c #4CC05C",
 "-	c #47C458",
 ";	c #2CE646",
-">	c #AEAEAE",
+">	c #D9D9D9",
 ",	c #AFD0B4",
 "'	c #95CB9C",
 ")	c #7CC786",

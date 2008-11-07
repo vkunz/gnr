@@ -46,6 +46,7 @@
 #include "resources/button-canvas2d-zoom-fit.xpm"
 #include "resources/button-snap-to-grid.xpm"
 #include "resources/button-draw-walls.xpm"
+#include "resources/button-reset-object.xpm"
 
 wxString wxbuildinfo()
 {
@@ -93,6 +94,7 @@ const long GNRMainFrame::idMenuGroup = wxNewId();
 const long GNRMainFrame::idMenuUngroup = wxNewId();
 const long GNRMainFrame::idMenuHelp = wxNewId();
 const long GNRMainFrame::idMenuAbout = wxNewId();
+const long GNRMainFrame::idMenuResetObject = wxNewId();
 const long GNRMainFrame::ID_STATUSBAR = wxNewId();
 const long GNRMainFrame::btn_room_new = wxNewId();
 const long GNRMainFrame::btn_room_open = wxNewId();
@@ -109,6 +111,7 @@ const long GNRMainFrame::btn_rotate_xy = wxNewId();
 const long GNRMainFrame::btn_rotate_xz = wxNewId();
 const long GNRMainFrame::btn_snap_to_grid = wxNewId();
 const long GNRMainFrame::btn_draw_walls = wxNewId();
+const long GNRMainFrame::btn_reset_object = wxNewId();
 const long GNRMainFrame::ID_TOOLBAR = wxNewId();
 const long GNRMainFrame::ID_SPINCTRL_TRANS  = wxNewId();
 const long GNRMainFrame::ID_SPINCTRL_ROTATE = wxNewId();
@@ -127,6 +130,7 @@ BEGIN_EVENT_TABLE(GNRMainFrame,wxFrame)
 	EVT_MENU(btn_rotate_xz, GNRMainFrame::OnToolbarRotateXZ)    //button rotate xy
 	EVT_MENU(btn_rotate_xy, GNRMainFrame::OnToolbarRotateXY)    //button rotate xz
 	EVT_MENU(btn_draw_walls, GNRMainFrame::OnToolbarDrawWall)   //button draw wall
+	EVT_MENU(btn_reset_object, GNRMainFrame::OnResetObject)     //button reset object
 	EVT_MENU(btn_zoom_in, GNRMainFrame::OnZoomIn)               //button zoom in
 	EVT_MENU(btn_zoom_out, GNRMainFrame::OnZoomOut)             //button zoom out
 	EVT_MENU(btn_camera_reset, GNRMainFrame::OnCameraReset)     //button reset camera
@@ -165,6 +169,7 @@ BEGIN_EVENT_TABLE(GNRMainFrame,wxFrame)
 	EVT_MENU(idMenuRotateXY, GNRMainFrame::OnToolbarRotateXY)
 	EVT_MENU(idMenuDrawWall, GNRMainFrame::OnToolbarDrawWall)
 	EVT_MENU(idMenuShadows, GNRMainFrame::OnShadowsMenu)
+	EVT_MENU(idMenuResetObject, GNRMainFrame::OnResetObject)
 	//menu group
 	EVT_MENU(idMenuGroup, GNRMainFrame::OnGroupCreate)
 	EVT_MENU(idMenuUngroup, GNRMainFrame::OnGroupModify)
@@ -226,6 +231,8 @@ GNRMainFrame::GNRMainFrame(wxWindow* parent, wxWindowID WXUNUSED(id))
 	ParentMenu_Edit->AppendSeparator();
 	MenuItem20 = new wxMenuItem(ParentMenu_Edit, idMenuHideObject, _("Objekte &verstecken\tCTRL+H"), _("Objekte verstecken..."), wxITEM_NORMAL);
 	ParentMenu_Edit->Append(MenuItem20);
+	MenuItem34 = new wxMenuItem(ParentMenu_Edit, idMenuResetObject, _("Objekte &zurücksetzen\tCTRL+R"), _("Objekte zurücksetzen..."), wxITEM_NORMAL);
+	ParentMenu_Edit->Append(MenuItem34);
 	MenuBar->Append(ParentMenu_Edit, _("&Bearbeiten"));
 	ParentMenu_Export = new wxMenu();
 	MenuItem7 = new wxMenuItem(ParentMenu_Export, idMenuObjExport, _("OBJ E&xportieren\tALT+O"), _("Object-Datei exportieren..."), wxITEM_NORMAL);
@@ -301,6 +308,8 @@ GNRMainFrame::GNRMainFrame(wxWindow* parent, wxWindowID WXUNUSED(id))
 	ToolBarItem[c++] = ToolBar1->AddTool(btn_redo, _("Wiederherstellen"), wxBitmap(wxIcon(button_redo_xpm)), wxNullBitmap, wxITEM_NORMAL, _("Wiederherstellen   [CTRL+Y]"), _("Wiederherstellen"));
 	ToolBarItem[c-1]->Enable(false);
 	ToolBar1->AddSeparator();
+	ToolBarItem[c++] = ToolBar1->AddTool(btn_reset_object, _("Selektierte Objekte wieder zurücksetzen"), wxBitmap(wxIcon(button_reset_object_xpm)), wxNullBitmap, wxITEM_NORMAL, _("Selektierte Objekte wieder zurücksetzen   [CTRL+R]"), _("Selektierte Objekte wieder zurücksetzen"));
+	ToolBar1->AddSeparator();
 	ToolBarItem[c++] = ToolBar1->AddTool(btn_move_xz, _("Verschieben in X-Z-Richtung"), wxBitmap(wxIcon(button_move_xz_xpm)), wxNullBitmap, wxITEM_RADIO, _("Verschieben in X-Z-Richtung   [F5]"), _("Verschieben in X-Z-Richtung"));
 	ToolBarItem[c++] = ToolBar1->AddTool(btn_move_xy, _("Verschieben in X-Y-Richtung"), wxBitmap(wxIcon(button_move_xy_xpm)), wxNullBitmap, wxITEM_RADIO, _("Verschieben in X-Y-Richtung   [F6]"), _("Verschieben in X-Y-Richtung"));
 	ToolBarItem[c++] = ToolBar1->AddTool(btn_rotate_xz, _("Rotieren auf X-Z-Achsen"), wxBitmap(wxIcon(button_world_rotate_xz_xpm)), wxNullBitmap, wxITEM_RADIO, _("Rotieren auf X-Z-Achsen   [F7]"), _("Rotieren auf X-Z-Achsen"));
@@ -327,7 +336,7 @@ GNRMainFrame::GNRMainFrame(wxWindow* parent, wxWindowID WXUNUSED(id))
 	//build input for rotation snapping
 	SpinCtrlRotate = new wxSpinCtrl(ToolBar1, ID_SPINCTRL_ROTATE, _T("Schrittweite in Grad"), wxPoint(0,0), wxSize(44,20), 0, SNAP_IN_MINIMUM_DEGREE, SNAP_IN_MAXIMUM_DEGREE, 10, _T("ID_SPINCTRL_ROTATE"));
 	StaticText2    = new wxStaticText(ToolBar1, ID_STATICTEXT2, _(" Grad"), wxPoint(3,13), wxSize(30,12), 0, _T("Schrittweite in Grad"));
-	SpinCtrlRotate->SetValue(_T("10"));
+	SpinCtrlRotate->SetValue(_T("45"));
 	ToolBarItem[c++] = ToolBar1->AddControl(SpinCtrlRotate);
 	ToolBarItem[c++] = ToolBar1->AddControl(StaticText2);
 	ToolBar1->AddSeparator();
@@ -563,7 +572,7 @@ void GNRMainFrame::OnShadowsMenu(wxCommandEvent& WXUNUSED(event))
 void GNRMainFrame::OnSnapToGridBtn(wxCommandEvent& WXUNUSED(event))
 {
 	//sync menu item and toolbar for snapping function
-	MenuItem9->Check(ToolBarItem[13]->IsToggled());
+	MenuItem9->Check(ToolBarItem[14]->IsToggled());
 	OnSnapToGrid();
 }
 
@@ -580,7 +589,7 @@ void GNRMainFrame::OnSnapToGrid()
 	int snapGrid  = SpinCtrlTranslate->GetValue();
 	int snapAngle = SpinCtrlRotate->GetValue();
 	
-	if (!ToolBarItem[13]->IsToggled())
+	if (!ToolBarItem[14]->IsToggled())
 	{
 		snapAngle = 1;
 		snapGrid  = 1;
@@ -652,6 +661,13 @@ void GNRMainFrame::OnCutSelected(wxCommandEvent& WXUNUSED(event))
 {
 	GNRNotifyEvent gnrevent(wxEVT_COMMAND_GNR_NOTIFY);
 	gnrevent.setGNREventType(CUTSELECTED);
+	GetEventHandler()->ProcessEvent(gnrevent);
+}
+
+void GNRMainFrame::OnResetObject(wxCommandEvent& WXUNUSED(event))
+{
+	GNRNotifyEvent gnrevent(wxEVT_COMMAND_GNR_NOTIFY);
+	gnrevent.setGNREventType(RESETOBJECT);
 	GetEventHandler()->ProcessEvent(gnrevent);
 }
 

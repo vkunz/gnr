@@ -312,7 +312,9 @@ void GNROpxImport::loadXml(wxInputStream& stream)
 			}
 			else
 			{
+#if defined(__ATHOS_DEBUG__)
 				wxLogDebug(wxT("assembly"));
+#endif
 				
 				// prop to visible
 				prop = node->GetProperties();
@@ -441,7 +443,9 @@ GNRAssembly* GNROpxImport::loadOax(wxString reference)
 		// get actual entry
 		entry = *m_vectorit;
 		
+#if defined(__ATHOS_DEBUG__)
 		wxLogDebug(entry->GetName());
+#endif
 		
 	}
 }

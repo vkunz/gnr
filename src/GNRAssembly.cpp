@@ -1201,6 +1201,18 @@ void GNRAssembly::putOnGround()
 }
 
 /**
+ * correct y-position over ground
+ * @access      public
+ */
+void GNRAssembly::resetOnGround()
+{
+	m_y     = (m_height*m_scale_y)/2.0;
+	m_phi   = 0.0;
+	m_theta = 0.0;
+	m_rho   = 0.0;
+}
+
+/**
  * get infos about assembly
  * @access      public
  */

@@ -238,6 +238,10 @@ void GNRApp::OnGNREvent(GNRNotifyEvent& event)
 		m_UndoRedo->redo();
 		m_Scene->glRefresh();
 		break;
+	case RESETOBJECT:
+		m_Scene->resetSelectedAssemblies();
+		m_Scene->glRefresh();
+		break;
 	case CREATEGROUP:
 		m_Scene->groupSelectedAssemblies();
 		m_Scene->glRefresh();
