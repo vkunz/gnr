@@ -353,25 +353,27 @@ void GNRApp::OnGNRTreeEvent(GNRTreeControlEvent& event)
  */
 void GNRApp::OnGLEvent(GNRGLNotifyEvent& event)
 {
-	//if button goes down, switch mediator to current operation
-	if (event.getMouseEvent().ButtonDClick(-1))
+	//on double click or right button select assembly
+	if (event.getMouseEvent().ButtonDClick(1) || event.getMouseEvent().ButtonDown(3))
 	{
+		m_MouseCtrl->setMediator(event);
 		m_MouseCtrl->setSelected(event);
 	}
-	//if button goes down, switch mediator to current operation
-	else if (event.getMouseEvent().ButtonDown(-1))
+	
+	//if left or middle mouse down, set mediator
+	else if (event.getMouseEvent().ButtonDown(1) || event.getMouseEvent().ButtonDown(2))
 	{
 		m_MouseCtrl->setMediator(event);
 	}
 	
-	//if button is down, translate event to mediator
-	else if (event.getMouseEvent().ButtonIsDown(-1))
+	//if left or middle mouse button is down, translate event to mediator
+	else if (event.getMouseEvent().ButtonIsDown(1) || event.getMouseEvent().ButtonIsDown(2))
 	{
 		m_MouseCtrl->activateMediator(event);
 	}
 	
-	//if button goes up, create command-object for undo
-	else if (event.getMouseEvent().ButtonUp(-1))
+	//if left or middle mouse button goes up, create command-object for undo
+	else if (event.getMouseEvent().ButtonUp(1) || event.getMouseEvent().ButtonUp(2))
 	{
 		m_MouseCtrl->deactivateMediator();
 	}

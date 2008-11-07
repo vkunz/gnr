@@ -602,8 +602,22 @@ void GNRGLCanvas::OnRMouseDown(wxMouseEvent& event)
 {
 	SetFocus();
 	Connect(wxEVT_MOUSEWHEEL, (wxObjectEventFunction)&GNRGLCanvas::OnMouseWheel);
-	// nothing has do be done yet
-	OnMMouseDown(event);
+	
+	GNRVertex* glcoords = new GNRVertex[2];
+	getGLDim(event.GetX(), event.GetY(), glcoords);
+	
+	// send Event to handle Mouse
+	GNRGLNotifyEvent myevent(wxEVT_COMMAND_GL_NOTIFY);
+	myevent.setMouseEvent(event);
+	myevent.setCanvasID(getCanvasID());
+	myevent.SetEventObject(this);
+	myevent.SetInt((int)this);
+	myevent.setWindowSize(m_window_x, m_window_y);
+	myevent.setWorldSize(glcoords);
+	GetEventHandler()->ProcessEvent(myevent);
+	
+	Connect(wxEVT_MOTION, (wxObjectEventFunction)&GNRGLCanvas::OnMouseMove);
+	delete[] glcoords;
 }
 
 /**
@@ -613,9 +627,7 @@ void GNRGLCanvas::OnRMouseDown(wxMouseEvent& event)
  */
 void GNRGLCanvas::OnRMouseUp(wxMouseEvent& event)
 {
-	//Disconnect(wxEVT_MOTION, (wxObjectEventFunction)&GNRGLCanvas::OnMouseMove);
-	// nothing has do be done yet
-	OnMMouseUp(event);
+	//nothing anymore
 }
 
 /**

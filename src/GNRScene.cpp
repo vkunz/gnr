@@ -497,33 +497,35 @@ void GNRScene::drawLine(GNRLineDrawEvent& event)
 	{
 		glPushMatrix();
 		{
+			//draw line from start- to end-point
+			float lineColor[4] = {1.0, 0.0, 0.0, 0.0};
+			glMaterialfv(GL_FRONT, GL_EMISSION, lineColor);
+			glMaterialfv(GL_FRONT, GL_AMBIENT_AND_DIFFUSE, lineColor);
+			
+			//should be like the default wallsize
+			glLineWidth(100.0/(float)m_GLCamera2D->getDistance());
+			
+			//draw line from start to end
+			glBegin(GL_LINES);
+			{
+				glVertex3f(event.getStartPoint().getX(), event.getStartPoint().getY(), event.getStartPoint().getZ());
+				glVertex3f(event.getEndPoint().getX(), event.getEndPoint().getY(), event.getEndPoint().getZ());
+			}
+			glEnd();
+			
+			//turn on lights
 			m_GLOUT->initLights();
 			
+			//if shadows disabled draw floor again
 			if (! m_shadows)
 			{
 				m_GLOUT->drawBaseFloor(0.0, 0.0, 0.0, DEFAULT_FLOOR_SIZE);
 			}
 			
+			//draw world
 			m_RootAssembly->draw();
 		}
 		glPopMatrix();
-		
-		// draw line from start- to end-point
-		float lineColor[4] = {1.0, 0.0, 0.0, 0.0};
-		glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT,  lineColor);
-		glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE,  lineColor);
-		glMaterialfv(GL_FRONT_AND_BACK, GL_EMISSION, lineColor);
-		glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, lineColor);
-		
-		//should be like the default wallsize
-		glLineWidth(100.0/(float)m_GLCamera2D->getDistance());
-		
-		glBegin(GL_LINES);
-		{
-			glVertex3f(event.getStartPoint().getX(), event.getStartPoint().getY(), event.getStartPoint().getZ());
-			glVertex3f(event.getEndPoint().getX(), event.getEndPoint().getY(), event.getEndPoint().getZ());
-		}
-		glEnd();
 	}
 	glPopMatrix();
 	

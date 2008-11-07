@@ -58,12 +58,15 @@ void GNRMouseController::setMediator(GNRGLNotifyEvent& event)
 	switch ((buttonType)event.getMouseEvent().GetButton())
 	{
 	case LEFT_BUTTON:
+		//if mode is drawing walls and left button pressed
 		if (m_Mediator->getTranslation() == DRAWWALL)
 		{
+			//draw only walls in 2d canvas
 			if (event.getCanvasID() == CANVAS2D)
 			{
 				m_Mediator = m_WallMediator;
 			}
+			//in 3d canvas move as expected
 			else if (event.getCanvasID() == CANVAS3D)
 			{
 				m_Mediator = m_AssemblyMediator3D;
@@ -73,6 +76,7 @@ void GNRMouseController::setMediator(GNRGLNotifyEvent& event)
 				setAssemblyMediator(event);
 			}
 		}
+		//otherwise move object normally
 		else
 		{
 			event.setCamRotatedX(m_Scene->getGLCamera3D()->getRotatedX());
@@ -83,12 +87,14 @@ void GNRMouseController::setMediator(GNRGLNotifyEvent& event)
 		}
 		break;
 	case MIDDLE_BUTTON:
+		//move cam around in 2d canvas
 		if (event.getCanvasID() == CANVAS2D)
 		{
 			//point to 2D mediator if event from canvas 2D
 			m_Mediator = m_GLCameraMediator2D;
 			m_Mediator->setGLCamera(m_Scene->getGLCamera2D());
 		}
+		//move or rotate cam in 3d mode
 		else if (event.getCanvasID() == CANVAS3D)
 		{
 			//else, point to 3D mediator if event from canvas 3D
@@ -97,18 +103,7 @@ void GNRMouseController::setMediator(GNRGLNotifyEvent& event)
 		}
 		break;
 	case RIGHT_BUTTON:
-		if (event.getCanvasID() == CANVAS2D)
-		{
-			//point to 2D mediator if event from canvas 2D
-			m_Mediator = m_GLCameraMediator2D;
-			m_Mediator->setGLCamera(m_Scene->getGLCamera2D());
-		}
-		else if (event.getCanvasID() == CANVAS3D)
-		{
-			//else, point to 3D mediator if event from canvas 3D
-			m_Mediator = m_GLCameraMediator3D;
-			m_Mediator->setGLCamera(m_Scene->getGLCamera3D());
-		}
+		//unused here
 		break;
 	}
 	
