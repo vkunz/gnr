@@ -53,7 +53,7 @@ wxString wxbuildinfo()
 	wxString wxbuild;
 	
 	wxbuild << _T("< GNR 3D Raumplaner >\n\n");
-	wxbuild << _T("#if defined(PROGRAMMIERER)\n");
+	wxbuild << _T("#if defined(ENTWICKLER)\n");
 	wxbuild << _T(" #include \"Konstantin_Balabin.h\"\n");
 	wxbuild << _T(" #include \"Patrick_Kracht.h\"\n");
 	wxbuild << _T(" #include \"Thorsten_Moll.h\"\n");
@@ -94,6 +94,11 @@ const long GNRMainFrame::idMenuGroup = wxNewId();
 const long GNRMainFrame::idMenuUngroup = wxNewId();
 const long GNRMainFrame::idMenuHelp = wxNewId();
 const long GNRMainFrame::idMenuAbout = wxNewId();
+const long GNRMainFrame::idMenuCreateCylinder = wxNewId();
+const long GNRMainFrame::idMenuCreateCone = wxNewId();
+const long GNRMainFrame::idMenuCreateCuboid = wxNewId();
+const long GNRMainFrame::idMenuCreateSphere = wxNewId();
+const long GNRMainFrame::idMenuCreatePyramide = wxNewId();
 const long GNRMainFrame::idMenuResetObject = wxNewId();
 const long GNRMainFrame::ID_STATUSBAR = wxNewId();
 const long GNRMainFrame::btn_room_new = wxNewId();
@@ -170,6 +175,12 @@ BEGIN_EVENT_TABLE(GNRMainFrame,wxFrame)
 	EVT_MENU(idMenuDrawWall, GNRMainFrame::OnToolbarDrawWall)
 	EVT_MENU(idMenuShadows, GNRMainFrame::OnShadowsMenu)
 	EVT_MENU(idMenuResetObject, GNRMainFrame::OnResetObject)
+	//create primitves
+	EVT_MENU(idMenuCreateCuboid, GNRMainFrame::OnMenuCreateCuboid)
+	EVT_MENU(idMenuCreateSphere, GNRMainFrame::OnMenuCreateSphere)
+	EVT_MENU(idMenuCreateCone, GNRMainFrame::OnMenuCreateCone)
+	EVT_MENU(idMenuCreateCylinder, GNRMainFrame::OnMenuCreateCylinder)
+	EVT_MENU(idMenuCreatePyramide, GNRMainFrame::OnMenuCreatePyramide)
 	//menu group
 	EVT_MENU(idMenuGroup, GNRMainFrame::OnGroupCreate)
 	EVT_MENU(idMenuUngroup, GNRMainFrame::OnGroupModify)
@@ -212,6 +223,7 @@ GNRMainFrame::GNRMainFrame(wxWindow* parent, wxWindowID WXUNUSED(id))
 	MenuItem1 = new wxMenuItem(ParentMenu_File, idMenuQuit, _("GNR Schließen\tALT+F4"), _("GNR beenden..."), wxITEM_NORMAL);
 	ParentMenu_File->Append(MenuItem1);
 	MenuBar->Append(ParentMenu_File, _("&Datei"));
+	
 	ParentMenu_Edit = new wxMenu();
 	MenuItem24 = new wxMenuItem(ParentMenu_Edit, idMenuUndo, _("&Rückgänig\tCTRL+Z"), _("Aktion rückgänig machen..."), wxITEM_NORMAL);
 	ParentMenu_Edit->Append(MenuItem24);
@@ -234,18 +246,21 @@ GNRMainFrame::GNRMainFrame(wxWindow* parent, wxWindowID WXUNUSED(id))
 	MenuItem34 = new wxMenuItem(ParentMenu_Edit, idMenuResetObject, _("Objekte &zurücksetzen\tCTRL+R"), _("Objekte zurücksetzen..."), wxITEM_NORMAL);
 	ParentMenu_Edit->Append(MenuItem34);
 	MenuBar->Append(ParentMenu_Edit, _("&Bearbeiten"));
+	
 	ParentMenu_Export = new wxMenu();
 	MenuItem7 = new wxMenuItem(ParentMenu_Export, idMenuObjExport, _("OBJ E&xportieren\tALT+O"), _("Object-Datei exportieren..."), wxITEM_NORMAL);
 	ParentMenu_Export->Append(MenuItem7);
 	MenuItem33 = new wxMenuItem(ParentMenu_Export, idMenuOnScreenshot, _("&Screenshot erstellen\tF12"), _("Screenshot der 3D-Szene erstellen..."), wxITEM_NORMAL);
 	ParentMenu_Export->Append(MenuItem33);
 	MenuBar->Append(ParentMenu_Export, _("E&xportieren"));
+	
 	ParentMenu_Import = new wxMenu();
 	MenuItem6 = new wxMenuItem(ParentMenu_Import, idMenuObjImport, _("OBJ &Importieren\tALT+I"), _("Object-Datei importieren..."), wxITEM_NORMAL);
 	ParentMenu_Import->Append(MenuItem6);
 	MenuItem10 = new wxMenuItem(ParentMenu_Import, idMenuOaxImport, _("OAX I&mportieren\tCTRL+I"), _("OAX Importieren..."), wxITEM_NORMAL);
 	ParentMenu_Import->Append(MenuItem10);
 	MenuBar->Append(ParentMenu_Import, _("&Importieren"));
+	
 	ParentMenu_Camera = new wxMenu();
 	MenuItem26 = new wxMenuItem(ParentMenu_Camera, idMenuZoomIn, _("&Einzoomen\tPGUP"), _("In die 2D Ansicht hereinzoomen..."), wxITEM_NORMAL);
 	ParentMenu_Camera->Append(MenuItem26);
@@ -255,6 +270,7 @@ GNRMainFrame::GNRMainFrame(wxWindow* parent, wxWindowID WXUNUSED(id))
 	MenuItem29 = new wxMenuItem(ParentMenu_Camera, idMenuCameraReset, _("Aus&ganszustand\tHOME"), _("Kamera in Ausganszustand zurücksetzen..."), wxITEM_NORMAL);
 	ParentMenu_Camera->Append(MenuItem29);
 	MenuBar->Append(ParentMenu_Camera, _("&Kamera"));
+	
 	ParentMenu_Settings = new wxMenu();
 	MenuItem9 = new wxMenuItem(ParentMenu_Settings, idMenuSnapToGrid, _("Ein&rasten aktivieren\tF4"), _("Einrasten aktivieren..."), wxITEM_CHECK);
 	ParentMenu_Settings->Append(MenuItem9);
@@ -273,12 +289,27 @@ GNRMainFrame::GNRMainFrame(wxWindow* parent, wxWindowID WXUNUSED(id))
 	MenuItem32 = new wxMenuItem(ParentMenu_Settings, idMenuShadows, _("&Schatten aktivieren\tF10"), _("Schatten aktivieren..."), wxITEM_CHECK);
 	ParentMenu_Settings->Append(MenuItem32);
 	MenuBar->Append(ParentMenu_Settings, _("&Einstellungen"));
+	
 	ParentMenu_Groups = new wxMenu();
 	MenuItem17 = new wxMenuItem(ParentMenu_Groups, idMenuGroup, _("&Gruppe erstellen\tCTRL+G"), _("Neue Gruppe erstellen..."), wxITEM_NORMAL);
 	ParentMenu_Groups->Append(MenuItem17);
 	MenuItem18 = new wxMenuItem(ParentMenu_Groups, idMenuUngroup, _("Gruppe &auflösen\tCTRL+F"), _("Gruppe auflösen..."), wxITEM_NORMAL);
 	ParentMenu_Groups->Append(MenuItem18);
 	MenuBar->Append(ParentMenu_Groups, _("Gr&uppen"));
+	
+	ParentMenu_Create = new wxMenu();
+	MenuItem35 = new wxMenuItem(ParentMenu_Create, idMenuCreateCone, _("Kegel erstellen\tCTRL+1"), _("Kegel erstellen..."), wxITEM_NORMAL);
+	ParentMenu_Create->Append(MenuItem35);
+	MenuItem36 = new wxMenuItem(ParentMenu_Create, idMenuCreateCylinder, _("Zylinder erstellen\tCTRL+2"), _("Zylinder erstellen..."), wxITEM_NORMAL);
+	ParentMenu_Create->Append(MenuItem36);
+	MenuItem37 = new wxMenuItem(ParentMenu_Create, idMenuCreateCuboid, _("Kubus erstellen\tCTRL+3"), _("Kubus erstellen..."), wxITEM_NORMAL);
+	ParentMenu_Create->Append(MenuItem37);
+	MenuItem38 = new wxMenuItem(ParentMenu_Create, idMenuCreatePyramide, _("Pyramide erstellen\tCTRL+4"), _("Pyramide erstellen..."), wxITEM_NORMAL);
+	ParentMenu_Create->Append(MenuItem38);
+	MenuItem39 = new wxMenuItem(ParentMenu_Create, idMenuCreateSphere, _("Kugel erstellen\tCTRL+5"), _("Kugel erstellen..."), wxITEM_NORMAL);
+	ParentMenu_Create->Append(MenuItem39);
+	MenuBar->Append(ParentMenu_Create, _("&Primitive"));
+	
 	ParentMenu_Help = new wxMenu();
 	MenuItem5 = new wxMenuItem(ParentMenu_Help, idMenuHelp, _("&Hilfe\tF1"), _("Hilfe zur Anwendung"), wxITEM_NORMAL);
 	ParentMenu_Help->Append(MenuItem5);
@@ -512,6 +543,51 @@ void GNRMainFrame::OnToolbarRotateXY(wxCommandEvent& WXUNUSED(event))
 	myevent.setGNREventType(TOOLBARCHANGE);
 	myevent.SetEventObject(this);
 	myevent.SetInt(ROTATEXY);
+	GetEventHandler()->ProcessEvent(myevent);
+}
+
+void GNRMainFrame::OnMenuCreateCuboid(wxCommandEvent& WXUNUSED(event))
+{
+#warning: "TODO OnMenuCreateCuboid, event ready!"
+	GNRNotifyEvent myevent(wxEVT_COMMAND_GNR_NOTIFY);
+	myevent.SetEventObject(this);
+	myevent.SetInt(CREATECUBOID);
+	GetEventHandler()->ProcessEvent(myevent);
+}
+
+void GNRMainFrame::OnMenuCreateCone(wxCommandEvent& WXUNUSED(event))
+{
+#warning: "TODO OnMenuCreateCone, event ready!"
+	GNRNotifyEvent myevent(wxEVT_COMMAND_GNR_NOTIFY);
+	myevent.SetEventObject(this);
+	myevent.SetInt(CREATECONE);
+	GetEventHandler()->ProcessEvent(myevent);
+}
+
+void GNRMainFrame::OnMenuCreateSphere(wxCommandEvent& WXUNUSED(event))
+{
+#warning: "TODO OnMenuCreateSphere, event ready!"
+	GNRNotifyEvent myevent(wxEVT_COMMAND_GNR_NOTIFY);
+	myevent.SetEventObject(this);
+	myevent.SetInt(CREATESPHERE);
+	GetEventHandler()->ProcessEvent(myevent);
+}
+
+void GNRMainFrame::OnMenuCreateCylinder(wxCommandEvent& WXUNUSED(event))
+{
+#warning: "TODO OnMenuCreateCylinder, event ready!"
+	GNRNotifyEvent myevent(wxEVT_COMMAND_GNR_NOTIFY);
+	myevent.SetEventObject(this);
+	myevent.SetInt(CREATECYLINDER);
+	GetEventHandler()->ProcessEvent(myevent);
+}
+
+void GNRMainFrame::OnMenuCreatePyramide(wxCommandEvent& WXUNUSED(event))
+{
+#warning: "TODO OnMenuCreatePyramide, event ready!"
+	GNRNotifyEvent myevent(wxEVT_COMMAND_GNR_NOTIFY);
+	myevent.SetEventObject(this);
+	myevent.SetInt(CREATEPYRAMIDE);
 	GetEventHandler()->ProcessEvent(myevent);
 }
 

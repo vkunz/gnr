@@ -237,6 +237,7 @@
 		<Unit filename="src\resources\button-move-xy.xpm" />
 		<Unit filename="src\resources\button-move-xz.xpm" />
 		<Unit filename="src\resources\button-redo.xpm" />
+		<Unit filename="src\resources\button-reset-object.xpm" />
 		<Unit filename="src\resources\button-room-new.xpm" />
 		<Unit filename="src\resources\button-room-open.xpm" />
 		<Unit filename="src\resources\button-room-save.xpm" />

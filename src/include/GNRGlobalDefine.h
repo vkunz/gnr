@@ -23,7 +23,7 @@
 #define CAMERA_DISTANCE_MIN       0.50        //   50cm minimum distance of cam
 
 #define DEFAULT_FLOOR_SIZE       128
-#define DEFAULT_IMPORT_COLOR    "archwhite2"
+#define DEFAULT_IMPORT_COLOR    "default"
 
 #define ZNEAR                     0.001f      // near clipping plane of GL
 #define ZFAR                    500.0f        // far clipping plane of GL

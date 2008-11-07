@@ -87,6 +87,9 @@ void GNRGLCanvasPreview::InitGL()
 	glShadeModel(GL_SMOOTH);
 	glDepthFunc(GL_LEQUAL);
 	
+	glBlendFunc(GL_ONE_MINUS_SRC_ALPHA,GL_SRC_ALPHA);
+	
+	glEnable(GL_BLEND);
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_LINE_SMOOTH);
 	glEnable(GL_POLYGON_SMOOTH);
@@ -174,11 +177,11 @@ void GNRGLCanvasPreview::draw()
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		glLoadIdentity();
 		
+		glShadeModel(GL_SMOOTH);
 		glDisable(GL_BLEND);
 		glDisable(GL_STENCIL_TEST);
 		glEnable(GL_DEPTH_TEST);
 		glEnable(GL_LIGHTING);
-		glCullFace(GL_BACK);
 		
 		// scale image to fit in preview
 		float max_size = m_assembly->getMaximumSize();
@@ -193,6 +196,7 @@ void GNRGLCanvasPreview::draw()
 		
 		m_assembly->draw();
 		
+		glFlush();
 		SwapBuffers();
 	}
 }

@@ -1078,12 +1078,14 @@ void GNRAssembly::draw()
 			if (glowcolor[3] > 0.0)
 			{
 				glMaterialfv(GL_FRONT, GL_EMISSION, glowcolor);
+				glMaterialfv(GL_FRONT, GL_AMBIENT, glowcolor);
 			}
 		}
 		else if (m_parent->m_type == IS_ROOT)
 		{
 			//reset glow value for objects in root
 			glMaterialfv(GL_FRONT, GL_EMISSION, glowcolor);
+			glMaterialfv(GL_FRONT, GL_AMBIENT, glowcolor);
 		}
 	}
 	

@@ -68,6 +68,11 @@ private:
 	void OnHideSelected(wxCommandEvent& WXUNUSED(event));
 	void OnInsertCopy(wxCommandEvent& WXUNUSED(event));
 	void OnCutSelected(wxCommandEvent& WXUNUSED(event));
+	void OnMenuCreateCone(wxCommandEvent& WXUNUSED(event));
+	void OnMenuCreateSphere(wxCommandEvent& WXUNUSED(event));
+	void OnMenuCreateCuboid(wxCommandEvent& WXUNUSED(event));
+	void OnMenuCreateCylinder(wxCommandEvent& WXUNUSED(event));
+	void OnMenuCreatePyramide(wxCommandEvent& WXUNUSED(event));
 	
 	//global set snap to grid
 	void OnSnapToGrid();
@@ -106,6 +111,11 @@ private:
 	static const long idMenuUngroup;
 	static const long idMenuHelp;
 	static const long idMenuAbout;
+	static const long idMenuCreateCuboid;
+	static const long idMenuCreateSphere;
+	static const long idMenuCreatePyramide;
+	static const long idMenuCreateCone;
+	static const long idMenuCreateCylinder;
 	static const long idMenuResetObject;
 	//ToolBar Buttons
 	static const long btn_room_new;
@@ -140,6 +150,7 @@ private:
 	wxMenu* ParentMenu_Import;
 	wxMenu* ParentMenu_Groups;
 	wxMenu* ParentMenu_Camera;
+	wxMenu* ParentMenu_Create;
 	
 	wxMenuBar* MenuBar;
 	
@@ -168,6 +179,11 @@ private:
 	wxMenuItem* MenuItem30;
 	wxMenuItem* MenuItem19;
 	wxMenuItem* MenuItem33;
+	wxMenuItem* MenuItem35;
+	wxMenuItem* MenuItem36;
+	wxMenuItem* MenuItem37;
+	wxMenuItem* MenuItem38;
+	wxMenuItem* MenuItem39;
 	wxMenuItem* MenuItem1;
 	wxMenuItem* MenuItem2;
 	wxMenuItem* MenuItem3;
