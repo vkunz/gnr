@@ -333,6 +333,25 @@ void GNRScene::deleteSelectedAssemblies()
 }
 
 /**
+ * delete a given assembly (move to trash container)
+ * @access      public
+ */
+void GNRScene::deleteAssembly(GNRAssembly* assembly)
+{
+	// delete assembly from parent
+	assembly->getParent()->delPart(assembly);
+	
+	m_Trash->addPart(assembly);
+	
+	glRefresh();
+	
+	// send event to refresh Scene-Tree
+	GNRNotifyEvent gnrevent(wxEVT_COMMAND_GNR_NOTIFY);
+	gnrevent.setGNREventType(REFRESHSCENETREE);
+	ProcessEvent(gnrevent);
+}
+
+/**
  * clone all selected assemblies
  * @access      public
  */
@@ -686,16 +705,49 @@ void GNRScene::restoreAssembly(GNRAssembly* assembly)
 		m_RootAssembly->addPart(assembly);
 		m_Trash->delPart(assembly);
 	}
+	
+	glRefresh();
+	
+	// send event to refresh Scene-Tree
+	GNRNotifyEvent gnrevent(wxEVT_COMMAND_GNR_NOTIFY);
+	gnrevent.setGNREventType(REFRESHSCENETREE);
+	ProcessEvent(gnrevent);
 }
 
 /**
- * show actual assembly again (unhide, move out of hidden container)
+ * show actual assembly again
  * @param       GNRAssembly*        pointer to assembly to show
  * @access      public
  */
 void GNRScene::showAssembly(GNRAssembly* assembly)
 {
 	assembly->setVisible(true);
+	
+	// redraw scene
+	glRefresh();
+	
+	// send event to refresh Scene-Tree
+	GNRNotifyEvent gnrevent(wxEVT_COMMAND_GNR_NOTIFY);
+	gnrevent.setGNREventType(REFRESHSCENETREE);
+	ProcessEvent(gnrevent);
+}
+
+/**
+ * hide actual assembly
+ * @param       GNRAssembly*        pointer to assembly to hide
+ * @access      public
+ */
+void GNRScene::hideAssembly(GNRAssembly* assembly)
+{
+	assembly->setVisible(false);
+	
+	// redraw scene
+	glRefresh();
+	
+	// send event to refresh Scene-Tree
+	GNRNotifyEvent gnrevent(wxEVT_COMMAND_GNR_NOTIFY);
+	gnrevent.setGNREventType(REFRESHSCENETREE);
+	ProcessEvent(gnrevent);
 }
 
 /**
@@ -764,16 +816,6 @@ void GNRScene::insertAssembly(GNRAssembly* assembly)
 	GNRNotifyEvent gnrevent(wxEVT_COMMAND_GNR_NOTIFY);
 	gnrevent.setGNREventType(REFRESHSCENETREE);
 	ProcessEvent(gnrevent);
-}
-
-/**
- * inserts a new hidden assembly to the hidden assembly
- * @param   GNRAssembly*    pointer to the assembly, that should be insert
- * @access      public
- */
-void GNRScene::insertHiddenAssembly(GNRAssembly* assembly)
-{
-	//TODO
 }
 
 GNRSceneTreeNode* GNRScene::createSceneTree()

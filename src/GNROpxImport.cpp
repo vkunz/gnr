@@ -387,7 +387,8 @@ void GNROpxImport::CreateAssembly(wxZipInputStream& stream)
 		// if not, insert hidden assembly
 		else
 		{
-			m_scene->insertHiddenAssembly(assembly);
+			assembly->setVisible(false);
+			m_scene->insertAssembly(assembly);
 		}
 	}
 	else
@@ -518,7 +519,8 @@ void GNROpxImport::CreateGroup(wxZipInputStream& stream)
 		// if not, insert hidden assembly
 		else
 		{
-			m_scene->insertHiddenAssembly(assembly);
+			assembly->setVisible(false);
+			m_scene->insertAssembly(assembly);
 		}
 	}
 	else

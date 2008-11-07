@@ -96,12 +96,13 @@ public:
 	void cutSelectedAssemblies();
 	
 	void showAssembly(GNRAssembly* assembly);
+	void hideAssembly(GNRAssembly* assembly);
+	void deleteAssembly(GNRAssembly* assembly);
 	void restoreAssembly(GNRAssembly* assembly);
 	void selectAssembly(GNRAssembly* assembly);
 	void minmax(float& min,float& max,float value);
 	
-	void insertAssembly(GNRAssembly* cuboid);
-	void insertHiddenAssembly(GNRAssembly* assembly);
+	void insertAssembly(GNRAssembly* assembly);
 	
 	GNRSceneTreeNode* createSceneTree();
 };
