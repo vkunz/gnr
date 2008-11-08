@@ -24,19 +24,19 @@ class GNRTreeSceneController
 public:
 	// ctor
 	GNRTreeSceneController(wxTreeCtrl* treectrl);
-	
+
 	// dtor
 	virtual ~GNRTreeSceneController();
-	
-	void updateTree(GNRSceneTreeNode* tree);
-	
+
+	void createSceneTree();
+
 protected:
 
 private:
 	// attributes
 	wxTreeCtrl* m_treeCtrl;
-	
-	void evaluateTree(GNRSceneTreeNode* node, wxTreeItemId id);
+
+	void createSceneTree(wxTreeItemId id, GNRAssembly* assembly);
 };
 
 #endif // _GNRTreeSceneController_H_

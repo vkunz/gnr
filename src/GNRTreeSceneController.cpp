@@ -8,10 +8,8 @@
  * @author		Valentin Kunz       <athostr@googlemail.com>
  */
 
-#include <wx/wfstream.h>
-#include <wx/xml/xml.h>
-
 #include "GNRTreeSceneController.h"
+#include "GNRScene.h"
 
 #if defined(__ATHOS_DEBUG__)
 #include <wx/log.h>
@@ -35,83 +33,93 @@ GNRTreeSceneController::GNRTreeSceneController(wxTreeCtrl* treectrl)
 GNRTreeSceneController::~GNRTreeSceneController() {}
 
 /**
- * walk through tree and insert all items from nodes to scene-tree
- * @param   GNRSceneTreeNode*   Pointer to root-Node of (part-) tree
- * @param   wxTreeItemId        id, the items are insert to
- * @access  private
- */
-void GNRTreeSceneController::evaluateTree(GNRSceneTreeNode* node, wxTreeItemId id)
-{
-	// start evaluation of childern to a new itemid
-	GNRSceneTreeNode* myNode;
-	wxTreeItemId newID;
-	while (myNode = node->getTreeNode())
-	{
-		if (myNode->getOwnTreeItem() == NULL)
-		{
-			newID = m_treeCtrl->AppendItem(id, myNode->getName());
-		}
-		else
-		{
-			newID = m_treeCtrl->AppendItem(id, myNode->getOwnTreeItem()->getAssembly()->getName(), -1, -1, myNode->getOwnTreeItem());
-			
-			// make selected bold
-			if (myNode->getOwnTreeItem()->getAssembly()->getMaster()->getType() == IS_SELECTED)
-			{
-				m_treeCtrl->SetItemBold(newID);
-			}
-			// make hidden italic
-			if (myNode->getOwnTreeItem()->getAssembly()->isVisible() == false)
-			{
-				m_treeCtrl->SetItemFont(newID, *wxITALIC_FONT);
-			}
-		}
-		evaluateTree(myNode, newID);
-	}
-	
-	// append items of current node to current itemid
-	GNRTreeSceneItemData* itemData;
-	wxTreeItemId tmpID;
-	while (itemData = node->getTreeItem())
-	{
-		tmpID = m_treeCtrl->AppendItem(id, itemData->getAssembly()->getName(), -1, -1, itemData);
-		// make selected bold
-		if (itemData->getAssembly()->getMaster()->getType() == IS_SELECTED)
-		{
-			m_treeCtrl->SetItemBold(tmpID);
-		}
-		// make hidden italic
-		if (itemData->getAssembly()->isVisible() == false)
-		{
-			m_treeCtrl->SetItemFont(tmpID, *wxITALIC_FONT);
-		}
-	}
-}
-
-/**
  * builds new scene-treectrl
  * @param       GNRSceneTreeNode*        pointer to tree-root
  * @access      public
  */
-void GNRTreeSceneController::updateTree(GNRSceneTreeNode* tree)
+void GNRTreeSceneController::createSceneTree()
 {
-	// reset tree
+    GNRScene* scene = GNRScene::getInstance();
+
+    // reset tree
 	m_treeCtrl->DeleteAllItems();
-	
-	// set root
-	wxTreeItemId rootID = m_treeCtrl->AddRoot(wxT("Root"));
-	
-	// build Tree
-	evaluateTree(tree, rootID);
-	
+
+    // create root-entry
+    wxTreeItemId rootID = m_treeCtrl->AddRoot(wxT("Root"));
+
+	// create scene tree
+	wxTreeItemId newID = m_treeCtrl->AppendItem(rootID, wxT("Szene"));
+	createSceneTree(newID, scene->getRootAssembly());
+
+	newID = m_treeCtrl->AppendItem(rootID, wxT("Papierkorb"));
+	createSceneTree(newID, scene->getTrash());
+
 	// expand root + scene
 	m_treeCtrl->Expand(rootID);
 	wxTreeItemIdValue cookie;
 	m_treeCtrl->Expand(m_treeCtrl->GetFirstChild(rootID, cookie));
-	
+
 	// sort children of scene
 	m_treeCtrl->SortChildren(m_treeCtrl->GetFirstChild(rootID, cookie));
-	
-	// delete given internal tree
-	delete tree;
+}
+
+/**
+ * walk through tree and insert all items from nodes to scene-tree
+ * @param   wxTreeItemId        id, the items are insert to
+ * @param   GNRAssembly*        assemlby to analyze
+ * @access  private
+ */
+void GNRTreeSceneController::createSceneTree(wxTreeItemId id, GNRAssembly* assembly)
+{
+	if (assembly->getType() == IS_OBJECT || assembly->getType() == IS_PRIMITIVE)
+	{
+		// generate ItemData for object and insert to tree
+		GNRTreeSceneItemData* data = new GNRTreeSceneItemData;
+		data->setAssembly(assembly);
+		wxTreeItemId newID = m_treeCtrl->AppendItem(id, assembly->getName(), -1, -1, data);
+
+		// make selected bold
+		if (assembly->getMaster()->getType() == IS_SELECTED)
+		{
+			m_treeCtrl->SetItemBold(newID);
+		}
+		// make hidden italic
+		if (assembly->isVisible() == false)
+		{
+			m_treeCtrl->SetItemFont(newID, *wxITALIC_FONT);
+		}
+	}
+	else if (assembly->getType() == IS_GROUP)
+	{
+		// generate ItemData for group
+		GNRTreeSceneItemData* data = new GNRTreeSceneItemData;
+		data->setAssembly(assembly);
+
+		wxTreeItemId newID = m_treeCtrl->AppendItem(id, assembly->getName(), -1, -1, data);
+
+		// make selected bold
+        if (assembly->getMaster()->getType() == IS_SELECTED)
+        {
+            m_treeCtrl->SetItemBold(newID);
+        }
+        // make hidden italic
+        if (assembly->isVisible() == false)
+        {
+            m_treeCtrl->SetItemFont(newID, *wxITALIC_FONT);
+        }
+
+		list<GNRAssembly*> parts = assembly->getPartList();
+		for (list<GNRAssembly*>::const_iterator it = parts.begin(); it != parts.end(); ++it)
+		{
+			createSceneTree(newID, (*it));
+		}
+	}
+	else if (assembly->getType() == IS_ROOT || assembly->getType() == IS_TRASH || assembly->getType() == IS_SELECTED)
+	{
+		list<GNRAssembly*> parts = assembly->getPartList();
+		for (list<GNRAssembly*>::const_iterator it = parts.begin(); it != parts.end(); ++it)
+		{
+			createSceneTree(id, (*it));
+		}
+	}
 }
