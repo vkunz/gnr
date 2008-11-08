@@ -31,6 +31,7 @@ private:
 	
 	// event handler
 	void OnItemMenu(wxTreeEvent& event);
+	void OnItemActivated(wxTreeEvent& event);
 	void OnRename(wxTreeEvent& event);
 	void OnDelete(wxTreeEvent& event);
 	void OnNewCategory(wxTreeEvent& event);

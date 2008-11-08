@@ -37,6 +37,10 @@ private:
 	wxTreeCtrl* m_treeCtrl;
 	
 	void createSceneTree(wxTreeItemId id, GNRAssembly* assembly);
+	void createImageList(int size);
+	
+	enum { TreeCtrlIcon_Root = 0, TreeCtrlIcon_Scene, TreeCtrlIcon_Trash, TreeCtrlIcon_Assembly, TreeCtrlIcon_Folder };
+	
 };
 
 #endif // _GNRTreeSceneController_H_

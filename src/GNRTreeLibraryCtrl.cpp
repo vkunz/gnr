@@ -26,6 +26,9 @@ GNRTreeLibraryCtrl::GNRTreeLibraryCtrl(wxWindow* parent, wxWindowID id)
 	// connects menu with OnMenu
 	Connect(wxID_ANY, wxEVT_COMMAND_TREE_ITEM_MENU,(wxObjectEventFunction)&GNRTreeLibraryCtrl::OnItemMenu);
 	
+	// connects double-click with OnItemActivated
+	Connect(wxID_ANY, wxEVT_COMMAND_TREE_ITEM_ACTIVATED, (wxObjectEventFunction)&GNRTreeLibraryCtrl::OnItemActivated);
+	
 	// connects delete with OnDelete
 	Connect(idMenuDelete,wxEVT_COMMAND_MENU_SELECTED,(wxObjectEventFunction)&GNRTreeLibraryCtrl::OnDelete);
 	
@@ -202,4 +205,16 @@ void GNRTreeLibraryCtrl::OnMenuRename(wxTreeEvent& event)
 	
 	// fire event
 	ProcessEvent(gnr);
+}
+
+void GNRTreeLibraryCtrl::OnItemActivated(wxTreeEvent& event)
+{
+	m_currentTreeID = event.GetItem();
+	
+	GNRTreeLibraryItemData* treeItemData = (GNRTreeLibraryItemData*)GetItemData(m_currentTreeID);
+	
+	if (treeItemData != NULL && treeItemData->getCat() == false)
+	{
+		OnPaste(event);
+	}
 }

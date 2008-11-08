@@ -115,7 +115,7 @@ void GNRTreeSceneCtrl::buildMenu(const wxPoint& pt)
 	{
 		menu.Append(idMenuUndelete, wxT("&Wiederherstellen"));
 	}
-	else
+	else if (treeItemData->getAssembly()->getMaster()->getMaster()->getType() != IS_TRASH)
 	{
 		// no trash; add other options
 		
