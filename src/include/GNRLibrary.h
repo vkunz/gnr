@@ -39,6 +39,12 @@ public:
 	// get entry
 	wxMemoryOutputStream* getEntryData(wxString reference);
 	
+	// rename category
+	void renameCategory(wxString name, wxString newName);
+	
+	// rename entry
+	void renameEntry(wxString name, wxString newName);
+	
 protected:
 
 private:
@@ -79,6 +85,12 @@ private:
 	
 	// delete XML entry
 	void deleteXmlEntry(wxXmlDocument& xml, wxZipOutputStream& out, wxString& reference);
+	
+	// rename XML category
+	void renameXmlCategory(wxXmlDocument& xml, wxZipOutputStream& out, wxString& reference, wxString& newName);
+	
+	// rename XML entry
+	void renameXmlEntry(wxXmlDocument& xml, wxZipOutputStream& out, wxString& reference, wxString& newName);
 };
 
 #endif // _GNRLIBRARY_H_

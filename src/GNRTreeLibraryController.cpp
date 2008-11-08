@@ -252,11 +252,48 @@ void GNRTreeLibraryController::deleteEntry(wxString name)
 
 void GNRTreeLibraryController::renameCategory(wxString name, wxString newName)
 {
+	// iterator
+	std::vector<GNRLibraryCategory>::iterator it;
+	
+	// walk through all categories
+	for (it = m_ptrCategories->begin(); it != m_ptrCategories->end(); it++)
+	{
+		// look if correct category
+		if ((it->getName() == name))
+		{
+			// set new name
+			(it)->setName(newName);
+		}
+	}
+	
+	// change name in xml
+	m_library->renameCategory(name, newName);
+	
+	// rebuild tree
+	buildTreeCtrl();
 }
 
-void GNRTreeLibraryController::renameEntry(wxString name, wxString newName)
+void GNRTreeLibraryController::renameEntry(wxString reference, wxString newName)
 {
-	//wxLogDebug(wxT("renameEnt"));
+	// iterator
+	std::vector<GNRLibraryEntry>::iterator it;
+	
+	// walk through all entries
+	for (it = m_ptrEntries->begin(); it != m_ptrEntries->end(); it++)
+	{
+		// look if correct entry
+		if ((it)->getReference() == reference)
+		{
+			// set new name
+			(it)->setName(newName);
+		}
+	}
+	
+	// change name in xml
+	m_library->renameEntry(reference, newName);
+	
+	// rebuild tree
+	buildTreeCtrl();
 }
 
 void GNRTreeLibraryController::addCategory(wxString parentName, wxString catName)

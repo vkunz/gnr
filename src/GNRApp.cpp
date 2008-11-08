@@ -322,16 +322,6 @@ void GNRApp::OnGNRTreeEvent(GNRTreeControlEvent& event)
 	case LIBRARYNEWCAT:
 		m_TreeLibCtrl->addCategory(event.GetString(), event.getNewName());
 		break;
-	case LIBRARYRENAME:
-		if (event.getCat())
-		{
-			m_TreeLibCtrl->renameCategory(event.GetString(), event.getNewName());
-		}
-		else
-		{
-			m_TreeLibCtrl->renameEntry(event.GetString(), event.getNewName());
-		}
-		break;
 	case LIBRARYMENURENAME:
 		if (event.getCat())
 		{
@@ -550,6 +540,12 @@ void GNRApp::OAXExport(wxString reference)
 {
 	// filename
 	const wxString& filename = wxFileSelector(wxT("Object als OAX exportieren..."), wxT(""), wxT(""), wxT(""), wxT("OaxDatei (*.oax)|*.oax"), wxFD_SAVE);
+	
+	if (filename.IsEmpty())
+	{
+		// user canceled, do nothing
+		return;
+	}
 	
 	// wxFFileOutputStream
 	wxFFileOutputStream outFile(filename);

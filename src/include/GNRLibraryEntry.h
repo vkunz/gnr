@@ -27,6 +27,9 @@ public:
 	// returns reference
 	wxString getReference();
 	
+	// set name
+	void setName(wxString name);
+	
 protected:
 
 private:

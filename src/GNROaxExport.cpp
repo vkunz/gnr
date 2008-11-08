@@ -28,15 +28,6 @@ GNROaxExport::GNROaxExport(GNRAssemblyData* data, wxOutputStream* outStream)
 	createOaxStream();
 }
 
-GNROaxExport::GNROaxExport(GNRAssembly* assembly, wxString filepath)
-{
-	// data from an Assembly -> return oax-file
-	m_saveToFileSystem = true;
-	
-	// create a new GNRFrameData object
-	m_assemblyData = new GNRAssemblyData();
-}
-
 // dtor
 GNROaxExport::~GNROaxExport()
 {

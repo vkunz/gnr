@@ -46,3 +46,8 @@ wxString GNRLibraryEntry::getReference()
 {
 	return m_reference;
 }
+
+void GNRLibraryEntry::setName(wxString name)
+{
+	m_name = name;
+}

@@ -58,7 +58,7 @@ public:
 	void renameCategory(wxString name, wxString newName);
 	
 	// rename an entry
-	void renameEntry(wxString name, wxString newName);
+	void renameEntry(wxString reference, wxString newName);
 	
 	// add new category
 	void addCategory(wxString parentName, wxString newName);

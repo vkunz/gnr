@@ -26,8 +26,6 @@ public:
 	// ctor
 	GNROaxExport(GNRAssemblyData* data, wxOutputStream* outStream);
 	
-	GNROaxExport(GNRAssembly* assembly, wxString filepath);
-	
 	// dtor
 	virtual ~GNROaxExport();
 	

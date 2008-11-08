@@ -19,15 +19,12 @@ const long GNRTreeLibraryCtrl::idMenuRename     = wxNewId();
 // ctor
 GNRTreeLibraryCtrl::GNRTreeLibraryCtrl(wxWindow* parent, wxWindowID id)
 {
-	Create(parent, id, wxDefaultPosition, wxDefaultSize, wxTR_DEFAULT_STYLE|wxTR_EDIT_LABELS, wxDefaultValidator, wxT("TreeControl"));
+	Create(parent, id, wxDefaultPosition, wxDefaultSize, wxTR_DEFAULT_STYLE, wxDefaultValidator, wxT("TreeControl"));
 	
 	m_currentTreeID = 0;
 	
 	// connects menu with OnMenu
 	Connect(wxID_ANY, wxEVT_COMMAND_TREE_ITEM_MENU,(wxObjectEventFunction)&GNRTreeLibraryCtrl::OnItemMenu);
-	
-	// connects rename with OnRename
-	Connect(wxID_ANY,wxEVT_COMMAND_TREE_END_LABEL_EDIT,(wxObjectEventFunction)&GNRTreeLibraryCtrl::OnRename);
 	
 	// connects delete with OnDelete
 	Connect(idMenuDelete,wxEVT_COMMAND_MENU_SELECTED,(wxObjectEventFunction)&GNRTreeLibraryCtrl::OnDelete);
@@ -88,31 +85,6 @@ void GNRTreeLibraryCtrl::OnItemMenu(wxTreeEvent& event)
 		wxPoint clientpt = event.GetPoint();
 		showMenu(m_currentTreeID, clientpt, item->getCat());
 	}
-}
-
-void GNRTreeLibraryCtrl::OnRename(wxTreeEvent& event)
-{
-	// create event
-	GNRTreeControlEvent gnr(wxEVT_COMMAND_GNR_TREE_CONTROL);
-	
-	// set event type
-	gnr.setEventType(LIBRARYRENAME);
-	
-	// set itemid
-	m_currentTreeID = event.GetItem();
-	
-	// set name
-	GNRTreeLibraryItemData* item = (GNRTreeLibraryItemData*)GetItemData(m_currentTreeID);
-	gnr.SetString(item->getName());
-	
-	// set new name
-	gnr.setNewName(event.GetLabel());
-	
-	// set cat
-	gnr.setCat(item->getCat());
-	
-	// fire event
-	ProcessEvent(gnr);
 }
 
 void GNRTreeLibraryCtrl::OnDelete(wxTreeEvent& event)
@@ -195,6 +167,17 @@ void GNRTreeLibraryCtrl::OnExport(wxTreeEvent& event)
 
 void GNRTreeLibraryCtrl::OnMenuRename(wxTreeEvent& event)
 {
+	// create event
+	GNRTreeControlEvent gnr(wxEVT_COMMAND_GNR_TREE_CONTROL);
+	
+	// set name
+	GNRTreeLibraryItemData* item = (GNRTreeLibraryItemData*)GetItemData(m_currentTreeID);
+	gnr.SetString(item->getName());
+	
+	// set cat
+	gnr.setCat(item->getCat());
+	
+	// entry dialog
 	wxTextEntryDialog ted(this, wxT("Neuer Name:"));
 	
 	if (ted.ShowModal() == wxID_CANCEL)
@@ -203,18 +186,19 @@ void GNRTreeLibraryCtrl::OnMenuRename(wxTreeEvent& event)
 		return;
 	}
 	
-	// create event
-	GNRTreeControlEvent gnr(wxEVT_COMMAND_GNR_TREE_CONTROL);
-	
 	// set event type
 	gnr.setEventType(LIBRARYMENURENAME);
 	
-	// set name
-	GNRTreeLibraryItemData* item = (GNRTreeLibraryItemData*)GetItemData(m_currentTreeID);
-	gnr.SetString(item->getName());
-	
-	// set new name
-	gnr.setNewName(ted.GetValue());
+	if (ted.GetValue().IsEmpty())
+	{
+		// set new name
+		gnr.setNewName(wxT("neu"));
+	}
+	else
+	{
+		// set new name
+		gnr.setNewName(ted.GetValue());
+	}
 	
 	// fire event
 	ProcessEvent(gnr);

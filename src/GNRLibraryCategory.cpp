@@ -38,6 +38,11 @@ unsigned int GNRLibraryCategory::getParentId()
 	return m_parentId;
 }
 
+void GNRLibraryCategory::setName(wxString name)
+{
+	m_name = name;
+}
+
 wxString GNRLibraryCategory::toString()
 {
 	wxString tmp;

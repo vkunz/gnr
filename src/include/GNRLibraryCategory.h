@@ -24,6 +24,9 @@ public:
 	// returns parentId
 	unsigned int getParentId();
 	
+	// set name
+	void setName(wxString name);
+	
 	// functions
 	// returns content as string
 	wxString toString();
