@@ -10,6 +10,7 @@
 
 #include <wx/html/htmlwin.h>
 #include <wx/artprov.h>
+#include <wx/msgdlg.h>
 
 #if defined(__ATHOS_DEBUG__)
 #include <wx/log.h>
@@ -23,12 +24,19 @@
 
 GNRHelpFrame::GNRHelpFrame(wxWindow* parent, wxWindowID id)
 {
-	Create(parent, id, wxT("GNR - Hilfe"), wxDefaultPosition, wxDefaultSize, wxCAPTION|wxSYSTEM_MENU|wxCLOSE_BOX|wxMINIMIZE_BOX|wxSTATIC_BORDER, wxT("ObjOaxConverter"));
-	SetClientSize(wxSize(600, 400));
-	SetIcon(wxICON(GNR_ICON));
-	
-	m_window = new wxHtmlWindow(this, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxHW_DEFAULT_STYLE, wxT("HTML - Hilfe"));
-	m_window->LoadPage(wxT("help/help.html"));
+	if (wxFileExists(wxT("help/help.html")))
+	{
+		Create(parent, id, wxT("GNR - Hilfe"), wxDefaultPosition, wxDefaultSize, wxCAPTION|wxSYSTEM_MENU|wxCLOSE_BOX|wxMINIMIZE_BOX|wxSTATIC_BORDER, wxT("ObjOaxConverter"));
+		SetClientSize(wxSize(600, 400));
+		SetIcon(wxICON(GNR_ICON));
+		
+		m_window = new wxHtmlWindow(this, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxHW_DEFAULT_STYLE, wxT("HTML - Hilfe"));
+		m_window->LoadPage(wxT("help/help.html"));
+	}
+	else
+	{
+		wxMessageBox(wxT("Die Hilfe scheint wohl gelöscht worden zu sein!"),wxT("Keine Hilfe verfügbar..."));
+	}
 }
 
 GNRHelpFrame::~GNRHelpFrame()
