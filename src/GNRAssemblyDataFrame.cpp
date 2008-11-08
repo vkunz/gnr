@@ -157,7 +157,7 @@ void GNRAssemblyDataFrame::OnClose(wxCloseEvent& WXUNUSED(event))
 	Destroy();
 }
 
-void GNRAssemblyDataFrame::OnWidthChange(wxCommandEvent& event)
+void GNRAssemblyDataFrame::OnWidthChange(wxCommandEvent& WXUNUSED(event))
 {
 	if (m_cbxProportion->IsChecked() == true)
 	{
@@ -180,7 +180,7 @@ void GNRAssemblyDataFrame::OnWidthChange(wxCommandEvent& event)
 	}
 }
 
-void GNRAssemblyDataFrame::OnHeightChange(wxCommandEvent& event)
+void GNRAssemblyDataFrame::OnHeightChange(wxCommandEvent& WXUNUSED(event))
 {
 	if (m_cbxProportion->IsChecked() == true)
 	{
@@ -203,7 +203,7 @@ void GNRAssemblyDataFrame::OnHeightChange(wxCommandEvent& event)
 	}
 }
 
-void GNRAssemblyDataFrame::OnDepthChange(wxCommandEvent& event)
+void GNRAssemblyDataFrame::OnDepthChange(wxCommandEvent& WXUNUSED(event))
 {
 	if (m_cbxProportion->IsChecked() == true)
 	{
