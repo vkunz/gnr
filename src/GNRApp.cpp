@@ -10,6 +10,7 @@
 
 #include <wx/image.h>
 #include <wx/mstream.h>
+#include <wx/textdlg.h>
 
 #include "GNRApp.h"
 #include "GNRGlobalDefine.h"
@@ -490,11 +491,56 @@ void GNRApp::OPXSave(wxString filename)
  */
 void GNRApp::OAXImport(wxString filename)
 {
-	// create importer and procceed
-	GNROaxImport in(filename);
+	// string to store category
+	wxString cat;
 	
-	// get assembly
-	m_Scene->insertAssembly(in.getAssembly());
+	// string to store name
+	wxString name;
+	
+	// new filename
+	wxFileName file;
+	
+	// asign filename
+	file.Assign(filename);
+	
+	// create dialog and ask for name
+	wxTextEntryDialog ted(NULL, wxT("Kategorie, in die importiert werden soll:"));
+	
+	// set standard value
+	ted.SetValue(wxT("Sonstiges"));
+	
+	if (ted.ShowModal() == wxID_CANCEL || ted.GetValue().IsEmpty())
+	{
+		// if pressed cancel or void text, take standard category
+		cat = wxT("Sonstiges");
+	}
+	else
+	{
+		cat = ted.GetValue();
+	}
+	
+	// create wxFFileInputStream
+	wxFFileInputStream inFile(filename);
+	
+	// create wxMemoryoutputStream
+	wxMemoryOutputStream outMem;
+	
+	// copy data
+	inFile.Read(outMem);
+	
+	// dreate wxMemoryInputStream
+	wxMemoryInputStream inMem(outMem);
+	
+	// wxInputStream pointer
+	wxInputStream* input = &inMem;
+	
+	// set name
+	name = file.GetName();
+	
+	wxLogDebug(name);
+	
+	// add into lib
+	m_TreeLibCtrl->addEntry(name, *input, cat);
 }
 
 /**
