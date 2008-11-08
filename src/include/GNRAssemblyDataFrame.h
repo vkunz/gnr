@@ -29,9 +29,9 @@ private:
 	// text boxes
 	wxTextCtrl* m_txcName;
 	
-	wxTextCtrl* m_txcWidth;
-	wxTextCtrl* m_txcHeight;
-	wxTextCtrl* m_txcDepth;
+	wxSpinCtrl* m_txcWidth;
+	wxSpinCtrl* m_txcHeight;
+	wxSpinCtrl* m_txcDepth;
 	
 	wxCheckBox* m_cbxVisible;
 	wxCheckBox* m_cbxProportion;
@@ -52,9 +52,9 @@ private:
 	
 	// ids
 	static const long idtxcName;
-	static const long idtxcWidth;
-	static const long idtxcHeight;
-	static const long idtxcDepth;
+	static const long idSpcWidth;
+	static const long idSpcHeight;
+	static const long idSpcDepth;
 	static const long idcbxVisible;
 	static const long idcbxProportion;
 	static const long idBtnChange;

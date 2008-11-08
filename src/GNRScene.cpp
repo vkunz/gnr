@@ -629,8 +629,8 @@ void GNRScene::groupSelectedAssemblies()
 	
 	GNRAssembly* group = new GNRAssembly(IS_GROUP, wxT("Gruppe"));
 	
-	float min[3] = {10000.0,10000.0,10000.0};
-	float max[3] = {-10000.0,-10000.0,-10000.0};
+	float min[3] = {SIZE_MAXIMUM_VALUE,SIZE_MAXIMUM_VALUE,SIZE_MAXIMUM_VALUE};
+	float max[3] = {-SIZE_MAXIMUM_VALUE,-SIZE_MAXIMUM_VALUE,-SIZE_MAXIMUM_VALUE};
 	
 	//first pass to get maximum cube and new center of group
 	for (list<GNRAssembly*>::iterator it = parts.begin(); it != parts.end(); ++it)

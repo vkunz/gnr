@@ -3,8 +3,10 @@
 #include <wx/intl.h>
 #include <wx/string.h>
 #include <wx/valtext.h>
+#include <wx/spinctrl.h>
 
 #include "GNRNotifyEvent.h"
+#include "GNRGlobalDefine.h"
 
 #if defined(__ATHOS_DEBUG__)
 #include <wx/log.h>
@@ -15,9 +17,9 @@
 #endif
 
 const long GNRAssemblyDataFrame::idtxcName = wxNewId();
-const long GNRAssemblyDataFrame::idtxcWidth = wxNewId();
-const long GNRAssemblyDataFrame::idtxcHeight = wxNewId();
-const long GNRAssemblyDataFrame::idtxcDepth = wxNewId();
+const long GNRAssemblyDataFrame::idSpcWidth = wxNewId();
+const long GNRAssemblyDataFrame::idSpcHeight = wxNewId();
+const long GNRAssemblyDataFrame::idSpcDepth = wxNewId();
 const long GNRAssemblyDataFrame::idcbxVisible = wxNewId();
 const long GNRAssemblyDataFrame::idcbxProportion = wxNewId();
 const long GNRAssemblyDataFrame::idBtnChange = wxNewId();
@@ -28,9 +30,6 @@ BEGIN_EVENT_TABLE(GNRAssemblyDataFrame,wxFrame)
 	EVT_CLOSE(GNRAssemblyDataFrame::OnClose)
 	EVT_BUTTON(idBtnChange, GNRAssemblyDataFrame::OnChange)
 	EVT_BUTTON(idBtnCancel, GNRAssemblyDataFrame::OnCancel)
-	EVT_TEXT(idtxcWidth, GNRAssemblyDataFrame::OnWidthChange)
-	EVT_TEXT(idtxcHeight, GNRAssemblyDataFrame::OnHeightChange)
-	EVT_TEXT(idtxcDepth, GNRAssemblyDataFrame::OnDepthChange)
 END_EVENT_TABLE()
 
 GNRAssemblyDataFrame::GNRAssemblyDataFrame(wxWindow* parent,wxWindowID id)
@@ -45,13 +44,16 @@ GNRAssemblyDataFrame::GNRAssemblyDataFrame(wxWindow* parent,wxWindowID id)
 	m_txcName = new wxTextCtrl(this, idtxcName, wxT(""), wxPoint(120,30), wxSize(150,22), 0, wxDefaultValidator);
 	
 	m_stxWidth = new wxStaticText(this, -1, wxT("Breite (mm):"), wxPoint(30,84), wxSize(80,22), 0);
-	m_txcWidth = new wxTextCtrl(this, idtxcWidth, wxT(""), wxPoint(120,80), wxSize(150,22), 0, wxTextValidator(wxFILTER_NUMERIC));
+	//m_txcWidth = new wxTextCtrl(this, idtxcWidth, wxT(""), wxPoint(120,80), wxSize(150,22), 0, wxTextValidator(wxFILTER_NUMERIC));
+	m_txcWidth = new wxSpinCtrl(this, idSpcWidth, wxT(""), wxPoint(120,80), wxSize(150,22), wxTE_PROCESS_ENTER, SIZE_MINIMUM_VALUE, SIZE_MAXIMUM_VALUE, SIZE_MINIMUM_VALUE);
 	
 	m_stxHeight = new wxStaticText(this, -1, wxT("Höhe (mm):"), wxPoint(30,114), wxSize(80,22), 0);
-	m_txcHeight = new wxTextCtrl(this, idtxcHeight, wxT(""), wxPoint(120,110), wxSize(150,22), 0, wxTextValidator(wxFILTER_NUMERIC));
+	//m_txcHeight = new wxTextCtrl(this, idtxcHeight, wxT(""), wxPoint(120,110), wxSize(150,22), 0, wxTextValidator(wxFILTER_NUMERIC));
+	m_txcHeight = new wxSpinCtrl(this, idSpcHeight, wxT(""), wxPoint(120,110), wxSize(150,22), wxTE_PROCESS_ENTER, SIZE_MINIMUM_VALUE, SIZE_MAXIMUM_VALUE, SIZE_MINIMUM_VALUE);
 	
 	m_stxDepth = new wxStaticText(this, -1, wxT("Tiefe (mm):"), wxPoint(30,144), wxSize(80,22), 0);
-	m_txcDepth = new wxTextCtrl(this, idtxcDepth, wxT(""), wxPoint(120,140), wxSize(150,22), 0, wxTextValidator(wxFILTER_NUMERIC));
+	//m_txcDepth = new wxTextCtrl(this, idtxcDepth, wxT(""), wxPoint(120,140), wxSize(150,22), 0, wxTextValidator(wxFILTER_NUMERIC));
+	m_txcDepth = new wxSpinCtrl(this, idSpcDepth, wxT(""), wxPoint(120,140), wxSize(150,22), wxTE_PROCESS_ENTER, SIZE_MINIMUM_VALUE, SIZE_MAXIMUM_VALUE, SIZE_MINIMUM_VALUE);
 	
 	m_cbxProportion = new wxCheckBox(this, idcbxProportion, wxT("Proportionen beibehalten"), wxPoint(120, 170), wxSize(160, 22));
 	m_cbxProportion->SetValue(true);
@@ -59,8 +61,26 @@ GNRAssemblyDataFrame::GNRAssemblyDataFrame(wxWindow* parent,wxWindowID id)
 	m_stxVisible = new wxStaticText(this, -1, wxT("Sichtbar:"), wxPoint(30,212), wxSize(80,22), 0);
 	m_cbxVisible = new wxCheckBox(this, idcbxVisible, wxEmptyString, wxPoint(120, 210), wxSize(80, 22));
 	
-	m_btnChange     = new wxButton(this, idBtnChange, wxT("Ändern"), wxPoint(70,255), wxDefaultSize, 0);
-	m_btnCancel     = new wxButton(this, idBtnCancel, wxT("Abbrechen"), wxPoint(190,255), wxDefaultSize, 0);
+	m_btnChange  = new wxButton(this, idBtnChange, wxT("Ändern"), wxPoint(70,255), wxDefaultSize, 0);
+	m_btnCancel  = new wxButton(this, idBtnCancel, wxT("Abbrechen"), wxPoint(190,255), wxDefaultSize, 0);
+	
+	// connects m_spcWidth with OnSpcWidthChange
+	Connect(idSpcWidth,wxEVT_COMMAND_SPINCTRL_UPDATED,(wxObjectEventFunction)&GNRAssemblyDataFrame::OnWidthChange);
+	
+	// connects m_spcDepth with OnSpcDepthChange
+	Connect(idSpcDepth,wxEVT_COMMAND_SPINCTRL_UPDATED,(wxObjectEventFunction)&GNRAssemblyDataFrame::OnDepthChange);
+	
+	// connects m_spcHeight with OnSpcHeightChange
+	Connect(idSpcHeight,wxEVT_COMMAND_SPINCTRL_UPDATED,(wxObjectEventFunction)&GNRAssemblyDataFrame::OnHeightChange);
+	
+	// connects m_spcWidth with OnSpcWidthChange on press Enter
+	Connect(idSpcWidth,wxEVT_COMMAND_TEXT_ENTER,(wxObjectEventFunction)&GNRAssemblyDataFrame::OnWidthChange);
+	
+	// connects m_spcDepth with OnSpcDepthChange on press Enter
+	Connect(idSpcDepth,wxEVT_COMMAND_TEXT_ENTER,(wxObjectEventFunction)&GNRAssemblyDataFrame::OnDepthChange);
+	
+	// connects m_spcHeight with OnSpcHeightChange on press Enter
+	Connect(idSpcHeight,wxEVT_COMMAND_TEXT_ENTER,(wxObjectEventFunction)&GNRAssemblyDataFrame::OnHeightChange);
 }
 
 GNRAssemblyDataFrame::~GNRAssemblyDataFrame()
@@ -76,43 +96,36 @@ void GNRAssemblyDataFrame::fillFields(GNRAssembly* assembly)
 	
 	m_txcName->ChangeValue(assembly->getName());
 	
-	str << (int)(assembly->getWidth()*assembly->getScaleX()*1000);
-	m_txcWidth->ChangeValue(str);
-	
-	str.clear();
-	str << (int)(assembly->getHeight()*assembly->getScaleY()*1000);
-	m_txcHeight->ChangeValue(str);
-	
-	str.clear();
-	str << (int)(assembly->getDepth()*assembly->getScaleZ()*1000);
-	m_txcDepth->ChangeValue(str);
+	m_txcWidth->SetValue((int)(assembly->getWidth()*assembly->getScaleX()*1000));
+	m_txcHeight->SetValue((int)(assembly->getHeight()*assembly->getScaleY()*1000));
+	m_txcDepth->SetValue((int)(assembly->getDepth()*assembly->getScaleZ()*1000));
 	
 	m_cbxVisible->SetValue(m_assembly->isVisible());
 	
-	m_assemblyWidth = assembly->getWidth() * 1000;
-	m_assemblyHeight = assembly->getHeight() * 1000;
-	m_assemblyDepth = assembly->getDepth() * 1000;
+	m_assemblyWidth  = (int)(assembly->getWidth()  * 1000);
+	m_assemblyHeight = (int)(assembly->getHeight() * 1000);
+	m_assemblyDepth  = (int)(assembly->getDepth()  * 1000);
 }
 
 void GNRAssemblyDataFrame::OnChange(wxCommandEvent& WXUNUSED(event))
 {
 	m_assembly->setName(m_txcName->GetValue());
 	
-	double factor = wxAtof(m_txcWidth->GetValue()) / m_assemblyWidth;
+	float factor = (float)m_txcWidth->GetValue() / m_assemblyWidth;
 	m_assembly->setScaleX(factor);
 	
 	//fix for keeping bottom of object on same level
-	double old_h = m_assembly->getHeightMeters();
-	double old_y = m_assembly->getY();
+	float old_h = m_assembly->getHeightMeters();
+	float old_y = m_assembly->getY();
 	
 	//calculate new scale
-	factor = wxAtof(m_txcHeight->GetValue()) / m_assemblyHeight;
+	factor = (float)m_txcHeight->GetValue() / m_assemblyHeight;
 	m_assembly->setScaleY(factor);
 	
 	//now correct y-level of center
 	m_assembly->setY(old_y+(m_assembly->getHeightMeters()-old_h)/2.0);
 	
-	factor = wxAtof(m_txcDepth->GetValue()) / m_assemblyDepth;
+	factor = (float)m_txcDepth->GetValue() / m_assemblyDepth;
 	m_assembly->setScaleZ(factor);
 	
 	m_assembly->setVisible(m_cbxVisible->IsChecked());
@@ -148,15 +161,22 @@ void GNRAssemblyDataFrame::OnWidthChange(wxCommandEvent& event)
 {
 	if (m_cbxProportion->IsChecked() == true)
 	{
-		wxString str;
-		double width = wxAtof(m_txcWidth->GetValue());
+		float width = m_txcWidth->GetValue();
 		
-		str << (width / m_assemblyWidth) * m_assemblyHeight;
-		m_txcHeight->ChangeValue(str);
+		if (width >= SIZE_MAXIMUM_VALUE)
+		{
+			width = SIZE_MAXIMUM_VALUE;
+		}
+		else if (width <= SIZE_MINIMUM_VALUE)
+		{
+			width = SIZE_MINIMUM_VALUE;
+		}
 		
-		str.Clear();
-		str << (width / m_assemblyWidth) * m_assemblyDepth;
-		m_txcDepth->ChangeValue(str);
+		int n_height = (int)((width / m_assemblyWidth) * m_assemblyHeight);
+		int n_depth  = (int)((width / m_assemblyWidth) * m_assemblyDepth);
+		
+		m_txcHeight->SetValue(n_height);
+		m_txcDepth->SetValue(n_depth);
 	}
 }
 
@@ -164,15 +184,22 @@ void GNRAssemblyDataFrame::OnHeightChange(wxCommandEvent& event)
 {
 	if (m_cbxProportion->IsChecked() == true)
 	{
-		wxString str;
-		double height = wxAtof(m_txcHeight->GetValue());
+		float height = m_txcHeight->GetValue();
 		
-		str << (height / m_assemblyHeight) * m_assemblyWidth;
-		m_txcWidth->ChangeValue(str);
+		if (height >= SIZE_MAXIMUM_VALUE)
+		{
+			height = SIZE_MAXIMUM_VALUE;
+		}
+		else if (height <= SIZE_MINIMUM_VALUE)
+		{
+			height = SIZE_MINIMUM_VALUE;
+		}
 		
-		str.Clear();
-		str << (height / m_assemblyHeight) * m_assemblyDepth;
-		m_txcDepth->ChangeValue(str);
+		int n_width  = (int)((height / m_assemblyHeight) * m_assemblyWidth);
+		int n_depth  = (int)((height / m_assemblyHeight) * m_assemblyDepth);
+		
+		m_txcWidth->SetValue(n_width);
+		m_txcDepth->SetValue(n_depth);
 	}
 }
 
@@ -180,14 +207,21 @@ void GNRAssemblyDataFrame::OnDepthChange(wxCommandEvent& event)
 {
 	if (m_cbxProportion->IsChecked() == true)
 	{
-		wxString str;
-		double depth = wxAtof(m_txcDepth->GetValue());
+		float depth = m_txcDepth->GetValue();
 		
-		str << (depth / m_assemblyDepth) * m_assemblyWidth;
-		m_txcWidth->ChangeValue(str);
+		if (depth >= SIZE_MAXIMUM_VALUE)
+		{
+			depth = SIZE_MAXIMUM_VALUE;
+		}
+		else if (depth <= SIZE_MINIMUM_VALUE)
+		{
+			depth = SIZE_MINIMUM_VALUE;
+		}
 		
-		str.Clear();
-		str << (depth / m_assemblyDepth) * m_assemblyHeight;
-		m_txcHeight->ChangeValue(str);
+		int n_width  = (int)((depth / m_assemblyDepth) * m_assemblyWidth);
+		int n_height = (int)((depth / m_assemblyDepth) * m_assemblyHeight);
+		
+		m_txcWidth->SetValue(n_width);
+		m_txcHeight->SetValue(n_height);
 	}
 }

@@ -19,6 +19,7 @@
 #endif
 
 #include "GNRNotifyEvent.h"
+#include "GNRGlobalDefine.h"
 #include "GNRObjOaxConverterFrame.h"
 
 const long GNRObjOaxConverterFrame::idBtnCreate     = wxNewId();
@@ -67,13 +68,13 @@ GNRObjOaxConverterFrame::GNRObjOaxConverterFrame(wxWindow* parent, wxWindowID id
 	m_cbxCategory   = new wxComboBox(this, idCbxCategory, wxT("Sonstige"), wxPoint(384,90), wxSize(130,24), 0, 0, 0);
 	
 	// SpinCtrl width
-	m_spcWidth      = new wxSpinCtrl(this, idSpcWidth, wxT("1"), wxPoint(384,130), wxSize(130,24), wxTE_PROCESS_ENTER, 1, 10000, 1);
+	m_spcWidth      = new wxSpinCtrl(this, idSpcWidth, wxT("1"), wxPoint(384,130), wxSize(130,24), wxTE_PROCESS_ENTER, SIZE_MINIMUM_VALUE, SIZE_MAXIMUM_VALUE, SIZE_MINIMUM_VALUE);
 	
 	// SpinCtrl depth
-	m_spcDepth      = new wxSpinCtrl(this, idSpcDepth, wxT("1"), wxPoint(384,170), wxSize(130,24), wxTE_PROCESS_ENTER, 1, 10000, 1);
+	m_spcDepth      = new wxSpinCtrl(this, idSpcDepth, wxT("1"), wxPoint(384,170), wxSize(130,24), wxTE_PROCESS_ENTER, SIZE_MINIMUM_VALUE, SIZE_MAXIMUM_VALUE, SIZE_MINIMUM_VALUE);
 	
 	// SpinCtrl height
-	m_spcHeight     = new wxSpinCtrl(this, idSpcHeight, wxT("1"), wxPoint(384,210), wxSize(130,24), wxTE_PROCESS_ENTER, 1, 10000, 1);
+	m_spcHeight     = new wxSpinCtrl(this, idSpcHeight, wxT("1"), wxPoint(384,210), wxSize(130,24), wxTE_PROCESS_ENTER, SIZE_MINIMUM_VALUE, SIZE_MAXIMUM_VALUE, SIZE_MINIMUM_VALUE);
 	
 	// StaticText name
 	m_stxName       = new wxStaticText(this, idStxName, wxT("Name:"), wxPoint(280,54), wxSize(100,24), 0);
@@ -202,11 +203,11 @@ void GNRObjOaxConverterFrame::setData()
 	m_name     = m_assemblyData->m_name;
 	m_category = m_assemblyData->m_category;
 	
-	// if a dimension is greater than 10000, rescale
-	if (m_width > 10000 || m_depth > 10000 || m_height > 10000)
+	// if a dimension is greater than SIZE_MAXIMUM_VALUE, rescale
+	if (m_width > SIZE_MAXIMUM_VALUE || m_depth > SIZE_MAXIMUM_VALUE || m_height > SIZE_MAXIMUM_VALUE)
 	{
 		// return max of dimenstions and get scale
-		double scale = (max(m_width, m_depth, m_height)) / 10000.0;
+		double scale = (max(m_width, m_depth, m_height)) / SIZE_MAXIMUM_VALUE;
 		
 		// divide by scale
 		m_width = (int)(m_width / scale);
