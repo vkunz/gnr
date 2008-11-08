@@ -1,3 +1,5 @@
-GNR_ICON    ICON   "gnr_icon.ico"
+GNR_ICON        ICON   "gnr_icon.ico"
+GNR_ICON_48     ICON   "gnr_icon_48.ico"
+GNR_ICON_64     ICON   "gnr_icon_64.ico"
 
 #include "wx/msw/wx.rc"
