@@ -8,6 +8,7 @@
  * @author		Valentin Kunz       <athostr@googlemail.com>
  */
 
+#include <wx/filedlg.h>
 #include <wx/image.h>
 #include <wx/mstream.h>
 #include <wx/textdlg.h>
@@ -317,7 +318,7 @@ void GNRApp::OnGNRTreeEvent(GNRTreeControlEvent& event)
 		m_TreeLibCtrl->pasteEntry(event.GetString());
 		break;
 	case LIBRARYEXPORT:
-	
+		OAXExport(event.GetString());
 		break;
 	case LIBRARYNEWCAT:
 		m_TreeLibCtrl->addCategory(event.GetString(), event.getNewName());
@@ -537,8 +538,6 @@ void GNRApp::OAXImport(wxString filename)
 	// set name
 	name = file.GetName();
 	
-	wxLogDebug(name);
-	
 	// add into lib
 	m_TreeLibCtrl->addEntry(name, *input, cat);
 }
@@ -548,9 +547,28 @@ void GNRApp::OAXImport(wxString filename)
  * @param       wxString        File to export to.
  * @access      private
  */
-void GNRApp::OAXExport(wxString filename)
+void GNRApp::OAXExport(wxString reference)
 {
-
+	// filename
+	const wxString& filename = wxFileSelector(wxT("Object als OAX exportieren..."), wxT(""), wxT(""), wxT(""), wxT("OaxDatei (*.oax)|*.oax"), wxFD_SAVE);
+	
+	// wxFFileOutputStream
+	wxFFileOutputStream outFile(filename);
+	
+	// wxMemoryOutputStream to store oax data
+	wxMemoryOutputStream* memOut;
+	
+	// get data
+	memOut = m_TreeLibCtrl->exportEntry(reference);
+	
+	// wxMemoryInputStream
+	wxMemoryInputStream inMem(*memOut);
+	
+	// copy data
+	inMem.Read(outFile);
+	
+	// delete memOut
+	delete memOut;
 }
 
 /**

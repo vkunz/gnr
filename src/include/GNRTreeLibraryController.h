@@ -66,6 +66,9 @@ public:
 	// paste an entry into scene
 	void pasteEntry(wxString reference);
 	
+	// export an entry onto fileystem
+	wxMemoryOutputStream* exportEntry(wxString reference);
+	
 protected:
 
 private:

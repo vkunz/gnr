@@ -66,7 +66,7 @@ private:
 	void OPXOpen(wxString filename);
 	void OPXSave(wxString filename);
 	void OAXImport(wxString filename);
-	void OAXExport(wxString filename);
+	void OAXExport(wxString reference);
 	void OBJImport(wxString filename);
 	void OBJExport(wxString filename);
 	

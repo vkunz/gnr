@@ -303,6 +303,11 @@ void GNRTreeLibraryController::pasteEntry(wxString reference)
 	delete memOut;
 }
 
+wxMemoryOutputStream* GNRTreeLibraryController::exportEntry(wxString reference)
+{
+	return m_library->getEntryData(reference);
+}
+
 void GNRTreeLibraryController::createImageList(int size)
 {
 	// Make an image list containing small icons
