@@ -115,7 +115,9 @@ void GNRTreeSceneCtrl::buildMenu(const wxPoint& pt)
 	{
 		menu.Append(idMenuUndelete, wxT("&Wiederherstellen"));
 	}
-	else if (treeItemData->getAssembly()->getMaster()->getMaster()->getType() != IS_TRASH)
+	else if (treeItemData->getAssembly()->getMaster()->getParent() == NULL ||
+	         treeItemData->getAssembly()->getMaster()->getParent()->getType() == IS_ROOT ||
+	         treeItemData->getAssembly()->getMaster()->getParent()->getType() == IS_SELECTED)
 	{
 		// no trash; add other options
 		
@@ -209,7 +211,14 @@ void GNRTreeSceneCtrl::OnSelect(wxCommandEvent& WXUNUSED(event))
 	// send event to handle select
 	GNRTreeControlEvent treeEvent(wxEVT_COMMAND_GNR_TREE_CONTROL);
 	treeEvent.setEventType(SCENESELECT);
-	treeEvent.setAssembly(treeItemData->getMaster());
+	if (treeItemData->getMaster()->isType(IS_GROUP))
+	{
+		treeEvent.setAssembly(treeItemData->getMaster());
+	}
+	else
+	{
+		treeEvent.setAssembly(treeItemData->getAssembly());
+	}
 	ProcessEvent(treeEvent);
 }
 
