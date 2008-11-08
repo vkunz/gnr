@@ -86,6 +86,7 @@ public:
 	
 	void toggleShadows(bool status);
 	void drawLine(GNRLineDrawEvent& event);
+	void refreshTreeAndCanvas();
 	
 	void deleteSelectedAssemblies();
 	void hideSelectedAssemblies();

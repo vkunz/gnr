@@ -857,11 +857,26 @@ void GNRScene::minmax(float& min,float& max,float value)
  */
 void GNRScene::insertAssembly(GNRAssembly* assembly)
 {
+	//put new assembly on ground
 	assembly->putOnGround();
+	
+	//add assembly to root node
 	m_RootAssembly->addPart(assembly);
+	
+	//refresh both
+	refreshTreeAndCanvas();
+}
+
+/**
+ * refresh tree and canvas
+ * @access      public
+ */
+void GNRScene::refreshTreeAndCanvas()
+{
+	//refresh canvas
 	glRefresh();
 	
-	// send event to refresh Scene-Tree
+	//send event to refresh Scene-Tree
 	GNRNotifyEvent gnrevent(wxEVT_COMMAND_GNR_NOTIFY);
 	gnrevent.setGNREventType(REFRESHSCENETREE);
 	ProcessEvent(gnrevent);
