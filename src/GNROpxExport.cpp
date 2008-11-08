@@ -181,8 +181,60 @@ void GNROpxExport::createXmlEntry()
 
 void GNROpxExport::createOpxStream()
 {
+	// wxZipEntry pointer
+	wxZipEntry* entry;
+	
 	// create new xml entry
 	createXmlEntry();
+	
+	// wxFFileInputStream to read lib
+	wxFFileInputStream inFile((wxFileName::GetCwd() + wxFileName::GetPathSeparator() + wxT("library.gnr")));
+	
+	// wxZipInputStream
+	wxZipInputStream inZip(inFile);
+	
+	// vector to store entries
+	std::vector<wxZipEntry*> vec;
+	
+	// vector iterator
+	std::vector<wxZipEntry*>::iterator vecIt;
+	
+	// set iterator
+	std::set<wxString>::iterator it;
+	
+	// get first entry
+	entry = inZip.GetNextEntry();
+	
+	// store all entries
+	while (entry)
+	{
+		// store into vector
+		vec.push_back(entry);
+		
+		// get next entry
+		entry = inZip.GetNextEntry();
+	}
+	
+	for (it = m_set.begin(); it != m_set.end(); it++)
+	{
+		for (vecIt = vec.begin(); vecIt != vec.end(); vecIt++)
+		{
+			if ((*it) == (*vecIt)->GetName())
+			{
+				// asign entry
+				entry = *vecIt;
+				
+				// set name
+				entry->SetName(wxT("assemblies") + wxFileName::GetPathSeparators() + entry->GetName());
+				
+				// copy data
+				m_outZip->CopyEntry(entry, inZip);
+				
+				// entry found, leave
+				break;
+			}
+		}
+	}
 	
 	// close zip file
 	m_outZip->Close();
@@ -200,6 +252,9 @@ void GNROpxExport::createScene(wxXmlNode* node, std::list<GNRAssembly*> list)
 		{
 			// create an assembly entry and add into node
 			createAssembly(node, (*it));
+			
+			// insert hash into set
+			m_set.insert((*it)->getHash() + wxT(".oax"));
 			
 			// assemby found
 			continue;
@@ -227,15 +282,15 @@ void GNROpxExport::createAssembly(wxXmlNode* node, GNRAssembly* assembly)
 	// not to new child
 	node = node->GetChildren();
 	
-	if (m_hidden)
+	if (assembly->isVisible())
 	{
 		// add hidden
-		node->AddProperty(wxT("visible"), wxT("false"));
+		node->AddProperty(wxT("visible"), wxT("true"));
 	}
 	else
 	{
 		// add visible
-		node->AddProperty(wxT("visible"), wxT("true"));
+		node->AddProperty(wxT("visible"), wxT("false"));
 	}
 	
 	// add name
@@ -275,15 +330,15 @@ void GNROpxExport::createGroup(wxXmlNode* node, GNRAssembly* assembly)
 	// node to new child
 	node = node->GetChildren();
 	
-	if (m_hidden)
+	if (assembly->isVisible())
 	{
 		// add hidden
-		node->AddProperty(wxT("visible"), wxT("false"));
+		node->AddProperty(wxT("visible"), wxT("true"));
 	}
 	else
 	{
 		// add visible
-		node->AddProperty(wxT("visible"), wxT("true"));
+		node->AddProperty(wxT("visible"), wxT("false"));
 	}
 	// add name
 	node->AddProperty(wxT("name"), assembly->getName());

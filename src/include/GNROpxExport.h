@@ -11,6 +11,7 @@
 #ifndef _GNROPXEXPORT_H_
 #define _GNROPXEXPORT_H_
 
+#include <set>
 #include <wx/string.h>
 #include <wx/wfstream.h>
 #include <wx/xml/xml.h>
@@ -33,7 +34,8 @@ protected:
 
 private:
 	// attributes
-	bool m_hidden;
+	// set to store filenames
+	std::set<wxString> m_set;
 	
 	// pointer to scene
 	GNRScene* m_scene;

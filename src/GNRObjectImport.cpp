@@ -217,7 +217,6 @@ void GNRObjectImport::read(wxString& content)
 	m_offsetY = (-1.0*(m_ymax + m_ymin)/2.0);
 	m_offsetZ = (-1.0*(m_zmax + m_zmin)/2.0);
 	
-#warning "INFO: These lines have to be remove after we change to oax!!!!"
 	m_wrapper->setX(-1.0*(m_xmax + m_xmin)/2.0);
 	m_wrapper->setY(-1.0*(m_ymax + m_ymin)/2.0);
 	m_wrapper->setZ(-1.0*(m_zmax + m_zmin)/2.0);
