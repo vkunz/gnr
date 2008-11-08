@@ -251,6 +251,8 @@
 		<Unit filename="src\resources\icon_library_assembly.xpm" />
 		<Unit filename="src\resources\icon_library_container.xpm" />
 		<Unit filename="src\resources\icon_library_folder.xpm" />
+		<Unit filename="src\resources\icon_library_root.xpm" />
+		<Unit filename="src\resources\icon_library_scene.xpm" />
 		<Unit filename="src\resources\icon_library_trash.xpm" />
 		<Unit filename="src\resources\please-wait.xpm" />
 		<Unit filename="src\resources\resource.rc">
