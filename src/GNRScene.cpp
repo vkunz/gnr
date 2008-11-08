@@ -11,7 +11,6 @@
 #include "GNRScene.h"
 #include "GNRNotifyEvent.h"
 #include "GNRGlobalDefine.h"
-#include "GNRSceneTreeNode.h"
 #include "GNRTreeSceneItemData.h"
 
 // initialize pointer

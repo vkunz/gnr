@@ -143,7 +143,6 @@
 		<Unit filename="src\GNROpxImport.cpp" />
 		<Unit filename="src\GNRPrimitiveCreator.cpp" />
 		<Unit filename="src\GNRScene.cpp" />
-		<Unit filename="src\GNRSceneTreeNode.cpp" />
 		<Unit filename="src\GNRTCoord.cpp" />
 		<Unit filename="src\GNRTests.cpp" />
 		<Unit filename="src\GNRTreeControlEvent.cpp" />
@@ -208,7 +207,6 @@
 		<Unit filename="src\include\GNROpxImport.h" />
 		<Unit filename="src\include\GNRPrimitiveCreator.h" />
 		<Unit filename="src\include\GNRScene.h" />
-		<Unit filename="src\include\GNRSceneTreeNode.h" />
 		<Unit filename="src\include\GNRTCoord.h" />
 		<Unit filename="src\include\GNRTests.h" />
 		<Unit filename="src\include\GNRTreeControlEvent.h" />

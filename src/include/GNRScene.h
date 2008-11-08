@@ -16,7 +16,6 @@
 #include "GNRGLCanvas2D.h"
 #include "GNRGLCanvas3D.h"
 #include "GNRLineDrawEvent.h"
-#include "GNRSceneTreeNode.h"
 
 #if defined(__ATHOS_DEBUG__)
 #include <wx/log.h>

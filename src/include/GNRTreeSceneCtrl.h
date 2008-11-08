@@ -13,6 +13,7 @@ public:
 	virtual ~GNRTreeSceneCtrl();
 protected:
 private:
+	void OnKeyDown(wxKeyEvent& event);
 	void OnItemMenu(wxTreeEvent& event);
 	void OnItemActivated(wxTreeEvent& event);
 	void OnEdit(wxCommandEvent& WXUNUSED(event));

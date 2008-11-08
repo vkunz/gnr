@@ -12,7 +12,7 @@
 #define _GNRTreeSceneController_H_
 
 #include <wx/treectrl.h>
-#include "GNRSceneTreeNode.h"
+#include "GNRAssembly.h"
 
 /**
  * @class GNRTreeSceneController

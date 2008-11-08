@@ -21,6 +21,7 @@ const long GNRTreeSceneCtrl::idMenuUndelete = wxNewId();
 const long GNRTreeSceneCtrl::idMenuEmptyTrash = wxNewId();
 
 BEGIN_EVENT_TABLE(GNRTreeSceneCtrl, wxTreeCtrl)
+	//EVT_CHAR(func):
 	EVT_TREE_ITEM_MENU(wxID_ANY, GNRTreeSceneCtrl::OnItemMenu)
 	EVT_TREE_ITEM_ACTIVATED(wxID_ANY, GNRTreeSceneCtrl::OnItemActivated)
 	EVT_MENU(idMenuEdit, GNRTreeSceneCtrl::OnEdit)
@@ -56,6 +57,17 @@ GNRTreeSceneCtrl::GNRTreeSceneCtrl(wxWindow *parent, const wxWindowID id, const 
  * @access      public
  */
 GNRTreeSceneCtrl::~GNRTreeSceneCtrl() {}
+
+/**
+ * fetches key down event
+ * @param   wxKeyEvent&     key event of current canvas
+ */
+void OnKeyDown(wxKeyEvent& event)
+{
+//    if(event.getKeyCode() == WXK_F2) {
+//        wxLogDebug(wxT("f2"));
+//    }
+}
 
 /**
  * gets called by right click on tree-item, reads tree-item and initiates menu-building

@@ -12,6 +12,7 @@
 #include <wx/imaglist.h>
 
 #include "GNRTreeSceneController.h"
+#include "GNRTreeSceneItemData.h"
 #include "GNRScene.h"
 
 #include "resources/icon_library_root.xpm"
