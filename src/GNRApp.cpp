@@ -90,6 +90,7 @@ bool GNRApp::OnInit()
  */
 void GNRApp::initFrames()
 {
+	//create main frame
 	m_MainFrame = new GNRMainFrame(0);
 	
 	//main splitter window
@@ -103,9 +104,6 @@ void GNRApp::initFrames()
 	//create splitter for right panel with two canvas
 	m_HorizontalSplitter_right = new wxSplitterWindow(m_VerticalSplitter, -1, wxPoint(0,0), wxDefaultSize, wxSP_3D|wxSP_NO_XP_THEME|wxSP_LIVE_UPDATE);
 	m_HorizontalSplitter_right->SetMinimumPaneSize(100);
-	
-	//show mainframe
-	m_MainFrame->Show(true);
 	
 	//create tree and models panel
 	m_TreePanelLibrary = new GNRTreePanelLibrary(m_HorizontalSplitter_left, wxID_ANY);
@@ -144,6 +142,9 @@ void GNRApp::initFrames()
 	m_VerticalSplitter->SetSashPosition(200,true);
 	m_HorizontalSplitter_left->SetSashPosition(300,true);
 	m_HorizontalSplitter_right->SetSashPosition(200,true);
+	
+	//show mainframe now, its ready
+	m_MainFrame->Show(true);
 }
 
 /**
@@ -286,13 +287,8 @@ void GNRApp::OnGNREvent(GNRNotifyEvent& event)
 		m_Scene->glRefresh();
 		break;
 	case DISPLAYLENGTH:
-	{
-		int length = (int)floor(1000.0 * event.getFloat());
-		wxString str;
-		str << wxT("Wandlänge: ") << length << wxT(" mm");
-		m_MainFrame->getStatusbar()->SetStatusText(str);
+		m_MainFrame->getStatusbar()->SetStatusText(event.GetString());
 		break;
-	}
 	case EMPTYTRASH:
 		m_Scene->deleteTrashAssemblies();
 		break;

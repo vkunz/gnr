@@ -615,12 +615,16 @@ void GNRScene::drawLine(GNRLineDrawEvent& event)
 	float y = event.getEndPoint().getY() - event.getStartPoint().getY();
 	float z = event.getEndPoint().getZ() - event.getStartPoint().getZ();
 	GNRVertex myvec(x, y, z);
-	float length = myvec.length();
+	int length = (int)floor(1000.0 * myvec.length());
+	
+	//create string for statusbar
+	wxString str;
+	str << wxT("Wandlänge: ") << length << wxT(" mm");
 	
 	// send event to display length
 	GNRNotifyEvent gnrevent(wxEVT_COMMAND_GNR_NOTIFY);
 	gnrevent.setGNREventType(DISPLAYLENGTH);
-	gnrevent.setFloat(length);
+	gnrevent.SetString(str);
 	ProcessEvent(gnrevent);
 }
 

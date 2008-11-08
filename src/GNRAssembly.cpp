@@ -218,6 +218,10 @@ GNRAssembly::~GNRAssembly()
 		//delete child
 		delete *it;
 	}
+	
+	//kill partlist and childlists
+	m_part.clear();
+	m_child_dl.clear();
 }
 
 /* ******* GETTER METHODS FOLLOWING ***** */
