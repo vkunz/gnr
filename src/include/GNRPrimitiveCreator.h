@@ -28,9 +28,9 @@ public:
 	GNRAssembly* getPrimitive();
 protected:
 private:
+	GNRAssembly* m_primitive;
 	GNRFace* createFace(GNRVertex& topLeft, GNRVertex& bottomLeft, GNRVertex& bottomRight, GNRVertex& topRight, GNRVertex& normal);
 	GNRMaterialLibrary m_matlib;
-	GNRAssembly* m_primitive;
 };
 
 #endif // _GNRPRIMITIVECREATOR_H_

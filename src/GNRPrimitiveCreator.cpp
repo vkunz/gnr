@@ -18,15 +18,9 @@
  * constructor of GNRPrimitiveCreator
  * @access      public
  */
-GNRPrimitiveCreator::GNRPrimitiveCreator()
+GNRPrimitiveCreator::GNRPrimitiveCreator():m_primitive(NULL)
 {
 	GNRMaterialLibrary m_matlib = GNRMaterialLibrary();
-	
-	//create new primitive
-	GNRAssembly* m_primitive    = new GNRAssembly(wxT("noname"));
-	
-	//set it to atomic, is smallest part i'll produce
-	m_primitive->setType(IS_ATOMIC);
 }
 
 /**
@@ -35,7 +29,6 @@ GNRPrimitiveCreator::GNRPrimitiveCreator()
  */
 GNRPrimitiveCreator::~GNRPrimitiveCreator()
 {
-	delete m_primitive;
 }
 
 /**
@@ -45,13 +38,8 @@ GNRPrimitiveCreator::~GNRPrimitiveCreator()
  */
 GNRAssembly* GNRPrimitiveCreator::getPrimitive()
 {
-	GNRAssembly* build = m_primitive;
-	
-	//create new one for next query
-	m_primitive = new GNRAssembly(wxT("noname"));
-	
 	//return build primitive
-	return build;
+	return m_primitive;
 }
 
 /**
@@ -63,6 +51,11 @@ GNRAssembly* GNRPrimitiveCreator::getPrimitive()
  */
 void GNRPrimitiveCreator::createCuboid(const GNRVertex& position, const GNRVertex& angles, const GNRVertex& dimension)
 {
+	m_primitive = new GNRAssembly(wxT("noname"));
+	
+	//set it to atomic, is smallest part i'll produce
+	m_primitive->setType(IS_ATOMIC);
+	
 	// set position of the cuboid
 	m_primitive->setCuboid(position.getX(),position.getY(),position.getZ(),dimension.getX(),dimension.getY(),dimension.getZ());
 	
