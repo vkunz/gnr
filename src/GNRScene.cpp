@@ -25,12 +25,12 @@ GNRScene* GNRScene::pinstance = 0;
 GNRScene::GNRScene()
 {
 	m_shadows = true;
-
+	
 	initContainers();
-
+	
 	m_GLCamera2D    = new GNRGLCamera();
 	m_GLCamera3D    = new GNRGLCamera();
-
+	
 	resetCamera();
 }
 
@@ -42,7 +42,7 @@ GNRScene::GNRScene()
 GNRScene::~GNRScene()
 {
 	destroyContainers();
-
+	
 	delete m_GLCamera2D;
 	delete m_GLCamera3D;
 }
@@ -128,13 +128,13 @@ void GNRScene::toggleShadows(bool status)
 void GNRScene::initContainers()
 {
 	m_Assembly = NULL;
-
+	
 	m_RootAssembly  = new GNRAssembly(IS_ROOT,        wxT("scene"));
 	m_Selected      = new GNRAssembly(IS_SELECTED,    wxT("selected"));
-
+	
 	//put selected assembly in real world
 	m_RootAssembly->addPart(m_Selected);
-
+	
 	m_Trash         = new GNRAssembly(IS_TRASH,       wxT("trash"));
 	m_Duplicator    = new GNRAssembly(IS_DUPLICATOR,  wxT("duplicator"));
 	m_Originals     = new GNRAssembly(IS_ORIGINAL,    wxT("originals"));
@@ -148,11 +148,11 @@ void GNRScene::destroyContainers()
 {
 	//disconnect selected part
 	m_RootAssembly->delPart(m_Selected);
-
+	
 	//selected is killed, then root
 	delete m_Selected;
 	delete m_RootAssembly;
-
+	
 	//kill all temp containers
 	delete m_Trash;
 	delete m_Duplicator;
@@ -168,7 +168,7 @@ void GNRScene::newRoom()
 	destroyContainers();
 	initContainers();
 	resetCamera();
-
+	
 	// send event to refresh Scene-Tree
 	GNRNotifyEvent gnrevent(wxEVT_COMMAND_GNR_NOTIFY);
 	gnrevent.setGNREventType(REFRESHSCENETREE);
@@ -185,7 +185,7 @@ void GNRScene::resetCamera()
 	m_GLCamera2D->reset();
 	m_GLCamera2D->rotateX(-90);
 	m_GLCamera2D->changeDistance(15);
-
+	
 	//reset 3D cam to default
 	m_GLCamera3D->reset();
 	m_GLCamera3D->rotateX(-40);
@@ -230,29 +230,29 @@ void GNRScene::glRefreshCanvas()
 {
 	//prepare and draw 2D top view of room
 	m_GLOUT->prepareDraw();
-
+	
 	//set camera for scene
 	m_GLCAM->render();
-
+	
 	/*NOW PREPARE THE PIXELBUFFER AND DRAW VIRTUAL FLOOR FOR CASTING SHADOWS*/
 	if (m_shadows)
 	{
 		//initialize only light source
 		m_GLOUT->initLights();
-
+		
 		//prepare pixelbuffer for shadows
 		m_GLOUT->preparePixelBuffer();
-
+		
 		//draw invisible floor for shadow projection
 		m_GLOUT->drawBaseFloor(0.0, 0.0, 0.0, DEFAULT_FLOOR_SIZE);
-
+		
 		//turn the color and depth buffers back on
 		m_GLOUT->endPixelBuffer();
-
+		
 		/*NOW CAST THE SHADOWS ON THE FLOOR AND KEEP IN PIXELBUFFER*/
-
+		
 		m_GLOUT->drawBaseFloor(0.0, 0.0, 0.0, DEFAULT_FLOOR_SIZE);
-
+		
 		//draw all shadows of objects
 		glPushMatrix();
 		{
@@ -270,24 +270,24 @@ void GNRScene::glRefreshCanvas()
 			m_GLOUT->shadowColorOff();
 		}
 		glPopMatrix();
-
+		
 		/*NOW DRAW ALL OBJECTS WITHOUT SHADOWS AND BLEND WITH SHADOWS*/
 	}
-
+	
 	//draw real objects
 	glPushMatrix();
 	{
 		m_GLOUT->initLights();
-
+		
 		if (! m_shadows)
 		{
 			m_GLOUT->drawBaseFloor(0.0, 0.0, 0.0, DEFAULT_FLOOR_SIZE);
 		}
-
+		
 		m_RootAssembly->draw();
 	}
 	glPopMatrix();
-
+	
 	//finish output and flush
 	m_GLOUT->endDraw();
 }
@@ -321,13 +321,13 @@ void GNRScene::glRefresh3D()
 void GNRScene::deleteSelectedAssemblies()
 {
 	list<GNRAssembly*> parts = m_Selected->getPartList();
-
+	
 	for (list<GNRAssembly*>::iterator it = parts.begin(); it != parts.end(); ++it)
 	{
 		m_Trash->addPart((*it));
 		m_Selected->delPart((*it));
 	}
-
+	
 	// send event to refresh Scene-Tree
 	GNRNotifyEvent gnrevent(wxEVT_COMMAND_GNR_NOTIFY);
 	gnrevent.setGNREventType(REFRESHSCENETREE);
@@ -341,7 +341,7 @@ void GNRScene::deleteSelectedAssemblies()
 void GNRScene::resetSelectedAssemblies()
 {
 	list<GNRAssembly*> parts = m_Selected->getPartList();
-
+	
 	for (list<GNRAssembly*>::iterator it = parts.begin(); it != parts.end(); ++it)
 	{
 		(*it)->resetOnGround();
@@ -355,7 +355,7 @@ void GNRScene::resetSelectedAssemblies()
 void GNRScene::deleteTrashAssemblies()
 {
 	list<GNRAssembly*> trash = m_Trash->getPartList();
-
+	
 	for (list<GNRAssembly*>::iterator it = trash.begin(); it != trash.end(); ++it)
 	{
 		//it is an original and there are some clones in the scene
@@ -367,12 +367,12 @@ void GNRScene::deleteTrashAssemblies()
 			m_Trash->delPart((*it));
 		}
 	}
-
+	
 	//delete trash and create new one
 	delete m_Trash;
-
+	
 	m_Trash = new GNRAssembly(IS_TRASH, wxT("trash"));
-
+	
 	// send event to refresh Scene-Tree
 	GNRNotifyEvent gnrevent(wxEVT_COMMAND_GNR_NOTIFY);
 	gnrevent.setGNREventType(REFRESHSCENETREE);
@@ -387,11 +387,11 @@ void GNRScene::deleteAssembly(GNRAssembly* assembly)
 {
 	// delete assembly from parent
 	assembly->getParent()->delPart(assembly);
-
+	
 	m_Trash->addPart(assembly);
-
+	
 	glRefresh();
-
+	
 	// send event to refresh Scene-Tree
 	GNRNotifyEvent gnrevent(wxEVT_COMMAND_GNR_NOTIFY);
 	gnrevent.setGNREventType(REFRESHSCENETREE);
@@ -405,7 +405,7 @@ void GNRScene::deleteAssembly(GNRAssembly* assembly)
 void GNRScene::cloneSelectedAssemblies()
 {
 	list<GNRAssembly*> parts = m_Selected->getPartList();
-
+	
 	for (list<GNRAssembly*>::iterator it = parts.begin(); it != parts.end(); ++it)
 	{
 		//clone assembly from selected
@@ -419,7 +419,7 @@ void GNRScene::cloneSelectedAssemblies()
 		//move assembly one width right
 		a_copy->move(GNRVertex(a_copy->getWidthMeters(),0.0,0.0));
 	}
-
+	
 	// send event to refresh Scene-Tree
 	GNRNotifyEvent gnrevent(wxEVT_COMMAND_GNR_NOTIFY);
 	gnrevent.setGNREventType(REFRESHSCENETREE);
@@ -434,9 +434,9 @@ void GNRScene::copySelectedAssemblies()
 {
 	delete m_Duplicator;
 	m_Duplicator = new GNRAssembly(IS_DUPLICATOR,  wxT("duplicator"));
-
+	
 	list<GNRAssembly*> parts = m_Selected->getPartList();
-
+	
 	for (list<GNRAssembly*>::iterator it = parts.begin(); it != parts.end(); ++it)
 	{
 		GNRAssembly* a_copy = (*it)->clone();
@@ -452,9 +452,9 @@ void GNRScene::cutSelectedAssemblies()
 {
 	delete m_Duplicator;
 	m_Duplicator = new GNRAssembly(IS_DUPLICATOR,  wxT("duplicator"));
-
+	
 	list<GNRAssembly*> parts = m_Selected->getPartList();
-
+	
 	for (list<GNRAssembly*>::iterator it = parts.begin(); it != parts.end(); ++it)
 	{
 		GNRAssembly* a_copy = (*it)->clone();
@@ -470,13 +470,13 @@ void GNRScene::cutSelectedAssemblies()
 void GNRScene::insertCopiedAssemblies()
 {
 	list<GNRAssembly*> parts = m_Duplicator->getPartList();
-
+	
 	for (list<GNRAssembly*>::iterator it = parts.begin(); it != parts.end(); ++it)
 	{
 		GNRAssembly* a_copy = (*it)->clone();
 		m_Selected->addPart(a_copy);
 	}
-
+	
 	// send event to refresh Scene-Tree
 	GNRNotifyEvent gnrevent(wxEVT_COMMAND_GNR_NOTIFY);
 	gnrevent.setGNREventType(REFRESHSCENETREE);
@@ -492,32 +492,32 @@ void GNRScene::drawLine(GNRLineDrawEvent& event)
 {
 	m_GLOUT = m_Canvas2D;
 	m_GLCAM = m_GLCamera2D;
-
+	
 	//prepare and draw 2D top view of room
 	m_GLOUT->prepareDraw();
-
+	
 	//set camera for scene
 	m_GLCAM->render();
-
+	
 	/*NOW PREPARE THE PIXELBUFFER AND DRAW VIRTUAL FLOOR FOR CASTING SHADOWS*/
 	if (m_shadows)
 	{
 		//initialize only light source
 		m_GLOUT->initLights();
-
+		
 		//prepare pixelbuffer for shadows
 		m_GLOUT->preparePixelBuffer();
-
+		
 		//draw invisible floor for shadow projection
 		m_GLOUT->drawBaseFloor(0.0, 0.0, 0.0, DEFAULT_FLOOR_SIZE);
-
+		
 		//turn the color and depth buffers back on
 		m_GLOUT->endPixelBuffer();
-
+		
 		/*NOW CAST THE SHADOWS ON THE FLOOR AND KEEP IN PIXELBUFFER*/
-
+		
 		m_GLOUT->drawBaseFloor(0.0, 0.0, 0.0, DEFAULT_FLOOR_SIZE);
-
+		
 		//draw all shadows of objects
 		glPushMatrix();
 		{
@@ -536,9 +536,9 @@ void GNRScene::drawLine(GNRLineDrawEvent& event)
 		}
 		glPopMatrix();
 	}
-
+	
 	/*NOW DRAW ALL OBJECTS WITHOUT SHADOWS AND BLEND WITH SHADOWS*/
-
+	
 	//draw real objects
 	glPushMatrix();
 	{
@@ -548,10 +548,10 @@ void GNRScene::drawLine(GNRLineDrawEvent& event)
 			float lineColor[4] = {1.0, 0.0, 0.0, 0.0};
 			glMaterialfv(GL_FRONT, GL_EMISSION, lineColor);
 			glMaterialfv(GL_FRONT, GL_AMBIENT_AND_DIFFUSE, lineColor);
-
+			
 			//should be like the default wallsize
 			glLineWidth(100.0/(float)m_GLCamera2D->getDistance());
-
+			
 			//draw line from start to end
 			glBegin(GL_LINES);
 			{
@@ -559,33 +559,33 @@ void GNRScene::drawLine(GNRLineDrawEvent& event)
 				glVertex3f(event.getEndPoint().getX(), event.getEndPoint().getY(), event.getEndPoint().getZ());
 			}
 			glEnd();
-
+			
 			//turn on lights
 			m_GLOUT->initLights();
-
+			
 			//if shadows disabled draw floor again
 			if (! m_shadows)
 			{
 				m_GLOUT->drawBaseFloor(0.0, 0.0, 0.0, DEFAULT_FLOOR_SIZE);
 			}
-
+			
 			//draw world
 			m_RootAssembly->draw();
 		}
 		glPopMatrix();
 	}
 	glPopMatrix();
-
+	
 	//put output to screen
 	m_GLOUT->endDraw();
-
+	
 	// calculate length of the line
 	float x = event.getEndPoint().getX() - event.getStartPoint().getX();
 	float y = event.getEndPoint().getY() - event.getStartPoint().getY();
 	float z = event.getEndPoint().getZ() - event.getStartPoint().getZ();
 	GNRVertex myvec(x, y, z);
 	float length = myvec.length();
-
+	
 	// send event to display length
 	GNRNotifyEvent gnrevent(wxEVT_COMMAND_GNR_NOTIFY);
 	gnrevent.setGNREventType(DISPLAYLENGTH);
@@ -600,14 +600,14 @@ void GNRScene::drawLine(GNRLineDrawEvent& event)
 void GNRScene::hideSelectedAssemblies()
 {
 	list<GNRAssembly*> parts = m_Selected->getPartList();
-
+	
 	for (list<GNRAssembly*>::iterator it = parts.begin(); it != parts.end(); ++it)
 	{
 		m_RootAssembly->addPart((*it));
 		m_Selected->delPart((*it));
 		(*it)->setVisible(false);
 	}
-
+	
 	// send event to refresh Scene-Tree
 	GNRNotifyEvent gnrevent(wxEVT_COMMAND_GNR_NOTIFY);
 	gnrevent.setGNREventType(REFRESHSCENETREE);
@@ -621,18 +621,18 @@ void GNRScene::hideSelectedAssemblies()
 void GNRScene::groupSelectedAssemblies()
 {
 	list<GNRAssembly*> parts = m_Selected->getPartList();
-
+	
 	if (parts.size() < 1)
 	{
 		//no or only one part, don't waste time
 		return;
 	}
-
+	
 	GNRAssembly* group = new GNRAssembly(IS_GROUP, wxT("Gruppe"));
-
+	
 	float min[3] = {10000.0,10000.0,10000.0};
 	float max[3] = {-10000.0,-10000.0,-10000.0};
-
+	
 	//first pass to get maximum cube and new center of group
 	for (list<GNRAssembly*>::iterator it = parts.begin(); it != parts.end(); ++it)
 	{
@@ -646,34 +646,34 @@ void GNRScene::groupSelectedAssemblies()
 		minmax(min[1], max[1], (*it)->getY());
 		minmax(min[2], max[2], (*it)->getZ());
 	}
-
+	
 	//build new center as vertex for better calculation
 	GNRVertex new_center((max[0]+min[0])/2.0, (max[1]+min[1])/2.0, (max[2]+min[2])/2.0);
-
+	
 	//move group center to new center
 	group->setCenterVertex(new_center);
 	group->setHeight((max[1]+min[1]));
 	//store obj center as vertex
 	GNRVertex obj_center;
-
+	
 	//put all assemblies in the selected container
 	for (list<GNRAssembly*>::iterator it = parts.begin(); it != parts.end(); ++it)
 	{
 		//store old center
 		obj_center = (*it)->getCenterVertex();
-
+		
 		//add part to new group and remove from selection
 		group->addPart((*it));
 		m_Selected->delPart((*it));
-
+		
 		//modify center relative to new center
 		obj_center = obj_center - new_center;
 		(*it)->setCenterVertex(obj_center);
 	}
-
+	
 	//put new group in the world
 	m_RootAssembly->addPart(group);
-
+	
 	// send event to refresh Scene-Tree
 	GNRNotifyEvent gnrevent(wxEVT_COMMAND_GNR_NOTIFY);
 	gnrevent.setGNREventType(REFRESHSCENETREE);
@@ -688,15 +688,15 @@ void GNRScene::ungroupSelectedAssemblies()
 {
 	list<GNRAssembly*> sel_parts = m_Selected->getPartList();
 	list<GNRAssembly*> grp_parts;
-
+	
 	if (sel_parts.size() < 1)
 	{
 		//no or only one part, don't waste time
 		return;
 	}
-
+	
 	GNRVertex grp_center, grp_rotate, obj_center, ptr_object, ptr_rotate;
-
+	
 	//find all groups and free them
 	for (list<GNRAssembly*>::iterator it = sel_parts.begin(); it != sel_parts.end(); ++it)
 	{
@@ -709,24 +709,24 @@ void GNRScene::ungroupSelectedAssemblies()
 			grp_center = (*it)->getCenterVertex();
 			//save old rotation of whole group
 			grp_rotate = (*it)->getRotateVertex();
-
+			
 			//correct position of all group members
 			for (list<GNRAssembly*>::iterator child_it = grp_parts.begin(); child_it != grp_parts.end(); ++child_it)
 			{
 				//move assembly from group to IS_SELECTED in (0|0|0)
 				m_Selected->addPart((*child_it));
 				(*it)->delPart((*child_it));
-
+				
 				//save old relative position of child from group center
 				ptr_object = (*child_it)->getCenterVertex();
 				ptr_rotate = (*child_it)->getRotateVertex();
-
+				
 				//restore rotation from group to child around center
 				ptr_object.rotate(grp_rotate);
-
+				
 				//calculate new position of child relative to (0|0|0)
 				obj_center = ptr_object + grp_center;
-
+				
 				//rotate child in same way as group and set new center
 				(*child_it)->setRotateVertex(grp_rotate + ptr_rotate);
 				(*child_it)->setCenterVertex(obj_center);
@@ -735,7 +735,7 @@ void GNRScene::ungroupSelectedAssemblies()
 			m_Selected->delPart(*it);
 		}
 	}
-
+	
 	// send event to refresh Scene-Tree
 	GNRNotifyEvent gnrevent(wxEVT_COMMAND_GNR_NOTIFY);
 	gnrevent.setGNREventType(REFRESHSCENETREE);
@@ -754,9 +754,9 @@ void GNRScene::restoreAssembly(GNRAssembly* assembly)
 		m_RootAssembly->addPart(assembly);
 		m_Trash->delPart(assembly);
 	}
-
+	
 	glRefresh();
-
+	
 	// send event to refresh Scene-Tree
 	GNRNotifyEvent gnrevent(wxEVT_COMMAND_GNR_NOTIFY);
 	gnrevent.setGNREventType(REFRESHSCENETREE);
@@ -771,10 +771,10 @@ void GNRScene::restoreAssembly(GNRAssembly* assembly)
 void GNRScene::showAssembly(GNRAssembly* assembly)
 {
 	assembly->setVisible(true);
-
+	
 	// redraw scene
 	glRefresh();
-
+	
 	// send event to refresh Scene-Tree
 	GNRNotifyEvent gnrevent(wxEVT_COMMAND_GNR_NOTIFY);
 	gnrevent.setGNREventType(REFRESHSCENETREE);
@@ -789,10 +789,10 @@ void GNRScene::showAssembly(GNRAssembly* assembly)
 void GNRScene::hideAssembly(GNRAssembly* assembly)
 {
 	assembly->setVisible(false);
-
+	
 	// redraw scene
 	glRefresh();
-
+	
 	// send event to refresh Scene-Tree
 	GNRNotifyEvent gnrevent(wxEVT_COMMAND_GNR_NOTIFY);
 	gnrevent.setGNREventType(REFRESHSCENETREE);
@@ -824,7 +824,7 @@ void GNRScene::selectAssembly(GNRAssembly* assembly)
 		//repaint cause of box on floor
 		glRefresh();
 	}
-
+	
 	// send event to refresh Scene-Tree
 	GNRNotifyEvent gnrevent(wxEVT_COMMAND_GNR_NOTIFY);
 	gnrevent.setGNREventType(REFRESHSCENETREE);
@@ -859,10 +859,10 @@ void GNRScene::insertAssembly(GNRAssembly* assembly)
 {
 	//put new assembly on ground
 	assembly->putOnGround();
-
+	
 	//add assembly to root node
 	m_RootAssembly->addPart(assembly);
-
+	
 	//refresh both
 	refreshTreeAndCanvas();
 }
@@ -875,15 +875,16 @@ void GNRScene::refreshTreeAndCanvas()
 {
 	//refresh canvas
 	glRefresh();
-
+	
 	//send event to refresh Scene-Tree
 	GNRNotifyEvent gnrevent(wxEVT_COMMAND_GNR_NOTIFY);
 	gnrevent.setGNREventType(REFRESHSCENETREE);
 	ProcessEvent(gnrevent);
-
+	
 	glRefresh();
 }
 
-GNRAssembly* GNRScene::getTrash() {
-    return m_Trash;
+GNRAssembly* GNRScene::getTrash()
+{
+	return m_Trash;
 }

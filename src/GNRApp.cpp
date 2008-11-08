@@ -45,14 +45,14 @@ IMPLEMENT_APP(GNRApp);
 bool GNRApp::OnInit()
 {
 	bool wxsOK = true;
-
+	
 	wxInitAllImageHandlers();
-
+	
 	if (wxsOK)
 	{
 		//build gui
 		initFrames();
-
+		
 #if defined(__ATHOS_DEBUG__)
 		// Create DebugFrame
 		m_DebugFrame = new GNRDebugFrame(m_MainFrame);
@@ -60,27 +60,27 @@ bool GNRApp::OnInit()
 		m_Log = new wxLogTextCtrl(m_DebugFrame->TextCtrl);
 		m_Log->SetActiveTarget(m_Log);
 #endif
-
+		
 		//build models
 		m_Tests         = new GNRTests();
 		m_Scene         = GNRScene::getInstance();
 		m_MouseCtrl     = new GNRMouseController(m_Scene);
-
+		
 		m_TreeLibCtrl   = new GNRTreeLibraryController(m_TreeCtrlLib);
 		m_TreeSceneCtrl = new GNRTreeSceneController(m_TreeCtrlScene);
 		m_UndoRedo      = GNRUndoRedo::getInstance();
-
+		
 		m_Scene->setCanvas2D(m_Canvas2D);
 		m_Scene->setCanvas3D(m_Canvas3D);
-
+		
 		//initialize whole menus
 		initialSetup();
-
+		
 #if defined(__ATHOS_DEBUG__)
 		//m_Tests->sizeXsizeLoopsLoadClean(m_Scene,5,20);
 #endif
 	}
-
+	
 	return wxsOK;
 }
 
@@ -91,56 +91,56 @@ bool GNRApp::OnInit()
 void GNRApp::initFrames()
 {
 	m_MainFrame = new GNRMainFrame(0);
-
+	
 	//main splitter window
 	m_VerticalSplitter = new wxSplitterWindow(m_MainFrame, -1, wxPoint(0,0), wxDefaultSize, wxSP_3D|wxSP_NO_XP_THEME|wxSP_LIVE_UPDATE);
 	m_VerticalSplitter->SetMinimumPaneSize(200);
-
+	
 	//create splitter for left panel with tree and models
 	m_HorizontalSplitter_left = new wxSplitterWindow(m_VerticalSplitter, -1, wxPoint(0,0), wxDefaultSize, wxSP_3D|wxSP_NO_XP_THEME|wxSP_LIVE_UPDATE);
 	m_HorizontalSplitter_left->SetMinimumPaneSize(100);
-
+	
 	//create splitter for right panel with two canvas
 	m_HorizontalSplitter_right = new wxSplitterWindow(m_VerticalSplitter, -1, wxPoint(0,0), wxDefaultSize, wxSP_3D|wxSP_NO_XP_THEME|wxSP_LIVE_UPDATE);
 	m_HorizontalSplitter_right->SetMinimumPaneSize(100);
-
+	
 	//show mainframe
 	m_MainFrame->Show(true);
-
+	
 	//create tree and models panel
 	m_TreePanelLibrary = new GNRTreePanelLibrary(m_HorizontalSplitter_left, wxID_ANY);
 	m_TreePanelMyScene = new GNRTreePanelMyScene(m_HorizontalSplitter_left, wxID_ANY);
-
+	
 	//create TreeCntr
 	m_TreeCtrlLib = new GNRTreeLibraryCtrl(m_TreePanelLibrary, wxID_ANY);
 	m_TreeCtrlScene = new GNRTreeSceneCtrl(m_TreePanelMyScene, wxNewId(), wxPoint(0, 0), m_TreePanelMyScene->GetSize(), wxTR_DEFAULT_STYLE, wxDefaultValidator, wxT("TreePanelMyScene"));
-
+	
 	//create two canvas panels
 	m_Canvas2D = new GNRGLCanvas2D(m_HorizontalSplitter_right, -1);
 	commonCtxt = m_Canvas2D->GetContext();
 	m_Canvas3D = new GNRGLCanvas3D(m_HorizontalSplitter_right, commonCtxt, -1);
-
+	
 	//initialize left and right splitter
 	m_VerticalSplitter->Initialize(m_HorizontalSplitter_left);
 	m_VerticalSplitter->Initialize(m_HorizontalSplitter_right);
-
+	
 	//initialize both treepanels
 	m_HorizontalSplitter_left->Initialize(m_TreePanelLibrary);
 	m_HorizontalSplitter_left->Initialize(m_TreePanelMyScene);
-
+	
 	//initialize both canvases
 	m_HorizontalSplitter_right->Initialize(m_Canvas2D);
 	m_HorizontalSplitter_right->Initialize(m_Canvas3D);
-
+	
 	//split right splitter in upper (2D) and lower (3D) canvas
 	m_HorizontalSplitter_right->SplitHorizontally(m_Canvas2D, m_Canvas3D);
-
+	
 	//split left splitter in upper (library) and lower (myscene) treeview
 	m_HorizontalSplitter_left->SplitHorizontally(m_TreePanelLibrary, m_TreePanelMyScene);
-
+	
 	//split vertical (main) splitter in left and right splitter
 	m_VerticalSplitter->SplitVertically(m_HorizontalSplitter_left, m_HorizontalSplitter_right);
-
+	
 	m_VerticalSplitter->SetSashPosition(200,true);
 	m_HorizontalSplitter_left->SetSashPosition(300,true);
 	m_HorizontalSplitter_right->SetSashPosition(200,true);
@@ -162,7 +162,7 @@ void GNRApp::updateSize()
 {
 	// update size of m_TreeCtrlLib
 	m_TreeCtrlLib->SetSize(m_TreePanelLibrary->GetSize());
-
+	
 	// update size of m_TreeCtrlScene
 	m_TreeCtrlScene->SetSize(m_TreePanelMyScene->GetSize());
 }
@@ -373,31 +373,31 @@ void GNRApp::OnGLEvent(GNRGLNotifyEvent& event)
 	{
 		m_MouseCtrl->setSelected(event);
 	}
-
+	
 	//if any mouse down set mediator and on right down, select too
 	else if (event.getMouseEvent().ButtonDown(-1))
 	{
 		m_MouseCtrl->setMediator(event);
-
+		
 		if (event.getMouseEvent().ButtonDown(RIGHT_BUTTON))
 		{
 			//m_MouseCtrl->setMediator(event);
 			m_MouseCtrl->setSelected(event);
 		}
 	}
-
+	
 	//if left or middle mouse button is down, translate event to mediator
 	else if (event.getMouseEvent().ButtonIsDown(-1))
 	{
 		m_MouseCtrl->activateMediator(event);
 	}
-
+	
 	//if left or middle mouse button goes up, create command-object for undo
 	else if (event.getMouseEvent().ButtonUp(LEFT_BUTTON) || event.getMouseEvent().ButtonUp(MIDDLE_BUTTON))
 	{
 		m_MouseCtrl->deactivateMediator();
 	}
-
+	
 	//if event is scroll-event, translate event to mediator
 	else if (event.getMouseEvent().GetWheelRotation())
 	{
@@ -425,13 +425,13 @@ void GNRApp::OnCreatePrimitiveEvent(GNRCreatePrimitiveEvent& event)
 	{
 		GNRVertex origin(0.0,0.0,0.0);
 		GNRAssembly* atomic;
-
+		
 		//get creator instance
 		GNRPrimitiveCreator creator;
-
+		
 		//create new parent assembly (group of primitives)
 		GNRAssembly* primitive = new GNRAssembly(wxT("Wandteil"));
-
+		
 		//put information of whole group in parent
 		primitive->setType(IS_PRIMITIVE);
 		primitive->setCenterVertex(event.getPosition());
@@ -439,23 +439,23 @@ void GNRApp::OnCreatePrimitiveEvent(GNRCreatePrimitiveEvent& event)
 		primitive->setWidth(event.getDimensions().getX());
 		primitive->setHeight(event.getDimensions().getY());
 		primitive->setDepth(event.getDimensions().getZ());
-
+		
 		//create smallest part of primitive
 		creator.createCuboid(origin, origin, event.getDimensions());
-
+		
 		//set color to default
 		creator.setMaterial(primitive, DEFAULT_IMPORT_COLOR);
-
+		
 		//get the primitive
 		atomic = creator.getPrimitive();
-
+		
 		//insert 'small' cuboid in parent
 		primitive->addPart(atomic);
-
+		
 		//put whole in the world
 		m_Scene->insertAssembly(primitive);
 	}
-
+	
 	m_Scene->glRefresh();
 }
 
@@ -468,7 +468,7 @@ void GNRApp::OPXOpen(wxString filename)
 {
 	// clean up the actual room
 	m_Scene->newRoom();
-
+	
 	// create importer and execute it
 	GNROpxImport import(m_TreeLibCtrl, m_Scene, filename);
 }
@@ -493,7 +493,7 @@ void GNRApp::OAXImport(wxString filename)
 {
 	// string to store category
 	wxString cat;
-
+	
 	// string to store name
 	wxString name;
 	
@@ -619,22 +619,22 @@ void GNRApp::ObjOaxConversion(GNRAssemblyData* data)
 {
 	// create new memory output stream
 	wxMemoryOutputStream memOut;
-
+	
 	// pointer to wxOutputStream
 	wxOutputStream* outStream = &memOut;
-
+	
 	// create new OaxExport - object
 	GNROaxExport out(data, outStream);
-
+	
 	// create new memory input stream
 	wxMemoryInputStream memIn(memOut);
-
+	
 	// pointer to wxInputStream
 	wxInputStream* inStream = &memIn;
-
+	
 	// add new entry
 	m_TreeLibCtrl->addEntry(data->m_name, *inStream, data->m_category);
-
+	
 	// successfull
 	delete m_ObjOaxConv;
 }
@@ -650,17 +650,17 @@ void GNRApp::initialSetup()
 	setup_snap.setGNREventType(SNAPTOGRID);
 	setup_snap.setSnapToGrid(SNAP_IN_DEFAULT_GRID);
 	setup_snap.setSnapToAngle(SNAP_IN_DEFAULT_ANGLE);
-
+	
 	//activate snap function on start
 	m_MouseCtrl->setSnapfunction(setup_snap);
-
+	
 	//send event to refresh Scene-Tree
 	GNRNotifyEvent setup_tree(wxEVT_COMMAND_GNR_NOTIFY);
 	setup_tree.setGNREventType(REFRESHSCENETREE);
-
+	
 	//process event for tree
 	ProcessEvent(setup_tree);
-
+	
 	//refresh canvas
 	m_Scene->glRefresh();
 }

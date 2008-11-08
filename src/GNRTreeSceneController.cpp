@@ -39,26 +39,26 @@ GNRTreeSceneController::~GNRTreeSceneController() {}
  */
 void GNRTreeSceneController::createSceneTree()
 {
-    GNRScene* scene = GNRScene::getInstance();
-
-    // reset tree
+	GNRScene* scene = GNRScene::getInstance();
+	
+	// reset tree
 	m_treeCtrl->DeleteAllItems();
-
-    // create root-entry
-    wxTreeItemId rootID = m_treeCtrl->AddRoot(wxT("Root"));
-
+	
+	// create root-entry
+	wxTreeItemId rootID = m_treeCtrl->AddRoot(wxT("Root"));
+	
 	// create scene tree
 	wxTreeItemId newID = m_treeCtrl->AppendItem(rootID, wxT("Szene"));
 	createSceneTree(newID, scene->getRootAssembly());
-
+	
 	newID = m_treeCtrl->AppendItem(rootID, wxT("Papierkorb"));
 	createSceneTree(newID, scene->getTrash());
-
+	
 	// expand root + scene
 	m_treeCtrl->Expand(rootID);
 	wxTreeItemIdValue cookie;
 	m_treeCtrl->Expand(m_treeCtrl->GetFirstChild(rootID, cookie));
-
+	
 	// sort children of scene
 	m_treeCtrl->SortChildren(m_treeCtrl->GetFirstChild(rootID, cookie));
 }
@@ -77,7 +77,7 @@ void GNRTreeSceneController::createSceneTree(wxTreeItemId id, GNRAssembly* assem
 		GNRTreeSceneItemData* data = new GNRTreeSceneItemData;
 		data->setAssembly(assembly);
 		wxTreeItemId newID = m_treeCtrl->AppendItem(id, assembly->getName(), -1, -1, data);
-
+		
 		// make selected bold
 		if (assembly->getMaster()->getType() == IS_SELECTED)
 		{
@@ -94,20 +94,20 @@ void GNRTreeSceneController::createSceneTree(wxTreeItemId id, GNRAssembly* assem
 		// generate ItemData for group
 		GNRTreeSceneItemData* data = new GNRTreeSceneItemData;
 		data->setAssembly(assembly);
-
+		
 		wxTreeItemId newID = m_treeCtrl->AppendItem(id, assembly->getName(), -1, -1, data);
-
+		
 		// make selected bold
-        if (assembly->getMaster()->getType() == IS_SELECTED)
-        {
-            m_treeCtrl->SetItemBold(newID);
-        }
-        // make hidden italic
-        if (assembly->isVisible() == false)
-        {
-            m_treeCtrl->SetItemFont(newID, *wxITALIC_FONT);
-        }
-
+		if (assembly->getMaster()->getType() == IS_SELECTED)
+		{
+			m_treeCtrl->SetItemBold(newID);
+		}
+		// make hidden italic
+		if (assembly->isVisible() == false)
+		{
+			m_treeCtrl->SetItemFont(newID, *wxITALIC_FONT);
+		}
+		
 		list<GNRAssembly*> parts = assembly->getPartList();
 		for (list<GNRAssembly*>::const_iterator it = parts.begin(); it != parts.end(); ++it)
 		{
