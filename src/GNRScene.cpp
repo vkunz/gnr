@@ -379,6 +379,38 @@ void GNRScene::deleteTrashAssemblies()
 }
 
 /**
+ * query originals, trash and scene for original object
+ * @return      GNRAssembly*        found original or NULL
+ * @access      public
+ */
+GNRAssembly* GNRScene::getOrigialFromHash(const wxString hash)
+{
+	GNRAssembly* original;
+	
+	//first query all originals for pointer
+	original = m_Originals->getHashOriginal(hash);
+	
+	if (original != NULL)
+	{
+		return original;
+	}
+	
+	//second query trash for pointer
+	original = m_Trash->getHashOriginal(hash);
+	
+	if (original != NULL)
+	{
+		return original;
+	}
+	
+	//and last query root for pointer
+	original = m_RootAssembly->getHashOriginal(hash);
+	
+	//return pointer or NULL from assembly
+	return original;
+}
+
+/**
  * delete a given assembly (move to trash container)
  * @access      public
  */

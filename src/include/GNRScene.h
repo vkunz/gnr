@@ -67,6 +67,7 @@ public:
 	GNRAssembly* getHiddden();
 	GNRAssembly* getTrash();
 	GNRAssembly* getAssembly();
+	GNRAssembly* getOrigialFromHash(const wxString hash);
 	GNRGLCamera* getGLCamera2D();
 	GNRGLCamera* getGLCamera3D();
 	

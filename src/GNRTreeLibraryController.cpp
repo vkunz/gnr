@@ -313,38 +313,52 @@ void GNRTreeLibraryController::pasteEntry(wxString reference)
 	// oax import
 	GNROaxImport import;
 	
-	// get scene
+	// get scene and prepare assembly
 	GNRScene* scene = GNRScene::getInstance();
+	GNRAssembly* assembly;
 	
-	// wxMemoryOutputStream to store oax data
-	wxMemoryOutputStream* memOut;
+	//query scene for hash or load from file
+	assembly = scene->getOrigialFromHash(reference.BeforeFirst('.'));
 	
-	// get data
-	memOut = m_library->getEntryData(reference);
-	
-	// wxMemoryInputStream to store oax data
-	wxMemoryInputStream memIn(*memOut);
-	
-	// wxZipInputStream
-	wxZipInputStream inZip(memIn);
-	
-	// import
-	import.Load(inZip);
-	
-	// assembly pointer
-	GNRAssembly* assembly = import.getAssembly();
-	
-	// set hash
-	assembly->setHash(reference.BeforeFirst('.'));
+	//found one, just clone from
+	if (assembly != NULL)
+	{
+		//overwrite pointer here
+		assembly = assembly->clone();
+	}
+	//or load from library container
+	else
+	{
+		// wxMemoryOutputStream to store oax data
+		wxMemoryOutputStream* memOut;
+		
+		// get data
+		memOut = m_library->getEntryData(reference);
+		
+		// wxMemoryInputStream to store oax data
+		wxMemoryInputStream memIn(*memOut);
+		
+		// wxZipInputStream
+		wxZipInputStream inZip(memIn);
+		
+		// import
+		import.Load(inZip);
+		
+		// assembly pointer
+		assembly = import.getAssembly();
+		
+		// set hash
+		assembly->setHash(reference.BeforeFirst('.'));
+		
+		// delete memOut
+		delete memOut;
+	}
 	
 	// insert assembly
 	scene->insertAssembly(assembly);
 	
 	// update gl
 	scene->glRefresh();
-	
-	// delete memOut
-	delete memOut;
 }
 
 wxMemoryOutputStream* GNRTreeLibraryController::exportEntry(wxString reference)

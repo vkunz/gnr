@@ -1185,6 +1185,32 @@ bool GNRAssembly::findHash(const wxString& hash) const
 }
 
 /**
+ * find original object for hash string and return null or pointer
+ * @return      GNRAssembly*        pointer to original
+ * @access      public
+ */
+GNRAssembly* GNRAssembly::getHashOriginal(const wxString& hash) const
+{
+	//search for the same hash and return
+	for (list<GNRAssembly*>::const_iterator it = m_part.begin(); it != m_part.end(); ++it)
+	{
+		if (!(*it)->isOriginal())
+		{
+			continue;
+		}
+		if (!(*it)->isType(IS_OBJECT))
+		{
+			continue;
+		}
+		if (hash == (*it)->getHash())
+		{
+			return (*it);
+		}
+	}
+	return NULL;
+}
+
+/**
  * draw shadow of this assembly and all his children and push ID to glLoadName, if its atomic
  * @access      public
  */

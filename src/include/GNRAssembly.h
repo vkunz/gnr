@@ -131,6 +131,7 @@ public:
 	GNRAssembly* getOrigin() const;
 	GNRAssembly* getParent() const;
 	GNRAssembly* getMaster() const;
+	GNRAssembly* getHashOriginal(const wxString& hash) const;
 	void setParent(GNRAssembly* p);
 	
 	float getOverGround() const;
