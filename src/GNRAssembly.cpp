@@ -108,7 +108,7 @@ GNRAssembly::GNRAssembly(GNRAssembly& assembly)
  */
 GNRAssembly* GNRAssembly::clone()
 {
-	GNRAssembly* m_clone = new GNRAssembly(wxT("clone"));
+	GNRAssembly* m_clone = new GNRAssembly(wxT("Kopie"));
 	
 	if (m_origin == NULL)
 	{
@@ -1100,13 +1100,16 @@ void GNRAssembly::draw()
 	
 	glPushMatrix();
 	{
+		//first translate to position
 		glTranslatef(m_x, m_y, m_z);
-		glScalef(m_scale_x, m_scale_y, m_scale_z);
 		
 		//rotate in object center
 		glRotatef(m_phi, 1, 0, 0);
 		glRotatef(m_theta, 0, 1, 0);
 		glRotatef(m_rho, 0, 0, 1);
+		
+		//finally scale on place
+		glScalef(m_scale_x, m_scale_y, m_scale_z);
 		
 		if (glIsList(m_dl_object))
 		{
@@ -1196,13 +1199,16 @@ void GNRAssembly::drawShadow()
 	//draw shadows, if object visible
 	glPushMatrix();
 	{
+		//first translate to position
 		glTranslatef(m_x, m_y, m_z);
-		glScalef(m_scale_x, m_scale_y, m_scale_z);
 		
 		//rotate in object center
 		glRotatef(m_phi, 1, 0, 0);
 		glRotatef(m_theta, 0, 1, 0);
 		glRotatef(m_rho, 0, 0, 1);
+		
+		//finally scale on place
+		glScalef(m_scale_x, m_scale_y, m_scale_z);
 		
 		if (glIsList(m_dl_shadow))
 		{
