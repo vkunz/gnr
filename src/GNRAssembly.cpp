@@ -80,7 +80,7 @@ GNRAssembly::GNRAssembly(GNRAssembly& assembly)
 	for (list<GNRAssembly*>::const_iterator it = m_part.begin(); it != m_part.end(); ++it)
 	{
 		// draw the Child
-		GNRAssembly* a_copy = new GNRAssembly(wxT("copy"));
+		GNRAssembly* a_copy = new GNRAssembly(wxT("Kopie"));
 		(*a_copy) = (**it);
 		addPart(a_copy);
 		

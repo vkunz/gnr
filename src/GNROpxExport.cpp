@@ -325,7 +325,7 @@ void GNROpxExport::createGroup(wxXmlNode* node, GNRAssembly* assembly)
 	std::list<GNRAssembly*>::iterator it;
 	
 	// add group
-	node->InsertChild(new wxXmlNode(wxXML_ELEMENT_NODE, wxT("group")), NULL);
+	node->InsertChild(new wxXmlNode(wxXML_ELEMENT_NODE, wxT("Gruppe")), NULL);
 	
 	// node to new child
 	node = node->GetChildren();

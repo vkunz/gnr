@@ -429,7 +429,7 @@ void GNRApp::OnCreatePrimitiveEvent(GNRCreatePrimitiveEvent& event)
 		GNRPrimitiveCreator creator;
 		
 		//create new parent assembly (group of primitives)
-		GNRAssembly* primitive = new GNRAssembly(wxT("wallcube"));
+		GNRAssembly* primitive = new GNRAssembly(wxT("Wandteil"));
 		
 		//put information of whole group in parent
 		primitive->setType(IS_PRIMITIVE);

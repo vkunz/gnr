@@ -628,7 +628,7 @@ void GNRScene::groupSelectedAssemblies()
 		return;
 	}
 	
-	GNRAssembly* group = new GNRAssembly(IS_GROUP, wxT("group"));
+	GNRAssembly* group = new GNRAssembly(IS_GROUP, wxT("Gruppe"));
 	
 	float min[3] = {10000.0,10000.0,10000.0};
 	float max[3] = {-10000.0,-10000.0,-10000.0};
