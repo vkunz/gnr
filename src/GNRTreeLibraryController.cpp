@@ -325,6 +325,12 @@ void GNRTreeLibraryController::pasteEntry(wxString reference)
 	{
 		//overwrite pointer here
 		assembly = assembly->clone();
+		
+		//reset clone
+		assembly->setXYZ(0.0,0.0,0.0);
+		assembly->setPhi(0.0);
+		assembly->setRho(0.0);
+		assembly->setTheta(0.0);
 	}
 	//or load from library container
 	else
