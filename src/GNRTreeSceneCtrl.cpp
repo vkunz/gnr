@@ -2,6 +2,7 @@
 
 #include <wx/menu.h>
 #include <wx/textdlg.h>
+#include <wx/defs.h>
 
 #include "GNRNotifyEvent.h"
 #include "GNRTreeControlEvent.h"
@@ -21,7 +22,7 @@ const long GNRTreeSceneCtrl::idMenuUndelete = wxNewId();
 const long GNRTreeSceneCtrl::idMenuEmptyTrash = wxNewId();
 
 BEGIN_EVENT_TABLE(GNRTreeSceneCtrl, wxTreeCtrl)
-	//EVT_CHAR(func):
+	EVT_CHAR(GNRTreeSceneCtrl::OnKeyDown)
 	EVT_TREE_ITEM_MENU(wxID_ANY, GNRTreeSceneCtrl::OnItemMenu)
 	EVT_TREE_ITEM_ACTIVATED(wxID_ANY, GNRTreeSceneCtrl::OnItemActivated)
 	EVT_MENU(idMenuEdit, GNRTreeSceneCtrl::OnEdit)
@@ -59,17 +60,6 @@ GNRTreeSceneCtrl::GNRTreeSceneCtrl(wxWindow *parent, const wxWindowID id, const 
 GNRTreeSceneCtrl::~GNRTreeSceneCtrl() {}
 
 /**
- * fetches key down event
- * @param   wxKeyEvent&     key event of current canvas
- */
-void OnKeyDown(wxKeyEvent& event)
-{
-//    if(event.getKeyCode() == WXK_F2) {
-//        wxLogDebug(wxT("f2"));
-//    }
-}
-
-/**
  * gets called by right click on tree-item, reads tree-item and initiates menu-building
  * @param       wxTreeEvent&    event with information to clicked item
  * @access      private
@@ -78,9 +68,9 @@ void GNRTreeSceneCtrl::OnItemMenu(wxTreeEvent& event)
 {
 	m_currentTreeID = event.GetItem();
 	
-	treeItemData = (GNRTreeSceneItemData *)GetItemData(m_currentTreeID);
+	m_treeItemData = (GNRTreeSceneItemData *)GetItemData(m_currentTreeID);
 	
-	if (treeItemData != NULL)
+	if (m_treeItemData != NULL)
 	{
 		// build menu for item-operation
 		wxPoint clientpt = event.GetPoint();
@@ -104,9 +94,9 @@ void GNRTreeSceneCtrl::OnItemActivated(wxTreeEvent& event)
 {
 	m_currentTreeID = event.GetItem();
 	
-	treeItemData = (GNRTreeSceneItemData *)GetItemData(m_currentTreeID);
+	m_treeItemData = (GNRTreeSceneItemData *)GetItemData(m_currentTreeID);
 	
-	if (treeItemData != NULL && treeItemData->getAssembly()->getType() != IS_GROUP)
+	if (m_treeItemData != NULL && m_treeItemData->getAssembly()->getType() != IS_GROUP)
 	{
 		createAssemblyDataFrame();
 	}
@@ -123,18 +113,18 @@ void GNRTreeSceneCtrl::buildMenu(const wxPoint& pt)
 	// create dropdown-menu
 	wxMenu menu;
 	
-	if (treeItemData->getAssembly()->getMaster()->getType() == IS_TRASH)
+	if (m_treeItemData->getAssembly()->getMaster()->getType() == IS_TRASH)
 	{
 		menu.Append(idMenuUndelete, wxT("&Wiederherstellen"));
 	}
-	else if (treeItemData->getAssembly()->getMaster()->getParent() == NULL ||
-	         treeItemData->getAssembly()->getMaster()->getParent()->getType() == IS_ROOT ||
-	         treeItemData->getAssembly()->getMaster()->getParent()->getType() == IS_SELECTED)
+	else if (m_treeItemData->getAssembly()->getMaster()->getParent() == NULL ||
+	         m_treeItemData->getAssembly()->getMaster()->getParent()->getType() == IS_ROOT ||
+	         m_treeItemData->getAssembly()->getMaster()->getParent()->getType() == IS_SELECTED)
 	{
 		// no trash; add other options
 		
 		// group or item?
-		if (treeItemData->getAssembly()->getType() != IS_GROUP)
+		if (m_treeItemData->getAssembly()->getType() != IS_GROUP)
 		{
 			menu.Append(idMenuEdit, wxT("&Bearbeiten"));
 		}
@@ -146,7 +136,7 @@ void GNRTreeSceneCtrl::buildMenu(const wxPoint& pt)
 		menu.AppendSeparator();
 		
 		// selected?
-		if (treeItemData->getAssembly()->getMaster()->getType() == IS_SELECTED)
+		if (m_treeItemData->getAssembly()->getMaster()->getType() == IS_SELECTED)
 		{
 			menu.Append(idMenuDeselect, wxT("&Deselektieren"));
 		}
@@ -156,7 +146,7 @@ void GNRTreeSceneCtrl::buildMenu(const wxPoint& pt)
 		}
 		
 		// visible?
-		if (treeItemData->getAssembly()->isVisible())
+		if (m_treeItemData->getAssembly()->isVisible())
 		{
 			menu.Append(idMenuHide, wxT("&Verbergen"));
 		}
@@ -180,10 +170,35 @@ void GNRTreeSceneCtrl::createAssemblyDataFrame()
 {
 	m_assemblyDataFrame = new GNRAssemblyDataFrame;
 	m_assemblyDataFrame->Show();
-	m_assemblyDataFrame->fillFields(treeItemData->getAssembly());
+	m_assemblyDataFrame->fillFields(m_treeItemData->getAssembly());
 }
 
 void GNRTreeSceneCtrl::OnRename(wxCommandEvent& WXUNUSED(event))
+{
+	renameItem();
+}
+
+/**
+ * fetches key down event
+ * @param   wxKeyEvent&     key event of current canvas
+ * @access  private
+ */
+void GNRTreeSceneCtrl::OnKeyDown(wxKeyEvent& event)
+{
+	if (event.GetKeyCode() == WXK_F2)
+	{
+		m_currentTreeID = GetSelection();
+		
+		m_treeItemData = (GNRTreeSceneItemData *)GetItemData(m_currentTreeID);
+		
+		if (m_treeItemData != NULL)
+		{
+			renameItem();
+		}
+	}
+}
+
+void GNRTreeSceneCtrl::renameItem()
 {
 	// create dialog and ask for name
 	wxTextEntryDialog ted(this, wxT("Neuer Name"));
@@ -192,7 +207,7 @@ void GNRTreeSceneCtrl::OnRename(wxCommandEvent& WXUNUSED(event))
 		// if pressed cancel, do nothing
 		return;
 	}
-	treeItemData->getAssembly()->setName(ted.GetValue());
+	m_treeItemData->getAssembly()->setName(ted.GetValue());
 	
 	// send event to refresh Scene-Tree
 	GNRNotifyEvent gnrevent(wxEVT_COMMAND_GNR_NOTIFY);
@@ -205,7 +220,7 @@ void GNRTreeSceneCtrl::OnVisible(wxCommandEvent& WXUNUSED(event))
 	// send event to handle setVisible
 	GNRTreeControlEvent treeEvent(wxEVT_COMMAND_GNR_TREE_CONTROL);
 	treeEvent.setEventType(SCENEVISIBLE);
-	treeEvent.setAssembly(treeItemData->getAssembly());
+	treeEvent.setAssembly(m_treeItemData->getAssembly());
 	ProcessEvent(treeEvent);
 }
 
@@ -214,7 +229,7 @@ void GNRTreeSceneCtrl::OnHide(wxCommandEvent& WXUNUSED(event))
 	// send event to handle setHide
 	GNRTreeControlEvent treeEvent(wxEVT_COMMAND_GNR_TREE_CONTROL);
 	treeEvent.setEventType(SCENEHIDE);
-	treeEvent.setAssembly(treeItemData->getAssembly());
+	treeEvent.setAssembly(m_treeItemData->getAssembly());
 	ProcessEvent(treeEvent);
 }
 
@@ -223,13 +238,13 @@ void GNRTreeSceneCtrl::OnSelect(wxCommandEvent& WXUNUSED(event))
 	// send event to handle select
 	GNRTreeControlEvent treeEvent(wxEVT_COMMAND_GNR_TREE_CONTROL);
 	treeEvent.setEventType(SCENESELECT);
-	if (treeItemData->getMaster()->isType(IS_GROUP))
+	if (m_treeItemData->getMaster()->isType(IS_GROUP))
 	{
-		treeEvent.setAssembly(treeItemData->getMaster());
+		treeEvent.setAssembly(m_treeItemData->getMaster());
 	}
 	else
 	{
-		treeEvent.setAssembly(treeItemData->getAssembly());
+		treeEvent.setAssembly(m_treeItemData->getAssembly());
 	}
 	ProcessEvent(treeEvent);
 }
@@ -239,7 +254,7 @@ void GNRTreeSceneCtrl::OnDeselect(wxCommandEvent& WXUNUSED(event))
 	// send event to handle deselect
 	GNRTreeControlEvent treeEvent(wxEVT_COMMAND_GNR_TREE_CONTROL);
 	treeEvent.setEventType(SCENEDESELECT);
-	treeEvent.setAssembly(treeItemData->getAssembly());
+	treeEvent.setAssembly(m_treeItemData->getAssembly());
 	ProcessEvent(treeEvent);
 }
 
@@ -248,7 +263,7 @@ void GNRTreeSceneCtrl::OnDelete(wxCommandEvent& WXUNUSED(event))
 	// send event to handle delete
 	GNRTreeControlEvent treeEvent(wxEVT_COMMAND_GNR_TREE_CONTROL);
 	treeEvent.setEventType(SCENEDELETE);
-	treeEvent.setAssembly(treeItemData->getAssembly());
+	treeEvent.setAssembly(m_treeItemData->getAssembly());
 	ProcessEvent(treeEvent);
 }
 
@@ -257,7 +272,7 @@ void GNRTreeSceneCtrl::OnUndelete(wxCommandEvent& WXUNUSED(event))
 	// send event to handle undelete
 	GNRTreeControlEvent treeEvent(wxEVT_COMMAND_GNR_TREE_CONTROL);
 	treeEvent.setEventType(SCENEUNDELETE);
-	treeEvent.setAssembly(treeItemData->getAssembly());
+	treeEvent.setAssembly(m_treeItemData->getAssembly());
 	ProcessEvent(treeEvent);
 }
 

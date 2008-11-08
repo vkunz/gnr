@@ -28,9 +28,10 @@ private:
 	
 	void buildMenu(const wxPoint& pt);
 	void createAssemblyDataFrame();
+	void renameItem();
 	
 	wxTreeItemId m_currentTreeID;
-	GNRTreeSceneItemData* treeItemData;
+	GNRTreeSceneItemData* m_treeItemData;
 	
 	GNRAssemblyDataFrame* m_assemblyDataFrame;
 	
