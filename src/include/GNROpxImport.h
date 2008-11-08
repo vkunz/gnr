@@ -45,8 +45,12 @@ protected:
 
 private:
 	// attributes
+	// string to store filename of opx
+	wxString m_filename;
+	
 	// pointer to librarycontroller to store oax
 	GNRTreeLibraryController* m_libctrl;
+	
 	// string to store obj-filename
 	wxString m_objFilename;
 	

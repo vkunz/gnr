@@ -43,6 +43,9 @@ GNROpxImport::GNROpxImport(GNRTreeLibraryController* controller, GNRScene* scene
 	// asign scene
 	m_scene = scene;
 	
+	// store filename
+	m_filename = filename;
+	
 	// create stream of filename
 	wxFFileInputStream inFile(filename);
 	
@@ -490,7 +493,7 @@ GNRAssembly* GNROpxImport::loadOax(wxZipInputStream& stream, wxString reference)
 			import.Load(inZip);
 			
 			// add oax to lib
-			import.getAssembly()->setHash(m_libctrl->addEntry(reference, inMem));
+			import.getAssembly()->setHash(m_libctrl->addEntry(reference, inMem, m_filename.BeforeFirst('.')));
 		}
 	}
 	
