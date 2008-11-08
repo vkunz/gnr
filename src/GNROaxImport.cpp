@@ -33,24 +33,11 @@ GNROaxImport::GNROaxImport()
  */
 GNROaxImport::GNROaxImport(wxString filename)
 {
-	// create stream of m_filename
+	// create stream of filename
 	wxFFileInputStream inFile(filename);
 	
 	// create zipstream
 	wxZipInputStream stream(inFile);
-	
-	// load stream
-	Load(stream);
-}
-
-/**
- * Loads the given InputStream. See Load().
- * @param       wxInputStream       InputStream to read from.
- */
-GNROaxImport::GNROaxImport(wxInputStream& instream)
-{
-	// create zipstream
-	wxZipInputStream stream(instream);
 	
 	// load stream
 	Load(stream);
@@ -162,21 +149,6 @@ void GNROaxImport::Load(wxZipInputStream& stream)
 			continue;
 		}
 	}
-}
-
-void GNROaxImport::Load(wxInputStream& instream)
-{
-	// create zipstream
-	wxZipInputStream stream(instream);
-	
-	wxZipEntry* entry = stream.GetNextEntry();
-	
-#if defined(__ATHOS_DEBUG__)
-	wxLogDebug(entry->GetName());
-#endif
-	
-	// load stream
-	Load(stream);
 }
 
 /**

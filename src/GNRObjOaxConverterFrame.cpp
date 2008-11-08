@@ -273,7 +273,7 @@ void GNRObjOaxConverterFrame::OnBtnCreate(wxCommandEvent& WXUNUSED(event))
 	GNRNotifyEvent gnrevent(wxEVT_COMMAND_GNR_NOTIFY);
 	
 	// set eventType
-	gnrevent.setGNREventType(OAXEXPORT);
+	gnrevent.setGNREventType(OBJOAXCONVERSION);
 	
 	// set frameData pointer
 	gnrevent.setAssemblyDataPointer(m_assemblyData);

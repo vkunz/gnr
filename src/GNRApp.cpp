@@ -197,8 +197,11 @@ void GNRApp::OnGNREvent(GNRNotifyEvent& event)
 		m_Scene->glRefresh();
 		break;
 	case OAXEXPORT:
-		OAXExport(event.getAssemblyDataPointer());
+		OAXExport(event.GetString());
 		//m_Scene->glRefresh();
+		break;
+	case OBJOAXCONVERSION:
+		ObjOaxConversion(event.getAssemblyDataPointer());
 		break;
 	case OBJIMPORT:
 		OBJImport(event.GetString());
@@ -462,11 +465,11 @@ void GNRApp::OnCreatePrimitiveEvent(GNRCreatePrimitiveEvent& event)
  */
 void GNRApp::OPXOpen(wxString filename)
 {
+	// clean up the actual room
+	m_Scene->newRoom();
+	
 	// create importer and execute it
-	GNROpxImport import(m_Scene, filename);
-#if defined(__ATHOS_DEBUG__)
-	wxLogDebug(wxT("Leider noch nicht implementiert!"));
-#endif
+	GNROpxImport import(m_TreeLibCtrl, m_Scene, filename);
 }
 
 /**
@@ -499,28 +502,9 @@ void GNRApp::OAXImport(wxString filename)
  * @param       wxString        File to export to.
  * @access      private
  */
-void GNRApp::OAXExport(GNRAssemblyData* data)
+void GNRApp::OAXExport(wxString filename)
 {
-	// create new memory output stream
-	wxMemoryOutputStream memOut;
-	
-	// pointer to wxOutputStream
-	wxOutputStream* outStream = &memOut;
-	
-	// create new OaxExport - object
-	GNROaxExport out(data, outStream);
-	
-	// create new memory input stream
-	wxMemoryInputStream memIn(memOut);
-	
-	// pointer to wxInputStream
-	wxInputStream* inStream = &memIn;
-	
-	// add new entry
-	m_TreeLibCtrl->addEntry(data->m_name, data->m_category, *inStream);
-	
-	// successfull
-	delete m_ObjOaxConv;
+
 }
 
 /**
@@ -557,11 +541,38 @@ void GNRApp::createScreenshot(wxString filename)
 }
 
 /**
-   * conververtion canceled
-   * @access     private
-  */
+ * conververtion canceled
+ * @access     private
+ */
 void GNRApp::cancelConvertion()
 {
+	delete m_ObjOaxConv;
+}
+
+/**
+ * Conversion suchessfull, write new entry into library
+ */
+void GNRApp::ObjOaxConversion(GNRAssemblyData* data)
+{
+	// create new memory output stream
+	wxMemoryOutputStream memOut;
+	
+	// pointer to wxOutputStream
+	wxOutputStream* outStream = &memOut;
+	
+	// create new OaxExport - object
+	GNROaxExport out(data, outStream);
+	
+	// create new memory input stream
+	wxMemoryInputStream memIn(memOut);
+	
+	// pointer to wxInputStream
+	wxInputStream* inStream = &memIn;
+	
+	// add new entry
+	m_TreeLibCtrl->addEntry(data->m_name, *inStream, data->m_category);
+	
+	// successfull
 	delete m_ObjOaxConv;
 }
 

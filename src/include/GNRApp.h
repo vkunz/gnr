@@ -66,13 +66,14 @@ private:
 	void OPXOpen(wxString filename);
 	void OPXSave(wxString filename);
 	void OAXImport(wxString filename);
-	void OAXExport(GNRAssemblyData* data);
+	void OAXExport(wxString filename);
 	void OBJImport(wxString filename);
 	void OBJExport(wxString filename);
 	
 	void createScreenshot(wxString filename);
 	
 	void cancelConvertion();
+	void ObjOaxConversion(GNRAssemblyData* data);
 	
 	//attributes
 	//treectrl

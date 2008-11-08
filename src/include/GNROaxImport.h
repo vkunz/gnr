@@ -50,8 +50,6 @@ public:
 	// load stream
 	void Load(wxZipInputStream& stream);
 	
-	void Load(wxInputStream& instream);
-	
 	// load file
 	void Load(wxString& filename);
 	
@@ -59,6 +57,10 @@ protected:
 
 private:
 	// attributes
+	// store hashes
+	wxString xmlHash;
+	wxString objHash;
+	
 	// x - y - z - scale
 	float m_scaleX, m_scaleY, m_scaleZ;
 	

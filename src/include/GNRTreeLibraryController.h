@@ -46,7 +46,7 @@ public:
 	std::vector<wxString>* getAllCategories();
 	
 	// adds a new entry from import
-	void addEntry(wxString& name, wxString& categoryname, wxInputStream& instream);
+	wxString addEntry(wxString& name, wxInputStream& instream, wxString categoryname = wxT("Sonstiges"));
 	
 	// delete a category
 	void deleteCategory(wxString name);

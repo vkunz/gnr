@@ -8,6 +8,7 @@
  * @author		Valentin Kunz       <athostr@googlemail.com>
  */
 
+#include <wx/mstream.h>
 #include <wx/string.h>
 #include <wx/zipstrm.h>
 #include <wx/wfstream.h>
@@ -31,16 +32,25 @@ GNROpxImport::GNROpxImport()
  * @param       wxString        Filepath to read from.
  * @param       GNRScene*       Assigns pointer to actual scene.
  */
-GNROpxImport::GNROpxImport(GNRScene* scene, wxString filename)
+GNROpxImport::GNROpxImport(GNRTreeLibraryController* controller, GNRScene* scene, wxString filename)
 {
+	// assign librarycontroller
+	m_libctrl = controller;
+	
 	// set GNRScene pointer
 	m_camera = scene->getGLCamera3D();
 	
 	// asign scene
 	m_scene = scene;
 	
+	// create stream of filename
+	wxFFileInputStream inFile(filename);
+	
+	// create zipstream
+	wxZipInputStream stream(inFile);
+	
 	// load
-	Load(filename);
+	Load(stream);
 }
 
 /**
@@ -51,73 +61,59 @@ GNROpxImport::~GNROpxImport()
 }
 
 /**
- * Loads the given filename. See Load(wxString filename).
- * @param       wxString    Filepath to read from.
- * @param       GNRScene*   Assigns pointer to actual scene.
- */
-void GNROpxImport::Load(GNRScene* scene, wxString filename)
-{
-	// set GNRCamera pointer
-	m_camera = scene->getGLCamera3D();
-	
-	// asign scene
-	m_scene = scene;
-	
-	// load
-	Load(filename);
-}
-
-/**
  * Loads the given file and get all its data.
  * @param       wxString    Filepath to read from.
  */
-void GNROpxImport::Load(wxString filename)
+void GNROpxImport::Load(wxZipInputStream& stream)
 {
-	// create inputstream of file
-	m_inFile = new wxFFileInputStream(filename);
+	// wxZipEntry pointer
+	wxZipEntry* entry;
 	
-	// create zipinpustream of fileIn
-	m_inZip = new wxZipInputStream(*m_inFile);
+	// iterator
+	std::vector<wxZipEntry*>::iterator it;
 	
 	// get first entry
-	m_ptrZipEntry = m_inZip->GetNextEntry();
+	entry = stream.GetNextEntry();
 	
 	// walk through all entrys and push them into vector
-	while (m_ptrZipEntry)
+	while (entry)
 	{
 		// push pointer to vector
-		m_vector.push_back(m_ptrZipEntry);
+		m_vector.push_back(entry);
 		
 		// get next Entry
-		m_ptrZipEntry = m_inZip->GetNextEntry();
+		entry = stream.GetNextEntry();
 	}
 	
 	// walk through all vector-entrys, find *.xml
-	for (m_vectorit = m_vector.begin(); m_vectorit != m_vector.end(); m_vectorit++)
+	for (it = m_vector.begin(); it != m_vector.end(); it++)
 	{
-		// get actual zipEntry
-		m_ptrZipEntry = *m_vectorit;
+		// assign entry
+		entry = *it;
 		
 		// search entryname matches "*.xml"
-		if (m_ptrZipEntry->GetName().Matches(wxT("*.xml")))
+		if (entry->GetName().Matches(wxT("*.xml")))
 		{
 			// openEntry
-			m_inZip->OpenEntry(*m_ptrZipEntry);
+			stream.OpenEntry(*entry);
 			
 			// load xmlstream
-			loadXml(*m_inZip);
+			loadXml(stream);
 			
 			// entry found
 			continue;
 		}
 	}
+	
+	// refresh
+	m_scene->refreshTreeAndCanvas();
 }
 
 /**
  * Loads the given stream and get its all data.
  * @param       wxInputStream    Load xml-File as wxInputStream.
  */
-void GNROpxImport::loadXml(wxInputStream& stream)
+void GNROpxImport::loadXml(wxZipInputStream& stream)
 {
 	// temporary attributes
 	double x, y, z;
@@ -262,6 +258,12 @@ void GNROpxImport::loadXml(wxInputStream& stream)
 				// new group
 				GNRAssembly* newGroup = new GNRAssembly(value);
 				
+				// set group
+				newGroup->setType(IS_GROUP);
+				
+				// set visible
+				newGroup->setVisible(isVisible);
+				
 				// prop to location
 				prop = prop->GetNext();
 				
@@ -312,10 +314,6 @@ void GNROpxImport::loadXml(wxInputStream& stream)
 			}
 			else
 			{
-#if defined(__ATHOS_DEBUG__)
-				wxLogDebug(wxT("assembly"));
-#endif
-				
 				// prop to visible
 				prop = node->GetProperties();
 				
@@ -382,8 +380,26 @@ void GNROpxImport::loadXml(wxInputStream& stream)
 				// get value of ref
 				value = prop->GetValue();
 				
+				// close entry
+				stream.CloseEntry();
+				
 				// get oax
-				GNRAssembly* assembly = loadOax(value);
+				GNRAssembly* assembly = loadOax(stream, value);
+				
+				// set visible
+				assembly->setVisible(isVisible);
+				
+				// set x, y, z
+				assembly->setXYZ(x, y, z);
+				
+				// set x- and y - orientation
+				assembly->setPhiTheta(orientationX, orientationY);
+				
+				// set z-orientation
+				assembly->setRho(orientationZ);
+				
+				// add part
+				m_actual->addPart(assembly);
 				
 				// check if next exist
 				if (node->GetNext() != NULL)
@@ -432,20 +448,51 @@ void GNROpxImport::loadXml(wxInputStream& stream)
  * Loads the given stream and get its all data.
  * @param       wxInputStream    Load obj-File as wxInputStream.
  */
-GNRAssembly* GNROpxImport::loadOax(wxString reference)
+GNRAssembly* GNROpxImport::loadOax(wxZipInputStream& stream, wxString reference)
 {
-	// wxZipnEntry pointer
+	// wxZipEntry pointer
 	wxZipEntry* entry;
 	
+	// iterator
+	std::vector<wxZipEntry*>::iterator it;
+	
+	// oax importer
+	GNROaxImport import;
+	
 	// walk through all entrys
-	for (m_vectorit = m_vector.begin(); m_vectorit != m_vector.end(); m_vectorit++)
+	for (it = m_vector.begin(); it != m_vector.end(); it++)
 	{
 		// get actual entry
-		entry = *m_vectorit;
+		entry = *it;
 		
-#if defined(__ATHOS_DEBUG__)
-		wxLogDebug(entry->GetName());
-#endif
-		
+		// check if right entry
+		if (entry->GetName().AfterFirst('\\') == reference)
+		{
+			// open entry
+			stream.OpenEntry(*entry);
+			
+			// wxMemoryOutputStream to cache oax
+			wxMemoryOutputStream outMem;
+			
+			// copy data
+			stream.Read(outMem);
+			
+			// wxMemoryInputStream
+			wxMemoryInputStream inMem(outMem);
+			
+			// wxZipInputStream to read content
+			wxZipInputStream inZip(inMem);
+			
+			// reset Stream
+			inMem.SeekI(0);
+			
+			// load oax
+			import.Load(inZip);
+			
+			// add oax to lib
+			import.getAssembly()->setHash(m_libctrl->addEntry(reference, inMem));
+		}
 	}
+	
+	return import.getAssembly();
 }

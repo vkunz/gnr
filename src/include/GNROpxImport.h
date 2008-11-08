@@ -16,6 +16,7 @@
 #include <wx/xml/xml.h>
 #include <wx/zipstrm.h>
 
+#include "GNRTreeLibraryController.h"
 #include "GNRGLCamera.h"
 #include "GNROaxImport.h"
 #include "GNRScene.h"
@@ -35,30 +36,22 @@ public:
 	// ctor
 	GNROpxImport();
 	
-	GNROpxImport(GNRScene* scene, wxString filename);
+	GNROpxImport(GNRTreeLibraryController* controller, GNRScene* scene, wxString filename);
 	
 	// dtor
 	virtual ~GNROpxImport();
-	
-	// functions
-	// get pointer to scene and loads filename
-	void Load(GNRScene* scene, wxString filename);
 	
 protected:
 
 private:
 	// attributes
+	// pointer to librarycontroller to store oax
+	GNRTreeLibraryController* m_libctrl;
 	// string to store obj-filename
 	wxString m_objFilename;
 	
 	// pointer to GNRAssembly
 	GNRAssembly* m_actual;
-	
-	// pointer to wxFFileInputStream
-	wxFFileInputStream* m_inFile;
-	
-	// pointer to wxZipInputStream
-	wxZipInputStream* m_inZip;
 	
 	// pointer of scene
 	GNRScene* m_scene;
@@ -66,14 +59,8 @@ private:
 	// pointer of camera
 	GNRGLCamera* m_camera;
 	
-	// pointer to actual zip entry
-	wxZipEntry* m_ptrZipEntry;
-	
 	// vector of all entrys
 	std::vector<wxZipEntry*> m_vector;
-	
-	// random access iterator
-	std::vector<wxZipEntry*>::iterator m_vectorit;
 	
 	// string to store projectInformation -> ProjectName
 	wxString m_name;
@@ -83,13 +70,13 @@ private:
 	
 	// functions
 	// loads file
-	void Load(wxString filename);
+	void Load(wxZipInputStream& stream);
 	
 	// load xml
-	void loadXml(wxInputStream& stream);
+	void loadXml(wxZipInputStream& stream);
 	
 	// load oax
-	GNRAssembly* loadOax(wxString reference);
+	GNRAssembly* loadOax(wxZipInputStream& stream, wxString reference);
 	
 	// create new assembly
 	void CreateAssembly(wxZipInputStream& stream);

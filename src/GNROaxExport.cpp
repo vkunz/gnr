@@ -40,7 +40,6 @@ GNROaxExport::GNROaxExport(GNRAssembly* assembly, wxString filepath)
 // dtor
 GNROaxExport::~GNROaxExport()
 {
-	// do nothing
 }
 
 void GNROaxExport::createXmlEntry()

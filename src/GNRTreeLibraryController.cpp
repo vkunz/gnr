@@ -82,7 +82,7 @@ std::vector<wxString>* GNRTreeLibraryController::getAllCategories()
 	return ptrCat;
 }
 
-void GNRTreeLibraryController::addEntry(wxString& name, wxString& categoryname, wxInputStream& instream)
+wxString GNRTreeLibraryController::addEntry(wxString& name, wxInputStream& instream, wxString categoryname)
 {
 	// if found
 	bool found = false;
@@ -176,6 +176,8 @@ void GNRTreeLibraryController::addEntry(wxString& name, wxString& categoryname, 
 		// rebuild
 		buildTreeCtrl();
 	}
+	
+	return objHash + xmlHash;
 }
 
 unsigned int GNRTreeLibraryController::addCategory(wxString& name)
