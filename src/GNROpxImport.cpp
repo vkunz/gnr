@@ -232,7 +232,7 @@ void GNROpxImport::loadXml(wxZipInputStream& stream)
 		// walk through all next nodes
 		while (node)
 		{
-			if (node->GetName() == wxT("Gruppe"))
+			if (node->GetName() == wxT("group"))
 			{
 				// get visible
 				prop = node->GetProperties();
