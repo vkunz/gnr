@@ -223,9 +223,8 @@ unsigned int GNRTreeLibraryController::addCategory(wxString& name)
 void GNRTreeLibraryController::deleteCategory(wxString name)
 {
 	// new message dialog
-	wxMessageDialog md(NULL, wxT("Alle Unterobjekte werden mitgel\u00F6scht. M\u00F6chten Sie fortfahren?"), wxT("Frage"), wxYES_NO);
-	
-	if (md.ShowModal() == wxID_YES)
+	int answer = wxMessageBox(wxT("Alle Unterobjekte werden mitgelöscht. Möchten Sie fortfahren?"), wxT("Frage"), wxYES_NO);
+	if (answer == wxID_YES)
 	{
 	}
 }
