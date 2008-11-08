@@ -52,7 +52,7 @@ public:
 	void deleteCategory(wxString name);
 	
 	// delete an entry
-	void deleteEntry(wxString name);
+	void deleteEntry(wxString reference);
 	
 	// delete a category
 	void renameCategory(wxString name, wxString newName);

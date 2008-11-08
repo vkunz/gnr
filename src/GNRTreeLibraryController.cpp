@@ -231,23 +231,30 @@ void GNRTreeLibraryController::deleteCategory(wxString name)
 	}
 }
 
-void GNRTreeLibraryController::deleteEntry(wxString name)
+void GNRTreeLibraryController::deleteEntry(wxString reference)
 {
-	// entry iterator
+	// iterator
 	std::vector<GNRLibraryEntry>::iterator it;
 	
-	// walk through all entries, find the one to delete
+	// walk through all entries
 	for (it = m_ptrEntries->begin(); it != m_ptrEntries->end(); it++)
 	{
-		if ((it)->getReference() == name)
+		// look if correct entry
+		if ((it)->getReference() == reference)
 		{
-			// delete entry
-			m_ptrEntries->erase(it);
+			// entry found
+			break;
 		}
 	}
 	
+	// erase entry
+	m_ptrEntries->erase(it);
+	
 	// delete physically
-	m_library->deleteEntry(name);
+	m_library->deleteEntry(reference);
+	
+	// rebuild tree
+	buildTreeCtrl();
 }
 
 void GNRTreeLibraryController::renameCategory(wxString name, wxString newName)

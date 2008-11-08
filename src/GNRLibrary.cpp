@@ -186,6 +186,9 @@ void GNRLibrary::deleteEntry(wxString reference)
 		entry = inzip.GetNextEntry();
 	}
 	
+	// close outzip
+	outzip.Close();
+	
 	// close file
 	inFile.reset();
 	
