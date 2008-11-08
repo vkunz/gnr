@@ -94,8 +94,12 @@ void GNRLibrary::addEntry(wxString reference, wxInputStream& inStream, bool newC
 			addXmlEntry(xml, outzip, newCat);
 		}
 		
-		// copy all entries
-		outzip.CopyEntry(entry, inzip);
+		// if there are more than xml, copy
+		if (inzip.GetTotalEntries() > 1)
+		{
+			// copy all entries
+			outzip.CopyEntry(entry, inzip);
+		}
 		
 		// get next entry
 		entry = inzip.GetNextEntry();
