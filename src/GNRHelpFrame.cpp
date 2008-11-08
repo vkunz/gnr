@@ -33,6 +33,7 @@ GNRHelpFrame::GNRHelpFrame(wxWindow* parent, wxWindowID id)
 		
 		m_window = new wxHtmlWindow(this, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxHW_DEFAULT_STYLE, wxT("HTML - Hilfe"));
 		m_window->LoadPage(wxT("help/help.html"));
+		m_window->Connect(wxEVT_KEY_DOWN, (wxObjectEventFunction)&GNRHelpFrame::OnKeyDown);
 	}
 	else
 	{
@@ -42,4 +43,23 @@ GNRHelpFrame::GNRHelpFrame(wxWindow* parent, wxWindowID id)
 
 GNRHelpFrame::~GNRHelpFrame()
 {
+	//delete m_window;
+}
+
+/**
+ * fetches the KeyDown
+ * @param       wxKeyEvent    Key-Event of current canvas
+ * @access      private
+ */
+void GNRHelpFrame::OnKeyDown(wxKeyEvent& event)
+{
+	int value = event.GetKeyCode();
+	
+	//is esc is pressed, close frame
+	if (value == 27)
+	{
+		//Destroy();
+		//Close();
+	}
+	
 }

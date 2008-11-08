@@ -17,6 +17,7 @@ protected:
 	
 private:
 	wxHtmlWindow* m_window;
+	void OnKeyDown(wxKeyEvent& event);
 	
 };
 
