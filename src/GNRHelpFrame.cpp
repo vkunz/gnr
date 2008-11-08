@@ -27,7 +27,8 @@ GNRHelpFrame::GNRHelpFrame(wxWindow* parent, wxWindowID id)
 	if (wxFileExists(wxT("help/help.html")))
 	{
 		Create(parent, id, wxT("GNR - Hilfe"), wxDefaultPosition, wxDefaultSize, wxCAPTION|wxSYSTEM_MENU|wxCLOSE_BOX|wxMINIMIZE_BOX|wxSTATIC_BORDER, wxT("ObjOaxConverter"));
-		SetClientSize(wxSize(600, 400));
+		SetClientSize(wxSize(700, 450));
+		Move(wxPoint(50,50));
 		SetIcon(wxICON(GNR_ICON));
 		
 		m_window = new wxHtmlWindow(this, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxHW_DEFAULT_STYLE, wxT("HTML - Hilfe"));
