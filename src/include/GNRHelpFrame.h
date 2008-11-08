@@ -13,12 +13,8 @@ public:
 	
 protected:
 
-	static const long ID_HTMLWINDOW1;
-	
 private:
-	wxHtmlWindow* m_window;
-	void OnKeyDown(wxKeyEvent& event);
-	
+
 };
 
 #endif

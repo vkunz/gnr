@@ -11,6 +11,12 @@
 #include <wx/html/htmlwin.h>
 #include <wx/artprov.h>
 #include <wx/msgdlg.h>
+#include <wx/sizer.h>
+#include <wx/button.h>
+
+#include "wx/wxhtml.h"
+#include "wx/statline.h"
+
 
 #if defined(__ATHOS_DEBUG__)
 #include <wx/log.h>
@@ -26,14 +32,36 @@ GNRHelpFrame::GNRHelpFrame(wxWindow* parent, wxWindowID id)
 {
 	if (wxFileExists(wxT("help/help.html")))
 	{
-		Create(parent, id, wxT("GNR 3D - Hilfe"), wxDefaultPosition, wxDefaultSize, wxCAPTION|wxSYSTEM_MENU|wxCLOSE_BOX|wxMINIMIZE_BOX|wxSTATIC_BORDER, wxT("HELP"));
-		SetClientSize(wxSize(700, 485));
-		Move(wxPoint(50,50));
-		SetIcon(wxICON(GNR_ICON));
+		wxBoxSizer *topsizer;
+		wxHtmlWindow *html;
 		
-		m_window = new wxHtmlWindow(this, wxID_ANY, wxDefaultPosition, wxDefaultSize, wxHW_DEFAULT_STYLE, wxT("HTML - Hilfe"));
-		m_window->LoadPage(wxT("help/help.html"));
-		m_window->Connect(wxEVT_KEY_DOWN, (wxObjectEventFunction)&GNRHelpFrame::OnKeyDown);
+		//create modal dialog
+		wxDialog dlg(this, wxID_ANY, wxString(_("GNR 3D - Schnellhilfe")));
+		topsizer = new wxBoxSizer(wxVERTICAL);
+		
+		//create new html window without borders and help.html (content)
+		html = new wxHtmlWindow(&dlg, wxID_ANY, wxDefaultPosition, wxSize(600, 400), wxCAPTION|wxSYSTEM_MENU|wxCLOSE_BOX|wxMINIMIZE_BOX|wxSTATIC_BORDER);
+		html->SetBorders(0);
+		html->LoadPage(wxT("help/help.html"));
+		
+		//add topsizer
+		topsizer->Add(html, 1, wxALL, 10);
+		topsizer->Add(new wxStaticLine(&dlg, wxID_ANY), 0, wxEXPAND | wxLEFT | wxRIGHT, 10);
+		
+		//create OK button and set default
+		wxButton *bu1 = new wxButton(&dlg, wxID_OK, wxT("OK"));
+		bu1->SetDefault();
+		
+		topsizer->Add(bu1, 0, wxALL | wxALIGN_RIGHT, 15);
+		
+		//set sizer and position
+		dlg.SetSizer(topsizer);
+		dlg.SetClientSize(wxSize(600, 400));
+		dlg.Move(wxPoint(170,75));
+		topsizer->Fit(&dlg);
+		
+		//show diaog
+		dlg.ShowModal();
 	}
 	else
 	{
@@ -43,23 +71,4 @@ GNRHelpFrame::GNRHelpFrame(wxWindow* parent, wxWindowID id)
 
 GNRHelpFrame::~GNRHelpFrame()
 {
-	//delete m_window;
-}
-
-/**
- * fetches the KeyDown
- * @param       wxKeyEvent    Key-Event of current canvas
- * @access      private
- */
-void GNRHelpFrame::OnKeyDown(wxKeyEvent& event)
-{
-	int value = event.GetKeyCode();
-	
-	//is esc is pressed, close frame
-	if (value == 27)
-	{
-		//Destroy();
-		//Close();
-	}
-	
 }
