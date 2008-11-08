@@ -1,17 +1,31 @@
+/**
+ * GNRTests
+ * @name        GNRTests.cpp
+ * @date        2008-11-08
+ * @author		Konstantin Balabin  <k.balabin@googlemail.com>
+ * @author		Patrick Kracht      <patrick.kracht@googlemail.com>
+ * @author		Thorsten Moll       <thorsten.moll@googlemail.com>
+ * @author		Valentin Kunz       <athostr@googlemail.com>
+ */
+
 #include <wx/msgdlg.h>
 #include "GNROaxImport.h"
 #include "GNRTests.h"
 
 GNRTests::GNRTests()
 {
-	//ctor
 }
 
 GNRTests::~GNRTests()
 {
-	//dtor
 }
 
+/**
+ * start load and clean test
+ * @param       int         loops done
+ * @param       int         size of cube duplicates (size x size)
+ * @access      public
+ */
 void GNRTests::sizeXsizeLoopsLoadClean(GNRScene* scene, const int loops = 10, const int size = 10)
 {
 	wxString str;

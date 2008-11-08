@@ -390,25 +390,31 @@ GNRMainFrame::~GNRMainFrame()
 
 void GNRMainFrame::OnMenuNewRoom(wxCommandEvent& WXUNUSED(event))
 {
-	wxMessageBox(wxT("Ich werde dann mal für Dich aufräumen!"));
-	
-	GNRNotifyEvent gnrevent(wxEVT_COMMAND_GNR_NOTIFY);
-	gnrevent.setGNREventType(NEWROOM);
-	GetEventHandler()->ProcessEvent(gnrevent);
+	int answer = wxMessageBox(wxT("Wollen Sie den Raum wirklick leeren?"), wxT("Sind Sie sicher?"), wxYES_NO, this);
+	if (answer == wxYES)
+	{
+		GNRNotifyEvent gnrevent(wxEVT_COMMAND_GNR_NOTIFY);
+		gnrevent.setGNREventType(NEWROOM);
+		GetEventHandler()->ProcessEvent(gnrevent);
+	}
 }
 
 void GNRMainFrame::OnMenuOpxOpen(wxCommandEvent& WXUNUSED(event))
 {
-	const wxString& filename = wxFileSelector(wxT("Szene als OPX öffnen..."), wxT(""), wxT(""), wxT(""), wxT("OpxDatei (*.opx)|*.opx"));
-	
-	// look if string is not empty
-	if (!filename.IsEmpty())
+	int answer = wxMessageBox(wxT("Wollen Sie den aktuellen Raum wirklick ersetzen?"), wxT("Sind Sie sicher?"), wxYES_NO, this);
+	if (answer == wxYES)
 	{
-		GNRNotifyEvent gnrevent(wxEVT_COMMAND_GNR_NOTIFY);
-		gnrevent.setGNREventType(OPXOPEN);
-		gnrevent.SetString(filename);
+		const wxString& filename = wxFileSelector(wxT("Szene als OPX öffnen..."), wxT(""), wxT(""), wxT(""), wxT("OpxDatei (*.opx)|*.opx"));
 		
-		GetEventHandler()->ProcessEvent(gnrevent);
+		// look if string is not empty
+		if (!filename.IsEmpty())
+		{
+			GNRNotifyEvent gnrevent(wxEVT_COMMAND_GNR_NOTIFY);
+			gnrevent.setGNREventType(OPXOPEN);
+			gnrevent.SetString(filename);
+			
+			GetEventHandler()->ProcessEvent(gnrevent);
+		}
 	}
 }
 
@@ -489,7 +495,11 @@ void GNRMainFrame::OnMenuObjExport(wxCommandEvent& WXUNUSED(event))
 
 void GNRMainFrame::OnMenuQuit(wxCommandEvent& WXUNUSED(event))
 {
-	Close();
+	int answer = wxMessageBox(wxT("Wollen Sie GNR verlassen?"), wxT("Beenden"), wxYES_NO, this);
+	if (answer == wxYES)
+	{
+		Close();
+	}
 }
 
 void GNRMainFrame::OnMenuAbout(wxCommandEvent& WXUNUSED(event))
