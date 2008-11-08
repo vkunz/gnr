@@ -1,5 +1,5 @@
 /* XPM */
-static char * grid_24bit_rgb_xpm[] = {
+static const char * grid_24bit_rgb_xpm[] = {
 "512 512 55 1",
 " 	c #6B6A6A",
 ".	c #E0E0E0",
