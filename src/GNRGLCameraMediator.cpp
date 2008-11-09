@@ -13,8 +13,7 @@
 
 /**
  * set camera pointer
- * @param   GNRGLCamera     pointer to cam
- * @access  private
+ * @param   camera     pointer to cam
  */
 void GNRGLCameraMediator::setGLCamera(GNRGLCamera* camera)
 {
@@ -23,8 +22,7 @@ void GNRGLCameraMediator::setGLCamera(GNRGLCamera* camera)
 
 /**
  * init all needed values for camera translation
- * @param   GNRGLNotifyEvent      event from gl canvas
- * @access  private
+ * @param   event      event from gl canvas
  */
 void GNRGLCameraMediator::initialize(GNRGLNotifyEvent& event)
 {
@@ -49,8 +47,7 @@ void GNRGLCameraMediator::initialize(GNRGLNotifyEvent& event)
 
 /**
  * do translation to selected camera
- * @param   GNRGLNotifyEvent      event from gl canvas
- * @access  private
+ * @param   event      event from gl canvas
  */
 int GNRGLCameraMediator::translate(GNRGLNotifyEvent& event)
 {
@@ -86,7 +83,6 @@ int GNRGLCameraMediator::translate(GNRGLNotifyEvent& event)
 
 /**
  * no finalize needed here, only assembly for undo and redo
- * @access  private
  */
 void GNRGLCameraMediator::finalize()
 {

@@ -18,7 +18,7 @@
 /**
  * move the camera in XY dimension
  * @param GNRGLNotifyEvent event from GLNotify
- * @access private
+
  */
 void GNRGLCameraMediator2D::MoveXY(GNRGLNotifyEvent& event)
 {
@@ -38,7 +38,7 @@ void GNRGLCameraMediator2D::MoveXY(GNRGLNotifyEvent& event)
 /**
  * move the camera in XY dimension, no other movement allowed
  * @param GNRGLNotifyEvent event from GLNotify
- * @access private
+
  */
 void GNRGLCameraMediator2D::MoveXZ(GNRGLNotifyEvent& event)
 {
@@ -48,7 +48,7 @@ void GNRGLCameraMediator2D::MoveXZ(GNRGLNotifyEvent& event)
 /**
  * move the camera in XY dimension, no other movement allowed
  * @param GNRGLNotifyEvent event from GLNotify
- * @access private
+
  */
 void GNRGLCameraMediator2D::RotateXY(GNRGLNotifyEvent& event)
 {
@@ -58,7 +58,7 @@ void GNRGLCameraMediator2D::RotateXY(GNRGLNotifyEvent& event)
 /**
  * move the camera in XY dimension, no other movement allowed
  * @param GNRGLNotifyEvent event from GLNotify
- * @access private
+
  */
 void GNRGLCameraMediator2D::RotateXZ(GNRGLNotifyEvent& event)
 {
@@ -68,7 +68,7 @@ void GNRGLCameraMediator2D::RotateXZ(GNRGLNotifyEvent& event)
 /**
  * Zoom In/Out the Scene
  * @param GNRGLNotifyEvent event from GLNotify
- * @access private
+
  */
 void GNRGLCameraMediator2D::ZoomIn(GNRGLNotifyEvent& event)
 {

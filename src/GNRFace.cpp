@@ -19,7 +19,6 @@ using std::endl;
 
 /**
  * constructor
-
  */
 GNRFace::GNRFace()
 {
@@ -27,7 +26,6 @@ GNRFace::GNRFace()
 
 /**
  * copy constructor
-
  */
 GNRFace::GNRFace(const GNRFace& other)
 {
@@ -39,9 +37,6 @@ GNRFace::GNRFace(const GNRFace& other)
 
 /**
  * TODO:DESCRIPTION
- * @param
- * @return
- * @access
  */
 int GNRFace::size() const
 {
@@ -50,9 +45,6 @@ int GNRFace::size() const
 
 /**
  * TODO:DESCRIPTION
- * @param
- * @return
- * @access
  */
 void GNRFace::addVNT(GNRVNT& vnt)
 {
@@ -61,9 +53,6 @@ void GNRFace::addVNT(GNRVNT& vnt)
 
 /**
  * TODO:DESCRIPTION
- * @param
- * @return
- * @access
  */
 void GNRFace::setNormal()
 {
@@ -93,9 +82,6 @@ void GNRFace::setNormal()
 
 /**
  * TODO:DESCRIPTION
- * @param
- * @return
- * @access
  */
 void GNRFace::draw() const
 {

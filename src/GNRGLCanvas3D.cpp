@@ -22,13 +22,12 @@
 
 /**
  * constructor of GNRGLCanvas3D
- * @param       wxWindow*       Parent-Window
- * @param       wxWindowID      Window-ID
- * @param       wxPoint         Window-Position of the Canvas
- * @param       wxSize          Window-Size of the Canvas
- * @param       long            Window-Style
- * @param       wxString        Window-Name
-
+ * @param       parent       Parent-Window
+ * @param       id           Window-ID
+ * @param       pos          Window-Position of the Canvas
+ * @param       size         Window-Size of the Canvas
+ * @param       style        Window-Style
+ * @param       name         Window-Name
  */
 GNRGLCanvas3D::GNRGLCanvas3D(wxWindow* parent, wxWindowID id, const wxPoint& pos, const wxSize& size, long style, const wxString& name)
 		:GNRGLCanvas(parent, id, pos, size, style, name)
@@ -37,22 +36,21 @@ GNRGLCanvas3D::GNRGLCanvas3D(wxWindow* parent, wxWindowID id, const wxPoint& pos
 
 /**
  * constructor of GNRGLCanvas3D
- * @param       wxWindow*       Parent-Window
- * @param       wxGLContext*    Used GLContext for common Context
- * @param       wxWindowID      Window-ID
- * @param       wxPoint         Window-Position of the Canvas
- * @param       wxSize          Window-Size of the Canvas
- * @param       long            Window-Style
- * @param       wxString        Window-Name
-
+ * @param       parent          Parent-Window
+ * @param       sharedContext   shared with context pointer
+ * @param       id              Window-ID
+ * @param       pos             Window-Position of the Canvas
+ * @param       size            Window-Size of the Canvas
+ * @param       style           Window-Style
+ * @param       name            Window-Name
  */
 GNRGLCanvas3D::GNRGLCanvas3D(wxWindow* parent, wxGLContext* sharedContext, wxWindowID id, const wxPoint& pos, const wxSize& size,
                              long style, const wxString& name) : GNRGLCanvas(parent, sharedContext, id, pos, size, style, name)
 {
 }
 
-/** * sets the perspective for the 3D scene
- * @access private
+/**
+ * sets the perspective for the 3D scene
  */
 void GNRGLCanvas3D::setPerspective()
 {
@@ -61,8 +59,7 @@ void GNRGLCanvas3D::setPerspective()
 
 /**
  * Returns the Canvas-ID
- * @return  int     Canvas-ID
- * @access private
+ * @return  canvasType     Canvas-ID
  */
 canvasType GNRGLCanvas3D::getCanvasID()
 {
