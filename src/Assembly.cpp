@@ -571,7 +571,6 @@ void Assembly::setX(const float x)
 /**
  * set position value y
  * @param       float       y
-
  */
 void Assembly::setY(const float y)
 {
@@ -581,7 +580,6 @@ void Assembly::setY(const float y)
 /**
  * set position value z
  * @param       float       z
-
  */
 void Assembly::setZ(const float z)
 {
@@ -590,7 +588,6 @@ void Assembly::setZ(const float z)
 
 /**
  * get position value z
-
  */
 void Assembly::setHash(const wxString& hash)
 {
@@ -601,7 +598,6 @@ void Assembly::setHash(const wxString& hash)
  * set position value x and y
  * @param       float       x
  * @param       float       y
-
  */
 void Assembly::setXY(const float x, const float y)
 {
@@ -613,7 +609,6 @@ void Assembly::setXY(const float x, const float y)
  * set position value x and z
  * @param       float       x
  * @param       float       z
-
  */
 void Assembly::setXZ(const float x, const float z)
 {
@@ -626,7 +621,6 @@ void Assembly::setXZ(const float x, const float z)
  * @param       float       x
  * @param       float       y
  * @param       float       z
-
  */
 void Assembly::setXYZ(const float x, const float y, const float z)
 {
@@ -702,7 +696,6 @@ void Assembly::setCuboid(const float x,const float y,const float z, const float 
 /**
  * set degree value of rotation in x
  * @param       float        rotation degree in x
-
  */
 void Assembly::setPhi(const float phi)
 {
@@ -712,7 +705,6 @@ void Assembly::setPhi(const float phi)
 /**
  * set degree value of rotation in y
  * @param       float        rotation degree in y
-
  */
 void Assembly::setRho(const float rho)
 {
@@ -722,7 +714,6 @@ void Assembly::setRho(const float rho)
 /**
  * set degree value of rotation in z
  * @param       float        rotation degree in z
-
  */
 void Assembly::setTheta(const float theta)
 {
@@ -733,7 +724,6 @@ void Assembly::setTheta(const float theta)
  * set degree value of rotation in x
  * @param       float        rotation degree in x
  * @param       float        rotation degree in y
-
  */
 void Assembly::setPhiTheta(const float phi, const float theta)
 {
@@ -745,7 +735,6 @@ void Assembly::setPhiTheta(const float phi, const float theta)
  * set degree value of rotation in x
  * @param       float        rotation degree in x
  * @param       float        rotation degree in z
-
  */
 void Assembly::setPhiRho(const float phi, const float rho)
 {
@@ -756,7 +745,6 @@ void Assembly::setPhiRho(const float phi, const float rho)
 /**
  * set scale factor in x dimension
  * @param       float        factor for x
-
  */
 void Assembly::setScaleX(const float x)
 {
@@ -766,7 +754,6 @@ void Assembly::setScaleX(const float x)
 /**
  * set scale factor in y dimension
  * @param       float        factor for y
-
  */
 void Assembly::setScaleY(const float y)
 {
@@ -776,7 +763,6 @@ void Assembly::setScaleY(const float y)
 /**
  * set scale factor in z dimension
  * @param       float        factor for z
-
  */
 void Assembly::setScaleZ(const float z)
 {
@@ -786,7 +772,6 @@ void Assembly::setScaleZ(const float z)
 /**
  * set height of assembly
  * @param       float       height
-
  */
 void Assembly::setHeight(const float height)
 {
@@ -796,7 +781,6 @@ void Assembly::setHeight(const float height)
 /**
  * set width of assembly
  * @param       float       width
-
  */
 void Assembly::setWidth(const float width)
 {
@@ -806,7 +790,6 @@ void Assembly::setWidth(const float width)
 /**
  * set depth of assembly
  * @param       float       depth
-
  */
 void Assembly::setDepth(const float depth)
 {
@@ -818,7 +801,6 @@ void Assembly::setDepth(const float depth)
  * @param       float       width  (x)
  * @param       float       height (y)
  * @param       float       depth  (z)
-
  */
 void Assembly::setSize(const float width,const float height,const float depth)
 {
@@ -832,7 +814,6 @@ void Assembly::setSize(const float width,const float height,const float depth)
  * @param       float        factor for x
  * @param       float        factor for y
  * @param       float        factor for z
-
  */
 void Assembly::setScale(const float x,const float y,const float z)
 {
@@ -844,7 +825,6 @@ void Assembly::setScale(const float x,const float y,const float z)
 /**
  * set name of assembly
  * @param       string      name of assembly
-
  */
 void Assembly::setName(const wxString& name)
 {
@@ -854,7 +834,6 @@ void Assembly::setName(const wxString& name)
 /**
  * set name of assembly
  * @param       string      name of assembly
-
  */
 void Assembly::setName(const string& name)
 {
@@ -865,7 +844,6 @@ void Assembly::setName(const string& name)
 /**
  * set pointer to parent assembly
  * @param       Assembly*      pointer to parent
-
  */
 void Assembly::setParent(Assembly* p)
 {
@@ -875,7 +853,6 @@ void Assembly::setParent(Assembly* p)
 /**
  * set type of assembly
  * @param       bool      is obj
-
  */
 void Assembly::setType(const assemblyType& type)
 {
@@ -885,7 +862,6 @@ void Assembly::setType(const assemblyType& type)
 /**
  * move assembly by vertext
  * @param       Vertex      vertex to center
-
  */
 void Assembly::move(const Vertex& center)
 {
@@ -897,7 +873,6 @@ void Assembly::move(const Vertex& center)
 /**
  * set vertex position
  * @param       Vertex      vertex to center
-
  */
 void Assembly::setCenterVertex(const Vertex& center)
 {
@@ -909,7 +884,6 @@ void Assembly::setCenterVertex(const Vertex& center)
 /**
  * set vertex rotation
  * @param       Vertex      vertex to rotate
-
  */
 void Assembly::setRotateVertex(const Vertex& rotation)
 {
@@ -921,7 +895,6 @@ void Assembly::setRotateVertex(const Vertex& rotation)
 /**
  * add face to assembly
  * @param       Face      face to add
-
  */
 void Assembly::addFace(const Face& face)
 {
@@ -931,7 +904,6 @@ void Assembly::addFace(const Face& face)
 /**
  * add part to assembly
  * @param       Assembly      part to add
-
  */
 void Assembly::addPart(Assembly* part)
 {
@@ -942,7 +914,6 @@ void Assembly::addPart(Assembly* part)
 /**
  * delete part in assembly
  * @param       Assembly      part to remove
-
  */
 void Assembly::delPart(Assembly* part)
 {
@@ -952,7 +923,6 @@ void Assembly::delPart(Assembly* part)
 /**
  * get vertex position
  * @return      Vertext      vertex to center of object
-
  */
 Vertex Assembly::getCenterVertex() const
 {
@@ -963,7 +933,6 @@ Vertex Assembly::getCenterVertex() const
 /**
  * get vertex rotation
  * @return      Vertext      vertex rotation of object
-
  */
 Vertex Assembly::getRotateVertex() const
 {
@@ -974,18 +943,25 @@ Vertex Assembly::getRotateVertex() const
 /**
  * get pointer to partlist for iteration
  * @return      list<Assembly*>      pointer to part list
-
  */
 list<Assembly*> Assembly::getPartList()
 {
 	return m_part;
 }
 
+/**
+ * set tag
+ * @param      tag        wxStrings tag
+ */
 void Assembly::addTag(wxString tag)
 {
 	m_tags.push_back(tag);
 }
 
+/**
+ * get tags list
+ * @return      list<wxString>        wxStrings list of tags
+ */
 list<wxString> Assembly::getTagList()
 {
 	return m_tags;
@@ -993,7 +969,6 @@ list<wxString> Assembly::getTagList()
 
 /**
  * calculate normals for all faces (incl. parts)
-
  */
 void Assembly::setNormals()
 {
@@ -1010,11 +985,21 @@ void Assembly::setNormals()
 	}
 }
 
+/**
+ * setChildMaterial
+ * @param[in]       child           Assembly* to child
+ * @param[in]       mat             Material to set for child
+ */
 void Assembly::setChildMaterial(const Assembly* child, const Material& mat)
 {
 	m_child_mat[child] = mat;
 }
 
+/**
+ * setChildDisplayList
+ * @param[in]       child           Assembly* to child
+ * @param[in]       dl              gluint display list for child
+ */
 void Assembly::setChildDisplayList(const Assembly* child, const GLuint& dl)
 {
 	m_child_dl.insert(pair<const Assembly*, GLuint>(child, dl));
@@ -1022,7 +1007,6 @@ void Assembly::setChildDisplayList(const Assembly* child, const GLuint& dl)
 
 /**
  * draw this assembly and all his children and push ID to glLoadName, if its atomic
-
  */
 void Assembly::draw()
 {
@@ -1132,7 +1116,8 @@ void Assembly::draw()
 
 /**
  * find clone of origin and return true if found
-
+ * @param[in]       origin             Assembly* to find in origins
+ * @return          bool               found? true or false
  */
 bool Assembly::findCloneOf(const Assembly* origin) const
 {
@@ -1149,7 +1134,8 @@ bool Assembly::findCloneOf(const Assembly* origin) const
 
 /**
  * find hash string and return true if found
-
+ * @param[in]   hash             wxString hash of assembly
+ * @return      bool             found? true or false
  */
 bool Assembly::findHash(const wxString& hash) const
 {
@@ -1166,8 +1152,8 @@ bool Assembly::findHash(const wxString& hash) const
 
 /**
  * find original object for hash string and return null or pointer
+ * @param[in]   hash             wxString hash of assembly
  * @return      Assembly*        pointer to original
-
  */
 Assembly* Assembly::getHashOriginal(const wxString& hash) const
 {
@@ -1192,7 +1178,6 @@ Assembly* Assembly::getHashOriginal(const wxString& hash) const
 
 /**
  * draw shadow of this assembly and all his children and push ID to glLoadName, if its atomic
-
  */
 void Assembly::drawShadow()
 {
@@ -1250,7 +1235,6 @@ void Assembly::drawShadow()
 
 /**
  * correct y-position over ground
-
  */
 void Assembly::putOnGround()
 {
@@ -1259,7 +1243,6 @@ void Assembly::putOnGround()
 
 /**
  * correct y-position over ground
-
  */
 void Assembly::resetOnGround()
 {
@@ -1272,7 +1255,6 @@ void Assembly::resetOnGround()
 #if defined(__ATHOS_DEBUG__)
 /**
  * get infos about assembly
-
  */
 void Assembly::debugInfo() const
 {
@@ -1295,7 +1277,7 @@ void Assembly::debugInfo() const
 
 /**
  * dump structure
-
+ * @param[in]       str         wxString for lines
  */
 void Assembly::dump(wxString str)
 {
