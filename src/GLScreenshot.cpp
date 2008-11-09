@@ -1,6 +1,7 @@
 /**
  * The GLScreenshot class implements the functionality to read out pixel-data
  * from the GL frame-buffer and save it into a picture-format supported by WX
+ * @note        [DONE]
  * @name        GLScreenshot.cpp
  * @date        2008-10-28
  * @author		Konstantin Balabin  <k.balabin@googlemail.com>
@@ -20,8 +21,7 @@
 
 /**
  * constructor of GLScreenshot
- * @param       wxString       Filename, the picture should be stored to
-
+ * @param[in]       filename        Filename, the picture should be stored to
  */
 GLScreenshot::GLScreenshot(wxString filename)
 {
@@ -33,7 +33,6 @@ GLScreenshot::GLScreenshot(wxString filename)
 
 /**
  * Read out pixels from GL and save it to a picture
-
  */
 void GLScreenshot::create()
 {
@@ -62,10 +61,8 @@ void GLScreenshot::create()
 
 /**
  * Reverse pixels, given from bottom-left to top right by glReadPixels
- * @param       unsigned char*      Pointer to picture-data-array
-
+ * @param[in]       pPicData      Pointer to picture-data-array
  */
-// glReadPixels reads the given rectangle from bottom-left to top-right, so we must reverse it
 void GLScreenshot::swapPixels(unsigned char* pPicData)
 {
 	for (int y = 0; y < m_height / 2; y++)
@@ -86,7 +83,6 @@ void GLScreenshot::swapPixels(unsigned char* pPicData)
 
 /**
  * destructor of GLScreenshot
-
  */
 GLScreenshot::~GLScreenshot()
 {

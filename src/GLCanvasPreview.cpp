@@ -1,5 +1,6 @@
 /**
  * This class is used to have a preview of an object
+ * @note        [DONE]
  * @name        GLCanvasPreview.cpp
  * @date        2008-10-30
  * @author		Konstantin Balabin  <k.balabin@googlemail.com>
@@ -27,13 +28,12 @@ END_EVENT_TABLE()
 
 /**
  * constructor of GLCanvasPreview
- * @param       wxWindow*       Parent-Window
- * @param       wxWindowID      Window-ID
- * @param       wxPoint         Window-Position of the Canvas
- * @param       wxSize          Window-Size of the Canvas
- * @param       long            Window-Style
- * @param       wxString        Window-Name
-
+ * @param[in]       parent          Parent-Window
+ * @param[in]       id              Window-ID
+ * @param[in]       pos             Window-Position of the Canvas
+ * @param[in]       size            Window-Size of the Canvas
+ * @param[in]       style           Window-Style
+ * @param[in]       name            Window-Name
  */
 GLCanvasPreview::GLCanvasPreview(wxWindow* parent, wxWindowID id, const wxPoint& pos, const wxSize& size, long style, const wxString& name)
 		:wxGLCanvas(parent, id, pos, size, style, name)
@@ -46,15 +46,11 @@ GLCanvasPreview::GLCanvasPreview(wxWindow* parent, wxWindowID id, const wxPoint&
 
 /**
  * destructor of GLCanvasPreview
-
  */
-GLCanvasPreview::~GLCanvasPreview()
-{
-}
+GLCanvasPreview::~GLCanvasPreview() {}
 
 /**
  * init lights
-
  */
 void GLCanvasPreview::InitLights()
 {
@@ -80,7 +76,6 @@ void GLCanvasPreview::InitLights()
 
 /**
  * does the main initialization of the canvas that has to be done on creation
-
  */
 void GLCanvasPreview::InitGL()
 {
@@ -109,8 +104,7 @@ void GLCanvasPreview::InitGL()
 
 /**
  * Handles the OnPaint-Event of the canvas
- * @param       wxPaintEvent       Paint-Event of the canvas
-
+ * @param[in]       event       Paint-Event of the canvas
  */
 void GLCanvasPreview::OnPaint(wxPaintEvent& event)
 {
@@ -121,8 +115,7 @@ void GLCanvasPreview::OnPaint(wxPaintEvent& event)
 /**
  * Handles the OnSize-Event of the canvas
  * to the new canvas size
- * @param       wxSizeEvent       Size-Event of the canvas
-
+ * @param[in]       WXUNUSED        unused Size-Event of the canvas
  */
 void GLCanvasPreview::OnSize(wxSizeEvent& WXUNUSED(event))
 {
@@ -131,7 +124,6 @@ void GLCanvasPreview::OnSize(wxSizeEvent& WXUNUSED(event))
 
 /**
  * reshapes the glcanvas-viewport to new canvas size
-
  */
 void GLCanvasPreview::reshape()
 {
@@ -157,8 +149,7 @@ void GLCanvasPreview::reshape()
 
 /**
  * sets the intern assembly variable to draw the assembly
- * @param       Assembly       Pointer to the assembly that has to be drawn
-
+ * @param[in]       assembly        Pointer to the assembly that has to be drawn
  */
 void GLCanvasPreview::setAssembly(Assembly* assembly)
 {
@@ -167,7 +158,6 @@ void GLCanvasPreview::setAssembly(Assembly* assembly)
 
 /**
  * draw the setted assembly
-
  */
 void GLCanvasPreview::draw()
 {
@@ -203,8 +193,7 @@ void GLCanvasPreview::draw()
 
 /**
  * Handles the LeftMouseDown-Event of the canvas
- * @param       wxMouseEvent       Mouse-Event of the canvas
-
+ * @param[in]       event       Mouse-Event of the canvas
  */
 void GLCanvasPreview::OnLMouseDown(wxMouseEvent& event)
 {
@@ -214,8 +203,7 @@ void GLCanvasPreview::OnLMouseDown(wxMouseEvent& event)
 
 /**
  * Handles the LeftMouseUp-Event of the canvas
- * @param       wxMouseEvent       Mouse-Event of the canvas
-
+ * @param[in]       WXUNUSED        unused Mouse-Event of the canvas
  */
 void GLCanvasPreview::OnLeaveWindow(wxMouseEvent& WXUNUSED(event))
 {
@@ -224,8 +212,7 @@ void GLCanvasPreview::OnLeaveWindow(wxMouseEvent& WXUNUSED(event))
 
 /**
  * Handles the LeftMouseUp-Event of the canvas
- * @param       wxMouseEvent       Mouse-Event of the canvas
-
+ * @param[in]       WXUNUSED        unused Mouse-Event of the canvas
  */
 void GLCanvasPreview::OnLMouseUp(wxMouseEvent& WXUNUSED(event))
 {
@@ -234,8 +221,7 @@ void GLCanvasPreview::OnLMouseUp(wxMouseEvent& WXUNUSED(event))
 
 /**
  * Handles the Mouse-Move-Event of the canvas
- * @param       wxMouseEvent       Mouse-Event of the canvas
-
+ * @param[in]       event           Mouse-Event of the canvas
  */
 void GLCanvasPreview::OnMouseMove(wxMouseEvent& event)
 {

@@ -1,6 +1,6 @@
 /**
  * the gl2dcanvas class implements the speciality for the 2D view
- *
+ * @note        [DONE]
  * @name        GLCanvas2D.cpp
  * @date        2008-10-09
  * @author		Konstantin Balabin  <k.balabin@googlemail.com>
@@ -22,12 +22,12 @@
 
 /**
  * constructor of GLCanvas3D
- * @param       parent       Parent-Window
- * @param       id           Window-ID
- * @param       pos          Window-Position of the Canvas
- * @param       size         Window-Size of the Canvas
- * @param       style        Window-Style
- * @param       name         Window-Name
+ * @param[in]       parent       Parent-Window
+ * @param[in]       id           Window-ID
+ * @param[in]       pos          Window-Position of the Canvas
+ * @param[in]       size         Window-Size of the Canvas
+ * @param[in]       style        Window-Style
+ * @param[in]       name         Window-Name
  */
 GLCanvas2D::GLCanvas2D(wxWindow* parent, wxWindowID id, const wxPoint& pos, const wxSize& size, long style, const wxString& name)
 		:GLCanvas(parent, id, pos, size, style, name)
@@ -36,13 +36,13 @@ GLCanvas2D::GLCanvas2D(wxWindow* parent, wxWindowID id, const wxPoint& pos, cons
 
 /**
  * constructor of GLCanvas3D
- * @param       parent          Parent-Window
- * @param       sharedContext   shared with context pointer
- * @param       id              Window-ID
- * @param       pos             Window-Position of the Canvas
- * @param       size            Window-Size of the Canvas
- * @param       style           Window-Style
- * @param       name            Window-Name
+ * @param[in]       parent          Parent-Window
+ * @param[in]       sharedContext   shared with context pointer
+ * @param[in]       id              Window-ID
+ * @param[in]       pos             Window-Position of the Canvas
+ * @param[in]       size            Window-Size of the Canvas
+ * @param[in]       style           Window-Style
+ * @param[in]       name            Window-Name
  */
 GLCanvas2D::GLCanvas2D(wxWindow* parent, wxGLContext* sharedContext, wxWindowID id, const wxPoint& pos, const wxSize& size,
                        long style, const wxString& name) : GLCanvas(parent, sharedContext, id, pos, size, style, name)
