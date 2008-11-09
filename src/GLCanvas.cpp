@@ -481,7 +481,7 @@ Assembly* GLCanvas::selection(Assembly* rootAssembly, GLCamera* camera, int mous
 
 /**
  * fetches the Left-Mouse-Pressed event
- * @param[in]       WXUNUSED     unused event       Mouse-Event of current canvas
+ * @param[in]       event		       Mouse-Event of current canvas
  */
 void GLCanvas::OnLMouseDown(wxMouseEvent& event)
 {
@@ -507,7 +507,7 @@ void GLCanvas::OnLMouseDown(wxMouseEvent& event)
 
 /**
  * fetches the Double-Click event for selection of objects
- * @param[in]       WXUNUSED     unused event       Mouse-Event of current canvas
+ * @param[in]       event       Mouse-Event of current canvas
  */
 void GLCanvas::OnLMouseDblClick(wxMouseEvent& event)
 {
@@ -533,7 +533,7 @@ void GLCanvas::OnLMouseDblClick(wxMouseEvent& event)
 
 /**
  * fetches the Left-Mouse-Up event
- * @param[in]       WXUNUSED     unused event       Mouse-Event of current canvas
+ * @param[in]       event       Mouse-Event of current canvas
  */
 void GLCanvas::OnLMouseUp(wxMouseEvent& event)
 {
@@ -550,7 +550,7 @@ void GLCanvas::OnLMouseUp(wxMouseEvent& event)
 
 /**
  * fetches the Middle-Mouse-Pressed event
- * @param[in]       WXUNUSED     unused event       Mouse-Event of current canvas
+ * @param[in]       event		Mouse-Event of current canvas
  */
 void GLCanvas::OnMMouseDown(wxMouseEvent& event)
 {
@@ -679,7 +679,7 @@ void GLCanvas::OnEnterWindow(wxMouseEvent& event)
 
 /**
  * fetches ResizeEvent; event for redrawing
- * @param[in]       WXUNUSED     unused event       Size-Event of current canvas
+ * @param[in]       WXUNUSED     unused Size-Event of current canvas
  */
 void GLCanvas::OnResize(wxSizeEvent& WXUNUSED(event))
 {

@@ -27,7 +27,7 @@ const long DebugFrame::ID_TextCtrl = wxNewId();
 /**
  * constructor of DebugFrame
  * @param[in]       parent          parent of this frame
- * @param[in]       id              window-id of this frame
+ * @param[in]       WXUNUSED        window-id of this frame
  */
 DebugFrame::DebugFrame(wxWindow* parent,wxWindowID WXUNUSED(id))
 {

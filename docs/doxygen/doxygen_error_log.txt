@@ -6,7 +6,7 @@ Y:/PROJECTS/GNR/src/GLCanvas.cpp:685: Warning: no uniquely matching class member
   void GLCanvas::OnResize(wxSizeEvent &WXUNUSEDevent)
 Possible candidates:
   void GLCanvas::OnResize(wxSizeEvent &event) at line 33 of file Y:/PROJECTS/GNR/src/include/GLCanvas.h
-Y:/PROJECTS/GNR/src/MainFrame.cpp:206: Warning: no matching class member found for
+Y:/PROJECTS/GNR/src/MainFrame.cpp:211: Warning: no matching class member found for
   MainFrame::OnMenuOpxOpen MainFrame::OnToolbarUndo MainFrame::OnToolbarMoveXZ MainFrame::OnToolbarRotateXZ MainFrame::OnToolbarDrawWall MainFrame::OnZoomIn MainFrame::OnCameraReset MainFrame::OnMenuQuit MainFrame::MainFrame(wxWindow *parent, wxWindowIDWXUNUSEDid)
 Possible candidates:
   MainFrame::MainFrame(wxWindow *parent, wxWindowID id=-1)
@@ -137,8 +137,7 @@ Y:/PROJECTS/GNR/src/Assembly.cpp:712: Warning: argument 'float' of command @para
 Y:/PROJECTS/GNR/src/Assembly.cpp:712: Warning: The following parameters of Assembly::setRho(const float rho) are not documented:
   parameter 'rho'
 Y:/PROJECTS/GNR/src/Assembly.cpp:722: Warning: argument 'float' 
-of command @param is not found in the a
-rgument list of Assembly::setTheta(const float theta)
+of command @param is not found in the argument list of Assembly::setTheta(const float theta)
 Y:/PROJECTS/GNR/src/Assembly.cpp:722: Warning: The following parameters of Assembly::setTheta(const float theta) are not documented:
   parameter 'theta'
 Y:/PROJECTS/GNR/src/Assembly.cpp:732: Warning: argument 'float' of command @param is not found in the argument list of Assembly::setPhiTheta(const float phi, const float theta)
@@ -177,7 +176,8 @@ Y:/PROJECTS/GNR/src/Assembly.cpp:942: Warning: argument 'Assembly' of command @p
 Y:/PROJECTS/GNR/src/Assembly.cpp:942: Warning: The following parameters of Assembly::delPart(Assembly *part) are not documented:
   parameter 'part'
 Y:/PROJECTS/GNR/src/Assembly.cpp:844: Warning: argument 'string' of command @param is not found in the argument list of Assembly::setName(const wxString &name)
-Y:/PROJECTS/GNR/src/Assembly.cpp:844: Warning: The following parameters of Assembly::
+Y:/PROJECTS/GNR/src/Assembly.cpp:844: Warning:
+ The following parameters of Assembly::
 setName(const wxString &name) are not documented:
   parameter 'name'
 Y:/PROJECTS/GNR/src/Assembly.cpp:854: Warning: argument 'string' of command @param is not found in the argument list of Assembly::setName(const string &name)

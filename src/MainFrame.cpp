@@ -202,6 +202,11 @@ BEGIN_EVENT_TABLE(MainFrame,wxFrame)
 	EVT_SPINCTRL(ID_SPINCTRL_TRANS, MainFrame::OnSnapToGridCtrl)
 END_EVENT_TABLE()
 
+/**
+ * constructor of MainFrame
+ * @param[in]       parent          Parent-Window
+ * @param[in]       WXUNUSED        id of window
+ */
 MainFrame::MainFrame(wxWindow* parent, wxWindowID WXUNUSED(id))
 {
 	int width  = SOFTWARE_WIN_WIDTH;
