@@ -257,40 +257,9 @@ Y:/PROJECTS/GNR/src/GLCameraMediator3D.cpp:108: Warning: The following parameter
 Y:/PROJECTS/GNR/src/GLCameraMediator3D.cpp:147: Warning: argument 'WXUNUSED' of command @param is not found in the argument list of GLCameraMediator3D::ZoomIn(GLNotifyEvent &event)
 Y:/PROJECTS/GNR/src/GLCameraMediator3D.cpp:147: Warning: The following parameters of GLCameraMediator3D::ZoomIn(GLNotifyEvent &event) are not documented:
   parameter 'event'
-Y:/PROJECTS/GNR/src/GLCanvas.cpp:551: Warning: argument 'WXUNUSED' of command @param is not found in the argument list of GLCanvas::OnMMouseDown(wxMouseEvent &event)
-Y:/PROJECTS/GNR/src/GLCanvas.cpp:551: Warning: The following parameters of GLCanvas::OnMMouseDown(wxMouseEvent &event) are not documented:
-  parameter 'event'
-Y:/PROJECTS/GNR/src/GLCanvas.cpp:570: Warning: argument 'WXUNUSED' of command @param is not found in the argument list of GLCanvas::OnMMouseUp(wxMouseEvent &event)
-Y:/PROJECTS/GNR/src/GLCanvas.cpp:570: Warning: The following parameters of GLCanvas::OnMMouseUp(wxMouseEvent &event) are not documented:
-  parameter 'event'
-Y:/PROJECTS/GNR/src/GLCanvas.cpp:586: Warning: argument 'WXUNUSED' of command @param is not found in the argument list of GLCanvas::OnRMouseDown(wxMouseEvent &event)
-Y:/PROJECTS/GNR/src/GLCanvas.cpp:586: Warning: The following parameters of GLCanvas::OnRMouseDown(wxMouseEvent &event) are not documented:
-  parameter 'event'
-Y:/PROJECTS/GNR/src/GLCanvas.cpp:482: Warning: argument 'WXUNUSED' of command @param is not found in the argument list of GLCanvas::OnLMouseDown(wxMouseEvent &event)
-Y:/PROJECTS/GNR/src/GLCanvas.cpp:482: Warning: The following parameters of GLCanvas::OnLMouseDown(wxMouseEvent &event) are not documented:
-  parameter 'event'
-Y:/PROJECTS/GNR/src/GLCanvas.cpp:534: Warning: argument 'WXUNUSED' of command @param is not found in the argument list of GLCanvas::OnLMouseUp(wxMouseEvent &event)
-Y:/PROJECTS/GNR/src/GLCanvas.cpp:534: Warning: The following parameters of GLCanvas::OnLMouseUp(wxMouseEvent &event) are not documented:
-  parameter 'event'
-Y:/PROJECTS/GNR/src/GLCanvas.cpp:621: Warning: argument 'WXUNUSED' of command @param is not found in the argument list of GLCanvas::OnMouseMove(wxMouseEvent &event)
-Y:/PROJECTS/GNR/src/GLCanvas.cpp:621: Warning: The following parameters of GLCanvas::OnMouseMove(wxMouseEvent &event) are not documented:
-  parameter 'event'
-Y:/PROJECTS/GNR/src/GLCanvas.cpp:635: Warning: argument 'WXUNUSED' of command @param is not found in the argument list of GLCanvas::OnMouseWheel(wxMouseEvent &event)
-Y:/PROJECTS/GNR/src/GLCanvas.cpp:635: Warning: The following parameters of GLCanvas::OnMouseWheel(wxMouseEvent &event) are not documented:
-  parameter 'event'
-Y:/PROJECTS/GNR/src/GLCanvas.cpp:648: Warning: argument 'WXUNUSED' of command @param is not found in the argument list of GLCanvas::OnLeaveWindow(wxMouseEvent &event)
-Y:/PROJECTS/GNR/src/GLCanvas.cpp:648: Warning: The following parameters of GLCanvas::OnLeaveWindow(wxMouseEvent &event) are not documented:
-  parameter 'event'
-Y:/PROJECTS/GNR/src/GLCanvas.cpp:664: Warning: argument 'WXUNUSED' of command @param is not found in the argument list of GLCanvas::OnEnterWindow(wxMouseEvent &event)
-Y:/PROJECTS/GNR/src/GLCanvas.cpp:664: Warning: The following parameters of GLCanvas::OnEnterWindow(wxMouseEvent &event) are not documented:
-  parameter 'event'
-Y:/PROJECTS/GNR/src/GLCanvas.cpp:714: Warning: argument 'WXUNUSED' of command @param is not found in the argument list of GLCanvas::OnPaint(wxPaintEvent &event)
-Y:/PROJECTS/GNR/src/GLCanvas.cpp:714: Warning: The following parameters of GLCanvas::OnPaint(wxPaintEvent &event) are not documented:
-  parameter 'event'
-Y:/PROJECTS/GNR/src/GLCanvas.cpp:508: Warning: argument 'WXUNUSED' of command @param is not found in the argument list of GLCanvas::OnLM
-ouseDblClick(wxMouseEvent &event)
-Y:/PROJECTS/GNR/src/GLCanvas.cpp:508: Warning: The following parameters of GLCanvas::OnLMouseDblClick(wxMouseEvent &event) are not documented:
-  parameter 'event'
+Y:/PROJECTS/GNR/src/GLCanvas.cpp:612: Warning: argument 'event' of command @param is not found in the argument list of GLCanvas::OnRMouseUp(wxMouseEvent &WXUNUSEDevent)
+Y:/PROJECTS/GNR/src/GLCanvas.cpp:612: Warning: The following parameters of GLCanvas::OnRMouseUp(wxMouseEvent &WXUNUSEDevent) are not documented:
+  parameter 'WXUNUSED'
 Y:/PROJECTS/GNR/src/GLCanvasPreview.cpp:28: Warning: argument 'wxWindow' of command @param is not found in the argument list of GLCanvasPreview::GLCanvasPreview(wxWindow *parent, wxWindowID id=wxID_ANY, const wxPoint &pos=wxDefaultPosition, const wxSize &size=wxDefaultSize, long style=0, const wxString &name=wxT("GLCanvasPreview"))
 Y:/PROJECTS/GNR/src/GLCanvasPreview.cpp:28: Warning: argument 'wxWindowID' of command @param is not found in the argument list of GLCanvasPreview::GLCanvasPreview(wxWindow *parent, wxWindowID id=wxID_ANY, const wxPoint &pos=wxDefaultPosition, const wxSize &size=wxDefaultSize, long style=0, const wxString &name=wxT("GLCanvasPreview"))
 Y:/PROJECTS/GNR/src/GLCanvasPreview.cpp:28: Warning: argument 'wxPoint' of command @param is not found in the argument list of GLCanvasPreview::GLCanvasPreview(wxWindow *parent, wxWindowID id=wxID_ANY, const wxPoint &pos=wxDefaultPosition, const wxSize &size=wxDefaultSize, long style=0, const wxString &name=wxT("GLCanvasPreview"))
@@ -308,7 +277,8 @@ Y:/PROJECTS/GNR/src/GLCanvasPreview.cpp:158: Warning: argument 'Assembly' of com
 Y:/PROJECTS/GNR/src/GLCanvasPreview.cpp:158: Warning: The following parameters of GLCanvasPreview::setAssembly(Assembly *assembly) are not documented:
   parameter 'assembly'
 Y:/PROJECTS/GNR/src/GLCanvasPreview.cpp:204: Warning: argument 'wxMouseEvent' of command @param is not found in the argument list of GLCanvasPreview::OnLMouseDown(wxMouseEvent &event)
-Y:/PROJECTS/GNR/src/GLCanvasPreview.cpp:204: Warning: The following parameters of GLCanvasPreview::OnLMouseDown(wxMouseEvent &event) are not documented:
+Y:/PROJECTS/GNR/src/GLCanvasPreview.cpp:204: Warning: The following parameter
+s of GLCanvasPreview::OnLMouseDown(wxMouseEvent &event) are not documented:
   parameter 'event'
 Y:/PROJECTS/GNR/src/GLCanvasPreview.cpp:235: Warning: argument 'wxMouseEvent' of command @param is not found in the argument list of GLCanvasPreview::OnMouseMove(wxMouseEvent &event)
 Y:/PROJECTS/GNR/src/GLCanvasPreview.cpp:235: Warning: The following parameters of GLCanvasPreview::OnMouseMove(wxMouseEvent &event) are not documented:
@@ -316,8 +286,7 @@ Y:/PROJECTS/GNR/src/GLCanvasPreview.cpp:235: Warning: The following parameters o
 Y:/PROJECTS/GNR/src/GLCanvasPreview.cpp:110: Warning: argument 'wxPaintEvent' of command @param is not found in the argument list of GLCanvasPreview::OnPaint(wxPaintEvent &event)
 Y:/PROJECTS/GNR/src/GLCanvasPreview.cpp:110: Warning: The following parameters of GLCanvasPreview::OnPaint(wxPaintEvent &event) are not documented:
   parameter 'event'
-Y:/PROJECTS/GNR/src/GLCanvasPreview.cpp:225: Warning: argument 'wxMo
-useEvent' of command @param is not found in the argument list of GLCanvasPreview::OnLMouseUp(wxMouseEvent &WXUNUSEDevent)
+Y:/PROJECTS/GNR/src/GLCanvasPreview.cpp:225: Warning: argument 'wxMouseEvent' of command @param is not found in the argument list of GLCanvasPreview::OnLMouseUp(wxMouseEvent &WXUNUSEDevent)
 Y:/PROJECTS/GNR/src/GLCanvasPreview.cpp:225: Warning: The following parameters of GLCanvasPreview::OnLMouseUp(wxMouseEvent &WXUNUSEDevent) are not documented:
   parameter 'WXUNUSED'
 Y:/PROJECTS/GNR/src/GLCanvasPreview.cpp:121: Warning: argument 'wxSizeEvent' of command @param is not found in the argument list of GLCanvasPreview::OnSize(wxSizeEvent &WXUNUSEDevent)
@@ -344,7 +313,8 @@ Y:/PROJECTS/GNR/src/LineDrawEvent.cpp:49: Warning: argument 'Vertex' of command 
 Y:/PROJECTS/GNR/src/LineDrawEvent.cpp:49: Warning: The following parameters of LineDrawEvent::setStartPoint(Vertex &startPoint) are not documented:
   parameter 'startPoint'
 Y:/PROJECTS/GNR/src/LineDrawEvent.cpp:59: Warning: argument 'Vertex' of command @param is not found in the argument list of LineDrawEvent::setEndPoint(Vertex &endPoint)
-Y:/PROJECTS/GNR/src/LineDrawEvent.cpp:59: Warning: The following parameters of LineDrawEvent::setEndPoint(Vertex &endPoint) are not documented:
+Y:/PROJ
+ECTS/GNR/src/LineDrawEvent.cpp:59: Warning: The following parameters of LineDrawEvent::setEndPoint(Vertex &endPoint) are not documented:
   parameter 'endPoint'
 Y:/PROJECTS/GNR/src/Mediator.cpp:37: Warning: argument 'transType' of command @param is not found in the argument list of Mediator::setTranslation(transType translation)
 Y:/PROJECTS/GNR/src/Mediator.cpp:37: Warning: The following parameters of Mediator::setTranslation(transType translation) are not documented:
@@ -352,8 +322,7 @@ Y:/PROJECTS/GNR/src/Mediator.cpp:37: Warning: The following parameters of Mediat
 Y:/PROJECTS/GNR/src/Mediator.cpp:67: Warning: argument 'NotifyEvent' of command @param is not found in the argument list of Mediator::setSnapfunction(NotifyEvent &event)
 Y:/PROJECTS/GNR/src/Mediator.cpp:67: Warning: The following parameters of Mediator::setSnapfunction(NotifyEvent &event) are not documented:
   parameter 'event'
-Y:/PROJECTS/GNR/src/Mediator.cpp:57: W
-arning: argument 'canvasType' of command @param is not found in the argument list of Mediator::setMode(canvasType canvas_id)
+Y:/PROJECTS/GNR/src/Mediator.cpp:57: Warning: argument 'canvasType' of command @param is not found in the argument list of Mediator::setMode(canvasType canvas_id)
 Y:/PROJECTS/GNR/src/Mediator.cpp:57: Warning: The following parameters of Mediator::setMode(canvasType canvas_id) are not documented:
   parameter 'canvas_id'
 Y:/PROJECTS/GNR/src/Mediator.cpp:78: Warning: argument 'float' of command @param is not found in the argument list of Mediator::doSnapMove(float &value)
@@ -381,15 +350,15 @@ Y:/PROJECTS/GNR/src/MouseController.cpp:141: Warning: argument 'GLNotifyEvent' o
 Y:/PROJECTS/GNR/src/MouseController.cpp:141: Warning: The following parameters of MouseController::activateMediator(GLNotifyEvent &event) are not documented:
   parameter 'event'
 Y:/PROJECTS/GNR/src/MouseController.cpp:154: Warning: argument 'GLNotifyEvent' of command @param is not found in the argument list of MouseController::deactivateMediator()
-Y:/PROJECTS/GNR/src/OaxImport.cpp:30: Warning: argument 'wxString' of command @param is not found in the argument list of OaxImport::OaxImport(wxString filename)
+Y:/PROJECTS/GNR/src/OaxImpo
+rt.cpp:30: Warning: argument 'wxString' of command @param is not found in the argument list of OaxImport::OaxImport(wxString filename)
 Y:/PROJECTS/GNR/src/OaxImport.cpp:30: Warning: The following parameters of OaxImport::OaxImport(wxString filename) are not documented:
   parameter 'filename'
 Y:/PROJECTS/GNR/src/OaxImport.cpp:62: Warning: argument 'wxZipInputStream' of command @param is not found in the argument list of OaxImport::Load(wxZipInputStream &stream)
 Y:/PROJECTS/GNR/src/OaxImport.cpp:62: Warning: The following parameters of OaxImport::Load(wxZipInputStream &stream) are not documented:
   parameter 'stream'
 Y:/PROJECTS/GNR/src/OaxImport.cpp:154: Warning: argument 'wxString' of command @param is not found in the argument list of OaxImport::Load(wxString &filename)
-Y:/PROJECTS/GNR/src/OaxImport.cpp:154: Warning: The following parameters of OaxImpor
-t::Load(wxString &filename) are not documented:
+Y:/PROJECTS/GNR/src/OaxImport.cpp:154: Warning: The following parameters of OaxImport::Load(wxString &filename) are not documented:
   parameter 'filename'
 Y:/PROJECTS/GNR/src/OaxImport.cpp:170: Warning: argument 'wxInputStream' of command @param is not found in the argument list of OaxImport::LoadAssemblyXml(wxInputStream &stream)
 Y:/PROJECTS/GNR/src/OaxImport.cpp:170: Warning: The following parameters of OaxImport::LoadAssemblyXml(wxInputStream &stream) are not documented:
