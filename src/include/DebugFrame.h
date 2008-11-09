@@ -11,10 +11,8 @@
 #ifndef DEBUGFRAME_H
 #define DEBUGFRAME_H
 
-//(*Headers(DebugFrame)
 #include <wx/textctrl.h>
 #include <wx/frame.h>
-//*)
 
 #include <wx/log.h>
 
@@ -25,22 +23,14 @@ public:
 	DebugFrame(wxWindow* parent,wxWindowID id=wxID_ANY);
 	virtual ~DebugFrame();
 	
-	//(*Declarations(DebugFrame)
 	wxTextCtrl* TextCtrl;
-	//*)
 	
 protected:
 
-	//(*Identifiers(DebugFrame)
 	static const long ID_TextCtrl;
-	//*)
 	
 private:
 
-	//(*Handlers(DebugFrame)
-	//*)
-	
-	DECLARE_EVENT_TABLE()
 };
 
 #endif

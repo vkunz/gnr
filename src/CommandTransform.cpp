@@ -1,6 +1,7 @@
 /**
  * This class handels all the information, needed to undo/redo a translation to an assembly
  * and also performs these operations
+ * @note        [DONE]
  * @name        CommandTransform.cpp
  * @date        2008-10-29
  * @author		Konstantin Balabin  <k.balabin@googlemail.com>
@@ -17,19 +18,16 @@
 
 /**
  * constructor of CommandTransform
-
  */
 CommandTransform::CommandTransform() {}
 
 /**
  * destructor of CommandTransform
-
  */
 CommandTransform::~CommandTransform() {}
 
 /**
  * Performes the redo-operation and moves the object back to the new position
-
  */
 void CommandTransform::execute()
 {
@@ -44,7 +42,6 @@ void CommandTransform::execute()
 
 /**
  * Performes the undo-operation and moves the object back to the originally position
-
  */
 void CommandTransform::unexecute()
 {
@@ -59,8 +56,7 @@ void CommandTransform::unexecute()
 
 /**
  * sets the assembly, the transformation is done with
- * @param   Assembly*    assembly, the transformation is done with
-
+ * @param[in]           assembly            assembly, the transformation is done with
  */
 void CommandTransform::setAssembly(Assembly* assembly)
 {
@@ -69,8 +65,7 @@ void CommandTransform::setAssembly(Assembly* assembly)
 
 /**
  * sets the old position of the assembly, before the transformation
- * @param   Vertex&  old position of the assembly
-
+ * @param[in]           old_pos             old position of the assembly
  */
 void CommandTransform::setOldPosition(Vertex& old_pos)
 {
@@ -81,8 +76,7 @@ void CommandTransform::setOldPosition(Vertex& old_pos)
 
 /**
  * sets the old rotations of the assembly, before the transformation
- * @param   Vertex&  old angles of assembly
-
+ * @param[in]           old_angles          old angles of assembly
  */
 void CommandTransform::setOldAngles(Vertex& old_angles)
 {
@@ -93,8 +87,7 @@ void CommandTransform::setOldAngles(Vertex& old_angles)
 
 /**
  * sets the new position of the assembly, after the transformation
- * @param   Vertex&  new position of assembly
-
+ * @param[in]           new_pos             new position of assembly
  */
 void CommandTransform::setNewPosition(Vertex& new_pos)
 {
@@ -105,8 +98,7 @@ void CommandTransform::setNewPosition(Vertex& new_pos)
 
 /**
  * sets the new rotations of the assembly, after the transformation
- * @param   Vertex&  new angles of assembly
-
+ * @param[in]           new_angles          new angles of assembly
  */
 void CommandTransform::setNewAngles(Vertex& new_angles)
 {

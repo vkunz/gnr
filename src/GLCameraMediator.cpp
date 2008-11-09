@@ -13,7 +13,7 @@
 
 /**
  * set camera pointer
- * @param   camera     pointer to cam
+ * @param[in]       camera          pointer to cam
  */
 void GLCameraMediator::setGLCamera(GLCamera* camera)
 {
@@ -22,7 +22,7 @@ void GLCameraMediator::setGLCamera(GLCamera* camera)
 
 /**
  * init all needed values for camera translation
- * @param   event      event from gl canvas
+ * @param[in]       event           event from gl canvas
  */
 void GLCameraMediator::initialize(GLNotifyEvent& event)
 {
@@ -47,7 +47,7 @@ void GLCameraMediator::initialize(GLNotifyEvent& event)
 
 /**
  * do translation to selected camera
- * @param   event      event from gl canvas
+ * @param[in]       event           event from gl canvas
  */
 int GLCameraMediator::translate(GLNotifyEvent& event)
 {

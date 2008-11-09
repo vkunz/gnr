@@ -1,6 +1,6 @@
 /**
- * GLCameraMediator3D
- * @note        [FINISHED]
+ * This class performes all the camera-movement in 3D
+ * @note        [DONE]
  * @name        GLCameraMediator3D.cpp
  * @date        2008-10-25
  * @author      Konstantin Balabin  <k.balabin@googlemail.com>
@@ -13,8 +13,7 @@
 
 /**
  * move the camera in XY dimension
- * @param GLNotifyEvent event from GLNotify
-
+ * @param[in]       event           event from GLNotify
  */
 void GLCameraMediator3D::MoveXY(GLNotifyEvent& event)
 {
@@ -38,8 +37,7 @@ void GLCameraMediator3D::MoveXY(GLNotifyEvent& event)
 
 /**
  * move the camera in XZ dimension
- * @param GLNotifyEvent event from GLNotify
-
+ * @param[in]       event           event from GLNotify
  */
 void GLCameraMediator3D::MoveXZ(GLNotifyEvent& event)
 {
@@ -66,8 +64,7 @@ void GLCameraMediator3D::MoveXZ(GLNotifyEvent& event)
 
 /**
  * rotate the camera around X+Y-axis
- * @param GLNotifyEvent event from GLNotify
-
+ * @param[in]       event       event from GLNotify
  */
 void GLCameraMediator3D::RotateXY(GLNotifyEvent& event)
 {
@@ -110,8 +107,7 @@ void GLCameraMediator3D::RotateXY(GLNotifyEvent& event)
 
 /**
  * rotate the camera in arround X+Z-axis
- * @param GLNotifyEvent event from GLNotify
-
+ * @param[in]       event       event from GLNotify
  */
 void GLCameraMediator3D::RotateXZ(GLNotifyEvent& event)
 {
@@ -150,8 +146,7 @@ void GLCameraMediator3D::RotateXZ(GLNotifyEvent& event)
 
 /**
  * Zoom In/Out the Scene
- * @param GLNotifyEvent event from GLNotify
-
+ * @param[in]       event       event from GLNotify
  */
 void GLCameraMediator3D::ZoomIn(GLNotifyEvent& event)
 {

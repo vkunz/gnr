@@ -26,6 +26,7 @@ Face::Face()
 
 /**
  * copy constructor
+ * @param[in]       face        face that has to be copied
  */
 Face::Face(const Face& other)
 {

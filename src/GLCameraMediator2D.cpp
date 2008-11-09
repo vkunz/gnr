@@ -1,5 +1,5 @@
 /**
- * GLCameraMediator2D
+ * This class performes all the camera-movement in 2D
  * @note        [DONE]
  * @name        GLCameraMediator2D.cpp
  * @date        2008-10-25
@@ -17,8 +17,7 @@
 
 /**
  * move the camera in XY dimension
- * @param GLNotifyEvent event from GLNotify
-
+ * @param[in]       event           event from GLNotify
  */
 void GLCameraMediator2D::MoveXY(GLNotifyEvent& event)
 {
@@ -37,8 +36,7 @@ void GLCameraMediator2D::MoveXY(GLNotifyEvent& event)
 
 /**
  * move the camera in XY dimension, no other movement allowed
- * @param GLNotifyEvent event from GLNotify
-
+ * @param[in]       event           event from GLNotify
  */
 void GLCameraMediator2D::MoveXZ(GLNotifyEvent& event)
 {
@@ -47,8 +45,7 @@ void GLCameraMediator2D::MoveXZ(GLNotifyEvent& event)
 
 /**
  * move the camera in XY dimension, no other movement allowed
- * @param GLNotifyEvent event from GLNotify
-
+ * @param[in]       event           event from GLNotify
  */
 void GLCameraMediator2D::RotateXY(GLNotifyEvent& event)
 {
@@ -57,8 +54,7 @@ void GLCameraMediator2D::RotateXY(GLNotifyEvent& event)
 
 /**
  * move the camera in XY dimension, no other movement allowed
- * @param GLNotifyEvent event from GLNotify
-
+ * @param[in]       event           event from GLNotify
  */
 void GLCameraMediator2D::RotateXZ(GLNotifyEvent& event)
 {
@@ -67,8 +63,7 @@ void GLCameraMediator2D::RotateXZ(GLNotifyEvent& event)
 
 /**
  * Zoom In/Out the Scene
- * @param GLNotifyEvent event from GLNotify
-
+ * @param[in]       event           event from GLNotify
  */
 void GLCameraMediator2D::ZoomIn(GLNotifyEvent& event)
 {

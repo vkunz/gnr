@@ -20,7 +20,7 @@
 
 /**
  * constructor of generic assembly
- * @param [in]      name         name of assembly
+ * @param[in]      name         name of assembly
  */
 Assembly::Assembly(const wxString& name):
 		m_x(0.0), m_y(0.0), m_z(0.0),
@@ -168,7 +168,7 @@ Assembly* Assembly::clone()
 
 /**
  * constructor of generic assembly with parent
-* @param[in]        parent   	pointer to parent Assembly*
+ * @param[in]        parent   	pointer to parent Assembly*
  * @param[in]       name         	wxString name of assembly
  */
 Assembly::Assembly(Assembly* parent, const wxString& name):

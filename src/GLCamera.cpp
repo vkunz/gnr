@@ -17,7 +17,6 @@
 
 /**
  * constructor of GLCamera
-
  */
 GLCamera::GLCamera()
 {
@@ -26,11 +25,7 @@ GLCamera::GLCamera()
 
 /**
  * Moves the camera (View-Point) along the direction-vector
- * @param       Assembly*    RootAssembly
- * @param       int             Mouse-X-Coordinate
- * @param       int             Mouse-Y-Coordinate
- * @return      int             GL-Object-ID
-
+ * @param[in]       direction       direction to move the camera
  */
 void GLCamera::move(Vertex direction)
 {
@@ -39,8 +34,7 @@ void GLCamera::move(Vertex direction)
 
 /**
  * Rotates the camera arround the x-axis
- * @param       GLfloat     angle to rotate the camera
-
+ * @param[in]       angle           angle to rotate the camera
  */
 void GLCamera::rotateX(GLfloat angle)
 {
@@ -56,8 +50,7 @@ void GLCamera::rotateX(GLfloat angle)
 
 /**
  * Rotates the camera arround the y-axis
- * @param       GLfloat     angle to rotate the camera
-
+ * @param[in]       angle           angle to rotate the camera
  */
 void GLCamera::rotateY(GLfloat angle)
 {
@@ -73,8 +66,7 @@ void GLCamera::rotateY(GLfloat angle)
 
 /**
  * Rotates the camera arround the z-axis
- * @param       GLfloat     angle to rotate the camera
-
+ * @param[in]       angle               angle to rotate the camera
  */
 void GLCamera::rotateZ(GLfloat angle)
 {
@@ -90,7 +82,6 @@ void GLCamera::rotateZ(GLfloat angle)
 
 /**
  * translates the vectors to opengl-commands which set the camera
-
  */
 void GLCamera::render()
 {
@@ -112,8 +103,7 @@ void GLCamera::render()
 
 /**
  * moves the camera into the scene
- * @param       GLfloat     distance, the camera should move forward
-
+ * @param[in]       distance        distance, the camera should move forward
  */
 void GLCamera::moveForward(GLfloat distance)
 {
@@ -126,8 +116,7 @@ void GLCamera::moveForward(GLfloat distance)
 
 /**
  * moces the camera in horizontal way
- * @param       GLfloat     distance, the camera should move right
-
+ * @param[in]       distance        distance, the camera should move right
  */
 void GLCamera::strafeRight(GLfloat distance)
 {
@@ -136,8 +125,7 @@ void GLCamera::strafeRight(GLfloat distance)
 
 /**
  * moces the camera in vertical way
- * @param       GLfloat     distance, the camera should move upwards
-
+ * @param[in]       distance        distance, the camera should move upwards
  */
 void GLCamera::moveUpward(GLfloat distance)
 {
@@ -150,10 +138,9 @@ void GLCamera::moveUpward(GLfloat distance)
 
 /**
  * sets the absolute position of the camera
- * @param       GLfloat     x position in world coordinates
- * @param       GLfloat     y position in world coordinates
- * @param       GLfloat     z position in world coordinates
-
+ * @param[in]       x               x position in world coordinates
+ * @param[in]       y               y position in world coordinates
+ * @param[in]       z               z position in world coordinates
  */
 void GLCamera::setPosition(float x, float y, float z)
 {
@@ -167,10 +154,9 @@ void GLCamera::setPosition(float x, float y, float z)
 
 /**
  * sets the orientation of the camera
- * @param       float     angle, the camera is rotated arround x-axis
- * @param       float     angle, the camera is rotated arround y-axis
- * @param       float     angle, the camera is rotated arround z-axis
-
+ * @param[in]       phi             angle, the camera is rotated arround x-axis
+ * @param[in]       theta           angle, the camera is rotated arround y-axis
+ * @param[in]       rho             angle, the camera is rotated arround z-axis
  */
 void GLCamera::setAngles(float phi, float theta, float rho)
 {
@@ -193,8 +179,7 @@ void GLCamera::setAngles(float phi, float theta, float rho)
 
 /**
  * changes the distance between camera and view-point
- * @param       float     amount, the distance should raise
-
+ * @param[in]       distance        amount, the distance should raise
  */
 void GLCamera::changeDistance(float distance)
 {
@@ -209,8 +194,7 @@ void GLCamera::changeDistance(float distance)
 
 /**
  * get the distance between camera and view-point
- * @return      float       distance of cam to floor
-
+ * @return          float           distance of cam to floor
  */
 float GLCamera::getDistance()
 {
@@ -219,7 +203,6 @@ float GLCamera::getDistance()
 
 /**
  * resets the camera to initial-position
-
  */
 void GLCamera::reset()
 {
@@ -236,8 +219,7 @@ void GLCamera::reset()
 
 /**
  * returns the position of the camera
- * @return  Vertex   Camera-Position
-
+ * @return          Vertex          Camera-Position
  */
 Vertex GLCamera::getPosition()
 {
@@ -247,8 +229,7 @@ Vertex GLCamera::getPosition()
 
 /**
  * returns the ViewPoint of the camera
- * @return  Vertex   ViewPoint
-
+ * @return          Vertex          ViewPoint
  */
 Vertex GLCamera::getViewPoint()
 {
@@ -257,8 +238,7 @@ Vertex GLCamera::getViewPoint()
 
 /**
  * returns the View-Direction of the camera
- * @return  Vertex   View-Direction
-
+ * @return          Vertex          View-Direction
  */
 Vertex GLCamera::getViewDir()
 {
@@ -267,8 +247,7 @@ Vertex GLCamera::getViewDir()
 
 /**
  * returns the right-Vector of the camera
- * @return  Vertex   right-Vector
-
+ * @return          Vertex          right-Vector
  */
 Vertex GLCamera::getRightVector()
 {
@@ -277,8 +256,7 @@ Vertex GLCamera::getRightVector()
 
 /**
  * returns the up-Vector of the camera
- * @return  Vertex   up-Vector
-
+ * @return          Vertex          up-Vector
  */
 Vertex GLCamera::getUpVector()
 {
@@ -287,8 +265,7 @@ Vertex GLCamera::getUpVector()
 
 /**
  * returns the rotation of the camera arround x-axis
- * @return  GLfloat   x-Rotation in Degree
-
+ * @return          GLfloat         x-Rotation in Degree
  */
 GLfloat GLCamera::getRotatedX()
 {
@@ -297,8 +274,7 @@ GLfloat GLCamera::getRotatedX()
 
 /**
  * returns the rotation of the camera arround y-axis
- * @return  GLfloat   y-Rotation in Degree
-
+ * @return          GLfloat         y-Rotation in Degree
  */
 GLfloat GLCamera::getRotatedY()
 {
@@ -307,8 +283,7 @@ GLfloat GLCamera::getRotatedY()
 
 /**
  * returns the rotation of the camera arround z-axis
- * @return  GLfloat   z-Rotation in Degree
-
+ * @return          GLfloat         z-Rotation in Degree
  */
 GLfloat GLCamera::getRotatedZ()
 {
@@ -317,8 +292,7 @@ GLfloat GLCamera::getRotatedZ()
 
 /**
  * sets the View-Point of the camera
- * @param  Vertex   View-Point
-
+ * @param[in]       point           View-Point
  */
 void GLCamera::setViewPoint(Vertex point)
 {
@@ -331,8 +305,7 @@ void GLCamera::setViewPoint(Vertex point)
 
 /**
  * sets the View-Direction of the camera
- * @param  Vertex   View-Direction
-
+ * @param[in]       dir             View-Direction
  */
 void GLCamera::setViewDir(Vertex dir)
 {
@@ -341,8 +314,7 @@ void GLCamera::setViewDir(Vertex dir)
 
 /**
  * sets the right-Vector of the camera
- * @param  Vertex   right-Vector
-
+ * @param[in]       right           right-Vector
  */
 void GLCamera::setRightVector(Vertex right)
 {
@@ -351,8 +323,7 @@ void GLCamera::setRightVector(Vertex right)
 
 /**
  * sets the up-Vector of the camera
- * @param  Vertex   up-Vector
-
+ * @param[in]       up              up-Vector
  */
 void GLCamera::setUpVector(Vertex up)
 {
@@ -361,8 +332,7 @@ void GLCamera::setUpVector(Vertex up)
 
 /**
  * sets the rotation of the camera arround x-axis
- * @param  GLfloat   x-Rotation in Degree
-
+ * @param[in]       phi             x-Rotation in Degree
  */
 void GLCamera::setRotatedX(GLfloat phi)
 {
@@ -371,8 +341,7 @@ void GLCamera::setRotatedX(GLfloat phi)
 
 /**
  * sets the rotation of the camera arround y-axis
- * @param  GLfloat   y-Rotation in Degree
-
+ * @param[in]       theta           y-Rotation in Degree
  */
 void GLCamera::setRotatedY(GLfloat theta)
 {
@@ -381,8 +350,7 @@ void GLCamera::setRotatedY(GLfloat theta)
 
 /**
  * sets the rotation of the camera arround z-axis
- * @param  GLfloat   z-Rotation in Degree
-
+ * @param[in]       rho             z-Rotation in Degree
  */
 void GLCamera::setRotatedZ(GLfloat rho)
 {
@@ -391,6 +359,5 @@ void GLCamera::setRotatedZ(GLfloat rho)
 
 /**
  * destructor of GLCamera
-
  */
 GLCamera::~GLCamera() {}

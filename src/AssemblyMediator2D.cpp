@@ -1,5 +1,6 @@
 /**
  * AssemblyMediator2D
+ * @note        [DONE]
  * @name        AssemblyMediator2D.cpp
  * @date        2008-10-09
  * @author      Konstantin Balabin  <k.balabin@googlemail.com>
@@ -16,8 +17,7 @@
 
 /**
  * move the object in XY dimension and limit height over ground
- * @param       GLNotifyEvent         event from GLNotify
-
+ * @param[in]           event           event from GLNotify
  */
 void AssemblyMediator2D::MoveXY(GLNotifyEvent& event)
 {
@@ -38,8 +38,7 @@ void AssemblyMediator2D::MoveXY(GLNotifyEvent& event)
 
 /**
  * move the object in XZ dimension
- * @param       GLNotifyEvent         event from GLNotify
-
+ * @param[in]           event           event from GLNotify
  */
 void AssemblyMediator2D::MoveXZ(GLNotifyEvent& event)
 {
@@ -55,8 +54,7 @@ void AssemblyMediator2D::MoveXZ(GLNotifyEvent& event)
 
 /**
  * rotate the object in XY dimension
- * @param       GLNotifyEvent         event from GLNotify
-
+ * @param[in]           event           event from GLNotify
  */
 void AssemblyMediator2D::RotateXY(GLNotifyEvent& event)
 {
@@ -72,8 +70,7 @@ void AssemblyMediator2D::RotateXY(GLNotifyEvent& event)
 
 /**
  * rotate the object in Y dimension
- * @param       GLNotifyEvent         event from GLNotify
-
+ * @param[in]           event           event from GLNotify
  */
 void AssemblyMediator2D::RotateY(GLNotifyEvent& event)
 {
@@ -84,8 +81,7 @@ void AssemblyMediator2D::RotateY(GLNotifyEvent& event)
 
 /**
  * rotate the object in XZ dimension
- * @param       GLNotifyEvent         event from GLNotify
-
+ * @param[in]           event           event from GLNotify
  */
 void AssemblyMediator2D::RotateXZ(GLNotifyEvent& event)
 {

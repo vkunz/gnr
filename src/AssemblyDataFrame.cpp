@@ -1,3 +1,14 @@
+/**
+ * This frame is used to allow the user to change some values of the assembly
+ * @note        [DONE]
+ * @name        AssemblyDataFrame.cpp
+ * @date        2008-11-04
+ * @author		Konstantin Balabin  <k.balabin@googlemail.com>
+ * @author		Patrick Kracht      <patrick.kracht@googlemail.com>
+ * @author		Thorsten Moll       <thorsten.moll@googlemail.com>
+ * @author		Valentin Kunz       <athostr@googlemail.com>
+ */
+
 #include "include/AssemblyDataFrame.h"
 
 #include <wx/intl.h>
@@ -32,6 +43,11 @@ BEGIN_EVENT_TABLE(AssemblyDataFrame,wxFrame)
 	EVT_BUTTON(idBtnCancel, AssemblyDataFrame::OnCancel)
 END_EVENT_TABLE()
 
+/**
+ * constructor of AssemblyDataFrame; creates the frame with its controls and connects needed events
+ * @param[in]      parent          parent of this frame
+ * @param[in]      id
+ */
 AssemblyDataFrame::AssemblyDataFrame(wxWindow* parent,wxWindowID id)
 {
 	Create(parent, id, wxT("Objekt-Eigenschaften"), wxDefaultPosition, wxDefaultSize, wxCAPTION|wxSYSTEM_MENU|wxCLOSE_BOX|wxMINIMIZE_BOX|wxSTATIC_BORDER, _T("id"));
@@ -83,11 +99,15 @@ AssemblyDataFrame::AssemblyDataFrame(wxWindow* parent,wxWindowID id)
 	Connect(idSpcHeight,wxEVT_COMMAND_TEXT_ENTER,(wxObjectEventFunction)&AssemblyDataFrame::OnHeightChange);
 }
 
-AssemblyDataFrame::~AssemblyDataFrame()
-{
+/**
+ * destructor of AssemblyDataFrame
+ */
+AssemblyDataFrame::~AssemblyDataFrame() {}
 
-}
-
+/**
+ * fills the data-fields with information of the given assembly
+ * @param[in]   assembly        assembly, the information can be taken from
+ */
 void AssemblyDataFrame::fillFields(Assembly* assembly)
 {
 	m_assembly = assembly;
@@ -107,6 +127,11 @@ void AssemblyDataFrame::fillFields(Assembly* assembly)
 	m_assemblyDepth  = (int)(assembly->getDepth()  * 1000);
 }
 
+/**
+ * gets called when the users presses the change button in order to confirm his changes;
+ * writes the new values to the assembly
+ * @param[in]   event       command-event, triggered by the button
+ */
 void AssemblyDataFrame::OnChange(wxCommandEvent& WXUNUSED(event))
 {
 	m_assembly->setName(m_txcName->GetValue());
@@ -145,18 +170,30 @@ void AssemblyDataFrame::OnChange(wxCommandEvent& WXUNUSED(event))
 	Destroy();
 }
 
+/**
+ * gets called when the user pressed the cancel button in order to discard the changes
+ * @param[in]   event       event, triggerd by the button
+ */
 void AssemblyDataFrame::OnCancel(wxCommandEvent& WXUNUSED(event))
 {
 	MakeModal(false);
 	Destroy();
 }
 
+/**
+ * gets called when the user closes the window by the X in the top-right corner
+ * @param[in]   event       event, triggerd by the button
+ */
 void AssemblyDataFrame::OnClose(wxCloseEvent& WXUNUSED(event))
 {
 	MakeModal(false);
 	Destroy();
 }
 
+/**
+ * gets called when the user changes the width-value
+ * @param[in]   event       event, fired on value-change
+ */
 void AssemblyDataFrame::OnWidthChange(wxCommandEvent& WXUNUSED(event))
 {
 	if (m_cbxProportion->IsChecked() == true)
@@ -180,6 +217,10 @@ void AssemblyDataFrame::OnWidthChange(wxCommandEvent& WXUNUSED(event))
 	}
 }
 
+/**
+ * gets called when the user changes the height-value
+ * @param[in]   event       event, fired on value-change
+ */
 void AssemblyDataFrame::OnHeightChange(wxCommandEvent& WXUNUSED(event))
 {
 	if (m_cbxProportion->IsChecked() == true)
@@ -203,6 +244,10 @@ void AssemblyDataFrame::OnHeightChange(wxCommandEvent& WXUNUSED(event))
 	}
 }
 
+/**
+ * gets called when the user changes the depth-value
+ * @param[in]   event       event, fired on value-change
+ */
 void AssemblyDataFrame::OnDepthChange(wxCommandEvent& WXUNUSED(event))
 {
 	if (m_cbxProportion->IsChecked() == true)

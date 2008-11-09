@@ -1,6 +1,7 @@
 /**
  * the glcanvas class implements the initialization, event-functions,
  * selection and drawing methods that have 2D and 3D in common
+ * @note        [TODO]
  * @name        GLCanvas.cpp
  * @date        2008-10-08
  * @author		Konstantin Balabin  <k.balabin@googlemail.com>
@@ -27,7 +28,7 @@
 #endif
 
 BEGIN_EVENT_TABLE(GLCanvas, wxGLCanvas)
-	EVT_KEY_DOWN(GLCanvas::OnKeyDown)
+	
 END_EVENT_TABLE()
 
 //static display list for floor
@@ -35,13 +36,12 @@ GLuint GLCanvas::m_floor_DL;
 
 /**
  * constructor of GLCanvas
- * @param       wxWindow*       Parent-Window
- * @param       wxWindowID      Window-ID
- * @param       wxPoint         Window-Position of the Canvas
- * @param       wxSize          Window-Size of the Canvas
- * @param       long            Window-Style
- * @param       wxString        Window-Name
-
+ * @param[in]       parent          Parent-Window
+ * @param[in]       id              Window-ID
+ * @param[in]       pos             Window-Position of the Canvas
+ * @param[in]       size            Window-Size of the Canvas
+ * @param[in]       style           Window-Style
+ * @param[in]       name            Window-Name
  */
 GLCanvas::GLCanvas(wxWindow* parent, wxWindowID id, const wxPoint& pos, const wxSize& size, long style, const wxString& name)
 		: wxGLCanvas(parent, id, pos, size, style|wxFULL_REPAINT_ON_RESIZE, name)
@@ -52,14 +52,13 @@ GLCanvas::GLCanvas(wxWindow* parent, wxWindowID id, const wxPoint& pos, const wx
 
 /**
  * constructor of GLCanvas
- * @param       wxWindow*       Parent-Window
- * @param       wxGLContext*    Used GLContext for common Context
- * @param       wxWindowID      Window-ID
- * @param       wxPoint         Window-Position of the Canvas
- * @param       wxSize          Window-Size of the Canvas
- * @param       long            Window-Style
- * @param       wxString        Window-Name
-
+ * @param[in]       parent          Parent-Window
+ * @param[in]       sharedContext   Used GLContext for common Context
+ * @param[in]       id              Window-ID
+ * @param[in]       pos             Window-Position of the Canvas
+ * @param[in]       size            Window-Size of the Canvas
+ * @param[in]       style           Window-Style
+ * @param[in]       name            Window-Name
  */
 GLCanvas::GLCanvas(wxWindow* parent, wxGLContext* sharedContext, wxWindowID id, const wxPoint& pos, const wxSize& size,
                    long style, const wxString& name) : wxGLCanvas(parent, sharedContext, id, pos, size, style, name)
@@ -70,7 +69,6 @@ GLCanvas::GLCanvas(wxWindow* parent, wxGLContext* sharedContext, wxWindowID id, 
 
 /**
  * Connecting the events needed for the Canvas
-
  */
 void GLCanvas::connectEvents()
 {
@@ -90,7 +88,6 @@ void GLCanvas::connectEvents()
 
 /**
  * Reconnecting the events needed for the Canvas
-
  */
 void GLCanvas::reconnectEvents()
 {
@@ -108,7 +105,6 @@ void GLCanvas::reconnectEvents()
 
 /**
  * Disconnecting the events needed for the Canvas
-
  */
 void GLCanvas::disconnectEvents()
 {
@@ -157,7 +153,6 @@ void GLCanvas::initLights()
 
 /**
  * does the initialization for the 3D canvas
-
  */
 void GLCanvas::initGL()
 {
@@ -366,7 +361,6 @@ void GLCanvas::endPixelBuffer()
 
 /**
  * Clears the screen and does all the work that has to be done before drawing
-
  */
 void GLCanvas::prepareDraw()
 {
@@ -375,6 +369,9 @@ void GLCanvas::prepareDraw()
 	glLoadIdentity();
 }
 
+/**
+ * does the things that have to be done after drawing;
+ */
 void GLCanvas::endDraw()
 {
 	glFlush();
@@ -392,11 +389,11 @@ void GLCanvas::preparePixelBuffer()
 
 /**
  * Checks which GL-Object has been selected by the mouse in the GL-Scene
- * @param       Assembly*    RootAssembly
- * @param       int             Mouse-X-Coordinate
- * @param       int             Mouse-Y-Coordinate
- * @return      int             GL-Object-ID
-
+ * @param[in]       rootAssembly    Pointer to root-assembly
+ * @param[in]       camera          Pointer to adequate camera-object
+ * @param[in]       mouse_x         Mouse-X-Coordinate
+ * @param[in]       mouse_y         Mouse-Y-Coordinate
+ * @return          Assemby*        GL-Object-ID
  */
 Assembly* GLCanvas::selection(Assembly* rootAssembly, GLCamera* camera, int mouse_x, int mouse_y)
 {
@@ -484,8 +481,7 @@ Assembly* GLCanvas::selection(Assembly* rootAssembly, GLCamera* camera, int mous
 
 /**
  * fetches the Left-Mouse-Pressed event
- * @param       wxMouseEvent    Mouse-Event of current canvas
-
+ * @param[in]       event       Mouse-Event of current canvas
  */
 void GLCanvas::OnLMouseDown(wxMouseEvent& event)
 {
@@ -511,8 +507,7 @@ void GLCanvas::OnLMouseDown(wxMouseEvent& event)
 
 /**
  * fetches the Double-Click event for selection of objects
- * @param       wxMouseEvent    Mouse-Event of current canvas
-
+ * @param[in]       event       Mouse-Event of current canvas
  */
 void GLCanvas::OnLMouseDblClick(wxMouseEvent& event)
 {
@@ -538,8 +533,7 @@ void GLCanvas::OnLMouseDblClick(wxMouseEvent& event)
 
 /**
  * fetches the Left-Mouse-Up event
- * @param       wxMouseEvent    Mouse-Event of current canvas
-
+ * @param[in]       event       Mouse-Event of current canvas
  */
 void GLCanvas::OnLMouseUp(wxMouseEvent& event)
 {
@@ -556,8 +550,7 @@ void GLCanvas::OnLMouseUp(wxMouseEvent& event)
 
 /**
  * fetches the Middle-Mouse-Pressed event
- * @param       wxMouseEvent    Mouse-Event of current canvas
-
+ * @param[in]       event       Mouse-Event of current canvas
  */
 void GLCanvas::OnMMouseDown(wxMouseEvent& event)
 {
@@ -576,8 +569,7 @@ void GLCanvas::OnMMouseDown(wxMouseEvent& event)
 
 /**
  * fetches the Middle-Mouse-Up event
- * @param       wxMouseEvent    Mouse-Event of current canvas
-
+ * @param[in]       event       Mouse-Event of current canvas
  */
 void GLCanvas::OnMMouseUp(wxMouseEvent& event)
 {
@@ -593,8 +585,7 @@ void GLCanvas::OnMMouseUp(wxMouseEvent& event)
 
 /**
  * fetches the right-Mouse-Pressed event
- * @param       wxMouseEvent    Mouse-Event of current canvas
-
+ * @param[in]       event       Mouse-Event of current canvas
  */
 void GLCanvas::OnRMouseDown(wxMouseEvent& event)
 {
@@ -620,8 +611,7 @@ void GLCanvas::OnRMouseDown(wxMouseEvent& event)
 
 /**
  * fetches the right-Mouse-Up event
- * @param       wxMouseEvent    Mouse-Event of current canvas
-
+ * @param[in]       event       Mouse-Event of current canvas
  */
 void GLCanvas::OnRMouseUp(wxMouseEvent& WXUNUSED(event))
 {
@@ -630,8 +620,7 @@ void GLCanvas::OnRMouseUp(wxMouseEvent& WXUNUSED(event))
 
 /**
  * fetches the Mouse-Move event
- * @param       wxMouseEvent    Mouse-Event of current canvas
-
+ * @param[in]       event       Mouse-Event of current canvas
  */
 void GLCanvas::OnMouseMove(wxMouseEvent& event)
 {
@@ -645,8 +634,7 @@ void GLCanvas::OnMouseMove(wxMouseEvent& event)
 
 /**
  * fetches the MouseWheel event
- * @param       wxMouseEvent    Mouse-Event of current canvas
-
+ * @param[in]       event       Mouse-Event of current canvas
  */
 void GLCanvas::OnMouseWheel(wxMouseEvent& event)
 {
@@ -659,8 +647,7 @@ void GLCanvas::OnMouseWheel(wxMouseEvent& event)
 
 /**
  * fetches the Leave-Window event
- * @param       wxMouseEvent    Mouse-Event of current canvas
-
+ * @param[in]       event       Mouse-Event of current canvas
  */
 void GLCanvas::OnLeaveWindow(wxMouseEvent& event)
 {
@@ -676,8 +663,7 @@ void GLCanvas::OnLeaveWindow(wxMouseEvent& event)
 
 /**
  * fetches the Enter-Window event
- * @param       wxMouseEvent    Mouse-Event of current canvas
-
+ * @param[in]       event       Mouse-Event of current canvas
  */
 void GLCanvas::OnEnterWindow(wxMouseEvent& event)
 {
@@ -693,8 +679,7 @@ void GLCanvas::OnEnterWindow(wxMouseEvent& event)
 
 /**
  * fetches ResizeEvent; event for redrawing
- * @param       wxSizeEvent    Size-Event of current canvas
-
+ * @param[in]       event       Size-Event of current canvas
  */
 void GLCanvas::OnResize(wxSizeEvent& WXUNUSED(event))
 {
@@ -707,7 +692,6 @@ void GLCanvas::OnResize(wxSizeEvent& WXUNUSED(event))
 
 /**
  * Reshape current frame on resize; adjust Viewport
-
  */
 void GLCanvas::reshape()
 {
@@ -729,7 +713,7 @@ void GLCanvas::reshape()
 
 /**
  * Canvas needs to be redrawn; Send Event to Redraw Canvases
-
+ * @param[in]       event       paint event from canvas
  */
 void GLCanvas::OnPaint(wxPaintEvent& event)
 {
@@ -740,36 +724,13 @@ void GLCanvas::OnPaint(wxPaintEvent& event)
 	GetEventHandler()->ProcessEvent(myevent);
 	event.Skip();
 }
-/*
-// Convert Mouse-Coordinates to GL-Coordinates
-void GLCanvas::getGLPos(int x, int y, Vertex* glcoords) {
-	SetCurrent();
-	glPushMatrix();
 
-	GLdouble modelview[16], projection[16];
-	GLint viewport[4];
-	float z;
-	double xpos, ypos, zpos;
-
-	glGetDoublev(GL_MODELVIEW_MATRIX, modelview);       //get the modelview matrix
-	glGetDoublev(GL_PROJECTION_MATRIX, projection);     //get the projection matrix
-	glGetIntegerv(GL_VIEWPORT, viewport);               //get the viewport
-
-	//Read the window z co-ordinate (the z value on that point in unit cube)
-	glReadPixels((int)x, (int)(viewport[3]-y), 1, 1, GL_DEPTH_COMPONENT, GL_FLOAT, &z);
-
-	//Unproject the window co-ordinates to find the world co-ordinates.
-	gluUnProject(x, viewport[3]-y, z, modelview, projection, viewport, &xpos, &ypos, &zpos);
-
-	glPopMatrix();
-
-	// return world coordinates
-	glcoords->setX(xpos);
-	glcoords->setY(ypos);
-	glcoords->setZ(zpos);
-}
-*/
-// Convert Mouse-Coordinates to GL-Coordinates
+/**
+ * reads out canvas dimensions
+ * @param[in]       x           mouse-x-position
+ * @param[in]       y           mouse-y-position
+ * @param[out]      glcoords    array of vertex to store dimensions in
+ */
 void GLCanvas::getGLDim(int x, int y, Vertex* glcoords)
 {
 	SetCurrent();
@@ -806,7 +767,6 @@ void GLCanvas::getGLDim(int x, int y, Vertex* glcoords)
 
 /**
  * Set the Canvas as active
-
  */
 void GLCanvas::setActive()
 {
@@ -814,19 +774,6 @@ void GLCanvas::setActive()
 }
 
 /**
- * fetches the KeyDown
- * @param       wxKeyEvent    Key-Event of current canvas
-
- */
-void GLCanvas::OnKeyDown(wxKeyEvent& WXUNUSED(event))
-{
-//#if defined(__ATHOS_DEBUG__)
-//	wxLogDebug(wxT("Key-Event"));
-//#endif
-}
-
-/**
  * destructor of GLCanvas
-
  */
 GLCanvas::~GLCanvas() {}

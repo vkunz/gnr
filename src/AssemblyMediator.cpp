@@ -1,5 +1,6 @@
 /**
  * AssemblyMediator
+ * @note        [DONE]
  * @name        AssemblyMediator.cpp
  * @date        2008-10-09
  * @author      Konstantin Balabin  <k.balabin@googlemail.com>
@@ -18,7 +19,6 @@
 
 /**
  * constructor of AssemblyMediator
-
  */
 AssemblyMediator::AssemblyMediator()
 {
@@ -28,8 +28,7 @@ AssemblyMediator::AssemblyMediator()
 
 /**
  * set active assembly which was hit by selection
- * @param       int         assemblyID int cast of pointer
-
+ * @param[in]       assembly        hidden assembly
  */
 void AssemblyMediator::setAssembly(Assembly* assembly)
 {
@@ -39,8 +38,7 @@ void AssemblyMediator::setAssembly(Assembly* assembly)
 
 /**
  * global initialize of assembly mediator on mouse down
- * @param       GLNotifyEvent         event information
-
+ * @param[in]       event           GLNotifyEvent-information
  */
 void AssemblyMediator::initialize(GLNotifyEvent& event)
 {
@@ -84,9 +82,8 @@ void AssemblyMediator::initialize(GLNotifyEvent& event)
 
 /**
  * call specific translation function of 2D or 3D mediator
- * @param       GLNotifyEvent     event information
- * @return      int                  status of translation
-
+ * @param[in]       event           GLNotifyEvent-information
+ * @return          int             status of translation
  */
 int AssemblyMediator::translate(GLNotifyEvent& event)
 {
@@ -131,6 +128,10 @@ int AssemblyMediator::translate(GLNotifyEvent& event)
 	return 1;
 }
 
+/**
+ * gets called on mouse-up to finish the transformation;
+ * in some cases undo-information is written
+ */
 void AssemblyMediator::finalize()
 {
 	//is active assembly, return
