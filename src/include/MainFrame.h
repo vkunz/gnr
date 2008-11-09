@@ -23,7 +23,7 @@ class MainFrame: public wxFrame
 {
 public:
 
-	MainFrame(wxWindow* parent,wxWindowID id = -1);
+	MainFrame(wxWindow* parent);
 	virtual ~MainFrame();
 	void setUndoEnabled(bool enabled);
 	void setRedoEnabled(bool enabled);

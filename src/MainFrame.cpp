@@ -205,9 +205,9 @@ END_EVENT_TABLE()
 /**
  * constructor of MainFrame
  * @param[in]       parent          Parent-Window
- * @param[in]       WXUNUSED        id of window
+ * @param[in]       id              id of window
  */
-MainFrame::MainFrame(wxWindow* parent, wxWindowID WXUNUSED(id))
+MainFrame::MainFrame(wxWindow* parent)
 {
 	int width  = SOFTWARE_WIN_WIDTH;
 	int height = SOFTWARE_WIN_HEIGHT;
