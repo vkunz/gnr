@@ -27,7 +27,6 @@
 #include "GNRMouseController.h"
 #include "GNRNotifyEvent.h"
 #include "GNRScene.h"
-#include "GNRTests.h"
 #include "GNRTreeControlEvent.h"
 #include "GNRTreeLibraryController.h"
 #include "GNRTreeLibraryCtrl.h"
@@ -40,6 +39,7 @@
 #if defined(__ATHOS_DEBUG__)
 #include <wx/log.h>
 #include "GNRDebugFrame.h"
+#include "GNRTests.h"
 #endif
 
 class GNRApp : public wxApp
@@ -93,7 +93,6 @@ private:
 	
 	GNRUndoRedo* m_UndoRedo;
 	
-	GNRTests* m_Tests;
 	GNRScene* m_Scene;
 	GNRMouseController* m_MouseCtrl;
 	GNRMainFrame* m_MainFrame;
@@ -108,6 +107,7 @@ private:
 	
 #if defined(__ATHOS_DEBUG__)
 	GNRDebugFrame* m_DebugFrame;
+	GNRTests* m_Tests;
 	wxLog* m_Log;
 #endif
 	

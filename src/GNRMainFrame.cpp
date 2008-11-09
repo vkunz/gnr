@@ -63,6 +63,11 @@ wxString wxbuildinfo()
 	return wxbuild;
 }
 
+#if defined(__ATHOS_DEBUG__)
+const long GNRMainFrame::idMenuItemDebug1 = wxNewId();
+const long GNRMainFrame::idMenuItemDebug2 = wxNewId();
+const long GNRMainFrame::idMenuItemDebug3 = wxNewId();
+#endif
 const long GNRMainFrame::idMenuNewRoom = wxNewId();
 const long GNRMainFrame::idMenuOpxOpen = wxNewId();
 const long GNRMainFrame::idMenuOpxSave = wxNewId();
@@ -124,6 +129,11 @@ const long GNRMainFrame::ID_STATICTEXT1 = wxNewId();
 const long GNRMainFrame::ID_STATICTEXT2 = wxNewId();
 
 BEGIN_EVENT_TABLE(GNRMainFrame,wxFrame)
+	#if defined(__ATHOS_DEBUG__)
+	EVT_MENU(idMenuItemDebug1, GNRMainFrame::OnMenuItemDebug1)
+	EVT_MENU(idMenuItemDebug2, GNRMainFrame::OnMenuItemDebug2)
+	EVT_MENU(idMenuItemDebug3, GNRMainFrame::OnMenuItemDebug3)
+	#endif
 	//toolbar buttons
 	EVT_MENU(btn_room_new, GNRMainFrame::OnMenuNewRoom)         //button new room
 	EVT_MENU(btn_room_open, GNRMainFrame::OnMenuOpxOpen)        //button open
@@ -316,6 +326,18 @@ GNRMainFrame::GNRMainFrame(wxWindow* parent, wxWindowID WXUNUSED(id))
 	MenuItem2 = new wxMenuItem(ParentMenu_Help, idMenuAbout, _("&Über\tALT+F1"), _("Informationen über GNR..."), wxITEM_NORMAL);
 	ParentMenu_Help->Append(MenuItem2);
 	MenuBar->Append(ParentMenu_Help, _("&Hilfe"));
+	
+#if defined(__ATHOS_DEBUG__)
+	ParentMenu_Debug = new wxMenu();
+	MenuItemDebug1 = new wxMenuItem(ParentMenu_Debug, idMenuItemDebug1, _("&Load Test Cubes"), _(""), wxITEM_NORMAL);
+	ParentMenu_Debug->Append(MenuItemDebug1);
+	MenuItemDebug2 = new wxMenuItem(ParentMenu_Debug, idMenuItemDebug2, _("&Load Test Tie Fighters"), _(""), wxITEM_NORMAL);
+	ParentMenu_Debug->Append(MenuItemDebug2);
+	MenuItemDebug3 = new wxMenuItem(ParentMenu_Debug, idMenuItemDebug3, _("&Dump World Structure"), _(""), wxITEM_NORMAL);
+	ParentMenu_Debug->Append(MenuItemDebug3);
+	MenuBar->Append(ParentMenu_Debug, _("&Debug"));
+#endif
+	
 	SetMenuBar(MenuBar);
 	
 	//build and set status bar
@@ -805,3 +827,26 @@ wxStatusBar* GNRMainFrame::getStatusbar()
 {
 	return  StatusBar;
 }
+
+#if defined(__ATHOS_DEBUG__)
+void GNRMainFrame::OnMenuItemDebug1(wxCommandEvent& WXUNUSED(event))
+{
+	GNRNotifyEvent gnrevent(wxEVT_COMMAND_GNR_NOTIFY);
+	gnrevent.setGNREventType(DEBUG1);
+	GetEventHandler()->ProcessEvent(gnrevent);
+}
+
+void GNRMainFrame::OnMenuItemDebug2(wxCommandEvent& WXUNUSED(event))
+{
+	GNRNotifyEvent gnrevent(wxEVT_COMMAND_GNR_NOTIFY);
+	gnrevent.setGNREventType(DEBUG2);
+	GetEventHandler()->ProcessEvent(gnrevent);
+}
+
+void GNRMainFrame::OnMenuItemDebug3(wxCommandEvent& WXUNUSED(event))
+{
+	GNRNotifyEvent gnrevent(wxEVT_COMMAND_GNR_NOTIFY);
+	gnrevent.setGNREventType(DEBUG3);
+	GetEventHandler()->ProcessEvent(gnrevent);
+}
+#endif

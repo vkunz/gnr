@@ -8,6 +8,8 @@
  * @author		Valentin Kunz       <athostr@googlemail.com>
  */
 
+#if defined(__ATHOS_DEBUG__)
+
 #include <wx/msgdlg.h>
 #include "GNROaxImport.h"
 #include "GNRTests.h"
@@ -29,8 +31,10 @@ GNRTests::~GNRTests()
 void GNRTests::sizeXsizeLoopsLoadClean(GNRScene* scene, const int loops = 10, const int size = 10)
 {
 	wxString str;
-	str << wxT("Test (sizeXsizeLoopsLoadClean) beginnt!\n");
-	str << loops << wxT(" Durchläufe mit ") << size << wxT(" x ") << size << wxT(" Kuben...");
+	str << wxT("Memory Test (sizeXsizeLoopsLoadClean) is starting!\n");
+	str << wxT("Prepare Taskmanager now, and wait...\n");
+	str << wxT("DO NOT CLICK OVER COVER THE APP!\n\n");
+	str << loops << wxT(" loops, cubes ") << size << wxT(" x ") << size;
 	wxMessageBox(str);
 	
 	for (int h = -loops/2; h<loops/2+1; ++h)
@@ -55,4 +59,52 @@ void GNRTests::sizeXsizeLoopsLoadClean(GNRScene* scene, const int loops = 10, co
 	}
 	
 	wxMessageBox(wxT("FERTIG!"));
+	scene->newRoom();
 }
+
+/**
+ * start load and clean test
+ * @param       int         loops done
+ * @param       int         size of cube duplicates (size x size)
+ * @access      public
+ */
+void GNRTests::loadTieFighter(GNRScene* scene, const int loops = 10)
+{
+	wxString str;
+	str << wxT("Memory Test (loadTieFighter) is starting!\n");
+	str << wxT("Prepare Taskmanager now, and wait...\n");
+	str << wxT("DO NOT CLICK OVER COVER THE APP!\n\n");
+	str << loops << wxT(" loops, tie fighters ");
+	wxMessageBox(str);
+	
+	for (int h = 0; h<loops; ++h)
+	{
+		GNROaxImport in(wxT("data\\Tie Fighter.oax"));
+		//get assembly
+		GNRAssembly* dummy = in.getAssembly();
+		//insert in scene
+		scene->insertAssembly(dummy);
+		//clean now
+		scene->newRoom();
+	}
+	
+	wxMessageBox(wxT("FERTIG!"));
+	scene->newRoom();
+}
+
+/**
+ * dump world structure to debug frame
+ * @access      public
+ */
+void GNRTests::dumpWorldStructure(GNRScene* scene)
+{
+	wxLogDebug(wxT(""));
+	wxLogDebug(wxT("|ROOT"));
+	scene->getRootAssembly()->dump(wxT("+"));
+	
+	wxLogDebug(wxT(""));
+	wxLogDebug(wxT("|TRASH"));
+	scene->getTrash()->dump(wxT("+"));
+}
+
+#endif

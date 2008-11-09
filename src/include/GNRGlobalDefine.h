@@ -36,7 +36,7 @@
 #define SIZE_MINIMUM_VALUE      10            // 10mm (smallest amount)
 
 #define SOFTWARE_TITLE         "GNR - 3D Einrichtungsplaner"
-#define SOFTWARE_VERSION       "0.4.7.7 BETA" //additional version info
+#define SOFTWARE_VERSION       "0.4.8.5 BETA" //additional version info
 #define SOFTWARE_WIN_WIDTH     800            //width of application window
 #define SOFTWARE_WIN_HEIGHT    600            //height of application windows
 

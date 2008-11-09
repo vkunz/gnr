@@ -142,7 +142,10 @@ public:
 	void draw();
 	void drawShadow();
 	
+#if defined(__ATHOS_DEBUG__)
 	void debugInfo() const;
+	void dump(wxString str);
+#endif
 	list<GNRAssembly*> getPartList();
 	
 	// add a new Tag

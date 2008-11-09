@@ -48,7 +48,10 @@ enum eventType    { GLREFRESH = 0,
                     CREATESPHERE,
                     CREATECONE,
                     CREATECYLINDER,
-                    CREATEPYRAMIDE
+                    CREATEPYRAMIDE,
+                    DEBUG1,
+                    DEBUG2,
+                    DEBUG3
                   };
 
 //defined tree event types

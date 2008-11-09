@@ -59,10 +59,10 @@ bool GNRApp::OnInit()
 		m_DebugFrame->Show(true);
 		m_Log = new wxLogTextCtrl(m_DebugFrame->TextCtrl);
 		m_Log->SetActiveTarget(m_Log);
-#endif
-		
 		//build models
 		m_Tests         = new GNRTests();
+#endif
+		
 		m_Scene         = GNRScene::getInstance();
 		m_MouseCtrl     = new GNRMouseController(m_Scene);
 		
@@ -75,10 +75,6 @@ bool GNRApp::OnInit()
 		
 		//initialize whole menus
 		initialSetup();
-		
-#if defined(__ATHOS_DEBUG__)
-		//m_Tests->sizeXsizeLoopsLoadClean(m_Scene,5,20);
-#endif
 	}
 	
 	return wxsOK;
@@ -292,6 +288,17 @@ void GNRApp::OnGNREvent(GNRNotifyEvent& event)
 	case EMPTYTRASH:
 		m_Scene->deleteTrashAssemblies();
 		break;
+#if defined(__ATHOS_DEBUG__)
+	case DEBUG1:
+		m_Tests->sizeXsizeLoopsLoadClean(m_Scene,10,10);
+		break;
+	case DEBUG2:
+		m_Tests->loadTieFighter(m_Scene,10);
+		break;
+	case DEBUG3:
+		m_Tests->dumpWorldStructure(m_Scene);
+		break;
+#endif
 	}
 }
 

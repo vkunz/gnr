@@ -32,6 +32,21 @@ public:
 	
 private:
 
+#if defined(__ATHOS_DEBUG__)
+	static const long idMenuItemDebug1;
+	static const long idMenuItemDebug2;
+	static const long idMenuItemDebug3;
+	
+	void OnMenuItemDebug1(wxCommandEvent& WXUNUSED(event));
+	void OnMenuItemDebug2(wxCommandEvent& WXUNUSED(event));
+	void OnMenuItemDebug3(wxCommandEvent& WXUNUSED(event));
+	
+	wxMenu* ParentMenu_Debug;
+	wxMenuItem* MenuItemDebug1;
+	wxMenuItem* MenuItemDebug2;
+	wxMenuItem* MenuItemDebug3;
+#endif
+	
 	void OnMenuNewRoom(wxCommandEvent& WXUNUSED(event));
 	void OnMenuOaxImport(wxCommandEvent& WXUNUSED(event));
 	void OnMenuOaxExport(wxCommandEvent& WXUNUSED(event));
@@ -151,7 +166,6 @@ private:
 	wxMenu* ParentMenu_Groups;
 	wxMenu* ParentMenu_Camera;
 	wxMenu* ParentMenu_Create;
-	
 	wxMenuBar* MenuBar;
 	
 	wxMenuItem* MenuItem31;

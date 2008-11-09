@@ -222,6 +222,7 @@ GNRAssembly::~GNRAssembly()
 	//kill partlist and childlists
 	m_part.clear();
 	m_child_dl.clear();
+	m_child_mat.clear();
 }
 
 /* ******* GETTER METHODS FOLLOWING ***** */
@@ -1293,13 +1294,13 @@ void GNRAssembly::resetOnGround()
 	m_rho   = 0.0;
 }
 
+#if defined(__ATHOS_DEBUG__)
 /**
  * get infos about assembly
  * @access      public
  */
 void GNRAssembly::debugInfo() const
 {
-#if defined(__ATHOS_DEBUG__)
 	wxString msg;
 	msg << wxT(" x=") << m_x;
 	msg << wxT(" y=") << m_y;
@@ -1315,5 +1316,33 @@ void GNRAssembly::debugInfo() const
 	msg << wxT(" sz=") << m_scale_z;
 	msg << wxT("\noG=") << (m_height * m_scale_y) / 2.0;
 	wxLogDebug(msg);
-#endif
 }
+
+/**
+ * dump structure
+ * @access      public
+ */
+void GNRAssembly::dump(wxString str)
+{
+	wxString out(wxEmptyString);
+	out << str << wxT("-<") << (int)this << wxT("> TYP=") << m_type << wxT(" NAME=") << m_name;
+	
+	//dont print smallest parts
+	if (isType(IS_ATOMIC) || isType(IS_WRAPPER))
+	{
+		return;
+	}
+	
+	//output to debug window
+	wxLogDebug(out);
+	
+	//increase level prefix
+	str << wxT("-");
+	
+	//print ever lower level with +
+	for (list<GNRAssembly*>::iterator it = m_part.begin(); it != m_part.end(); ++it)
+	{
+		(*it)->dump(str);
+	}
+}
+#endif
