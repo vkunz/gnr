@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <wxsmith>
-	<object class="wxFrame" name="GNRDebugFrame">
+	<object class="wxFrame" name="DebugFrame">
 		<pos>0,608</pos>
 		<size>700,100</size>
 		<id_arg>0</id_arg>

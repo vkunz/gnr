@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <wxsmith>
-	<object class="wxFrame" name="GNRHelpFrame">
+	<object class="wxFrame" name="HelpFrame">
 		<size>729,277</size>
 		<focused>1</focused>
 		<minsize>320,240</minsize>

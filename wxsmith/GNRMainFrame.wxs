@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <wxsmith>
-	<object class="wxFrame" name="GNRMainFrame">
-		<title>GNR - 3D Einrichtungsplaner</title>
+	<object class="wxFrame" name="MainFrame">
+		<title> - 3D Einrichtungsplaner</title>
 		<pos>0,0</pos>
 		<size>792,592</size>
 		<focused>1</focused>
