@@ -52,6 +52,7 @@ void GLNotifyEvent::setCanvasID(canvasType id)
 /**
  * returns the canvas-id
  * @return      canvasType      id of the canvas
+ */
 canvasType GLNotifyEvent::getCanvasID()
 {
 	return canvasID;
