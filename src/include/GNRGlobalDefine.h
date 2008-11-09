@@ -32,7 +32,7 @@
 #define WALLHIGHT                2.0          // hight of a wall
 #define WALLDEPTH                0.2          // thickness of a wall
 
-#define SIZE_MAXIMUM_VALUE   10000            // 10000mm = 10m
+#define SIZE_MAXIMUM_VALUE   50000            // 50000mm = 50m
 #define SIZE_MINIMUM_VALUE      10            // 10mm (smallest amount)
 
 #define SOFTWARE_TITLE         "GNR - 3D Einrichtungsplaner"
