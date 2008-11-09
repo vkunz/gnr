@@ -60,8 +60,8 @@ void WallMediator::initialize(GLNotifyEvent& event)
 
 /**
  * force wall mediator to translate
- * @param[in]       event       GLNotifyEvent
- * @return          int         return 1 if ok
+ * @param[in]       event        GLNotifyEvent
+ * @return          int          return 1 if ok
  */
 int WallMediator::translate(GLNotifyEvent& event)
 {

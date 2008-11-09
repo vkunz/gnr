@@ -22,7 +22,7 @@ void GLCameraMediator::setGLCamera(GLCamera* camera)
 
 /**
  * init all needed values for camera translation
- * @param[in]       event           event from gl canvas
+ * @param[in]       WXUNUSED     unused event           event from gl canvas
  */
 void GLCameraMediator::initialize(GLNotifyEvent& event)
 {
@@ -47,7 +47,7 @@ void GLCameraMediator::initialize(GLNotifyEvent& event)
 
 /**
  * do translation to selected camera
- * @param[in]       event           event from gl canvas
+ * @param[in]       WXUNUSED     unused event           event from gl canvas
  */
 int GLCameraMediator::translate(GLNotifyEvent& event)
 {

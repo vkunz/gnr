@@ -223,7 +223,7 @@ void TreeSceneCtrl::renameItem()
 
 /**
  * set visibility of assembly
- * @param[in]       event
+ * @param[in]       WXUNUSED     unused event
  */
 void TreeSceneCtrl::OnVisible(wxCommandEvent& WXUNUSED(event))
 {
@@ -236,7 +236,7 @@ void TreeSceneCtrl::OnVisible(wxCommandEvent& WXUNUSED(event))
 
 /**
  * hide assembly
- * @param[in]       event
+ * @param[in]       WXUNUSED     unused event
  */
 void TreeSceneCtrl::OnHide(wxCommandEvent& WXUNUSED(event))
 {
@@ -249,7 +249,7 @@ void TreeSceneCtrl::OnHide(wxCommandEvent& WXUNUSED(event))
 
 /**
  * select an item
- * @param[in]       event
+ * @param[in]       WXUNUSED     unused event
  */
 void TreeSceneCtrl::OnSelect(wxCommandEvent& WXUNUSED(event))
 {
@@ -269,7 +269,7 @@ void TreeSceneCtrl::OnSelect(wxCommandEvent& WXUNUSED(event))
 
 /**
  * deselect an item
- * @param[in]       event
+ * @param[in]       WXUNUSED     unused event
  */
 void TreeSceneCtrl::OnDeselect(wxCommandEvent& WXUNUSED(event))
 {
@@ -282,7 +282,7 @@ void TreeSceneCtrl::OnDeselect(wxCommandEvent& WXUNUSED(event))
 
 /**
  * delete an item
- * @param[in]       event
+ * @param[in]       WXUNUSED     unused event
  */
 void TreeSceneCtrl::OnDelete(wxCommandEvent& WXUNUSED(event))
 {
@@ -295,7 +295,7 @@ void TreeSceneCtrl::OnDelete(wxCommandEvent& WXUNUSED(event))
 
 /**
  * undelete an item
- * @param[in]       event
+ * @param[in]       WXUNUSED     unused event
  */
 void TreeSceneCtrl::OnUndelete(wxCommandEvent& WXUNUSED(event))
 {
@@ -308,7 +308,7 @@ void TreeSceneCtrl::OnUndelete(wxCommandEvent& WXUNUSED(event))
 
 /**
  * clean trash
- * @param[in]       event
+ * @param[in]       WXUNUSED     unused event
  */
 void TreeSceneCtrl::OnEmptyTrash(wxCommandEvent& WXUNUSED(event))
 {

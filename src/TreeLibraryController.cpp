@@ -67,7 +67,7 @@ TreeLibraryController::~TreeLibraryController()
 
 /**
  * get vector of strings for all cats
- * @raturn     std::vector<wxString>*       vector of strings for all cats
+ * @return     std::vector<wxString>*       vector of strings for all cats
  */
 std::vector<wxString>* TreeLibraryController::getAllCategories()
 {
@@ -310,8 +310,8 @@ void TreeLibraryController::renameCategory(wxString name, wxString newName)
 }
 
 /**
- * rename entry by name to new name
- * @param[in]   name            wxString old name of cat
+ * rename entry by reference to new name
+ * @param[in]   reference       wxString old name of cat
  * @param[in]   newName         wxString new name of cat
  */
 void TreeLibraryController::renameEntry(wxString reference, wxString newName)

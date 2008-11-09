@@ -26,7 +26,7 @@ CreatePrimitiveEvent::CreatePrimitiveEvent(wxEventType commandType, int id)
 
 /**
  * copy-constructor of CreatePrimitiveEvent
- * @param[in]       event               event-object that has to be copied
+ * @param[in]       WXUNUSED     unused event               event-object that has to be copied
  */
 CreatePrimitiveEvent::CreatePrimitiveEvent(const CreatePrimitiveEvent& event): wxNotifyEvent(event) {}
 

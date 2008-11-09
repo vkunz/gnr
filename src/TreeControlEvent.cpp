@@ -8,7 +8,7 @@ IMPLEMENT_DYNAMIC_CLASS(TreeControlEvent, wxNotifyEvent)
 /**
  * constructor of TreeControlEvent
  * @param[in]   commandType          wxEventType type of event
- * @return      id                   int id of command
+ * @param[in]   id                   int id of command
  */
 TreeControlEvent::TreeControlEvent(wxEventType commandType, int id)
 		: wxNotifyEvent(commandType, id) {}

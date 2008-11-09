@@ -198,7 +198,7 @@ void App::updateSize()
 
 /**
  * process intern Notify-Event
- * @param[in]       event       internal event with tpye-information
+ * @param[in]       WXUNUSED     unused event       internal event with tpye-information
  */
 void App::OnGNREvent(NotifyEvent& event)
 {
@@ -337,7 +337,7 @@ void App::OnGNREvent(NotifyEvent& event)
 
 /**
  * fetches events, send by scene/library tree in order to perform some action
- * @param[in]       event       event, send by the tree with extra information
+ * @param[in]       WXUNUSED     unused event       event, send by the tree with extra information
  */
 void App::OnGNRTreeEvent(TreeControlEvent& event)
 {
@@ -395,7 +395,7 @@ void App::OnGNRTreeEvent(TreeControlEvent& event)
 
 /**
  * redirect GL -Notify-Event to specific operations
- * @param[in]       event           GLNotifyEvent with information from canvases
+ * @param[in]       WXUNUSED     unused event           GLNotifyEvent with information from canvases
  */
 void App::OnGLEvent(GLNotifyEvent& event)
 {
@@ -439,7 +439,7 @@ void App::OnGLEvent(GLNotifyEvent& event)
 
 /**
  * handles line-draw-event to display a line in gl canvas
- * @param[in]       event       LineDrawEvent that determines the line
+ * @param[in]       WXUNUSED     unused event       LineDrawEvent that determines the line
  */
 void App::OnLineDrawEvent(LineDrawEvent& event)
 {
@@ -448,7 +448,7 @@ void App::OnLineDrawEvent(LineDrawEvent& event)
 
 /**
  * handles createPrimitiveEvent and creates a new primitive
- * @param[in]       event       CreatePrimitiveEvent with information to the primitve
+ * @param[in]       WXUNUSED     unused event       CreatePrimitiveEvent with information to the primitve
  */
 void App::OnCreatePrimitiveEvent(CreatePrimitiveEvent& event)
 {

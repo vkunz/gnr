@@ -13,7 +13,7 @@
 
 /**
  * move the camera in XY dimension
- * @param[in]       event           event from GLNotify
+ * @param[in]       WXUNUSED     unused event           event from GLNotify
  */
 void GLCameraMediator3D::MoveXY(GLNotifyEvent& event)
 {
@@ -37,7 +37,7 @@ void GLCameraMediator3D::MoveXY(GLNotifyEvent& event)
 
 /**
  * move the camera in XZ dimension
- * @param[in]       event           event from GLNotify
+ * @param[in]       WXUNUSED     unused event           event from GLNotify
  */
 void GLCameraMediator3D::MoveXZ(GLNotifyEvent& event)
 {
@@ -64,7 +64,7 @@ void GLCameraMediator3D::MoveXZ(GLNotifyEvent& event)
 
 /**
  * rotate the camera around X+Y-axis
- * @param[in]       event       event from GLNotify
+ * @param[in]       WXUNUSED     unused event       event from GLNotify
  */
 void GLCameraMediator3D::RotateXY(GLNotifyEvent& event)
 {
@@ -107,7 +107,7 @@ void GLCameraMediator3D::RotateXY(GLNotifyEvent& event)
 
 /**
  * rotate the camera in arround X+Z-axis
- * @param[in]       event       event from GLNotify
+ * @param[in]       WXUNUSED     unused event       event from GLNotify
  */
 void GLCameraMediator3D::RotateXZ(GLNotifyEvent& event)
 {
@@ -146,7 +146,7 @@ void GLCameraMediator3D::RotateXZ(GLNotifyEvent& event)
 
 /**
  * Zoom In/Out the Scene
- * @param[in]       event       event from GLNotify
+ * @param[in]       WXUNUSED     unused event       event from GLNotify
  */
 void GLCameraMediator3D::ZoomIn(GLNotifyEvent& event)
 {

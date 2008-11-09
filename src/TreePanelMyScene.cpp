@@ -36,7 +36,7 @@ TreePanelMyScene::~TreePanelMyScene()
 
 /**
  * on resize redraw panelsize
- * @param[in]       event
+ * @param[in]       WXUNUSED     unused event
  */
 void TreePanelMyScene::OnResize(wxSizeEvent& WXUNUSED(event))
 {
