@@ -248,7 +248,9 @@ void OpxExport::createScene(wxXmlNode* node, std::list<Assembly*> list)
 	// walk through part list
 	for (it = list.begin(); it != list.end(); it++)
 	{
-		if ((*it)->getType() == IS_OBJECT || (*it)->getType()== IS_PRIMITIVE)
+#warning "next line can be used when we have primitives support"
+		//if ((*it)->getType() == IS_OBJECT || (*it)->getType()== IS_PRIMITIVE)
+		if ((*it)->getType() == IS_OBJECT)
 		{
 			// create an assembly entry and add into node
 			createAssembly(node, (*it));
