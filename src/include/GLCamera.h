@@ -67,6 +67,7 @@ public:
 	void setRotatedX(GLfloat phi);
 	void setRotatedY(GLfloat theta);
 	void setRotatedZ(GLfloat rho);
+	void setCamera(const float& x, const float& y, const float& z, const float& phi, const float& theta, const float& rho);
 	
 };
 

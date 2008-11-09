@@ -222,7 +222,7 @@ MainFrame::MainFrame(wxWindow* parent)
 	SetClientSize(wxSize(width-8,height-27));
 	SetMinSize(wxSize(width,height));
 	SetFocus();
-	SetIcon(wxICON(_ICON));
+	SetIcon(wxICON(GNR_ICON));
 	
 	//build menu bar
 	MenuBar = new wxMenuBar();

@@ -119,7 +119,7 @@ void OpxImport::Load(wxZipInputStream& stream)
 void OpxImport::loadXml(wxZipInputStream& stream)
 {
 	// temporary attributes
-	double x, y, z;
+	double x, y, z, p, t, r;
 	bool isVisible;
 	
 	// xml node pointer
@@ -188,9 +188,6 @@ void OpxImport::loadXml(wxZipInputStream& stream)
 	// get camera z-position
 	tok.GetNextToken().ToDouble(&z);
 	
-	// set camera position
-	m_camera->setPosition(x, y, z);
-	
 	// prop to orientation
 	prop = prop->GetNext();
 	
@@ -201,16 +198,16 @@ void OpxImport::loadXml(wxZipInputStream& stream)
 	tok.SetString(value, wxT(" "));
 	
 	// get camera x-orientation
-	tok.GetNextToken().ToDouble(&x);
+	tok.GetNextToken().ToDouble(&p);
 	
 	// get camera y-orientation
-	tok.GetNextToken().ToDouble(&y);
+	tok.GetNextToken().ToDouble(&t);
 	
 	// get camera z-orientation
-	tok.GetNextToken().ToDouble(&z);
+	tok.GetNextToken().ToDouble(&r);
 	
-	// set camera orientation
-	m_camera->setAngles(x, y, z);
+	// set camera position
+	m_camera->setCamera(x, y, z, p, t, r);
 	
 	// node to camera
 	node = node->GetParent();

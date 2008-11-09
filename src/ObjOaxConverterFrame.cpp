@@ -52,7 +52,7 @@ ObjOaxConverterFrame::ObjOaxConverterFrame(wxWindow* parent, wxWindowID id)
 	SetBackgroundColour(wxNullColour);
 	
 	//set icon of frame
-	SetIcon(wxICON(_ICON));
+	SetIcon(wxICON(GNR_ICON));
 	
 	// Button create
 	m_btnCreate     = new wxButton(this, idBtnCreate, wxT("Erstellen"), wxPoint(328,304), wxDefaultSize, 0);

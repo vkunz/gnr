@@ -15,6 +15,10 @@
 #include "GLCamera.h"
 #include "GlobalDefine.h"
 
+#if defined(__ATHOS_DEBUG__)
+#include <wx/log.h>
+#endif
+
 /**
  * constructor of GLCamera
  */
@@ -137,6 +141,29 @@ void GLCamera::moveUpward(GLfloat distance)
 }
 
 /**
+ * sets complete camera
+ * @param[in]       x               x position, the camera is standing
+ * @param[in]       y               y position, the camera is standing
+ * @param[in]       z               z position, the camera is standing
+ * @param[in]       phi             angle, the camera is rotated arround x-axis
+ * @param[in]       theta           angle, the camera is rotated arround y-axis
+ * @param[in]       rho             angle, the camera is rotated arround z-axis
+ */
+void GLCamera::setCamera(const float& x, const float& y, const float& z, const float& phi, const float& theta, const float& rho)
+{
+	//first reset camera
+	reset();
+	
+	//rotate cam now
+	rotateZ(rho);
+	rotateY(theta);
+	rotateX(phi);
+	
+	//change distance from center
+	changeDistance(sqrt(x*x + y*y + z*z));
+}
+
+/**
  * sets the absolute position of the camera
  * @param[in]       x               x position in world coordinates
  * @param[in]       y               y position in world coordinates
@@ -145,6 +172,7 @@ void GLCamera::moveUpward(GLfloat distance)
 void GLCamera::setPosition(float x, float y, float z)
 {
 	Vertex temp(x, y, z);
+	
 	viewPoint = (temp + viewDir*m_distance);
 	if (viewPoint.getY() <= CAMERA_HEIGHT_MIN)
 	{
@@ -160,21 +188,11 @@ void GLCamera::setPosition(float x, float y, float z)
  */
 void GLCamera::setAngles(float phi, float theta, float rho)
 {
-	viewDir.setX(0);
-	viewDir.setY(0);
-	viewDir.setZ(-1);
-	viewDir.rotate(phi, theta, 0.0);
-	viewDir.normalize();
+	reset();
 	
-	upVector.setX(0);
-	upVector.setY(1);
-	upVector.setZ(0);
-	upVector.rotate(0.0, 0.0, rho);
-	upVector.normalize();
-	
-	rotatedX = phi;
-	rotatedY = theta;
-	rotatedZ = rho;
+	rotateZ(rho);
+	rotateY(theta);
+	rotateX(phi);
 }
 
 /**
@@ -214,7 +232,7 @@ void GLCamera::reset()
 	
 	rotatedX = rotatedY = rotatedZ = 0.0;
 	
-	m_distance = 2.0;
+	m_distance = 1.0;
 }
 
 /**
