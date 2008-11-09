@@ -35,6 +35,7 @@ UndoRedo::~UndoRedo() {}
  * creates a new class if not instantiated or returns a pointer to the object if already
  * instantiated before
  * two cameras for 2D and 3D
+ * @return      UndoRedo*       instance of current un/redo operator
  */
 UndoRedo* UndoRedo::getInstance()
 {

@@ -1,6 +1,0 @@
-<area shape="rect" href="$df/d01/class_tree_scene_ctrl.html#805c82688e0444761697f87a63f75b1e" title="TreeSceneCtrl.buildMenu" alt="" coords="236,107,401,133">
-<area shape="rect" href="$d0/d89/class_tree_scene_item_data.html#2253fd67a668a3af7e0805969ad189fa" title="TreeSceneItemData.getAssembly" alt="" coords="451,5,667,32">
-<area shape="rect" href="$d5/de3/class_assembly.html#a198c1cc52fd68222ceb4230d23f7f2e" title="Assembly.getMaster" alt="" coords="488,56,629,83">
-<area shape="rect" href="$d5/de3/class_assembly.html#058c470dea4bb4219b91f55845d0a1ed" title="Assembly.getParent" alt="" coords="489,107,628,133">
-<area shape="rect" href="$d5/de3/class_assembly.html#51cb8253761a90ca12d6653d685aa19f" title="Assembly.getType" alt="" coords="495,157,623,184">
-<area shape="rect" href="$d5/de3/class_assembly.html#6b765c1eb5e7b683ae30a388399c5931" title="Assembly.isVisible" alt="" coords="493,208,624,235">

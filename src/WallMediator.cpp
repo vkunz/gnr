@@ -10,16 +10,23 @@
 #define WALLHIGHT 2.0
 #define WALLDEPTH 0.2
 
+/**
+ * constructor of wall mediator
+ */
 WallMediator::WallMediator()
 {
-	//ctor
 }
 
-WallMediator::~WallMediator()
+/**
+ * destructor of wall mediator
+ */WallMediator::~WallMediator()
 {
-	//dtor
 }
 
+/**
+ * init the wall mediator
+ * @param[in]       event       GLNotifyEvent
+ */
 void WallMediator::initialize(GLNotifyEvent& event)
 {
 	//backup old startpoint
@@ -51,6 +58,11 @@ void WallMediator::initialize(GLNotifyEvent& event)
 	startPoint.setZ(z);
 }
 
+/**
+ * force wall mediator to translate
+ * @param[in]       event       GLNotifyEvent
+ * @return          int         return 1 if ok
+ */
 int WallMediator::translate(GLNotifyEvent& event)
 {
 	moved = true;
@@ -75,6 +87,9 @@ int WallMediator::translate(GLNotifyEvent& event)
 	return 1;
 }
 
+/**
+ * finalize wall mediator (for undo and redo)
+ */
 void WallMediator::finalize()
 {
 	float deltaX = endPoint.getX() - startPoint.getX();

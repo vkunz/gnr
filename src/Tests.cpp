@@ -14,19 +14,25 @@
 #include "OaxImport.h"
 #include "Tests.h"
 
+/**
+ * constructor for tests
+ */
 Tests::Tests()
 {
 }
 
+/**
+ * destructor for tests
+ */
 Tests::~Tests()
 {
 }
 
 /**
  * start load and clean test
- * @param       int         loops done
- * @param       int         size of cube duplicates (size x size)
-
+ * @param[in]       scene       pointer to scene
+ * @param[in]       loops       int loops done
+ * @param[in]       size        int size of cube duplicates (size x size)
  */
 void Tests::sizeXsizeLoopsLoadClean(Scene* scene, const int loops = 10, const int size = 10)
 {
@@ -64,9 +70,8 @@ void Tests::sizeXsizeLoopsLoadClean(Scene* scene, const int loops = 10, const in
 
 /**
  * start load and clean test
- * @param       int         loops done
- * @param       int         size of cube duplicates (size x size)
-
+ * @param[in]       scene       pointer to scene
+ * @param[in]       loops       int loops done
  */
 void Tests::loadTieFighter(Scene* scene, const int loops = 10)
 {
@@ -94,7 +99,7 @@ void Tests::loadTieFighter(Scene* scene, const int loops = 10)
 
 /**
  * dump world structure to debug frame
-
+ * @param[in]   scene       pointer to scene
  */
 void Tests::dumpWorldStructure(Scene* scene)
 {

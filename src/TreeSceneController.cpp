@@ -27,7 +27,7 @@
 
 /**
  * Constructor.
- * @param       	treectrl		     Assigns pointer to wxTreeCtrl.
+ * @param[in]       	treectrl		     Assigns pointer to wxTreeCtrl.
  */
 TreeSceneController::TreeSceneController(wxTreeCtrl* treectrl)
 {
@@ -44,7 +44,7 @@ TreeSceneController::~TreeSceneController() {}
 
 /**
  * creates a tree-image list
- * @param       size        size of image-list
+ * @param[in]       size        size of image-list
  */
 void TreeSceneController::createImageList(int size)
 {
@@ -114,8 +114,8 @@ void TreeSceneController::createSceneTree()
 
 /**
  * walk through tree and insert all items from nodes to scene-tree
- * @param   id       		id, the items are insert to
- * @param   assembly	        	assemlby to analyze
+ * @param[in]      id       		        id, the items are insert to
+ * @param[in]      assembly	        	    assemlby to analyze
  */
 void TreeSceneController::createSceneTree(wxTreeItemId id, Assembly* assembly)
 {

@@ -184,7 +184,7 @@ void TreeSceneCtrl::OnRename(wxCommandEvent& WXUNUSED(event))
 
 /**
  * fetches key down event
- * @param   	event		     key event of current canvas
+ * @param   	event		     wxKeyEvent event of current canvas
  */
 void TreeSceneCtrl::OnKeyDown(wxKeyEvent& event)
 {
@@ -201,6 +201,9 @@ void TreeSceneCtrl::OnKeyDown(wxKeyEvent& event)
 	}
 }
 
+/**
+ * rename an item
+ */
 void TreeSceneCtrl::renameItem()
 {
 	// create dialog and ask for name
@@ -218,6 +221,10 @@ void TreeSceneCtrl::renameItem()
 	ProcessEvent(gnrevent);
 }
 
+/**
+ * set visibility of assembly
+ * @param[in]       event
+ */
 void TreeSceneCtrl::OnVisible(wxCommandEvent& WXUNUSED(event))
 {
 	// send event to handle setVisible
@@ -227,6 +234,10 @@ void TreeSceneCtrl::OnVisible(wxCommandEvent& WXUNUSED(event))
 	ProcessEvent(treeEvent);
 }
 
+/**
+ * hide assembly
+ * @param[in]       event
+ */
 void TreeSceneCtrl::OnHide(wxCommandEvent& WXUNUSED(event))
 {
 	// send event to handle setHide
@@ -236,6 +247,10 @@ void TreeSceneCtrl::OnHide(wxCommandEvent& WXUNUSED(event))
 	ProcessEvent(treeEvent);
 }
 
+/**
+ * select an item
+ * @param[in]       event
+ */
 void TreeSceneCtrl::OnSelect(wxCommandEvent& WXUNUSED(event))
 {
 	// send event to handle select
@@ -252,6 +267,10 @@ void TreeSceneCtrl::OnSelect(wxCommandEvent& WXUNUSED(event))
 	ProcessEvent(treeEvent);
 }
 
+/**
+ * deselect an item
+ * @param[in]       event
+ */
 void TreeSceneCtrl::OnDeselect(wxCommandEvent& WXUNUSED(event))
 {
 	// send event to handle deselect
@@ -261,6 +280,10 @@ void TreeSceneCtrl::OnDeselect(wxCommandEvent& WXUNUSED(event))
 	ProcessEvent(treeEvent);
 }
 
+/**
+ * delete an item
+ * @param[in]       event
+ */
 void TreeSceneCtrl::OnDelete(wxCommandEvent& WXUNUSED(event))
 {
 	// send event to handle delete
@@ -270,6 +293,10 @@ void TreeSceneCtrl::OnDelete(wxCommandEvent& WXUNUSED(event))
 	ProcessEvent(treeEvent);
 }
 
+/**
+ * undelete an item
+ * @param[in]       event
+ */
 void TreeSceneCtrl::OnUndelete(wxCommandEvent& WXUNUSED(event))
 {
 	// send event to handle undelete
@@ -279,6 +306,10 @@ void TreeSceneCtrl::OnUndelete(wxCommandEvent& WXUNUSED(event))
 	ProcessEvent(treeEvent);
 }
 
+/**
+ * clean trash
+ * @param[in]       event
+ */
 void TreeSceneCtrl::OnEmptyTrash(wxCommandEvent& WXUNUSED(event))
 {
 	// send event to handle emptytrash

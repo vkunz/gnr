@@ -65,6 +65,10 @@ TreeLibraryController::~TreeLibraryController()
 {
 }
 
+/**
+ * get vector of strings for all cats
+ * @raturn     std::vector<wxString>*       vector of strings for all cats
+ */
 std::vector<wxString>* TreeLibraryController::getAllCategories()
 {
 	// create pointer of a vector
@@ -82,6 +86,13 @@ std::vector<wxString>* TreeLibraryController::getAllCategories()
 	return ptrCat;
 }
 
+/**
+ * get vector of strings for all cats
+ * @param[in]   name            wxString& name of entry
+ * @param[in]   instream        wxInputStream& instream to read from
+ * @param[in]   categoryname    wxString categoryname
+ * @return      wxString        add new entry and get full hash
+ */
 wxString TreeLibraryController::addEntry(wxString& name, wxInputStream& instream, wxString categoryname)
 {
 	// if found
@@ -180,6 +191,11 @@ wxString TreeLibraryController::addEntry(wxString& name, wxInputStream& instream
 	return objHash + xmlHash;
 }
 
+/**
+ * new id of cat set by name
+ * @param[in]   name            wxString& name of cat
+ * @return      int             new cat id
+ */
 unsigned int TreeLibraryController::addCategory(wxString& name)
 {
 	// check if already exist
@@ -222,6 +238,10 @@ unsigned int TreeLibraryController::addCategory(wxString& name)
 	return ret;
 }
 
+/**
+ * delete cat by name
+ * @param[in]   name            wxString name of cat
+ */
 void TreeLibraryController::deleteCategory(wxString name)
 {
 	// new message dialog
@@ -231,6 +251,10 @@ void TreeLibraryController::deleteCategory(wxString name)
 	}
 }
 
+/**
+ * delete entry by reference
+ * @param[in]   reference       wxString hash reference to entry
+ */
 void TreeLibraryController::deleteEntry(wxString reference)
 {
 	// iterator
@@ -257,6 +281,11 @@ void TreeLibraryController::deleteEntry(wxString reference)
 	buildTreeCtrl();
 }
 
+/**
+ * rename category by name to new name
+ * @param[in]   name            wxString old name of cat
+ * @param[in]   newName         wxString new name of cat
+ */
 void TreeLibraryController::renameCategory(wxString name, wxString newName)
 {
 	// iterator
@@ -280,6 +309,11 @@ void TreeLibraryController::renameCategory(wxString name, wxString newName)
 	buildTreeCtrl();
 }
 
+/**
+ * rename entry by name to new name
+ * @param[in]   name            wxString old name of cat
+ * @param[in]   newName         wxString new name of cat
+ */
 void TreeLibraryController::renameEntry(wxString reference, wxString newName)
 {
 	// iterator
@@ -303,11 +337,20 @@ void TreeLibraryController::renameEntry(wxString reference, wxString newName)
 	buildTreeCtrl();
 }
 
+/**
+ * add new cat
+ * @param[in]   parentName            wxString parent name of cat
+ * @param[in]   catName               wxString name of cat
+ */
 void TreeLibraryController::addCategory(wxString parentName, wxString catName)
 {
 
 }
 
+/**
+ * paste item to world
+ * @param[in]   reference             wxString reference hash
+ */
 void TreeLibraryController::pasteEntry(wxString reference)
 {
 	// oax import
@@ -367,11 +410,20 @@ void TreeLibraryController::pasteEntry(wxString reference)
 	scene->glRefresh();
 }
 
+/**
+ * paste item to world
+ * @param[in]   reference                   wxString reference hash
+ * @return      wxMemoryOutputStream*       stream to data
+ */
 wxMemoryOutputStream* TreeLibraryController::exportEntry(wxString reference)
 {
 	return m_library->getEntryData(reference);
 }
 
+/**
+ * create image list
+ * @param[in]   size                int size of images used
+ */
 void TreeLibraryController::createImageList(int size)
 {
 	// Make an image list containing small icons

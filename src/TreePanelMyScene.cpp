@@ -15,6 +15,11 @@
 BEGIN_EVENT_TABLE(TreePanelMyScene,wxPanel)
 END_EVENT_TABLE()
 
+/**
+ * constructor
+ * @param[in]       	parent		     wxWindow* parent pointer
+ * @param[in]       	id  		     wxWindowID id of window
+ */
 TreePanelMyScene::TreePanelMyScene(wxWindow* parent,wxWindowID id)
 {
 	Create(parent, id, wxDefaultPosition, wxSize(640,480), wxTAB_TRAVERSAL, _T("TreePanelMyScene"));
@@ -22,10 +27,17 @@ TreePanelMyScene::TreePanelMyScene(wxWindow* parent,wxWindowID id)
 	Connect(wxEVT_SIZE, (wxObjectEventFunction)&TreePanelMyScene::OnResize);
 }
 
+/**
+ * destructor
+ */
 TreePanelMyScene::~TreePanelMyScene()
 {
 }
 
+/**
+ * on resize redraw panelsize
+ * @param[in]       event
+ */
 void TreePanelMyScene::OnResize(wxSizeEvent& WXUNUSED(event))
 {
 	NotifyEvent gnrevent(wxEVT_COMMAND_GNR_NOTIFY);

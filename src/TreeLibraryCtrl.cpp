@@ -16,7 +16,11 @@ const long TreeLibraryCtrl::idMenuExport     = wxNewId();
 const long TreeLibraryCtrl::idMenuCreateCat  = wxNewId();
 const long TreeLibraryCtrl::idMenuRename     = wxNewId();
 
-// ctor
+/**
+ * constructor
+ * @param[in]       	parent		     wxWindow* parent pointer
+ * @param[in]       	id  		     wxWindowID id of window
+ */
 TreeLibraryCtrl::TreeLibraryCtrl(wxWindow* parent, wxWindowID id)
 {
 	Create(parent, id, wxDefaultPosition, wxDefaultSize, wxTR_DEFAULT_STYLE, wxDefaultValidator, wxT("TreeControl"));
@@ -45,11 +49,19 @@ TreeLibraryCtrl::TreeLibraryCtrl(wxWindow* parent, wxWindowID id)
 	Connect(idMenuRename,wxEVT_COMMAND_MENU_SELECTED,(wxObjectEventFunction)&TreeLibraryCtrl::OnMenuRename);
 }
 
-// dtor
+/**
+ * destructor
+ */
 TreeLibraryCtrl::~TreeLibraryCtrl()
 {
 }
 
+/**
+ * show menu item
+ * @param[in]       	id		     wxTreeItemId id of item
+ * @param[in]       	pt  		 wxPoint& of item
+ * @param[in]           cat          boolean if is cat or not
+ */
 void TreeLibraryCtrl::showMenu(wxTreeItemId id, const wxPoint& pt, bool cat)
 {
 	// create dropdown-menu
@@ -77,6 +89,10 @@ void TreeLibraryCtrl::showMenu(wxTreeItemId id, const wxPoint& pt, bool cat)
 	PopupMenu(&menu, pt);
 }
 
+/**
+ * show tree item menu
+ * @param[in]       	event		     tree event
+ */
 void TreeLibraryCtrl::OnItemMenu(wxTreeEvent& event)
 {
 	m_currentTreeID = event.GetItem();
@@ -90,6 +106,10 @@ void TreeLibraryCtrl::OnItemMenu(wxTreeEvent& event)
 	}
 }
 
+/**
+ * on delete of entry
+ * @param[in]       	event		     tree event
+ */
 void TreeLibraryCtrl::OnDelete(wxTreeEvent& event)
 {
 	// create event
@@ -109,6 +129,10 @@ void TreeLibraryCtrl::OnDelete(wxTreeEvent& event)
 	ProcessEvent(gnr);
 }
 
+/**
+ * on new category
+ * @param[in]       	event		     tree event
+ */
 void TreeLibraryCtrl::OnNewCategory(wxTreeEvent& event)
 {
 	wxTextEntryDialog ted(this, wxT("Name der neuen Kategorie."));
@@ -136,6 +160,10 @@ void TreeLibraryCtrl::OnNewCategory(wxTreeEvent& event)
 	ProcessEvent(gnr);
 }
 
+/**
+ * on paste in tree
+ * @param[in]       	event		     tree event
+ */
 void TreeLibraryCtrl::OnPaste(wxTreeEvent& event)
 {
 	// create event
@@ -152,6 +180,10 @@ void TreeLibraryCtrl::OnPaste(wxTreeEvent& event)
 	ProcessEvent(gnr);
 }
 
+/**
+ * on export from tree
+ * @param[in]       	event		     tree event
+ */
 void TreeLibraryCtrl::OnExport(wxTreeEvent& event)
 {
 	// create event
@@ -168,6 +200,10 @@ void TreeLibraryCtrl::OnExport(wxTreeEvent& event)
 	ProcessEvent(gnr);
 }
 
+/**
+ * on rename in tree
+ * @param[in]       	event		     tree event
+ */
 void TreeLibraryCtrl::OnMenuRename(wxTreeEvent& event)
 {
 	// create event
@@ -207,6 +243,10 @@ void TreeLibraryCtrl::OnMenuRename(wxTreeEvent& event)
 	ProcessEvent(gnr);
 }
 
+/**
+ * on activate item in tree
+ * @param[in]       	event		     tree event
+ */
 void TreeLibraryCtrl::OnItemActivated(wxTreeEvent& event)
 {
 	m_currentTreeID = event.GetItem();

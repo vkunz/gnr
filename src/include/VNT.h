@@ -28,7 +28,7 @@ public:
 	
 	void setV(Vertex* v);
 	void setN(Vertex* n);
-	void setT(Vertex* t);
+	void setT(TCoord* t);
 	
 	void draw() const;
 	
