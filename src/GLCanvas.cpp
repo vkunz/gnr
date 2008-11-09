@@ -569,7 +569,7 @@ void GLCanvas::OnMMouseDown(wxMouseEvent& event)
 
 /**
  * fetches the Middle-Mouse-Up event
- * @param[in]       WXUNUSED     unused event       Mouse-Event of current canvas
+ * @param[in]       event       Mouse-Event of current canvas
  */
 void GLCanvas::OnMMouseUp(wxMouseEvent& event)
 {
@@ -585,7 +585,7 @@ void GLCanvas::OnMMouseUp(wxMouseEvent& event)
 
 /**
  * fetches the right-Mouse-Pressed event
- * @param[in]       WXUNUSED     unused event       Mouse-Event of current canvas
+ * @param[in]       event       Mouse-Event of current canvas
  */
 void GLCanvas::OnRMouseDown(wxMouseEvent& event)
 {
@@ -611,7 +611,7 @@ void GLCanvas::OnRMouseDown(wxMouseEvent& event)
 
 /**
  * fetches the right-Mouse-Up event
- * @param[in]       WXUNUSED     unused event       Mouse-Event of current canvas
+ * @param[in]       event       Mouse-Event of current canvas
  */
 void GLCanvas::OnRMouseUp(wxMouseEvent& WXUNUSED(event))
 {
@@ -620,7 +620,7 @@ void GLCanvas::OnRMouseUp(wxMouseEvent& WXUNUSED(event))
 
 /**
  * fetches the Mouse-Move event
- * @param[in]       WXUNUSED     unused event       Mouse-Event of current canvas
+ * @param[in]       event       Mouse-Event of current canvas
  */
 void GLCanvas::OnMouseMove(wxMouseEvent& event)
 {
@@ -634,7 +634,7 @@ void GLCanvas::OnMouseMove(wxMouseEvent& event)
 
 /**
  * fetches the MouseWheel event
- * @param[in]       WXUNUSED     unused event       Mouse-Event of current canvas
+ * @param[in]       event       Mouse-Event of current canvas
  */
 void GLCanvas::OnMouseWheel(wxMouseEvent& event)
 {
@@ -647,7 +647,7 @@ void GLCanvas::OnMouseWheel(wxMouseEvent& event)
 
 /**
  * fetches the Leave-Window event
- * @param[in]       WXUNUSED     unused event       Mouse-Event of current canvas
+ * @param[in]       event       Mouse-Event of current canvas
  */
 void GLCanvas::OnLeaveWindow(wxMouseEvent& event)
 {
@@ -663,7 +663,7 @@ void GLCanvas::OnLeaveWindow(wxMouseEvent& event)
 
 /**
  * fetches the Enter-Window event
- * @param[in]       WXUNUSED     unused event       Mouse-Event of current canvas
+ * @param[in]       event       Mouse-Event of current canvas
  */
 void GLCanvas::OnEnterWindow(wxMouseEvent& event)
 {
@@ -713,7 +713,7 @@ void GLCanvas::reshape()
 
 /**
  * Canvas needs to be redrawn; Send Event to Redraw Canvases
- * @param[in]       WXUNUSED     unused event       paint event from canvas
+ * @param[in]       event       paint event from canvas
  */
 void GLCanvas::OnPaint(wxPaintEvent& event)
 {
