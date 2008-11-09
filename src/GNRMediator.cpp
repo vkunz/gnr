@@ -24,20 +24,20 @@ int GNRMediator::m_SnapAngle = SNAP_IN_DEFAULT_ANGLE;
 
 /**
  * constructor of GNRMediator is useless
- * @access      public
+
  */
 GNRMediator::GNRMediator() {}
 
 /**
  * destructor of GNRMediator is useless
- * @access      public
+
  */
 GNRMediator::~GNRMediator() {}
 
 /**
  * set translation type for all mediators
  * @param       transType       id of translation
- * @access      public
+
  */
 void GNRMediator::setTranslation(transType translation)
 {
@@ -47,7 +47,7 @@ void GNRMediator::setTranslation(transType translation)
 /**
  * get translation type for all mediators
  * @return      transType       id of translation
- * @access      public
+
  */
 transType GNRMediator::getTranslation()
 {
@@ -57,7 +57,7 @@ transType GNRMediator::getTranslation()
 /**
  * set active canvas for all mediators
  * @param       canvasType       id of active canvas
- * @access      public
+
  */
 void GNRMediator::setMode(canvasType canvas_id)
 {
@@ -67,7 +67,7 @@ void GNRMediator::setMode(canvasType canvas_id)
 /**
  * set active canvas for all mediators
  * @param       GNRNotifyEvent       event from toolbar button
- * @access      public
+
  */
 void GNRMediator::setSnapfunction(GNRNotifyEvent& event)
 {
@@ -78,7 +78,7 @@ void GNRMediator::setSnapfunction(GNRNotifyEvent& event)
 /**
  * calculate snap to grid moving value
  * @param       float       value to round for snapping
- * @access      public
+
  */
 void GNRMediator::doSnapMove(float& value)
 {
@@ -93,7 +93,7 @@ void GNRMediator::doSnapMove(float& value)
 /**
  * calculate snap to angle rotating value
  * @param       float       value to round for snapping
- * @access      public
+
  */
 void GNRMediator::doSnapRotate(float& value)
 {

@@ -18,7 +18,7 @@
  * constructor of mousecontroller sets scene to modify and
  * initializes the two mediators
  * @param       GNRScene      pointer to actual scene
- * @access      public
+
  */
 GNRMouseController::GNRMouseController(GNRScene* scene)
 {
@@ -33,7 +33,7 @@ GNRMouseController::GNRMouseController(GNRScene* scene)
 
 /**
  * destructor of mousecontroller kills his mediators
- * @access      public
+
  */
 GNRMouseController::~GNRMouseController()
 {
@@ -47,7 +47,7 @@ GNRMouseController::~GNRMouseController()
  * prepare different mediators for translating mouse actions to
  * the camera and assemblies at once
  * @param       GNRGLNotifyEvent      command event from canvas
- * @access      public
+
  */
 void GNRMouseController::setMediator(GNRGLNotifyEvent& event)
 {
@@ -141,7 +141,7 @@ void GNRMouseController::setMediator(GNRGLNotifyEvent& event)
 /**
  * pass through the command event to the selected mediator
  * @param       GNRGLNotifyEvent      command event from canvas
- * @access      public
+
  */
 void GNRMouseController::activateMediator(GNRGLNotifyEvent& event)
 {
@@ -154,7 +154,7 @@ void GNRMouseController::activateMediator(GNRGLNotifyEvent& event)
 /**
  * tell mediator to stop translation and create command-object
  * @param       GNRGLNotifyEvent      command event from canvas
- * @access      public
+
  */
 void GNRMouseController::deactivateMediator()
 {
@@ -164,7 +164,7 @@ void GNRMouseController::deactivateMediator()
 /**
  * pass through the command event to the selected mediator
  * @param       GNRNotifyEvent      command event from canvas
- * @access      public
+
  */
 void GNRMouseController::setTranslation(GNRNotifyEvent& event)
 {
@@ -174,7 +174,7 @@ void GNRMouseController::setTranslation(GNRNotifyEvent& event)
 /**
  * set snap to grid and angle values
  * @param       GNRNotifyEvent      command event from canvas
- * @access      public
+
  */
 void GNRMouseController::setSnapfunction(GNRNotifyEvent& event)
 {
@@ -184,7 +184,7 @@ void GNRMouseController::setSnapfunction(GNRNotifyEvent& event)
 /**
  * update actual mouse position
  * @param       GNRGLNotifyEvent      command event from canvas
- * @access      protected
+
  */
 void GNRMouseController::updateMouse(GNRGLNotifyEvent& event)
 {

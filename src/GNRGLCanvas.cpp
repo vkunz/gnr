@@ -41,7 +41,7 @@ GLuint GNRGLCanvas::m_floor_DL;
  * @param       wxSize          Window-Size of the Canvas
  * @param       long            Window-Style
  * @param       wxString        Window-Name
- * @access      public
+
  */
 GNRGLCanvas::GNRGLCanvas(wxWindow* parent, wxWindowID id, const wxPoint& pos, const wxSize& size, long style, const wxString& name)
 		: wxGLCanvas(parent, id, pos, size, style|wxFULL_REPAINT_ON_RESIZE, name)
@@ -59,7 +59,7 @@ GNRGLCanvas::GNRGLCanvas(wxWindow* parent, wxWindowID id, const wxPoint& pos, co
  * @param       wxSize          Window-Size of the Canvas
  * @param       long            Window-Style
  * @param       wxString        Window-Name
- * @access      public
+
  */
 GNRGLCanvas::GNRGLCanvas(wxWindow* parent, wxGLContext* sharedContext, wxWindowID id, const wxPoint& pos, const wxSize& size,
                          long style, const wxString& name) : wxGLCanvas(parent, sharedContext, id, pos, size, style, name)
@@ -70,7 +70,7 @@ GNRGLCanvas::GNRGLCanvas(wxWindow* parent, wxGLContext* sharedContext, wxWindowI
 
 /**
  * Connecting the events needed for the Canvas
- * @access      private
+
  */
 void GNRGLCanvas::connectEvents()
 {
@@ -90,7 +90,7 @@ void GNRGLCanvas::connectEvents()
 
 /**
  * Reconnecting the events needed for the Canvas
- * @access      private
+
  */
 void GNRGLCanvas::reconnectEvents()
 {
@@ -108,7 +108,7 @@ void GNRGLCanvas::reconnectEvents()
 
 /**
  * Disconnecting the events needed for the Canvas
- * @access      private
+
  */
 void GNRGLCanvas::disconnectEvents()
 {
@@ -157,7 +157,7 @@ void GNRGLCanvas::initLights()
 
 /**
  * does the initialization for the 3D canvas
- * @access      protected
+
  */
 void GNRGLCanvas::initGL()
 {
@@ -366,7 +366,7 @@ void GNRGLCanvas::endPixelBuffer()
 
 /**
  * Clears the screen and does all the work that has to be done before drawing
- * @access      private
+
  */
 void GNRGLCanvas::prepareDraw()
 {
@@ -396,7 +396,7 @@ void GNRGLCanvas::preparePixelBuffer()
  * @param       int             Mouse-X-Coordinate
  * @param       int             Mouse-Y-Coordinate
  * @return      int             GL-Object-ID
- * @access      public
+
  */
 GNRAssembly* GNRGLCanvas::selection(GNRAssembly* rootAssembly, GNRGLCamera* camera, int mouse_x, int mouse_y)
 {
@@ -485,7 +485,7 @@ GNRAssembly* GNRGLCanvas::selection(GNRAssembly* rootAssembly, GNRGLCamera* came
 /**
  * fetches the Left-Mouse-Pressed event
  * @param       wxMouseEvent    Mouse-Event of current canvas
- * @access      private
+
  */
 void GNRGLCanvas::OnLMouseDown(wxMouseEvent& event)
 {
@@ -512,7 +512,7 @@ void GNRGLCanvas::OnLMouseDown(wxMouseEvent& event)
 /**
  * fetches the Double-Click event for selection of objects
  * @param       wxMouseEvent    Mouse-Event of current canvas
- * @access      private
+
  */
 void GNRGLCanvas::OnLMouseDblClick(wxMouseEvent& event)
 {
@@ -539,7 +539,7 @@ void GNRGLCanvas::OnLMouseDblClick(wxMouseEvent& event)
 /**
  * fetches the Left-Mouse-Up event
  * @param       wxMouseEvent    Mouse-Event of current canvas
- * @access      private
+
  */
 void GNRGLCanvas::OnLMouseUp(wxMouseEvent& event)
 {
@@ -557,7 +557,7 @@ void GNRGLCanvas::OnLMouseUp(wxMouseEvent& event)
 /**
  * fetches the Middle-Mouse-Pressed event
  * @param       wxMouseEvent    Mouse-Event of current canvas
- * @access      private
+
  */
 void GNRGLCanvas::OnMMouseDown(wxMouseEvent& event)
 {
@@ -577,7 +577,7 @@ void GNRGLCanvas::OnMMouseDown(wxMouseEvent& event)
 /**
  * fetches the Middle-Mouse-Up event
  * @param       wxMouseEvent    Mouse-Event of current canvas
- * @access      private
+
  */
 void GNRGLCanvas::OnMMouseUp(wxMouseEvent& event)
 {
@@ -594,7 +594,7 @@ void GNRGLCanvas::OnMMouseUp(wxMouseEvent& event)
 /**
  * fetches the right-Mouse-Pressed event
  * @param       wxMouseEvent    Mouse-Event of current canvas
- * @access      private
+
  */
 void GNRGLCanvas::OnRMouseDown(wxMouseEvent& event)
 {
@@ -621,7 +621,7 @@ void GNRGLCanvas::OnRMouseDown(wxMouseEvent& event)
 /**
  * fetches the right-Mouse-Up event
  * @param       wxMouseEvent    Mouse-Event of current canvas
- * @access      private
+
  */
 void GNRGLCanvas::OnRMouseUp(wxMouseEvent& WXUNUSED(event))
 {
@@ -631,7 +631,7 @@ void GNRGLCanvas::OnRMouseUp(wxMouseEvent& WXUNUSED(event))
 /**
  * fetches the Mouse-Move event
  * @param       wxMouseEvent    Mouse-Event of current canvas
- * @access      private
+
  */
 void GNRGLCanvas::OnMouseMove(wxMouseEvent& event)
 {
@@ -646,7 +646,7 @@ void GNRGLCanvas::OnMouseMove(wxMouseEvent& event)
 /**
  * fetches the MouseWheel event
  * @param       wxMouseEvent    Mouse-Event of current canvas
- * @access      private
+
  */
 void GNRGLCanvas::OnMouseWheel(wxMouseEvent& event)
 {
@@ -660,7 +660,7 @@ void GNRGLCanvas::OnMouseWheel(wxMouseEvent& event)
 /**
  * fetches the Leave-Window event
  * @param       wxMouseEvent    Mouse-Event of current canvas
- * @access      private
+
  */
 void GNRGLCanvas::OnLeaveWindow(wxMouseEvent& event)
 {
@@ -677,7 +677,7 @@ void GNRGLCanvas::OnLeaveWindow(wxMouseEvent& event)
 /**
  * fetches the Enter-Window event
  * @param       wxMouseEvent    Mouse-Event of current canvas
- * @access      private
+
  */
 void GNRGLCanvas::OnEnterWindow(wxMouseEvent& event)
 {
@@ -694,7 +694,7 @@ void GNRGLCanvas::OnEnterWindow(wxMouseEvent& event)
 /**
  * fetches ResizeEvent; event for redrawing
  * @param       wxSizeEvent    Size-Event of current canvas
- * @access      private
+
  */
 void GNRGLCanvas::OnResize(wxSizeEvent& WXUNUSED(event))
 {
@@ -707,7 +707,7 @@ void GNRGLCanvas::OnResize(wxSizeEvent& WXUNUSED(event))
 
 /**
  * Reshape current frame on resize; adjust Viewport
- * @access      private
+
  */
 void GNRGLCanvas::reshape()
 {
@@ -729,7 +729,7 @@ void GNRGLCanvas::reshape()
 
 /**
  * Canvas needs to be redrawn; Send Event to Redraw Canvases
- * @access      private
+
  */
 void GNRGLCanvas::OnPaint(wxPaintEvent& event)
 {
@@ -806,7 +806,7 @@ void GNRGLCanvas::getGLDim(int x, int y, GNRVertex* glcoords)
 
 /**
  * Set the Canvas as active
- * @access      public
+
  */
 void GNRGLCanvas::setActive()
 {
@@ -816,7 +816,7 @@ void GNRGLCanvas::setActive()
 /**
  * fetches the KeyDown
  * @param       wxKeyEvent    Key-Event of current canvas
- * @access      private
+
  */
 void GNRGLCanvas::OnKeyDown(wxKeyEvent& WXUNUSED(event))
 {
@@ -827,6 +827,6 @@ void GNRGLCanvas::OnKeyDown(wxKeyEvent& WXUNUSED(event))
 
 /**
  * destructor of GNRGLCanvas
- * @access      public
+
  */
 GNRGLCanvas::~GNRGLCanvas() {}

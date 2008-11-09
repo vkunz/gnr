@@ -35,7 +35,7 @@
 
 /**
  * Constructor.
- * @param       wxTreeCtrl*     Assigns pointer to wxTreeCtrl.
+ * @param      	 treectrl		     Assigns pointer to wxTreeCtrl.
  */
 GNRTreeLibraryController::GNRTreeLibraryController(GNRTreeLibraryCtrl* treectrl)
 {

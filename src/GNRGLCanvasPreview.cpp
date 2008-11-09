@@ -33,7 +33,7 @@ END_EVENT_TABLE()
  * @param       wxSize          Window-Size of the Canvas
  * @param       long            Window-Style
  * @param       wxString        Window-Name
- * @access      public
+
  */
 GNRGLCanvasPreview::GNRGLCanvasPreview(wxWindow* parent, wxWindowID id, const wxPoint& pos, const wxSize& size, long style, const wxString& name)
 		:wxGLCanvas(parent, id, pos, size, style, name)
@@ -46,7 +46,7 @@ GNRGLCanvasPreview::GNRGLCanvasPreview(wxWindow* parent, wxWindowID id, const wx
 
 /**
  * destructor of GNRGLCanvasPreview
- * @access      public
+
  */
 GNRGLCanvasPreview::~GNRGLCanvasPreview()
 {
@@ -54,7 +54,7 @@ GNRGLCanvasPreview::~GNRGLCanvasPreview()
 
 /**
  * init lights
- * @access      private
+
  */
 void GNRGLCanvasPreview::InitLights()
 {
@@ -80,7 +80,7 @@ void GNRGLCanvasPreview::InitLights()
 
 /**
  * does the main initialization of the canvas that has to be done on creation
- * @access      private
+
  */
 void GNRGLCanvasPreview::InitGL()
 {
@@ -110,7 +110,7 @@ void GNRGLCanvasPreview::InitGL()
 /**
  * Handles the OnPaint-Event of the canvas
  * @param       wxPaintEvent       Paint-Event of the canvas
- * @access      private
+
  */
 void GNRGLCanvasPreview::OnPaint(wxPaintEvent& event)
 {
@@ -122,7 +122,7 @@ void GNRGLCanvasPreview::OnPaint(wxPaintEvent& event)
  * Handles the OnSize-Event of the canvas
  * to the new canvas size
  * @param       wxSizeEvent       Size-Event of the canvas
- * @access      private
+
  */
 void GNRGLCanvasPreview::OnSize(wxSizeEvent& WXUNUSED(event))
 {
@@ -131,7 +131,7 @@ void GNRGLCanvasPreview::OnSize(wxSizeEvent& WXUNUSED(event))
 
 /**
  * reshapes the glcanvas-viewport to new canvas size
- * @access      public
+
  */
 void GNRGLCanvasPreview::reshape()
 {
@@ -158,7 +158,7 @@ void GNRGLCanvasPreview::reshape()
 /**
  * sets the intern assembly variable to draw the assembly
  * @param       GNRAssembly       Pointer to the assembly that has to be drawn
- * @access      public
+
  */
 void GNRGLCanvasPreview::setAssembly(GNRAssembly* assembly)
 {
@@ -167,7 +167,7 @@ void GNRGLCanvasPreview::setAssembly(GNRAssembly* assembly)
 
 /**
  * draw the setted assembly
- * @access      public
+
  */
 void GNRGLCanvasPreview::draw()
 {
@@ -204,7 +204,7 @@ void GNRGLCanvasPreview::draw()
 /**
  * Handles the LeftMouseDown-Event of the canvas
  * @param       wxMouseEvent       Mouse-Event of the canvas
- * @access      private
+
  */
 void GNRGLCanvasPreview::OnLMouseDown(wxMouseEvent& event)
 {
@@ -215,7 +215,7 @@ void GNRGLCanvasPreview::OnLMouseDown(wxMouseEvent& event)
 /**
  * Handles the LeftMouseUp-Event of the canvas
  * @param       wxMouseEvent       Mouse-Event of the canvas
- * @access      private
+
  */
 void GNRGLCanvasPreview::OnLeaveWindow(wxMouseEvent& WXUNUSED(event))
 {
@@ -225,7 +225,7 @@ void GNRGLCanvasPreview::OnLeaveWindow(wxMouseEvent& WXUNUSED(event))
 /**
  * Handles the LeftMouseUp-Event of the canvas
  * @param       wxMouseEvent       Mouse-Event of the canvas
- * @access      private
+
  */
 void GNRGLCanvasPreview::OnLMouseUp(wxMouseEvent& WXUNUSED(event))
 {
@@ -235,7 +235,7 @@ void GNRGLCanvasPreview::OnLMouseUp(wxMouseEvent& WXUNUSED(event))
 /**
  * Handles the Mouse-Move-Event of the canvas
  * @param       wxMouseEvent       Mouse-Event of the canvas
- * @access      private
+
  */
 void GNRGLCanvasPreview::OnMouseMove(wxMouseEvent& event)
 {

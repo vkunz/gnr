@@ -19,7 +19,7 @@ using std::endl;
 
 /**
  * constructor
- * @access      public
+
  */
 GNRFace::GNRFace()
 {
@@ -27,7 +27,7 @@ GNRFace::GNRFace()
 
 /**
  * copy constructor
- * @access      public
+
  */
 GNRFace::GNRFace(const GNRFace& other)
 {

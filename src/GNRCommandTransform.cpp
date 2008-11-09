@@ -17,19 +17,19 @@
 
 /**
  * constructor of GNRCommandTransform
- * @access      public
+
  */
 GNRCommandTransform::GNRCommandTransform() {}
 
 /**
  * destructor of GNRCommandTransform
- * @access      public
+
  */
 GNRCommandTransform::~GNRCommandTransform() {}
 
 /**
  * Performes the redo-operation and moves the object back to the new position
- * @access      public
+
  */
 void GNRCommandTransform::execute()
 {
@@ -44,7 +44,7 @@ void GNRCommandTransform::execute()
 
 /**
  * Performes the undo-operation and moves the object back to the originally position
- * @access      public
+
  */
 void GNRCommandTransform::unexecute()
 {
@@ -60,7 +60,7 @@ void GNRCommandTransform::unexecute()
 /**
  * sets the assembly, the transformation is done with
  * @param   GNRAssembly*    assembly, the transformation is done with
- * @access      public
+
  */
 void GNRCommandTransform::setAssembly(GNRAssembly* assembly)
 {
@@ -70,7 +70,7 @@ void GNRCommandTransform::setAssembly(GNRAssembly* assembly)
 /**
  * sets the old position of the assembly, before the transformation
  * @param   GNRVertex&  old position of the assembly
- * @access      public
+
  */
 void GNRCommandTransform::setOldPosition(GNRVertex& old_pos)
 {
@@ -82,7 +82,7 @@ void GNRCommandTransform::setOldPosition(GNRVertex& old_pos)
 /**
  * sets the old rotations of the assembly, before the transformation
  * @param   GNRVertex&  old angles of assembly
- * @access      public
+
  */
 void GNRCommandTransform::setOldAngles(GNRVertex& old_angles)
 {
@@ -94,7 +94,7 @@ void GNRCommandTransform::setOldAngles(GNRVertex& old_angles)
 /**
  * sets the new position of the assembly, after the transformation
  * @param   GNRVertex&  new position of assembly
- * @access      public
+
  */
 void GNRCommandTransform::setNewPosition(GNRVertex& new_pos)
 {
@@ -106,7 +106,7 @@ void GNRCommandTransform::setNewPosition(GNRVertex& new_pos)
 /**
  * sets the new rotations of the assembly, after the transformation
  * @param   GNRVertex&  new angles of assembly
- * @access      public
+
  */
 void GNRCommandTransform::setNewAngles(GNRVertex& new_angles)
 {

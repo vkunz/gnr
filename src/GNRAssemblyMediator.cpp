@@ -18,7 +18,7 @@
 
 /**
  * constructor of GNRAssemblyMediator
- * @access      public
+
  */
 GNRAssemblyMediator::GNRAssemblyMediator()
 {
@@ -29,7 +29,7 @@ GNRAssemblyMediator::GNRAssemblyMediator()
 /**
  * set active assembly which was hit by selection
  * @param       int         assemblyID int cast of pointer
- * @access      public
+
  */
 void GNRAssemblyMediator::setAssembly(GNRAssembly* assembly)
 {
@@ -40,7 +40,7 @@ void GNRAssemblyMediator::setAssembly(GNRAssembly* assembly)
 /**
  * global initialize of assembly mediator on mouse down
  * @param       GNRGLNotifyEvent         event information
- * @access      public
+
  */
 void GNRAssemblyMediator::initialize(GNRGLNotifyEvent& event)
 {
@@ -86,7 +86,7 @@ void GNRAssemblyMediator::initialize(GNRGLNotifyEvent& event)
  * call specific translation function of 2D or 3D mediator
  * @param       GNRGLNotifyEvent     event information
  * @return      int                  status of translation
- * @access      public
+
  */
 int GNRAssemblyMediator::translate(GNRGLNotifyEvent& event)
 {

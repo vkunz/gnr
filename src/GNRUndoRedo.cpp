@@ -23,13 +23,11 @@ GNRUndoRedo* GNRUndoRedo::pinstance = 0;
 
 /**
  * constructor of GNRUndoRedo
- * @access      protected
  */
 GNRUndoRedo::GNRUndoRedo() {}
 
 /**
  * destructor of GNRUndoRedo
- * @access      public
  */
 GNRUndoRedo::~GNRUndoRedo() {}
 
@@ -37,7 +35,6 @@ GNRUndoRedo::~GNRUndoRedo() {}
  * creates a new class if not instantiated or returns a pointer to the object if already
  * instantiated before
  * two cameras for 2D and 3D
- * @access      public
  */
 GNRUndoRedo* GNRUndoRedo::getInstance()
 {
@@ -50,8 +47,7 @@ GNRUndoRedo* GNRUndoRedo::getInstance()
 
 /**
  * adds a new command-object with information to un-/redo the operation to the stack
- * @param   GNRCommand*     Pointer to a class derived from GNRCommand that handels un-/redo information
- * @access      public
+ * @param   	command		Pointer to a class derived from GNRCommand that handels un-/redo information
  */
 void GNRUndoRedo::enqueue(GNRCommand* command)
 {
@@ -67,7 +63,6 @@ void GNRUndoRedo::enqueue(GNRCommand* command)
 
 /**
  * unexecutes the last command, pushed to the undo-stack
- * @access      public
  */
 void GNRUndoRedo::undo()
 {
@@ -98,7 +93,6 @@ void GNRUndoRedo::undo()
 
 /**
  * executes the last command, pushed to redo-stack
- * @access      public
  */
 void GNRUndoRedo::redo()
 {
@@ -128,7 +122,6 @@ void GNRUndoRedo::redo()
 
 /**
  * deletes all command-objects from the redo stack
- * @access      private
  */
 void GNRUndoRedo::emptyRedoStack()
 {

@@ -12,7 +12,9 @@
 
 #include "GNRVertex.h"
 
-// ctor
+/**
+ * constructor of GNRVertex
+ */
 GNRVertex::GNRVertex()
 {
 	m_x = 0.0;
@@ -20,6 +22,12 @@ GNRVertex::GNRVertex()
 	m_z = 0.0;
 }
 
+/**
+ * constructor of GNRVertex
+ * @param[in]	x	float x-position
+ * @param[in]	y	float y-position
+ * @param[in]	z	float z-position
+ */
 GNRVertex::GNRVertex(float x, float y, float z)
 {
 	m_x = x;
@@ -27,6 +35,10 @@ GNRVertex::GNRVertex(float x, float y, float z)
 	m_z = z;
 }
 
+/**
+ * copyconstructor of GNRVertex
+ * @param[in]	v	vertex (copyconstructor)
+ */
 GNRVertex::GNRVertex(const GNRVertex& v)
 {
 	m_x = v.m_x;
@@ -34,42 +46,74 @@ GNRVertex::GNRVertex(const GNRVertex& v)
 	m_z = v.m_z;
 }
 
-// dtor
+/**
+ * destructor of GNRVertex
+ */
 GNRVertex::~GNRVertex()
 {
 	// do nothing
 }
 
+/**
+ * get x of vertext
+ * @return		float		x-position of vertext
+ */
 const float GNRVertex::getX() const
 {
 	return m_x;
 }
 
+/**
+ * get y of vertext
+ * @return		float		y-position of vertext
+ */
 const float GNRVertex::getY() const
 {
 	return m_y;
 }
 
+/**
+ * get z of vertext
+ * @return		float		z-position of vertext
+ */
 const float GNRVertex::getZ() const
 {
 	return m_z;
 }
 
+/**
+ * set x of vertext
+ * @param[in]		x		x-position of vertext
+ */
 void GNRVertex::setX(float x)
 {
 	m_x = x;
 }
 
+/**
+ * set y of vertext
+ * @param[in]		y		y-position of vertext
+ */
 void GNRVertex::setY(float y)
 {
 	m_y = y;
 }
 
+/**
+ * set z of vertext
+ * @param[in]		z		z-position of vertext
+ */
 void GNRVertex::setZ(float z)
 {
 	m_z = z;
 }
 
+/**
+ * set x, y and z of vertex
+ * @param[in]	x	float x-position
+ * @param[in]	y	float y-position
+ * @param[in]	z	float z-position
+ */
 void GNRVertex::setXYZ(const float x, const float y, const float z)
 {
 	m_x = x;
@@ -77,22 +121,41 @@ void GNRVertex::setXYZ(const float x, const float y, const float z)
 	m_z = z;
 }
 
+/**
+ * get delta x to second vertex
+ * @param[in]	point		pointer to vertex with x
+ * @return		float		distance in x
+ */
 float GNRVertex::deltaX(GNRVertex* point)
 {
 	return m_x - point->m_x;
 }
 
+/**
+ * get delta y to second vertex
+ * @param[in]	point		pointer to vertex with y
+ * @return		float		distance in y
+ */
 float GNRVertex::deltaY(GNRVertex* point)
 {
 	return m_y - point->m_y;
 }
 
+/**
+ * get delta z to second vertex
+ * @param[in]	point		pointer to vertex with z
+ * @return		float		distance in z
+ */
 float GNRVertex::deltaZ(GNRVertex* point)
 {
 	return m_z - point->m_z;
 }
 
-// operator overload
+/**
+ * operator +
+ * @param[in]	p2			second vertex
+ * @return		GNRVertex		sum of both vertexes
+ */
 GNRVertex  GNRVertex::operator  + (const GNRVertex& p2) const
 {
 	GNRVertex temp(*this);
@@ -102,6 +165,11 @@ GNRVertex  GNRVertex::operator  + (const GNRVertex& p2) const
 	return temp;
 }
 
+/**
+ * operator -
+ * @param[in]	p2			second vertex
+ * @return		GNRVertex		difference of both vertexes
+ */
 GNRVertex  GNRVertex::operator  - (const GNRVertex& p2) const
 {
 	GNRVertex temp(*this);
@@ -111,6 +179,11 @@ GNRVertex  GNRVertex::operator  - (const GNRVertex& p2) const
 	return temp;
 }
 
+/**
+ * operator *
+ * @param[in]	r			scale value
+ * @return		GNRVertex		product of vertex and scale
+ */
 GNRVertex  GNRVertex::operator  * (const float r) const
 {
 	GNRVertex temp(*this);
@@ -121,8 +194,9 @@ GNRVertex  GNRVertex::operator  * (const float r) const
 }
 
 /**
- * Calculates the Cross-Product of two Vertexes
- * @access      public
+ * operator *
+ * @param[in]	p2			second vertex
+ * @return		GNRVertex		crossproduct of both vertexes
  */
 GNRVertex GNRVertex::operator  * (const GNRVertex& p2) const
 {
@@ -134,8 +208,9 @@ GNRVertex GNRVertex::operator  * (const GNRVertex& p2) const
 }
 
 /**
- * Calculates the Scalar-Product of two Vertexes
- * @access      public
+ * operator ^
+ * @param[in]	p2			second vertex
+ * @return		GNRVertex		scalar product of both vertexes
  */
 GNRVertex GNRVertex::operator  ^(const GNRVertex& p2) const
 {
@@ -146,6 +221,11 @@ GNRVertex GNRVertex::operator  ^(const GNRVertex& p2) const
 	return temp;
 }
 
+/**
+ * operator -=
+ * @param[in]	p2			second vertex
+ * @return		GNRVertex		difference of both vertexes
+ */
 GNRVertex& GNRVertex::operator -= (const GNRVertex& p2)
 {
 	m_x -= p2.m_x;
@@ -154,6 +234,11 @@ GNRVertex& GNRVertex::operator -= (const GNRVertex& p2)
 	return *this;
 }
 
+/**
+ * operator +=
+ * @param[in]	p2			second vertex
+ * @return		GNRVertex		sum of both vertexes
+ */
 GNRVertex& GNRVertex::operator += (const GNRVertex& p2)
 {
 	m_x += p2.m_x;
@@ -163,6 +248,11 @@ GNRVertex& GNRVertex::operator += (const GNRVertex& p2)
 	return *this;
 }
 
+/**
+ * operator =
+ * @param[in]	p2			second vertex
+ * @return		GNRVertex		same as vertex 2
+ */
 GNRVertex& GNRVertex::operator = (const GNRVertex& p2)
 {
 	m_x = p2.m_x;
@@ -172,11 +262,19 @@ GNRVertex& GNRVertex::operator = (const GNRVertex& p2)
 	return *this;
 }
 
+/**
+ * get length of vertext
+ * @return		float			length of vertex
+ */
 float GNRVertex::length()
 {
 	return (float)(sqrt(m_x*m_x+m_y*m_y+m_z*m_z));
 }
 
+/**
+ * normalize a vertex
+ * @return		bool			if normalized, return true
+ */
 bool GNRVertex::normalize()
 {
 	float l = length();
@@ -192,10 +290,9 @@ bool GNRVertex::normalize()
 
 /**
  * Rotates the current vector using phi, theta, rho
- * @param   float   angle to turn arround x
- * @param   float   angle to turn arround y
- * @param   float   angle to turn arround z
- * @access      private
+ * @param[in]   	alpha   		angle to turn arround x
+ * @param[in]  	beta   		angle to turn arround y
+ * @param[in]   	gamma   		angle to turn arround z
  */
 void GNRVertex::rotate(float alpha, float beta, float gamma)
 {
@@ -224,8 +321,7 @@ void GNRVertex::rotate(float alpha, float beta, float gamma)
 
 /**
  * Rotates the current vector using phi, theta, rho
- * @param   GNRVertex*  Vertex with values phi, theta, rho
- * @access      private
+ * @param[in]   	angles  		Vertex with values phi, theta, rho
  */
 void GNRVertex::rotate(const GNRVertex& angles)
 {
@@ -237,15 +333,19 @@ void GNRVertex::rotate(const GNRVertex& angles)
 	rotate(phi, theta, rho);
 }
 
+/**
+ * get string from vertex
+ * @return		wxString		text version of vertex
+ */
 wxString GNRVertex::ToString()
 {
 	wxString tmp;
 	
-	tmp << wxT("x-Wert: ");
+	tmp << wxT("x: ");
 	tmp << this->m_x;
-	tmp << wxT("\ty-Wert: ");
+	tmp << wxT("\ty: ");
 	tmp << this->m_y;
-	tmp << wxT("\tz-Wert: ");
+	tmp << wxT("\tz: ");
 	tmp << this->m_z;
 	
 	return tmp;

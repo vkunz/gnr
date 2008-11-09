@@ -16,7 +16,6 @@
 
 /**
  * constructor of GNRPrimitiveCreator
- * @access      public
  */
 GNRPrimitiveCreator::GNRPrimitiveCreator():m_primitive(NULL)
 {
@@ -25,7 +24,6 @@ GNRPrimitiveCreator::GNRPrimitiveCreator():m_primitive(NULL)
 
 /**
  * destructor of GNRPrimitiveCreator
- * @access      public
  */
 GNRPrimitiveCreator::~GNRPrimitiveCreator()
 {
@@ -34,7 +32,6 @@ GNRPrimitiveCreator::~GNRPrimitiveCreator()
 /**
  * return ready to use object
  * @return    GNRAssembly*   pointer to object
- * @access      public
  */
 GNRAssembly* GNRPrimitiveCreator::getPrimitive()
 {
@@ -44,10 +41,9 @@ GNRAssembly* GNRPrimitiveCreator::getPrimitive()
 
 /**
  * creates a new cuboid assembly, calculates the vertexes, normals and sets position and angles
- * @param   GNRVertex&  position of the assembly
- * @param   GNRVertex&  rotation of the assembly
- * @param   GNRVertex&  dimensions of the assembly
- * @access      public
+ * @param   	position  		position of the assembly
+ * @param   	angles  		rotation of the assembly
+ * @param   	dimension  		dimensions of the assembly
  */
 void GNRPrimitiveCreator::createCuboid(const GNRVertex& position, const GNRVertex& angles, const GNRVertex& dimension)
 {
@@ -127,12 +123,11 @@ void GNRPrimitiveCreator::setMaterial(GNRAssembly* parent, const string& name)
 
 /**
  * creates quadratic faces, out of vertexes and normals
- * @param   GNRVertex&  top-left point of the quad
- * @param   GNRVertex&  bottom-left point of the quad
- * @param   GNRVertex&  bottom-right point of the quad
- * @param   GNRVertex&  top-right point of the quad
- * @param   GNRVertex&  normal of the quad
- * @access      private
+ * @param   	topLeft  		top-left point of the quad
+ * @param   	bottomLeft  	bottom-left point of the quad
+ * @param   	bottomRight  	bottom-right point of the quad
+ * @param   	topRight  		top-right point of the quad
+ * @param   	normale	  	normal of the quad
  */
 GNRFace* GNRPrimitiveCreator::createFace(GNRVertex& topLeft, GNRVertex& bottomLeft, GNRVertex& bottomRight,
         GNRVertex& topRight, GNRVertex& normale)

@@ -132,7 +132,6 @@ std::string MD5File(std::string& filename)
 	return ""; // failed
 }
 
-
 // calculates the MD5 Hash of a wxString
 // result is a wxString
 wxString MD5wxString(wxString& str)

@@ -19,7 +19,7 @@ IMPLEMENT_DYNAMIC_CLASS(GNRCreatePrimitiveEvent, wxNotifyEvent)
  * constructor of GNRCreatePrimitiveEvent
  * @param   wxEventType     commandType
  * @param   int             event-id
- * @access      public
+
  */
 GNRCreatePrimitiveEvent::GNRCreatePrimitiveEvent(wxEventType commandType, int id)
 		: wxNotifyEvent(commandType, id) {}
@@ -27,13 +27,13 @@ GNRCreatePrimitiveEvent::GNRCreatePrimitiveEvent(wxEventType commandType, int id
 /**
  * copy-constructor of GNRCreatePrimitiveEvent
  * @param   GNRCreatePrimitiveEvent&    object that should be cloned
- * @access      public
+
  */
 GNRCreatePrimitiveEvent::GNRCreatePrimitiveEvent(const GNRCreatePrimitiveEvent& event): wxNotifyEvent(event) {}
 
 /**
  * clones the current object
- * @access      public
+
  */
 wxEvent* GNRCreatePrimitiveEvent::Clone() const
 {
@@ -42,14 +42,14 @@ wxEvent* GNRCreatePrimitiveEvent::Clone() const
 
 /**
  * destructor of GNRCreatePrimitiveEvent
- * @access      public
+
  */
 GNRCreatePrimitiveEvent::~GNRCreatePrimitiveEvent() {}
 
 /**
  * sets the position, the primitive should appear at
  * @param   GNRVertex   position of primitive
- * @access      public
+
  */
 void GNRCreatePrimitiveEvent::setPosition(GNRVertex pos)
 {
@@ -59,7 +59,7 @@ void GNRCreatePrimitiveEvent::setPosition(GNRVertex pos)
 /**
  * sets angles, the primitve should be rotated
  * @param   GNRVertex   angles of primitive
- * @access      public
+
  */
 void GNRCreatePrimitiveEvent::setAngles(GNRVertex angles)
 {
@@ -69,7 +69,7 @@ void GNRCreatePrimitiveEvent::setAngles(GNRVertex angles)
 /**
  * sets the dimensions (in x, y, z) of the primitive
  * @param   GNRVertex   dimensions of the primitve
- * @access      public
+
  */
 void GNRCreatePrimitiveEvent::setDimensions(GNRVertex dim)
 {
@@ -79,7 +79,7 @@ void GNRCreatePrimitiveEvent::setDimensions(GNRVertex dim)
 /**
  * sets the type of the primitive
  * @param   primitivesType  type
- * @access      public
+
  */
 void GNRCreatePrimitiveEvent::setPrimitiveType(primitivesType type)
 {
@@ -89,7 +89,7 @@ void GNRCreatePrimitiveEvent::setPrimitiveType(primitivesType type)
 /**
  * returns the position, the primitive should be drawn at
  * @return  GNRVertex   position
- * @access      public
+
  */
 GNRVertex GNRCreatePrimitiveEvent::getPosition()
 {
@@ -99,7 +99,7 @@ GNRVertex GNRCreatePrimitiveEvent::getPosition()
 /**
  * returns the angles, the primitve should be rotated
  * @return  GNRVertex   angles
- * @access      public
+
  */
 GNRVertex GNRCreatePrimitiveEvent::getAngles()
 {
@@ -109,7 +109,7 @@ GNRVertex GNRCreatePrimitiveEvent::getAngles()
 /**
  * returns the dimensions, the primitive should have
  * @return  GNRVertex   dimensions
- * @access      public
+
  */
 GNRVertex GNRCreatePrimitiveEvent::getDimensions()
 {
@@ -119,7 +119,7 @@ GNRVertex GNRCreatePrimitiveEvent::getDimensions()
 /**
  * returns the type, the primitive should be
  * @return primitivesType   type of primitive
- * @access      public
+
  */
 primitivesType GNRCreatePrimitiveEvent::getPrimitiveType()
 {

@@ -21,7 +21,7 @@
 /**
  * constructor of GNRGLScreenshot
  * @param       wxString       Filename, the picture should be stored to
- * @access      public
+
  */
 GNRGLScreenshot::GNRGLScreenshot(wxString filename)
 {
@@ -33,7 +33,7 @@ GNRGLScreenshot::GNRGLScreenshot(wxString filename)
 
 /**
  * Read out pixels from GL and save it to a picture
- * @access      private
+
  */
 void GNRGLScreenshot::create()
 {
@@ -63,7 +63,7 @@ void GNRGLScreenshot::create()
 /**
  * Reverse pixels, given from bottom-left to top right by glReadPixels
  * @param       unsigned char*      Pointer to picture-data-array
- * @access      private
+
  */
 // glReadPixels reads the given rectangle from bottom-left to top-right, so we must reverse it
 void GNRGLScreenshot::swapPixels(unsigned char* pPicData)
@@ -86,7 +86,7 @@ void GNRGLScreenshot::swapPixels(unsigned char* pPicData)
 
 /**
  * destructor of GNRGLScreenshot
- * @access      public
+
  */
 GNRGLScreenshot::~GNRGLScreenshot()
 {

@@ -19,7 +19,6 @@ GNRScene* GNRScene::pinstance = 0;
 /**
  * construct scene and two assemblies (scene and grouper) plus
  * two cameras for 2D and 3D
- * @access      protected
  */
 GNRScene::GNRScene()
 {
@@ -36,7 +35,6 @@ GNRScene::GNRScene()
 /**
  * destruct scene and two assemblies (scene and grouper) plus
  * two cameras for 2D and 3D
- * @access      public
  */
 GNRScene::~GNRScene()
 {
@@ -50,7 +48,6 @@ GNRScene::~GNRScene()
  * creates a new class if not instantiated or returns a pointer to the object if already
  * instantiated before
  * two cameras for 2D and 3D
- * @access      public
  */
 GNRScene* GNRScene::getInstance()
 {
@@ -63,7 +60,7 @@ GNRScene* GNRScene::getInstance()
 
 /**
  * set actual hit assembly id
- * @access      public
+ * @param[in]		assembly			pointer to assembly
  */
 void GNRScene::setAssembly(GNRAssembly* assembly)
 {
@@ -73,7 +70,6 @@ void GNRScene::setAssembly(GNRAssembly* assembly)
 /**
  * get actual assembly pointer
  * @return      GNRAssembly*    pointer to act. assembly
- * @access      public
  */
 GNRAssembly* GNRScene::getAssembly()
 {
@@ -83,7 +79,6 @@ GNRAssembly* GNRScene::getAssembly()
 /**
  * get root assembly pointer
  * @return      GNRAssembly*    pointer to root assembly
- * @access      public
  */
 GNRAssembly* GNRScene::getRootAssembly()
 {
@@ -93,7 +88,6 @@ GNRAssembly* GNRScene::getRootAssembly()
 /**
  * get pointer to 2D cam
  * @return      GNRAssembly*    pointer to 2D cam
- * @access      public
  */
 GNRGLCamera* GNRScene::getGLCamera2D()
 {
@@ -103,7 +97,6 @@ GNRGLCamera* GNRScene::getGLCamera2D()
 /**
  * get pointer to 3D cam
  * @return      GNRAssembly*    pointer to 3D cam
- * @access      public
  */
 GNRGLCamera* GNRScene::getGLCamera3D()
 {
@@ -113,7 +106,7 @@ GNRGLCamera* GNRScene::getGLCamera3D()
 
 /**
  * toggles shadows on and off
- * @access      public
+ * @param[in]		status			boolean status of shadows active
  */
 void GNRScene::toggleShadows(bool status)
 {
@@ -122,7 +115,6 @@ void GNRScene::toggleShadows(bool status)
 
 /**
  * init whole world of containers
- * @access      public
  */
 void GNRScene::initContainers()
 {
@@ -141,7 +133,6 @@ void GNRScene::initContainers()
 
 /**
  * kill whole world of containers
- * @access      public
  */
 void GNRScene::destroyContainers()
 {
@@ -160,7 +151,6 @@ void GNRScene::destroyContainers()
 
 /**
  * clean up whole world
- * @access      public
  */
 void GNRScene::newRoom()
 {
@@ -176,7 +166,6 @@ void GNRScene::newRoom()
 
 /**
  * resets the camera to initial state
- * @access      public
  */
 void GNRScene::resetCamera()
 {
@@ -213,7 +202,6 @@ GNRGLCanvas3D* GNRScene::getCanvas3D()
 
 /**
  * refresh glcanvas frames (3d/2d)
- * @access      public
  */
 void GNRScene::glRefresh()
 {
@@ -223,7 +211,6 @@ void GNRScene::glRefresh()
 
 /**
  * refresh defines canvas with cam and cast shadows
- * @access      private
  */
 void GNRScene::glRefreshCanvas()
 {
@@ -293,7 +280,6 @@ void GNRScene::glRefreshCanvas()
 
 /**
  * refresh only 2D canvas
- * @access      public
  */
 void GNRScene::glRefresh2D()
 {
@@ -304,7 +290,6 @@ void GNRScene::glRefresh2D()
 
 /**
  * refresh only 3D canvas
- * @access      public
  */
 void GNRScene::glRefresh3D()
 {
@@ -315,7 +300,6 @@ void GNRScene::glRefresh3D()
 
 /**
  * delete all selected assemblies (move to trash container)
- * @access      public
  */
 void GNRScene::deleteSelectedAssemblies()
 {
@@ -335,7 +319,6 @@ void GNRScene::deleteSelectedAssemblies()
 
 /**
  * reset selected assemblies on ground
- * @access      public
  */
 void GNRScene::resetSelectedAssemblies()
 {
@@ -349,7 +332,6 @@ void GNRScene::resetSelectedAssemblies()
 
 /**
  * empty trash bin
- * @access      public
  */
 void GNRScene::deleteTrashAssemblies()
 {
@@ -380,8 +362,8 @@ void GNRScene::deleteTrashAssemblies()
 
 /**
  * query originals, trash and scene for original object
- * @return      GNRAssembly*        found original or NULL
- * @access      public
+ * @param[in]		hash			  double md5 hash of assembly
+ * @return      		GNRAssembly*        found original or NULL
  */
 GNRAssembly* GNRScene::getOrigialFromHash(const wxString hash)
 {
@@ -412,7 +394,7 @@ GNRAssembly* GNRScene::getOrigialFromHash(const wxString hash)
 
 /**
  * delete a given assembly (move to trash container)
- * @access      public
+ * @param[in]		assembly			pointer to assembly
  */
 void GNRScene::deleteAssembly(GNRAssembly* assembly)
 {
@@ -431,7 +413,6 @@ void GNRScene::deleteAssembly(GNRAssembly* assembly)
 
 /**
  * clone all selected assemblies
- * @access      public
  */
 void GNRScene::cloneSelectedAssemblies()
 {
@@ -459,7 +440,6 @@ void GNRScene::cloneSelectedAssemblies()
 
 /**
  * copy all selected assemblies
- * @access      public
  */
 void GNRScene::copySelectedAssemblies()
 {
@@ -477,7 +457,6 @@ void GNRScene::copySelectedAssemblies()
 
 /**
  * cut all selected assemblies
- * @access      public
  */
 void GNRScene::cutSelectedAssemblies()
 {
@@ -496,7 +475,6 @@ void GNRScene::cutSelectedAssemblies()
 
 /**
  * insert all copied assemblies
- * @access      public
  */
 void GNRScene::insertCopiedAssemblies()
 {
@@ -516,8 +494,7 @@ void GNRScene::insertCopiedAssemblies()
 
 /**
  * draws a line, specified in the event to the 2D canvas
- * @param   GNRLineDrawEvent    event with information about the line
- * @access      public
+ * @param[in]   	event    	event with information about the line
  */
 void GNRScene::drawLine(GNRLineDrawEvent& event)
 {
@@ -630,7 +607,6 @@ void GNRScene::drawLine(GNRLineDrawEvent& event)
 
 /**
  * hide all selected assemblies (move to hidden container)
- * @access      public
  */
 void GNRScene::hideSelectedAssemblies()
 {
@@ -651,7 +627,6 @@ void GNRScene::hideSelectedAssemblies()
 
 /**
  * group all selected assemblies and move to root
- * @access      public
  */
 void GNRScene::groupSelectedAssemblies()
 {
@@ -717,7 +692,6 @@ void GNRScene::groupSelectedAssemblies()
 
 /**
  * ungroup selected group and move all parts to selected container
- * @access      public
  */
 void GNRScene::ungroupSelectedAssemblies()
 {
@@ -779,8 +753,7 @@ void GNRScene::ungroupSelectedAssemblies()
 
 /**
  * restore assembly (move from trash container to root)
- * @param       GNRAssembly*        pointer to assembly to restor
- * @access      public
+ * @param[in]		assembly			pointer to assembly
  */
 void GNRScene::restoreAssembly(GNRAssembly* assembly)
 {
@@ -800,8 +773,7 @@ void GNRScene::restoreAssembly(GNRAssembly* assembly)
 
 /**
  * show actual assembly again
- * @param       GNRAssembly*        pointer to assembly to show
- * @access      public
+ * @param[in]		assembly			pointer to assembly
  */
 void GNRScene::showAssembly(GNRAssembly* assembly)
 {
@@ -818,8 +790,7 @@ void GNRScene::showAssembly(GNRAssembly* assembly)
 
 /**
  * hide actual assembly
- * @param       GNRAssembly*        pointer to assembly to hide
- * @access      public
+ * @param[in]		assembly			pointer to assembly
  */
 void GNRScene::hideAssembly(GNRAssembly* assembly)
 {
@@ -836,8 +807,7 @@ void GNRScene::hideAssembly(GNRAssembly* assembly)
 
 /**
  * toggle selected assembly (later on CTRL
- * @param       GNRAssembly*        pointer to assembly to delete
- * @access      public
+ * @param[in]		assembly			pointer to assembly
  */
 void GNRScene::selectAssembly(GNRAssembly* assembly)
 {
@@ -868,10 +838,9 @@ void GNRScene::selectAssembly(GNRAssembly* assembly)
 
 /**
  * calculate min max values
- * @param       float       new minium value
- * @param       float       new maximum value
- * @param       float       value to check for changes
- * @access      public
+ * @param       	min       	new minium value
+ * @param       	max       	new maximum value
+ * @param[in]       	value       	value to check for changes
  */
 void GNRScene::minmax(float& min,float& max,float value)
 {
@@ -887,8 +856,7 @@ void GNRScene::minmax(float& min,float& max,float value)
 
 /**
  * inserts a new assembly to the root-assembly
- * @param   GNRAssembly*    pointer to the assembly, that should be insert
- * @access      public
+ * @param[in]		assembly			pointer to assembly
  */
 void GNRScene::insertAssembly(GNRAssembly* assembly)
 {
@@ -904,7 +872,6 @@ void GNRScene::insertAssembly(GNRAssembly* assembly)
 
 /**
  * refresh tree and canvas
- * @access      public
  */
 void GNRScene::refreshTreeAndCanvas()
 {
@@ -919,6 +886,10 @@ void GNRScene::refreshTreeAndCanvas()
 	glRefresh();
 }
 
+/**
+ * get pointer to trash container
+ * @return		GRNAssembly* 		pointer to trash
+ */
 GNRAssembly* GNRScene::getTrash()
 {
 	return m_Trash;

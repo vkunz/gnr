@@ -27,8 +27,7 @@
 
 /**
  * Constructor.
- * @param       wxTreeCtrl*     Assigns pointer to wxTreeCtrl.
- * @access  public
+ * @param       	treectrl		     Assigns pointer to wxTreeCtrl.
  */
 GNRTreeSceneController::GNRTreeSceneController(wxTreeCtrl* treectrl)
 {
@@ -40,14 +39,12 @@ GNRTreeSceneController::GNRTreeSceneController(wxTreeCtrl* treectrl)
 
 /**
  * Virtual Destructor.
- * @access  public
  */
 GNRTreeSceneController::~GNRTreeSceneController() {}
 
 /**
  * creates a tree-image list
- * @param       int        size of image-list
- * @access      private
+ * @param       size        size of image-list
  */
 void GNRTreeSceneController::createImageList(int size)
 {
@@ -85,8 +82,6 @@ void GNRTreeSceneController::createImageList(int size)
 
 /**
  * builds new scene-treectrl
- * @param       GNRSceneTreeNode*        pointer to tree-root
- * @access      public
  */
 void GNRTreeSceneController::createSceneTree()
 {
@@ -119,9 +114,8 @@ void GNRTreeSceneController::createSceneTree()
 
 /**
  * walk through tree and insert all items from nodes to scene-tree
- * @param   wxTreeItemId        id, the items are insert to
- * @param   GNRAssembly*        assemlby to analyze
- * @access  private
+ * @param   id       		id, the items are insert to
+ * @param   assembly	        	assemlby to analyze
  */
 void GNRTreeSceneController::createSceneTree(wxTreeItemId id, GNRAssembly* assembly)
 {

@@ -26,7 +26,7 @@ GNRTests::~GNRTests()
  * start load and clean test
  * @param       int         loops done
  * @param       int         size of cube duplicates (size x size)
- * @access      public
+
  */
 void GNRTests::sizeXsizeLoopsLoadClean(GNRScene* scene, const int loops = 10, const int size = 10)
 {
@@ -66,7 +66,7 @@ void GNRTests::sizeXsizeLoopsLoadClean(GNRScene* scene, const int loops = 10, co
  * start load and clean test
  * @param       int         loops done
  * @param       int         size of cube duplicates (size x size)
- * @access      public
+
  */
 void GNRTests::loadTieFighter(GNRScene* scene, const int loops = 10)
 {
@@ -94,7 +94,7 @@ void GNRTests::loadTieFighter(GNRScene* scene, const int loops = 10)
 
 /**
  * dump world structure to debug frame
- * @access      public
+
  */
 void GNRTests::dumpWorldStructure(GNRScene* scene)
 {

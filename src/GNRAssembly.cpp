@@ -20,8 +20,7 @@
 
 /**
  * constructor of generic assembly
- * @param       string         name of assembly
- * @access      public
+ * @param [in]      name         name of assembly
  */
 GNRAssembly::GNRAssembly(const wxString& name):
 		m_x(0.0), m_y(0.0), m_z(0.0),
@@ -38,8 +37,7 @@ GNRAssembly::GNRAssembly(const wxString& name):
 
 /**
  * copy constructor of generic assembly
- * @param       string         name of assembly
- * @access      public
+ * @param[in]       assembly         GNRAssembly
  */
 GNRAssembly::GNRAssembly(GNRAssembly& assembly)
 {
@@ -104,7 +102,6 @@ GNRAssembly::GNRAssembly(GNRAssembly& assembly)
 /**
  * clone of generic assembly
  * @return      GNRAssembly*         pointer to assembly
- * @access      public
  */
 GNRAssembly* GNRAssembly::clone()
 {
@@ -171,9 +168,8 @@ GNRAssembly* GNRAssembly::clone()
 
 /**
  * constructor of generic assembly with parent
- * @param       string         name of assembly
- * @param       GNRAssembly*   pointer to parent
- * @access      public
+* @param[in]        parent   	pointer to parent GNRAssembly*
+ * @param[in]       name         	wxString name of assembly
  */
 GNRAssembly::GNRAssembly(GNRAssembly* parent, const wxString& name):
 		m_x(0.0), m_y(0.0), m_z(0.0),
@@ -190,9 +186,8 @@ GNRAssembly::GNRAssembly(GNRAssembly* parent, const wxString& name):
 
 /**
  * constructor of generic assembly with type
- * @param       assemblyType   type of assembly
- * @param       GNRAssembly*   pointer to parent
- * @access      public
+ * @param       type   		type of assembly
+ * @param       name   		wxString name of assembly
  */
 GNRAssembly::GNRAssembly(const assemblyType& type, const wxString& name):
 		m_x(0.0), m_y(0.0), m_z(0.0),
@@ -209,7 +204,6 @@ GNRAssembly::GNRAssembly(const assemblyType& type, const wxString& name):
 
 /**
  * destructor of generic assembly kills all his children
- * @access      public
  */
 GNRAssembly::~GNRAssembly()
 {
@@ -229,7 +223,7 @@ GNRAssembly::~GNRAssembly()
 
 /**
  * get visibility
- * @access      public
+ * @return 		bool		is visible
  */
 bool GNRAssembly::isVisible() const
 {
@@ -238,7 +232,7 @@ bool GNRAssembly::isVisible() const
 
 /**
  * ask is he's a clone or not
- * @access      public
+ * @return 		bool		is original
  */
 bool GNRAssembly::isOriginal() const
 {
@@ -247,7 +241,7 @@ bool GNRAssembly::isOriginal() const
 
 /**
  * get position value x
- * @access      public
+ * @return 		float		center x in meters
  */
 float GNRAssembly::getX() const
 {
@@ -256,7 +250,7 @@ float GNRAssembly::getX() const
 
 /**
  * get position value y
- * @access      public
+ * @return 		float		center y in meters
  */
 float GNRAssembly::getY() const
 {
@@ -265,7 +259,7 @@ float GNRAssembly::getY() const
 
 /**
  * get position value z
- * @access      public
+ * @return 		float		center y in meters
  */
 float GNRAssembly::getZ() const
 {
@@ -274,7 +268,7 @@ float GNRAssembly::getZ() const
 
 /**
  * get position value z
- * @access      public
+ * @return 		float		center z
  */
 const wxString& GNRAssembly::getHash() const
 {
@@ -283,7 +277,7 @@ const wxString& GNRAssembly::getHash() const
 
 /**
  * get top radius of cylinder (maybe for cone if zero)
- * @access      public
+ * @return 		float		radius top (cone, cylinder)
  */
 float GNRAssembly::getRadiusTop() const
 {
@@ -292,7 +286,7 @@ float GNRAssembly::getRadiusTop() const
 
 /**
  * get middle radius of sphere
- * @access      public
+ * @return 		float		radius middle (sphere)
  */
 float GNRAssembly::getRadiusMiddle() const
 {
@@ -301,7 +295,7 @@ float GNRAssembly::getRadiusMiddle() const
 
 /**
  * get bottom radius of cylinder (maybe for cone if zero)
- * @access      public
+ * @return 		float		radius bottom (cone, cylinder)
  */
 float GNRAssembly::getRadiusBottom() const
 {
@@ -310,7 +304,7 @@ float GNRAssembly::getRadiusBottom() const
 
 /**
  * get height of whole assembly
- * @access      public
+ * @return 		float		height in meters
  */
 float GNRAssembly::getHeight() const
 {
@@ -319,7 +313,7 @@ float GNRAssembly::getHeight() const
 
 /**
  * get width of whole assembly
- * @access      public
+ * @return 		float		width in meters
  */
 float GNRAssembly::getWidth() const
 {
@@ -328,7 +322,7 @@ float GNRAssembly::getWidth() const
 
 /**
  * get depth of whole assembly
- * @access      public
+ * @return 		float		depth in meters
  */
 float GNRAssembly::getDepth() const
 {
@@ -337,7 +331,7 @@ float GNRAssembly::getDepth() const
 
 /**
  * get degree value of rotation in x
- * @access      public
+ * @return 		float		angle rotation in x-axis
  */
 float GNRAssembly::getPhi() const
 {
@@ -346,7 +340,7 @@ float GNRAssembly::getPhi() const
 
 /**
  * get degree value of rotation in y
- * @access      public
+ * @return 		float		angle rotation in y-axis
  */
 float GNRAssembly::getRho() const
 {
@@ -355,7 +349,7 @@ float GNRAssembly::getRho() const
 
 /**
  * get degree value of rotation in z
- * @access      public
+ * @return 		float		angle rotation in z-axis
  */
 float GNRAssembly::getTheta() const
 {
@@ -365,7 +359,6 @@ float GNRAssembly::getTheta() const
 /**
  * get scale factor in dimension x
  * @return      float       x scale
- * @access      public
  */
 float GNRAssembly::getScaleX() const
 {
@@ -375,7 +368,6 @@ float GNRAssembly::getScaleX() const
 /**
  * get scale factor in dimension y
  * @return      float       y scale
- * @access      public
  */
 float GNRAssembly::getScaleY() const
 {
@@ -385,7 +377,6 @@ float GNRAssembly::getScaleY() const
 /**
  * get scale factor in dimension z
  * @return      float       z scale
- * @access      public
  */
 float GNRAssembly::getScaleZ() const
 {
@@ -394,8 +385,7 @@ float GNRAssembly::getScaleZ() const
 
 /**
  * get name of assembly
- * @return      string      name of assembly
- * @access      public
+ * @return      wxString      name of assembly
  */
 const wxString& GNRAssembly::getName() const
 {
@@ -404,8 +394,7 @@ const wxString& GNRAssembly::getName() const
 
 /**
  * get real width in meters
- * @return      float      width in meters
- * @access      public
+ * @return      float      original width in meters with scale
  */
 float GNRAssembly::getWidthMeters() const
 {
@@ -414,8 +403,7 @@ float GNRAssembly::getWidthMeters() const
 
 /**
  * get real height in meters
- * @return      float      height in meters
- * @access      public
+ * @return      float      original height in meters with scale
  */
 float GNRAssembly::getHeightMeters() const
 {
@@ -424,8 +412,7 @@ float GNRAssembly::getHeightMeters() const
 
 /**
  * get real depth in meters
- * @return      float      depth in meters
- * @access      public
+ * @return      float      original depth in meters with scale
  */
 float GNRAssembly::getDepthMeters() const
 {
@@ -434,8 +421,7 @@ float GNRAssembly::getDepthMeters() const
 
 /**
  * get pointer to parent assembly
- * @return      GNRAssembly*      pointer to parent
- * @access      public
+ * @return      GNRAssembly*      pointer to parent assembly
  */
 GNRAssembly* GNRAssembly::getParent() const
 {
@@ -445,7 +431,6 @@ GNRAssembly* GNRAssembly::getParent() const
 /**
  * get assembly type
  * @return      assemblyType      type of assembly
- * @access      public
  */
 assemblyType GNRAssembly::getType() const
 {
@@ -454,8 +439,7 @@ assemblyType GNRAssembly::getType() const
 
 /**
  * get assembly height over ground
- * @return      float      height over floor
- * @access      public
+ * @return      float      height over floor in meters
  */
 float GNRAssembly::getOverGround() const
 {
@@ -465,7 +449,6 @@ float GNRAssembly::getOverGround() const
 /**
  * get master id of current assembly
  * @return      GNRAssembly*         pointer to master
- * @access      public
  */
 GNRAssembly* GNRAssembly::getMaster() const
 {
@@ -485,7 +468,6 @@ GNRAssembly* GNRAssembly::getMaster() const
 /**
  * get master id of current assembly
  * @return      bool         if is in selected group
- * @access      public
  */
 bool GNRAssembly::isSelected() const
 {
@@ -505,7 +487,6 @@ bool GNRAssembly::isSelected() const
 /**
  * get origin id of current assembly
  * @return      GNRAssembly*         pointer to origin
- * @access      public
  */
 GNRAssembly* GNRAssembly::getOrigin() const
 {
@@ -515,8 +496,7 @@ GNRAssembly* GNRAssembly::getOrigin() const
 
 /**
  * get maximum size of object
- * @return      float         size in meter
- * @access      public
+ * @return      float         maximum size in meter
  */
 float GNRAssembly::getMaximumSize() const
 {
@@ -534,9 +514,8 @@ float GNRAssembly::getMaximumSize() const
 
 /**
  * compare type of assembly
- * @param       assemblyType    type of assembly
+ * @param[in]       type 		type of assembly (assemblyType)
  * @return      boolean         is of type
- * @access      public
  */
 bool GNRAssembly::isType(const assemblyType& type)
 {
@@ -546,8 +525,7 @@ bool GNRAssembly::isType(const assemblyType& type)
 /* ******* SETTER METHODS FOLLOWING ***** */
 /**
  * set top radius for cylinder or cone
- * @param       float       r
- * @access      public
+ * @param        radius 		float radius top
  */
 void GNRAssembly::setRadiusTop(const float r)
 {
@@ -556,8 +534,7 @@ void GNRAssembly::setRadiusTop(const float r)
 
 /**
  * set middle radius for sphere
- * @param       float       r
- * @access      public
+ * @param        radius 		float radius middle
  */
 void GNRAssembly::setRadiusMiddle(const float r)
 {
@@ -566,8 +543,7 @@ void GNRAssembly::setRadiusMiddle(const float r)
 
 /**
  * set bottom radius for cylinder or cone
- * @param       float       r
- * @access      public
+ * @param        radius 		float radius bottom
  */
 void GNRAssembly::setRadiusBottom(const float r)
 {
@@ -575,8 +551,8 @@ void GNRAssembly::setRadiusBottom(const float r)
 }
 
 /**
- * get visibility
- * @access      public
+ * set visibility
+ * @param        status 		visible  (true|false)
  */
 void GNRAssembly::setVisible(bool status)
 {
@@ -586,7 +562,6 @@ void GNRAssembly::setVisible(bool status)
 /**
  * set position value x
  * @param       float       x
- * @access      public
  */
 void GNRAssembly::setX(const float x)
 {
@@ -596,7 +571,7 @@ void GNRAssembly::setX(const float x)
 /**
  * set position value y
  * @param       float       y
- * @access      public
+
  */
 void GNRAssembly::setY(const float y)
 {
@@ -606,7 +581,7 @@ void GNRAssembly::setY(const float y)
 /**
  * set position value z
  * @param       float       z
- * @access      public
+
  */
 void GNRAssembly::setZ(const float z)
 {
@@ -615,7 +590,7 @@ void GNRAssembly::setZ(const float z)
 
 /**
  * get position value z
- * @access      public
+
  */
 void GNRAssembly::setHash(const wxString& hash)
 {
@@ -626,7 +601,7 @@ void GNRAssembly::setHash(const wxString& hash)
  * set position value x and y
  * @param       float       x
  * @param       float       y
- * @access      public
+
  */
 void GNRAssembly::setXY(const float x, const float y)
 {
@@ -638,7 +613,7 @@ void GNRAssembly::setXY(const float x, const float y)
  * set position value x and z
  * @param       float       x
  * @param       float       z
- * @access      public
+
  */
 void GNRAssembly::setXZ(const float x, const float z)
 {
@@ -651,7 +626,7 @@ void GNRAssembly::setXZ(const float x, const float z)
  * @param       float       x
  * @param       float       y
  * @param       float       z
- * @access      public
+
  */
 void GNRAssembly::setXYZ(const float x, const float y, const float z)
 {
@@ -727,7 +702,7 @@ void GNRAssembly::setCuboid(const float x,const float y,const float z, const flo
 /**
  * set degree value of rotation in x
  * @param       float        rotation degree in x
- * @access      public
+
  */
 void GNRAssembly::setPhi(const float phi)
 {
@@ -737,7 +712,7 @@ void GNRAssembly::setPhi(const float phi)
 /**
  * set degree value of rotation in y
  * @param       float        rotation degree in y
- * @access      public
+
  */
 void GNRAssembly::setRho(const float rho)
 {
@@ -747,7 +722,7 @@ void GNRAssembly::setRho(const float rho)
 /**
  * set degree value of rotation in z
  * @param       float        rotation degree in z
- * @access      public
+
  */
 void GNRAssembly::setTheta(const float theta)
 {
@@ -758,7 +733,7 @@ void GNRAssembly::setTheta(const float theta)
  * set degree value of rotation in x
  * @param       float        rotation degree in x
  * @param       float        rotation degree in y
- * @access      public
+
  */
 void GNRAssembly::setPhiTheta(const float phi, const float theta)
 {
@@ -770,7 +745,7 @@ void GNRAssembly::setPhiTheta(const float phi, const float theta)
  * set degree value of rotation in x
  * @param       float        rotation degree in x
  * @param       float        rotation degree in z
- * @access      public
+
  */
 void GNRAssembly::setPhiRho(const float phi, const float rho)
 {
@@ -781,7 +756,7 @@ void GNRAssembly::setPhiRho(const float phi, const float rho)
 /**
  * set scale factor in x dimension
  * @param       float        factor for x
- * @access      public
+
  */
 void GNRAssembly::setScaleX(const float x)
 {
@@ -791,7 +766,7 @@ void GNRAssembly::setScaleX(const float x)
 /**
  * set scale factor in y dimension
  * @param       float        factor for y
- * @access      public
+
  */
 void GNRAssembly::setScaleY(const float y)
 {
@@ -801,7 +776,7 @@ void GNRAssembly::setScaleY(const float y)
 /**
  * set scale factor in z dimension
  * @param       float        factor for z
- * @access      public
+
  */
 void GNRAssembly::setScaleZ(const float z)
 {
@@ -811,7 +786,7 @@ void GNRAssembly::setScaleZ(const float z)
 /**
  * set height of assembly
  * @param       float       height
- * @access      public
+
  */
 void GNRAssembly::setHeight(const float height)
 {
@@ -821,7 +796,7 @@ void GNRAssembly::setHeight(const float height)
 /**
  * set width of assembly
  * @param       float       width
- * @access      public
+
  */
 void GNRAssembly::setWidth(const float width)
 {
@@ -831,7 +806,7 @@ void GNRAssembly::setWidth(const float width)
 /**
  * set depth of assembly
  * @param       float       depth
- * @access      public
+
  */
 void GNRAssembly::setDepth(const float depth)
 {
@@ -843,7 +818,7 @@ void GNRAssembly::setDepth(const float depth)
  * @param       float       width  (x)
  * @param       float       height (y)
  * @param       float       depth  (z)
- * @access      public
+
  */
 void GNRAssembly::setSize(const float width,const float height,const float depth)
 {
@@ -857,7 +832,7 @@ void GNRAssembly::setSize(const float width,const float height,const float depth
  * @param       float        factor for x
  * @param       float        factor for y
  * @param       float        factor for z
- * @access      public
+
  */
 void GNRAssembly::setScale(const float x,const float y,const float z)
 {
@@ -869,7 +844,7 @@ void GNRAssembly::setScale(const float x,const float y,const float z)
 /**
  * set name of assembly
  * @param       string      name of assembly
- * @access      public
+
  */
 void GNRAssembly::setName(const wxString& name)
 {
@@ -879,7 +854,7 @@ void GNRAssembly::setName(const wxString& name)
 /**
  * set name of assembly
  * @param       string      name of assembly
- * @access      public
+
  */
 void GNRAssembly::setName(const string& name)
 {
@@ -890,7 +865,7 @@ void GNRAssembly::setName(const string& name)
 /**
  * set pointer to parent assembly
  * @param       GNRAssembly*      pointer to parent
- * @access      public
+
  */
 void GNRAssembly::setParent(GNRAssembly* p)
 {
@@ -900,7 +875,7 @@ void GNRAssembly::setParent(GNRAssembly* p)
 /**
  * set type of assembly
  * @param       bool      is obj
- * @access      public
+
  */
 void GNRAssembly::setType(const assemblyType& type)
 {
@@ -910,7 +885,7 @@ void GNRAssembly::setType(const assemblyType& type)
 /**
  * move assembly by vertext
  * @param       GNRVertex      vertex to center
- * @access      public
+
  */
 void GNRAssembly::move(const GNRVertex& center)
 {
@@ -922,7 +897,7 @@ void GNRAssembly::move(const GNRVertex& center)
 /**
  * set vertex position
  * @param       GNRVertex      vertex to center
- * @access      public
+
  */
 void GNRAssembly::setCenterVertex(const GNRVertex& center)
 {
@@ -934,7 +909,7 @@ void GNRAssembly::setCenterVertex(const GNRVertex& center)
 /**
  * set vertex rotation
  * @param       GNRVertex      vertex to rotate
- * @access      public
+
  */
 void GNRAssembly::setRotateVertex(const GNRVertex& rotation)
 {
@@ -946,7 +921,7 @@ void GNRAssembly::setRotateVertex(const GNRVertex& rotation)
 /**
  * add face to assembly
  * @param       GNRFace      face to add
- * @access      public
+
  */
 void GNRAssembly::addFace(const GNRFace& face)
 {
@@ -956,7 +931,7 @@ void GNRAssembly::addFace(const GNRFace& face)
 /**
  * add part to assembly
  * @param       GNRAssembly      part to add
- * @access      public
+
  */
 void GNRAssembly::addPart(GNRAssembly* part)
 {
@@ -967,7 +942,7 @@ void GNRAssembly::addPart(GNRAssembly* part)
 /**
  * delete part in assembly
  * @param       GNRAssembly      part to remove
- * @access      public
+
  */
 void GNRAssembly::delPart(GNRAssembly* part)
 {
@@ -977,7 +952,7 @@ void GNRAssembly::delPart(GNRAssembly* part)
 /**
  * get vertex position
  * @return      GNRVertext      vertex to center of object
- * @access      public
+
  */
 GNRVertex GNRAssembly::getCenterVertex() const
 {
@@ -988,7 +963,7 @@ GNRVertex GNRAssembly::getCenterVertex() const
 /**
  * get vertex rotation
  * @return      GNRVertext      vertex rotation of object
- * @access      public
+
  */
 GNRVertex GNRAssembly::getRotateVertex() const
 {
@@ -999,7 +974,7 @@ GNRVertex GNRAssembly::getRotateVertex() const
 /**
  * get pointer to partlist for iteration
  * @return      list<GNRAssembly*>      pointer to part list
- * @access      public
+
  */
 list<GNRAssembly*> GNRAssembly::getPartList()
 {
@@ -1018,7 +993,7 @@ list<wxString> GNRAssembly::getTagList()
 
 /**
  * calculate normals for all faces (incl. parts)
- * @access      public
+
  */
 void GNRAssembly::setNormals()
 {
@@ -1047,7 +1022,7 @@ void GNRAssembly::setChildDisplayList(const GNRAssembly* child, const GLuint& dl
 
 /**
  * draw this assembly and all his children and push ID to glLoadName, if its atomic
- * @access      public
+
  */
 void GNRAssembly::draw()
 {
@@ -1157,7 +1132,7 @@ void GNRAssembly::draw()
 
 /**
  * find clone of origin and return true if found
- * @access      public
+
  */
 bool GNRAssembly::findCloneOf(const GNRAssembly* origin) const
 {
@@ -1174,7 +1149,7 @@ bool GNRAssembly::findCloneOf(const GNRAssembly* origin) const
 
 /**
  * find hash string and return true if found
- * @access      public
+
  */
 bool GNRAssembly::findHash(const wxString& hash) const
 {
@@ -1192,7 +1167,7 @@ bool GNRAssembly::findHash(const wxString& hash) const
 /**
  * find original object for hash string and return null or pointer
  * @return      GNRAssembly*        pointer to original
- * @access      public
+
  */
 GNRAssembly* GNRAssembly::getHashOriginal(const wxString& hash) const
 {
@@ -1217,7 +1192,7 @@ GNRAssembly* GNRAssembly::getHashOriginal(const wxString& hash) const
 
 /**
  * draw shadow of this assembly and all his children and push ID to glLoadName, if its atomic
- * @access      public
+
  */
 void GNRAssembly::drawShadow()
 {
@@ -1275,7 +1250,7 @@ void GNRAssembly::drawShadow()
 
 /**
  * correct y-position over ground
- * @access      public
+
  */
 void GNRAssembly::putOnGround()
 {
@@ -1284,7 +1259,7 @@ void GNRAssembly::putOnGround()
 
 /**
  * correct y-position over ground
- * @access      public
+
  */
 void GNRAssembly::resetOnGround()
 {
@@ -1297,7 +1272,7 @@ void GNRAssembly::resetOnGround()
 #if defined(__ATHOS_DEBUG__)
 /**
  * get infos about assembly
- * @access      public
+
  */
 void GNRAssembly::debugInfo() const
 {
@@ -1320,7 +1295,7 @@ void GNRAssembly::debugInfo() const
 
 /**
  * dump structure
- * @access      public
+
  */
 void GNRAssembly::dump(wxString str)
 {

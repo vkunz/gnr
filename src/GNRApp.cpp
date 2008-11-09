@@ -82,7 +82,6 @@ bool GNRApp::OnInit()
 
 /**
  * initialize all frames needed
- * @access      public
  */
 void GNRApp::initFrames()
 {
@@ -145,7 +144,6 @@ void GNRApp::initFrames()
 
 /**
  * update splitter dimensions
- * @access      public
  */
 void GNRApp::updateSplitters()
 {
@@ -155,6 +153,9 @@ void GNRApp::updateSplitters()
 	m_VerticalSplitter->UpdateSize();
 }
 
+/**
+ * update sizers
+ */
 void GNRApp::updateSize()
 {
 	// update size of m_TreeCtrlLib
@@ -302,6 +303,9 @@ void GNRApp::OnGNREvent(GNRNotifyEvent& event)
 	}
 }
 
+/**
+ * switch on GNR tree events
+ */
 void GNRApp::OnGNRTreeEvent(GNRTreeControlEvent& event)
 {
 	switch (event.getEventType())
@@ -401,7 +405,6 @@ void GNRApp::OnGLEvent(GNRGLNotifyEvent& event)
 
 /**
  * handles line-draw-event to display a line in gl canvas
- * @access      private
  */
 void GNRApp::OnLineDrawEvent(GNRLineDrawEvent& event)
 {
@@ -410,7 +413,6 @@ void GNRApp::OnLineDrawEvent(GNRLineDrawEvent& event)
 
 /**
  * handles createPrimitiveEvent and creates a new primitive
- * @access      private
  */
 void GNRApp::OnCreatePrimitiveEvent(GNRCreatePrimitiveEvent& event)
 {
@@ -454,8 +456,7 @@ void GNRApp::OnCreatePrimitiveEvent(GNRCreatePrimitiveEvent& event)
 
 /**
  * handle opx open
- * @param       wxString        File to open.
- * @access      private
+ * @param[in]       filename        File to open.
  */
 void GNRApp::OPXOpen(wxString filename)
 {
@@ -468,8 +469,7 @@ void GNRApp::OPXOpen(wxString filename)
 
 /**
  * handle opx save
- * @param       wxString        File to save as.
- * @access      private
+ * @param[in]       filename        File to save as.
  */
 void GNRApp::OPXSave(wxString filename)
 {
@@ -479,8 +479,7 @@ void GNRApp::OPXSave(wxString filename)
 
 /**
  * handle oax import
- * @param       wxString        File to import.
- * @access      private
+ * @param[in]       filename        File to import.
  */
 void GNRApp::OAXImport(wxString filename)
 {
@@ -536,8 +535,7 @@ void GNRApp::OAXImport(wxString filename)
 
 /**
  * handle oax export
- * @param       wxString        File to export to.
- * @access      private
+ * @param[in]      reference        File to export to.
  */
 void GNRApp::OAXExport(wxString reference)
 {
@@ -571,8 +569,7 @@ void GNRApp::OAXExport(wxString reference)
 
 /**
  * handle obj import
- * @param       wxString        File to import.
- * @access      private
+ * @param[in]       filename        File to import.
  */
 void GNRApp::OBJImport(wxString filename)
 {
@@ -582,8 +579,7 @@ void GNRApp::OBJImport(wxString filename)
 
 /**
  * handle obj import
- * @param       wxString        File to export to.
- * @access      private
+ * @param[in]       filename        File to export to.
  */
 void GNRApp::OBJExport(wxString filename)
 {
@@ -594,7 +590,7 @@ void GNRApp::OBJExport(wxString filename)
 
 /**
  * handle screenshot-creation
- * @access      private
+ * @param[in]       filename        File to export to.
  */
 void GNRApp::createScreenshot(wxString filename)
 {
@@ -604,7 +600,6 @@ void GNRApp::createScreenshot(wxString filename)
 
 /**
  * conververtion canceled
- * @access     private
  */
 void GNRApp::cancelConvertion()
 {
@@ -613,6 +608,7 @@ void GNRApp::cancelConvertion()
 
 /**
  * Conversion suchessfull, write new entry into library
+ * @param[in]	data		pointer to an assembly
  */
 void GNRApp::ObjOaxConversion(GNRAssemblyData* data)
 {
@@ -640,7 +636,6 @@ void GNRApp::ObjOaxConversion(GNRAssemblyData* data)
 
 /**
  * throw event for inital setup
- * @access      private
  */
 void GNRApp::initialSetup()
 {

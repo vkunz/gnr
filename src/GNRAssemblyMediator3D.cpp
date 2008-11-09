@@ -17,7 +17,7 @@
 /**
  * move the object in XY dimension and limit height over ground
  * @param       GNRGLNotifyEvent         event from GLNotify
- * @access      protected
+
  */
 void GNRAssemblyMediator3D::MoveXY(GNRGLNotifyEvent& event)
 {
@@ -50,7 +50,7 @@ void GNRAssemblyMediator3D::MoveXY(GNRGLNotifyEvent& event)
 /**
  * move the object in XZ dimension
  * @param       GNRGLNotifyEvent         event from GLNotify
- * @access      private
+
  */
 void GNRAssemblyMediator3D::MoveXZ(GNRGLNotifyEvent& event)
 {
@@ -78,7 +78,7 @@ void GNRAssemblyMediator3D::MoveXZ(GNRGLNotifyEvent& event)
 /**
  * rotate the object in XY dimension
  * @param       GNRGLNotifyEvent         event from GLNotify
- * @access      private
+
  */
 void GNRAssemblyMediator3D::RotateXY(GNRGLNotifyEvent& event)
 {
@@ -95,7 +95,7 @@ void GNRAssemblyMediator3D::RotateXY(GNRGLNotifyEvent& event)
 /**
  * rotate the object in Y dimension
  * @param       GNRGLNotifyEvent         event from GLNotify
- * @access      private
+
  */
 void GNRAssemblyMediator3D::RotateY(GNRGLNotifyEvent& event)
 {
@@ -107,7 +107,7 @@ void GNRAssemblyMediator3D::RotateY(GNRGLNotifyEvent& event)
 /**
  * rotate the object in XZ dimension
  * @param       GNRGLNotifyEvent         event from GLNotify
- * @access      private
+
  */
 void GNRAssemblyMediator3D::RotateXZ(GNRGLNotifyEvent& event)
 {

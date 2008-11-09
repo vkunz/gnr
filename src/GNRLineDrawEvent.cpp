@@ -19,7 +19,7 @@ IMPLEMENT_DYNAMIC_CLASS(GNRLineDrawEvent, wxNotifyEvent)
  * constructor of GNRLineDrawEvent
  * @param   wxEventType   commandType
  * @param   int           Event-ID
- * @access      public
+
  */
 GNRLineDrawEvent::GNRLineDrawEvent(wxEventType commandType, int id)
 		: wxNotifyEvent(commandType, id) {}
@@ -27,13 +27,13 @@ GNRLineDrawEvent::GNRLineDrawEvent(wxEventType commandType, int id)
 /**
  * copy-constructor of GNRLineDrawEvent
  * @param   GNRLineDrawEvent&   GNRLineDrawEvent that has to be copied
- * @access      public
+
  */
 GNRLineDrawEvent::GNRLineDrawEvent(const GNRLineDrawEvent& event): wxNotifyEvent(event) {}
 
 /**
  * clones the actual object
- * @access      public
+
  */
 wxEvent* GNRLineDrawEvent::Clone() const
 {
@@ -42,14 +42,14 @@ wxEvent* GNRLineDrawEvent::Clone() const
 
 /**
  * destructor of GNRLineDrawEvent
- * @access      public
+
  */
 GNRLineDrawEvent::~GNRLineDrawEvent() {}
 
 /**
  * sets the start-point of the line that should be drawn
  * @param   GNRVertex&      Vertex with start-Point of the line
- * @access      public
+
  */
 void GNRLineDrawEvent::setStartPoint(GNRVertex& startPoint)
 {
@@ -59,7 +59,7 @@ void GNRLineDrawEvent::setStartPoint(GNRVertex& startPoint)
 /**
  * sets the end-point of the line that should be drawn
  * @param   GNRVertex&      Vertex with end-Point of the line
- * @access      public
+
  */
 void GNRLineDrawEvent::setEndPoint(GNRVertex& endPoint)
 {
@@ -69,7 +69,7 @@ void GNRLineDrawEvent::setEndPoint(GNRVertex& endPoint)
 /**
  * returns the start-point of the line that should be drawn
  * @return   GNRVertex      Vertex with start-Point of the line
- * @access      public
+
  */
 GNRVertex GNRLineDrawEvent::getStartPoint()
 {
@@ -79,7 +79,7 @@ GNRVertex GNRLineDrawEvent::getStartPoint()
 /**
  * returns the end-point of the line that should be drawn
  * @return   GNRVertex      Vertex with end-Point of the line
- * @access      public
+
  */
 GNRVertex GNRLineDrawEvent::getEndPoint()
 {

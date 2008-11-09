@@ -1,3 +1,13 @@
+/**
+ * GNRTreeSceneCtrl
+ * @name        	GNRTreeSceneCtrl.cpp
+ * @date        	2008-10-26
+ * @author		Konstantin Balabin  <k.balabin@googlemail.com>
+ * @author		Patrick Kracht      <patrick.kracht@googlemail.com>
+ * @author		Thorsten Moll       <thorsten.moll@googlemail.com>
+ * @author		Valentin Kunz       <athostr@googlemail.com>
+ */
+
 #include "GNRTreeSceneCtrl.h"
 
 #include <wx/menu.h>
@@ -38,14 +48,13 @@ END_EVENT_TABLE()
 
 /**
  * constructor of GNRTreeSceneCtrl
- * @param       wxWindow*       parent of TreeCtrl
- * @param       wxWindowID      wx-id for window
- * @param       wxPoint         TreeCtrl-position
- * @param       wxSize          size of TreeCtrl
- * @param       long            TreeCtrl-style
- * @param       wxValidator     validator for input
- * @param       wxString        name of TreeCtrl
- * @access      public
+ * @param[in]       parent       		parent of TreeCtrl
+ * @param[in]       id      			wx-id for window
+ * @param[in]       pos         		TreeCtrl-position
+ * @param[in]       size		          size of TreeCtrl
+ * @param[in]       style            		TreeCtrl-style
+ * @param[in]       validator     		validator for input
+ * @param[in]       name        		name of TreeCtrl
  */
 GNRTreeSceneCtrl::GNRTreeSceneCtrl(wxWindow *parent, const wxWindowID id, const wxPoint& pos, const wxSize& size, long style,
                                    const wxValidator &validator, const wxString &name) : wxTreeCtrl(parent, id, pos, size, style, validator, name)
@@ -55,14 +64,12 @@ GNRTreeSceneCtrl::GNRTreeSceneCtrl(wxWindow *parent, const wxWindowID id, const 
 
 /**
  * destructor of GNRTreeSceneCtrl
- * @access      public
  */
 GNRTreeSceneCtrl::~GNRTreeSceneCtrl() {}
 
 /**
  * gets called by right click on tree-item, reads tree-item and initiates menu-building
- * @param       wxTreeEvent&    event with information to clicked item
- * @access      private
+ * @param     	  event	  	  event with information to clicked item
  */
 void GNRTreeSceneCtrl::OnItemMenu(wxTreeEvent& event)
 {
@@ -87,8 +94,7 @@ void GNRTreeSceneCtrl::OnItemMenu(wxTreeEvent& event)
 
 /**
  * gets called by double-klick on a item
- * @param       wxTreeEvent&    event with information to clicked item
- * @access      private
+ * @param    	   event		    event with information to clicked item
  */
 void GNRTreeSceneCtrl::OnItemActivated(wxTreeEvent& event)
 {
@@ -104,9 +110,7 @@ void GNRTreeSceneCtrl::OnItemActivated(wxTreeEvent& event)
 
 /**
  * builds dropdown menu for items, depending on state of clicked item
- * @param       wxTreeItemId    id of clicked item
- * @param       wxPoint         position, the menu should be displayed
- * @access      private
+ * @param       pt        	 position, the menu should be displayed (wxPoint)
  */
 void GNRTreeSceneCtrl::buildMenu(const wxPoint& pt)
 {
@@ -180,8 +184,7 @@ void GNRTreeSceneCtrl::OnRename(wxCommandEvent& WXUNUSED(event))
 
 /**
  * fetches key down event
- * @param   wxKeyEvent&     key event of current canvas
- * @access  private
+ * @param   	event		     key event of current canvas
  */
 void GNRTreeSceneCtrl::OnKeyDown(wxKeyEvent& event)
 {

@@ -28,7 +28,7 @@
  * @param       wxSize          Window-Size of the Canvas
  * @param       long            Window-Style
  * @param       wxString        Window-Name
- * @access      public
+
  */
 GNRGLCanvas3D::GNRGLCanvas3D(wxWindow* parent, wxWindowID id, const wxPoint& pos, const wxSize& size, long style, const wxString& name)
 		:GNRGLCanvas(parent, id, pos, size, style, name)
@@ -44,7 +44,7 @@ GNRGLCanvas3D::GNRGLCanvas3D(wxWindow* parent, wxWindowID id, const wxPoint& pos
  * @param       wxSize          Window-Size of the Canvas
  * @param       long            Window-Style
  * @param       wxString        Window-Name
- * @access      public
+
  */
 GNRGLCanvas3D::GNRGLCanvas3D(wxWindow* parent, wxGLContext* sharedContext, wxWindowID id, const wxPoint& pos, const wxSize& size,
                              long style, const wxString& name) : GNRGLCanvas(parent, sharedContext, id, pos, size, style, name)
