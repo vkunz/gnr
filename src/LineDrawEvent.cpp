@@ -1,6 +1,7 @@
 /**
  * this event is used to send information about points to the scene, to draw
  * the line to the opengl-canvas
+ * @note        [DONE]
  * @name        LineDrawEvent.cpp
  * @date        2008-10-30
  * @author		Konstantin Balabin  <k.balabin@googlemail.com>
@@ -17,23 +18,22 @@ IMPLEMENT_DYNAMIC_CLASS(LineDrawEvent, wxNotifyEvent)
 
 /**
  * constructor of LineDrawEvent
- * @param   wxEventType   commandType
- * @param   int           Event-ID
-
+ * @param[in]       commandType         type of event
+ * @param[in]       id                  id of event
  */
 LineDrawEvent::LineDrawEvent(wxEventType commandType, int id)
 		: wxNotifyEvent(commandType, id) {}
 
 /**
  * copy-constructor of LineDrawEvent
- * @param   LineDrawEvent&   LineDrawEvent that has to be copied
+ * @param[in]       event           LineDrawEvent that has to be copied
 
  */
 LineDrawEvent::LineDrawEvent(const LineDrawEvent& event): wxNotifyEvent(event) {}
 
 /**
  * clones the actual object
-
+ * @return      wxEvent*            base-class-pointer
  */
 wxEvent* LineDrawEvent::Clone() const
 {
@@ -42,14 +42,12 @@ wxEvent* LineDrawEvent::Clone() const
 
 /**
  * destructor of LineDrawEvent
-
  */
 LineDrawEvent::~LineDrawEvent() {}
 
 /**
  * sets the start-point of the line that should be drawn
- * @param   Vertex&      Vertex with start-Point of the line
-
+ * @param[in]       startPoint          Vertex with start-Point of the line
  */
 void LineDrawEvent::setStartPoint(Vertex& startPoint)
 {
@@ -58,8 +56,7 @@ void LineDrawEvent::setStartPoint(Vertex& startPoint)
 
 /**
  * sets the end-point of the line that should be drawn
- * @param   Vertex&      Vertex with end-Point of the line
-
+ * @param[in]       endPoint            Vertex with end-Point of the line
  */
 void LineDrawEvent::setEndPoint(Vertex& endPoint)
 {
@@ -68,8 +65,7 @@ void LineDrawEvent::setEndPoint(Vertex& endPoint)
 
 /**
  * returns the start-point of the line that should be drawn
- * @return   Vertex      Vertex with start-Point of the line
-
+ * @return          Vertex      Vertex with start-Point of the line
  */
 Vertex LineDrawEvent::getStartPoint()
 {
@@ -79,7 +75,6 @@ Vertex LineDrawEvent::getStartPoint()
 /**
  * returns the end-point of the line that should be drawn
  * @return   Vertex      Vertex with end-Point of the line
-
  */
 Vertex LineDrawEvent::getEndPoint()
 {

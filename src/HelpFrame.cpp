@@ -1,5 +1,6 @@
 /**
  * HelpFrame
+ * @note        [DONE]
  * @name        HelpFrame.cpp
  * @date        2008-10-28
  * @author		Konstantin Balabin  <k.balabin@googlemail.com>
@@ -28,6 +29,11 @@
 
 #include "HelpFrame.h"
 
+/**
+ * constructor of HelpFrame
+ * @param[in]       parent          parent of frame
+ * @param[in]       id              id of frame
+ */
 HelpFrame::HelpFrame(wxWindow* parent, wxWindowID id)
 {
 	if (wxFileExists(wxT("help/help.html")))
@@ -70,6 +76,7 @@ HelpFrame::HelpFrame(wxWindow* parent, wxWindowID id)
 	}
 }
 
-HelpFrame::~HelpFrame()
-{
-}
+/**
+ * destructor of HelpFrame
+ */
+HelpFrame::~HelpFrame() {}

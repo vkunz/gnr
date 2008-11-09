@@ -411,10 +411,17 @@ MainFrame::MainFrame(wxWindow* parent)
 	MenuItem32->Check(true);
 }
 
+/**
+ * destructor of MainFrame
+ */
 MainFrame::~MainFrame()
 {
 }
 
+/**
+ * catches the button/menu klick for new room
+ * @param[in]       WXUNUSED        unused event of button/menu
+ */
 void MainFrame::OnMenuNewRoom(wxCommandEvent& WXUNUSED(event))
 {
 	int answer = wxMessageBox(wxT("Wollen Sie den Raum wirklick leeren?"), wxT("Sind Sie sicher?"), wxYES_NO, this);
@@ -426,6 +433,10 @@ void MainFrame::OnMenuNewRoom(wxCommandEvent& WXUNUSED(event))
 	}
 }
 
+/**
+ * catches the button/menu klick for opx-open
+ * @param[in]       WXUNUSED        unused event of button/menu
+ */
 void MainFrame::OnMenuOpxOpen(wxCommandEvent& WXUNUSED(event))
 {
 	int answer = wxMessageBox(wxT("Wollen Sie den aktuellen Raum wirklick ersetzen?"), wxT("Sind Sie sicher?"), wxYES_NO, this);
@@ -445,6 +456,10 @@ void MainFrame::OnMenuOpxOpen(wxCommandEvent& WXUNUSED(event))
 	}
 }
 
+/**
+ * catches the button/menu klick for opx-save
+ * @param[in]       WXUNUSED        unused event of button/menu
+ */
 void MainFrame::OnMenuOpxSave(wxCommandEvent& WXUNUSED(event))
 {
 	const wxString& filename = wxFileSelector(wxT("Szene als OPX speichern..."), wxT(""), wxT(""), wxT(""), wxT("OpxDatei (*.opx)|*.opx"), wxFD_SAVE);
@@ -460,6 +475,10 @@ void MainFrame::OnMenuOpxSave(wxCommandEvent& WXUNUSED(event))
 	}
 }
 
+/**
+ * catches the button/menu klick for oax-import
+ * @param[in]       WXUNUSED        unused event of button/menu
+ */
 void MainFrame::OnMenuOaxImport(wxCommandEvent& WXUNUSED(event))
 {
 	const wxString& filename = wxFileSelector(wxT("Object als OAX importieren..."), wxT(""), wxT(""), wxT(""), wxT("OaxDatei (*.oax)|*.oax"));
@@ -475,6 +494,10 @@ void MainFrame::OnMenuOaxImport(wxCommandEvent& WXUNUSED(event))
 	}
 }
 
+/**
+ * catches the button/menu klick for oax-export
+ * @param[in]       WXUNUSED        unused event of button/menu
+ */
 void MainFrame::OnMenuOaxExport(wxCommandEvent& WXUNUSED(event))
 {
 	const wxString& filename = wxFileSelector(wxT("Object als OAX exportieren..."), wxT(""), wxT(""), wxT(""), wxT("OaxDatei (*.oax)|*.oax"));
@@ -490,6 +513,10 @@ void MainFrame::OnMenuOaxExport(wxCommandEvent& WXUNUSED(event))
 	}
 }
 
+/**
+ * catches the button/menu klick for obj-import
+ * @param[in]       WXUNUSED        unused event of button/menu
+ */
 void MainFrame::OnMenuObjImport(wxCommandEvent& WXUNUSED(event))
 {
 	const wxString& filename = wxFileSelector(wxT("Object als OBJ importieren..."), wxT("Datei wählen..."), wxT(""), wxT("Datei wählen..."), wxT("ObjDatei (*.obj)|*.obj"));
@@ -505,6 +532,10 @@ void MainFrame::OnMenuObjImport(wxCommandEvent& WXUNUSED(event))
 	}
 }
 
+/**
+ * catches the button/menu klick for obj-export
+ * @param[in]       WXUNUSED        unused event of button/menu
+ */
 void MainFrame::OnMenuObjExport(wxCommandEvent& WXUNUSED(event))
 {
 	const wxString& filename = wxFileSelector(wxT("Szene als OBJ exportieren..."), wxT("Datei wählen..."), wxT(""), wxT("Datei wählen..."), wxT("ObjDatei (*.obj)|*.obj"), wxFD_SAVE);
@@ -520,21 +551,33 @@ void MainFrame::OnMenuObjExport(wxCommandEvent& WXUNUSED(event))
 	}
 }
 
+/**
+ * catches the button/menu klick for application-exit
+ * @param[in]       WXUNUSED        unused event of button/menu
+ */
 void MainFrame::OnMenuQuit(wxCommandEvent& WXUNUSED(event))
 {
-	int answer = wxMessageBox(wxT("Wollen Sie  verlassen?"), wxT("Beenden"), wxYES_NO, this);
+	int answer = wxMessageBox(wxT("Wollen Sie das Programm wirklich verlassen?"), wxT("Beenden"), wxYES_NO, this);
 	if (answer == wxYES)
 	{
 		Close();
 	}
 }
 
+/**
+ * catches the button/menu klick for about-information
+ * @param[in]       WXUNUSED        unused event of button/menu
+ */
 void MainFrame::OnMenuAbout(wxCommandEvent& WXUNUSED(event))
 {
 	wxString msg = wxbuildinfo();
 	wxMessageBox(msg, _(""));
 }
 
+/**
+ * catches the button/menu klick for assembly-move in xz
+ * @param[in]       WXUNUSED        unused event of button/menu
+ */
 void MainFrame::OnToolbarMoveXZ(wxCommandEvent& WXUNUSED(event))
 {
 	MenuItem12->Check(true);
@@ -547,6 +590,10 @@ void MainFrame::OnToolbarMoveXZ(wxCommandEvent& WXUNUSED(event))
 	GetEventHandler()->ProcessEvent(myevent);
 }
 
+/**
+ * catches the button/menu klick for assembly-move in xy
+ * @param[in]       WXUNUSED        unused event of button/menu
+ */
 void MainFrame::OnToolbarMoveXY(wxCommandEvent& WXUNUSED(event))
 {
 	MenuItem13->Check(true);
@@ -559,6 +606,10 @@ void MainFrame::OnToolbarMoveXY(wxCommandEvent& WXUNUSED(event))
 	GetEventHandler()->ProcessEvent(myevent);
 }
 
+/**
+ * catches the button/menu klick for assembly-rotate in xz
+ * @param[in]       WXUNUSED        unused event of button/menu
+ */
 void MainFrame::OnToolbarRotateXZ(wxCommandEvent& WXUNUSED(event))
 {
 	MenuItem14->Check(true);
@@ -571,6 +622,10 @@ void MainFrame::OnToolbarRotateXZ(wxCommandEvent& WXUNUSED(event))
 	GetEventHandler()->ProcessEvent(myevent);
 }
 
+/**
+ * catches the button/menu klick for assembly-rotate in xy
+ * @param[in]       WXUNUSED        unused event of button/menu
+ */
 void MainFrame::OnToolbarRotateXY(wxCommandEvent& WXUNUSED(event))
 {
 	MenuItem15->Check(true);
@@ -583,6 +638,10 @@ void MainFrame::OnToolbarRotateXY(wxCommandEvent& WXUNUSED(event))
 	GetEventHandler()->ProcessEvent(myevent);
 }
 
+/**
+ * catches the button/menu klick for cuboid-creation
+ * @param[in]       WXUNUSED        unused event of button/menu
+ */
 void MainFrame::OnMenuCreateCuboid(wxCommandEvent& WXUNUSED(event))
 {
 #warning: "TODO OnMenuCreateCuboid, event ready!"
@@ -592,6 +651,10 @@ void MainFrame::OnMenuCreateCuboid(wxCommandEvent& WXUNUSED(event))
 	GetEventHandler()->ProcessEvent(myevent);
 }
 
+/**
+ * catches the button/menu klick for cone-creation
+ * @param[in]       WXUNUSED        unused event of button/menu
+ */
 void MainFrame::OnMenuCreateCone(wxCommandEvent& WXUNUSED(event))
 {
 #warning: "TODO OnMenuCreateCone, event ready!"
@@ -601,6 +664,10 @@ void MainFrame::OnMenuCreateCone(wxCommandEvent& WXUNUSED(event))
 	GetEventHandler()->ProcessEvent(myevent);
 }
 
+/**
+ * catches the button/menu klick for sphere-creation
+ * @param[in]       WXUNUSED        unused event of button/menu
+ */
 void MainFrame::OnMenuCreateSphere(wxCommandEvent& WXUNUSED(event))
 {
 #warning: "TODO OnMenuCreateSphere, event ready!"
@@ -610,6 +677,10 @@ void MainFrame::OnMenuCreateSphere(wxCommandEvent& WXUNUSED(event))
 	GetEventHandler()->ProcessEvent(myevent);
 }
 
+/**
+ * catches the button/menu klick for cylinder-creation
+ * @param[in]       WXUNUSED        unused event of button/menu
+ */
 void MainFrame::OnMenuCreateCylinder(wxCommandEvent& WXUNUSED(event))
 {
 #warning: "TODO OnMenuCreateCylinder, event ready!"
@@ -619,6 +690,10 @@ void MainFrame::OnMenuCreateCylinder(wxCommandEvent& WXUNUSED(event))
 	GetEventHandler()->ProcessEvent(myevent);
 }
 
+/**
+ * catches the button/menu klick for pyramide-creation
+ * @param[in]       WXUNUSED        unused event of button/menu
+ */
 void MainFrame::OnMenuCreatePyramide(wxCommandEvent& WXUNUSED(event))
 {
 #warning: "TODO OnMenuCreatePyramide, event ready!"
@@ -628,6 +703,10 @@ void MainFrame::OnMenuCreatePyramide(wxCommandEvent& WXUNUSED(event))
 	GetEventHandler()->ProcessEvent(myevent);
 }
 
+/**
+ * catches the button/menu klick for wall-creation
+ * @param[in]       WXUNUSED        unused event of button/menu
+ */
 void MainFrame::OnToolbarDrawWall(wxCommandEvent& WXUNUSED(event))
 {
 	MenuItem16->Check(true);
@@ -640,6 +719,10 @@ void MainFrame::OnToolbarDrawWall(wxCommandEvent& WXUNUSED(event))
 	GetEventHandler()->ProcessEvent(myevent);
 }
 
+/**
+ * catches the button/menu klick for screenshot-creation
+ * @param[in]       WXUNUSED        unused event of button/menu
+ */
 void MainFrame::OnCreateScreenshot(wxCommandEvent& WXUNUSED(event))
 {
 	wxString filetypes;
@@ -659,7 +742,10 @@ void MainFrame::OnCreateScreenshot(wxCommandEvent& WXUNUSED(event))
 	}
 }
 
-
+/**
+ * catches the button/menu klick for camera-reset
+ * @param[in]       WXUNUSED        unused event of button/menu
+ */
 void MainFrame::OnCameraReset(wxCommandEvent& WXUNUSED(event))
 {
 	NotifyEvent gnrevent(wxEVT_COMMAND_GNR_NOTIFY);
@@ -667,6 +753,10 @@ void MainFrame::OnCameraReset(wxCommandEvent& WXUNUSED(event))
 	GetEventHandler()->ProcessEvent(gnrevent);
 }
 
+/**
+ * catches the button/menu klick for new room
+ * @param[in]       WXUNUSED        unused event of button/menu
+ */
 void MainFrame::OnSnapToGridMenu(wxCommandEvent& WXUNUSED(event))
 {
 	//sync menu item and toolbar for snapping function
@@ -674,6 +764,10 @@ void MainFrame::OnSnapToGridMenu(wxCommandEvent& WXUNUSED(event))
 	OnSnapToGrid();
 }
 
+/**
+ * catches the button/menu klick for shadow-option
+ * @param[in]       WXUNUSED        unused event of button/menu
+ */
 void MainFrame::OnShadowsMenu(wxCommandEvent& WXUNUSED(event))
 {
 	NotifyEvent gnrevent(wxEVT_COMMAND_GNR_NOTIFY);
@@ -682,6 +776,10 @@ void MainFrame::OnShadowsMenu(wxCommandEvent& WXUNUSED(event))
 	GetEventHandler()->ProcessEvent(gnrevent);
 }
 
+/**
+ * catches the button/menu klick for snap-to-grid-option
+ * @param[in]       WXUNUSED        unused event of button/menu
+ */
 void MainFrame::OnSnapToGridBtn(wxCommandEvent& WXUNUSED(event))
 {
 	//sync menu item and toolbar for snapping function
@@ -689,11 +787,18 @@ void MainFrame::OnSnapToGridBtn(wxCommandEvent& WXUNUSED(event))
 	OnSnapToGrid();
 }
 
+/**
+ * catches the button/menu klick for snap-to-grid-option
+ * @param[in]       WXUNUSED        unused event of button/menu
+ */
 void MainFrame::OnSnapToGridCtrl(wxSpinEvent& WXUNUSED(event))
 {
 	OnSnapToGrid();
 }
 
+/**
+ * performes action for snap-to-grid-change
+ */
 void MainFrame::OnSnapToGrid()
 {
 	NotifyEvent gnrevent(wxEVT_COMMAND_GNR_NOTIFY);
@@ -714,6 +819,10 @@ void MainFrame::OnSnapToGrid()
 	GetEventHandler()->ProcessEvent(gnrevent);
 }
 
+/**
+ * catches the button/menu klick for undo
+ * @param[in]       WXUNUSED        unused event of button/menu
+ */
 void MainFrame::OnToolbarUndo(wxCommandEvent& WXUNUSED(event))
 {
 	NotifyEvent gnrevent(wxEVT_COMMAND_GNR_NOTIFY);
@@ -721,6 +830,10 @@ void MainFrame::OnToolbarUndo(wxCommandEvent& WXUNUSED(event))
 	GetEventHandler()->ProcessEvent(gnrevent);
 }
 
+/**
+ * catches the button/menu klick for redo
+ * @param[in]       WXUNUSED        unused event of button/menu
+ */
 void MainFrame::OnToolbarRedo(wxCommandEvent& WXUNUSED(event))
 {
 	NotifyEvent gnrevent(wxEVT_COMMAND_GNR_NOTIFY);
@@ -728,6 +841,10 @@ void MainFrame::OnToolbarRedo(wxCommandEvent& WXUNUSED(event))
 	GetEventHandler()->ProcessEvent(gnrevent);
 }
 
+/**
+ * catches the button/menu klick for group-creation
+ * @param[in]       WXUNUSED        unused event of button/menu
+ */
 void MainFrame::OnGroupCreate(wxCommandEvent& WXUNUSED(event))
 {
 	NotifyEvent gnrevent(wxEVT_COMMAND_GNR_NOTIFY);
@@ -742,6 +859,10 @@ void MainFrame::OnGroupModify(wxCommandEvent& WXUNUSED(event))
 	GetEventHandler()->ProcessEvent(gnrevent);
 }
 
+/**
+ * catches the button/menu klick for deleting selected
+ * @param[in]       WXUNUSED        unused event of button/menu
+ */
 void MainFrame::OnDeleteSelected(wxCommandEvent& WXUNUSED(event))
 {
 	NotifyEvent gnrevent(wxEVT_COMMAND_GNR_NOTIFY);
@@ -749,6 +870,10 @@ void MainFrame::OnDeleteSelected(wxCommandEvent& WXUNUSED(event))
 	GetEventHandler()->ProcessEvent(gnrevent);
 }
 
+/**
+ * catches the button/menu klick for cloning selected
+ * @param[in]       WXUNUSED        unused event of button/menu
+ */
 void MainFrame::OnCloneSelected(wxCommandEvent& WXUNUSED(event))
 {
 	NotifyEvent gnrevent(wxEVT_COMMAND_GNR_NOTIFY);
@@ -756,6 +881,10 @@ void MainFrame::OnCloneSelected(wxCommandEvent& WXUNUSED(event))
 	GetEventHandler()->ProcessEvent(gnrevent);
 }
 
+/**
+ * catches the button/menu klick for hiding selected
+ * @param[in]       WXUNUSED        unused event of button/menu
+ */
 void MainFrame::OnHideSelected(wxCommandEvent& WXUNUSED(event))
 {
 	NotifyEvent gnrevent(wxEVT_COMMAND_GNR_NOTIFY);
@@ -763,6 +892,10 @@ void MainFrame::OnHideSelected(wxCommandEvent& WXUNUSED(event))
 	GetEventHandler()->ProcessEvent(gnrevent);
 }
 
+/**
+ * catches the button/menu klick for coping selected
+ * @param[in]       WXUNUSED        unused event of button/menu
+ */
 void MainFrame::OnCopySelected(wxCommandEvent& WXUNUSED(event))
 {
 	NotifyEvent gnrevent(wxEVT_COMMAND_GNR_NOTIFY);
@@ -770,6 +903,10 @@ void MainFrame::OnCopySelected(wxCommandEvent& WXUNUSED(event))
 	GetEventHandler()->ProcessEvent(gnrevent);
 }
 
+/**
+ * catches the button/menu klick for cutting selected
+ * @param[in]       WXUNUSED        unused event of button/menu
+ */
 void MainFrame::OnCutSelected(wxCommandEvent& WXUNUSED(event))
 {
 	NotifyEvent gnrevent(wxEVT_COMMAND_GNR_NOTIFY);
@@ -777,6 +914,10 @@ void MainFrame::OnCutSelected(wxCommandEvent& WXUNUSED(event))
 	GetEventHandler()->ProcessEvent(gnrevent);
 }
 
+/**
+ * catches the button/menu klick for resetting an object
+ * @param[in]       WXUNUSED        unused event of button/menu
+ */
 void MainFrame::OnResetObject(wxCommandEvent& WXUNUSED(event))
 {
 	NotifyEvent gnrevent(wxEVT_COMMAND_GNR_NOTIFY);
@@ -784,6 +925,10 @@ void MainFrame::OnResetObject(wxCommandEvent& WXUNUSED(event))
 	GetEventHandler()->ProcessEvent(gnrevent);
 }
 
+/**
+ * catches the button/menu klick for pasting copied objects
+ * @param[in]       WXUNUSED        unused event of button/menu
+ */
 void MainFrame::OnInsertCopy(wxCommandEvent& WXUNUSED(event))
 {
 	NotifyEvent gnrevent(wxEVT_COMMAND_GNR_NOTIFY);
@@ -791,32 +936,56 @@ void MainFrame::OnInsertCopy(wxCommandEvent& WXUNUSED(event))
 	GetEventHandler()->ProcessEvent(gnrevent);
 }
 
+/**
+ * catches the button/menu klick for viewing help-menu
+ * @param[in]       WXUNUSED        unused event of button/menu
+ */
 void MainFrame::OnMenuHelp(wxCommandEvent& WXUNUSED(event))
 {
 	HelpFrame* m_frame = new HelpFrame(this,0);
 	m_frame->Show(true);
 }
 
+/**
+ * enables/disalbes the undo button
+ * @param[in]       enabled         status
+ */
 void MainFrame::setUndoEnabled(bool enabled)
 {
 	ToolBar1->EnableTool(btn_undo, enabled);
 }
 
+/**
+ * enables/disalbes the redo button
+ * @param[in]       enabled         status
+ */
 void MainFrame::setRedoEnabled(bool enabled)
 {
 	ToolBar1->EnableTool(btn_redo, enabled);
 }
 
+/**
+ * fetches the zoom-in button/menu klick
+ * @param[in]       WXUNUSED        unused event of button/menu
+ */
 void MainFrame::OnZoomIn(wxCommandEvent& WXUNUSED(event))
 {
 	simulateMouseWheel(-10);
 }
 
+/**
+ * fetches the zoom-out button/menu klick
+ * @param[in]       WXUNUSED        unused event of button/menu
+ */
 void MainFrame::OnZoomOut(wxCommandEvent& WXUNUSED(event))
 {
 	simulateMouseWheel(10);
 }
 
+/**
+ * simulates a mouse-wheel-rotation in order to use normal zoom-event
+ * @param[in]       direction           direction to turn the mouse-wheel
+ */
 void MainFrame::simulateMouseWheel(int direction)
 {
 	wxMouseEvent event(wxEVT_MOUSEWHEEL);
@@ -828,6 +997,10 @@ void MainFrame::simulateMouseWheel(int direction)
 	GetEventHandler()->ProcessEvent(myevent);
 }
 
+/**
+ * returns pointer to the statusbar
+ * @return      wxStatusbar*        Pointer to statusbar
+ */
 wxStatusBar* MainFrame::getStatusbar()
 {
 	return  StatusBar;
