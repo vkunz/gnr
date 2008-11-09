@@ -1,0 +1,11 @@
+<area shape="rect" href="$df/d01/class_tree_scene_ctrl.html#9602b0bb6ab2f62d5c8fcea57170c7ae" title="TreeSceneCtrl.createAssemblyDataFrame" alt="" coords="204,208,468,235">
+<area shape="rect" href="$dd/d63/class_assembly_data_frame.html#2ab14572e17f539c18fbb802617335cd" title="AssemblyDataFrame.fillFields" alt="" coords="528,183,723,209">
+<area shape="rect" href="$d0/d89/class_tree_scene_item_data.html#2253fd67a668a3af7e0805969ad189fa" title="TreeSceneItemData.getAssembly" alt="" coords="517,233,733,260">
+<area shape="rect" href="$d5/de3/class_assembly.html#9653903bffdfd3072ac6ce69496c6ed3" title="Assembly.getDepth" alt="" coords="785,5,921,32">
+<area shape="rect" href="$d5/de3/class_assembly.html#4fc5fbbf4b660caeb6a9ef9584586cbb" title="Assembly.getHeight" alt="" coords="784,56,923,83">
+<area shape="rect" href="$d5/de3/class_assembly.html#751de7a93bd9568297d4714b196a312f" title="Assembly.getName" alt="" coords="785,107,921,133">
+<area shape="rect" href="$d5/de3/class_assembly.html#ac0519cff9c90bba3c362349fe76eed2" title="Assembly.getScaleX" alt="" coords="783,157,924,184">
+<area shape="rect" href="$d5/de3/class_assembly.html#8d3a77f94b2cfe82358008b8aad18fab" title="Assembly.getScaleY" alt="" coords="781,208,925,235">
+<area shape="rect" href="$d5/de3/class_assembly.html#9b3bff9834170f24fcb5317f3a3df93b" title="Assembly.getScaleZ" alt="" coords="783,259,924,285">
+<area shape="rect" href="$d5/de3/class_assembly.html#fbf13ccb35bf3b88d9f4705f5b35e5de" title="Assembly.getWidth" alt="" coords="785,309,921,336">
+<area shape="rect" href="$d5/de3/class_assembly.html#6b765c1eb5e7b683ae30a388399c5931" title="Assembly.isVisible" alt="" coords="788,360,919,387">

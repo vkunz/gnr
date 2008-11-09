@@ -1,0 +1,16 @@
+<area shape="rect" href="$d8/d62/class_g_l_notify_event.html#b22c1a3f69e4fe9f14e74f2a62c2eb7d" title="GLNotifyEvent.getCanvasID" alt="" coords="537,5,716,32">
+<area shape="rect" href="$d6/db5/class_scene.html#438c0c7ede2054c0a9eee18f05045ce5" title="Scene.getGLCamera2D" alt="" coords="548,56,705,83">
+<area shape="rect" href="$d6/db5/class_scene.html#de5fa271cdbb9b7db995c5e4af1f3a48" title="Scene.getGLCamera3D" alt="" coords="548,309,705,336">
+<area shape="rect" href="$d8/d62/class_g_l_notify_event.html#d5b8a284660354258246b4abe71b6c7e" title="GLNotifyEvent.getMouseEvent" alt="" coords="268,252,463,279">
+<area shape="rect" href="$da/d43/class_g_l_camera.html#df3a4dbe26a03d93fb56a4cb8a306b73" title="GLCamera.getPosition" alt="" coords="289,303,441,329">
+<area shape="rect" href="$da/d43/class_g_l_camera.html#159cef64f00a59131e4b719315c73134" title="GLCamera.getRotatedX" alt="" coords="287,353,444,380">
+<area shape="rect" href="$da/d43/class_g_l_camera.html#11bc8c1ea6b37278efb1bb2b7adb7157" title="GLCamera.getRotatedY" alt="" coords="285,404,445,431">
+<area shape="rect" href="$d3/d14/class_mediator.html#14f84856ee423ff7c07518e3a8c3b86d" title="Mediator.getTranslation" alt="" coords="288,455,443,481">
+<area shape="rect" href="$d3/d14/class_mediator.html#885628cf4a40774b5573b47587d2f7b9" title="Mediator.initialize" alt="" coords="304,505,427,532">
+<area shape="rect" href="$d9/d3a/class_mouse_controller.html#cc4a44493625acf5d75f2e734b58f346" title="MouseController.setAssemblyMediator" alt="" coords="243,151,488,177">
+<area shape="rect" href="$d3/d14/class_mediator.html#51131e733b1829a43003a90bbd6c42f3" title="Mediator.setGLCamera" alt="" coords="288,556,443,583">
+<area shape="rect" href="$d9/d3a/class_mouse_controller.html#bfa4c0722ce224fc8780d14a7e3c7979" title="MouseController.updateMouse" alt="" coords="267,607,464,633">
+<area shape="rect" href="$d6/db5/class_scene.html#30ed9011a03ff4a6891084318d0b0942" title="Scene.getCanvas2D" alt="" coords="557,157,696,184">
+<area shape="rect" href="$d6/db5/class_scene.html#9bbf5ca7b9e14e18c99a895fa181801d" title="Scene.getCanvas3D" alt="" coords="557,208,696,235">
+<area shape="rect" href="$d6/db5/class_scene.html#9734d1bd04f724bc375d31915478470a" title="Scene.getRootAssembly" alt="" coords="544,259,709,285">
+<area shape="rect" href="$d3/d14/class_mediator.html#c93e45c621909e22e9382c694d1061a5" title="Mediator.setAssembly" alt="" coords="551,107,703,133">

@@ -1,0 +1,12 @@
+<area shape="rect" href="$d7/d46/class_opx_export.html#06cb4ca246edac4de3f3579cbb963970" title="OpxExport.createAssembly" alt="" coords="421,157,603,184">
+<area shape="rect" href="$d7/d46/class_opx_export.html#1b975d95a9e214ae701617a57c072a95" title="OpxExport.createGroup" alt="" coords="215,208,372,235">
+<area shape="rect" href="$d5/de3/class_assembly.html#b7d7843a3ab0d155eedbfa59ea109765" title="Assembly.getHash" alt="" coords="653,157,784,184">
+<area shape="rect" href="$d5/de3/class_assembly.html#751de7a93bd9568297d4714b196a312f" title="Assembly.getName" alt="" coords="651,5,787,32">
+<area shape="rect" href="$d5/de3/class_assembly.html#b4e654c172af4bcae37e719f94acb555" title="Assembly.getPhi" alt="" coords="659,56,779,83">
+<area shape="rect" href="$d5/de3/class_assembly.html#34a8d045ba09fa4c42b0d661d1a39ad1" title="Assembly.getRho" alt="" coords="657,107,780,133">
+<area shape="rect" href="$d5/de3/class_assembly.html#dd3e75ea0452b38a7be52572b0e68f05" title="Assembly.getTheta" alt="" coords="652,323,785,349">
+<area shape="rect" href="$d5/de3/class_assembly.html#b8d061698a200a8ecc1d2a9f69661c07" title="Assembly.getX" alt="" coords="665,399,772,425">
+<area shape="rect" href="$d5/de3/class_assembly.html#d219deaf4879084d154265840408a3d5" title="Assembly.getY" alt="" coords="664,449,773,476">
+<area shape="rect" href="$d5/de3/class_assembly.html#6218514a20e8d802c89884c8a50a20fd" title="Assembly.getZ" alt="" coords="665,208,772,235">
+<area shape="rect" href="$d5/de3/class_assembly.html#6b765c1eb5e7b683ae30a388399c5931" title="Assembly.isVisible" alt="" coords="653,259,784,285">
+<area shape="rect" href="$d5/de3/class_assembly.html#ed4ea8b1f7dc109c964eb8f0c3c53626" title="Assembly.getPartList" alt="" coords="439,309,585,336">

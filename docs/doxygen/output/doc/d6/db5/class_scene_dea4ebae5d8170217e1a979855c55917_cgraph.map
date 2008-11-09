@@ -1,0 +1,16 @@
+<area shape="rect" href="$d5/de3/class_assembly.html#c9d3e547dd21a926b9f152bd42b01418" title="Assembly.draw" alt="" coords="255,5,364,32">
+<area shape="rect" href="$d5/d7b/class_g_l_canvas.html#4e773fd347676178e60015ddd22768ad" title="GLCanvas.drawBaseFloor" alt="" coords="224,56,395,83">
+<area shape="rect" href="$d5/de3/class_assembly.html#af5da3f7a8447c83399e0b58596450e1" title="Assembly.drawShadow" alt="" coords="232,107,387,133">
+<area shape="rect" href="$d5/d7b/class_g_l_canvas.html#58d78457618b3e3c0120ab9a7fd8addb" title="GLCanvas.endDraw" alt="" coords="243,157,376,184">
+<area shape="rect" href="$d5/d7b/class_g_l_canvas.html#049a8ed970f34623a8845e19ae42ff5e" title="GLCanvas.endPixelBuffer" alt="" coords="225,208,393,235">
+<area shape="rect" href="$d5/d7b/class_g_l_canvas.html#0a217a6dac41d7d16cb51bc2880b5e46" title="GLCanvas.initLights" alt="" coords="241,259,377,285">
+<area shape="rect" href="$d5/d7b/class_g_l_canvas.html#a22fa22319bb80b056e1abf991cad0d7" title="GLCanvas.loadShadowMatrix" alt="" coords="215,309,404,336">
+<area shape="rect" href="$d5/d7b/class_g_l_canvas.html#68ae53195e0e85373c2914c0f714b1ef" title="GLCanvas.prepareDraw" alt="" coords="232,360,387,387">
+<area shape="rect" href="$d5/d7b/class_g_l_canvas.html#c791e43686e1f7139ecccf8019a83db9" title="GLCanvas.preparePixelBuffer" alt="" coords="215,411,404,437">
+<area shape="rect" href="$da/d43/class_g_l_camera.html#23734ccf4e8be643e3c6b7bc3d2626c8" title="GLCamera.render" alt="" coords="248,461,371,488">
+<area shape="rect" href="$d5/d7b/class_g_l_canvas.html#77c335465036944eda1a962c0ccd9a5d" title="GLCanvas.shadowColorOff" alt="" coords="223,512,396,539">
+<area shape="rect" href="$d5/d7b/class_g_l_canvas.html#391b3812152e7cd5b5e6727b81f04905" title="GLCanvas.shadowColorOn" alt="" coords="221,563,397,589">
+<area shape="rect" href="$d0/d72/class_vertex.html#5052ff1eaa3994c79c8b693884127428" title="Vertex.getX" alt="" coords="455,385,543,412">
+<area shape="rect" href="$d0/d72/class_vertex.html#ec30db203626f77d260e33726a30b5ca" title="Vertex.getY" alt="" coords="453,436,544,463">
+<area shape="rect" href="$d0/d72/class_vertex.html#c6e94e1a137dd360f9dce1ccfa6058d7" title="Vertex.getZ" alt="" coords="455,487,543,513">
+<area shape="rect" href="$d0/d72/class_vertex.html#4f844b660a6ba3d69f5dbf320aae9b79" title="Vertex.setY" alt="" coords="453,537,544,564">

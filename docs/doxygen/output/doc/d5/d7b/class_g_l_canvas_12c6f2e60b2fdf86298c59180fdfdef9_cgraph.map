@@ -1,0 +1,8 @@
+<area shape="rect" href="$d5/de3/class_assembly.html#c9d3e547dd21a926b9f152bd42b01418" title="Assembly.draw" alt="" coords="220,5,329,32">
+<area shape="rect" href="$d5/de3/class_assembly.html#a198c1cc52fd68222ceb4230d23f7f2e" title="Assembly.getMaster" alt="" coords="204,56,345,83">
+<area shape="rect" href="$da/d43/class_g_l_camera.html#23734ccf4e8be643e3c6b7bc3d2626c8" title="GLCamera.render" alt="" coords="213,107,336,133">
+<area shape="rect" href="$d5/d7b/class_g_l_canvas.html#d95a9f89d162ee28a0858ad4578c729e" title="GLCanvas.setPerspective" alt="" coords="191,157,359,184">
+<area shape="rect" href="$d0/d72/class_vertex.html#5052ff1eaa3994c79c8b693884127428" title="Vertex.getX" alt="" coords="409,31,497,57">
+<area shape="rect" href="$d0/d72/class_vertex.html#ec30db203626f77d260e33726a30b5ca" title="Vertex.getY" alt="" coords="408,81,499,108">
+<area shape="rect" href="$d0/d72/class_vertex.html#c6e94e1a137dd360f9dce1ccfa6058d7" title="Vertex.getZ" alt="" coords="409,132,497,159">
+<area shape="rect" href="$d0/d72/class_vertex.html#4f844b660a6ba3d69f5dbf320aae9b79" title="Vertex.setY" alt="" coords="408,183,499,209">
