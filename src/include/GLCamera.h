@@ -46,6 +46,7 @@ public:
 	void rotateZ(GLfloat angle);
 	
 	void move(Vertex direction);
+	void move(const float x, const float y, const float z);
 	void moveForward(GLfloat distance);
 	void moveUpward(GLfloat distance);
 	void strafeRight(GLfloat distance);
@@ -67,6 +68,7 @@ public:
 	void setRotatedX(GLfloat phi);
 	void setRotatedY(GLfloat theta);
 	void setRotatedZ(GLfloat rho);
+	void setDistance(float distance);
 	void setCamera(const float& x, const float& y, const float& z, const float& phi, const float& theta, const float& rho);
 	
 };

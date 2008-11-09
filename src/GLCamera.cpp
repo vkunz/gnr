@@ -37,6 +37,17 @@ void GLCamera::move(Vertex direction)
 }
 
 /**
+ * Moves the camera (View-Point) along the direction-vector
+ * @param[in]       x       direction to move the camera in x
+ * @param[in]       y       direction to move the camera in y
+ * @param[in]       z       direction to move the camera in z
+ */
+void GLCamera::move(const float x, const float y, const float z)
+{
+	viewPoint = viewPoint + Vertex(x,y,z);
+}
+
+/**
  * Rotates the camera arround the x-axis
  * @param[in]       angle           angle to rotate the camera
  */
@@ -154,7 +165,7 @@ void GLCamera::setCamera(const float& x, const float& y, const float& z, const f
 	//first reset camera
 	reset();
 	
-	//rotate cam now
+	//rotate cam
 	rotateZ(rho);
 	rotateY(theta);
 	rotateX(phi);
@@ -193,6 +204,19 @@ void GLCamera::setAngles(float phi, float theta, float rho)
 	rotateZ(rho);
 	rotateY(theta);
 	rotateX(phi);
+}
+
+/**
+ * changes the distance of camera
+ * @param[in]       distance        camera distance
+ */
+void GLCamera::setDistance(float distance)
+{
+	m_distance = distance;
+	if (m_distance <= CAMERA_DISTANCE_MIN)
+	{
+		m_distance = CAMERA_DISTANCE_MIN;
+	}
 }
 
 /**

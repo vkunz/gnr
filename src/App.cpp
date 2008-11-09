@@ -43,6 +43,7 @@
 #include <wx/image.h>
 #include <wx/mstream.h>
 #include <wx/textdlg.h>
+#include <wx/msgdlg.h>
 
 #include "App.h"
 #include "GlobalDefine.h"
@@ -85,12 +86,12 @@ bool App::OnInit()
 		initFrames();
 		
 #if defined(__ATHOS_DEBUG__)
-		// Create DebugFrame
+		//create DebugFrame
 		m_DebugFrame = new DebugFrame(m_MainFrame);
 		m_DebugFrame->Show(true);
 		m_Log = new wxLogTextCtrl(m_DebugFrame->TextCtrl);
 		m_Log->SetActiveTarget(m_Log);
-		//build models
+		//build test models
 		m_Tests         = new Tests();
 #endif
 		
@@ -619,9 +620,8 @@ void App::OBJImport(wxString filename)
  */
 void App::OBJExport(wxString filename)
 {
-#if defined(__ATHOS_DEBUG__)
-	wxLogDebug(wxT("Leider noch nicht implementiert!"));
-#endif
+	filename << wxT("\n\nLeider noch nicht implementiert!");
+	wxMessageBox(filename);
 }
 
 /**
