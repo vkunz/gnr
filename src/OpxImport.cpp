@@ -122,6 +122,9 @@ void OpxImport::loadXml(wxZipInputStream& stream)
 	double x, y, z, p, t, r;
 	bool isVisible;
 	
+	// assembly pointer
+	Assembly* assembly;
+	
 	// xml node pointer
 	wxXmlNode* node;
 	
@@ -218,6 +221,7 @@ void OpxImport::loadXml(wxZipInputStream& stream)
 	// node to scene
 	node = node->GetNext();
 	
+	// check if scene has childs
 	if (node->GetChildren() != NULL)
 	{
 		// node to first scene-object
@@ -339,11 +343,11 @@ void OpxImport::loadXml(wxZipInputStream& stream)
 				wxString name = prop->GetValue();
 				
 				// prop to location
-				prop = prop->GetNext(),
+				prop = prop->GetNext();
 				
-				       // get value of location
-				       value = prop->GetValue();
-				       
+				// get value of location
+				value = prop->GetValue();
+				
 				// tokenize value
 				tok.SetString(value, wxT(" "));
 				
@@ -383,8 +387,21 @@ void OpxImport::loadXml(wxZipInputStream& stream)
 				// close entry
 				stream.CloseEntry();
 				
-				// get oax
-				Assembly* assembly = loadOax(stream, value);
+				// create assembly and ask if already exist
+				assembly = m_scene->getRootAssembly()->getHashOriginal(value.BeforeFirst('.'));
+				
+				// check if already known
+				if (assembly != NULL)
+				{
+					wxLogDebug(wxT("in if"));
+					assembly = assembly->clone();
+				}
+				// if not
+				else
+				{
+					// get oax
+					assembly = loadOax(stream, value);
+				}
 				
 				// set visible
 				assembly->setVisible(isVisible);
@@ -400,6 +417,9 @@ void OpxImport::loadXml(wxZipInputStream& stream)
 				
 				// set z-orientation
 				assembly->setRho(orientationZ);
+				
+				// set object
+				assembly->setType(IS_OBJECT);
 				
 				// add part
 				m_actual->addPart(assembly);
@@ -427,7 +447,7 @@ void OpxImport::loadXml(wxZipInputStream& stream)
 					m_actual = m_actual->getParent();
 					
 					// while no next
-					while (node->GetNext() == NULL)
+					while (node->GetNext() == NULL && !m_actual->isType(IS_ROOT))
 					{
 						// set m_node to next
 						node = node->GetParent();
