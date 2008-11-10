@@ -10,6 +10,8 @@
 
 #include <list>
 
+#include <wx/msgdlg.h>
+
 #include "Enum.h"
 #include "OpxExport.h"
 
@@ -31,12 +33,14 @@ OpxExport::OpxExport(Scene* scene, wxString filename)
 	
 	// create OpxStream and save to FileSystem
 	createOpxStream();
+	
+	// inform user about successful saving
+	wxMessageBox(wxT("Die Datei '") + filename.AfterLast(wxFileName::GetPathSeparator()) + wxT("' wurde erfolgreich gespeichert!"),wxT("Speichern erfolgreich..."),wxOK);
 }
 
 // dtor
 OpxExport::~OpxExport()
 {
-	// do nothing
 }
 
 void OpxExport::createXmlEntry()
@@ -238,6 +242,9 @@ void OpxExport::createOpxStream()
 	
 	// close zip file
 	m_outZip->Close();
+	
+	// close out stream
+	m_outStream->Close();
 }
 
 void OpxExport::createScene(wxXmlNode* node, std::list<Assembly*> list)
@@ -260,9 +267,6 @@ void OpxExport::createScene(wxXmlNode* node, std::list<Assembly*> list)
 		
 			// create an assembly entry and add into node
 			createAssembly(node, (*it));
-			
-			// insert hash into set
-			m_set.insert((*it)->getHash() + wxT(".oax"));
 			
 			break;
 		case IS_PRIMITIVE:
@@ -315,6 +319,9 @@ void OpxExport::createAssembly(wxXmlNode* node, Assembly* assembly)
 	
 	// node to scene
 	node = node->GetParent();
+	
+	// insert hash into set
+	m_set.insert(assembly->getHash() + wxT(".oax"));
 }
 
 void OpxExport::createGroup(wxXmlNode* node, Assembly* assembly)

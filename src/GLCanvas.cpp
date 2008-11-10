@@ -92,6 +92,7 @@ void GLCanvas::connectEvents()
 void GLCanvas::reconnectEvents()
 {
 	// Connect-methods to connect different Events with functions
+	Connect(wxEVT_MOUSEWHEEL, (wxObjectEventFunction)&GLCanvas::OnMouseWheel);
 	Connect(wxEVT_MIDDLE_DOWN, (wxObjectEventFunction)&GLCanvas::OnMMouseDown);
 	Connect(wxEVT_MIDDLE_UP, (wxObjectEventFunction)&GLCanvas::OnMMouseUp);
 	Connect(wxEVT_RIGHT_DOWN, (wxObjectEventFunction)&GLCanvas::OnRMouseDown);
@@ -109,6 +110,7 @@ void GLCanvas::reconnectEvents()
 void GLCanvas::disconnectEvents()
 {
 	// Connect-methods to connect different Events with functions
+	Disconnect(wxEVT_MOUSEWHEEL, (wxObjectEventFunction)&GLCanvas::OnMouseWheel);
 	Disconnect(wxEVT_MIDDLE_DOWN, (wxObjectEventFunction)&GLCanvas::OnMMouseDown);
 	Disconnect(wxEVT_MIDDLE_UP, (wxObjectEventFunction)&GLCanvas::OnMMouseUp);
 	Disconnect(wxEVT_RIGHT_DOWN, (wxObjectEventFunction)&GLCanvas::OnRMouseDown);
@@ -486,7 +488,7 @@ Assembly* GLCanvas::selection(Assembly* rootAssembly, GLCamera* camera, int mous
  */
 void GLCanvas::OnLMouseDown(wxMouseEvent& event)
 {
-	Connect(wxEVT_MOUSEWHEEL, (wxObjectEventFunction)&GLCanvas::OnMouseWheel);
+	Connect(wxEVT_MOTION, (wxObjectEventFunction)&GLCanvas::OnMouseMove);
 	
 	Vertex* glcoords = new Vertex[2];
 	getGLDim(event.GetX(), event.GetY(), glcoords);
@@ -501,7 +503,6 @@ void GLCanvas::OnLMouseDown(wxMouseEvent& event)
 	myevent.setWorldSize(glcoords);
 	GetEventHandler()->ProcessEvent(myevent);
 	
-	Connect(wxEVT_MOTION, (wxObjectEventFunction)&GLCanvas::OnMouseMove);
 	delete[] glcoords;
 }
 
@@ -511,7 +512,7 @@ void GLCanvas::OnLMouseDown(wxMouseEvent& event)
  */
 void GLCanvas::OnLMouseDblClick(wxMouseEvent& event)
 {
-	Connect(wxEVT_MOUSEWHEEL, (wxObjectEventFunction)&GLCanvas::OnMouseWheel);
+	Connect(wxEVT_MOTION, (wxObjectEventFunction)&GLCanvas::OnMouseMove);
 	
 	Vertex* glcoords = new Vertex[2];
 	getGLDim(event.GetX(), event.GetY(), glcoords);
@@ -526,7 +527,6 @@ void GLCanvas::OnLMouseDblClick(wxMouseEvent& event)
 	myevent.setWorldSize(glcoords);
 	GetEventHandler()->ProcessEvent(myevent);
 	
-	Connect(wxEVT_MOTION, (wxObjectEventFunction)&GLCanvas::OnMouseMove);
 	delete[] glcoords;
 }
 
@@ -553,7 +553,6 @@ void GLCanvas::OnLMouseUp(wxMouseEvent& event)
  */
 void GLCanvas::OnMMouseDown(wxMouseEvent& event)
 {
-	Connect(wxEVT_MOUSEWHEEL, (wxObjectEventFunction)&GLCanvas::OnMouseWheel);
 	// send Event to handle Mouse
 	GLNotifyEvent myevent(wxEVT_COMMAND_GL_NOTIFY);
 	myevent.setMouseEvent(event);
@@ -571,8 +570,6 @@ void GLCanvas::OnMMouseDown(wxMouseEvent& event)
  */
 void GLCanvas::OnMMouseUp(wxMouseEvent& event)
 {
-	Disconnect(wxEVT_MOTION, (wxObjectEventFunction)&GLCanvas::OnMouseMove);
-	
 	// send Event to handle Mouse
 	GLNotifyEvent myevent(wxEVT_COMMAND_GL_NOTIFY);
 	myevent.setMouseEvent(event);
@@ -587,8 +584,6 @@ void GLCanvas::OnMMouseUp(wxMouseEvent& event)
  */
 void GLCanvas::OnRMouseDown(wxMouseEvent& event)
 {
-	Connect(wxEVT_MOUSEWHEEL, (wxObjectEventFunction)&GLCanvas::OnMouseWheel);
-	
 	Vertex* glcoords = new Vertex[2];
 	getGLDim(event.GetX(), event.GetY(), glcoords);
 	
@@ -664,6 +659,7 @@ void GLCanvas::OnLeaveWindow(wxMouseEvent& event)
  */
 void GLCanvas::OnEnterWindow(wxMouseEvent& event)
 {
+	SetCurrent();
 	reconnectEvents();
 	
 	// send Event to handle Mouse

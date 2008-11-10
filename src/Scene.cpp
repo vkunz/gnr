@@ -862,6 +862,7 @@ void Scene::insertAssembly(Assembly* assembly)
 	//add assembly to root node
 	m_RootAssembly->addPart(assembly);
 	
+	
 	//refresh both
 	refreshTreeAndCanvas();
 }

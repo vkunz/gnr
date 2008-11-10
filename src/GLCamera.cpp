@@ -54,6 +54,7 @@ void GLCamera::move(const float x, const float y, const float z)
 void GLCamera::rotateX(GLfloat angle)
 {
 	rotatedX += angle;
+	fixAngleRange(rotatedX);
 	
 	//Rotate viewdir around the right-Vector:
 	viewDir = viewDir*cos(angle*M_PI/180.0) + upVector*sin(angle*M_PI/180.0);
@@ -70,6 +71,7 @@ void GLCamera::rotateX(GLfloat angle)
 void GLCamera::rotateY(GLfloat angle)
 {
 	rotatedY += angle;
+	fixAngleRange(rotatedY);
 	
 	//Rotate viewdir around the up vector at the viewPoint:
 	viewDir = viewDir*cos(angle*M_PI/180.0) - rightVector*sin(angle*M_PI/180.0);
@@ -86,6 +88,7 @@ void GLCamera::rotateY(GLfloat angle)
 void GLCamera::rotateZ(GLfloat angle)
 {
 	rotatedZ += angle;
+	fixAngleRange(rotatedZ);
 	
 	//Rotate viewdir around the right vector:
 	rightVector = rightVector*cos(angle*M_PI/180.0) + upVector*sin(angle*M_PI/180.0);
@@ -186,12 +189,6 @@ void GLCamera::setCamera(const float& x, const float& y, const float& z, const f
 	
 	setDistance(s);
 	setViewPoint(position + viewDir * s);
-	
-	wxString out;
-	out << viewPoint.getX() << wxT("\n");
-	out << viewPoint.getY() << wxT("\n");
-	out << viewPoint.getZ() << wxT("\n");
-	wxLogDebug(out);
 }
 
 /**
@@ -364,6 +361,7 @@ void GLCamera::setUpVector(Vertex up)
  */
 void GLCamera::setRotatedX(GLfloat phi)
 {
+	fixAngleRange(phi);
 	rotatedX = phi;
 }
 
@@ -373,6 +371,7 @@ void GLCamera::setRotatedX(GLfloat phi)
  */
 void GLCamera::setRotatedY(GLfloat theta)
 {
+	fixAngleRange(theta);
 	rotatedY = theta;
 }
 
@@ -382,7 +381,27 @@ void GLCamera::setRotatedY(GLfloat theta)
  */
 void GLCamera::setRotatedZ(GLfloat rho)
 {
+	fixAngleRange(rho);
 	rotatedZ = rho;
+}
+
+/**
+ * finge angle range if rotated too much
+ * @param       angle             keep angle in range
+ */
+void GLCamera::fixAngleRange(GLfloat& angle)
+{
+	//get bigger values
+	while (angle >= 360.0)
+	{
+		angle -= 360.0;
+	}
+	
+	//get lower values
+	while (angle <= -360.0)
+	{
+		angle += 360.0;
+	}
 }
 
 /**

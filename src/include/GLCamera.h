@@ -27,6 +27,7 @@ private:
 	
 	float m_distance;
 	GLfloat rotatedX, rotatedY, rotatedZ;
+	void fixAngleRange(GLfloat& angle);
 	
 public:
 	GLCamera();
