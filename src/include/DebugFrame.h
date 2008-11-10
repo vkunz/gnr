@@ -20,7 +20,7 @@ class DebugFrame: public wxFrame
 {
 public:
 
-	DebugFrame(wxWindow* parent,wxWindowID id=wxID_ANY);
+	DebugFrame(wxWindow* parent);
 	virtual ~DebugFrame();
 	
 	wxTextCtrl* TextCtrl;

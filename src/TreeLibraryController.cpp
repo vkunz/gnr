@@ -202,7 +202,7 @@ unsigned int TreeLibraryController::addCategory(wxString& name)
 	m_newCat = true;
 	
 	// return
-	unsigned int ret;
+	unsigned int ret = 0;
 	
 	// iterator
 	std::vector<LibraryCategory>::iterator it;

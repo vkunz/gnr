@@ -34,7 +34,7 @@
  * @param[in]       parent          parent of frame
  * @param[in]       id              id of frame
  */
-HelpFrame::HelpFrame(wxWindow* parent, wxWindowID id)
+HelpFrame::HelpFrame()
 {
 	if (wxFileExists(wxT("help/help.html")))
 	{

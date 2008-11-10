@@ -104,12 +104,13 @@ enum assemblyType { IS_ROOT = 0,
                   };
 
 //defined primitive types
-enum primitivesType { CUBOID = 0,
-                      CYLINDER,
-                      CONE,
-                      SPHERE,
-                      PYRAMIDE
-                    };
+enum primitiveType { OTHER = 0,
+                     CUBOID,
+                     CYLINDER,
+                     CONE,
+                     SPHERE,
+                     PYRAMIDE
+                   };
 
 //defined for better reading formulas
 enum { X, Y, Z, W };

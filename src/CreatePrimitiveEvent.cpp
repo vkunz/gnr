@@ -76,7 +76,7 @@ void CreatePrimitiveEvent::setDimensions(Vertex dim)
  * sets the type of the primitive
  * @param[in]       type            type of primitive
  */
-void CreatePrimitiveEvent::setPrimitiveType(primitivesType type)
+void CreatePrimitiveEvent::setPrimitiveType(primitiveType type)
 {
 	m_type = type;
 }
@@ -111,9 +111,9 @@ Vertex CreatePrimitiveEvent::getDimensions()
 
 /**
  * returns the type, the primitive should be
- * @return          primitivesType  type of primitive
+ * @return          primitiveType  type of primitive
  */
-primitivesType CreatePrimitiveEvent::getPrimitiveType()
+primitiveType CreatePrimitiveEvent::getPrimitiveType()
 {
 	return m_type;
 }

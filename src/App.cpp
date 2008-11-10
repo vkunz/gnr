@@ -466,6 +466,7 @@ void App::OnCreatePrimitiveEvent(CreatePrimitiveEvent& event)
 		
 		//put information of whole group in parent
 		primitive->setType(IS_PRIMITIVE);
+		primitive->setPrimitiveType(CUBOID);
 		primitive->setCenterVertex(event.getPosition());
 		primitive->setRotateVertex(event.getAngles());
 		primitive->setWidth(event.getDimensions().getX());

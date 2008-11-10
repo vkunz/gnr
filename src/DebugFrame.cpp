@@ -27,9 +27,8 @@ const long DebugFrame::ID_TextCtrl = wxNewId();
 /**
  * constructor of DebugFrame
  * @param[in]       parent          parent of this frame
- * @param[in]       id              wxWindowID window-id of this frame
  */
-DebugFrame::DebugFrame(wxWindow* parent, wxWindowID id)
+DebugFrame::DebugFrame(wxWindow* parent)
 {
 	Create(parent, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, wxCAPTION|wxSYSTEM_MENU|wxRESIZE_BORDER|wxMAXIMIZE_BOX|wxMINIMIZE_BOX, _T("wxID_ANY"));
 	SetClientSize(wxSize(700,100));

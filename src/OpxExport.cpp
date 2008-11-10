@@ -248,27 +248,29 @@ void OpxExport::createScene(wxXmlNode* node, std::list<Assembly*> list)
 	// walk through part list
 	for (it = list.begin(); it != list.end(); it++)
 	{
-#warning "next line can be used when we have primitives support"
-		//if ((*it)->getType() == IS_OBJECT || (*it)->getType()== IS_PRIMITIVE)
-		if ((*it)->getType() == IS_OBJECT)
+		switch ((int)(*it)->getType())
 		{
+		case IS_GROUP:
+		
+			// create an group and add into node
+			createGroup(node, (*it));
+			
+			break;
+		case IS_OBJECT:
+		
 			// create an assembly entry and add into node
 			createAssembly(node, (*it));
 			
 			// insert hash into set
 			m_set.insert((*it)->getHash() + wxT(".oax"));
 			
-			// assemby found
-			continue;
-		}
+			break;
+		case IS_PRIMITIVE:
 		
-		if ((*it)->getType() == IS_GROUP)
-		{
-			// create an group and add into node
-			createGroup(node, (*it));
+#warning "next line can be used when we have primitives support!!!"
+			//we can use primitiveType getPrimitiveType() to ask assembly for type!!!
 			
-			// group found
-			continue;
+			break;
 		}
 	}
 }

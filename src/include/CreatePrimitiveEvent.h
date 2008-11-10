@@ -18,7 +18,7 @@
 class CreatePrimitiveEvent : public wxNotifyEvent
 {
 private:
-	primitivesType m_type;
+	primitiveType m_type;
 	Vertex m_position;
 	Vertex m_angles;
 	Vertex m_dimensions;
@@ -29,13 +29,13 @@ public:
 	virtual wxEvent* Clone() const;
 	virtual ~CreatePrimitiveEvent();
 	
-	void setPrimitiveType(primitivesType type);
+	void setPrimitiveType(primitiveType type);
 	
 	void setPosition(Vertex pos);
 	void setAngles(Vertex angles);
 	void setDimensions(Vertex dim);
 	
-	primitivesType getPrimitiveType();
+	primitiveType getPrimitiveType();
 	
 	Vertex getPosition();
 	Vertex getAngles();

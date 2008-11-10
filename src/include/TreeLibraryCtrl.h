@@ -32,12 +32,12 @@ private:
 	// event handler
 	void OnItemMenu(wxTreeEvent& event);
 	void OnItemActivated(wxTreeEvent& event);
-	void OnRename(wxTreeEvent& event);
-	void OnDelete(wxTreeEvent& event);
-	void OnNewCategory(wxTreeEvent& event);
-	void OnExport(wxTreeEvent& event);
-	void OnPaste(wxTreeEvent& event);
-	void OnMenuRename(wxTreeEvent& event);
+	void OnRename(wxTreeEvent& WXUNUSED(event));
+	void OnDelete(wxTreeEvent& WXUNUSED(event));
+	void OnNewCategory(wxTreeEvent& WXUNUSED(event));
+	void OnExport(wxTreeEvent& WXUNUSED(event));
+	void OnPaste(wxTreeEvent& WXUNUSED(event));
+	void OnMenuRename(wxTreeEvent& WXUNUSED(event));
 };
 
 #endif // _GNRTREELIBRARYCTRL_H_

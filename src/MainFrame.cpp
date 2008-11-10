@@ -942,7 +942,7 @@ void MainFrame::OnInsertCopy(wxCommandEvent& WXUNUSED(event))
  */
 void MainFrame::OnMenuHelp(wxCommandEvent& WXUNUSED(event))
 {
-	HelpFrame* m_frame = new HelpFrame(this,0);
+	HelpFrame* m_frame = new HelpFrame();
 	m_frame->Show(true);
 }
 

@@ -31,7 +31,7 @@ Assembly::Assembly(const wxString& name):
 		m_type(IS_ROOT), m_name(name), m_visible(true),
 		m_parent(NULL), m_origin(NULL),
 		m_dl_object(0), m_dl_shadow(0),
-		m_md5_obj_xml(wxEmptyString)
+		m_md5_obj_xml(wxEmptyString), m_ptype(OTHER)
 {
 }
 
@@ -73,6 +73,7 @@ Assembly::Assembly(Assembly& assembly)
 	m_dl_object     = assembly.m_dl_object;
 	m_dl_shadow     = assembly.m_dl_shadow;
 	m_md5_obj_xml   = assembly.m_md5_obj_xml;
+	m_ptype         = assembly.m_ptype;
 	
 	// copy the children
 	for (list<Assembly*>::const_iterator it = m_part.begin(); it != m_part.end(); ++it)
@@ -139,6 +140,7 @@ Assembly* Assembly::clone()
 	m_clone->m_dl_object     = m_dl_object;
 	m_clone->m_dl_shadow     = m_dl_shadow;
 	m_clone->m_md5_obj_xml   = m_md5_obj_xml;
+	m_clone->m_ptype         = m_ptype;
 	
 	// copy the children
 	for (list<Assembly*>::const_iterator it = m_part.begin(); it != m_part.end(); ++it)
@@ -180,7 +182,7 @@ Assembly::Assembly(Assembly* parent, const wxString& name):
 		m_type(IS_ROOT), m_name(name), m_visible(true),
 		m_parent(parent), m_origin(NULL),
 		m_dl_object(0), m_dl_shadow(0),
-		m_md5_obj_xml(wxEmptyString)
+		m_md5_obj_xml(wxEmptyString), m_ptype(OTHER)
 {
 }
 
@@ -198,7 +200,7 @@ Assembly::Assembly(const assemblyType& type, const wxString& name):
 		m_type(type), m_name(name), m_visible(true),
 		m_parent(NULL), m_origin(NULL),
 		m_dl_object(0), m_dl_shadow(0),
-		m_md5_obj_xml(wxEmptyString)
+		m_md5_obj_xml(wxEmptyString), m_ptype(OTHER)
 {
 }
 
@@ -237,6 +239,15 @@ bool Assembly::isVisible() const
 bool Assembly::isOriginal() const
 {
 	return (m_origin == NULL);
+}
+
+/**
+ * get primitive type
+ * @return 		primitiveType		type of primitive or 0
+ */
+primitiveType Assembly::getPrimitiveType() const
+{
+	return m_ptype;
 }
 
 /**
@@ -557,6 +568,15 @@ void Assembly::setRadiusBottom(const float r)
 void Assembly::setVisible(bool status)
 {
 	m_visible = status;
+}
+
+/**
+ * set primitive type
+ * @param[in] 		ptype       primitiveType of primitive
+ */
+void Assembly::setPrimitiveType(const primitiveType ptype)
+{
+	m_ptype = ptype;
 }
 
 /**

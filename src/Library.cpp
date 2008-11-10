@@ -372,7 +372,7 @@ void Library::renameEntry(wxString name, wxString newName)
 unsigned int Library::getParentId(wxString name)
 {
 	// tmp int
-	unsigned int parentId;
+	unsigned int parentId = 0;
 	
 	// iterator
 	std::vector<LibraryCategory>::iterator it;
@@ -724,10 +724,10 @@ void Library::addXmlEntry(wxXmlDocument& xml, wxZipOutputStream& out, bool newCa
 void Library::deleteXmlEntry(wxXmlDocument& xml, wxZipOutputStream& out, wxString& reference)
 {
 	// node pointer
-	wxXmlNode* node;
+	wxXmlNode* node = NULL;
 	
 	// node pointer
-	wxXmlNode* delNode;
+	wxXmlNode* delNode = NULL;
 	
 	// property pointer
 	wxXmlProperty* prop;

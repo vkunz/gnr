@@ -8,7 +8,7 @@ class HelpFrame: public wxFrame
 {
 public:
 
-	HelpFrame(wxWindow* parent, wxWindowID id);
+	HelpFrame();
 	virtual ~HelpFrame();
 	
 protected:

@@ -108,9 +108,9 @@ void TreeLibraryCtrl::OnItemMenu(wxTreeEvent& event)
 
 /**
  * on delete of entry
- * @param[in]       	event		     tree event
+ * @param[in]       	WXUNUSED		     unused tree event
  */
-void TreeLibraryCtrl::OnDelete(wxTreeEvent& event)
+void TreeLibraryCtrl::OnDelete(wxTreeEvent& WXUNUSED(event))
 {
 	// create event
 	TreeControlEvent gnr(wxEVT_COMMAND_GNR_TREE_CONTROL);
@@ -131,9 +131,9 @@ void TreeLibraryCtrl::OnDelete(wxTreeEvent& event)
 
 /**
  * on new category
- * @param[in]       	event		     tree event
+ * @param[in]       	WXUNUSED		     unused tree event
  */
-void TreeLibraryCtrl::OnNewCategory(wxTreeEvent& event)
+void TreeLibraryCtrl::OnNewCategory(wxTreeEvent& WXUNUSED(event))
 {
 	wxTextEntryDialog ted(this, wxT("Name der neuen Kategorie."));
 	
@@ -162,9 +162,9 @@ void TreeLibraryCtrl::OnNewCategory(wxTreeEvent& event)
 
 /**
  * on paste in tree
- * @param[in]       	event		     tree event
+ * @param[in]       	WXUNUSED		     unused tree event
  */
-void TreeLibraryCtrl::OnPaste(wxTreeEvent& event)
+void TreeLibraryCtrl::OnPaste(wxTreeEvent& WXUNUSED(event))
 {
 	// create event
 	TreeControlEvent gnr(wxEVT_COMMAND_GNR_TREE_CONTROL);
@@ -182,9 +182,9 @@ void TreeLibraryCtrl::OnPaste(wxTreeEvent& event)
 
 /**
  * on export from tree
- * @param[in]       	event		     tree event
+ * @param[in]       	WXUNUSED		     unused tree event
  */
-void TreeLibraryCtrl::OnExport(wxTreeEvent& event)
+void TreeLibraryCtrl::OnExport(wxTreeEvent& WXUNUSED(event))
 {
 	// create event
 	TreeControlEvent gnr(wxEVT_COMMAND_GNR_TREE_CONTROL);
@@ -202,9 +202,9 @@ void TreeLibraryCtrl::OnExport(wxTreeEvent& event)
 
 /**
  * on rename in tree
- * @param[in]       	event		     tree event
+ * @param[in]       	WXUNUSED		     unused tree event
  */
-void TreeLibraryCtrl::OnMenuRename(wxTreeEvent& event)
+void TreeLibraryCtrl::OnMenuRename(wxTreeEvent& WXUNUSED(event))
 {
 	// create event
 	TreeControlEvent gnr(wxEVT_COMMAND_GNR_TREE_CONTROL);

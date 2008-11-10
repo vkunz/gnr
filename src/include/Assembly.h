@@ -123,6 +123,8 @@ public:
 	void setType(const assemblyType& type);
 	assemblyType getType() const;
 	bool isType(const assemblyType& type);
+	void setPrimitiveType(const primitiveType ptype);
+	primitiveType getPrimitiveType() const;
 	
 	const wxString& getHash() const;
 	void setHash(const wxString& hash);
@@ -193,6 +195,9 @@ private:
 	
 	// list of tags
 	list<wxString> m_tags;
+	
+	//type of primitive
+	primitiveType m_ptype;
 };
 
 #endif // _GNRASSEMBLY_H_
