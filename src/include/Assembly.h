@@ -129,7 +129,7 @@ public:
 	const wxString& getHash() const;
 	void setHash(const wxString& hash);
 	
-	Assembly* cloneDisplayListFrom(Assembly* assembly);
+	void cloneDisplayListFrom(Assembly* assembly);
 	Assembly* clone();
 	Assembly* getOrigin() const;
 	Assembly* getParent() const;

@@ -105,7 +105,7 @@ Assembly::Assembly(Assembly& assembly)
  * @return      GNRAssembly*         pointer to assembly
  * @access      public
  */
-Assembly* Assembly::cloneDisplayListFrom(Assembly* assembly)
+void Assembly::cloneDisplayListFrom(Assembly* assembly)
 {
 	//copy display list ids
 	m_dl_object = assembly->m_dl_object;
