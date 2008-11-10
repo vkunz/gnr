@@ -166,7 +166,7 @@ void App::initFrames()
 	//split vertical (main) splitter in left and right splitter
 	m_VerticalSplitter->SplitVertically(m_HorizontalSplitter_left, m_HorizontalSplitter_right);
 	
-	m_VerticalSplitter->SetSashPosition(200,true);
+	m_VerticalSplitter->SetSashPosition(225,true);
 	m_HorizontalSplitter_left->SetSashPosition(300,true);
 	m_HorizontalSplitter_right->SetSashPosition(225,true);
 	

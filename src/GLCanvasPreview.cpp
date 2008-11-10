@@ -58,7 +58,7 @@ void GLCanvasPreview::InitLights()
 	float light_ambient[4]  = {0.4,0.4,0.4,0.0};
 	float light_diffuse[4]  = {0.5,0.5,0.5,0.0};
 	float light_specular[4] = {0.1,0.1,0.1,0.0};
-	float light_position[4] = {5.0,10.0,-20.0,1.0};
+	float light_position[4] = {6.0,15.0,-20.0,1.0};
 	
 	glLightfv(GL_LIGHT0, GL_DIFFUSE, light_diffuse);
 	glLightfv(GL_LIGHT0, GL_AMBIENT, light_ambient);
@@ -66,7 +66,9 @@ void GLCanvasPreview::InitLights()
 	glLightfv(GL_LIGHT0, GL_POSITION, light_position);
 	
 	glLightModelfv(GL_LIGHT_MODEL_AMBIENT, light_ambient);
-	glLightModeli(GL_LIGHT_MODEL_TWO_SIDE, 1);
+	
+	glLightModeli(GL_LIGHT_MODEL_TWO_SIDE,0);
+	glLightModeli(GL_LIGHT_MODEL_LOCAL_VIEWER,0);
 	
 	glEnable(GL_LIGHTING);
 	glEnable(GL_LIGHT0);
@@ -84,12 +86,12 @@ void GLCanvasPreview::InitGL()
 	
 	glBlendFunc(GL_ONE_MINUS_SRC_ALPHA,GL_SRC_ALPHA);
 	
+	glDisable(GL_STENCIL_TEST);
+	glDisable(GL_CULL_FACE);
+	
 	glEnable(GL_BLEND);
 	glEnable(GL_DEPTH_TEST);
-	glEnable(GL_LINE_SMOOTH);
 	glEnable(GL_POLYGON_SMOOTH);
-	glEnable(GL_POLYGON_OFFSET_LINE);
-	glEnable(GL_POINT_SMOOTH);
 	
 	glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);
 	glHint(GL_LINE_SMOOTH_HINT, GL_NICEST);
@@ -168,8 +170,8 @@ void GLCanvasPreview::draw()
 		glLoadIdentity();
 		
 		glShadeModel(GL_SMOOTH);
-		glDisable(GL_BLEND);
-		glDisable(GL_STENCIL_TEST);
+		//glDisable(GL_BLEND);
+		//glDisable(GL_STENCIL_TEST);
 		glEnable(GL_DEPTH_TEST);
 		glEnable(GL_LIGHTING);
 		
@@ -184,7 +186,11 @@ void GLCanvasPreview::draw()
 		glRotatef(roty, 0.0f, 1.0f, 0.0f);
 		glScalef(1.0/max_size, 1.0/max_size, 1.0/max_size);
 		
-		m_assembly->draw();
+		glPushMatrix();
+		{
+			m_assembly->draw();
+		}
+		glPopMatrix();
 		
 		glFlush();
 		SwapBuffers();

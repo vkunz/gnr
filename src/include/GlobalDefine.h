@@ -40,4 +40,7 @@
 #define SOFTWARE_WIN_WIDTH     800            //width of application window
 #define SOFTWARE_WIN_HEIGHT    600            //height of application windows
 
+#define SHADOWS_DEFAULT      false
+#define SNAP_TO_GRID_DEFAULT  true
+
 #endif // ENUM_H

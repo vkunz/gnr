@@ -11,6 +11,8 @@
 #ifndef MainFrame_H
 #define MainFrame_H
 
+#include <map>
+
 #include <wx/menu.h>
 #include <wx/frame.h>
 #include <wx/panel.h>
@@ -18,6 +20,8 @@
 #include <wx/stattext.h>
 #include <wx/statusbr.h>
 #include <wx/toolbar.h>
+
+using std::map;
 
 class MainFrame: public wxFrame
 {
@@ -166,48 +170,9 @@ private:
 	wxMenu* ParentMenu_Groups;
 	wxMenu* ParentMenu_Camera;
 	wxMenu* ParentMenu_Create;
-	wxMenuBar* MenuBar;
 	
-	wxMenuItem* MenuItem31;
-	wxMenuItem* MenuItem26;
-	wxMenuItem* MenuItem25;
-	wxMenuItem* MenuItem14;
-	wxMenuItem* MenuItem11;
-	wxMenuItem* MenuItem29;
-	wxMenuItem* MenuItem15;
-	wxMenuItem* MenuItem22;
-	wxMenuItem* MenuItem32;
-	wxMenuItem* MenuItem17;
-	wxMenuItem* MenuItem13;
-	wxMenuItem* MenuItem10;
-	wxMenuItem* MenuItem12;
-	wxMenuItem* MenuItem24;
-	wxMenuItem* MenuItem27;
-	wxMenuItem* MenuItem20;
-	wxMenuItem* MenuItem28;
-	wxMenuItem* MenuItem23;
-	wxMenuItem* MenuItem34;
-	wxMenuItem* MenuItem21;
-	wxMenuItem* MenuItem16;
-	wxMenuItem* MenuItem18;
-	wxMenuItem* MenuItem30;
-	wxMenuItem* MenuItem19;
-	wxMenuItem* MenuItem33;
-	wxMenuItem* MenuItem35;
-	wxMenuItem* MenuItem36;
-	wxMenuItem* MenuItem37;
-	wxMenuItem* MenuItem38;
-	wxMenuItem* MenuItem39;
-	wxMenuItem* MenuItem1;
-	wxMenuItem* MenuItem2;
-	wxMenuItem* MenuItem3;
-	wxMenuItem* MenuItem4;
-	wxMenuItem* MenuItem6;
-	wxMenuItem* MenuItem5;
-	wxMenuItem* MenuItem7;
-	wxMenuItem* MenuItem8;
-	wxMenuItem* MenuItem9;
-	
+	wxToolBar*   ToolBar1;
+	wxMenuBar*   MenuBar;
 	wxStatusBar* StatusBar;
 	
 	wxSpinCtrl* SpinCtrlTranslate;
@@ -216,8 +181,9 @@ private:
 	wxStaticText* StaticText1;
 	wxStaticText* StaticText2;
 	
-	wxToolBar* ToolBar1;
-	wxToolBarToolBase* ToolBarItem[30];
+	
+	map<long, wxToolBarToolBase*> m_ToolBarItem;
+	map<long, wxMenuItem*> m_MenuItem;
 	
 	DECLARE_EVENT_TABLE()
 };

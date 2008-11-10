@@ -22,7 +22,7 @@ Scene* Scene::pinstance = 0;
  */
 Scene::Scene()
 {
-	m_shadows = true;
+	m_shadows = SHADOWS_DEFAULT;
 	
 	initContainers();
 	

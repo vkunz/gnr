@@ -145,7 +145,10 @@ void GLCanvas::initLights()
 	glLightfv(GL_LIGHT0, GL_POSITION, light_position);
 	
 	glLightModelfv(GL_LIGHT_MODEL_AMBIENT, light_ambient);
-	glLightModeli(GL_LIGHT_MODEL_TWO_SIDE, 1);
+	
+	glLightModeli(GL_LIGHT_MODEL_TWO_SIDE,0);
+	glLightModeli(GL_LIGHT_MODEL_LOCAL_VIEWER,1);
+	
 	
 	glEnable(GL_LIGHTING);
 	glEnable(GL_LIGHT0);

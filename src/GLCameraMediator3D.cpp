@@ -84,7 +84,7 @@ void GLCameraMediator3D::RotateXY(GLNotifyEvent& event)
 	
 	//calculate new up vector and set y-axis to one
 	Vertex upVector = old_rightVector * viewDir;
-	upVector.setY(1.0);
+	upVector.normalize();
 	
 	//rotate vectors by mouse move in x-axiy
 	Vertex rightVector(old_rightVector);
