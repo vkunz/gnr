@@ -101,6 +101,24 @@ Assembly::Assembly(Assembly& assembly)
 }
 
 /**
+ * clone only display lists
+ * @return      GNRAssembly*         pointer to assembly
+ * @access      public
+ */
+Assembly* Assembly::cloneDisplayListFrom(Assembly* assembly)
+{
+	//copy display list ids
+	m_dl_object = assembly->m_dl_object;
+	m_dl_shadow = assembly->m_dl_shadow;
+	
+	//point to origin (faces backup)
+	m_origin = assembly;
+	
+	//free memory
+	m_face.clear();
+}
+
+/**
  * clone of generic assembly
  * @return      Assembly*         pointer to assembly
  */
@@ -1095,8 +1113,14 @@ void Assembly::draw()
 		//finally scale on place
 		glScalef(m_scale_x, m_scale_y, m_scale_z);
 		
-		if (glIsList(m_dl_object))
+		if (glIsList(m_dl_object) || !isOriginal())
 		{
+			//if no valid display list...
+			if (!glIsList(m_dl_object))
+			{
+				//...clone it from origin
+				cloneDisplayListFrom(m_origin);
+			}
 			//call display list of objects
 			glCallList(m_dl_object);
 		}
@@ -1180,19 +1204,26 @@ Assembly* Assembly::getHashOriginal(const wxString& hash) const
 	//search for the same hash and return
 	for (list<Assembly*>::const_iterator it = m_part.begin(); it != m_part.end(); ++it)
 	{
+		//found a copy? continue
 		if (!(*it)->isOriginal())
 		{
 			continue;
 		}
+		
+		//found a non-object? again...
 		if (!(*it)->isType(IS_OBJECT))
 		{
 			continue;
 		}
+		
+		//finally check hash, and get pointer
 		if (hash == (*it)->getHash())
 		{
 			return (*it);
 		}
 	}
+	
+	//nothing found
 	return NULL;
 }
 
@@ -1221,9 +1252,15 @@ void Assembly::drawShadow()
 		//finally scale on place
 		glScalef(m_scale_x, m_scale_y, m_scale_z);
 		
-		if (glIsList(m_dl_shadow))
+		if (glIsList(m_dl_shadow) || !isOriginal())
 		{
-			//call display list of shadows
+			//if no valid display list...
+			if (!glIsList(m_dl_shadow))
+			{
+				//...clone it from origin
+				cloneDisplayListFrom(m_origin);
+			}
+			//call display list of objects
 			glCallList(m_dl_shadow);
 		}
 		else

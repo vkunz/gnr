@@ -388,12 +388,11 @@ void OpxImport::loadXml(wxZipInputStream& stream)
 				stream.CloseEntry();
 				
 				// create assembly and ask if already exist
-				assembly = m_scene->getRootAssembly()->getHashOriginal(value.BeforeFirst('.'));
+				assembly = m_scene->getOrigialFromHash(value.BeforeFirst('.'));
 				
 				// check if already known
 				if (assembly != NULL)
 				{
-					wxLogDebug(wxT("in if"));
 					assembly = assembly->clone();
 				}
 				// if not
