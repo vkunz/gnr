@@ -47,6 +47,12 @@ TreeLibraryCtrl::TreeLibraryCtrl(wxWindow* parent, wxWindowID id)
 	
 	// connects rename with OnMenuRename
 	Connect(idMenuRename,wxEVT_COMMAND_MENU_SELECTED,(wxObjectEventFunction)&TreeLibraryCtrl::OnMenuRename);
+	
+	// connects begin-drag with OnBeginDrag
+	Connect(wxID_ANY, wxEVT_COMMAND_TREE_BEGIN_DRAG, (wxObjectEventFunction)&TreeLibraryCtrl::OnBeginDrag);
+	
+	// connects end-drag with OnEndDrag
+	Connect(wxID_ANY, wxEVT_COMMAND_TREE_END_DRAG, (wxObjectEventFunction)&TreeLibraryCtrl::OnEndDrag);
 }
 
 /**
@@ -257,4 +263,72 @@ void TreeLibraryCtrl::OnItemActivated(wxTreeEvent& event)
 	{
 		OnPaste(event);
 	}
+}
+
+/**
+ * on begin dragging an item
+ * @param[in]       	event		     tree event
+ */
+void TreeLibraryCtrl::OnBeginDrag(wxTreeEvent& event)
+{
+	// need to explicitly allow drag
+	if (event.GetItem() != GetRootItem())
+	{
+		m_draggedItem = event.GetItem();
+		
+#if defined(__ATHOS_DEBUG__)
+		wxLogMessage(wxT("OnBeginDrag"));
+#endif
+		
+		event.Allow();
+	}
+	else
+	{
+#if defined(__ATHOS_DEBUG__)
+		wxLogMessage(wxT("OnBeginDrag: this item can't be dragged."));
+#endif
+	}
+}
+
+/**
+ * on end dragging an item
+ * @param[in]       	event		     tree event
+ */
+void TreeLibraryCtrl::OnEndDrag(wxTreeEvent& event)
+{
+	wxTreeItemId itemSrc = m_draggedItem,
+	                       itemDst = event.GetItem();
+	m_draggedItem = (wxTreeItemId)0l;
+	
+	// where to copy the item?
+	if (itemDst.IsOk())
+	{
+		TreeLibraryItemData* treeItemData = (TreeLibraryItemData*)GetItemData(itemDst);
+		if (treeItemData != NULL && treeItemData->getCat() == false)
+		{
+			// copy to the parent then
+			itemDst = GetItemParent(itemDst);
+		}
+	}
+	
+	if (!itemDst.IsOk() || itemDst == GetItemParent(itemSrc))
+	{
+#if defined(__ATHOS_DEBUG__)
+		wxLogMessage(wxT("OnEndDrag: can't drop here."));
+#endif
+		
+		return;
+	}
+	
+	wxString text = GetItemText(itemSrc);
+#if defined(__ATHOS_DEBUG__)
+	wxLogMessage(wxT("OnEndDrag: '%s' copied to '%s'."),
+	             text.c_str(), GetItemText(itemDst).c_str());
+#endif
+	             
+	//move item to new destination; later event
+	int image = GetItemImage(itemSrc);
+	AppendItem(itemDst, text, image);
+	Delete(itemSrc);
+	
 }

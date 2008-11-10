@@ -18,6 +18,7 @@ private:
 	// attributes
 	// current TreeId
 	wxTreeItemId m_currentTreeID;
+	wxTreeItemId m_draggedItem;
 	
 	// Id's
 	static const long idMenuDelete;
@@ -32,6 +33,8 @@ private:
 	// event handler
 	void OnItemMenu(wxTreeEvent& event);
 	void OnItemActivated(wxTreeEvent& event);
+	void OnBeginDrag(wxTreeEvent& event);
+	void OnEndDrag(wxTreeEvent& event);
 	void OnRename(wxTreeEvent& WXUNUSED(event));
 	void OnDelete(wxTreeEvent& WXUNUSED(event));
 	void OnNewCategory(wxTreeEvent& WXUNUSED(event));
