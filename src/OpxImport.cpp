@@ -389,6 +389,9 @@ void OpxImport::loadXml(wxZipInputStream& stream)
 				// set visible
 				assembly->setVisible(isVisible);
 				
+				// set name
+				assembly->setName(name);
+				
 				// set x, y, z
 				assembly->setXYZ(x, y, z);
 				
