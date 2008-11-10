@@ -128,12 +128,16 @@ void OpxExport::createXmlEntry()
 	m_node = m_node->GetNext();
 	
 	// add location
-	tmp << m_scene->getGLCamera3D()->getPosition().getX() << wxT(" ") << m_scene->getGLCamera3D()->getPosition().getY() << wxT(" ") << m_scene->getGLCamera3D()->getPosition().getZ();
+	tmp << m_scene->getGLCamera3D()->getPosition().getX() << wxT(" ");
+	tmp << m_scene->getGLCamera3D()->getPosition().getY() << wxT(" ");
+	tmp << m_scene->getGLCamera3D()->getPosition().getZ();
 	m_node->AddProperty(wxT("location"), tmp);
 	tmp.Empty();
 	
 	// add orientation
-	tmp << m_scene->getGLCamera3D()->getRotatedX() << wxT(" ") << m_scene->getGLCamera3D()->getRotatedY() << wxT(" ") << m_scene->getGLCamera3D()->getRotatedZ();
+	tmp << m_scene->getGLCamera3D()->getRotatedX() << wxT(" ");
+	tmp << m_scene->getGLCamera3D()->getRotatedY() << wxT(" ");
+	tmp << m_scene->getGLCamera3D()->getRotatedZ();
 	m_node->AddProperty(wxT("orientation"), tmp);
 	tmp.Empty();
 	
