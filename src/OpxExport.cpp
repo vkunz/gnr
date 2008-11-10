@@ -360,7 +360,9 @@ void OpxExport::createGroup(wxXmlNode* node, Assembly* assembly)
 	// walk through part list
 	for (it = list.begin(); it != list.end(); it++)
 	{
-		if ((*it)->getType() == IS_OBJECT || (*it)->getType()== IS_PRIMITIVE)
+#warning "next line has to be changed when primitive-support"
+		if ((*it)->getType() == IS_OBJECT)
+			//if ((*it)->getType() == IS_OBJECT || (*it)->getType()== IS_PRIMITIVE)
 		{
 			// create an assembly entry and add into node
 			createAssembly(node, (*it));
