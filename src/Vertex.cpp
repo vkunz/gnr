@@ -208,11 +208,11 @@ Vertex Vertex::operator  * (const Vertex& p2) const
 }
 
 /**
- * operator ^
+ * operator % for scalar product
  * @param[in]	p2			second vertex
  * @return		Vertex		scalar product of both vertexes
  */
-Vertex Vertex::operator  ^(const Vertex& p2) const
+Vertex Vertex::operator ^(const Vertex& p2) const
 {
 	Vertex temp;
 	temp.m_x = m_x * p2.m_x;

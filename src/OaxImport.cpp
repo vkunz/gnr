@@ -29,7 +29,7 @@ OaxImport::OaxImport()
 
 /**
  * Loads the given filename. See Load().
- * @param       wxString    Filepath to read from.
+ * @param       filename        wxString Filepath to read from.
  */
 OaxImport::OaxImport(wxString filename)
 {
@@ -61,7 +61,7 @@ Assembly* OaxImport::getAssembly()
 
 /**
  * Parses @a stream as an zip stream and loads its data.
- * @param       wxZipInputStream       InputStream to read from.
+ * @param       stream          wxZipInputStream to read from.
  */
 void OaxImport::Load(wxZipInputStream& stream)
 {
@@ -153,7 +153,7 @@ void OaxImport::Load(wxZipInputStream& stream)
 
 /**
  * Parses @a filename as a InputFile stream and loads its data.
- * @param       wxString       Filename to read from.
+ * @param       filename            wxString Filename to read from.
  */
 void OaxImport::Load(wxString& filename)
 {
@@ -168,8 +168,8 @@ void OaxImport::Load(wxString& filename)
 }
 
 /**
- * Parses @a stream as a InputStream and loads its data.
- * @param       wxInputStream       InputStream to read from.
+ * Parses a stream as a InputStream and loads its data.
+ * @param       stream       wxInputStream to read from.
  */
 void OaxImport::LoadAssemblyXml(wxInputStream& stream)
 {
@@ -316,6 +316,10 @@ void OaxImport::LoadAssemblyXml(wxInputStream& stream)
 	m_objFilename = prop->GetValue();
 }
 
+/**
+ * load primitive xml
+ * @param       stream       wxInputStream to read from.
+ */
 void OaxImport::LoadPrimitivesXml(wxInputStream& stream)
 {
 #warning "INFO: Need to create an primitive-assmbly here"
@@ -692,7 +696,7 @@ void OaxImport::LoadPrimitivesXml(wxInputStream& stream)
 
 /**
  * Parses @a stream as a InputStream and loads its data.
- * @param       wxInputStream       InputStream to read from.
+ * @param       stream       wxInputStream to read from.
  */
 void OaxImport::LoadObj(wxInputStream& stream)
 {

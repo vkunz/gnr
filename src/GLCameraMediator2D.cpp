@@ -17,7 +17,7 @@
 
 /**
  * move the camera in XY dimension
- * @param[in]       WXUNUSED     unused event           event from GLNotify
+ * @param[in]       event           event from GLNotify
  */
 void GLCameraMediator2D::MoveXY(GLNotifyEvent& event)
 {
@@ -36,7 +36,7 @@ void GLCameraMediator2D::MoveXY(GLNotifyEvent& event)
 
 /**
  * move the camera in XY dimension, no other movement allowed
- * @param[in]       WXUNUSED     unused event           event from GLNotify
+ * @param[in]       event           event from GLNotify
  */
 void GLCameraMediator2D::MoveXZ(GLNotifyEvent& event)
 {
@@ -45,7 +45,7 @@ void GLCameraMediator2D::MoveXZ(GLNotifyEvent& event)
 
 /**
  * move the camera in XY dimension, no other movement allowed
- * @param[in]       WXUNUSED     unused event           event from GLNotify
+ * @param[in]       event           event from GLNotify
  */
 void GLCameraMediator2D::RotateXY(GLNotifyEvent& event)
 {
@@ -54,7 +54,7 @@ void GLCameraMediator2D::RotateXY(GLNotifyEvent& event)
 
 /**
  * move the camera in XY dimension, no other movement allowed
- * @param[in]       WXUNUSED     unused event           event from GLNotify
+ * @param[in]       event           event from GLNotify
  */
 void GLCameraMediator2D::RotateXZ(GLNotifyEvent& event)
 {
@@ -63,7 +63,7 @@ void GLCameraMediator2D::RotateXZ(GLNotifyEvent& event)
 
 /**
  * Zoom In/Out the Scene
- * @param[in]       WXUNUSED     unused event           event from GLNotify
+ * @param[in]       event           event from GLNotify
  */
 void GLCameraMediator2D::ZoomIn(GLNotifyEvent& event)
 {

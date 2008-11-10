@@ -38,7 +38,7 @@ void AssemblyMediator::setAssembly(Assembly* assembly)
 
 /**
  * global initialize of assembly mediator on mouse down
- * @param[in]       WXUNUSED     unused event           GLNotifyEvent-information
+ * @param[in]       event           GLNotifyEvent-information
  */
 void AssemblyMediator::initialize(GLNotifyEvent& event)
 {
@@ -82,7 +82,7 @@ void AssemblyMediator::initialize(GLNotifyEvent& event)
 
 /**
  * call specific translation function of 2D or 3D mediator
- * @param[in]       WXUNUSED     unused event           GLNotifyEvent-information
+ * @param[in]       event           GLNotifyEvent-information
  * @return          int             status of translation
  */
 int AssemblyMediator::translate(GLNotifyEvent& event)

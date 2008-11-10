@@ -24,6 +24,7 @@
 #include <fstream>
 
 using std::ifstream;
+using std::string;
 
 class ObjectImport : public ImportFile
 {

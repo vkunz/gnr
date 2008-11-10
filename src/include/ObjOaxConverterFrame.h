@@ -112,14 +112,14 @@ private:
 	
 	// functions
 	// handler
-	void OnBtnCancel(wxCommandEvent& event);
-	void OnBtnCreate(wxCommandEvent& event);
-	void OnClose(wxCloseEvent& event);
+	void OnBtnCancel(wxCommandEvent& WXUNUSED(event));
+	void OnBtnCreate(wxCommandEvent& WXUNUSED(event));
+	void OnClose(wxCloseEvent& WXUNUSED(event));
 	void OnSpcWidthChanged(wxSpinEvent& event);
 	void OnSpcDepthChanged(wxSpinEvent& event);
 	void OnSpcHeightChanged(wxSpinEvent& event);
-	void OnTxcNameChanged(wxCommandEvent& event);
-	void OnCbxCategoryChanged(wxCommandEvent& event);
+	void OnTxcNameChanged(wxCommandEvent& WXUNUSED(event));
+	void OnCbxCategoryChanged(wxCommandEvent& WXUNUSED(event));
 	
 	// update frame
 	void updateFrame();

@@ -29,8 +29,9 @@ OpxImport::OpxImport()
 
 /**
  * Loads the given filename. See Load(wxString filename).
- * @param       wxString        Filepath to read from.
- * @param       Scene*       Assigns pointer to actual scene.
+ * @param       controller          Filepath to read from.
+ * @param       scene               Assigns pointer to actual scene.
+ * @param       filename            filename of OPX to import
  */
 OpxImport::OpxImport(TreeLibraryController* controller, Scene* scene, wxString filename)
 {
@@ -65,7 +66,7 @@ OpxImport::~OpxImport()
 
 /**
  * Loads the given file and get all its data.
- * @param       wxString    Filepath to read from.
+ * @param       stream    wxZipInputStream to load from
  */
 void OpxImport::Load(wxZipInputStream& stream)
 {
@@ -114,7 +115,7 @@ void OpxImport::Load(wxZipInputStream& stream)
 
 /**
  * Loads the given stream and get its all data.
- * @param       wxInputStream    Load xml-File as wxInputStream.
+ * @param       stream    Load xml-File as wxZipInputStream.
  */
 void OpxImport::loadXml(wxZipInputStream& stream)
 {
@@ -468,7 +469,8 @@ void OpxImport::loadXml(wxZipInputStream& stream)
 
 /**
  * Loads the given stream and get its all data.
- * @param       wxInputStream    Load obj-File as wxInputStream.
+ * @param       stream          Load obj-File as wxInputStream.
+ * @param       reference       find md5 hash combination
  */
 Assembly* OpxImport::loadOax(wxZipInputStream& stream, wxString reference)
 {

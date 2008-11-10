@@ -131,7 +131,7 @@ void AssemblyDataFrame::fillFields(Assembly* assembly)
 /**
  * gets called when the users presses the change button in order to confirm his changes;
  * writes the new values to the assembly
- * @param[in]   event       command-event, triggered by the button
+ * @param[in]       WXUNUSED       command-event, triggered by the button
  */
 void AssemblyDataFrame::OnChange(wxCommandEvent& WXUNUSED(event))
 {
@@ -173,7 +173,7 @@ void AssemblyDataFrame::OnChange(wxCommandEvent& WXUNUSED(event))
 
 /**
  * gets called when the user pressed the cancel button in order to discard the changes
- * @param[in]   event       event, triggerd by the button
+ * @param[in]       WXUNUSED       event, triggerd by the button
  */
 void AssemblyDataFrame::OnCancel(wxCommandEvent& WXUNUSED(event))
 {
@@ -183,7 +183,7 @@ void AssemblyDataFrame::OnCancel(wxCommandEvent& WXUNUSED(event))
 
 /**
  * gets called when the user closes the window by the X in the top-right corner
- * @param[in]   event       event, triggerd by the button
+ * @param[in]       WXUNUSED       event, triggerd by the button
  */
 void AssemblyDataFrame::OnClose(wxCloseEvent& WXUNUSED(event))
 {
@@ -193,7 +193,7 @@ void AssemblyDataFrame::OnClose(wxCloseEvent& WXUNUSED(event))
 
 /**
  * gets called when the user changes the width-value
- * @param[in]   event       event, fired on value-change
+ * @param[in]       WXUNUSED       event, fired on value-change
  */
 void AssemblyDataFrame::OnWidthChange(wxCommandEvent& WXUNUSED(event))
 {
@@ -220,7 +220,7 @@ void AssemblyDataFrame::OnWidthChange(wxCommandEvent& WXUNUSED(event))
 
 /**
  * gets called when the user changes the height-value
- * @param[in]   event       event, fired on value-change
+ * @param[in]       WXUNUSED       event, fired on value-change
  */
 void AssemblyDataFrame::OnHeightChange(wxCommandEvent& WXUNUSED(event))
 {
@@ -247,7 +247,7 @@ void AssemblyDataFrame::OnHeightChange(wxCommandEvent& WXUNUSED(event))
 
 /**
  * gets called when the user changes the depth-value
- * @param[in]   event       event, fired on value-change
+ * @param[in]       WXUNUSED       event, fired on value-change
  */
 void AssemblyDataFrame::OnDepthChange(wxCommandEvent& WXUNUSED(event))
 {

@@ -24,20 +24,17 @@ int Mediator::m_SnapAngle = SNAP_IN_DEFAULT_ANGLE;
 
 /**
  * constructor of Mediator is useless
-
  */
 Mediator::Mediator() {}
 
 /**
  * destructor of Mediator is useless
-
  */
 Mediator::~Mediator() {}
 
 /**
  * set translation type for all mediators
- * @param       transType       id of translation
-
+ * @param       translation       transType type of translation
  */
 void Mediator::setTranslation(transType translation)
 {
@@ -47,7 +44,6 @@ void Mediator::setTranslation(transType translation)
 /**
  * get translation type for all mediators
  * @return      transType       id of translation
-
  */
 transType Mediator::getTranslation()
 {
@@ -56,8 +52,7 @@ transType Mediator::getTranslation()
 
 /**
  * set active canvas for all mediators
- * @param       canvasType       id of active canvas
-
+ * @param       canvas_id       id of active canvas
  */
 void Mediator::setMode(canvasType canvas_id)
 {
@@ -66,8 +61,7 @@ void Mediator::setMode(canvasType canvas_id)
 
 /**
  * set active canvas for all mediators
- * @param       NotifyEvent       event from toolbar button
-
+ * @param       event       event from toolbar button
  */
 void Mediator::setSnapfunction(NotifyEvent& event)
 {
@@ -77,8 +71,7 @@ void Mediator::setSnapfunction(NotifyEvent& event)
 
 /**
  * calculate snap to grid moving value
- * @param       float       value to round for snapping
-
+ * @param       value       float value to round for snapping
  */
 void Mediator::doSnapMove(float& value)
 {
@@ -92,8 +85,7 @@ void Mediator::doSnapMove(float& value)
 
 /**
  * calculate snap to angle rotating value
- * @param       float       value to round for snapping
-
+ * @param       value        float value to round for snapping
  */
 void Mediator::doSnapRotate(float& value)
 {

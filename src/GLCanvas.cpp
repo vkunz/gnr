@@ -610,7 +610,7 @@ void GLCanvas::OnRMouseDown(wxMouseEvent& event)
 
 /**
  * fetches the right-Mouse-Up event
- * @param[in]       event       Mouse-Event of current canvas
+ * @param[in]       WXUNUSED       unused Mouse-Event of current canvas
  */
 void GLCanvas::OnRMouseUp(wxMouseEvent& WXUNUSED(event))
 {

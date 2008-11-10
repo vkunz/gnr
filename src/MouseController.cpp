@@ -17,8 +17,7 @@
 /**
  * constructor of mousecontroller sets scene to modify and
  * initializes the two mediators
- * @param       Scene      pointer to actual scene
-
+ * @param       scene      pointer to actual scene
  */
 MouseController::MouseController(Scene* scene)
 {
@@ -46,8 +45,7 @@ MouseController::~MouseController()
 /**
  * prepare different mediators for translating mouse actions to
  * the camera and assemblies at once
- * @param       GLNotifyEvent      command event from canvas
-
+ * @param       event       command event from canvas
  */
 void MouseController::setMediator(GLNotifyEvent& event)
 {
@@ -140,8 +138,7 @@ void MouseController::setMediator(GLNotifyEvent& event)
 
 /**
  * pass through the command event to the selected mediator
- * @param       GLNotifyEvent      command event from canvas
-
+ * @param       event      command event from canvas
  */
 void MouseController::activateMediator(GLNotifyEvent& event)
 {
@@ -153,8 +150,6 @@ void MouseController::activateMediator(GLNotifyEvent& event)
 
 /**
  * tell mediator to stop translation and create command-object
- * @param       GLNotifyEvent      command event from canvas
-
  */
 void MouseController::deactivateMediator()
 {
@@ -163,8 +158,7 @@ void MouseController::deactivateMediator()
 
 /**
  * pass through the command event to the selected mediator
- * @param       NotifyEvent      command event from canvas
-
+ * @param       event      command event from canvas
  */
 void MouseController::setTranslation(NotifyEvent& event)
 {
@@ -173,8 +167,7 @@ void MouseController::setTranslation(NotifyEvent& event)
 
 /**
  * set snap to grid and angle values
- * @param       NotifyEvent      command event from canvas
-
+ * @param       event      command event from canvas
  */
 void MouseController::setSnapfunction(NotifyEvent& event)
 {
@@ -183,8 +176,7 @@ void MouseController::setSnapfunction(NotifyEvent& event)
 
 /**
  * update actual mouse position
- * @param       GLNotifyEvent      command event from canvas
-
+ * @param       event      command event from canvas
  */
 void MouseController::updateMouse(GLNotifyEvent& event)
 {
@@ -192,6 +184,10 @@ void MouseController::updateMouse(GLNotifyEvent& event)
 	mouse_y = event.getMouseEvent().GetY();
 }
 
+/**
+ * set actual assembly mediator active
+ * @param       event      command event from canvas
+ */
 void MouseController::setAssemblyMediator(GLNotifyEvent& event)
 {
 	Assembly* selectedAssembly = NULL;
@@ -222,6 +218,10 @@ void MouseController::setAssemblyMediator(GLNotifyEvent& event)
 	}
 }
 
+/**
+ * set actual assembly active
+ * @param       event      command event from canvas
+ */
 void MouseController::setSelected(GLNotifyEvent& event)
 {
 	Assembly* selectedAssembly = NULL;

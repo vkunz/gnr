@@ -31,8 +31,6 @@
 
 /**
  * constructor of HelpFrame
- * @param[in]       parent          parent of frame
- * @param[in]       id              id of frame
  */
 HelpFrame::HelpFrame()
 {

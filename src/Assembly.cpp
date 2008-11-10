@@ -103,7 +103,6 @@ Assembly::Assembly(Assembly& assembly)
 /**
  * clone only display lists
  * @return      GNRAssembly*         pointer to assembly
- * @access      public
  */
 void Assembly::cloneDisplayListFrom(Assembly* assembly)
 {
@@ -543,8 +542,8 @@ float Assembly::getMaximumSize() const
 
 /**
  * compare type of assembly
- * @param[in]       type 		type of assembly (assemblyType)
- * @return      boolean         is of type
+ * @param[in]       type 		    type of assembly (assemblyType)
+ * @return          boolean         is of type
  */
 bool Assembly::isType(const assemblyType& type)
 {
@@ -554,7 +553,7 @@ bool Assembly::isType(const assemblyType& type)
 /* ******* SETTER METHODS FOLLOWING ***** */
 /**
  * set top radius for cylinder or cone
- * @param        radius 		float radius top
+ * @param        r 		float radius top
  */
 void Assembly::setRadiusTop(const float r)
 {
@@ -563,7 +562,7 @@ void Assembly::setRadiusTop(const float r)
 
 /**
  * set middle radius for sphere
- * @param        radius 		float radius middle
+ * @param        r 		float radius middle
  */
 void Assembly::setRadiusMiddle(const float r)
 {
@@ -572,7 +571,7 @@ void Assembly::setRadiusMiddle(const float r)
 
 /**
  * set bottom radius for cylinder or cone
- * @param        radius 		float radius bottom
+ * @param        r 		float radius bottom
  */
 void Assembly::setRadiusBottom(const float r)
 {

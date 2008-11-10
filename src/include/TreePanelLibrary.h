@@ -24,7 +24,7 @@ protected:
 
 private:
 
-	void OnResize(wxSizeEvent& event);
+	void OnResize(wxSizeEvent& WXUNUSED(event));
 	
 	DECLARE_EVENT_TABLE()
 };

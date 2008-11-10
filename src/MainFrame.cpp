@@ -205,7 +205,6 @@ END_EVENT_TABLE()
 /**
  * constructor of MainFrame
  * @param[in]       parent          Parent-Window
- * @param[in]       id              id of window
  */
 MainFrame::MainFrame(wxWindow* parent)
 {

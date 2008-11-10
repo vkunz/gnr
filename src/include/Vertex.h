@@ -41,11 +41,11 @@ public:
 	float deltaY(Vertex* point);
 	float deltaZ(Vertex* point);
 	
-	Vertex  operator  + (const Vertex& p2) const;
-	Vertex  operator  - (const Vertex& p2) const;
-	Vertex  operator  * (const float r) const;
-	Vertex  operator  * (const Vertex& p2) const;
-	Vertex  operator  ^(const Vertex& p2) const;
+	Vertex  operator + (const Vertex& p2) const;
+	Vertex  operator - (const Vertex& p2) const;
+	Vertex  operator * (const float r) const;
+	Vertex  operator * (const Vertex& p2) const;
+	Vertex  operator ^(const Vertex& p2) const;
 	
 	Vertex& operator  = (const Vertex& p2);
 	Vertex& operator += (const Vertex& p2);

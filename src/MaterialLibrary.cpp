@@ -15,12 +15,11 @@
 #include <fstream>
 #include <sstream>
 
-
+using std::string;
 using std::ifstream;
 using std::istream;
 using std::istringstream;
 using std::stringstream;
-
 using std::pair;
 
 /**
@@ -166,21 +165,10 @@ MaterialLibrary::MaterialLibrary()
 	import(defaults);
 }
 
-//void MaterialLibrary::selectMaterial(const string& matname) const
-//{
-//	map<string, Material>::const_iterator it = m_data.find(matname);
-//	if (it == m_data.end())
-//	{
-//		it = m_data.find("default");
-//	}
-//
-//	it->second.draw();
-//}
-
 /**
  * get material from name
- * @param           matname          string of material name
- * @return          Material&        material for opengl
+ * @param[in]           matname          string of material name
+ * @return              Material&        material for opengl
  */
 const Material& MaterialLibrary::getMaterial(const string& matname) const
 {
