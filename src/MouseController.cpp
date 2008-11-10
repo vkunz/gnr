@@ -114,6 +114,7 @@ void MouseController::setMediator(GLNotifyEvent& event)
 			//else, point to 3D mediator if event from canvas 3D
 			m_Mediator = m_GLCameraMediator3D;
 			m_Mediator->setGLCamera(m_Scene->getGLCamera3D());
+			//m_Mediator->setTranslation(MOVEXZ); try to fix unwanted drawing!
 		}
 		break;
 	}

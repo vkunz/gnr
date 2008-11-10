@@ -315,6 +315,7 @@ void App::OnGNREvent(NotifyEvent& event)
 	case TOGGLESHADOWS:
 		m_Scene->toggleShadows(event.getBoolean());
 		m_Scene->glRefresh();
+		m_Scene->glRefresh();
 		break;
 	case DISPLAYLENGTH:
 		m_MainFrame->getStatusbar()->SetStatusText(event.GetString());
@@ -415,6 +416,7 @@ void App::OnGLEvent(GLNotifyEvent& event)
 		{
 			//m_MouseCtrl->setMediator(event);
 			m_MouseCtrl->setSelected(event);
+			//m_MainFrame->setTranslationXZ(); try to change toolbar here!
 		}
 	}
 	
