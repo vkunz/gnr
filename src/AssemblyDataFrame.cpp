@@ -15,6 +15,7 @@
 #include <wx/string.h>
 #include <wx/valtext.h>
 #include <wx/spinctrl.h>
+#include <wx/icon.h>
 
 #include "NotifyEvent.h"
 #include "GlobalDefine.h"
@@ -54,7 +55,7 @@ AssemblyDataFrame::AssemblyDataFrame(wxWindow* parent,wxWindowID id)
 	MakeModal();
 	SetClientSize(wxSize(350, 300));
 	SetBackgroundColour(wxNullColour);
-	SetIcon(wxICON(GNR_ICON));
+	SetIcon(wxICON(gnr_icon));
 	
 	m_stxName = new wxStaticText(this, -1, wxT("Name:"), wxPoint(30,34), wxSize(80,22), 0);
 	m_txcName = new wxTextCtrl(this, idtxcName, wxT(""), wxPoint(120,30), wxSize(150,22), 0, wxDefaultValidator);

@@ -34,7 +34,7 @@ DebugFrame::DebugFrame(wxWindow* parent, wxWindowID id)
 	Create(parent, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, wxCAPTION|wxSYSTEM_MENU|wxRESIZE_BORDER|wxMAXIMIZE_BOX|wxMINIMIZE_BOX, _T("wxID_ANY"));
 	SetClientSize(wxSize(700,100));
 	Move(wxPoint(0,608));
-	SetIcon(wxICON(GNR_ICON));
+	SetIcon(wxICON(gnr_icon));
 	TextCtrl = new wxTextCtrl(this, ID_TextCtrl, wxEmptyString, wxPoint(32,80), wxDefaultSize, wxTE_MULTILINE, wxDefaultValidator, _T("ID_TextCtrl"));
 }
 

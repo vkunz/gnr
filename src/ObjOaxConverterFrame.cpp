@@ -21,6 +21,7 @@
 #include "NotifyEvent.h"
 #include "GlobalDefine.h"
 #include "ObjOaxConverterFrame.h"
+#include <wx/icon.h>
 
 const long ObjOaxConverterFrame::idBtnCreate     = wxNewId();
 const long ObjOaxConverterFrame::idBtnCancel     = wxNewId();
@@ -52,7 +53,7 @@ ObjOaxConverterFrame::ObjOaxConverterFrame(wxWindow* parent, wxWindowID id)
 	SetBackgroundColour(wxNullColour);
 	
 	//set icon of frame
-	SetIcon(wxICON(GNR_ICON));
+	SetIcon(wxICON(gnr_icon));
 	
 	// Button create
 	m_btnCreate     = new wxButton(this, idBtnCreate, wxT("Erstellen"), wxPoint(328,304), wxDefaultSize, 0);

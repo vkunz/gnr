@@ -6,7 +6,7 @@
 #include <wx/stattext.h>
 #include <wx/button.h>
 #include <wx/frame.h>
-
+#include <wx/spinctrl.h>
 #include "Assembly.h"
 
 class AssemblyDataFrame: public wxFrame

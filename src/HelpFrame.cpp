@@ -43,7 +43,7 @@ HelpFrame::HelpFrame(wxWindow* parent, wxWindowID id)
 		
 		//create modal dialog
 		wxDialog dlg(this, wxID_ANY, wxString(_("GNR 3D Raumplaner - Schnellhilfe")));
-		dlg.SetIcon(wxICON(GNR_ICON));
+		dlg.SetIcon(wxICON(gnr_icon));
 		topsizer = new wxBoxSizer(wxVERTICAL);
 		
 		//create new html window without borders and help.html (content)
