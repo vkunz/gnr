@@ -124,7 +124,7 @@ void OpxExport::createXmlEntry()
 	m_node = m_node->GetNext();
 	
 	// add location
-	tmp << m_scene->getGLCamera3D()->getPosition().getX() << wxT(" ") << m_scene->getGLCamera3D()->getPosition().getY() << wxT(" ") << m_scene->getGLCamera3D()->getPosition().getX();
+	tmp << m_scene->getGLCamera3D()->getPosition().getX() << wxT(" ") << m_scene->getGLCamera3D()->getPosition().getY() << wxT(" ") << m_scene->getGLCamera3D()->getPosition().getZ();
 	m_node->AddProperty(wxT("location"), tmp);
 	tmp.Empty();
 	

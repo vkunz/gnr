@@ -168,7 +168,7 @@ void App::initFrames()
 	
 	m_VerticalSplitter->SetSashPosition(200,true);
 	m_HorizontalSplitter_left->SetSashPosition(300,true);
-	m_HorizontalSplitter_right->SetSashPosition(200,true);
+	m_HorizontalSplitter_right->SetSashPosition(250,true);
 	
 	//show mainframe now, its ready
 	m_MainFrame->Show(true);

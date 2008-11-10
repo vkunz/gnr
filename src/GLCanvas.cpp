@@ -198,23 +198,24 @@ void GLCanvas::initGL()
 	
 	glShadeModel(GL_SMOOTH);
 	
+	glEnable(GL_BLEND);
+	glEnable(GL_DEPTH_TEST);
+	glEnable(GL_LINE_SMOOTH);
+	glEnable(GL_POLYGON_SMOOTH);
+	glEnable(GL_CULL_FACE);
+	
+	//glEnable(GL_STENCIL_TEST);
+	//glEnable(GL_POLYGON_OFFSET_LINE);
+	//glEnable(GL_POINT_SMOOTH);
+	
 	//glFrontFace(GL_CCW);
-	//glCullFace(GL_BACK);
+	glCullFace(GL_BACK);
 	
 	glDepthFunc(GL_LEQUAL);
 	
 	glBlendFunc(GL_ONE_MINUS_SRC_ALPHA,GL_SRC_ALPHA);
 	//glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	//glBlendFunc(GL_DST_COLOR, GL_SRC_COLOR);
-	
-	glEnable(GL_BLEND);
-	glEnable(GL_DEPTH_TEST);
-	glEnable(GL_LINE_SMOOTH);
-	glEnable(GL_POLYGON_SMOOTH);
-	//glEnable(GL_CULL_FACE);
-	glEnable(GL_STENCIL_TEST);
-	//glEnable(GL_POLYGON_OFFSET_LINE);
-	//glEnable(GL_POINT_SMOOTH);
 	
 	glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);
 	glHint(GL_LINE_SMOOTH_HINT, GL_NICEST);
@@ -339,7 +340,7 @@ void GLCanvas::shadowColorOn()
 	glDisable(GL_DEPTH_TEST);
 	glEnable(GL_BLEND);
 	glStencilOp(GL_KEEP, GL_KEEP, GL_INCR);
-	//glCullFace(GL_FRONT);
+	glCullFace(GL_FRONT);
 }
 
 void GLCanvas::shadowColorOff()
@@ -348,7 +349,7 @@ void GLCanvas::shadowColorOff()
 	glDisable(GL_STENCIL_TEST);
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_LIGHTING);
-	//glCullFace(GL_BACK);
+	glCullFace(GL_BACK);
 }
 
 void GLCanvas::endPixelBuffer()
@@ -485,7 +486,6 @@ Assembly* GLCanvas::selection(Assembly* rootAssembly, GLCamera* camera, int mous
  */
 void GLCanvas::OnLMouseDown(wxMouseEvent& event)
 {
-	SetFocus();
 	Connect(wxEVT_MOUSEWHEEL, (wxObjectEventFunction)&GLCanvas::OnMouseWheel);
 	
 	Vertex* glcoords = new Vertex[2];
@@ -511,7 +511,6 @@ void GLCanvas::OnLMouseDown(wxMouseEvent& event)
  */
 void GLCanvas::OnLMouseDblClick(wxMouseEvent& event)
 {
-	SetFocus();
 	Connect(wxEVT_MOUSEWHEEL, (wxObjectEventFunction)&GLCanvas::OnMouseWheel);
 	
 	Vertex* glcoords = new Vertex[2];
@@ -554,7 +553,6 @@ void GLCanvas::OnLMouseUp(wxMouseEvent& event)
  */
 void GLCanvas::OnMMouseDown(wxMouseEvent& event)
 {
-	SetFocus();
 	Connect(wxEVT_MOUSEWHEEL, (wxObjectEventFunction)&GLCanvas::OnMouseWheel);
 	// send Event to handle Mouse
 	GLNotifyEvent myevent(wxEVT_COMMAND_GL_NOTIFY);
@@ -589,7 +587,6 @@ void GLCanvas::OnMMouseUp(wxMouseEvent& event)
  */
 void GLCanvas::OnRMouseDown(wxMouseEvent& event)
 {
-	SetFocus();
 	Connect(wxEVT_MOUSEWHEEL, (wxObjectEventFunction)&GLCanvas::OnMouseWheel);
 	
 	Vertex* glcoords = new Vertex[2];
@@ -733,6 +730,7 @@ void GLCanvas::OnPaint(wxPaintEvent& event)
  */
 void GLCanvas::getGLDim(int x, int y, Vertex* glcoords)
 {
+	SetFocus();
 	SetCurrent();
 	glPushMatrix();
 	

@@ -169,15 +169,11 @@ void Scene::newRoom()
  */
 void Scene::resetCamera()
 {
-	//reset 2D cam to default
-	m_GLCamera2D->reset();
-	m_GLCamera2D->rotateX(-90);
-	m_GLCamera2D->changeDistance(15);
+	//reset 2D cam to default (DONT SET Z TO ZERO!)
+	m_GLCamera2D->setCamera(0.001,12.0,0.001,-90.0,0.0,0.0);
 	
 	//reset 3D cam to default
-	m_GLCamera3D->reset();
-	m_GLCamera3D->rotateX(-40);
-	m_GLCamera3D->changeDistance(12);
+	m_GLCamera3D->setCamera(0.0,4.0,10.0,-25.0,0.0,0.0);
 }
 
 void Scene::setCanvas2D(GLCanvas2D* p)

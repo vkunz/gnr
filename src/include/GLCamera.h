@@ -32,8 +32,6 @@ public:
 	GLCamera();
 	virtual ~GLCamera();
 	
-	void setAngles(float phi, float theta, float rho);
-	void setPosition(float x, float y, float z);
 	void changeDistance(float distance);
 	float getDistance();
 	

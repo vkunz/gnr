@@ -162,48 +162,36 @@ void GLCamera::moveUpward(GLfloat distance)
  */
 void GLCamera::setCamera(const float& x, const float& y, const float& z, const float& phi, const float& theta, const float& rho)
 {
-	//first reset camera
+	//first reset camera (view dir 0,0,-1)
 	reset();
+	
+	//set temp position
+	Vertex position(x,y,z);
 	
 	//rotate cam
 	rotateZ(rho);
 	rotateY(theta);
 	rotateX(phi);
 	
-	//change distance from center
-	changeDistance(sqrt(x*x + y*y + z*z));
-}
-
-/**
- * sets the absolute position of the camera
- * @param[in]       x               x position in world coordinates
- * @param[in]       y               y position in world coordinates
- * @param[in]       z               z position in world coordinates
- */
-void GLCamera::setPosition(float x, float y, float z)
-{
-	Vertex temp(x, y, z);
-	
-	viewPoint = (temp + viewDir*m_distance);
-	if (viewPoint.getY() <= CAMERA_HEIGHT_MIN)
+	//calculate viewpoint, the cam is heading to
+	float s = 0;
+	if (viewDir.getY() < 0.0)
 	{
-		viewPoint.setY(CAMERA_HEIGHT_MIN);
+		s = -y / viewDir.getY();
 	}
-}
-
-/**
- * sets the orientation of the camera
- * @param[in]       phi             angle, the camera is rotated arround x-axis
- * @param[in]       theta           angle, the camera is rotated arround y-axis
- * @param[in]       rho             angle, the camera is rotated arround z-axis
- */
-void GLCamera::setAngles(float phi, float theta, float rho)
-{
-	reset();
+	else
+	{
+		s = 1.0;
+	}
 	
-	rotateZ(rho);
-	rotateY(theta);
-	rotateX(phi);
+	setDistance(s);
+	setViewPoint(position + viewDir * s);
+	
+	wxString out;
+	out << viewPoint.getX() << wxT("\n");
+	out << viewPoint.getY() << wxT("\n");
+	out << viewPoint.getZ() << wxT("\n");
+	wxLogDebug(out);
 }
 
 /**
@@ -229,8 +217,7 @@ void GLCamera::changeDistance(float distance)
 	if (m_distance <= CAMERA_DISTANCE_MIN)
 	{
 		m_distance = CAMERA_DISTANCE_MIN;
-		Vertex oldViewPoint = viewPoint + viewDir*m_distance;
-		setViewPoint(oldViewPoint);
+		setViewPoint(viewPoint + viewDir*m_distance);
 	}
 }
 
@@ -254,9 +241,9 @@ void GLCamera::reset()
 	rightVector = Vertex(1.0, 0.0, 0.0);
 	upVector    = Vertex(0.0, 1.0, 0.0);
 	
-	rotatedX = rotatedY = rotatedZ = 0.0;
+	rotatedX   = rotatedY = rotatedZ = 0.0;
 	
-	m_distance = 1.0;
+	m_distance = CAMERA_DISTANCE_MIN;
 }
 
 /**
@@ -265,8 +252,7 @@ void GLCamera::reset()
  */
 Vertex GLCamera::getPosition()
 {
-	Vertex position = viewPoint - viewDir*m_distance;
-	return position;
+	return viewPoint - viewDir*m_distance;
 }
 
 /**
