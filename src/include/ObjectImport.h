@@ -30,7 +30,7 @@ class ObjectImport : public ImportFile
 public:
 	// ctor
 	ObjectImport();
-	ObjectImport(wxString filename);
+	ObjectImport(const wxString& filename);
 	ObjectImport(wxInputStream* inStream, std::map<wxString, wxString>* mtl);
 	
 	// dtor
@@ -98,7 +98,7 @@ private:
 	void ParseMtl(wxString& mtl);
 	
 	// read content and create assembly
-	void read(wxString& content);
+	void read(const wxString& content);
 	
 	void getF();
 	void getO();
@@ -109,7 +109,7 @@ private:
 	void getVT();
 	
 	void minmax(float& min,float& max,float value);
-	void addAtomic(string name);
+	void addAtomic(const string& name);
 	
 	vector<Vertex> m_vertex, m_normal;
 	vector<TCoord> m_tcoord;

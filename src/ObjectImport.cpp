@@ -35,14 +35,22 @@ using std::string;
 
 extern MaterialLibrary mtllib;
 
-// ctor
+/**
+ * generic constructor of ObjectImport initializes library
+ */
 ObjectImport::ObjectImport()
 {
 	MaterialLibrary m_matlib = MaterialLibrary();
 }
 
-ObjectImport::ObjectImport(wxString filename)
+/**
+ * constructor of ObjectImport by name
+ * @param[in]       filename           filename of obj to import
+ */
+ObjectImport::ObjectImport(const wxString& filename)
 {
+	MaterialLibrary m_matlib = MaterialLibrary();
+	
 	// set true -> file from filesystem
 	m_AsString = true;
 	
@@ -71,8 +79,15 @@ ObjectImport::ObjectImport(wxString filename)
 	read(content);
 }
 
+/**
+ * constructor of ObjectImport by stream and files map
+ * @param[in]       inStream           wxInputStream pointer to input stream
+ * @param[in]       mtl                map of material filenames and content
+ */
 ObjectImport::ObjectImport(wxInputStream* inStream, std::map<wxString, wxString>* mtl)
 {
+	MaterialLibrary m_matlib = MaterialLibrary();
+	
 	// set false -> file from wxInputStream
 	m_AsString = false;
 	
@@ -95,7 +110,9 @@ ObjectImport::ObjectImport(wxInputStream* inStream, std::map<wxString, wxString>
 	read(content);
 }
 
-// dtor
+/**
+ * destructor of ObjectImport
+ */
 ObjectImport::~ObjectImport()
 {
 }
@@ -110,37 +127,65 @@ void ObjectImport::ParseMtl(wxString& mtl)
 
 }
 
+/**
+ * get list of files in file-list
+ * @return       list<wxString>         list of filenames
+ */
 std::list<wxString> ObjectImport::getFileList()
 {
 	return m_listFiles;
 }
 
+/**
+ * get build assembly (root)
+ * @return       Assembly*         get pointer to build assembly
+ */
 Assembly* ObjectImport::getAssembly()
 {
 	return m_root;
 }
 
+/**
+ * get offset in x-direction
+ * @return       float         x-offset
+ */
 float ObjectImport::getOffsetX()
 {
 	return m_offsetX;
 }
 
+/**
+ * get offset in y-direction
+ * @return       float         y-offset
+ */
 float ObjectImport::getOffsetY()
 {
 	return m_offsetY;
 }
 
+/**
+ * get offset in z-direction
+ * @return       float         z-offset
+ */
 float ObjectImport::getOffsetZ()
 {
 	return m_offsetZ;
 }
 
+/**
+ * get pointer to wrapper
+ * @return       Assembly*         pointer to wrapper
+ */
 Assembly* ObjectImport::getWrapper()
 {
 	return m_wrapper;
 }
 
-void ObjectImport::read(wxString& content)
+/**
+ * read content an create assembly (IS_OBJECT) from
+ * @param[in]       content         wxString content of file
+ */
+void ObjectImport::read(const wxString& content)
 {
 	m_xmin = m_ymin = m_zmin = std::numeric_limits<float>::max();
 	m_xmax = m_ymax = m_zmax = -m_xmin;
@@ -229,6 +274,9 @@ void ObjectImport::read(wxString& content)
 	m_root->setScale(1.0,1.0,1.0);
 }
 
+/**
+ * get a vertex (vertex, normal or texture) in obj file
+ */
 void ObjectImport::getVs()
 {
 	char c = m_buf[1];
@@ -249,6 +297,9 @@ void ObjectImport::getVs()
 	}
 }
 
+/**
+ * get an object in obj file
+ */
 void ObjectImport::getO()
 {
 	string objname;
@@ -257,7 +308,11 @@ void ObjectImport::getO()
 	addAtomic(objname);
 }
 
-void ObjectImport::addAtomic(string name)
+/**
+ * add an atomic part to object
+ * @param[in]      name        string name of part
+ */
+void ObjectImport::addAtomic(const string& name)
 {
 	m_act = new Assembly(IS_ATOMIC,wxT("part"));
 	m_act->setName(name);
@@ -265,6 +320,12 @@ void ObjectImport::addAtomic(string name)
 	m_wrapper->setChildMaterial(m_act, m_matlib.getMaterial(m_matname));
 }
 
+/**
+ * get min and max from value
+ * @param           min         float old min value
+ * @param           max         float old max value
+ * @param[in]       value       float new value to compare
+ */
 void ObjectImport::minmax(float& min, float& max, float value)
 {
 	if (max < value)
@@ -278,6 +339,9 @@ void ObjectImport::minmax(float& min, float& max, float value)
 	}
 }
 
+/**
+ * get a vertex in obj file
+ */
 void ObjectImport::getV()
 {
 	float x, y, z;
@@ -292,6 +356,9 @@ void ObjectImport::getV()
 	m_vertex.push_back(tmp);
 }
 
+/**
+ * get a normal vertex in obj file
+ */
 void ObjectImport::getVN()
 {
 	float x, y, z;
@@ -302,6 +369,9 @@ void ObjectImport::getVN()
 	m_normal.push_back(tmp);
 }
 
+/**
+ * get a texture vertex in obj file
+ */
 void ObjectImport::getVT()
 {
 	float x, y;
@@ -311,6 +381,9 @@ void ObjectImport::getVT()
 	m_tcoord.push_back(tmp);
 }
 
+/**
+ * get a face in obj file
+ */
 void ObjectImport::getF()
 {
 	Face face;
@@ -365,6 +438,9 @@ void ObjectImport::getF()
 	}
 }
 
+/**
+ * get a use material in obj file
+ */
 void ObjectImport::getU()
 {
 	stringstream ss(m_buf.substr(6, string::npos));

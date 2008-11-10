@@ -1,32 +1,32 @@
-Y:/PROJECTS/GNR/src/MaterialLibrary.cpp:178: Warning: no matching class member found for
+Y:/PROJECTS/GNR/src/MaterialLibrary.cpp:186: Warning: no matching class member found for
   const Material & MaterialLibrary::getMaterial(const string &matname) const
 Possible candidates:
   const Material & MaterialLibrary::getMaterial(const string &matname) const 
-Y:/PROJECTS/GNR/src/MaterialLibrary.cpp:190: Warning: no matching class member found for
+Y:/PROJECTS/GNR/src/MaterialLibrary.cpp:202: Warning: no matching class member found for
   void MaterialLibrary::importFile(const string &fname)
 Possible candidates:
   void MaterialLibrary::importFile(const string &fname)
-Y:/PROJECTS/GNR/src/ObjectImport.cpp:261: Warning: no matching class member found for
-  void ObjectImport::addAtomic(std::string name)
+Y:/PROJECTS/GNR/src/ObjectImport.cpp:316: Warning: no matching class member found for
+  void ObjectImport::addAtomic(const std::string &name)
 Possible candidates:
-  void ObjectImport::addAtomic(string name)
-Y:/PROJECTS/GNR/src/ObjOaxConverterFrame.cpp:230: Warning: no matching class member found for
+  void ObjectImport::addAtomic(const string &name)
+Y:/PROJECTS/GNR/src/ObjOaxConverterFrame.cpp:252: Warning: no matching class member found for
   void ObjOaxConverterFrame::OnBtnCancel(wxCommandEvent &WXUNUSEDevent)
 Possible candidates:
   void ObjOaxConverterFrame::OnBtnCancel(wxCommandEvent &event)
-Y:/PROJECTS/GNR/src/ObjOaxConverterFrame.cpp:245: Warning: no matching class member found for
+Y:/PROJECTS/GNR/src/ObjOaxConverterFrame.cpp:271: Warning: no matching class member found for
   void ObjOaxConverterFrame::OnBtnCreate(wxCommandEvent &WXUNUSEDevent)
 Possible candidates:
   void ObjOaxConverterFrame::OnBtnCreate(wxCommandEvent &event)
-Y:/PROJECTS/GNR/src/ObjOaxConverterFrame.cpp:288: Warning: no matching class member found for
+Y:/PROJECTS/GNR/src/ObjOaxConverterFrame.cpp:318: Warning: no matching class member found for
   void ObjOaxConverterFrame::OnClose(wxCloseEvent &WXUNUSEDevent)
 Possible candidates:
   void ObjOaxConverterFrame::OnClose(wxCloseEvent &event)
-Y:/PROJECTS/GNR/src/ObjOaxConverterFrame.cpp:387: Warning: no matching class member found for
+Y:/PROJECTS/GNR/src/ObjOaxConverterFrame.cpp:433: Warning: no matching class member found for
   void ObjOaxConverterFrame::OnTxcNameChanged(wxCommandEvent &WXUNUSEDevent)
 Possible candidates:
   void ObjOaxConverterFrame::OnTxcNameChanged(wxCommandEvent &event)
-Y:/PROJECTS/GNR/src/ObjOaxConverterFrame.cpp:393: Warning: no matching class member found for
+Y:/PROJECTS/GNR/src/ObjOaxConverterFrame.cpp:443: Warning: no matching class member found for
   void ObjOaxConverterFrame::OnCbxCategoryChanged(wxCommandEvent &WXUNUSEDevent)
 Possible candidates:
   void ObjOaxConverterFrame::OnCbxCategoryChanged(wxCommandEvent &event)
@@ -53,48 +53,12 @@ Y:/PROJECTS/GNR/src/App.cpp:397: Warning: The following parameters of App::OnGLE
 Y:/PROJECTS/GNR/src/App.cpp:441: Warning: argument 'WXUNUSED' of command @param is not found in the argument list of App::OnLineDrawEvent(LineDrawEvent &event)
 Y:/PROJECTS/GNR/src/App.cpp:441: Warning: The following parameters of App::OnLineDrawEvent(LineDrawEvent &event) are not documented:
   parameter 'event'
-Y:/PROJECTS/GNR/src/App.cpp:450: Warning: argument 'WXUNUSED' of command @p
-aram is not found in the argument list of App::OnCreatePrimitiveEvent(CreatePrimitiveEvent &event)
+Y:/PROJECTS/GNR/src/App.cpp:450: Warning: argument 'WXUNUSED'
+ of command @param is not found in the argument list of App::OnCreatePrimitiveEvent(CreatePrimitiveEvent &event)
 Y:/PROJECTS/GNR/src/App.cpp:450: Warning: The following parameters of App::OnCreatePrimitiveEvent(CreatePrimitiveEvent &event) are not documented:
   parameter 'event'
-Y:/PROJECTS/GNR/src/Assembly.cpp:582: Warning: argument 'float' of command @param is not found in the argument list of Assembly::setX(const float x)
-Y:/PROJECTS/GNR/src/Assembly.cpp:582: Warning: The following parameters of Assembly::setX(const float x) are not documented:
-  parameter 'x'
-Y:/PROJECTS/GNR/src/Assembly.cpp:591: Warning: argument 'float' of command @param is not found in the argument list of Assembly::setY(const float y)
-Y:/PROJECTS/GNR/src/Assembly.cpp:591: Warning: The following parameters of Assembly::setY(const float y) are not documented:
-  parameter 'y'
-Y:/PROJECTS/GNR/src/Assembly.cpp:600: Warning: argument 'float' of command @param is not found in the argument list of Assembly::setZ(const float z)
-Y:/PROJECTS/GNR/src/Assembly.cpp:600: Warning: The following parameters of Assembly::setZ(const float z) are not documented:
-  parameter 'z'
-Y:/PROJECTS/GNR/src/Assembly.cpp:617: Warning: argument 'float' of command @param is not found in the argument list of Assembly::setXY(const float x, const float y)
-Y:/PROJECTS/GNR/src/Assembly.cpp:617: Warning: argument 'float' of command @param is not found in the argument list of Assembly::setXY(const float x, const float y)
-Y:/PROJECTS/GNR/src/Assembly.cpp:617: Warning: The following parameters of Assembly::setXY(const float x, const float y) are not documented:
-  parameter 'x'
-  parameter 'y'
-Y:/PROJECTS/GNR/src/Assembly.cpp:628: Warning: argument 'float' of command @param is not found in the argument list of Assembly::setXZ(const float x, const float z)
-Y:/PROJECTS/GNR/src/Assembly.cpp:628: Warning: argument 'float' of command @param is not found in the argument list of Assembly::setXZ(const float x, const float z)
-Y:/PROJECTS/GNR/src/Assembly.cpp:628: Warning: The following parameters of Assembly::setXZ(const float x, const float z) are not documented:
-  parameter 'x'
-  parameter 'z'
-Y:/PROJECTS/GNR/src/Assembly.cpp:639: Warning: argument 'float' of command @param is not found in the argument list of Assembly::setXYZ(const float x, const float y, const float z)
-Y:/PROJECTS/GNR/src/Assembly.cpp:639: Warning: argument 'float' of command @param is not found in the argument list of Assembly::setXYZ(const float x, const float y, const float z)
-Y:/PROJECTS/GNR/src/Assembly.cpp:639: Warning: argument 'float' of command @param is not found in the argument list of Assembly::setXYZ(const float x, const float y, const float z)
-Y:/PROJECTS/GNR/src/Assembly.cpp:639: Warning: The following parameters of Assembly::setXYZ(const float x, const float y, const float z) are not documented:
-  parameter 'x'
-  parameter 'y'
-  parameter 'z'
-Y:/PROJECTS/GNR/src/Assembly.cpp:893: Warning: argument 'Vertex' of command @param is not found in the argument list of Assembly::setCenterVertex(const Vertex &center)
-Y:/PROJECTS/GNR/src/Assembly.cpp:893: Warning: The following parameters of Assembly::setCenterVertex(const Vertex &center) are not documented:
-  parameter 'center'
-Y:/PROJECTS/GNR/src/Assembly.cpp:904: Warning: argument 'Vertex' of command @param is not found in the argument list of Assembly::setRotateVertex(const Vertex &rotation)
-Y:/PROJECTS/GNR/src/Assembly.cpp:904: Warning: The following parameters of Assembly::setRotateVertex(const Vertex &rotation) are not documented:
-  parameter 'rotation'
-Y:/PROJECTS/GNR/src/Assembly.cpp:882: Warning: argument 'Vertex' of command @param is not found in the argument list of Assembly::move(const Vertex &center)
-Y:/PROJECTS/GNR/src/Assembly.cpp:882: Warning: The following parameters of Assembly::move(const Vertex &center) are not documented:
-  parameter 'center'
 Y:/PROJECTS/GNR/src/Assembly.cpp:555: Warning: argument 'radius' of command @param is not found in the argument list of Assembly::setRadiusBottom(const float r)
-Y:/PROJECTS/GNR/src/Assembly.cpp:555: Warning: The following para
-meters of Assembly::setRadiusBottom(const float r) are not documented:
+Y:/PROJECTS/GNR/src/Assembly.cpp:555: Warning: The following parameters of Assembly::setRadiusBottom(const float r) are not documented:
   parameter 'r'
 Y:/PROJECTS/GNR/src/Assembly.cpp:546: Warning: argument 'radius' of command @param is not found in the argument list of Assembly::setRadiusMiddle(const float r)
 Y:/PROJECTS/GNR/src/Assembly.cpp:546: Warning: The following parameters of Assembly::setRadiusMiddle(const float r) are not documented:
@@ -102,80 +66,6 @@ Y:/PROJECTS/GNR/src/Assembly.cpp:546: Warning: The following parameters of Assem
 Y:/PROJECTS/GNR/src/Assembly.cpp:537: Warning: argument 'radius' of command @param is not found in the argument list of Assembly::setRadiusTop(const float r)
 Y:/PROJECTS/GNR/src/Assembly.cpp:537: Warning: The following parameters of Assembly::setRadiusTop(const float r) are not documented:
   parameter 'r'
-Y:/PROJECTS/GNR/src/Assembly.cpp:792: Warning: argument 'float' of command @param is not found in the argument list of Assembly::setHeight(const float height)
-Y:/PROJECTS/GNR/src/Assembly.cpp:792: Warning: The following parameters of Assembly::setHeight(const float height) are not documented:
-  parameter 'height'
-Y:/PROJECTS/GNR/src/Assembly.cpp:801: Warning: argument 'float' of command @param is not found in the argument list of Assembly::setWidth(const float width)
-Y:/PROJECTS/GNR/src/Assembly.cpp:801: Warning: The following parameters of Assembly::setWidth(const float width) are not documented:
-  parameter 'width'
-Y:/PROJECTS/GNR/src/Assembly.cpp:810: Warning: argument 'float' of command @param is not found in the argument list of Assembly::setDepth(const float depth)
-Y:/PROJECTS/GNR/src/Assembly.cpp:810: Warning: The following parameters of Assembly::setDepth(const float depth) are not documented:
-  parameter 'depth'
-Y:/PROJECTS/GNR/src/Assembly.cpp:819: Warning: argument 'float' of command @param is not found in the argument list of Assembly::setSize(const float width, const float height, const float depth)
-Y:/PROJECTS/GNR/src/Assembly.cpp:819: Warning: argument 'float' of command @param is not found in the argument list of Assembly::setSize(const float width, const float height, const float depth)
-Y:/PROJECTS/GNR/src/Assembly.cpp:819: Warning: argument 'float' of command @param is not found in the argument list of Assembly::setSize(const float width, const float height, const float depth)
-Y:/PROJECTS/GNR/src/Assembly.cpp:819: Warning: The following parameters of Assembly::setSize(const float width, const float height, const float depth) are not documented:
-  parameter 'width'
-  parameter 'height'
-  parameter 'depth'
-Y:/PROJECTS/GNR/src/Assembly.cpp:716: Warning: argument 'float' of command @param is not found in the argument list of Assembly::setPhi(const float phi)
-Y:/PROJECTS/GNR/src/Assembly.cpp:716: Warning: The following parameters of Assembly::setPhi(const float phi) are not documented:
-  parameter 'phi'
-Y:/PROJECTS/GNR/src/Assembly.cpp:725: Warning: argument 'float' of command @param is not found in the argument list of Assembly::setRho(const float rho)
-Y:/PROJECTS/GNR/src/Assembly.cpp:725: Warning: The following parameters of Assembly::setRho(const float rho) are not documented:
-  parameter 'rho'
-Y:/PROJECTS/GNR/src/Assembly.cpp:734: Warning: argument 'float' of command @param is not found in the argument list of Assembly::setTheta(const float theta)
-Y:/PROJECTS/GNR/src/Assembly.cpp:734: Warning: The following parameters of Assembly::setTheta(const float theta) are not documented:
-  parameter 'theta'
-Y:/PROJECTS/GNR/src/Assembly.cpp:743: Warning: argument 'float' of command @param is not found in the argument list of Assembly::setPhiTheta(const float phi, const float theta)
-Y:/PROJECTS/GNR/src/Assembly.cpp:743: Warning: argument 'float' of command @param is not found in the argument list of Assembly::setPhiTheta(const float phi, const float theta)
-Y:/PROJECTS/GNR/src/Assembly.cpp:743: Warning: The following parameters of Assembly::setPhiTheta(const float phi, const float theta) are not documented:
-  parameter 'phi'
-  parameter 'theta'
-Y:/PROJECTS/GNR/src/Assembly.cpp:754: Warning: argument 'float' of command @param is not found in the argument list of Assembly::setPhiRho(const float phi, const float rho)
-Y:/PROJEC
-TS/GNR/src/Assembly.cpp:754: Warning: argument 'float' of command @param is not found in the argument list of Assembly::setPhiRho(const float phi, const float rho)
-Y:/PROJECTS/GNR/src/Assembly.cpp:754: Warning: The following parameters of Assembly::setPhiRho(const float phi, const float rho) are not documented:
-  parameter 'phi'
-  parameter 'rho'
-Y:/PROJECTS/GNR/src/Assembly.cpp:765: Warning: argument 'float' of command @param is not found in the argument list of Assembly::setScaleX(const float x)
-Y:/PROJECTS/GNR/src/Assembly.cpp:765: Warning: The following parameters of Assembly::setScaleX(const float x) are not documented:
-  parameter 'x'
-Y:/PROJECTS/GNR/src/Assembly.cpp:774: Warning: argument 'float' of command @param is not found in the argument list of Assembly::setScaleY(const float y)
-Y:/PROJECTS/GNR/src/Assembly.cpp:774: Warning: The following parameters of Assembly::setScaleY(const float y) are not documented:
-  parameter 'y'
-Y:/PROJECTS/GNR/src/Assembly.cpp:783: Warning: argument 'float' of command @param is not found in the argument list of Assembly::setScaleZ(const float z)
-Y:/PROJECTS/GNR/src/Assembly.cpp:783: Warning: The following parameters of Assembly::setScaleZ(const float z) are not documented:
-  parameter 'z'
-Y:/PROJECTS/GNR/src/Assembly.cpp:832: Warning: argument 'float' of command @param is not found in the argument list of Assembly::setScale(const float x, const float y, const float z)
-Y:/PROJECTS/GNR/src/Assembly.cpp:832: Warning: argument 'float' of command @param is not found in the argument list of Assembly::setScale(const float x, const float y, const float z)
-Y:/PROJECTS/GNR/src/Assembly.cpp:832: Warning: argument 'float' of command @param is not found in the argument list of Assembly::setScale(const float x, const float y, const float z)
-Y:/PROJECTS/GNR/src/Assembly.cpp:832: Warning: The following parameters of Assembly::setScale(const float x, const float y, const float z) are not documented:
-  parameter 'x'
-  parameter 'y'
-  parameter 'z'
-Y:/PROJECTS/GNR/src/Assembly.cpp:915: Warning: argument 'Face' of command @param is not found in the argument list of Assembly::addFace(const Face &face)
-Y:/PROJECTS/GNR/src/Assembly.cpp:915: Warning: The following parameters of Assembly::addFace(const Face &face) are not documented:
-  parameter 'face'
-Y:/PROJECTS/GNR/src/Assembly.cpp:924: Warning: argument 'Assembly' of command @param is not found in the argument list of Assembly::addPart(Assembly *part)
-Y:/PROJECTS/GNR/src/Assembly.cpp:924: Warning: The following parameters of Assembly::addPart(Assembly *part) are not documented:
-  parameter 'part'
-Y:/PROJECTS/GNR/src/Assembly.cpp:934: Warning: argument 'Assembly' of command @param is not found in the argument list of Assembly::delPart(Assembly *part)
-Y:/PROJECTS/GNR/src/Assembly.cpp:934: Warning: The following parameters of Assembly::delPart(Assembly *part) are not documented:
-  parameter 'part'
-Y:/PROJECTS/GNR/src/Assembly.cpp:845: Warning: argument 'string' of command @param is not found in the argument list of Assembly::setName(const wxString &name)
-Y:/PROJECTS/GNR/src/Assembly.cpp:845: Warning: The following parameters of Assembly::setName(const wxString &name) are not documented:
-  parameter 'name'
-Y:/PROJECTS/GNR/src/Assembly.cpp:854: Warning: argument 'string' of command @param is not found in the argument list of Assembly::setName(const string &name)
-Y:/PROJECTS/GNR/src/Assembly.cpp:854: Warning: The following parameters of Assembly::setName(const string &name) are not documented:
-  parameter 'name'
-Y:/PROJECTS/GNR/src/Assembly.cpp:873: Warning: argument 'bool' of command @param is not found in the argument list of Assembly::setType(const assemblyType &type)
-Y:/PROJECTS/GNR/src/Assembly.cpp:873: Warning: The following parameters of Assembly::setType(const assemblyType &type) are not documented:
-  parameter 'type'
-Y:/PROJECTS/GNR/src/Assembly.cpp:864: Warning: argument 'Assembly' of command @param is not found in the argument list of Assembly::setParent(Assembly *p)
-Y:/PROJECTS/GNR/src/Assembly.cpp:864: Warning: The following parameters of Assem
-bly::setParent(Assembly *p) are not documented:
-  parameter 'p'
 Y:/PROJECTS/GNR/src/AssemblyDataFrame.cpp:131: Warning: argument 'event' of command @param is not found in the argument list of AssemblyDataFrame::OnChange(wxCommandEvent &WXUNUSEDevent)
 Y:/PROJECTS/GNR/src/AssemblyDataFrame.cpp:131: Warning: The following parameters of AssemblyDataFrame::OnChange(wxCommandEvent &WXUNUSEDevent) are not documented:
   parameter 'WXUNUSED'
@@ -198,7 +88,8 @@ Y:/PROJECTS/GNR/src/AssemblyMediator.cpp:39: Warning: argument 'WXUNUSED' of com
 Y:/PROJECTS/GNR/src/AssemblyMediator.cpp:39: Warning: The following parameters of AssemblyMediator::initialize(GLNotifyEvent &event) are not documented:
   parameter 'event'
 Y:/PROJECTS/GNR/src/AssemblyMediator.cpp:83: Warning: argument 'WXUNUSED' of command @param is not found in the argument list of AssemblyMediator::translate(GLNotifyEvent &event)
-Y:/PROJECTS/GNR/src/AssemblyMediator.cpp:83: Warning: The following parameters of AssemblyMediator::translate(GLNotifyEvent &event) are not documented:
+Y:/PROJECTS/GNR/src/AssemblyMediator.cpp:83: Warning: The following parameters of Assem
+blyMediator::translate(GLNotifyEvent &event) are not documented:
   parameter 'event'
 Y:/PROJECTS/GNR/src/CreatePrimitiveEvent.cpp:27: Warning: argument 'WXUNUSED' of command @param is not found in the argument list of CreatePrimitiveEvent::CreatePrimitiveEvent(const CreatePrimitiveEvent &event)
 Y:/PROJECTS/GNR/src/CreatePrimitiveEvent.cpp:27: Warning: The following parameters of CreatePrimitiveEvent::CreatePrimitiveEvent(const CreatePrimitiveEvent &event) are not documented:
@@ -209,8 +100,7 @@ Y:/PROJECTS/GNR/src/Face.cpp:27: Warning: The following parameters of Face::Face
 Y:/PROJECTS/GNR/src/GLCameraMediator.cpp:23: Warning: argument 'WXUNUSED' of command @param is not found in the argument list of GLCameraMediator::initialize(GLNotifyEvent &event)
 Y:/PROJECTS/GNR/src/GLCameraMediator.cpp:23: Warning: The following parameters of GLCameraMediator::initialize(GLNotifyEvent &event) are not documented:
   parameter 'event'
-Y:/PROJECTS/G
-NR/src/GLCameraMediator.cpp:48: Warning: argument 'WXUNUSED' of command @param is not found in the argument list of GLCameraMediator::translate(GLNotifyEvent &event)
+Y:/PROJECTS/GNR/src/GLCameraMediator.cpp:48: Warning: argument 'WXUNUSED' of command @param is not found in the argument list of GLCameraMediator::translate(GLNotifyEvent &event)
 Y:/PROJECTS/GNR/src/GLCameraMediator.cpp:48: Warning: The following parameters of GLCameraMediator::translate(GLNotifyEvent &event) are not documented:
   parameter 'event'
 Y:/PROJECTS/GNR/src/GLCameraMediator2D.cpp:18: Warning: argument 'WXUNUSED' of command @param is not found in the argument list of GLCameraMediator2D::MoveXY(GLNotifyEvent &event)
@@ -234,7 +124,8 @@ Y:/PROJECTS/GNR/src/GLCameraMediator3D.cpp:14: Warning: The following parameters
 Y:/PROJECTS/GNR/src/GLCameraMediator3D.cpp:38: Warning: argument 'WXUNUSED' of command @param is not found in the argument list of GLCameraMediator3D::MoveXZ(GLNotifyEvent &event)
 Y:/PROJECTS/GNR/src/GLCameraMediator3D.cpp:38: Warning: The following parameters of GLCameraMediator3D::MoveXZ(GLNotifyEvent &event) are not documented:
   parameter 'event'
-Y:/PROJECTS/GNR/src/GLCameraMediator3D.cpp:65: Warning: argument 'WXUNUSED' of command @param is not found in the argument list of GLCameraMediator3D::RotateXY(GLNotifyEvent &event)
+Y:/PROJECTS/GNR/src/GLCameraMediator3D.cpp:65: Warning: argument 'WXUNUSED' of command @param is not found in the argument list of
+ GLCameraMediator3D::RotateXY(GLNotifyEvent &event)
 Y:/PROJECTS/GNR/src/GLCameraMediator3D.cpp:65: Warning: The following parameters of GLCameraMediator3D::RotateXY(GLNotifyEvent &event) are not documented:
   parameter 'event'
 Y:/PROJECTS/GNR/src/GLCameraMediator3D.cpp:108: Warning: argument 'WXUNUSED' of command @param is not found in the argument list of GLCameraMediator3D::RotateXZ(GLNotifyEvent &event)
@@ -244,8 +135,7 @@ Y:/PROJECTS/GNR/src/GLCameraMediator3D.cpp:147: Warning: argument 'WXUNUSED' of 
 Y:/PROJECTS/GNR/src/GLCameraMediator3D.cpp:147: Warning: The following parameters of GLCameraMediator3D::ZoomIn(GLNotifyEvent &event) are not documented:
   parameter 'event'
 Y:/PROJECTS/GNR/src/GLCanvas.cpp:612: Warning: argument 'event' of command @param is not found in the argument list of GLCanvas::OnRMouseUp(wxMouseEvent &WXUNUSEDevent)
-Y:/PROJECTS/GNR/src/GLCanvas.cpp:612: W
-arning: The following parameters of GLCanvas::OnRMouseUp(wxMouseEvent &WXUNUSEDevent) are not documented:
+Y:/PROJECTS/GNR/src/GLCanvas.cpp:612: Warning: The following parameters of GLCanvas::OnRMouseUp(wxMouseEvent &WXUNUSEDevent) are not documented:
   parameter 'WXUNUSED'
 Y:/PROJECTS/GNR/src/HelpFrame.cpp:32: Warning: argument 'parent' of command @param is not found in the argument list of HelpFrame::HelpFrame()
 Y:/PROJECTS/GNR/src/HelpFrame.cpp:32: Warning: argument 'id' of command @param is not found in the argument list of HelpFrame::HelpFrame()
@@ -271,7 +161,8 @@ Y:/PROJECTS/GNR/src/MouseController.cpp:17: Warning: The following parameters of
 Y:/PROJECTS/GNR/src/MouseController.cpp:184: Warning: argument 'GLNotifyEvent' of command @param is not found in the argument list of MouseController::updateMouse(GLNotifyEvent &event)
 Y:/PROJECTS/GNR/src/MouseController.cpp:184: Warning: The following parameters of MouseController::updateMouse(GLNotifyEvent &event) are not documented:
   parameter 'event'
-Y:/PROJECTS/GNR/src/MouseController.cpp:164: Warning: argument 'NotifyEvent' of command @param is not found in the argument list of MouseController::setTranslation(NotifyEvent &event)
+Y:/PROJECTS/GNR/src/MouseController.cpp:164: Warning: argument 'NotifyEvent' of comma
+nd @param is not found in the argument list of MouseController::setTranslation(NotifyEvent &event)
 Y:/PROJECTS/GNR/src/MouseController.cpp:164: Warning: The following parameters of MouseController::setTranslation(NotifyEvent &event) are not documented:
   parameter 'event'
 Y:/PROJECTS/GNR/src/MouseController.cpp:174: Warning: argument 'NotifyEvent' of command @param is not found in the argument list of MouseController::setSnapfunction(NotifyEvent &event)
@@ -280,9 +171,7 @@ Y:/PROJECTS/GNR/src/MouseController.cpp:174: Warning: The following parameters o
 Y:/PROJECTS/GNR/src/MouseController.cpp:46: Warning: argument 'GLNotifyEvent' of command @param is not found in the argument list of MouseController::setMediator(GLNotifyEvent &event)
 Y:/PROJECTS/GNR/src/MouseController.cpp:46: Warning: The following parameters of MouseController::setMediator(GLNotifyEvent &event) are not documented:
   parameter 'event'
-Y:/PROJECTS/GNR/src/MouseController.cpp:141: Warning: argument 'GLNotifyEvent' of command @param is not found in the argument 
-list of MouseController::activateM
-ediator(GLNotifyEvent &event)
+Y:/PROJECTS/GNR/src/MouseController.cpp:141: Warning: argument 'GLNotifyEvent' of command @param is not found in the argument list of MouseController::activateMediator(GLNotifyEvent &event)
 Y:/PROJECTS/GNR/src/MouseController.cpp:141: Warning: The following parameters of MouseController::activateMediator(GLNotifyEvent &event) are not documented:
   parameter 'event'
 Y:/PROJECTS/GNR/src/MouseController.cpp:154: Warning: argument 'GLNotifyEvent' of command @param is not found in the argument list of MouseController::deactivateMediator()
@@ -308,7 +197,8 @@ Y:/PROJECTS/GNR/src/OpxImport.cpp:30: Warning: The following parameters of OpxIm
   parameter 'scene'
   parameter 'filename'
 Y:/PROJECTS/GNR/src/OpxImport.cpp:66: Warning: argument 'wxString' of command @param is not found in the argument list of OpxImport::Load(wxZipInputStream &stream)
-Y:/PROJECTS/GNR/src/OpxImport.cpp:66: Warning: The following parameters of OpxImport::Load(wxZipInputStream &stream) are not documented:
+Y:/PROJECTS/GNR/src/OpxImport.cpp:66: Warning: The following parameters of OpxImport::Load(wxZ
+ipInputStream &stream) are not documented:
   parameter 'stream'
 Y:/PROJECTS/GNR/src/OpxImport.cpp:115: Warning: argument 'wxInputStream' of command @param is not found in the argument list of OpxImport::loadXml(wxZipInputStream &stream)
 Y:/PROJECTS/GNR/src/OpxImport.cpp:115: Warning: The following parameters of OpxImport::loadXml(wxZipInputStream &stream) are not documented:

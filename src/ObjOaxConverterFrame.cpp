@@ -37,7 +37,9 @@ const long ObjOaxConverterFrame::idStxDepth      = wxNewId();
 const long ObjOaxConverterFrame::idStxHeight     = wxNewId();
 const long ObjOaxConverterFrame::idTxcName       = wxNewId();
 
-// ctor
+/**
+ * constructor of ObjOaxConverterFrame builds frame for obj import
+ */
 ObjOaxConverterFrame::ObjOaxConverterFrame(wxWindow* parent, wxWindowID id)
 {
 	// create Frame
@@ -141,7 +143,9 @@ ObjOaxConverterFrame::ObjOaxConverterFrame(wxWindow* parent, wxWindowID id)
 	Connect(idTxcName,wxEVT_COMMAND_TEXT_UPDATED,(wxObjectEventFunction)&ObjOaxConverterFrame::OnTxcNameChanged);
 }
 
-// dtor
+/**
+ * destructor of ObjOaxConverterFrame cleans up pointer
+ */
 ObjOaxConverterFrame::~ObjOaxConverterFrame()
 {
 	delete m_canvas;
@@ -166,6 +170,10 @@ ObjOaxConverterFrame::~ObjOaxConverterFrame()
 	delete m_btnCancel;
 }
 
+/**
+ * prepare all categories for pull down menu
+ * @param[in]       ptrCat        vector of strings contains names
+ */
 void ObjOaxConverterFrame::setAllCategories(std::vector<wxString>* ptrCat)
 {
 	// set standard category -> "Sonstiges"
@@ -190,11 +198,18 @@ void ObjOaxConverterFrame::setAllCategories(std::vector<wxString>* ptrCat)
 	delete ptrCat;
 }
 
+/**
+ * set assembly data
+ * @param[in]       data        AssemblyData* pointer to data for assembly
+ */
 void ObjOaxConverterFrame::setAssemblyData(AssemblyData* data)
 {
 	m_assemblyData = data;
 }
 
+/**
+ * set data and update frame
+ */
 void ObjOaxConverterFrame::setData()
 {
 	// set data
@@ -220,12 +235,19 @@ void ObjOaxConverterFrame::setData()
 	updateFrame();
 }
 
+/**
+ * get preview canvas pointer
+ * @return       GLCanvasPreview*        pointer to preview canvas
+ */
 GLCanvasPreview* ObjOaxConverterFrame::getCanvasPointer()
 {
 	return m_canvas;
 }
 
-
+/**
+ * on pressing cancel button
+ * @param[in]       WXUNUSED        unused event of button
+ */
 void ObjOaxConverterFrame::OnBtnCancel(wxCommandEvent& WXUNUSED(event))
 {
 	// disable modal
@@ -241,6 +263,10 @@ void ObjOaxConverterFrame::OnBtnCancel(wxCommandEvent& WXUNUSED(event))
 	GetEventHandler()->ProcessEvent(gnrevent);
 }
 
+/**
+ * on pressing create button
+ * @param[in]       WXUNUSED        unused event of button
+ */
 void ObjOaxConverterFrame::OnBtnCreate(wxCommandEvent& WXUNUSED(event))
 {
 	// disable modal
@@ -284,6 +310,10 @@ void ObjOaxConverterFrame::OnBtnCreate(wxCommandEvent& WXUNUSED(event))
 	GetEventHandler()->ProcessEvent(gnrevent);
 }
 
+/**
+ * on pressing close button
+ * @param[in]       WXUNUSED        unused event of button
+ */
 void ObjOaxConverterFrame::OnClose(wxCloseEvent& WXUNUSED(event))
 {
 	// disable modal
@@ -299,6 +329,10 @@ void ObjOaxConverterFrame::OnClose(wxCloseEvent& WXUNUSED(event))
 	GetEventHandler()->ProcessEvent(gnrevent);
 }
 
+/**
+ * on changing width in spincontrol
+ * @param[in]       event        wxSpinEvent event of spin control
+ */
 void ObjOaxConverterFrame::OnSpcWidthChanged(wxSpinEvent& event)
 {
 	// check if aspect ratio is enabled
@@ -327,6 +361,10 @@ void ObjOaxConverterFrame::OnSpcWidthChanged(wxSpinEvent& event)
 	}
 }
 
+/**
+ * on changing depth in spincontrol
+ * @param[in]       event        wxSpinEvent event of spin control
+ */
 void ObjOaxConverterFrame::OnSpcDepthChanged(wxSpinEvent& event)
 {
 	// check if aspect ratio is enabled
@@ -355,6 +393,10 @@ void ObjOaxConverterFrame::OnSpcDepthChanged(wxSpinEvent& event)
 	}
 }
 
+/**
+ * on changing height in spincontrol
+ * @param[in]       event        wxSpinEvent event of spin control
+ */
 void ObjOaxConverterFrame::OnSpcHeightChanged(wxSpinEvent& event)
 {
 	// check if aspect ratio is enabled
@@ -383,18 +425,29 @@ void ObjOaxConverterFrame::OnSpcHeightChanged(wxSpinEvent& event)
 	}
 }
 
+/**
+ * on name changed set new name
+ * @param[in]       WXUNUSED        unused event of button
+ */
 void ObjOaxConverterFrame::OnTxcNameChanged(wxCommandEvent& WXUNUSED(event))
 {
 	// get new Value
 	m_name = m_txcName->GetValue();
 }
 
+/**
+ * on category changed set new category
+ * @param[in]       WXUNUSED        unused event of button
+ */
 void ObjOaxConverterFrame::OnCbxCategoryChanged(wxCommandEvent& WXUNUSED(event))
 {
 	// get new Value
 	m_category = m_cbxCategory->GetValue();
 }
 
+/**
+ * update whole frame
+ */
 void ObjOaxConverterFrame::updateFrame()
 {
 	// update name
@@ -413,6 +466,13 @@ void ObjOaxConverterFrame::updateFrame()
 	m_spcHeight->SetValue((int)m_height);
 }
 
+/**
+ * get max from size of object dimensions
+ * @param[in]       width       width of object
+ * @param[in]       depth       width of object
+ * @param[in]       height      width of object
+ * @return          float       maximum of all dimensions
+ */
 double ObjOaxConverterFrame::max(double width, double depth, double height)
 {
 	double max = width;

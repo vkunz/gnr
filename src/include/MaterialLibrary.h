@@ -28,11 +28,8 @@ public:
 	MaterialLibrary();
 	
 	void importFile(const string& fname);
-	
 	void import(istream& is);
-	
 //	void selectMaterial(const string& matname) const;
-
 	const Material& getMaterial(const string& matname) const;
 	
 private:

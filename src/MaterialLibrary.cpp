@@ -23,6 +23,9 @@ using std::stringstream;
 
 using std::pair;
 
+/**
+ * constructor of MaterialLibrary is initializing default materials
+ */
 MaterialLibrary::MaterialLibrary()
 {
 	istringstream defaults(
@@ -174,6 +177,11 @@ MaterialLibrary::MaterialLibrary()
 //	it->second.draw();
 //}
 
+/**
+ * get material from name
+ * @param           matname          string of material name
+ * @return          Material&        material for opengl
+ */
 const Material& MaterialLibrary::getMaterial(const string& matname) const
 {
 	//check, if material name in data map
@@ -186,6 +194,10 @@ const Material& MaterialLibrary::getMaterial(const string& matname) const
 	return m_data.find(DEFAULT_IMPORT_COLOR)->second;
 }
 
+/**
+ * import mtl file
+ * @param[in]       fname           filename of mtl
+ */
 void MaterialLibrary::importFile(const string& fname)
 {
 	ifstream ifs(fname.c_str());
@@ -193,6 +205,10 @@ void MaterialLibrary::importFile(const string& fname)
 	ifs.close();
 }
 
+/**
+ * import mtl data
+ * @param[in]       is           istream from filename
+ */
 void MaterialLibrary::import(istream& is)
 {
 	m_is = &is;
@@ -208,6 +224,10 @@ void MaterialLibrary::import(istream& is)
 	}
 }
 
+/**
+ * return true, if name was found
+ * @return      bool        material found or not
+ */
 bool MaterialLibrary::getName()
 {
 	bool found = m_buf.substr(0, 7) == "newmtl ";
@@ -225,6 +245,10 @@ bool MaterialLibrary::getName()
 	return found;
 }
 
+/**
+ * get material data
+ * @return      bool        return if data found or not
+ */
 bool MaterialLibrary::getData()
 {
 	bool gotData = true;
@@ -243,6 +267,9 @@ bool MaterialLibrary::getData()
 	return gotData;
 }
 
+/**
+ * parse data for ambient, diffuse, specular... values
+ */
 void MaterialLibrary::parseData()
 {
 	if (m_buf.size() < 2)
