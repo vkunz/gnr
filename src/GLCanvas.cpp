@@ -553,15 +553,22 @@ void GLCanvas::OnLMouseUp(wxMouseEvent& event)
  */
 void GLCanvas::OnMMouseDown(wxMouseEvent& event)
 {
+	Connect(wxEVT_MOTION, (wxObjectEventFunction)&GLCanvas::OnMouseMove);
+	
+	Vertex* glcoords = new Vertex[2];
+	getGLDim(event.GetX(), event.GetY(), glcoords);
+	
 	// send Event to handle Mouse
 	GLNotifyEvent myevent(wxEVT_COMMAND_GL_NOTIFY);
 	myevent.setMouseEvent(event);
 	myevent.setCanvasID(getCanvasID());
 	myevent.SetEventObject(this);
+	myevent.SetInt((int)this);
 	myevent.setWindowSize(m_window_x, m_window_y);
+	myevent.setWorldSize(glcoords);
 	GetEventHandler()->ProcessEvent(myevent);
 	
-	Connect(wxEVT_MOTION, (wxObjectEventFunction)&GLCanvas::OnMouseMove);
+	delete[] glcoords;
 }
 
 /**

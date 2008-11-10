@@ -1204,6 +1204,16 @@ Assembly* Assembly::getHashOriginal(const wxString& hash) const
 	//search for the same hash and return
 	for (list<Assembly*>::const_iterator it = m_part.begin(); it != m_part.end(); ++it)
 	{
+		//found a group? cascade...
+		if ((*it)->isType(IS_GROUP))
+		{
+			Assembly* sub = (*it)->getHashOriginal(hash);
+			if (sub != NULL)
+			{
+				return sub;
+			}
+		}
+		
 		//found a copy? continue
 		if (!(*it)->isOriginal())
 		{
