@@ -503,8 +503,16 @@ void App::OPXOpen(wxString filename)
 	// clean up the actual room
 	m_Scene->newRoom();
 	
-	// create importer and execute it
-	OpxImport import(m_TreeLibCtrl, m_Scene, filename);
+	//m_progFrame = new ProgressFrame();
+	
+	//return;
+	
+	// create importer-thread
+	OpxImport* import = new OpxImport(m_TreeLibCtrl, filename);
+	
+	// start thread
+	import->Create();
+	import->Run();
 }
 
 /**

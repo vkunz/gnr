@@ -29,32 +29,39 @@ OpxImport::OpxImport()
 
 /**
  * Loads the given filename. See Load(wxString filename).
- * @param       controller          Filepath to read from.
- * @param       scene               Assigns pointer to actual scene.
- * @param       filename            filename of OPX to import
+ * @param[in]   controller      Pointer to LibraryTree
+ * @param[in]   filename        Filepath to read from.
  */
-OpxImport::OpxImport(TreeLibraryController* controller, Scene* scene, wxString filename)
+OpxImport::OpxImport(TreeLibraryController* controller, wxString filename)
 {
 	// assign librarycontroller
 	m_libctrl = controller;
 	
-	// set Scene pointer
-	m_camera = scene->getGLCamera3D();
-	
 	// asign scene
-	m_scene = scene;
+	m_scene = Scene::getInstance();
+	
+	// set camera pointer
+	m_camera = m_scene->getGLCamera3D();
 	
 	// store filename
 	m_filename = filename;
-	
+}
+
+/**
+ * Is called on thread-start
+ */
+void* OpxImport::Entry()
+{
 	// create stream of filename
-	wxFFileInputStream inFile(filename);
+	wxFFileInputStream inFile(m_filename);
 	
 	// create zipstream
 	wxZipInputStream stream(inFile);
 	
 	// load
 	Load(stream);
+	
+	return NULL;
 }
 
 /**

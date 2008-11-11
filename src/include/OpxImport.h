@@ -11,6 +11,7 @@
 #ifndef _GNROPXIMPORT_H_
 #define _GNROPXIMPORT_H_
 
+#include <wx/thread.h>
 #include <wx/tokenzr.h>
 #include <wx/wfstream.h>
 #include <wx/xml/xml.h>
@@ -30,16 +31,16 @@
  *
  * @see OaxImport
  */
-class OpxImport
+class OpxImport: public wxThread
 {
 public:
 	// ctor
 	OpxImport();
-	
-	OpxImport(TreeLibraryController* controller, Scene* scene, wxString filename);
-	
-	// dtor
 	virtual ~OpxImport();
+	
+	OpxImport(TreeLibraryController* controller, wxString filename);
+	
+	virtual void *Entry();
 	
 protected:
 
@@ -53,6 +54,9 @@ private:
 	
 	// string to store obj-filename
 	wxString m_objFilename;
+	
+	// pointer to progress-frame
+	
 	
 	// pointer to Assembly
 	Assembly* m_actual;
