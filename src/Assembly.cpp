@@ -28,7 +28,8 @@ Assembly::Assembly(const wxString& name):
 		m_scale_x(1.0), m_scale_y(1.0), m_scale_z(1.0),
 		m_width(1.0), m_height(1.0), m_depth(1.0),
 		m_radius_bottom(0.0), m_radius_middle(0.0), m_radius_top(0.0),
-		m_type(IS_ROOT), m_name(name), m_visible(true),
+		m_type(IS_ROOT), m_name(name),
+		m_visible(true), m_kill_dl(false),
 		m_parent(NULL), m_origin(NULL),
 		m_dl_object(0), m_dl_shadow(0),
 		m_md5_obj_xml(wxEmptyString), m_ptype(OTHER)
@@ -196,7 +197,8 @@ Assembly::Assembly(Assembly* parent, const wxString& name):
 		m_scale_x(1.0), m_scale_y(1.0), m_scale_z(1.0),
 		m_width(1.0), m_height(1.0), m_depth(1.0),
 		m_radius_bottom(0.0), m_radius_middle(0.0), m_radius_top(0.0),
-		m_type(IS_ROOT), m_name(name), m_visible(true),
+		m_type(IS_ROOT), m_name(name),
+		m_visible(true), m_kill_dl(false),
 		m_parent(parent), m_origin(NULL),
 		m_dl_object(0), m_dl_shadow(0),
 		m_md5_obj_xml(wxEmptyString), m_ptype(OTHER)
@@ -214,7 +216,8 @@ Assembly::Assembly(const assemblyType& type, const wxString& name):
 		m_scale_x(1.0), m_scale_y(1.0), m_scale_z(1.0),
 		m_width(1.0), m_height(1.0), m_depth(1.0),
 		m_radius_bottom(0.0), m_radius_middle(0.0), m_radius_top(0.0),
-		m_type(type), m_name(name), m_visible(true),
+		m_type(type), m_name(name),
+		m_visible(true), m_kill_dl(false),
 		m_parent(NULL), m_origin(NULL),
 		m_dl_object(0), m_dl_shadow(0),
 		m_md5_obj_xml(wxEmptyString), m_ptype(OTHER)
@@ -228,8 +231,20 @@ Assembly::~Assembly()
 {
 	for (list<Assembly*>::iterator it = m_part.begin(); it != m_part.end(); ++it)
 	{
+		if (m_type <= IS_SELECTED || m_kill_dl)
+		{
+			(*it)->m_kill_dl = true;
+		}
+		
 		//delete child
 		delete *it;
+	}
+	
+	//if it should kill his DL
+	if (m_kill_dl)
+	{
+		glDeleteLists(m_dl_object, 1);
+		glDeleteLists(m_dl_shadow, 1);
 	}
 	
 	//kill partlist and childlists
