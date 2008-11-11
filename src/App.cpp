@@ -530,33 +530,11 @@ void App::OPXSave(wxString filename)
  */
 void App::OAXImport(wxString filename)
 {
-	// string to store category
-	unsigned int cat = 0;
-	
-	// string to store name
-	wxString name;
-	
 	// new filename
 	wxFileName file;
 	
 	// asign filename
 	file.Assign(filename);
-	
-	// create dialog and ask for name
-	wxTextEntryDialog ted(NULL, wxT("Kategorie, in die importiert werden soll:"));
-	
-	// set standard value
-	ted.SetValue(wxT("Sonstiges"));
-	
-	if (ted.ShowModal() == wxID_CANCEL || ted.GetValue().IsEmpty())
-	{
-		// if pressed cancel or void text, take standard category
-		cat = 0;
-	}
-	else
-	{
-		//cat = ted.getParentID();
-	}
 	
 	// create wxFFileInputStream
 	wxFFileInputStream inFile(filename);
@@ -573,11 +551,8 @@ void App::OAXImport(wxString filename)
 	// wxInputStream pointer
 	wxInputStream* input = &inMem;
 	
-	// set name
-	name = file.GetName();
-	
 	// add into lib
-	m_TreeLibCtrl->addEntry(*input, name, cat);
+	m_TreeLibCtrl->addEntry(*input, file.GetName(), 0);
 }
 
 /**

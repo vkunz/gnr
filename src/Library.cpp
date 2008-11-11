@@ -46,7 +46,7 @@ std::vector<LibraryEntry>* Library::getEntries()
 	return m_ptrEntries;
 }
 
-void Library::addEntry(wxString reference, wxInputStream& inStream, bool newCat)
+void Library::addEntry(wxString reference, wxInputStream& inStream)
 {
 	// empty xml document
 	wxXmlDocument xml;
@@ -91,7 +91,7 @@ void Library::addEntry(wxString reference, wxInputStream& inStream, bool newCat)
 			entry = inzip.GetNextEntry();
 			
 			// add entry into xml
-			addXmlEntry(xml, outzip, newCat);
+			addXmlEntry(xml, outzip);
 		}
 		
 		// if there are more than xml, copy
@@ -672,7 +672,7 @@ void Library::addEntry(wxString& name, wxString& reference, unsigned int& catego
 	m_ptrEntries->push_back(LibraryEntry(name, reference, categoryId));
 }
 
-void Library::addXmlEntry(wxXmlDocument& xml, wxZipOutputStream& out, bool newCat)
+void Library::addXmlEntry(wxXmlDocument& xml, wxZipOutputStream& out)
 {
 	// node pointer
 	wxXmlNode* node;
@@ -682,24 +682,6 @@ void Library::addXmlEntry(wxXmlDocument& xml, wxZipOutputStream& out, bool newCa
 	
 	// node to categories
 	node = node->GetChildren();
-	
-	// if true => new category
-	if (newCat)
-	{
-		// new node
-		wxXmlNode* newCatChild = new wxXmlNode(wxXML_ELEMENT_NODE, wxT("category"));
-		
-		// add attributes
-		newCatChild->AddProperty(wxT("name"), m_ptrCategories->back().getName());
-		wxString cat, parent;
-		cat << m_ptrCategories->back().getCatId();
-		parent << m_ptrCategories->back().getParentId();
-		newCatChild->AddProperty(wxT("categoryId"), cat);
-		newCatChild->AddProperty(wxT("parentId"), parent);
-		
-		// add child
-		node->AddChild(newCatChild);
-	}
 	
 	// node to entries
 	node = node->GetNext();

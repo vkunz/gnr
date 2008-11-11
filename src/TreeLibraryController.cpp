@@ -158,7 +158,7 @@ wxString TreeLibraryController::addEntry(wxInputStream& instream, wxString entry
 		m_ptrEntries->push_back(LibraryEntry(entry_name, ref, cat_id));
 		
 		// add physical to library
-		m_library->addEntry(ref, instream, m_newCat);
+		m_library->addEntry(ref, instream);
 		
 		// rebuild
 		buildTreeCtrl();

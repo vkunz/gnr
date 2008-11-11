@@ -31,7 +31,7 @@ public:
 	std::vector<LibraryEntry>* getEntries();
 	
 	// add ne oax to library
-	void addEntry(wxString reference, wxInputStream& inStream, bool newCat);
+	void addEntry(wxString reference, wxInputStream& inStream);
 	
 	// delete entry
 	void deleteEntry(wxString reference);
@@ -81,7 +81,7 @@ private:
 	void addEntry(wxString& name, wxString& reference, unsigned int& categoryId);
 	
 	// add new entry to XML
-	void addXmlEntry(wxXmlDocument& xml, wxZipOutputStream& out, bool newCat);
+	void addXmlEntry(wxXmlDocument& xml, wxZipOutputStream& out);
 	
 	// delete XML entry
 	void deleteXmlEntry(wxXmlDocument& xml, wxZipOutputStream& out, wxString& reference);
