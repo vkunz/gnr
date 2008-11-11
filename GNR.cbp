@@ -109,6 +109,7 @@
 		<Unit filename="src\AssemblyMediator2D.cpp" />
 		<Unit filename="src\AssemblyMediator3D.cpp" />
 		<Unit filename="src\CommandTransform.cpp" />
+		<Unit filename="src\CreateCuboidFrame.cpp" />
 		<Unit filename="src\CreatePrimitiveEvent.cpp" />
 		<Unit filename="src\DebugFrame.cpp">
 			<Option target="Debug" />
@@ -170,6 +171,7 @@
 		<Unit filename="src\include\AssemblyMediator3D.h" />
 		<Unit filename="src\include\Command.h" />
 		<Unit filename="src\include\CommandTransform.h" />
+		<Unit filename="src\include\CreateCuboidFrame.h" />
 		<Unit filename="src\include\CreatePrimitiveEvent.h" />
 		<Unit filename="src\include\DebugFrame.h">
 			<Option target="Debug" />
@@ -267,6 +269,7 @@
 		<Unit filename="src\resources\resource.rc">
 			<Option compilerVar="WINDRES" />
 		</Unit>
+		<Unit filename="wxsmith\CreateCuboidFrame.wxs" />
 		<Extensions>
 			<code_completion />
 			<envvars />
@@ -279,6 +282,7 @@
 					<wxFrame wxs="wxsmith/GNRDebugFrame.wxs" src="src\GNRDebugFrame.cpp" hdr="src\include\GNRDebugFrame.h" name="GNRDebugFrame" language="CPP" />
 					<wxFrame wxs="wxsmith/GNRHelpFrame.wxs" src="src/GNRHelpFrame.cpp" hdr="src/include/GNRHelpFrame.h" name="GNRHelpFrame" language="CPP" />
 					<wxFrame wxs="wxsmith/GNRAssemblyDataFrame.wxs" src=".\src\GNRAssemblyDataFrame.cpp" hdr=".\src\include\GNRAssemblyDataFrame.h" name="GNRAssemblyDataFrame" language="CPP" />
+					<wxFrame wxs="wxsmith/CreateCuboidFrame.wxs" src=".\src\CreateCuboidFrame.cpp" hdr=".\src\include\CreateCuboidFrame.h" name="CreateCuboidFrame" language="CPP" />
 				</resources>
 			</wxsmith>
 		</Extensions>

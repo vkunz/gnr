@@ -682,11 +682,11 @@ void MainFrame::OnToolbarRotateXY(wxCommandEvent& WXUNUSED(event))
  */
 void MainFrame::OnMenuCreateCuboid(wxCommandEvent& WXUNUSED(event))
 {
-#warning: "TODO OnMenuCreateCuboid, event ready!"
 	NotifyEvent myevent(wxEVT_COMMAND_GNR_NOTIFY);
 	myevent.SetEventObject(this);
-	myevent.SetInt(CREATECUBOID);
+	myevent.setGNREventType(CREATECUBOID);
 	GetEventHandler()->ProcessEvent(myevent);
+#warning: "TODO OnMenuCreateCuboid, event ready!"
 }
 
 /**

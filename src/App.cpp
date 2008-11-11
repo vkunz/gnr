@@ -46,6 +46,7 @@
 #include <wx/msgdlg.h>
 
 #include "App.h"
+#include "CreateCuboidFrame.h"
 #include "GlobalDefine.h"
 #include "GLScreenshot.h"
 #include "PrimitiveCreator.h"
@@ -330,6 +331,13 @@ void App::OnGNREvent(NotifyEvent& event)
 	case EMPTYTRASH:
 		m_Scene->deleteTrashAssemblies();
 		break;
+	case CREATECUBOID:
+	{
+		CreateCuboidFrame* cubFrame = new CreateCuboidFrame(m_MainFrame);
+		cubFrame->Show();
+		break;
+	}
+	
 #if defined(__ATHOS_DEBUG__)
 	case DEBUG1:
 		m_Tests->sizeXsizeLoopsLoadClean(m_Scene,10,10);
