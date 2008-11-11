@@ -26,6 +26,7 @@
 #include "MainFrame.h"
 #include "MouseController.h"
 #include "NotifyEvent.h"
+#include "ProgressFrame.h"
 #include "Scene.h"
 #include "TreeControlEvent.h"
 #include "TreeLibraryController.h"
@@ -84,6 +85,8 @@ private:
 	TreeLibraryController* m_TreeLibCtrl;
 	TreeSceneController* m_TreeSceneCtrl;
 	
+	// Pointer to progressFrame
+	ProgressFrame* m_progFrame;
 	
 	//pointer to ObjOaxConverter
 	ObjOaxConverter* m_ObjOaxConv;

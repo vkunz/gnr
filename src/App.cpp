@@ -218,6 +218,9 @@ void App::OnGNREvent(NotifyEvent& event)
 		break;
 	case OPXOPEN:
 		OPXOpen(event.GetString());
+		break;
+	case OPXIMPORTFINISHED:
+		m_progFrame->close();
 		m_Scene->glRefresh();
 		break;
 	case OPXSAVE:
@@ -503,9 +506,9 @@ void App::OPXOpen(wxString filename)
 	// clean up the actual room
 	m_Scene->newRoom();
 	
-	//m_progFrame = new ProgressFrame();
-	
-	//return;
+	// create dialog for showing process
+	m_progFrame = new ProgressFrame(m_MainFrame);
+	m_progFrame->Show();
 	
 	// create importer-thread
 	OpxImport* import = new OpxImport(m_TreeLibCtrl, filename);

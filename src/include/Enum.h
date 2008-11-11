@@ -51,7 +51,8 @@ enum eventType    { GLREFRESH = 0,
                     CREATEPYRAMIDE,
                     DEBUG1,
                     DEBUG2,
-                    DEBUG3
+                    DEBUG3,
+                    OPXIMPORTFINISHED
                   };
 
 //defined tree event types

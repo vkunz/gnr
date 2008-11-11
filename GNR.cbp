@@ -142,6 +142,7 @@
 		<Unit filename="src\OpxExport.cpp" />
 		<Unit filename="src\OpxImport.cpp" />
 		<Unit filename="src\PrimitiveCreator.cpp" />
+		<Unit filename="src\ProgressFrame.cpp" />
 		<Unit filename="src\Scene.cpp" />
 		<Unit filename="src\TCoord.cpp" />
 		<Unit filename="src\Tests.cpp" />
@@ -206,6 +207,7 @@
 		<Unit filename="src\include\OpxExport.h" />
 		<Unit filename="src\include\OpxImport.h" />
 		<Unit filename="src\include\PrimitiveCreator.h" />
+		<Unit filename="src\include\ProgressFrame.h" />
 		<Unit filename="src\include\Scene.h" />
 		<Unit filename="src\include\TCoord.h" />
 		<Unit filename="src\include\Tests.h" />

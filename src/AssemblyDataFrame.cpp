@@ -14,7 +14,6 @@
 #include <wx/intl.h>
 #include <wx/string.h>
 #include <wx/valtext.h>
-#include <wx/spinctrl.h>
 #include <wx/icon.h>
 
 #include "NotifyEvent.h"

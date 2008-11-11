@@ -11,6 +11,7 @@
 #ifndef _GNROPXIMPORT_H_
 #define _GNROPXIMPORT_H_
 
+#include <wx/event.h>
 #include <wx/thread.h>
 #include <wx/tokenzr.h>
 #include <wx/wfstream.h>
@@ -31,7 +32,7 @@
  *
  * @see OaxImport
  */
-class OpxImport: public wxThread
+class OpxImport: public wxThread, public wxEvtHandler
 {
 public:
 	// ctor
@@ -91,6 +92,8 @@ private:
 	
 	// create new group
 	void CreateGroup(wxZipInputStream& stream);
+	
+	void OnExit();
 };
 
 #endif // _GNROPXIMPORT_H_

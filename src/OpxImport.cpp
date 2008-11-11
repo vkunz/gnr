@@ -14,6 +14,7 @@
 #include <wx/wfstream.h>
 #include <wx/xml/xml.h>
 
+#include "NotifyEvent.h"
 #include "OpxImport.h"
 
 #if defined(__ATHOS_DEBUG__)
@@ -526,4 +527,13 @@ Assembly* OpxImport::loadOax(wxZipInputStream& stream, wxString reference)
 	}
 	
 	return import.getAssembly();
+}
+
+void OpxImport::OnExit()
+{
+	// Event for signaling end of thread
+	NotifyEvent myevent(wxEVT_COMMAND_GNR_NOTIFY);
+	myevent.setGNREventType(OPXIMPORTFINISHED);
+	myevent.SetEventObject(this);
+	ProcessEvent(myevent);
 }
