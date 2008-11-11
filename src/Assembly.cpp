@@ -52,7 +52,7 @@ Assembly::Assembly(Assembly& assembly)
 		//else set same origin, is clone from clone
 		m_origin = assembly.m_origin;
 	}
-	
+
 	m_x       = assembly.m_x;
 	m_y       = assembly.m_y;
 	m_z       = assembly.m_z;
@@ -75,7 +75,7 @@ Assembly::Assembly(Assembly& assembly)
 	m_dl_shadow     = assembly.m_dl_shadow;
 	m_md5_obj_xml   = assembly.m_md5_obj_xml;
 	m_ptype         = assembly.m_ptype;
-	
+
 	// copy the children
 	for (list<Assembly*>::const_iterator it = m_part.begin(); it != m_part.end(); ++it)
 	{
@@ -83,7 +83,7 @@ Assembly::Assembly(Assembly& assembly)
 		Assembly* a_copy = new Assembly(wxT("Kopie"));
 		(*a_copy) = (**it);
 		addPart(a_copy);
-		
+
 		// set Child-Material
 		map<const Assembly* const, Material>::const_iterator it_mat = m_child_mat.find(*it);
 		if (it_mat != m_child_mat.end())
@@ -92,7 +92,7 @@ Assembly::Assembly(Assembly& assembly)
 			setChildMaterial(a_copy, a_mat);
 		}
 	}
-	
+
 	// copy the tags
 	for (list<wxString>::const_iterator it_tags = m_tags.begin(); it_tags != m_tags.end(); ++it_tags)
 	{
@@ -110,10 +110,10 @@ void Assembly::cloneDisplayListFrom(Assembly* assembly)
 	//copy display list ids
 	m_dl_object = assembly->m_dl_object;
 	m_dl_shadow = assembly->m_dl_shadow;
-	
+
 	//point to origin (faces backup)
 	m_origin = assembly;
-	
+
 	//free memory
 	m_face.clear();
 }
@@ -125,7 +125,7 @@ void Assembly::cloneDisplayListFrom(Assembly* assembly)
 Assembly* Assembly::clone()
 {
 	Assembly* m_clone = new Assembly(wxT("Kopie"));
-	
+
 	if (m_origin == NULL)
 	{
 		//if assembly is original, set origin pointer
@@ -136,7 +136,7 @@ Assembly* Assembly::clone()
 		//else set same origin, is clone from clone
 		m_clone->m_origin = m_origin;
 	}
-	
+
 	m_clone->m_x             = m_x;
 	m_clone->m_y             = m_y;
 	m_clone->m_z             = m_z;
@@ -159,14 +159,14 @@ Assembly* Assembly::clone()
 	m_clone->m_dl_shadow     = m_dl_shadow;
 	m_clone->m_md5_obj_xml   = m_md5_obj_xml;
 	m_clone->m_ptype         = m_ptype;
-	
+
 	// copy the children
 	for (list<Assembly*>::const_iterator it = m_part.begin(); it != m_part.end(); ++it)
 	{
 		// draw the Child
 		Assembly* a_copy = (*it)->clone();
 		m_clone->addPart(a_copy);
-		
+
 		// set Child-Material
 		map<const Assembly* const, Material>::const_iterator it_mat = m_child_mat.find(*it);
 		if (it_mat != m_child_mat.end())
@@ -175,14 +175,14 @@ Assembly* Assembly::clone()
 			m_clone->setChildMaterial(a_copy, a_mat);
 		}
 	}
-	
+
 	// copy the tags
 	for (list<wxString>::const_iterator it_tags = m_tags.begin(); it_tags != m_tags.end(); ++it_tags)
 	{
 		wxString a_tag = (*it_tags);
 		m_clone->addTag(a_tag);
 	}
-	
+
 	return m_clone;
 }
 
@@ -235,18 +235,18 @@ Assembly::~Assembly()
 		{
 			(*it)->m_kill_dl = true;
 		}
-		
+
 		//delete child
 		delete *it;
 	}
-	
+
 	//if it should kill his DL
 	if (m_kill_dl)
 	{
 		glDeleteLists(m_dl_object, 1);
 		glDeleteLists(m_dl_shadow, 1);
 	}
-	
+
 	//kill partlist and childlists
 	m_part.clear();
 	m_child_dl.clear();
@@ -496,14 +496,14 @@ float Assembly::getOverGround() const
 Assembly* Assembly::getMaster() const
 {
 	Assembly* master = m_parent;
-	
+
 	//while parent exists and type is not ROOT,
 	// SELECTED, HIDDEN or TRASH, move upwards
 	while (master->m_parent != NULL && master->m_parent->m_type > IS_SELECTED)
 	{
 		master = master->m_parent;
 	}
-	
+
 	//return master pointer
 	return master;
 }
@@ -515,14 +515,14 @@ Assembly* Assembly::getMaster() const
 bool Assembly::isSelected() const
 {
 	Assembly* parent = m_parent;
-	
+
 	//while parent exists and type is not ROOT,
 	// move upwards and head for selected container
 	while (parent->m_parent != NULL && parent->m_parent->m_type != IS_SELECTED)
 	{
 		parent = parent->m_parent;
 	}
-	
+
 	//return true, if parent type = selected
 	return (parent->m_parent != NULL && parent->m_parent->m_type == IS_SELECTED);
 }
@@ -686,11 +686,11 @@ void Assembly::setCone(const float x,const float y,const float z, const float he
 	m_x = x;
 	m_y = y;
 	m_z = z;
-	
+
 	m_radius_top    = r_top;
 	m_radius_middle = (r_top+r_bottom)/2.0;
 	m_radius_bottom = r_bottom;
-	
+
 	if (r_top > r_bottom)
 	{
 		m_width = r_top*2.0;
@@ -699,7 +699,7 @@ void Assembly::setCone(const float x,const float y,const float z, const float he
 	{
 		m_width = r_bottom*2.0;
 	}
-	
+
 	m_height = height;
 	m_depth  = m_width;
 }
@@ -709,11 +709,11 @@ void Assembly::setCylinder(const float x,const float y,const float z, const floa
 	m_x = x;
 	m_y = y;
 	m_z = z;
-	
+
 	m_radius_top    = radius;
 	m_radius_middle = radius;
 	m_radius_bottom = radius;
-	
+
 	m_height = height;
 	m_depth  = radius*2.0;
 	m_width  = m_depth;
@@ -724,11 +724,11 @@ void Assembly::setSphere(const float x,const float y,const float z, const float 
 	m_x = x;
 	m_y = y;
 	m_z = z;
-	
+
 	m_radius_top    = 0.0;
 	m_radius_middle = radius;
 	m_radius_bottom = 0.0;
-	
+
 	m_height = radius*2.0;
 	m_depth  = m_height;
 	m_width  = m_height;
@@ -739,7 +739,7 @@ void Assembly::setCuboid(const float x,const float y,const float z, const float 
 	m_x = x;
 	m_y = y;
 	m_z = z;
-	
+
 	m_width  = width;
 	m_height = height;
 	m_depth  = depth;
@@ -912,7 +912,7 @@ void Assembly::setType(const assemblyType& type)
 }
 
 /**
- * move assembly by vertext
+ * move assembly by vertex
  * @param       center      vertex to center
  */
 void Assembly::move(const Vertex& center)
@@ -1029,7 +1029,7 @@ void Assembly::setNormals()
 	{
 		it->setNormal();
 	}
-	
+
 	// let children set their normals
 	for (list<Assembly*>::iterator it = m_part.begin(); it != m_part.end(); ++it)
 	{
@@ -1067,7 +1067,7 @@ void Assembly::draw()
 	{
 		return;
 	}
-	
+
 	//start drawing glow colors on selection
 	if (m_type == IS_ATOMIC)
 	{
@@ -1077,7 +1077,7 @@ void Assembly::draw()
 	else if (m_parent != NULL)
 	{
 		float glowcolor[4] = {0.0,0.0,0.0,0.0};
-		
+
 		//if selected paint in different colors
 		if (m_parent->m_type == IS_SELECTED)
 		{
@@ -1089,7 +1089,7 @@ void Assembly::draw()
 				glowcolor[2] = 1.0;
 				glowcolor[3] = 1.0;
 			}
-			
+
 			if (m_type == IS_GROUP)
 			{
 				//paint blue glowing
@@ -1098,7 +1098,7 @@ void Assembly::draw()
 				glowcolor[2] = 0.0;
 				glowcolor[3] = 1.0;
 			}
-			
+
 			//if parent type group or selected, draw square on floor
 			if (glowcolor[3] > 0.0)
 			{
@@ -1113,20 +1113,20 @@ void Assembly::draw()
 			glMaterialfv(GL_FRONT, GL_AMBIENT, glowcolor);
 		}
 	}
-	
+
 	glPushMatrix();
 	{
 		//first translate to position
 		glTranslatef(m_x, m_y, m_z);
-		
+
 		//rotate in object center
 		glRotatef(m_phi, 1, 0, 0);
 		glRotatef(m_theta, 0, 1, 0);
 		glRotatef(m_rho, 0, 0, 1);
-		
+
 		//finally scale on place
 		glScalef(m_scale_x, m_scale_y, m_scale_z);
-		
+
 		if (glIsList(m_dl_object) || !isOriginal())
 		{
 			//if no valid display list...
@@ -1142,7 +1142,7 @@ void Assembly::draw()
 		{
 			//create new display list for myself
 			m_dl_object = glGenLists(1);
-			
+
 			//setup new display list
 			glNewList(m_dl_object,GL_COMPILE);
 			{
@@ -1154,7 +1154,7 @@ void Assembly::draw()
 			}
 			glEndList();
 		}
-		
+
 		// draw the children
 		for (list<Assembly*>::const_iterator it = m_part.begin(); it != m_part.end(); ++it)
 		{
@@ -1164,7 +1164,7 @@ void Assembly::draw()
 			{
 				it_mat->second.set();
 			}
-			
+
 			// draw the Child
 			(*it)->draw();
 		}
@@ -1227,26 +1227,26 @@ Assembly* Assembly::getHashOriginal(const wxString& hash) const
 				return sub;
 			}
 		}
-		
+
 		//found a copy? continue
 		if (!(*it)->isOriginal())
 		{
 			continue;
 		}
-		
+
 		//found a non-object? again...
 		if (!(*it)->isType(IS_OBJECT))
 		{
 			continue;
 		}
-		
+
 		//finally check hash, and get pointer
 		if (hash == (*it)->getHash())
 		{
 			return (*it);
 		}
 	}
-	
+
 	//nothing found
 	return NULL;
 }
@@ -1261,21 +1261,21 @@ void Assembly::drawShadow()
 	{
 		return;
 	}
-	
+
 	//draw shadows, if object visible
 	glPushMatrix();
 	{
 		//first translate to position
 		glTranslatef(m_x, m_y, m_z);
-		
+
 		//rotate in object center
 		glRotatef(m_phi, 1, 0, 0);
 		glRotatef(m_theta, 0, 1, 0);
 		glRotatef(m_rho, 0, 0, 1);
-		
+
 		//finally scale on place
 		glScalef(m_scale_x, m_scale_y, m_scale_z);
-		
+
 		if (glIsList(m_dl_shadow) || !isOriginal())
 		{
 			//if no valid display list...
@@ -1291,7 +1291,7 @@ void Assembly::drawShadow()
 		{
 			//create new display list for my shadows
 			m_dl_shadow = glGenLists(1);
-			
+
 			//setup new display list
 			glNewList(m_dl_shadow,GL_COMPILE);
 			{
@@ -1303,7 +1303,7 @@ void Assembly::drawShadow()
 			}
 			glEndList();
 		}
-		
+
 		// draw the children
 		for (list<Assembly*>::const_iterator it = m_part.begin(); it != m_part.end(); ++it)
 		{
@@ -1364,19 +1364,19 @@ void Assembly::dump(wxString str)
 {
 	wxString out(wxEmptyString);
 	out << str << wxT("-<") << (int)this << wxT("> TYP=") << m_type << wxT(" NAME=") << m_name;
-	
+
 	//dont print smallest parts
 	if (isType(IS_ATOMIC) || isType(IS_WRAPPER))
 	{
 		return;
 	}
-	
+
 	//output to debug window
 	wxLogDebug(out);
-	
+
 	//increase level prefix
 	str << wxT("-");
-	
+
 	//print ever lower level with +
 	for (list<Assembly*>::iterator it = m_part.begin(); it != m_part.end(); ++it)
 	{

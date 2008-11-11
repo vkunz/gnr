@@ -1,49 +1,47 @@
+#include "Vertex.h"
 /**
  * Vertex
- * @name        Vertex.cpp
- * @date        2008-10-05
+ * @name		Vertex.cpp
+ * @date		2008-10-05
  * @author		Konstantin Balabin  <k.balabin@googlemail.com>
  * @author		Patrick Kracht      <patrick.kracht@googlemail.com>
  * @author		Thorsten Moll       <thorsten.moll@googlemail.com>
  * @author		Valentin Kunz       <athostr@googlemail.com>
  */
 
-#include <math.h>
+#include <limits>
+#include <iomanip>
 
-#include "Vertex.h"
+#include <GL/gl.h>
 
 /**
  * constructor of Vertex
  */
-Vertex::Vertex()
+Vertex::Vertex():
+        m_x(0.0f), m_y(0.0f), m_z(0.0f), m_w(1.0f)
 {
-	m_x = 0.0;
-	m_y = 0.0;
-	m_z = 0.0;
 }
 
 /**
  * constructor of Vertex
- * @param[in]	x	float x-position
- * @param[in]	y	float y-position
- * @param[in]	z	float z-position
+ * @param[in]		x	float x-position
+ * @param[in]		y	float y-position
+ * @param[in]		z	float z-position
+ * @param[in]		w	float w-position
  */
-Vertex::Vertex(float x, float y, float z)
+Vertex::Vertex(float x, float y, float z, float w):
+        m_x(x), m_y(y), m_z(z), m_w(w)
 {
-	m_x = x;
-	m_y = y;
-	m_z = z;
 }
 
 /**
- * copyconstructor of Vertex
- * @param[in]	v	vertex (copyconstructor)
+ * copy-constructor of Vertex
+ * @param[in]		v	vertex (copy-constructor)
  */
-Vertex::Vertex(const Vertex& v)
+Vertex::Vertex(const Vertex& v):
+        m_x(v.m_x), m_y(v.m_y), m_z(v.m_z)
 {
-	m_x = v.m_x;
-	m_y = v.m_y;
-	m_z = v.m_z;
+    // we do not copy the w-coordinate by default
 }
 
 /**
@@ -51,302 +49,381 @@ Vertex::Vertex(const Vertex& v)
  */
 Vertex::~Vertex()
 {
-	// do nothing
+    // do nothing
 }
 
 /**
- * get x of vertext
- * @return		float		x-position of vertext
+ * get x of vertex
+ * @return		float x-coordinate of vertex
  */
-const float Vertex::getX() const
+float Vertex::getX() const
 {
-	return m_x;
+    return m_x;
 }
 
 /**
- * get y of vertext
- * @return		float		y-position of vertext
+ * get y of vertex
+ * @return		float y-position of vertex
  */
-const float Vertex::getY() const
+float Vertex::getY() const
 {
-	return m_y;
+    return m_y;
 }
 
 /**
- * get z of vertext
- * @return		float		z-position of vertext
+ * get z of vertex
+ * @return		float z-position of vertex
  */
-const float Vertex::getZ() const
+float Vertex::getZ() const
 {
-	return m_z;
+    return m_z;
 }
 
 /**
- * set x of vertext
- * @param[in]		x		x-position of vertext
+ * get w of vertex
+ * @return		float w-position of vertex
+ */
+float Vertex::getW() const
+{
+	return m_w;
+}
+
+/**
+ * get x, y and z of vertex
+ * @param[out]		x 	float x-position of vertex
+ * @param[out]		y 	float y-position of vertex
+ * @param[out]		z 	float z-position of vertex
+ */
+void Vertex::getAll(float& x, float& y, float& z) const
+{
+    x = m_x;
+    y = m_y;
+    z = m_z;
+}
+
+/**
+ * get x, y, z and w of vertex
+ * @param[out]		x	float x-position of vertex
+ * @param[out]		y 	float y-position of vertex
+ * @param[out]		z 	float z-position of vertex
+ * @param[out]		w 	float w-position of vertex
+ */
+void Vertex::getAll(float& x, float& y, float& z, float& w) const
+{
+    x = m_x;
+    y = m_y;
+    z = m_z;
+    w = m_w;
+}
+
+/**
+ * set x of vertex
+ * @param[in]		x	float x-position of vertex
  */
 void Vertex::setX(float x)
 {
-	m_x = x;
+    m_x = x;
 }
 
 /**
- * set y of vertext
- * @param[in]		y		y-position of vertext
+ * set y of vertex
+ * @param[in]		y	float y-position of vertex
  */
 void Vertex::setY(float y)
 {
-	m_y = y;
+    m_y = y;
 }
 
 /**
- * set z of vertext
- * @param[in]		z		z-position of vertext
+ * set z of vertex
+ * @param[in]		z	float z-position of vertex
  */
 void Vertex::setZ(float z)
 {
-	m_z = z;
+    m_z = z;
 }
+
+/**
+ * set w of vertex
+ * @param[in]		w	float w-position of vertex
+ */
+void Vertex::setW(float w)
+{
+    m_w = w;
+}
+
 
 /**
  * set x, y and z of vertex
- * @param[in]	x	float x-position
- * @param[in]	y	float y-position
- * @param[in]	z	float z-position
+ * @param[in]		x	float x-position
+ * @param[in]		y	float y-position
+ * @param[in]		z	float z-position
  */
-void Vertex::setXYZ(const float x, const float y, const float z)
+void Vertex::setAll(float x, float y, float z)
 {
-	m_x = x;
-	m_y = y;
-	m_z = z;
+    m_x = x;
+    m_y = y;
+    m_z = z;
 }
 
 /**
- * get delta x to second vertex
- * @param[in]	point		pointer to vertex with x
- * @return		float		distance in x
+ * set x, y, z and w of vertex
+ * @param[in]		x	float x-position
+ * @param[in]		y	float y-position
+ * @param[in]		z	float z-position
+ * @param[in]		w	float w-position
  */
-float Vertex::deltaX(Vertex* point)
+void Vertex::setAll(float x, float y, float z, float w)
 {
-	return m_x - point->m_x;
+    m_x = x;
+    m_y = y;
+    m_z = z;
+    m_w = w;
 }
 
-/**
- * get delta y to second vertex
- * @param[in]	point		pointer to vertex with y
- * @return		float		distance in y
- */
-float Vertex::deltaY(Vertex* point)
-{
-	return m_y - point->m_y;
-}
+// * get delta x to second vertex
+// * @param[in]	point		pointer to vertex with x
+// * @return		float		distance in x
+//
+//float Vertex::deltaX(Vertex* point)
+//{
+//	return m_x - point->m_x;
+//}
 
-/**
- * get delta z to second vertex
- * @param[in]	point		pointer to vertex with z
- * @return		float		distance in z
- */
-float Vertex::deltaZ(Vertex* point)
-{
-	return m_z - point->m_z;
-}
+
+// * get delta y to second vertex
+// * @param[in]	point		pointer to vertex with y
+// * @return		float		distance in y
+//float Vertex::deltaY(Vertex* point)
+//{
+//	return m_y - point->m_y;
+//}
+
+
+// * get delta z to second vertex
+// * @param[in]	point		pointer to vertex with z
+// * @return		float		distance in z
+//float Vertex::deltaZ(Vertex* point)
+//{
+//	return m_z - point->m_z;
+//}
 
 /**
  * operator +
- * @param[in]	p2			second vertex
- * @return		Vertex		sum of both vertexes
+ * @param[in]		v		second vertex
+ * @return		Vertex		sum of both vertices
  */
-Vertex  Vertex::operator  + (const Vertex& p2) const
+Vertex Vertex::operator + (const Vertex& v) const
 {
-	Vertex temp(*this);
-	temp.m_x += p2.m_x;
-	temp.m_y += p2.m_y;
-	temp.m_z += p2.m_z;
-	return temp;
+    Vertex temp(*this);
+    temp += v;
+    return temp;
 }
 
 /**
  * operator -
- * @param[in]	p2			second vertex
- * @return		Vertex		difference of both vertexes
+ * @param[in]		v		second vertex
+ * @return		Vertex		difference of both vertices
  */
-Vertex  Vertex::operator  - (const Vertex& p2) const
+Vertex Vertex::operator - (const Vertex& v) const
 {
-	Vertex temp(*this);
-	temp.m_x -= p2.m_x;
-	temp.m_y -= p2.m_y;
-	temp.m_z -= p2.m_z;
-	return temp;
+    Vertex temp(*this);
+    temp -= v;
+    return temp;
 }
 
 /**
  * operator *
- * @param[in]	r			scale value
- * @return		Vertex		product of vertex and scale
+ * @param[in]		r		scale value
+ * @return		Vertex		with factor r scaled vertex
  */
-Vertex  Vertex::operator  * (const float r) const
+Vertex Vertex::operator * (float r) const
 {
-	Vertex temp(*this);
-	temp.m_x *= r;
-	temp.m_y *= r;
-	temp.m_z *= r;
-	return temp;
+    Vertex temp(*this);
+    temp.m_x *= r;
+    temp.m_y *= r;
+    temp.m_z *= r;
+
+    return temp;
 }
 
 /**
  * operator *
- * @param[in]	p2			second vertex
- * @return		Vertex		crossproduct of both vertexes
+ * @param[in]		v		second vertex
+ * @return		Vertex		crossproduct of vertices *this and v
  */
-Vertex Vertex::operator  * (const Vertex& p2) const
+Vertex Vertex::operator * (const Vertex& v) const
 {
-	Vertex temp;
-	temp.m_x = m_y*p2.m_z - m_z*p2.m_y;
-	temp.m_y = m_z*p2.m_x - m_x*p2.m_z;
-	temp.m_z = m_x*p2.m_y - m_y*p2.m_x;
-	return temp;
+    Vertex tmp
+    (
+        m_y * v.m_z  -  m_z * v.m_y,
+        m_z * v.m_x  -  m_x * v.m_z,
+        m_x * v.m_y  -  m_y * v.m_x
+    );
+
+    return tmp;
 }
 
 /**
- * operator % for scalar product
- * @param[in]	p2			second vertex
- * @return		Vertex		scalar product of both vertexes
+ * operator ^ for dot product
+ * @param[in]		v		second vertex
+ * @return		float		dot product of both vertices
  */
-Vertex Vertex::operator ^(const Vertex& p2) const
+float Vertex::operator ^ (const Vertex& v) const
 {
-	Vertex temp;
-	temp.m_x = m_x * p2.m_x;
-	temp.m_y = m_y * p2.m_y;
-	temp.m_z = m_z * p2.m_z;
-	return temp;
+    return m_x * v.m_x  +  m_y * v.m_y  + m_z * v.m_z;
 }
 
 /**
  * operator -=
- * @param[in]	p2			second vertex
- * @return		Vertex		difference of both vertexes
+ * @param[in]		v		second vertex
+ * @return		Vertex&		difference of both vertices
  */
-Vertex& Vertex::operator -= (const Vertex& p2)
+Vertex& Vertex::operator -= (const Vertex& v)
 {
-	m_x -= p2.m_x;
-	m_y -= p2.m_y;
-	m_z -= p2.m_z;
-	return *this;
+    m_x -= v.m_x;
+    m_y -= v.m_y;
+    m_z -= v.m_z;
+    return *this;
 }
 
 /**
  * operator +=
- * @param[in]	p2			second vertex
- * @return		Vertex		sum of both vertexes
+ * @param[in]		v		second vertex
+ * @return		Vertex&		sum of both vertices
  */
-Vertex& Vertex::operator += (const Vertex& p2)
+Vertex& Vertex::operator += (const Vertex& v)
 {
-	m_x += p2.m_x;
-	m_y += p2.m_y;
-	m_z += p2.m_z;
-	
-	return *this;
+    m_x += v.m_x;
+    m_y += v.m_y;
+    m_z += v.m_z;
+
+    return *this;
 }
 
 /**
  * operator =
- * @param[in]	p2			second vertex
- * @return		Vertex		same as vertex 2
+ * @param[in]		v		second vertex
+ * @return		Vertex&		same as vertex 2
  */
-Vertex& Vertex::operator = (const Vertex& p2)
+Vertex& Vertex::operator = (const Vertex& v)
 {
-	m_x = p2.m_x;
-	m_y = p2.m_y;
-	m_z = p2.m_z;
-	
-	return *this;
+    m_x = v.m_x;
+    m_y = v.m_y;
+    m_z = v.m_z;
+    m_w = v.m_w;
+
+    return *this;
 }
 
 /**
- * get length of vertext
- * @return		float			length of vertex
+ * get length of vertex
+ * @return		float	length of vertex
  */
-float Vertex::length()
+float Vertex::length() const
 {
-	return (float)(sqrt(m_x*m_x+m_y*m_y+m_z*m_z));
+    return sqrt(m_x * m_x  +  m_y * m_y  +  m_z * m_z);
 }
 
 /**
  * normalize a vertex
- * @return		bool			if normalized, return true
+ * @return		bool	if normalized, return true
  */
 bool Vertex::normalize()
 {
-	float l = length();
-	if (l == 0.0f)
-	{
-		return false;
-	}
-	m_x = m_x / l;
-	m_y = m_y / l;
-	m_z = m_z / l;
-	return true;
+    float len = length();
+    if (fabs(len) < 2.0f * std::numeric_limits<float>::epsilon())
+    {
+        return false;
+    }
+    m_x = m_x / len;
+    m_y = m_y / len;
+    m_z = m_z / len;
+
+    return true;
 }
 
 /**
  * Rotates the current vector using phi, theta, rho
- * @param[in]   	alpha   		angle to turn arround x
- * @param[in]  	beta   		angle to turn arround y
- * @param[in]   	gamma   		angle to turn arround z
+ * @param[in]		float	angle to turn arround x
+ * @param[in]		float	angle to turn arround y
+ * @param[in]		float	angle to turn arround z
  */
 void Vertex::rotate(float alpha, float beta, float gamma)
 {
-	// convert from deg to rad
-	double alpha_rad = alpha * M_PI / 180.0;
-	double beta_rad = beta * M_PI / 180.0;
-	double gamma_rad = gamma * M_PI / 180.0;
-	
-	double sa = sin(alpha_rad);
-	double sb = sin(beta_rad);
-	double sg = sin(gamma_rad);
-	double ca = cos(alpha_rad);
-	double cb = cos(beta_rad);
-	double cg = cos(gamma_rad);
-	
-	// calculate the new values
-	float newx = m_x*ca*cb + m_y*(ca*sb*sg - sa*cg) + m_z*(ca*sb*cg + sa*sg);
-	float newy = m_x*sa*cb + m_y*(sa*sb*sg + ca*cg) + m_z*(sa*sb*cg - ca*sg);
-	float newz = -m_x*sb + m_y*(cb*sg) + m_z*(cb*cg);
-	
-	// write back the new values
-	m_x = newx;
-	m_y = newy;
-	m_z = newz;
+    // convert from deg to rad
+    double
+		alpha_rad = alpha * DEG2RAD,
+		beta_rad = beta * DEG2RAD,
+		gamma_rad = gamma * DEG2RAD;
+
+    double
+		sa = sin(alpha_rad), ca = cos(alpha_rad),
+		sb = sin(beta_rad),  cb = cos(beta_rad),
+        sg = sin(gamma_rad), cg = cos(gamma_rad);
+
+    // calculate the new values
+    float
+		newx = m_x * ca * cb + m_y * (ca * sb * sg  -  sa * cg)  +  m_z * (ca * sb * cg  +  sa * sg),
+		newy =   m_x * sa * cb + m_y * (sa * sb * sg  +  ca * cg)  +  m_z * (sa * sb * cg - ca * sg),
+        newz =  -m_x * sb  +  m_y * cb * sg  +  m_z * cb * cg;
+
+    // write back the new values
+    m_x = newx;
+    m_y = newy;
+    m_z = newz;
 }
 
 /**
  * Rotates the current vector using phi, theta, rho
- * @param[in]   	angles  		Vertex with values phi, theta, rho
+ * @param[in]		Vertex		vertex with values phi, theta, rho
  */
 void Vertex::rotate(const Vertex& angles)
 {
-	// read out angles from vertex to use rotate3f
-	float phi   = angles.getX();
-	float theta = angles.getY();
-	float rho   = angles.getZ();
-	
-	rotate(phi, theta, rho);
+    rotate(angles.getX(), angles.getY(), angles.getZ());
 }
 
 /**
  * get string from vertex
- * @return		wxString		text version of vertex
+ * @return		wxString	text version of vertex
  */
 wxString Vertex::ToString()
 {
-	wxString tmp;
-	
-	tmp << wxT("x: ");
-	tmp << this->m_x;
-	tmp << wxT("\ty: ");
-	tmp << this->m_y;
-	tmp << wxT("\tz: ");
-	tmp << this->m_z;
-	
-	return tmp;
+    wxString tmp;
+
+    tmp << wxT("x: ");
+    tmp << this->m_x;
+    tmp << wxT("\ty: ");
+    tmp << this->m_y;
+    tmp << wxT("\tz: ");
+    tmp << this->m_z;
+
+    return tmp;
 }
+
+/**
+ * draw the vertex
+ */
+void Vertex::draw_v() const
+{
+    glVertex3f(m_x, m_y, m_z);
+}
+
+/**
+ * draw the normal
+ */
+void Vertex::draw_n() const
+{
+    glNormal3f(m_x, m_y, m_z);
+}
+
+/**
+ * dump the vertex into the output stream
+ * @return		ostream		text dump of vertex
+ */
+ostream& operator<< (ostream& out, const Vertex& v)
+{
+    out << std::setprecision(8) << std::fixed << v.m_x << " " << v.m_y << " " << v.m_z;
+    return out;
+}
+
