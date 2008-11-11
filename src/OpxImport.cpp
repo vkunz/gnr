@@ -529,6 +529,9 @@ Assembly* OpxImport::loadOax(wxZipInputStream& stream, wxString reference)
 	return import.getAssembly();
 }
 
+/**
+ * gets called when thread stops running
+ */
 void OpxImport::OnExit()
 {
 	// Event for signaling end of thread

@@ -1,3 +1,14 @@
+/**
+ * ProgressFrame displays a progressbar (gauge) to show application-progress
+ * @note        [DONE]
+ * @name        ProgressFrame.cpp
+ * @date        2008-11-11
+ * @author		Konstantin Balabin  <k.balabin@googlemail.com>
+ * @author		Patrick Kracht      <patrick.kracht@googlemail.com>
+ * @author		Thorsten Moll       <thorsten.moll@googlemail.com>
+ * @author		Valentin Kunz       <athostr@googlemail.com>
+ */
+
 #include "ProgressFrame.h"
 
 #include <wx/icon.h>
@@ -12,6 +23,9 @@ BEGIN_EVENT_TABLE(ProgressFrame, wxDialog)
 	EVT_TIMER(idTimer, ProgressFrame::OnTimer)
 END_EVENT_TABLE()
 
+/**
+ * constructor that initializes frame, places controls on it and starts timer
+ */
 ProgressFrame::ProgressFrame(wxWindow* parent,wxWindowID id)
 {
 	Create(parent, id, wxT("Import"), wxDefaultPosition, wxDefaultSize, wxCAPTION|wxSYSTEM_MENU, _T("id"));
@@ -30,18 +44,22 @@ ProgressFrame::ProgressFrame(wxWindow* parent,wxWindowID id)
 	m_timer->Start(60);
 }
 
+/**
+ * destructor of ProgressFrame
+ */
 ProgressFrame::~ProgressFrame() {}
 
-void ProgressFrame::pulseGauge()
+/**
+ * fetches the timer-event and moves the gauge step by step forward
+ */
+void ProgressFrame::OnTimer(wxTimerEvent& WXUNUSED(event))
 {
 	m_gauge->Pulse();
 }
 
-void ProgressFrame::OnTimer(wxTimerEvent& WXUNUSED(event))
-{
-	pulseGauge();
-}
-
+/**
+ * stops timer and frees the frame
+ */
 void ProgressFrame::close()
 {
 	delete m_timer;
