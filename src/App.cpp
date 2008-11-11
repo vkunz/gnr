@@ -649,7 +649,7 @@ void App::ObjOaxConversion(AssemblyData* data)
 	wxInputStream* inStream = &memIn;
 	
 	// add new entry
-	m_TreeLibCtrl->addEntry(*inStream, data->m_name, data->m_category_id);
+	m_TreeLibCtrl->addEntry(*inStream, data->m_name, 0);
 	
 	// successfull
 	delete m_ObjOaxConv;
