@@ -94,6 +94,7 @@ const long MainFrame::idMenuMoveXY = wxNewId();
 const long MainFrame::idMenuRotateXZ = wxNewId();
 const long MainFrame::idMenuRotateXY = wxNewId();
 const long MainFrame::idMenuDrawWall = wxNewId();
+const long MainFrame::idMenuMeasure = wxNewId();
 const long MainFrame::idMenuShadows = wxNewId();
 const long MainFrame::idMenuGroup = wxNewId();
 const long MainFrame::idMenuUngroup = wxNewId();
@@ -121,6 +122,7 @@ const long MainFrame::btn_rotate_xy = wxNewId();
 const long MainFrame::btn_rotate_xz = wxNewId();
 const long MainFrame::btn_snap_to_grid = wxNewId();
 const long MainFrame::btn_draw_walls = wxNewId();
+const long MainFrame::btn_measure = wxNewId();
 const long MainFrame::btn_reset_object = wxNewId();
 const long MainFrame::ID_TOOLBAR = wxNewId();
 const long MainFrame::ID_SPINCTRL_TRANS  = wxNewId();
@@ -146,6 +148,7 @@ BEGIN_EVENT_TABLE(MainFrame,wxFrame)
 	EVT_MENU(btn_rotate_xz, MainFrame::OnToolbarRotateXZ)    //button rotate xy
 	EVT_MENU(btn_rotate_xy, MainFrame::OnToolbarRotateXY)    //button rotate xz
 	EVT_MENU(btn_draw_walls, MainFrame::OnToolbarDrawWall)   //button draw wall
+	EVT_MENU(btn_measure, MainFrame::OnToolbarMeasure)       //button measure
 	EVT_MENU(btn_reset_object, MainFrame::OnResetObject)     //button reset object
 	EVT_MENU(btn_zoom_in, MainFrame::OnZoomIn)               //button zoom in
 	EVT_MENU(btn_zoom_out, MainFrame::OnZoomOut)             //button zoom out
@@ -184,6 +187,7 @@ BEGIN_EVENT_TABLE(MainFrame,wxFrame)
 	EVT_MENU(idMenuRotateXZ, MainFrame::OnToolbarRotateXZ)
 	EVT_MENU(idMenuRotateXY, MainFrame::OnToolbarRotateXY)
 	EVT_MENU(idMenuDrawWall, MainFrame::OnToolbarDrawWall)
+	EVT_MENU(idMenuMeasure, MainFrame::OnToolbarMeasure)
 	EVT_MENU(idMenuShadows, MainFrame::OnShadowsMenu)
 	EVT_MENU(idMenuResetObject, MainFrame::OnResetObject)
 	//create primitves
@@ -313,9 +317,11 @@ MainFrame::MainFrame(wxWindow* parent)
 	ParentMenu_Settings->Append(m_MenuItem[idMenuRotateXY]);
 	m_MenuItem[idMenuDrawWall] = new wxMenuItem(ParentMenu_Settings, idMenuDrawWall, _("&Wände erstellen\tF9"), _("Wände im 2D-Modus erstellen..."), wxITEM_RADIO);
 	ParentMenu_Settings->Append(m_MenuItem[idMenuDrawWall]);
+	m_MenuItem[idMenuMeasure] = new wxMenuItem(ParentMenu_Settings, idMenuMeasure, _("&Messen\tF10"), _("Messen im 2D-Modus..."), wxITEM_RADIO);
+	ParentMenu_Settings->Append(m_MenuItem[idMenuMeasure]);
 	ParentMenu_Settings->AppendSeparator();
 	
-	m_MenuItem[idMenuShadows] = new wxMenuItem(ParentMenu_Settings, idMenuShadows, _("&Schatten aktivieren\tF10"), _("Schatten aktivieren..."), wxITEM_CHECK);
+	m_MenuItem[idMenuShadows] = new wxMenuItem(ParentMenu_Settings, idMenuShadows, _("&Schatten aktivieren\tF11"), _("Schatten aktivieren..."), wxITEM_CHECK);
 	ParentMenu_Settings->Append(m_MenuItem[idMenuShadows]);
 	MenuBar->Append(ParentMenu_Settings, _("&Einstellungen"));
 	
@@ -399,6 +405,7 @@ MainFrame::MainFrame(wxWindow* parent)
 	m_ToolBarItem[btn_rotate_xz]    = ToolBar1->AddTool(btn_rotate_xz, _("Rotieren auf X-Z-Achsen"), wxBitmap(wxIcon(button_world_rotate_xz_xpm)), wxNullBitmap, wxITEM_RADIO, _("Rotieren auf X-Z-Achsen   [F7]"), _("Rotieren auf X-Z-Achsen"));
 	m_ToolBarItem[btn_rotate_xy]    = ToolBar1->AddTool(btn_rotate_xy, _("Rotieren auf X-Y-Achsen"), wxBitmap(wxIcon(button_world_rotate_xy_xpm)), wxNullBitmap, wxITEM_RADIO, _("Rotieren auf X-Y-Achsen   [F8]"), _("Rotieren auf X-Y-Achsen"));
 	m_ToolBarItem[btn_draw_walls]   = ToolBar1->AddTool(btn_draw_walls, _("Wände zeichnen"), wxBitmap(wxIcon(button_draw_walls_xpm)), wxNullBitmap, wxITEM_RADIO, _("Wände zeichnen   [F9]"), _("Wände zeichnen"));
+	m_ToolBarItem[btn_measure]      = ToolBar1->AddTool(btn_measure, _("Messen"), wxBitmap(wxIcon(button_draw_walls_xpm)), wxNullBitmap, wxITEM_RADIO, _("Messen [F10]"), _("Messen"));
 	ToolBar1->AddSeparator();
 	
 	//zoom buttons & camera reset
@@ -746,6 +753,22 @@ void MainFrame::OnToolbarDrawWall(wxCommandEvent& WXUNUSED(event))
 	myevent.setGNREventType(TOOLBARCHANGE);
 	myevent.SetEventObject(this);
 	myevent.SetInt(DRAWWALL);
+	GetEventHandler()->ProcessEvent(myevent);
+}
+
+/**
+ * catches the button/menu klick for measuring-tool
+ * @param[in]       WXUNUSED        unused event of button/menu
+ */
+void MainFrame::OnToolbarMeasure(wxCommandEvent& WXUNUSED(event))
+{
+	m_MenuItem[idMenuMeasure]->Check(true);
+	ToolBar1->ToggleTool(btn_measure, true);
+	
+	NotifyEvent myevent(wxEVT_COMMAND_GNR_NOTIFY);
+	myevent.setGNREventType(TOOLBARCHANGE);
+	myevent.SetEventObject(this);
+	myevent.SetInt(MEASURING);
 	GetEventHandler()->ProcessEvent(myevent);
 }
 

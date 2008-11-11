@@ -554,7 +554,7 @@ void Scene::drawLine(LineDrawEvent& event)
 			glMaterialfv(GL_FRONT, GL_AMBIENT_AND_DIFFUSE, lineColor);
 			
 			//should be like the default wallsize
-			glLineWidth(100.0/(float)m_GLCamera2D->getDistance());
+			glLineWidth(70.0/(float)m_GLCamera2D->getDistance());
 			
 			//draw line from start to end
 			glBegin(GL_LINES);
@@ -592,7 +592,7 @@ void Scene::drawLine(LineDrawEvent& event)
 	
 	//create string for statusbar
 	wxString str;
-	str << wxT("Wandlänge: ") << length << wxT(" mm");
+	str << wxT("Länge: ") << length << wxT(" mm");
 	
 	// send event to display length
 	NotifyEvent gnrevent(wxEVT_COMMAND_GNR_NOTIFY);

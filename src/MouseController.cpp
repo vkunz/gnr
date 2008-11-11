@@ -57,7 +57,7 @@ void MouseController::setMediator(GLNotifyEvent& event)
 	{
 	case LEFT_BUTTON:
 		//if mode is drawing walls and left button pressed
-		if (m_Mediator->getTranslation() == DRAWWALL)
+		if (m_Mediator->getTranslation() == DRAWWALL || m_Mediator->getTranslation() == MEASURING)
 		{
 			//draw only walls in 2d canvas
 			if (event.getCanvasID() == CANVAS2D)
@@ -154,7 +154,10 @@ void MouseController::activateMediator(GLNotifyEvent& event)
  */
 void MouseController::deactivateMediator()
 {
-	m_Mediator->finalize();
+	if (m_Mediator->getTranslation() != MEASURING)
+	{
+		m_Mediator->finalize();
+	}
 }
 
 /**

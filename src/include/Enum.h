@@ -76,7 +76,8 @@ enum transType    { MOVEXZ = 0,
                     MOVEXY,
                     ROTATEXY,
                     ROTATEXZ,
-                    DRAWWALL
+                    DRAWWALL,
+                    MEASURING
                   };
 
 //defined button types

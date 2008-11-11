@@ -73,6 +73,7 @@ private:
 	void OnToolbarRotateXZ(wxCommandEvent& WXUNUSED(event));
 	void OnToolbarRotateXY(wxCommandEvent& WXUNUSED(event));
 	void OnToolbarDrawWall(wxCommandEvent& WXUNUSED(event));
+	void OnToolbarMeasure(wxCommandEvent& WXUNUSED(event));
 	void OnCreateScreenshot(wxCommandEvent& WXUNUSED(event));
 	void OnCameraReset(wxCommandEvent& WXUNUSED(event));
 	void OnResetObject(wxCommandEvent& WXUNUSED(event));
@@ -128,6 +129,7 @@ private:
 	static const long idMenuRotateXZ;
 	static const long idMenuRotateXY;
 	static const long idMenuDrawWall;
+	static const long idMenuMeasure;
 	static const long idMenuShadows;
 	static const long idMenuGroup;
 	static const long idMenuUngroup;
@@ -153,6 +155,7 @@ private:
 	static const long btn_rotate_xy;
 	static const long btn_rotate_xz;
 	static const long btn_draw_walls;
+	static const long btn_measure;
 	static const long btn_reset_object;
 	static const long btn_create_screenshot;
 	static const long btn_camera_reset;
