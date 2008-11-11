@@ -221,7 +221,11 @@ void App::OnGNREvent(NotifyEvent& event)
 		break;
 	case OPXIMPORTFINISHED:
 		m_progFrame->close();
-		m_Scene->glRefresh();
+		m_TreeSceneCtrl->createSceneTree();
+		// quick and dirty
+		int pos = m_VerticalSplitter->GetSashPosition();
+		m_VerticalSplitter->SetSashPosition(pos+1,true);
+		m_VerticalSplitter->SetSashPosition(pos,true);
 		break;
 	case OPXSAVE:
 		OPXSave(event.GetString());

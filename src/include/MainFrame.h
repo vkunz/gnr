@@ -52,6 +52,7 @@ private:
 	wxMenuItem* MenuItemDebug2;
 	wxMenuItem* MenuItemDebug3;
 #endif
+	void OnPaint(wxPaintEvent& event);
 	
 	void OnMenuNewRoom(wxCommandEvent& WXUNUSED(event));
 	void OnMenuOaxImport(wxCommandEvent& WXUNUSED(event));

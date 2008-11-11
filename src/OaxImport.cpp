@@ -48,7 +48,6 @@ OaxImport::OaxImport(wxString filename)
  */
 OaxImport::~OaxImport()
 {
-	// do nothing
 }
 
 /**

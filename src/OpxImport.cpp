@@ -117,8 +117,8 @@ void OpxImport::Load(wxZipInputStream& stream)
 		}
 	}
 	
-	// refresh
-	m_scene->refreshTreeAndCanvas();
+//	// refresh
+//	m_scene->refreshTreeAndCanvas();
 }
 
 /**

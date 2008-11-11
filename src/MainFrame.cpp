@@ -134,6 +134,7 @@ BEGIN_EVENT_TABLE(MainFrame,wxFrame)
 	EVT_MENU(idMenuItemDebug2, MainFrame::OnMenuItemDebug2)
 	EVT_MENU(idMenuItemDebug3, MainFrame::OnMenuItemDebug3)
 	#endif
+	//EVT_PAINT(MainFrame::OnPaint)
 	//toolbar buttons
 	EVT_MENU(btn_room_new, MainFrame::OnMenuNewRoom)         //button new room
 	EVT_MENU(btn_room_open, MainFrame::OnMenuOpxOpen)        //button open
@@ -1035,6 +1036,16 @@ wxStatusBar* MainFrame::getStatusbar()
 	return  StatusBar;
 }
 
+void MainFrame::OnPaint(wxPaintEvent& event)
+{
+	// Event for Redrawing the Canvases
+	NotifyEvent myevent(wxEVT_COMMAND_GNR_NOTIFY);
+	myevent.setGNREventType(GLREFRESH);
+	myevent.SetEventObject(this);
+	GetEventHandler()->ProcessEvent(myevent);
+	event.Skip();
+}
+
 #if defined(__ATHOS_DEBUG__)
 void MainFrame::OnMenuItemDebug1(wxCommandEvent& WXUNUSED(event))
 {
@@ -1057,6 +1068,8 @@ void MainFrame::OnMenuItemDebug3(wxCommandEvent& WXUNUSED(event))
 	GetEventHandler()->ProcessEvent(gnrevent);
 }
 
+#endif
+
 void MainFrame::setTranslationXZ()
 {
 	m_MenuItem[idMenuMoveXZ]->Check(true);
@@ -1068,4 +1081,3 @@ void MainFrame::setTranslationXY()
 	m_MenuItem[idMenuMoveXY]->Check(true);
 	ToolBar1->ToggleTool(btn_move_xy, true);
 }
-#endif
