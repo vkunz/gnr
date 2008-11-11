@@ -618,6 +618,11 @@ void Library::LoadXml(wxInputStream& inStream)
 			}
 		}
 	}
+	else
+	{
+		// set node to entries
+		node = node->GetNext();
+	}
 	
 	// node to first entry
 	node = node->GetChildren();

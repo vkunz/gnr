@@ -496,6 +496,8 @@ void TreeLibraryController::buildTreeCtrl()
 		
 		// set category
 		itemData->setCat(true);
+		
+		// set cat id
 		itemData->setCatId(catit->getCatId());
 		
 		// append to treectrl
@@ -516,7 +518,9 @@ void TreeLibraryController::buildTreeCtrl()
 		
 		// set assembly
 		itemData->setCat(false);
-		itemData->setName(entit->getReference());
+		
+		// set hash
+		itemData->setHash(entit->getReference());
 		
 		// append to treectrl
 		tiid = m_treeCtrl->AppendItem(catId[entit->getCategoryId()], entit->getName(), -1, -1, itemData);
