@@ -121,15 +121,25 @@ void TreeLibraryCtrl::OnDelete(wxTreeEvent& WXUNUSED(event))
 	// create event
 	TreeControlEvent gnr(wxEVT_COMMAND_GNR_TREE_CONTROL);
 	
-	// set event type
-	gnr.setEventType(LIBRARYDELETE);
-	
-	// set name
+	// get item data
 	TreeLibraryItemData* item = (TreeLibraryItemData*)GetItemData(m_currentTreeID);
-	gnr.SetString(item->getName());
 	
-	// set cat
-	gnr.setCat(item->getCat());
+	if (item->getCat())
+	{
+		// set event type
+		gnr.setEventType(LIBRARYDELETECAT);
+		
+		// set cat id
+		gnr.setCatId(item->getCatId());
+	}
+	else
+	{
+		// set event type
+		gnr.setEventType(LIBRARYDELETEENTRY);
+		
+		// set hash
+		gnr.setHash(item->getHash());
+	}
 	
 	// fire event
 	ProcessEvent(gnr);
@@ -180,7 +190,7 @@ void TreeLibraryCtrl::OnPaste(wxTreeEvent& WXUNUSED(event))
 	
 	// set name
 	TreeLibraryItemData* item = (TreeLibraryItemData*)GetItemData(m_currentTreeID);
-	gnr.SetString(item->getName());
+	gnr.setHash(item->getHash());
 	
 	// fire event
 	ProcessEvent(gnr);
@@ -217,10 +227,6 @@ void TreeLibraryCtrl::OnMenuRename(wxTreeEvent& WXUNUSED(event))
 	
 	// set name
 	TreeLibraryItemData* item = (TreeLibraryItemData*)GetItemData(m_currentTreeID);
-	gnr.SetString(item->getName());
-	
-	// set cat
-	gnr.setCat(item->getCat());
 	
 	// entry dialog
 	wxTextEntryDialog ted(this, wxT("Neuer Name:"));
@@ -231,18 +237,39 @@ void TreeLibraryCtrl::OnMenuRename(wxTreeEvent& WXUNUSED(event))
 		return;
 	}
 	
-	// set event type
-	gnr.setEventType(LIBRARYMENURENAME);
-	
-	if (ted.GetValue().IsEmpty())
+	if (item->getCat())
 	{
-		// set new name
-		gnr.setNewName(wxT("neu"));
+		// set event type
+		gnr.setEventType(LIBRARYMENURENAMECAT);
+		gnr.setCatId(item->getCatId());
+		
+		if (ted.GetValue().IsEmpty())
+		{
+			// set new name
+			gnr.setNewName(wxT("neu"));
+		}
+		else
+		{
+			// set new name
+			gnr.setNewName(ted.GetValue());
+		}
 	}
 	else
 	{
-		// set new name
-		gnr.setNewName(ted.GetValue());
+		// set event type
+		gnr.setEventType(LIBRARYMENURENAMEENTRY);
+		gnr.setHash(item->getHash());
+		
+		if (ted.GetValue().IsEmpty())
+		{
+			// set new name
+			gnr.setNewName(wxT("neu"));
+		}
+		else
+		{
+			// set new name
+			gnr.setNewName(ted.GetValue());
+		}
 	}
 	
 	// fire event

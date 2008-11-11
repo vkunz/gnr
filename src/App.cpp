@@ -352,34 +352,26 @@ void App::OnGNRTreeEvent(TreeControlEvent& event)
 {
 	switch (event.getEventType())
 	{
-	case LIBRARYDELETE:
-		if (event.getCat())
-		{
-			m_TreeLibCtrl->deleteCategory(event.GetString());
-		}
-		else
-		{
-			m_TreeLibCtrl->deleteEntry(event.GetString());
-		}
+	case LIBRARYDELETECAT:
+		m_TreeLibCtrl->deleteCategory(event.getCatId());
+		break;
+	case LIBRARYDELETEENTRY:
+		m_TreeLibCtrl->deleteEntry(event.getHash());
 		break;
 	case LIBRARYPASTE:
-		m_TreeLibCtrl->pasteEntry(event.GetString());
+		m_TreeLibCtrl->pasteEntry(event.getHash());
 		break;
 	case LIBRARYEXPORT:
-		OAXExport(event.GetString());
+		OAXExport(event.getHash());
 		break;
 	case LIBRARYNEWCAT:
-		m_TreeLibCtrl->addCategory(event.GetString(), event.getNewName());
+		m_TreeLibCtrl->addCategory(event.getParentId(), event.getNewName());
 		break;
-	case LIBRARYMENURENAME:
-		if (event.getCat())
-		{
-			m_TreeLibCtrl->renameCategory(event.GetString(), event.getNewName());
-		}
-		else
-		{
-			m_TreeLibCtrl->renameEntry(event.GetString(), event.getNewName());
-		}
+	case LIBRARYMENURENAMEENTRY:
+		m_TreeLibCtrl->renameEntry(event.getHash(), event.getNewName());
+		break;
+	case LIBRARYMENURENAMECAT:
+		m_TreeLibCtrl->renameCategory(event.getCatId(), event.getNewName());
 		break;
 	case SCENEVISIBLE:
 		m_Scene->showAssembly(event.getAssembly());
@@ -539,7 +531,7 @@ void App::OPXSave(wxString filename)
 void App::OAXImport(wxString filename)
 {
 	// string to store category
-	wxString cat;
+	unsigned int cat = 0;
 	
 	// string to store name
 	wxString name;
@@ -559,11 +551,11 @@ void App::OAXImport(wxString filename)
 	if (ted.ShowModal() == wxID_CANCEL || ted.GetValue().IsEmpty())
 	{
 		// if pressed cancel or void text, take standard category
-		cat = wxT("Sonstiges");
+		cat = 0;
 	}
 	else
 	{
-		cat = ted.GetValue();
+		//cat = ted.getParentID();
 	}
 	
 	// create wxFFileInputStream
@@ -585,7 +577,7 @@ void App::OAXImport(wxString filename)
 	name = file.GetName();
 	
 	// add into lib
-	m_TreeLibCtrl->addEntry(name, *input, cat);
+	m_TreeLibCtrl->addEntry(*input, name, cat);
 }
 
 /**
@@ -629,7 +621,7 @@ void App::OAXExport(wxString reference)
 void App::OBJImport(wxString filename)
 {
 	// create objoaxconv
-	m_ObjOaxConv = new ObjOaxConverter(filename, m_TreeLibCtrl->getAllCategories());
+	m_ObjOaxConv = new ObjOaxConverter(filename);
 }
 
 /**
@@ -682,7 +674,7 @@ void App::ObjOaxConversion(AssemblyData* data)
 	wxInputStream* inStream = &memIn;
 	
 	// add new entry
-	m_TreeLibCtrl->addEntry(data->m_name, *inStream, data->m_category);
+	m_TreeLibCtrl->addEntry(*inStream, data->m_name, data->m_category_id);
 	
 	// successfull
 	delete m_ObjOaxConv;

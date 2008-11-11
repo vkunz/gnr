@@ -66,9 +66,45 @@ bool TreeControlEvent::getCat()
  * set cat or not
  * @param[in]      cat              bool, if cat or not
  */
-void TreeControlEvent::setCat(bool cat)
+void TreeControlEvent::setCat(const bool& cat)
 {
 	m_cat = cat;
+}
+
+/**
+ * get cat id
+ * @return      unsigned int        cat or not
+ */
+unsigned int TreeControlEvent::getCatId()
+{
+	return m_cat_id;
+}
+
+/**
+ * set cat id
+ * @param[in]      cat_id              unsigned int cat id
+ */
+void TreeControlEvent::setCatId(const unsigned int& cat_id)
+{
+	m_cat_id = cat_id;
+}
+
+/**
+ * get parent id
+ * @return      unsigned int        cat or not
+ */
+unsigned int TreeControlEvent::getParentId()
+{
+	return m_parent_id;
+}
+
+/**
+ * set parent id
+ * @param[in]      parent_id              unsigned int parent id
+ */
+void TreeControlEvent::setParentId(const unsigned int& parent_id)
+{
+	m_parent_id = parent_id;
 }
 
 /**
@@ -84,9 +120,27 @@ wxString TreeControlEvent::getNewName()
  * set new name
  * @param[in]        name          wxString new name
  */
-void TreeControlEvent::setNewName(wxString name)
+void TreeControlEvent::setNewName(const wxString& name)
 {
 	m_newName = name;
+}
+
+/**
+ * get hash
+ * @return        wxString          hash
+ */
+wxString TreeControlEvent::getHash()
+{
+	return m_hash;
+}
+
+/**
+ * set hash
+ * @param[in]        name          wxString hash
+ */
+void TreeControlEvent::setHash(const wxString& hash)
+{
+	m_hash = hash;
 }
 
 /**

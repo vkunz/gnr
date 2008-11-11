@@ -15,11 +15,8 @@
 #include "ObjOaxConverter.h"
 
 // ctor
-ObjOaxConverter::ObjOaxConverter(wxString filename, std::vector<wxString>* ptrVec)
+ObjOaxConverter::ObjOaxConverter(wxString filename)
 {
-	// asign ptrVec
-	m_ptrVec = ptrVec;
-	
 	// load ObjectImporter
 	Load(filename);
 	
@@ -62,9 +59,6 @@ void ObjOaxConverter::fillFrame()
 	
 	// draw the assembly
 	m_canvas->draw();
-	
-	// set categories
-	m_frame->setAllCategories(m_ptrVec);
 }
 
 void ObjOaxConverter::Load(wxString filename)

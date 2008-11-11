@@ -521,8 +521,8 @@ Assembly* OpxImport::loadOax(wxZipInputStream& stream, wxString reference)
 			// load oax
 			import.Load(inZip);
 			
-			// add oax to lib
-			import.getAssembly()->setHash(m_libctrl->addEntry(reference, inMem, m_filename.BeforeFirst('.')));
+			// add oax to lib (default base cat = 0)
+			import.getAssembly()->setHash(m_libctrl->addEntry(inMem, m_filename.BeforeFirst('.'),0));
 		}
 	}
 	

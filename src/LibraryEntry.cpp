@@ -1,11 +1,19 @@
 #include "LibraryEntry.h"
 
-// ctor
+/**
+ * default constructor of category data
+ */
 LibraryEntry::LibraryEntry()
 {
 }
 
-LibraryEntry::LibraryEntry(wxString name, wxString reference, unsigned int categoryId)
+/**
+ * constructor of category data
+ * @param[in]       name            name of entry
+ * @param[in]       reference       reference of entry
+ * @param[in]       cat_id          parent id of entry
+ */
+LibraryEntry::LibraryEntry(wxString name, wxString reference, unsigned int cat_id)
 {
 	// asign name
 	m_name = name;
@@ -14,15 +22,20 @@ LibraryEntry::LibraryEntry(wxString name, wxString reference, unsigned int categ
 	m_reference = reference;
 	
 	// asign groupId
-	m_categoryId = categoryId;
+	m_categoryId = cat_id;
 }
 
-// dtor
+/**
+ * destructor of category data
+ */
 LibraryEntry::~LibraryEntry()
 {
-	// do nothing
 }
 
+/**
+ * toString
+ * @return      wxString        string of complete data
+ */
 wxString LibraryEntry::toString()
 {
 	wxString tmp;
@@ -32,22 +45,56 @@ wxString LibraryEntry::toString()
 	return tmp;
 }
 
+/**
+ * getName
+ * @return      wxString        name of entry
+ */
 wxString LibraryEntry::getName()
 {
 	return m_name;
 }
 
+/**
+ * setName
+ * @param[in]      name        name of entry
+ */
+void LibraryEntry::setName(wxString name)
+{
+	m_name = name;
+}
+
+/**
+ * getCategoryId
+ * @return      unsigned int        id of entry
+ */
 unsigned int LibraryEntry::getCategoryId()
 {
 	return m_categoryId;
 }
 
+/**
+ * setCategoryId
+ * @param[in]      cat_id           id of entry
+ */
+void LibraryEntry::setCategoryId(unsigned int cat_id)
+{
+	m_categoryId = cat_id;
+}
+
+/**
+ * getReference
+ * @return      wxString        reference hash of entry
+ */
 wxString LibraryEntry::getReference()
 {
 	return m_reference;
 }
 
-void LibraryEntry::setName(wxString name)
+/**
+ * getReference
+ * @param[in]      reference        wxString reference hash of entry
+ */
+void LibraryEntry::setReference(wxString reference)
 {
-	m_name = name;
+	m_reference = reference;
 }

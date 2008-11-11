@@ -42,32 +42,36 @@ public:
 	// dtor
 	virtual ~TreeLibraryController();
 	
-	// functions
-	std::vector<wxString>* getAllCategories();
-	
+	// adds a new category
+	bool addCategory(const unsigned int& parent_id, const wxString& name);
 	// adds a new entry from import
-	wxString addEntry(wxString& name, wxInputStream& instream, wxString categoryname = wxT("Sonstiges"));
+	wxString addEntry(wxInputStream& instream, wxString entry_name, unsigned int cat_id = 0);
 	
 	// delete a category
-	void deleteCategory(wxString name);
-	
+	void deleteCategory(const unsigned int& cat_id);
 	// delete an entry
-	void deleteEntry(wxString reference);
+	void deleteEntry(const wxString& reference);
 	
 	// delete a category
-	void renameCategory(wxString name, wxString newName);
-	
+	void renameCategory(const unsigned int& cat_id, const wxString& new_name);
 	// rename an entry
-	void renameEntry(wxString reference, wxString newName);
+	void renameEntry(const wxString& reference, const wxString& new_name);
 	
-	// add new category
-	void addCategory(wxString parentName, wxString newName);
+	// move a category
+	void moveCategory(const unsigned int& cat_id, const unsigned int& new_parent_id);
+	// move an entry
+	void moveEntry(const wxString& reference, const unsigned int& new_parent_id);
 	
+	// merge both cats into new_cat
+	void mergeCategories(const unsigned int& cat_id, const unsigned int& new_cat_id);
+	
+	// edit an entry (like in scene tree)
+	void editEntry(const wxString& reference);
 	// paste an entry into scene
-	void pasteEntry(wxString reference);
+	void pasteEntry(const wxString& reference);
 	
 	// export an entry onto fileystem
-	wxMemoryOutputStream* exportEntry(wxString reference);
+	wxMemoryOutputStream* exportEntry(const wxString& reference);
 	
 protected:
 
@@ -95,11 +99,8 @@ private:
 	// builds the tree control and shows it
 	void buildTreeCtrl();
 	
-	// adds a new category
-	unsigned int addCategory(wxString& name);
-	
 	// create imagelist
-	void createImageList(int size = 16);
+	void createImageList(const int& size = 16);
 };
 
 #endif // _GNRTREELIBRARYCONTROLLER_H_

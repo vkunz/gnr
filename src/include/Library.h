@@ -40,10 +40,10 @@ public:
 	wxMemoryOutputStream* getEntryData(wxString reference);
 	
 	// rename category
-	void renameCategory(wxString name, wxString newName);
+	void renameCategory(unsigned int cat_id, wxString new_name);
 	
 	// rename entry
-	void renameEntry(wxString name, wxString newName);
+	void renameEntry(wxString reference, wxString newName);
 	
 protected:
 
@@ -63,7 +63,7 @@ private:
 	
 	// functions
 	// return parentId of entry with name
-	unsigned int getParentId(wxString name);
+	unsigned int getParentId(unsigned int cat_id);
 	
 	// open library and procceed xml
 	void openLibrary();
@@ -87,7 +87,7 @@ private:
 	void deleteXmlEntry(wxXmlDocument& xml, wxZipOutputStream& out, wxString& reference);
 	
 	// rename XML category
-	void renameXmlCategory(wxXmlDocument& xml, wxZipOutputStream& out, wxString& reference, wxString& newName);
+	void renameXmlCategory(wxXmlDocument& xml, wxZipOutputStream& out, unsigned int cat_id, wxString& newName);
 	
 	// rename XML entry
 	void renameXmlEntry(wxXmlDocument& xml, wxZipOutputStream& out, wxString& reference, wxString& newName);

@@ -9,7 +9,7 @@ public:
 	// ctor
 	LibraryCategory();
 	
-	LibraryCategory(wxString name, unsigned int categoryId, unsigned int parentId);
+	LibraryCategory(wxString name, unsigned int cat_id, unsigned int parent_id);
 	
 	// dtor
 	virtual ~LibraryCategory();
@@ -18,14 +18,20 @@ public:
 	// returns name
 	wxString getName();
 	
+	// set name
+	void setName(wxString name);
+	
 	// returns categoryid
-	unsigned int getCategoryId();
+	unsigned int getCatId();
+	
+	// set categoryid
+	void setCatId(unsigned int cat_id);
 	
 	// returns parentId
 	unsigned int getParentId();
 	
-	// set name
-	void setName(wxString name);
+	// set parentId
+	void setParentId(unsigned int parent_id);
 	
 	// functions
 	// returns content as string

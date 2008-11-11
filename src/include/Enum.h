@@ -56,11 +56,13 @@ enum eventType    { GLREFRESH = 0,
                   };
 
 //defined tree event types
-enum treeEventType { LIBRARYDELETE,
+enum treeEventType { LIBRARYDELETEENTRY,
+                     LIBRARYDELETECAT,
                      LIBRARYPASTE,
                      LIBRARYEXPORT,
                      LIBRARYNEWCAT,
-                     LIBRARYMENURENAME,
+                     LIBRARYMENURENAMEENTRY,
+                     LIBRARYMENURENAMECAT,
                      SCENEVISIBLE,
                      SCENEHIDE,
                      SCENESELECT,
@@ -92,16 +94,16 @@ enum canvasType   { NONE = 1,
 
 //defined assembly types
 enum assemblyType { IS_ROOT = 0,
-                    IS_SELECTED,
+                    IS_DUPLICATOR,
                     IS_TRASH,
+                    IS_SELECTED,
                     IS_ATOMIC,
                     IS_WALL,
                     IS_PRIMITIVE,
                     IS_GROUP,
                     IS_OBJECT,
                     IS_WRAPPER,
-                    IS_ORIGINAL,
-                    IS_DUPLICATOR
+                    IS_ORIGINAL
                   };
 
 //defined primitive types

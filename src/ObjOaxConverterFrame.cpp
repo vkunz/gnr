@@ -26,12 +26,10 @@
 const long ObjOaxConverterFrame::idBtnCreate     = wxNewId();
 const long ObjOaxConverterFrame::idBtnCancel     = wxNewId();
 const long ObjOaxConverterFrame::idCkbProportion = wxNewId();
-const long ObjOaxConverterFrame::idCbxCategory   = wxNewId();
 const long ObjOaxConverterFrame::idSpcWidth      = wxNewId();
 const long ObjOaxConverterFrame::idSpcDepth      = wxNewId();
 const long ObjOaxConverterFrame::idSpcHeight     = wxNewId();
 const long ObjOaxConverterFrame::idStxName       = wxNewId();
-const long ObjOaxConverterFrame::idStxCategory   = wxNewId();
 const long ObjOaxConverterFrame::idStxWidth      = wxNewId();
 const long ObjOaxConverterFrame::idStxDepth      = wxNewId();
 const long ObjOaxConverterFrame::idStxHeight     = wxNewId();
@@ -67,9 +65,6 @@ ObjOaxConverterFrame::ObjOaxConverterFrame(wxWindow* parent, wxWindowID id)
 	m_ckbProportion = new wxCheckBox(this, idCkbProportion, wxT("Proportionen behalten"), wxPoint(312,248), wxSize(130,24), 0);
 	m_ckbProportion->SetValue(true);
 	
-	// Combobox category
-	m_cbxCategory   = new wxComboBox(this, idCbxCategory, wxT("Sonstige"), wxPoint(384,90), wxSize(130,24), 0, 0, 0);
-	
 	// SpinCtrl width
 	m_spcWidth      = new wxSpinCtrl(this, idSpcWidth, wxT("1"), wxPoint(384,130), wxSize(130,24), wxTE_PROCESS_ENTER, SIZE_MINIMUM_VALUE, SIZE_MAXIMUM_VALUE, SIZE_MINIMUM_VALUE);
 	
@@ -81,9 +76,6 @@ ObjOaxConverterFrame::ObjOaxConverterFrame(wxWindow* parent, wxWindowID id)
 	
 	// StaticText name
 	m_stxName       = new wxStaticText(this, idStxName, wxT("Name:"), wxPoint(280,54), wxSize(100,24), 0);
-	
-	// StaticText category
-	m_stxCategory   = new wxStaticText(this, idStxCategory, wxT("Kategorie:"), wxPoint(280,94), wxSize(72,24), 0);
 	
 	// StaticText width
 	m_stxWidth      = new wxStaticText(this, idStxWidth, wxT("Breite (mm):"), wxPoint(280,134), wxSize(100 ,24), 0);
@@ -127,15 +119,6 @@ ObjOaxConverterFrame::ObjOaxConverterFrame(wxWindow* parent, wxWindowID id)
 	// connects m_txcname with OnTxcNameChanged on press Enter
 	Connect(idTxcName,wxEVT_COMMAND_TEXT_ENTER,(wxObjectEventFunction)&ObjOaxConverterFrame::OnTxcNameChanged);
 	
-	// connects cbxCategory with OnCbxCategoryChanged on selected
-	Connect(idCbxCategory,wxEVT_COMMAND_COMBOBOX_SELECTED,(wxObjectEventFunction)&ObjOaxConverterFrame::OnCbxCategoryChanged);
-	
-	// connects cbxCategory with OnCbxCategoryChanged on press Enter
-	Connect(idCbxCategory,wxEVT_COMMAND_TEXT_ENTER,(wxObjectEventFunction)&ObjOaxConverterFrame::OnCbxCategoryChanged);
-	
-	// connects cbxCategory with OnCbxCategoryChanged
-	Connect(idCbxCategory,wxEVT_COMMAND_TEXT_UPDATED,(wxObjectEventFunction)&ObjOaxConverterFrame::OnCbxCategoryChanged);
-	
 	// create canvas
 	m_canvas = new GLCanvasPreview(this, wxID_ANY, wxPoint(50, 50), wxSize(200, 200), wxNO_BORDER);
 	
@@ -153,7 +136,6 @@ ObjOaxConverterFrame::~ObjOaxConverterFrame()
 	delete m_txcName;
 	
 	delete m_stxName;
-	delete m_stxCategory;
 	delete m_stxHeight;
 	delete m_stxDepth;
 	delete m_stxWidth;
@@ -164,38 +146,8 @@ ObjOaxConverterFrame::~ObjOaxConverterFrame()
 	
 	delete m_ckbProportion;
 	
-	delete m_cbxCategory;
-	
 	delete m_btnCreate;
 	delete m_btnCancel;
-}
-
-/**
- * prepare all categories for pull down menu
- * @param[in]       ptrCat        vector of strings contains names
- */
-void ObjOaxConverterFrame::setAllCategories(std::vector<wxString>* ptrCat)
-{
-	// set standard category -> "Sonstiges"
-	m_category = (wxT("Sonstiges"));
-	
-	// set standard category -> "Sonstiges"
-	m_cbxCategory->SetValue(wxT("Sonstiges"));
-	
-	// create temporary iterator to extract all categories
-	std::vector<wxString>::iterator it;
-	
-	// walk through all entrys and get category-name
-	for (it = ptrCat->begin(); it != ptrCat->end(); it++)
-	{
-		m_cbxCategory->AppendString(*it);
-	}
-	
-	// append standard category, so it can be chosen again
-	m_cbxCategory->AppendString(wxT("Sonstiges"));
-	
-	// we took ownership of ptrCat, so we need to delete it
-	delete ptrCat;
 }
 
 /**
@@ -213,11 +165,10 @@ void ObjOaxConverterFrame::setAssemblyData(AssemblyData* data)
 void ObjOaxConverterFrame::setData()
 {
 	// set data
-	m_width    = m_assemblyData->m_width;
-	m_depth    = m_assemblyData->m_depth;
-	m_height   = m_assemblyData->m_height;
-	m_name     = m_assemblyData->m_name;
-	m_category = m_assemblyData->m_category;
+	m_width         = m_assemblyData->m_width;
+	m_depth         = m_assemblyData->m_depth;
+	m_height        = m_assemblyData->m_height;
+	m_name          = m_assemblyData->m_name;
 	
 	// if a dimension is greater than SIZE_MAXIMUM_VALUE, rescale
 	if (m_width > SIZE_MAXIMUM_VALUE || m_depth > SIZE_MAXIMUM_VALUE || m_height > SIZE_MAXIMUM_VALUE)
@@ -275,9 +226,6 @@ void ObjOaxConverterFrame::OnBtnCreate(wxCommandEvent& WXUNUSED(event))
 	// prepare data -> store into struct
 	// get objName and store into struct
 	m_assemblyData->m_name = m_txcName->GetValue();
-	
-	// get category and store into struct
-	m_assemblyData->m_category = m_cbxCategory->GetValue();
 	
 	// calc width-scale
 	m_assemblyData->m_scaleWidth = (((m_width) / m_assemblyData->m_width));
@@ -436,25 +384,12 @@ void ObjOaxConverterFrame::OnTxcNameChanged(wxCommandEvent& WXUNUSED(event))
 }
 
 /**
- * on category changed set new category
- * @param[in]       WXUNUSED        unused event of button
- */
-void ObjOaxConverterFrame::OnCbxCategoryChanged(wxCommandEvent& WXUNUSED(event))
-{
-	// get new Value
-	m_category = m_cbxCategory->GetValue();
-}
-
-/**
  * update whole frame
  */
 void ObjOaxConverterFrame::updateFrame()
 {
 	// update name
 	m_txcName->SetValue(m_name);
-	
-	// update category
-	m_cbxCategory->SetValue(m_category);
 	
 	// update width
 	m_spcWidth->SetValue((int)m_width);

@@ -21,7 +21,7 @@ class ObjOaxConverter
 {
 public:
 	// ctor
-	ObjOaxConverter(wxString filename, std::vector<wxString>* ptrVec);
+	ObjOaxConverter(wxString filename);
 	
 	// dtor
 	virtual ~ObjOaxConverter();
@@ -39,14 +39,8 @@ private:
 	// pointer to frameData
 	AssemblyData* m_assemblyData;
 	
-	// vector to pointer of all categories
-	std::vector<wxString>* m_ptrVec;
-	
 	// pointer to canvas
 	GLCanvasPreview* m_canvas;
-	
-	// map to store Data needed by m_frame
-	//std::map<wxString, wxString>* m_ptrMap;
 	
 	// functions
 	// initialize gui

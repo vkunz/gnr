@@ -16,15 +16,23 @@ public:
 	void setCat(bool cat);
 	bool getCat();
 	
+	void setCatId(unsigned int cat_id);
+	unsigned int getCatId();
+	
 	void setName(wxString name);
 	wxString getName();
+	
+	void setHash(wxString hash);
+	wxString getHash();
 	
 protected:
 
 private:
 	// attributes
 	bool m_category;
+	unsigned int m_category_id;
 	wxString m_name;
+	wxString m_hash;
 };
 
 #endif // _GNRTREELIBRARYITEMDATA_H_

@@ -6,12 +6,11 @@
 class LibraryEntry
 {
 public:
-	// ctor
+
 	LibraryEntry();
 	
-	LibraryEntry(wxString name, wxString reference, unsigned int categoryId);
+	LibraryEntry(wxString name, wxString reference, unsigned int cat_id);
 	
-	// dtor
 	virtual ~LibraryEntry();
 	
 	// functions
@@ -20,15 +19,19 @@ public:
 	
 	// retunrs name
 	wxString getName();
+	// set name
+	void setName(wxString name);
 	
-	// returns categoryId
+	// returns cat_id
 	unsigned int getCategoryId();
+	// returns cat_id
+	void setCategoryId(unsigned int cat_id);
 	
 	// returns reference
 	wxString getReference();
+	// returns reference
+	void setReference(wxString reference);
 	
-	// set name
-	void setName(wxString name);
 	
 protected:
 

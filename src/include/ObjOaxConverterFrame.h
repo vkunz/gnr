@@ -56,12 +56,10 @@ private:
 	static const long idBtnCreate;
 	static const long idBtnCancel;
 	static const long idCkbProportion;
-	static const long idCbxCategory;
 	static const long idSpcWidth;
 	static const long idSpcDepth;
 	static const long idSpcHeight;
 	static const long idStxName;
-	static const long idStxCategory;
 	static const long idStxWidth;
 	static const long idStxDepth;
 	static const long idStxHeight;
@@ -76,9 +74,6 @@ private:
 	// object-name
 	wxString m_name;
 	
-	// object-category
-	wxString m_category;
-	
 	// Canvas
 	GLCanvasPreview* m_canvas;
 	
@@ -89,9 +84,6 @@ private:
 	// Checkbox
 	wxCheckBox* m_ckbProportion;
 	
-	// ComboBox
-	wxComboBox* m_cbxCategory;
-	
 	// SpinCtrl
 	wxSpinCtrl* m_spcWidth;
 	wxSpinCtrl* m_spcDepth;
@@ -99,7 +91,6 @@ private:
 	
 	// StaticText
 	wxStaticText* m_stxName;
-	wxStaticText* m_stxCategory;
 	wxStaticText* m_stxWidth;
 	wxStaticText* m_stxDepth;
 	wxStaticText* m_stxHeight;
@@ -119,7 +110,6 @@ private:
 	void OnSpcDepthChanged(wxSpinEvent& event);
 	void OnSpcHeightChanged(wxSpinEvent& event);
 	void OnTxcNameChanged(wxCommandEvent& WXUNUSED(event));
-	void OnCbxCategoryChanged(wxCommandEvent& WXUNUSED(event));
 	
 	// update frame
 	void updateFrame();

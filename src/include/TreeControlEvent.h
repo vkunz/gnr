@@ -18,10 +18,19 @@ public:
 	void setEventType(treeEventType type);
 	
 	bool getCat();
-	void setCat(bool cat);
+	void setCat(const bool& cat);
+	
+	unsigned int getCatId();
+	void setCatId(const unsigned int& cat_id);
+	
+	unsigned int getParentId();
+	void setParentId(const unsigned int& parent_id);
 	
 	wxString getNewName();
-	void setNewName(wxString name);
+	void setNewName(const wxString& name);
+	
+	wxString getHash();
+	void setHash(const wxString& hash);
 	
 	Assembly* getAssembly();
 	void setAssembly(Assembly* assembly);
@@ -29,7 +38,12 @@ public:
 protected:
 private:
 	treeEventType m_eventType;
+	
 	bool m_cat;
+	unsigned int m_cat_id;
+	unsigned int m_parent_id;
+	
+	wxString m_hash;
 	wxString m_newName;
 	Assembly* m_assembly;
 	

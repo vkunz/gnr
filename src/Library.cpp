@@ -239,7 +239,7 @@ wxMemoryOutputStream* Library::getEntryData(wxString reference)
 	return memOut;
 }
 
-void Library::renameCategory(wxString name, wxString newName)
+void Library::renameCategory(unsigned int cat_id, wxString new_name)
 {
 	// empty xml document
 	wxXmlDocument xml;
@@ -284,7 +284,7 @@ void Library::renameCategory(wxString name, wxString newName)
 			entry = inzip.GetNextEntry();
 			
 			// delete entry in xml
-			renameXmlCategory(xml, outzip, name, newName);
+			renameXmlCategory(xml, outzip, cat_id, new_name);
 		}
 		
 		// copy entry
@@ -304,7 +304,7 @@ void Library::renameCategory(wxString name, wxString newName)
 	outFile.Commit();
 }
 
-void Library::renameEntry(wxString name, wxString newName)
+void Library::renameEntry(wxString reference, wxString newName)
 {
 	// empty xml document
 	wxXmlDocument xml;
@@ -349,7 +349,7 @@ void Library::renameEntry(wxString name, wxString newName)
 			entry = inzip.GetNextEntry();
 			
 			// delete entry in xml
-			renameXmlEntry(xml, outzip, name, newName);
+			renameXmlEntry(xml, outzip, reference, newName);
 		}
 		
 		// copy entry
@@ -369,7 +369,7 @@ void Library::renameEntry(wxString name, wxString newName)
 	outFile.Commit();
 }
 
-unsigned int Library::getParentId(wxString name)
+unsigned int Library::getParentId(unsigned int cat_id)
 {
 	// tmp int
 	unsigned int parentId = 0;
@@ -380,7 +380,7 @@ unsigned int Library::getParentId(wxString name)
 	// walk through all entrys, look for name
 	for (it = m_ptrCategories->begin(); it != m_ptrCategories->end(); it++)
 	{
-		if (it->getName() == name)
+		if (it->getCatId() == cat_id)
 		{
 			parentId = it->getParentId();
 		}
@@ -481,6 +481,9 @@ void Library::createEmptyLibrary()
 
 void Library::LoadXml(wxInputStream& inStream)
 {
+	// store cat id
+	unsigned int cat_id;
+	
 	// store name
 	wxString name;
 	
@@ -562,11 +565,14 @@ void Library::LoadXml(wxInputStream& inStream)
 						// get first property
 						prop = node->GetProperties();
 						
-						// get value
-						name = prop->GetValue();
+						// get next
+						prop = prop->GetNext();
+						
+						// get cat id
+						cat_id = wxAtoi(prop->GetValue());
 						
 						// get parentId
-						m_parentId = getParentId(name);
+						m_parentId = getParentId(cat_id);
 					}
 					// if not possible, parent => 0
 					else
@@ -601,11 +607,11 @@ void Library::LoadXml(wxInputStream& inStream)
 				// get first property
 				prop = node->GetProperties();
 				
-				// get value
-				name = prop->GetValue();
+				// prop to cat id
+				prop = prop->GetNext();
 				
 				// get parentId
-				m_parentId = getParentId(name);
+				m_parentId = getParentId(wxAtoi(prop->GetValue()));
 				
 				// set node to next
 				node = node->GetNext();
@@ -686,7 +692,7 @@ void Library::addXmlEntry(wxXmlDocument& xml, wxZipOutputStream& out, bool newCa
 		// add attributes
 		newCatChild->AddProperty(wxT("name"), m_ptrCategories->back().getName());
 		wxString cat, parent;
-		cat << m_ptrCategories->back().getCategoryId();
+		cat << m_ptrCategories->back().getCatId();
 		parent << m_ptrCategories->back().getParentId();
 		newCatChild->AddProperty(wxT("categoryId"), cat);
 		newCatChild->AddProperty(wxT("parentId"), parent);
@@ -783,7 +789,7 @@ void Library::deleteXmlEntry(wxXmlDocument& xml, wxZipOutputStream& out, wxStrin
 	delete delNode;
 }
 
-void Library::renameXmlCategory(wxXmlDocument& xml, wxZipOutputStream& out, wxString& reference, wxString& newName)
+void Library::renameXmlCategory(wxXmlDocument& xml, wxZipOutputStream& out, unsigned int cat_id, wxString& newName)
 {
 	// node pointer
 	wxXmlNode* node;
@@ -809,9 +815,14 @@ void Library::renameXmlCategory(wxXmlDocument& xml, wxZipOutputStream& out, wxSt
 			// prop to name
 			prop = node->GetProperties();
 			
-			// look if proper name
-			if (prop->GetValue() == reference)
+			// prop to cat id
+			prop = prop->GetNext();
+			
+			// look if proper cat
+			if (wxAtoi(prop->GetValue()) == cat_id)
 			{
+				prop = node->GetProperties();
+				
 				// set new name
 				prop->SetValue(newName);
 			}

@@ -1,48 +1,95 @@
 #include "LibraryCategory.h"
 
-// ctor
+/**
+ * default constructor of category data
+ */
 LibraryCategory::LibraryCategory()
 {
 }
 
-LibraryCategory::LibraryCategory(wxString name, unsigned int categoryId, unsigned int parentId)
+/**
+ * constructor of category data
+ * @param[in]       name
+ * @param[in]       cat_id
+ * @param[in]       parent_id
+ */
+LibraryCategory::LibraryCategory(wxString name, unsigned int cat_id, unsigned int parent_id)
 {
 	// asign name
 	m_name = name;
 	
 	// asign gropuId
-	m_categoryId = categoryId;
+	m_categoryId = cat_id;
 	
 	// asign parentId
-	m_parentId = parentId;
+	m_parentId = parent_id;
 }
 
-// dtor
+/**
+ * destructor of category data
+ */
 LibraryCategory::~LibraryCategory()
 {
-	// do nothing
 }
 
+/**
+ * getName
+ * @return      wxString        name of cat
+ */
 wxString LibraryCategory::getName()
 {
 	return m_name;
 }
 
-unsigned int LibraryCategory::getCategoryId()
-{
-	return m_categoryId;
-}
-
-unsigned int LibraryCategory::getParentId()
-{
-	return m_parentId;
-}
-
+/**
+ * setName
+ * @param[in]      name        name of cat
+ */
 void LibraryCategory::setName(wxString name)
 {
 	m_name = name;
 }
 
+/**
+ * getCategoryId
+ * @return      unsigned int        id of cat
+ */
+unsigned int LibraryCategory::getCatId()
+{
+	return m_categoryId;
+}
+
+/**
+ * setCategoryId
+ * @param[in]      cat_id           id of cat
+ */
+void LibraryCategory::setCatId(unsigned int cat_id)
+{
+	m_categoryId = cat_id;
+}
+
+/**
+ * getParentId
+ * @return      unsigned int        id of parent cat
+ */
+unsigned int LibraryCategory::getParentId()
+{
+	return m_parentId;
+}
+
+/**
+ * setParentId
+ * @param[in]      parent_id        id of parent cat
+ */
+void LibraryCategory::setParentId(unsigned int parent_id)
+{
+	m_parentId = parent_id;
+}
+
+/**
+ * toString
+ * @return      wxString        string of complete data
+ */
 wxString LibraryCategory::toString()
 {
 	wxString tmp;

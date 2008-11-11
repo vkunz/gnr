@@ -18,15 +18,20 @@ struct AssemblyData
 {
 	wxString m_name;
 	wxString m_category;
+	unsigned int m_category_id;
+	
 	double m_width;
 	double m_depth;
 	double m_height;
+	
 	double m_scaleWidth;
 	double m_scaleDepth;
 	double m_scaleHeight;
+	
 	double m_offsetX;
 	double m_offsetY;
 	double m_offsetZ;
+	
 	std::list<wxString> m_listFiles;
 	std::list<wxString> m_tags;
 };
