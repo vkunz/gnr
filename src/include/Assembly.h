@@ -176,6 +176,10 @@ private:
 	//visible flag
 	bool m_visible;
 	
+	//kill display lists
+	bool m_kill_dl;
+	
+	
 	Assembly* m_parent;
 	Assembly* m_origin;
 	
