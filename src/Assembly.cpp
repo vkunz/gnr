@@ -499,7 +499,7 @@ Assembly* Assembly::getMaster() const
 	
 	//while parent exists and type is not ROOT,
 	// SELECTED, HIDDEN or TRASH, move upwards
-	while (master->m_parent != NULL && master->m_parent->m_type > IS_TRASH)
+	while (master->m_parent != NULL && master->m_parent->m_type > IS_SELECTED)
 	{
 		master = master->m_parent;
 	}

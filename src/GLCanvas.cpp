@@ -205,22 +205,13 @@ void GLCanvas::initGL()
 	
 	glEnable(GL_BLEND);
 	glEnable(GL_DEPTH_TEST);
-	glEnable(GL_LINE_SMOOTH);
-	glEnable(GL_POLYGON_SMOOTH);
 	glEnable(GL_CULL_FACE);
 	
-	//glEnable(GL_STENCIL_TEST);
-	//glEnable(GL_POLYGON_OFFSET_LINE);
-	//glEnable(GL_POINT_SMOOTH);
-	
-	//glFrontFace(GL_CCW);
 	glCullFace(GL_BACK);
 	
 	glDepthFunc(GL_LEQUAL);
 	
 	glBlendFunc(GL_ONE_MINUS_SRC_ALPHA,GL_SRC_ALPHA);
-	//glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-	//glBlendFunc(GL_DST_COLOR, GL_SRC_COLOR);
 	
 	glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);
 	glHint(GL_LINE_SMOOTH_HINT, GL_NICEST);

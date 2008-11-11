@@ -95,8 +95,8 @@ enum canvasType   { NONE = 1,
 
 //defined assembly types
 enum assemblyType { IS_ROOT = 0,
-                    IS_DUPLICATOR,
                     IS_TRASH,
+                    IS_DUPLICATOR,
                     IS_SELECTED,
                     IS_ATOMIC,
                     IS_WALL,

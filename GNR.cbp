@@ -110,7 +110,9 @@
 		<Unit filename="src\AssemblyMediator3D.cpp" />
 		<Unit filename="src\CommandTransform.cpp" />
 		<Unit filename="src\CreatePrimitiveEvent.cpp" />
-		<Unit filename="src\DebugFrame.cpp" />
+		<Unit filename="src\DebugFrame.cpp">
+			<Option target="Debug" />
+		</Unit>
 		<Unit filename="src\Face.cpp" />
 		<Unit filename="src\GLCamera.cpp" />
 		<Unit filename="src\GLCameraMediator.cpp" />
@@ -169,7 +171,9 @@
 		<Unit filename="src\include\Command.h" />
 		<Unit filename="src\include\CommandTransform.h" />
 		<Unit filename="src\include\CreatePrimitiveEvent.h" />
-		<Unit filename="src\include\DebugFrame.h" />
+		<Unit filename="src\include\DebugFrame.h">
+			<Option target="Debug" />
+		</Unit>
 		<Unit filename="src\include\Enum.h" />
 		<Unit filename="src\include\ExportFile.h" />
 		<Unit filename="src\include\Face.h" />
@@ -241,6 +245,7 @@
 		<Unit filename="src\resources\button-room-new.xpm" />
 		<Unit filename="src\resources\button-room-open.xpm" />
 		<Unit filename="src\resources\button-room-save.xpm" />
+		<Unit filename="src\resources\button-ruler.xpm" />
 		<Unit filename="src\resources\button-snap-to-grid.xpm" />
 		<Unit filename="src\resources\button-undo.xpm" />
 		<Unit filename="src\resources\button-world-rotate-xy.xpm" />
