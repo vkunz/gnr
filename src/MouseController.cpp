@@ -20,9 +20,9 @@
  * initializes the two mediators
  * @param       scene      pointer to actual scene
  */
-MouseController::MouseController(Scene* scene)
+MouseController::MouseController()
 {
-	m_Scene = scene;
+	m_Scene = Scene::getInstance();
 	m_AssemblyMediator2D = new AssemblyMediator2D();
 	m_AssemblyMediator3D = new AssemblyMediator3D();
 	m_GLCameraMediator2D = new GLCameraMediator2D();

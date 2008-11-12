@@ -34,6 +34,10 @@ GLCamera::GLCamera()
 void GLCamera::move(Vertex direction)
 {
 	viewPoint = viewPoint + direction;
+	if (viewPoint.getY() <= CAMERA_HEIGHT_MIN)
+	{
+		viewPoint.setY(CAMERA_HEIGHT_MIN);
+	}
 }
 
 /**
@@ -45,6 +49,10 @@ void GLCamera::move(Vertex direction)
 void GLCamera::move(const float x, const float y, const float z)
 {
 	viewPoint = viewPoint + Vertex(x,y,z);
+	if (viewPoint.getY() <= CAMERA_HEIGHT_MIN)
+	{
+		viewPoint.setY(CAMERA_HEIGHT_MIN);
+	}
 }
 
 /**
@@ -125,7 +133,10 @@ void GLCamera::render()
  */
 void GLCamera::moveForward(GLfloat distance)
 {
-	viewPoint = viewPoint + (viewDir*-distance);
+	Vertex moveDir = viewDir;
+	moveDir.setY(0.0);
+	
+	viewPoint = viewPoint + (moveDir*-distance);
 	if (viewPoint.getY() <= CAMERA_HEIGHT_MIN)
 	{
 		viewPoint.setY(CAMERA_HEIGHT_MIN);
@@ -138,7 +149,10 @@ void GLCamera::moveForward(GLfloat distance)
  */
 void GLCamera::strafeRight(GLfloat distance)
 {
-	viewPoint = viewPoint + (rightVector*distance);
+	Vertex moveDir = rightVector;
+	moveDir.setY(0.0);
+	
+	viewPoint = viewPoint + (moveDir*distance);
 }
 
 /**

@@ -55,7 +55,7 @@ private:
 protected:
 
 public:
-	MouseController(Scene* scene);
+	MouseController();
 	virtual ~MouseController();
 	
 	void setTranslation(NotifyEvent& event);

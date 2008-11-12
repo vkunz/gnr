@@ -66,6 +66,7 @@ BEGIN_EVENT_TABLE(App, wxApp)
 	EVT_GNR_TREE_CONTROL(0, App::OnGNRTreeEvent)                 // tree events
 	EVT_GNR_NOTIFY(0, App::OnGNREvent)                           //global event for redraw...
 	EVT_GL_NOTIFY(0, App::OnGLEvent)                             //event for mouse and move in GL...
+	EVT_GL_KEY(0, App::OnKeyPressed)                             //key event from canvas
 	EVT_GNR_LINE_DRAW(0, App::OnLineDrawEvent)                   //event to draw a line in gl
 	EVT_GNR_CREATE_PRIMITIVE(0, App::OnCreatePrimitiveEvent)     //event to draw a line in gl
 END_EVENT_TABLE()
@@ -97,7 +98,8 @@ bool App::OnInit()
 #endif
 		
 		m_Scene         = Scene::getInstance();
-		m_MouseCtrl     = new MouseController(m_Scene);
+		m_MouseCtrl     = new MouseController();
+		m_KeyCtrl       = new KeyController();
 		
 		m_TreeLibCtrl   = new TreeLibraryController(m_TreeCtrlLib);
 		m_TreeSceneCtrl = new TreeSceneController(m_TreeCtrlScene);
@@ -221,15 +223,10 @@ void App::OnGNREvent(NotifyEvent& event)
 		OPXOpen(event.GetString());
 		break;
 	case OPXIMPORTFINISHED:
-	{
 		m_progFrame->close();
 		m_TreeSceneCtrl->createSceneTree();
-		// quick and dirty
-		int pos = m_VerticalSplitter->GetSashPosition();
-		m_VerticalSplitter->SetSashPosition(pos+1,true);
-		m_VerticalSplitter->SetSashPosition(pos,true);
-	}
-	break;
+		sashRefresh();
+		break;
 	case OPXSAVE:
 		OPXSave(event.GetString());
 		m_Scene->glRefresh();
@@ -240,7 +237,6 @@ void App::OnGNREvent(NotifyEvent& event)
 		break;
 	case OAXEXPORT:
 		OAXExport(event.GetString());
-		//m_Scene->glRefresh();
 		break;
 	case OBJOAXCONVERSION:
 		ObjOaxConversion(event.getAssemblyDataPointer());
@@ -325,8 +321,7 @@ void App::OnGNREvent(NotifyEvent& event)
 		break;
 	case TOGGLESHADOWS:
 		m_Scene->toggleShadows(event.getBoolean());
-		m_Scene->glRefresh();
-		m_Scene->glRefresh();
+		sashRefresh();
 		break;
 	case TOGGLECANVAS2DACTIVE:
 		setCanvas2DActive(event.getBoolean());
@@ -403,6 +398,15 @@ void App::OnGNRTreeEvent(TreeControlEvent& event)
 		m_Scene->restoreAssembly(event.getAssembly());
 		break;
 	}
+}
+
+/**
+ * redirect GL Key-Event to specific operations
+ * @param[in]       event           GL key event
+ */
+void App::OnKeyPressed(GLKeyEvent& event)
+{
+	m_KeyCtrl->KeyPressed(event);
 }
 
 /**
@@ -658,6 +662,16 @@ void App::createPrimitve(NotifyEvent& event)
 {
 	CreateCuboidFrame* cubFrame = new CreateCuboidFrame(m_MainFrame);
 	cubFrame->Show();
+}
+
+/**
+ * refresh sash position
+ */
+void App::sashRefresh()
+{
+	int pos = m_VerticalSplitter->GetSashPosition();
+	m_VerticalSplitter->SetSashPosition(pos+1,true);
+	m_VerticalSplitter->SetSashPosition(pos,true);
 }
 
 /**
