@@ -17,6 +17,7 @@
 #include <wx/image.h>
 
 #include "GLCanvas.h"
+#include "GLKeyEvent.h"
 #include "NotifyEvent.h"
 #include "GLNotifyEvent.h"
 #include "GlobalDefine.h"
@@ -28,7 +29,7 @@
 #endif
 
 BEGIN_EVENT_TABLE(GLCanvas, wxGLCanvas)
-	
+	EVT_KEY_DOWN(GLCanvas::OnKeyDown)
 END_EVENT_TABLE()
 
 //static display list for floor
@@ -766,6 +767,23 @@ void GLCanvas::getGLDim(int x, int y, Vertex* glcoords)
 void GLCanvas::setActive()
 {
 	SetCurrent();
+}
+
+/**
+ * fetches key event from canvas
+ * @param[in]       event       key event
+ */
+void GLCanvas::OnKeyDown(wxKeyEvent& event)
+{
+	if (event.GetKeyCode() == 'W' || event.GetKeyCode() == 'A' || event.GetKeyCode() == 'S' || event.GetKeyCode() == 'D')
+	{
+		// Event to handle keys
+		GLKeyEvent myevent(wxEVT_COMMAND_GL_KEY);
+		myevent.setCanvasID(getCanvasID());
+		myevent.setKey(event.GetKeyCode());
+		myevent.SetEventObject(this);
+		GetEventHandler()->ProcessEvent(myevent);
+	}
 }
 
 /**

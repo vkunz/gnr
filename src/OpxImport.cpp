@@ -519,8 +519,6 @@ Assembly* OpxImport::loadOax(wxZipInputStream& stream, wxString reference)
 			// reset Stream
 			inMem.SeekI(0);
 			
-			wxLogDebug(wxT("in loadoax: ") + entry->GetName());
-			
 			// load oax
 			import.Load(inZip);
 			
