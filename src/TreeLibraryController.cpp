@@ -344,6 +344,9 @@ void TreeLibraryController::renameEntry(const wxString& reference, const wxStrin
 void TreeLibraryController::moveEntry(const wxString& reference, const unsigned int& new_parent_id)
 {
 
+#if defined(__ATHOS_DEBUG__)
+	wxLogMessage(wxT("moveEntry"));
+#endif
 }
 
 /**
@@ -354,7 +357,32 @@ void TreeLibraryController::moveEntry(const wxString& reference, const unsigned 
 void TreeLibraryController::moveCategory(const unsigned int& cat_id, const unsigned int& new_parent_id)
 {
 
+#if defined(__ATHOS_DEBUG__)
+	wxLogMessage(wxT("moveCategory"));
+#endif
 }
+
+/**
+ * on dragging decide what to drag to where
+ * @param[in]       event                      TreeControlEvent of drag
+ */
+void TreeLibraryController::dragNdrop(TreeControlEvent& event)
+{
+	TreeLibraryItemData* src = event.getTreeItemSrc();
+	TreeLibraryItemData* dst = event.getTreeItemDst();
+	
+	//if source was cat, move cat
+	if (src->getCat())
+	{
+		moveCategory(src->getCatId(), dst->getCatId());
+	}
+	//else move entry
+	else
+	{
+		moveEntry(src->getHash(), dst->getCatId());
+	}
+}
+
 
 /**
  * merge two cats together

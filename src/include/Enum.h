@@ -57,6 +57,7 @@ enum eventType    { GLREFRESH = 0,
 //defined tree event types
 enum treeEventType { LIBRARYDELETEENTRY,
                      LIBRARYDELETECAT,
+                     LIBRARYMOVE,
                      LIBRARYPASTE,
                      LIBRARYEXPORT,
                      LIBRARYNEWCAT,

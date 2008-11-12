@@ -367,6 +367,9 @@ void App::OnGNRTreeEvent(TreeControlEvent& event)
 	case LIBRARYPASTE:
 		m_TreeLibCtrl->pasteEntry(event.getHash());
 		break;
+	case LIBRARYMOVE:
+		m_TreeLibCtrl->dragNdrop(event);
+		break;
 	case LIBRARYEXPORT:
 		OAXExport(event.getHash());
 		break;

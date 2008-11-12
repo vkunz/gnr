@@ -302,18 +302,7 @@ void TreeLibraryCtrl::OnBeginDrag(wxTreeEvent& event)
 	if (event.GetItem() != GetRootItem())
 	{
 		m_draggedItem = event.GetItem();
-		
-#if defined(__ATHOS_DEBUG__)
-		wxLogMessage(wxT("OnBeginDrag"));
-#endif
-		
 		event.Allow();
-	}
-	else
-	{
-#if defined(__ATHOS_DEBUG__)
-		wxLogMessage(wxT("OnBeginDrag: this item can't be dragged."));
-#endif
 	}
 }
 
@@ -323,39 +312,29 @@ void TreeLibraryCtrl::OnBeginDrag(wxTreeEvent& event)
  */
 void TreeLibraryCtrl::OnEndDrag(wxTreeEvent& event)
 {
-	wxTreeItemId itemSrc = m_draggedItem,
-	                       itemDst = event.GetItem();
+	wxTreeItemId itemSrc = m_draggedItem, itemDst = event.GetItem();
 	m_draggedItem = (wxTreeItemId)0l;
 	
-	// where to copy the item?
-	if (itemDst.IsOk())
-	{
-		TreeLibraryItemData* treeItemData = (TreeLibraryItemData*)GetItemData(itemDst);
-		if (treeItemData != NULL && treeItemData->getCat() == false)
-		{
-			// copy to the parent then
-			itemDst = GetItemParent(itemDst);
-		}
-	}
+	// get data from tree item
+	TreeLibraryItemData* dst = (TreeLibraryItemData*)GetItemData(itemDst);
+	TreeLibraryItemData* src = (TreeLibraryItemData*)GetItemData(itemSrc);
 	
-	if (!itemDst.IsOk() || itemDst == GetItemParent(itemSrc))
+	// if null, cancel
+	if (dst == NULL || src == NULL)
 	{
-#if defined(__ATHOS_DEBUG__)
-		wxLogMessage(wxT("OnEndDrag: can't drop here."));
-#endif
-		
 		return;
 	}
 	
-	wxString text = GetItemText(itemSrc);
-#if defined(__ATHOS_DEBUG__)
-	wxLogMessage(wxT("OnEndDrag: '%s' copied to '%s'."),
-	             text.c_str(), GetItemText(itemDst).c_str());
-#endif
-	             
-	//move item to new destination; later event
-	int image = GetItemImage(itemSrc);
-	AppendItem(itemDst, text, image);
-	Delete(itemSrc);
+	// create event
+	TreeControlEvent gnr(wxEVT_COMMAND_GNR_TREE_CONTROL);
 	
+	// set event type
+	gnr.setEventType(LIBRARYMOVE);
+	
+	// set source and destination of drag
+	gnr.setTreeItemDst(dst);
+	gnr.setTreeItemSrc(src);
+	
+	// fire event
+	ProcessEvent(gnr);
 }
