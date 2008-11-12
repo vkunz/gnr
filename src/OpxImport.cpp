@@ -480,6 +480,9 @@ void OpxImport::loadXml(wxZipInputStream& stream)
  */
 Assembly* OpxImport::loadOax(wxZipInputStream& stream, wxString reference)
 {
+	// assembly pointer
+	Assembly* assembly;
+	
 	// wxZipEntry pointer
 	wxZipEntry* entry;
 	
@@ -516,18 +519,23 @@ Assembly* OpxImport::loadOax(wxZipInputStream& stream, wxString reference)
 			// reset Stream
 			inMem.SeekI(0);
 			
+			wxLogDebug(wxT("in loadoax: ") + entry->GetName());
+			
 			// load oax
 			import.Load(inZip);
+			
+			// get assembly
+			assembly = import.getAssembly();
 			
 			// add category
 			unsigned int catId = m_libctrl->addCategory(m_filename.AfterLast('\\').BeforeFirst('.'));
 			
 			// add oax to library and set hash
-			import.getAssembly()->setHash(m_libctrl->addEntry(inMem, m_objName, catId));
+			assembly->setHash(m_libctrl->addEntry(inMem, m_objName, catId));
 		}
 	}
 	
-	return import.getAssembly();
+	return assembly;
 }
 
 /**

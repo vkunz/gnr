@@ -197,6 +197,7 @@ unsigned int TreeLibraryController::addCategory(wxString newName)
 	// add new physical category
 	m_library->addCategory(newName);
 	
+	// return
 	return Library::m_categoryId;
 }
 

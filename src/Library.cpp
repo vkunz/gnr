@@ -97,6 +97,15 @@ void Library::addCategory(wxString& name, unsigned int parentId)
 			addXmlCategory(xml, outzip, name);
 		}
 		
+		// if no next entry exist, break
+		if (inzip.Eof())
+		{
+			break;
+		}
+		
+		// copy entry
+		outzip.CopyEntry(entry, inzip);
+		
 		// get next entry
 		entry = inzip.GetNextEntry();
 	}
@@ -162,12 +171,14 @@ void Library::addEntry(wxString reference, wxInputStream& inStream)
 			addXmlEntry(xml, outzip);
 		}
 		
-		// if there are more than xml, copy
-		if (inzip.GetTotalEntries() > 1)
+		// if end of file reached, break
+		if (inzip.Eof())
 		{
-			// copy all entries
-			outzip.CopyEntry(entry, inzip);
+			break;
 		}
+		
+		// copy all entries
+		outzip.CopyEntry(entry, inzip);
 		
 		// get next entry
 		entry = inzip.GetNextEntry();
@@ -910,7 +921,7 @@ void Library::renameXmlCategory(wxXmlDocument& xml, wxZipOutputStream& out, unsi
 			prop = prop->GetNext();
 			
 			// look if proper cat
-			if (wxAtoi(prop->GetValue()) == cat_id)
+			if ((unsigned int)wxAtoi(prop->GetValue()) == cat_id)
 			{
 				prop = node->GetProperties();
 				
