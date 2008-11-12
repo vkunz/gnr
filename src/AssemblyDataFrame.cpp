@@ -50,35 +50,38 @@ END_EVENT_TABLE()
  */
 AssemblyDataFrame::AssemblyDataFrame(wxWindow* parent,wxWindowID id)
 {
-	Create(parent, id, wxT("Objekt-Eigenschaften"), wxDefaultPosition, wxDefaultSize, wxCAPTION|wxSYSTEM_MENU|wxCLOSE_BOX|wxMINIMIZE_BOX|wxSTATIC_BORDER, _T("id"));
+	Create(parent, id, wxT("Objekt-Eigenschaften"), wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL|wxCAPTION|wxSYSTEM_MENU|wxCLOSE_BOX|wxMINIMIZE_BOX|wxSTATIC_BORDER, _T("id"));
 	MakeModal();
 	SetClientSize(wxSize(350, 300));
+	CentreOnParent(wxBOTH);
 	SetBackgroundColour(wxNullColour);
 	SetIcon(wxICON(gnr_icon));
 	
-	m_stxName = new wxStaticText(this, -1, wxT("Name:"), wxPoint(30,34), wxSize(80,22), 0);
-	m_txcName = new wxTextCtrl(this, idtxcName, wxT(""), wxPoint(120,30), wxSize(150,22), 0, wxDefaultValidator);
+	m_panel = new wxPanel(this, wxID_ANY, wxPoint(0, 0), wxSize(350, 300), wxTAB_TRAVERSAL);
 	
-	m_stxWidth = new wxStaticText(this, -1, wxT("Breite (mm):"), wxPoint(30,84), wxSize(80,22), 0);
+	m_stxName = new wxStaticText(m_panel, -1, wxT("Name:"), wxPoint(30,34), wxSize(80,22), 0);
+	m_txcName = new wxTextCtrl(m_panel, idtxcName, wxT(""), wxPoint(120,30), wxSize(150,22), 0, wxDefaultValidator);
+	
+	m_stxWidth = new wxStaticText(m_panel, -1, wxT("Breite (mm):"), wxPoint(30,84), wxSize(80,22), 0);
 	//m_txcWidth = new wxTextCtrl(this, idtxcWidth, wxT(""), wxPoint(120,80), wxSize(150,22), 0, wxTextValidator(wxFILTER_NUMERIC));
-	m_txcWidth = new wxSpinCtrl(this, idSpcWidth, wxT(""), wxPoint(120,80), wxSize(150,22), wxTE_PROCESS_ENTER, SIZE_MINIMUM_VALUE, SIZE_MAXIMUM_VALUE, SIZE_MINIMUM_VALUE);
+	m_txcWidth = new wxSpinCtrl(m_panel, idSpcWidth, wxT(""), wxPoint(120,80), wxSize(150,22), wxTE_PROCESS_ENTER, SIZE_MINIMUM_VALUE, SIZE_MAXIMUM_VALUE, SIZE_MINIMUM_VALUE);
 	
-	m_stxHeight = new wxStaticText(this, -1, wxT("Höhe (mm):"), wxPoint(30,114), wxSize(80,22), 0);
+	m_stxHeight = new wxStaticText(m_panel, -1, wxT("Höhe (mm):"), wxPoint(30,114), wxSize(80,22), 0);
 	//m_txcHeight = new wxTextCtrl(this, idtxcHeight, wxT(""), wxPoint(120,110), wxSize(150,22), 0, wxTextValidator(wxFILTER_NUMERIC));
-	m_txcHeight = new wxSpinCtrl(this, idSpcHeight, wxT(""), wxPoint(120,110), wxSize(150,22), wxTE_PROCESS_ENTER, SIZE_MINIMUM_VALUE, SIZE_MAXIMUM_VALUE, SIZE_MINIMUM_VALUE);
+	m_txcHeight = new wxSpinCtrl(m_panel, idSpcHeight, wxT(""), wxPoint(120,110), wxSize(150,22), wxTE_PROCESS_ENTER, SIZE_MINIMUM_VALUE, SIZE_MAXIMUM_VALUE, SIZE_MINIMUM_VALUE);
 	
-	m_stxDepth = new wxStaticText(this, -1, wxT("Tiefe (mm):"), wxPoint(30,144), wxSize(80,22), 0);
+	m_stxDepth = new wxStaticText(m_panel, -1, wxT("Tiefe (mm):"), wxPoint(30,144), wxSize(80,22), 0);
 	//m_txcDepth = new wxTextCtrl(this, idtxcDepth, wxT(""), wxPoint(120,140), wxSize(150,22), 0, wxTextValidator(wxFILTER_NUMERIC));
-	m_txcDepth = new wxSpinCtrl(this, idSpcDepth, wxT(""), wxPoint(120,140), wxSize(150,22), wxTE_PROCESS_ENTER, SIZE_MINIMUM_VALUE, SIZE_MAXIMUM_VALUE, SIZE_MINIMUM_VALUE);
+	m_txcDepth = new wxSpinCtrl(m_panel, idSpcDepth, wxT(""), wxPoint(120,140), wxSize(150,22), wxTE_PROCESS_ENTER, SIZE_MINIMUM_VALUE, SIZE_MAXIMUM_VALUE, SIZE_MINIMUM_VALUE);
 	
-	m_cbxProportion = new wxCheckBox(this, idcbxProportion, wxT("Proportionen beibehalten"), wxPoint(120, 170), wxSize(160, 22));
+	m_cbxProportion = new wxCheckBox(m_panel, idcbxProportion, wxT("Proportionen beibehalten"), wxPoint(120, 170), wxSize(160, 22));
 	m_cbxProportion->SetValue(true);
 	
-	m_stxVisible = new wxStaticText(this, -1, wxT("Sichtbar:"), wxPoint(30,212), wxSize(80,22), 0);
-	m_cbxVisible = new wxCheckBox(this, idcbxVisible, wxEmptyString, wxPoint(120, 210), wxSize(80, 22));
+	m_stxVisible = new wxStaticText(m_panel, -1, wxT("Sichtbar:"), wxPoint(30,212), wxSize(80,22), 0);
+	m_cbxVisible = new wxCheckBox(m_panel, idcbxVisible, wxEmptyString, wxPoint(120, 210), wxSize(80, 22));
 	
-	m_btnChange  = new wxButton(this, idBtnChange, wxT("Ändern"), wxPoint(70,255), wxDefaultSize, 0);
-	m_btnCancel  = new wxButton(this, idBtnCancel, wxT("Abbrechen"), wxPoint(190,255), wxDefaultSize, 0);
+	m_btnChange  = new wxButton(m_panel, idBtnChange, wxT("Ändern"), wxPoint(70,255), wxDefaultSize, 0);
+	m_btnCancel  = new wxButton(m_panel, idBtnCancel, wxT("Abbrechen"), wxPoint(190,255), wxDefaultSize, 0);
 	
 	// connects m_spcWidth with OnSpcWidthChange
 	Connect(idSpcWidth,wxEVT_COMMAND_SPINCTRL_UPDATED,(wxObjectEventFunction)&AssemblyDataFrame::OnWidthChange);

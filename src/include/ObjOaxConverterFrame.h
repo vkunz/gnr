@@ -20,6 +20,7 @@
 #include <wx/spinctrl.h>
 #include <wx/stattext.h>
 #include <wx/string.h>
+#include <wx/panel.h>
 
 #include "AssemblyData.h"
 #include "GLCanvasPreview.h"
@@ -80,6 +81,8 @@ private:
 	// Button
 	wxButton* m_btnCreate;
 	wxButton* m_btnCancel;
+	
+	wxPanel* m_panel;
 	
 	// Checkbox
 	wxCheckBox* m_ckbProportion;

@@ -65,6 +65,7 @@ public:
 	void setAssemblyMediator(GLNotifyEvent& event);
 	void activateMediator(GLNotifyEvent& event);
 	void deactivateMediator();
+	Assembly* getAssembly();
 };
 
 #endif // MOUSECONTROLLER_H

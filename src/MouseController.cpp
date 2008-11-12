@@ -215,32 +215,25 @@ void MouseController::updateMouse(GLNotifyEvent& event)
  */
 void MouseController::setAssemblyMediator(GLNotifyEvent& event)
 {
-	Assembly* selectedAssembly = NULL;
+	m_Assembly = NULL;
 	
 	if (event.getCanvasID() == CANVAS2D)
 	{
 		//point to 2D mediator if event from canvas 2D
 		m_Mediator = m_AssemblyMediator2D;
 		//check for assembly id from click
-		selectedAssembly = (m_Scene->getCanvas2D())->selection(m_Scene->getRootAssembly(), m_Scene->getGLCamera2D(), mouse_x, mouse_y);
+		m_Assembly = (m_Scene->getCanvas2D())->selection(m_Scene->getRootAssembly(), m_Scene->getGLCamera2D(), mouse_x, mouse_y);
 	}
 	else if (event.getCanvasID() == CANVAS3D)
 	{
 		//else, point to 3D mediator if event from canvas 3D
 		m_Mediator = m_AssemblyMediator3D;
 		//check for assembly id from click
-		selectedAssembly = (m_Scene->getCanvas3D())->selection(m_Scene->getRootAssembly(), m_Scene->getGLCamera3D(), mouse_x, mouse_y);
+		m_Assembly = (m_Scene->getCanvas3D())->selection(m_Scene->getRootAssembly(), m_Scene->getGLCamera3D(), mouse_x, mouse_y);
 	}
 	
-	if (selectedAssembly != NULL)
-	{
-		//set assembly mediator target to selected object
-		m_Mediator->setAssembly(selectedAssembly);
-	}
-	else
-	{
-		m_Mediator->setAssembly(NULL);
-	}
+	//set assembly mediator target to selected object
+	m_Mediator->setAssembly(m_Assembly);
 }
 
 /**
@@ -249,20 +242,26 @@ void MouseController::setAssemblyMediator(GLNotifyEvent& event)
  */
 void MouseController::setSelected(GLNotifyEvent& event)
 {
-	Assembly* selectedAssembly = NULL;
+	m_Assembly = NULL;
 	
 	if (event.getCanvasID() == CANVAS2D)
 	{
-		selectedAssembly = (m_Scene->getCanvas2D())->selection(m_Scene->getRootAssembly(), m_Scene->getGLCamera2D(), mouse_x, mouse_y);
+		m_Assembly = (m_Scene->getCanvas2D())->selection(m_Scene->getRootAssembly(), m_Scene->getGLCamera2D(), mouse_x, mouse_y);
 	}
 	else if (event.getCanvasID() == CANVAS3D)
 	{
-		selectedAssembly = (m_Scene->getCanvas3D())->selection(m_Scene->getRootAssembly(), m_Scene->getGLCamera3D(), mouse_x, mouse_y);
+		m_Assembly = (m_Scene->getCanvas3D())->selection(m_Scene->getRootAssembly(), m_Scene->getGLCamera3D(), mouse_x, mouse_y);
 	}
 	
-	if (selectedAssembly != NULL)
-	{
-		//select assembly (move to IS_SELECTED group)
-		m_Scene->selectAssembly(selectedAssembly);
-	}
+	//select assembly (move to IS_SELECTED group)
+	m_Scene->selectAssembly(m_Assembly);
+}
+
+/**
+ * get actual hit assembly
+ * @return       Assembly*          hit assembly
+ */
+Assembly* MouseController::getAssembly()
+{
+	return m_Assembly;
 }

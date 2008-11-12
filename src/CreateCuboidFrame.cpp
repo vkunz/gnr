@@ -63,41 +63,43 @@ END_EVENT_TABLE()
  */
 CreateCuboidFrame::CreateCuboidFrame(wxWindow* parent,wxWindowID id,const wxPoint& pos,const wxSize& size)
 {
-	Create(parent, wxID_ANY, wxT("Kubus erstellen"), wxDefaultPosition, wxDefaultSize, wxDEFAULT_FRAME_STYLE, _T("wxID_ANY"));
+	Create(parent, wxID_ANY, wxT("Kubus erstellen"), wxDefaultPosition, wxDefaultSize, wxDEFAULT_FRAME_STYLE|wxTAB_TRAVERSAL, _T("wxID_ANY"));
 	SetClientSize(wxSize(382,260));
 	CenterOnParent();
 	SetBackgroundColour(wxNullColour);
 	SetIcon(wxICON(gnr_icon));
 	//MakeModal();
 	
+	m_panel = new wxPanel(this, wxID_ANY, wxPoint(0, 0), wxSize(382,260), wxTAB_TRAVERSAL);
+	
 	wxString minSize;
 	minSize << SIZE_MINIMUM_VALUE;
 	
-	StaticText1 = new wxStaticText(this, ID_STATICTEXT1, _("Breite"), wxPoint(56,30), wxDefaultSize, 0, _T("ID_STATICTEXT1"));
-	m_spcWidth = new wxSpinCtrl(this, idSpcWidth, minSize, wxPoint(128,25), wxSize(168,24), 0, SIZE_MINIMUM_VALUE, SIZE_MAXIMUM_VALUE, SIZE_MINIMUM_VALUE, _T("idSpcWidth"));
+	StaticText1 = new wxStaticText(m_panel, ID_STATICTEXT1, _("Breite"), wxPoint(56,30), wxDefaultSize, 0, _T("ID_STATICTEXT1"));
+	m_spcWidth = new wxSpinCtrl(m_panel, idSpcWidth, minSize, wxPoint(128,25), wxSize(168,24), 0, SIZE_MINIMUM_VALUE, SIZE_MAXIMUM_VALUE, SIZE_MINIMUM_VALUE, _T("idSpcWidth"));
 	
-	StaticText2 = new wxStaticText(this, ID_STATICTEXT2, _("Höhe"), wxPoint(56,65), wxDefaultSize, 0, _T("ID_STATICTEXT2"));
-	m_spcHeight = new wxSpinCtrl(this, idSpcHeight, minSize, wxPoint(128,60), wxSize(168,21), 0, 0, 100, 0, _T("idSpcHeight"));
+	StaticText2 = new wxStaticText(m_panel, ID_STATICTEXT2, _("Höhe"), wxPoint(56,65), wxDefaultSize, 0, _T("ID_STATICTEXT2"));
+	m_spcHeight = new wxSpinCtrl(m_panel, idSpcHeight, minSize, wxPoint(128,60), wxSize(168,21), 0, 0, 100, 0, _T("idSpcHeight"));
 	
-	StaticText3 = new wxStaticText(this, ID_STATICTEXT3, _("Tiefe"), wxPoint(56,100), wxDefaultSize, 0, _T("ID_STATICTEXT3"));
-	m_spcDepth = new wxSpinCtrl(this, idSpcDepth, minSize, wxPoint(128,95), wxSize(168,21), 0, 0, 100, 0, _T("idSpcDepth"));
+	StaticText3 = new wxStaticText(m_panel, ID_STATICTEXT3, _("Tiefe"), wxPoint(56,100), wxDefaultSize, 0, _T("ID_STATICTEXT3"));
+	m_spcDepth = new wxSpinCtrl(m_panel, idSpcDepth, minSize, wxPoint(128,95), wxSize(168,21), 0, 0, 100, 0, _T("idSpcDepth"));
 	
-	StaticText4 = new wxStaticText(this, ID_STATICTEXT4, _("Farbe"), wxPoint(32,157), wxDefaultSize, 0, _T("ID_STATICTEXT4"));
-	m_panColor = new wxPanel(this, idPanColor, wxPoint(80,151), wxSize(24,24), wxTAB_TRAVERSAL, _T("idPanColor"));
+	StaticText4 = new wxStaticText(m_panel, ID_STATICTEXT4, _("Farbe"), wxPoint(32,157), wxDefaultSize, 0, _T("ID_STATICTEXT4"));
+	m_panColor = new wxPanel(m_panel, idPanColor, wxPoint(80,151), wxSize(24,24), wxTAB_TRAVERSAL, _T("idPanColor"));
 	m_panColor->SetOwnBackgroundColour(wxColour(255, 255, 255));
 	
-	StaticText5 = new wxStaticText(this, ID_STATICTEXT5, _("R"), wxPoint(115,157), wxDefaultSize, 0, _T("ID_STATICTEXT5"));
-	m_spcRed = new wxSpinCtrl(this, idSpcRed, _T("255"), wxPoint(128,153), wxSize(55,21), 0, 0, 255, 255, _T("idSpcRed"));
+	StaticText5 = new wxStaticText(m_panel, ID_STATICTEXT5, _("R"), wxPoint(115,157), wxDefaultSize, 0, _T("ID_STATICTEXT5"));
+	m_spcRed = new wxSpinCtrl(m_panel, idSpcRed, _T("255"), wxPoint(128,153), wxSize(55,21), 0, 0, 255, 255, _T("idSpcRed"));
 	
-	StaticText6 = new wxStaticText(this, ID_STATICTEXT6, _("G"), wxPoint(195,157), wxDefaultSize, 0, _T("ID_STATICTEXT6"));
-	m_spcGreen = new wxSpinCtrl(this, idSpcGreen, _T("255"), wxPoint(208,153), wxSize(56,21), 0, 0, 255, 255, _T("idSpcGreen"));
+	StaticText6 = new wxStaticText(m_panel, ID_STATICTEXT6, _("G"), wxPoint(195,157), wxDefaultSize, 0, _T("ID_STATICTEXT6"));
+	m_spcGreen = new wxSpinCtrl(m_panel, idSpcGreen, _T("255"), wxPoint(208,153), wxSize(56,21), 0, 0, 255, 255, _T("idSpcGreen"));
 	
-	StaticText7 = new wxStaticText(this, ID_STATICTEXT7, _("B"), wxPoint(275,157), wxDefaultSize, 0, _T("ID_STATICTEXT7"));
+	StaticText7 = new wxStaticText(m_panel, ID_STATICTEXT7, _("B"), wxPoint(275,157), wxDefaultSize, 0, _T("ID_STATICTEXT7"));
 	
-	m_spcBlue = new wxSpinCtrl(this, idSpcBlue, _T("255"), wxPoint(288,153), wxSize(56,21), 0, 0, 255, 255, _T("idSpcBlue"));
+	m_spcBlue = new wxSpinCtrl(m_panel, idSpcBlue, _T("255"), wxPoint(288,153), wxSize(56,21), 0, 0, 255, 255, _T("idSpcBlue"));
 	
-	m_buCreate = new wxButton(this, idBtnCreate, _("Erstellen"), wxPoint(56,208), wxSize(88,23), 0, wxDefaultValidator, _T("idBuCreate"));
-	m_buCancel = new wxButton(this, idBtnCancel, _("Abbrechen"), wxPoint(232,208), wxSize(88,23), 0, wxDefaultValidator, _T("idBuCancel"));
+	m_buCreate = new wxButton(m_panel, idBtnCreate, _("Erstellen"), wxPoint(56,208), wxSize(88,23), 0, wxDefaultValidator, _T("idBuCreate"));
+	m_buCancel = new wxButton(m_panel, idBtnCancel, _("Abbrechen"), wxPoint(232,208), wxSize(88,23), 0, wxDefaultValidator, _T("idBuCancel"));
 	
 	// connect events to catch Enter press
 	Connect(idSpcRed,wxEVT_COMMAND_TEXT_ENTER,(wxObjectEventFunction)&CreateCuboidFrame::OnSpcColorChange);

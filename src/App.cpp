@@ -417,19 +417,39 @@ void App::OnGLEvent(GLNotifyEvent& event)
 	//on double click select assembly
 	if (event.getMouseEvent().ButtonDClick(LEFT_BUTTON))
 	{
-		m_MouseCtrl->setSelected(event);
+		//set assembly mediator for ident object
+		m_MouseCtrl->setAssemblyMediator(event);
+		
+		//get clicked assembly
+		Assembly* hit = m_MouseCtrl->getAssembly();
+		
+		//is assembly hit, build edit frame
+		if (hit != NULL)
+		{
+			//hit an assembly, show edit frame
+			if (hit->isType(IS_OBJECT))
+			{
+				AssemblyDataFrame* data = new AssemblyDataFrame;
+				data->Show();
+				data->fillFields(m_MouseCtrl->getAssembly());
+			}
+			//show warning to ungroup
+			else
+			{
+				wxMessageBox(wxT("Bitte degruppieren Sie die Objekte zuerst!"),wxT("Aktion nicht möglich"),wxOK);
+			}
+		}
 	}
 	
-	//if any mouse down set mediator and on right down, select too
+	//if any mouse down set mediator and on right down, select assembly
 	else if (event.getMouseEvent().ButtonDown(-1))
 	{
 		m_MouseCtrl->setMediator(event);
 		
 		if (event.getMouseEvent().ButtonDown(RIGHT_BUTTON))
 		{
-			//m_MouseCtrl->setMediator(event);
+			//select assembly
 			m_MouseCtrl->setSelected(event);
-			//m_MainFrame->setTranslationXZ(); try to change toolbar here!
 		}
 	}
 	

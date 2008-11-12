@@ -59,6 +59,8 @@ private:
 	void OnCreate(wxCommandEvent& WXUNUSED(event));
 	void OnCancel(wxCommandEvent& WXUNUSED(event));
 	
+	wxPanel* m_panel;
+	
 	DECLARE_EVENT_TABLE()
 };
 
