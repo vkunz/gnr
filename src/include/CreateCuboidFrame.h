@@ -43,8 +43,8 @@ protected:
 	static const long ID_STATICTEXT1;
 	static const long ID_STATICTEXT2;
 	static const long ID_STATICTEXT3;
-	static const long idBuCreate;
-	static const long idBuCancel;
+	static const long idBtnCreate;
+	static const long idBtnCancel;
 	static const long ID_STATICTEXT4;
 	static const long idPanColor;
 	static const long idSpcRed;
@@ -56,6 +56,8 @@ protected:
 	
 private:
 	void OnSpcColorChange(wxSpinEvent& WXUNUSED(event));
+	void OnCreate(wxCommandEvent& WXUNUSED(event));
+	void OnCancel(wxCommandEvent& WXUNUSED(event));
 	
 	DECLARE_EVENT_TABLE()
 };

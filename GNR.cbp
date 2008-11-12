@@ -269,7 +269,6 @@
 		<Unit filename="src\resources\resource.rc">
 			<Option compilerVar="WINDRES" />
 		</Unit>
-		<Unit filename="wxsmith\CreateCuboidFrame.wxs" />
 		<Extensions>
 			<code_completion />
 			<envvars />
