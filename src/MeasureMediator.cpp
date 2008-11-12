@@ -1,4 +1,4 @@
-#include "WallMediator.h"
+#include "MeasureMediator.h"
 #include "LineDrawEvent.h"
 #include "CreatePrimitiveEvent.h"
 #include "math.h"
@@ -13,13 +13,13 @@
 /**
  * constructor of wall mediator
  */
-WallMediator::WallMediator()
+MeasureMediator::MeasureMediator()
 {
 }
 
 /**
  * destructor of wall mediator
- */WallMediator::~WallMediator()
+ */MeasureMediator::~MeasureMediator()
 {
 }
 
@@ -27,7 +27,7 @@ WallMediator::WallMediator()
  * init the wall mediator
  * @param[in]       event       GLNotifyEvent
  */
-void WallMediator::initialize(GLNotifyEvent& event)
+void MeasureMediator::initialize(GLNotifyEvent& event)
 {
 	//backup old startpoint
 	endPoint = startPoint;
@@ -63,7 +63,7 @@ void WallMediator::initialize(GLNotifyEvent& event)
  * @param[in]       event        GLNotifyEvent
  * @return          int          return 1 if ok
  */
-int WallMediator::translate(GLNotifyEvent& event)
+int MeasureMediator::translate(GLNotifyEvent& event)
 {
 	moved = true;
 	
@@ -82,7 +82,7 @@ int WallMediator::translate(GLNotifyEvent& event)
 	myevent.SetEventObject(this);
 	myevent.setStartPoint(startPoint);
 	myevent.setEndPoint(endPoint);
-	myevent.SetInt(1);
+	myevent.SetInt(0);
 	ProcessEvent(myevent);
 	
 	return 1;
@@ -91,34 +91,6 @@ int WallMediator::translate(GLNotifyEvent& event)
 /**
  * finalize wall mediator (for undo and redo)
  */
-void WallMediator::finalize()
+void MeasureMediator::finalize()
 {
-	float deltaX = endPoint.getX() - startPoint.getX();
-	float deltaZ = endPoint.getZ() - startPoint.getZ();
-	float length = sqrt(deltaX*deltaX + deltaZ*deltaZ);
-	
-	// set middle point of the wall
-	Vertex middlePoint;
-	middlePoint.setX((endPoint.getX() + startPoint.getX()) / 2.0);
-	middlePoint.setY(WALLHEIGHT / 2.0);
-	middlePoint.setZ((endPoint.getZ() + startPoint.getZ()) / 2.0);
-	
-	double beta = atan2(deltaZ, deltaX) * -180 / M_PI;
-	Vertex orientation(0, beta, 0);
-	Vertex dimension(length, WALLHEIGHT, WALLDEPTH);
-	
-	// send event to create cuboid
-	CreatePrimitiveEvent myevent(wxEVT_COMMAND_GNR_CREATE_PRIMITIVE);
-	myevent.SetEventObject(this);
-	myevent.setPrimitiveType(CUBOID);
-	myevent.setPosition(middlePoint);
-	myevent.setAngles(orientation);
-	myevent.setDimensions(dimension);
-	ProcessEvent(myevent);
-	
-	if (moved)
-	{
-		//if moved, store endpoint
-		startPoint = endPoint;
-	}
 }

@@ -116,9 +116,9 @@ void AssemblyDataFrame::fillFields(Assembly* assembly)
 	
 	m_txcName->ChangeValue(assembly->getName());
 	
-	m_txcWidth->SetValue((int)(assembly->getWidth()*assembly->getScaleX()*1000));
-	m_txcHeight->SetValue((int)(assembly->getHeight()*assembly->getScaleY()*1000));
-	m_txcDepth->SetValue((int)(assembly->getDepth()*assembly->getScaleZ()*1000));
+	m_txcWidth->SetValue((int)(assembly->getWidthMeters()*1000));
+	m_txcHeight->SetValue((int)(assembly->getHeightMeters()*1000));
+	m_txcDepth->SetValue((int)(assembly->getDepthMeters()*1000));
 	
 	m_cbxVisible->SetValue(m_assembly->isVisible());
 	

@@ -11,6 +11,8 @@
 #ifndef MOUSECONTROLLER_H
 #define MOUSECONTROLLER_H
 
+#include <wx/event.h>
+
 #include "Assembly.h"
 #include "AssemblyMediator2D.h"
 #include "AssemblyMediator3D.h"
@@ -19,10 +21,11 @@
 #include "GLCameraMediator3D.h"
 #include "GLNotifyEvent.h"
 #include "Mediator.h"
-#include "Scene.h"
 #include "WallMediator.h"
+#include "MeasureMediator.h"
+#include "Scene.h"
 
-class MouseController
+class MouseController : public wxEvtHandler
 {
 private:
 
@@ -39,10 +42,13 @@ private:
 	AssemblyMediator3D* m_AssemblyMediator3D;
 	GLCameraMediator2D* m_GLCameraMediator2D;
 	GLCameraMediator3D* m_GLCameraMediator3D;
-	WallMediator* m_WallMediator;
+	WallMediator*       m_WallMediator;
+	MeasureMediator*    m_MeasureMediator;
 	
 	int mouse_x;
 	int mouse_y;
+	
+	transType m_act_trans;
 	
 	void updateMouse(GLNotifyEvent& event);
 	

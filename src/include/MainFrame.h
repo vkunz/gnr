@@ -21,6 +21,8 @@
 #include <wx/statusbr.h>
 #include <wx/toolbar.h>
 
+#include "NotifyEvent.h"
+
 using std::map;
 
 class MainFrame: public wxFrame
@@ -31,8 +33,7 @@ public:
 	virtual ~MainFrame();
 	void setUndoEnabled(bool enabled);
 	void setRedoEnabled(bool enabled);
-	void setTranslationXZ();
-	void setTranslationXY();
+	void setTranslation(NotifyEvent& event);
 	
 	wxStatusBar* getStatusbar();
 	

@@ -255,6 +255,7 @@ void App::OnGNREvent(NotifyEvent& event)
 		break;
 	case TOOLBARCHANGE:
 		m_MouseCtrl->setTranslation(event);
+		m_MainFrame->setTranslation(event);
 		break;
 	case RESETCAMERA:
 		m_Scene->resetCamera();

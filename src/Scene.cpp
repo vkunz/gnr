@@ -553,21 +553,61 @@ void Scene::drawLine(LineDrawEvent& event)
 	{
 		glPushMatrix();
 		{
-			//draw line from start- to end-point
-			float lineColor[4] = {1.0, 0.0, 0.0, 0.0};
-			glMaterialfv(GL_FRONT, GL_EMISSION, lineColor);
-			glMaterialfv(GL_FRONT, GL_AMBIENT_AND_DIFFUSE, lineColor);
-			
 			//should be like the default wallsize
-			glLineWidth(70.0/(float)m_GLCamera2D->getDistance());
+			float line_width = 100.0/(float)m_GLCamera2D->getDistance();
 			
-			//draw line from start to end
-			glBegin(GL_LINES);
+			//set line width in gl
+			glLineWidth(line_width);
+			
+			//draw wall with lines
+			if (event.GetInt() == 1)
 			{
-				glVertex3f(event.getStartPoint().getX(), event.getStartPoint().getY(), event.getStartPoint().getZ());
-				glVertex3f(event.getEndPoint().getX(), event.getEndPoint().getY(), event.getEndPoint().getZ());
+				//draw wall from start- to end-point 2 colored
+				float lineColor1[4] = {0.3, 0.0, 0.0, 0.0};
+				float lineColor2[4] = {1.0, 0.0, 0.0, 0.0};
+				
+				glMaterialfv(GL_FRONT, GL_EMISSION, lineColor1);
+				glMaterialfv(GL_FRONT, GL_AMBIENT_AND_DIFFUSE, lineColor1);
+				glBegin(GL_LINES);
+				{
+					glVertex3f(event.getStartPoint().getX(), event.getStartPoint().getY(), event.getStartPoint().getZ());
+					glVertex3f(event.getEndPoint().getX(), event.getEndPoint().getY(), event.getEndPoint().getZ());
+					glVertex3f(event.getEndPoint().getX(), event.getEndPoint().getY(), event.getEndPoint().getZ());
+					glMaterialfv(GL_FRONT, GL_EMISSION, lineColor2);
+					glMaterialfv(GL_FRONT, GL_AMBIENT_AND_DIFFUSE, lineColor2);
+					glVertex3f(event.getEndPoint().getX(), event.getEndPoint().getY()+WALLHEIGHT, event.getEndPoint().getZ());
+				}
+				glEnd();
+				
+				//draw line from start to end
+				glMaterialfv(GL_FRONT, GL_EMISSION, lineColor2);
+				glMaterialfv(GL_FRONT, GL_AMBIENT_AND_DIFFUSE, lineColor2);
+				glBegin(GL_LINES);
+				{
+					glVertex3f(event.getEndPoint().getX(), event.getEndPoint().getY()+WALLHEIGHT, event.getEndPoint().getZ());
+					glVertex3f(event.getStartPoint().getX(), event.getStartPoint().getY()+WALLHEIGHT, event.getStartPoint().getZ());
+					glVertex3f(event.getStartPoint().getX(), event.getStartPoint().getY()+WALLHEIGHT, event.getStartPoint().getZ());
+					glMaterialfv(GL_FRONT, GL_EMISSION, lineColor1);
+					glMaterialfv(GL_FRONT, GL_AMBIENT_AND_DIFFUSE, lineColor1);
+					glVertex3f(event.getStartPoint().getX(), event.getStartPoint().getY(), event.getStartPoint().getZ());
+				}
+				glEnd();
 			}
-			glEnd();
+			//draw line only (measure)
+			else
+			{
+				//draw wall from start- to end-point 2 colored
+				float lineColor1[4] = {0.0, 1.0, 0.0, 0.0};
+				
+				glMaterialfv(GL_FRONT, GL_EMISSION, lineColor1);
+				glMaterialfv(GL_FRONT, GL_AMBIENT_AND_DIFFUSE, lineColor1);
+				glBegin(GL_LINES);
+				{
+					glVertex3f(event.getStartPoint().getX(), event.getStartPoint().getY(), event.getStartPoint().getZ());
+					glVertex3f(event.getEndPoint().getX(), event.getEndPoint().getY(), event.getEndPoint().getZ());
+				}
+				glEnd();
+			}
 			
 			//turn on lights
 			m_GLOUT->initLights();

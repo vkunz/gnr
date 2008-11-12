@@ -29,14 +29,14 @@
 #define ZFAR                    500.0f        // far clipping plane of GL
 #define GLU_PERSPECTIVE          30.0f        // gluPerspective
 
-#define WALLHIGHT                2.0          // hight of a wall
+#define WALLHEIGHT               2.0          // height of a wall
 #define WALLDEPTH                0.2          // thickness of a wall
 
 #define SIZE_MAXIMUM_VALUE   50000            // 50000mm = 50m
 #define SIZE_MINIMUM_VALUE      10            // 10mm (smallest amount)
 
 #define SOFTWARE_TITLE         "GNR 3D Raumplaner - Die Einrichtungssoftware"
-#define SOFTWARE_VERSION       "0.5.2.3 BETA" //additional version info
+#define SOFTWARE_VERSION       "0.5.4.2 BETA" //additional version info
 #define SOFTWARE_WIN_WIDTH     800            //width of application window
 #define SOFTWARE_WIN_HEIGHT    600            //height of application windows
 

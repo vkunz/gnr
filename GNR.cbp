@@ -111,9 +111,7 @@
 		<Unit filename="src\CommandTransform.cpp" />
 		<Unit filename="src\CreateCuboidFrame.cpp" />
 		<Unit filename="src\CreatePrimitiveEvent.cpp" />
-		<Unit filename="src\DebugFrame.cpp">
-			<Option target="Debug" />
-		</Unit>
+		<Unit filename="src\DebugFrame.cpp" />
 		<Unit filename="src\Face.cpp" />
 		<Unit filename="src\GLCamera.cpp" />
 		<Unit filename="src\GLCameraMediator.cpp" />
@@ -134,6 +132,7 @@
 		<Unit filename="src\MainFrame.cpp" />
 		<Unit filename="src\Material.cpp" />
 		<Unit filename="src\MaterialLibrary.cpp" />
+		<Unit filename="src\MeasureMediator.cpp" />
 		<Unit filename="src\Mediator.cpp" />
 		<Unit filename="src\MouseController.cpp" />
 		<Unit filename="src\NotifyEvent.cpp" />
@@ -173,9 +172,7 @@
 		<Unit filename="src\include\CommandTransform.h" />
 		<Unit filename="src\include\CreateCuboidFrame.h" />
 		<Unit filename="src\include\CreatePrimitiveEvent.h" />
-		<Unit filename="src\include\DebugFrame.h">
-			<Option target="Debug" />
-		</Unit>
+		<Unit filename="src\include\DebugFrame.h" />
 		<Unit filename="src\include\Enum.h" />
 		<Unit filename="src\include\ExportFile.h" />
 		<Unit filename="src\include\Face.h" />
@@ -202,6 +199,7 @@
 		<Unit filename="src\include\MainFrame.h" />
 		<Unit filename="src\include\Material.h" />
 		<Unit filename="src\include\MaterialLibrary.h" />
+		<Unit filename="src\include\MeasureMediator.h" />
 		<Unit filename="src\include\Mediator.h" />
 		<Unit filename="src\include\MouseController.h" />
 		<Unit filename="src\include\NotifyEvent.h" />
