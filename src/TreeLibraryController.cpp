@@ -169,6 +169,39 @@ wxString TreeLibraryController::addEntry(wxInputStream& instream, wxString entry
 
 /**
  * new id of cat set by name
+ * @param[in]   newName         string to store name of new category
+ * @return      unsigned int    new cat id
+ */
+unsigned int TreeLibraryController::addCategory(wxString newName)
+{
+	// iterator
+	std::vector<LibraryCategory>::iterator it;
+	
+	// walk through all categories
+	for (it = m_ptrCategories->begin(); it != m_ptrCategories->end(); it++)
+	{
+		// category found
+		if (it->getName() == newName)
+		{
+			// return cat id of found category
+			return it->getCatId();
+		}
+	}
+	
+	// not found, create new one
+	Library::m_categoryId += 1;
+	
+	// new category, parent always 0
+	m_ptrCategories->push_back(LibraryCategory(newName, Library::m_categoryId, 0));
+	
+	// add new physical category
+	m_library->addCategory(newName);
+	
+	return Library::m_categoryId;
+}
+
+/**
+ * new id of cat set by name
  * @param[in]   parent_id       int ID of parant category
  * @param[in]   name            wxString& name of cat
  * @return      int             new cat id
@@ -198,7 +231,7 @@ bool TreeLibraryController::addCategory(const unsigned int& parent_id, const wxS
 	// rebuild tree
 	buildTreeCtrl();
 	
-	//all done ok
+	// everything ok
 	return true;
 }
 

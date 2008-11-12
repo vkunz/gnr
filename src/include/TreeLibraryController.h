@@ -42,8 +42,12 @@ public:
 	// dtor
 	virtual ~TreeLibraryController();
 	
+	// add new category
+	unsigned int addCategory(wxString newName);
+	
 	// adds a new category
 	bool addCategory(const unsigned int& parent_id, const wxString& name);
+	
 	// adds a new entry from import
 	wxString addEntry(wxInputStream& instream, wxString entry_name, unsigned int cat_id = 0);
 	

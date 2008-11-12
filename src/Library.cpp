@@ -46,6 +46,74 @@ std::vector<LibraryEntry>* Library::getEntries()
 	return m_ptrEntries;
 }
 
+void Library::addCategory(wxString& name, unsigned int parentId)
+{
+	// empty xml document
+	wxXmlDocument xml;
+	
+	// set parentId
+	m_parentId = parentId;
+	
+	// pointer to wxZipEntry
+	wxZipEntry* entry;
+	
+	// input file to open library
+	std::auto_ptr<wxFFileInputStream> inFile(new wxFFileInputStream(m_fileName.GetFullPath()));
+	
+	// temp output file to store new lib
+	wxTempFileOutputStream outFile(m_fileName.GetFullPath());
+	
+	// zip input stream
+	wxZipInputStream inzip(*inFile);
+	
+	// zip output stream
+	wxZipOutputStream outzip(outFile);
+	
+	// copy meta data
+	outzip.CopyArchiveMetaData(inzip);
+	
+	// get first entry of inzip
+	entry = inzip.GetNextEntry();
+	
+	// copy all entries
+	while (entry)
+	{
+		// copy all entries except the old xml
+		if (entry->GetName().Matches(wxT("*.xml")))
+		{
+			//open entry
+			inzip.OpenEntry(*entry);
+			
+			// new xml
+			xml.Load(inzip);
+			
+			// close entry
+			inzip.CloseEntry();
+			
+			// do not copy entry, set next entry
+			entry = inzip.GetNextEntry();
+			
+			// add entry into xml
+			addXmlCategory(xml, outzip, name);
+		}
+		
+		// get next entry
+		entry = inzip.GetNextEntry();
+	}
+	
+	// close entry
+	outzip.CloseEntry();
+	
+	// close outzip
+	outzip.Close();
+	
+	// close file
+	inFile.reset();
+	
+	// generate new file
+	outFile.Commit();
+}
+
 void Library::addEntry(wxString reference, wxInputStream& inStream)
 {
 	// empty xml document
@@ -675,6 +743,42 @@ void Library::addCategory(wxString& name, unsigned int& categoryId, unsigned int
 void Library::addEntry(wxString& name, wxString& reference, unsigned int& categoryId)
 {
 	m_ptrEntries->push_back(LibraryEntry(name, reference, categoryId));
+}
+
+void Library::addXmlCategory(wxXmlDocument& xml, wxZipOutputStream& out, wxString& newName)
+{
+	// node pointer
+	wxXmlNode* node;
+	
+	// node to root
+	node = xml.GetRoot();
+	
+	// node to categories
+	node = node->GetChildren();
+	
+	// new node
+	wxXmlNode* newChild = new wxXmlNode(wxXML_ELEMENT_NODE, wxT("category"));
+	
+	// add name to new category
+	newChild->AddProperty(wxT("name"), newName);
+	
+	// add categoryId
+	newChild->AddProperty(wxT("categoryId"), wxString() << m_categoryId);
+	
+	// add parentId
+	newChild->AddProperty(wxT("parentId"), wxString() << m_parentId);
+	
+	// add new category
+	node->AddChild(newChild);
+	
+	// new zipEntry
+	out.PutNextEntry(wxT("library.xml"));
+	
+	// copy data into entry
+	xml.Save(out);
+	
+	// close entry
+	out.CloseEntry();
 }
 
 void Library::addXmlEntry(wxXmlDocument& xml, wxZipOutputStream& out)

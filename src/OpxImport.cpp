@@ -49,6 +49,13 @@ OpxImport::OpxImport(TreeLibraryController* controller, wxString filename)
 }
 
 /**
+ * Virtual Destructor.
+ */
+OpxImport::~OpxImport()
+{
+}
+
+/**
  * Is called on thread-start
  */
 void* OpxImport::Entry()
@@ -62,14 +69,8 @@ void* OpxImport::Entry()
 	// load
 	Load(stream);
 	
+	// return
 	return NULL;
-}
-
-/**
- * Virtual Destructor.
- */
-OpxImport::~OpxImport()
-{
 }
 
 /**
@@ -346,7 +347,7 @@ void OpxImport::loadXml(wxZipInputStream& stream)
 				prop = prop->GetNext();
 				
 				// get value of name
-				wxString name = prop->GetValue();
+				m_objName = prop->GetValue();
 				
 				// prop to location
 				prop = prop->GetNext();
@@ -412,7 +413,7 @@ void OpxImport::loadXml(wxZipInputStream& stream)
 				assembly->setVisible(isVisible);
 				
 				// set name
-				assembly->setName(name);
+				assembly->setName(m_objName);
 				
 				// set x, y, z
 				assembly->setXYZ(x, y, z);
@@ -518,8 +519,11 @@ Assembly* OpxImport::loadOax(wxZipInputStream& stream, wxString reference)
 			// load oax
 			import.Load(inZip);
 			
-			// add oax to lib (default base cat = 0)
-			import.getAssembly()->setHash(m_libctrl->addEntry(inMem, m_filename.BeforeFirst('.'),0));
+			// add category
+			unsigned int catId = m_libctrl->addCategory(m_filename.AfterLast('\\').BeforeFirst('.'));
+			
+			// add oax to library and set hash
+			import.getAssembly()->setHash(m_libctrl->addEntry(inMem, m_objName, catId));
 		}
 	}
 	
