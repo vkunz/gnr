@@ -64,7 +64,7 @@ void OpxExport::createXmlEntry()
 	wxXmlNode* root = new wxXmlNode(wxXML_ELEMENT_NODE, wxT("opxml"));
 	
 	// add property "standard="oaxml.hs-ulm.de""
-	root->AddProperty(wxT("standard"), wxT("oaxml.hs-ulm.de"));
+	root->AddProperty(wxT("standard"), wxT("opxml.hs-ulm.de"));
 	
 	// add property "version="0.1.0""
 	root->AddProperty(wxT("version"), wxT("0.1.0"));

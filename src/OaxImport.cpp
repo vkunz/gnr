@@ -25,6 +25,8 @@
  */
 OaxImport::OaxImport()
 {
+	// create new map
+	m_map = new std::map<wxString, wxString>;
 }
 
 /**
@@ -39,6 +41,9 @@ OaxImport::OaxImport(wxString filename)
 	// create zipstream
 	wxZipInputStream stream(inFile);
 	
+	// create new map
+	m_map = new std::map<wxString, wxString>;
+	
 	// load stream
 	Load(stream);
 }
@@ -48,6 +53,8 @@ OaxImport::OaxImport(wxString filename)
  */
 OaxImport::~OaxImport()
 {
+	// delete map
+	delete m_map;
 }
 
 /**
@@ -64,6 +71,9 @@ Assembly* OaxImport::getAssembly()
  */
 void OaxImport::Load(wxZipInputStream& stream)
 {
+	// empty map
+	m_map->clear();
+	
 	// set pointer to first entry
 	m_ptrZipEntry = stream.GetNextEntry();
 	
