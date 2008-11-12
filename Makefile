@@ -8,7 +8,7 @@
 TARGET = gnr/GNR
 
 CC = g++
-CFLAGS = -g -finput-charset=iso-8859-1 #-D__ATHOS_DEBUG__ #-Wall -pedantic -ansi
+CFLAGS = -g -finput-charset=iso-8859-1 -D__ATHOS_DEBUG__ #-Wall -pedantic -ansi
 CXX = $(CC) $(CFLAGS) -Ignr/src/include
 LD = $(CC)
 
@@ -20,7 +20,7 @@ GL_LIBS = -lGL -lGLU
 
 all: $(TARGET)
 
-$(TARGET): gnr/bin/App.o gnr/bin/Assembly.o gnr/bin/AssemblyDataFrame.o gnr/bin/AssemblyMediator2D.o gnr/bin/AssemblyMediator3D.o gnr/bin/AssemblyMediator.o gnr/bin/CommandTransform.o gnr/bin/CreatePrimitiveEvent.o gnr/bin/DebugFrame.o gnr/bin/Face.o gnr/bin/GLCamera.o gnr/bin/GLCameraMediator2D.o gnr/bin/GLCameraMediator3D.o gnr/bin/GLCameraMediator.o gnr/bin/GLCanvas2D.o gnr/bin/GLCanvas3D.o gnr/bin/GLCanvas.o gnr/bin/GLCanvasPreview.o gnr/bin/GLNotifyEvent.o gnr/bin/GLScreenshot.o gnr/bin/HelpFrame.o gnr/bin/ImportFile.o gnr/bin/LibraryCategory.o gnr/bin/Library.o gnr/bin/LibraryEntry.o gnr/bin/LineDrawEvent.o gnr/bin/MainFrame.o gnr/bin/Material.o gnr/bin/MaterialLibrary.o gnr/bin/md5.o gnr/bin/Mediator.o gnr/bin/MouseController.o gnr/bin/NotifyEvent.o gnr/bin/OaxExport.o gnr/bin/OaxImport.o gnr/bin/ObjectImport.o gnr/bin/ObjOaxConverter.o gnr/bin/ObjOaxConverterFrame.o gnr/bin/OpxExport.o gnr/bin/OpxImport.o gnr/bin/PrimitiveCreator.o gnr/bin/Scene.o gnr/bin/TCoord.o gnr/bin/Tests.o gnr/bin/TreeControlEvent.o gnr/bin/TreeLibraryController.o gnr/bin/TreeLibraryCtrl.o gnr/bin/TreeLibraryItemData.o gnr/bin/TreePanelLibrary.o gnr/bin/TreePanelMyScene.o gnr/bin/TreeSceneController.o gnr/bin/TreeSceneCtrl.o gnr/bin/TreeSceneItemData.o gnr/bin/UndoRedo.o gnr/bin/Vertex.o gnr/bin/VNT.o gnr/bin/WallMediator.o
+$(TARGET): gnr/bin/App.o gnr/bin/Assembly.o gnr/bin/AssemblyDataFrame.o gnr/bin/AssemblyMediator2D.o gnr/bin/AssemblyMediator3D.o gnr/bin/AssemblyMediator.o gnr/bin/CommandTransform.o gnr/bin/CreateCuboidFrame.o gnr/bin/CreatePrimitiveEvent.o gnr/bin/DebugFrame.o gnr/bin/Face.o gnr/bin/GLCamera.o gnr/bin/GLCameraMediator2D.o gnr/bin/GLCameraMediator3D.o gnr/bin/GLCameraMediator.o gnr/bin/GLCanvas2D.o gnr/bin/GLCanvas3D.o gnr/bin/GLCanvas.o gnr/bin/GLCanvasPreview.o gnr/bin/GLNotifyEvent.o gnr/bin/GLScreenshot.o gnr/bin/HelpFrame.o gnr/bin/ImportFile.o gnr/bin/LibraryCategory.o gnr/bin/Library.o gnr/bin/LibraryEntry.o gnr/bin/LineDrawEvent.o gnr/bin/MainFrame.o gnr/bin/Material.o gnr/bin/MaterialLibrary.o gnr/bin/md5.o gnr/bin/Mediator.o gnr/bin/MouseController.o gnr/bin/NotifyEvent.o gnr/bin/OaxExport.o gnr/bin/OaxImport.o gnr/bin/ObjectImport.o gnr/bin/ObjOaxConverter.o gnr/bin/ObjOaxConverterFrame.o gnr/bin/OpxExport.o gnr/bin/OpxImport.o gnr/bin/PrimitiveCreator.o gnr/bin/ProgressFrame.o gnr/bin/Scene.o gnr/bin/TCoord.o gnr/bin/Tests.o gnr/bin/TreeControlEvent.o gnr/bin/TreeLibraryController.o gnr/bin/TreeLibraryCtrl.o gnr/bin/TreeLibraryItemData.o gnr/bin/TreePanelLibrary.o gnr/bin/TreePanelMyScene.o gnr/bin/TreeSceneController.o gnr/bin/TreeSceneCtrl.o gnr/bin/TreeSceneItemData.o gnr/bin/UndoRedo.o gnr/bin/Vertex.o gnr/bin/VNT.o gnr/bin/WallMediator.o
 	@echo ... LINKING ...
 	$(LD) $(WX_LOPTS) $(GL_LIBS) $^ -o $@
 	

@@ -48,23 +48,23 @@ Assembly* PrimitiveCreator::getPrimitive()
 void PrimitiveCreator::createCuboid(const Vertex& position, const Vertex& angles, const Vertex& dimension)
 {
 	m_primitive = new Assembly(wxT("noname"));
-
+	
 	//set it to atomic, is smallest part i'll produce
 	m_primitive->setType(IS_ATOMIC);
-
+	
 	// set position of the cuboid
 	m_primitive->setCuboid(position.getX(),position.getY(),position.getZ(),dimension.getX(),dimension.getY(),dimension.getZ());
-
+	
 	// set rotation of the cuboid
 	m_primitive->setPhi(angles.getX());
 	m_primitive->setTheta(angles.getY());
 	m_primitive->setRho(angles.getZ());
-
+	
 	// prepare points
 	float x = dimension.getX() / 2.0;
 	float y = dimension.getY() / 2.0;
 	float z = dimension.getZ() / 2.0;
-
+	
 	// create front face
 	Vertex topLeft(-x, y, z);
 	Vertex bottomLeft(-x, -y, z);
@@ -72,7 +72,7 @@ void PrimitiveCreator::createCuboid(const Vertex& position, const Vertex& angles
 	Vertex topRight(x, y, z);
 	Vertex normal(0, 0, 1);
 	m_primitive->addFace(*createFace(topLeft, bottomLeft, bottomRight, topRight, normal));
-
+	
 	// create right face
 	topLeft.setAll(x, y, z);
 	bottomLeft.setAll(x, -y, z);
@@ -80,7 +80,7 @@ void PrimitiveCreator::createCuboid(const Vertex& position, const Vertex& angles
 	topRight.setAll(x, y, -z);
 	normal.setAll(1, 0, 0);
 	m_primitive->addFace(*createFace(topLeft, bottomLeft, bottomRight, topRight, normal));
-
+	
 	// create back face
 	topLeft.setAll(x, y, -z);
 	bottomLeft.setAll(x, -y, -z);
@@ -88,7 +88,7 @@ void PrimitiveCreator::createCuboid(const Vertex& position, const Vertex& angles
 	topRight.setAll(-x, y, -z);
 	normal.setAll(0, 0, -1);
 	m_primitive->addFace(*createFace(topLeft, bottomLeft, bottomRight, topRight, normal));
-
+	
 	// create left face
 	topLeft.setAll(-x, y, -z);
 	bottomLeft.setAll(-x, -y, -z);
@@ -96,7 +96,7 @@ void PrimitiveCreator::createCuboid(const Vertex& position, const Vertex& angles
 	topRight.setAll(-x, y, z);
 	normal.setAll(-1, 0, 0);
 	m_primitive->addFace(*createFace(topLeft, bottomLeft, bottomRight, topRight, normal));
-
+	
 	// create upper face
 	topLeft.setAll(-x, y, -z);
 	bottomLeft.setAll(-x, y, z);
@@ -104,13 +104,13 @@ void PrimitiveCreator::createCuboid(const Vertex& position, const Vertex& angles
 	topRight.setAll(x, y, -z);
 	normal.setAll(0, 1, 0);
 	m_primitive->addFace(*createFace(topLeft, bottomLeft, bottomRight, topRight, normal));
-
+	
 	// create bottom face
 	bottomLeft.setAll(-x, -y, -z);
 	topLeft.setAll(-x, -y, z);
 	topRight.setAll(x, -y, z);
 	bottomRight.setAll(x, -y, -z);
-
+	
 	normal.setAll(0, -1, 0);
 	m_primitive->addFace(*createFace(topLeft, bottomLeft, bottomRight, topRight, normal));
 }
@@ -134,30 +134,30 @@ Face* PrimitiveCreator::createFace(Vertex& topLeft, Vertex& bottomLeft, Vertex& 
 {
 
 	Face* face = new Face();
-
+	
 	Vertex* vector = new Vertex(topLeft);
 	Vertex* normal = new Vertex(normale);
 	TCoord* tcoord = new TCoord(0, 1);
 	VNT vnt(vector, normal ,tcoord);
 	face->addVNT(vnt);
-
+	
 	vector = new Vertex(bottomLeft);
 	normal = new Vertex(normale);
 	tcoord = new TCoord(0, 0);
 	VNT vnt2(vector, normal, tcoord);
 	face->addVNT(vnt2);
-
+	
 	vector = new Vertex(bottomRight);
 	normal = new Vertex(normale);
 	tcoord = new TCoord(1, 0);
 	VNT vnt3(vector, normal,tcoord);
 	face->addVNT(vnt3);
-
+	
 	vector = new Vertex(topRight);
 	normal = new Vertex(normale);
 	tcoord = new TCoord(1, 1);
 	VNT vnt4(vector, normal, tcoord);
 	face->addVNT(vnt4);
-
+	
 	return face;
 }

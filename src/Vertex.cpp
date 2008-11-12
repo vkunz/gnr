@@ -18,7 +18,7 @@
  * constructor of Vertex
  */
 Vertex::Vertex():
-        m_x(0.0f), m_y(0.0f), m_z(0.0f), m_w(1.0f)
+		m_x(0.0f), m_y(0.0f), m_z(0.0f), m_w(1.0f)
 {
 }
 
@@ -30,7 +30,7 @@ Vertex::Vertex():
  * @param[in]		w	float w-position
  */
 Vertex::Vertex(float x, float y, float z, float w):
-        m_x(x), m_y(y), m_z(z), m_w(w)
+		m_x(x), m_y(y), m_z(z), m_w(w)
 {
 }
 
@@ -39,9 +39,9 @@ Vertex::Vertex(float x, float y, float z, float w):
  * @param[in]		v	vertex (copy-constructor)
  */
 Vertex::Vertex(const Vertex& v):
-        m_x(v.m_x), m_y(v.m_y), m_z(v.m_z)
+		m_x(v.m_x), m_y(v.m_y), m_z(v.m_z)
 {
-    // we do not copy the w-coordinate by default
+	// we do not copy the w-coordinate by default
 }
 
 /**
@@ -49,7 +49,7 @@ Vertex::Vertex(const Vertex& v):
  */
 Vertex::~Vertex()
 {
-    // do nothing
+	// do nothing
 }
 
 /**
@@ -58,7 +58,7 @@ Vertex::~Vertex()
  */
 float Vertex::getX() const
 {
-    return m_x;
+	return m_x;
 }
 
 /**
@@ -67,7 +67,7 @@ float Vertex::getX() const
  */
 float Vertex::getY() const
 {
-    return m_y;
+	return m_y;
 }
 
 /**
@@ -76,7 +76,7 @@ float Vertex::getY() const
  */
 float Vertex::getZ() const
 {
-    return m_z;
+	return m_z;
 }
 
 /**
@@ -96,9 +96,9 @@ float Vertex::getW() const
  */
 void Vertex::getAll(float& x, float& y, float& z) const
 {
-    x = m_x;
-    y = m_y;
-    z = m_z;
+	x = m_x;
+	y = m_y;
+	z = m_z;
 }
 
 /**
@@ -110,10 +110,10 @@ void Vertex::getAll(float& x, float& y, float& z) const
  */
 void Vertex::getAll(float& x, float& y, float& z, float& w) const
 {
-    x = m_x;
-    y = m_y;
-    z = m_z;
-    w = m_w;
+	x = m_x;
+	y = m_y;
+	z = m_z;
+	w = m_w;
 }
 
 /**
@@ -122,7 +122,7 @@ void Vertex::getAll(float& x, float& y, float& z, float& w) const
  */
 void Vertex::setX(float x)
 {
-    m_x = x;
+	m_x = x;
 }
 
 /**
@@ -131,7 +131,7 @@ void Vertex::setX(float x)
  */
 void Vertex::setY(float y)
 {
-    m_y = y;
+	m_y = y;
 }
 
 /**
@@ -140,7 +140,7 @@ void Vertex::setY(float y)
  */
 void Vertex::setZ(float z)
 {
-    m_z = z;
+	m_z = z;
 }
 
 /**
@@ -149,7 +149,7 @@ void Vertex::setZ(float z)
  */
 void Vertex::setW(float w)
 {
-    m_w = w;
+	m_w = w;
 }
 
 
@@ -161,9 +161,9 @@ void Vertex::setW(float w)
  */
 void Vertex::setAll(float x, float y, float z)
 {
-    m_x = x;
-    m_y = y;
-    m_z = z;
+	m_x = x;
+	m_y = y;
+	m_z = z;
 }
 
 /**
@@ -175,10 +175,10 @@ void Vertex::setAll(float x, float y, float z)
  */
 void Vertex::setAll(float x, float y, float z, float w)
 {
-    m_x = x;
-    m_y = y;
-    m_z = z;
-    m_w = w;
+	m_x = x;
+	m_y = y;
+	m_z = z;
+	m_w = w;
 }
 
 // * get delta x to second vertex
@@ -215,9 +215,9 @@ void Vertex::setAll(float x, float y, float z, float w)
  */
 Vertex Vertex::operator + (const Vertex& v) const
 {
-    Vertex temp(*this);
-    temp += v;
-    return temp;
+	Vertex temp(*this);
+	temp += v;
+	return temp;
 }
 
 /**
@@ -227,9 +227,9 @@ Vertex Vertex::operator + (const Vertex& v) const
  */
 Vertex Vertex::operator - (const Vertex& v) const
 {
-    Vertex temp(*this);
-    temp -= v;
-    return temp;
+	Vertex temp(*this);
+	temp -= v;
+	return temp;
 }
 
 /**
@@ -239,12 +239,12 @@ Vertex Vertex::operator - (const Vertex& v) const
  */
 Vertex Vertex::operator * (float r) const
 {
-    Vertex temp(*this);
-    temp.m_x *= r;
-    temp.m_y *= r;
-    temp.m_z *= r;
-
-    return temp;
+	Vertex temp(*this);
+	temp.m_x *= r;
+	temp.m_y *= r;
+	temp.m_z *= r;
+	
+	return temp;
 }
 
 /**
@@ -254,14 +254,14 @@ Vertex Vertex::operator * (float r) const
  */
 Vertex Vertex::operator * (const Vertex& v) const
 {
-    Vertex tmp
-    (
-        m_y * v.m_z  -  m_z * v.m_y,
-        m_z * v.m_x  -  m_x * v.m_z,
-        m_x * v.m_y  -  m_y * v.m_x
-    );
-
-    return tmp;
+	Vertex tmp
+	(
+	    m_y * v.m_z  -  m_z * v.m_y,
+	    m_z * v.m_x  -  m_x * v.m_z,
+	    m_x * v.m_y  -  m_y * v.m_x
+	);
+	
+	return tmp;
 }
 
 /**
@@ -269,9 +269,9 @@ Vertex Vertex::operator * (const Vertex& v) const
  * @param[in]		v		second vertex
  * @return		float		dot product of both vertices
  */
-float Vertex::operator ^ (const Vertex& v) const
+float Vertex::operator ^(const Vertex& v) const
 {
-    return m_x * v.m_x  +  m_y * v.m_y  + m_z * v.m_z;
+	return m_x * v.m_x  +  m_y * v.m_y  + m_z * v.m_z;
 }
 
 /**
@@ -281,10 +281,10 @@ float Vertex::operator ^ (const Vertex& v) const
  */
 Vertex& Vertex::operator -= (const Vertex& v)
 {
-    m_x -= v.m_x;
-    m_y -= v.m_y;
-    m_z -= v.m_z;
-    return *this;
+	m_x -= v.m_x;
+	m_y -= v.m_y;
+	m_z -= v.m_z;
+	return *this;
 }
 
 /**
@@ -294,11 +294,11 @@ Vertex& Vertex::operator -= (const Vertex& v)
  */
 Vertex& Vertex::operator += (const Vertex& v)
 {
-    m_x += v.m_x;
-    m_y += v.m_y;
-    m_z += v.m_z;
-
-    return *this;
+	m_x += v.m_x;
+	m_y += v.m_y;
+	m_z += v.m_z;
+	
+	return *this;
 }
 
 /**
@@ -308,12 +308,12 @@ Vertex& Vertex::operator += (const Vertex& v)
  */
 Vertex& Vertex::operator = (const Vertex& v)
 {
-    m_x = v.m_x;
-    m_y = v.m_y;
-    m_z = v.m_z;
-    m_w = v.m_w;
-
-    return *this;
+	m_x = v.m_x;
+	m_y = v.m_y;
+	m_z = v.m_z;
+	m_w = v.m_w;
+	
+	return *this;
 }
 
 /**
@@ -322,7 +322,7 @@ Vertex& Vertex::operator = (const Vertex& v)
  */
 float Vertex::length() const
 {
-    return sqrt(m_x * m_x  +  m_y * m_y  +  m_z * m_z);
+	return sqrt(m_x * m_x  +  m_y * m_y  +  m_z * m_z);
 }
 
 /**
@@ -331,16 +331,16 @@ float Vertex::length() const
  */
 bool Vertex::normalize()
 {
-    float len = length();
-    if (fabs(len) < 2.0f * std::numeric_limits<float>::epsilon())
-    {
-        return false;
-    }
-    m_x = m_x / len;
-    m_y = m_y / len;
-    m_z = m_z / len;
-
-    return true;
+	float len = length();
+	if (fabs(len) < 2.0f * std::numeric_limits<float>::epsilon())
+	{
+		return false;
+	}
+	m_x = m_x / len;
+	m_y = m_y / len;
+	m_z = m_z / len;
+	
+	return true;
 }
 
 /**
@@ -351,27 +351,27 @@ bool Vertex::normalize()
  */
 void Vertex::rotate(float alpha, float beta, float gamma)
 {
-    // convert from deg to rad
-    double
-		alpha_rad = alpha * DEG2RAD,
-		beta_rad = beta * DEG2RAD,
-		gamma_rad = gamma * DEG2RAD;
-
-    double
-		sa = sin(alpha_rad), ca = cos(alpha_rad),
-		sb = sin(beta_rad),  cb = cos(beta_rad),
-        sg = sin(gamma_rad), cg = cos(gamma_rad);
-
-    // calculate the new values
-    float
-		newx = m_x * ca * cb + m_y * (ca * sb * sg  -  sa * cg)  +  m_z * (ca * sb * cg  +  sa * sg),
-		newy =   m_x * sa * cb + m_y * (sa * sb * sg  +  ca * cg)  +  m_z * (sa * sb * cg - ca * sg),
-        newz =  -m_x * sb  +  m_y * cb * sg  +  m_z * cb * cg;
-
-    // write back the new values
-    m_x = newx;
-    m_y = newy;
-    m_z = newz;
+	// convert from deg to rad
+	double
+	alpha_rad = alpha * DEG2RAD,
+	            beta_rad = beta * DEG2RAD,
+	                       gamma_rad = gamma * DEG2RAD;
+	                       
+	double
+	sa = sin(alpha_rad), ca = cos(alpha_rad),
+	                          sb = sin(beta_rad),  cb = cos(beta_rad),
+	                                                    sg = sin(gamma_rad), cg = cos(gamma_rad);
+	                                                    
+	// calculate the new values
+	float
+	newx = m_x * ca * cb + m_y * (ca * sb * sg  -  sa * cg)  +  m_z * (ca * sb * cg  +  sa * sg),
+	       newy =   m_x * sa * cb + m_y * (sa * sb * sg  +  ca * cg)  +  m_z * (sa * sb * cg - ca * sg),
+	                newz =  -m_x * sb  +  m_y * cb * sg  +  m_z * cb * cg;
+	                
+	// write back the new values
+	m_x = newx;
+	m_y = newy;
+	m_z = newz;
 }
 
 /**
@@ -380,7 +380,7 @@ void Vertex::rotate(float alpha, float beta, float gamma)
  */
 void Vertex::rotate(const Vertex& angles)
 {
-    rotate(angles.getX(), angles.getY(), angles.getZ());
+	rotate(angles.getX(), angles.getY(), angles.getZ());
 }
 
 /**
@@ -389,16 +389,16 @@ void Vertex::rotate(const Vertex& angles)
  */
 wxString Vertex::ToString()
 {
-    wxString tmp;
-
-    tmp << wxT("x: ");
-    tmp << this->m_x;
-    tmp << wxT("\ty: ");
-    tmp << this->m_y;
-    tmp << wxT("\tz: ");
-    tmp << this->m_z;
-
-    return tmp;
+	wxString tmp;
+	
+	tmp << wxT("x: ");
+	tmp << this->m_x;
+	tmp << wxT("\ty: ");
+	tmp << this->m_y;
+	tmp << wxT("\tz: ");
+	tmp << this->m_z;
+	
+	return tmp;
 }
 
 /**
@@ -406,7 +406,7 @@ wxString Vertex::ToString()
  */
 void Vertex::draw_v() const
 {
-    glVertex3f(m_x, m_y, m_z);
+	glVertex3f(m_x, m_y, m_z);
 }
 
 /**
@@ -414,7 +414,7 @@ void Vertex::draw_v() const
  */
 void Vertex::draw_n() const
 {
-    glNormal3f(m_x, m_y, m_z);
+	glNormal3f(m_x, m_y, m_z);
 }
 
 /**
@@ -423,7 +423,7 @@ void Vertex::draw_n() const
  */
 ostream& operator<< (ostream& out, const Vertex& v)
 {
-    out << std::setprecision(8) << std::fixed << v.m_x << " " << v.m_y << " " << v.m_z;
-    return out;
+	out << std::setprecision(8) << std::fixed << v.m_x << " " << v.m_y << " " << v.m_z;
+	return out;
 }
 
