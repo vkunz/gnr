@@ -338,12 +338,9 @@ void App::OnGNREvent(NotifyEvent& event)
 		m_Scene->deleteTrashAssemblies();
 		break;
 	case CREATECUBOID:
-	{
-		CreateCuboidFrame* cubFrame = new CreateCuboidFrame(m_MainFrame);
-		cubFrame->Show();
+		createPrimitve(event);
 		break;
-	}
-	
+		
 #if defined(__ATHOS_DEBUG__)
 	case DEBUG1:
 		m_Tests->sizeXsizeLoopsLoadClean(m_Scene,10,10);
@@ -651,6 +648,16 @@ void App::createScreenshot(wxString filename)
 {
 	m_Canvas3D->setActive();
 	GLScreenshot scr(filename);
+}
+
+/**
+ * handle primitive-creation
+ * @param[in]       event        event send on menu-klick
+ */
+void App::createPrimitve(NotifyEvent& event)
+{
+	CreateCuboidFrame* cubFrame = new CreateCuboidFrame(m_MainFrame);
+	cubFrame->Show();
 }
 
 /**

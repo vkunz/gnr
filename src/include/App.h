@@ -69,6 +69,7 @@ private:
 	void OBJExport(wxString filename);
 	
 	void createScreenshot(wxString filename);
+	void createPrimitve(NotifyEvent& event);
 	
 	void cancelConvertion();
 	void ObjOaxConversion(AssemblyData* data);
