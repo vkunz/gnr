@@ -237,19 +237,19 @@ MainFrame::MainFrame(wxWindow* parent)
 	ParentMenu_File->Append(m_MenuItem[idMenuNewRoom]);
 	ParentMenu_File->AppendSeparator();
 	
-	m_MenuItem[idMenuOpxOpen]   = new wxMenuItem(ParentMenu_File, idMenuOpxOpen, _("OPX &ffnen\tCTRL+O"), _("vorhandene Datei ffnen..."), wxITEM_NORMAL);
+	m_MenuItem[idMenuOpxOpen]   = new wxMenuItem(ParentMenu_File, idMenuOpxOpen, _("OPX &" Ouml "ffnen\tCTRL+O"), _("vorhandene Datei " ouml "ffnen..."), wxITEM_NORMAL);
 	ParentMenu_File->Append(m_MenuItem[idMenuOpxOpen]);
 	m_MenuItem[idMenuOpxSave]   = new wxMenuItem(ParentMenu_File, idMenuOpxSave, _("OPX &Speichern\tCTRL+S"), _("Datei speichern..."), wxITEM_NORMAL);
 	ParentMenu_File->Append(m_MenuItem[idMenuOpxSave]);
 	ParentMenu_File->AppendSeparator();
 	
-	m_MenuItem[idMenuQuit]      = new wxMenuItem(ParentMenu_File, idMenuQuit, _(" Schlieen\tALT+F4"), _(" beenden..."), wxITEM_NORMAL);
+	m_MenuItem[idMenuQuit]      = new wxMenuItem(ParentMenu_File, idMenuQuit, _("Schlie" szlig "en\tALT+F4"), _(" beenden..."), wxITEM_NORMAL);
 	ParentMenu_File->Append(m_MenuItem[idMenuQuit]);
 	MenuBar->Append(ParentMenu_File, _("&Datei"));
 	
 	//build edit menu
 	ParentMenu_Edit = new wxMenu();
-	m_MenuItem[idMenuUndo] = new wxMenuItem(ParentMenu_Edit, idMenuUndo, _("&Rckgnig\tCTRL+Z"), _("Aktion rckgnig machen..."), wxITEM_NORMAL);
+	m_MenuItem[idMenuUndo] = new wxMenuItem(ParentMenu_Edit, idMenuUndo, _("&R" uuml "ckg" auml "nig\tCTRL+Z"), _("Aktion r" uuml "ckg" auml "nig machen..."), wxITEM_NORMAL);
 	ParentMenu_Edit->Append(m_MenuItem[idMenuUndo]);
 	m_MenuItem[idMenuRedo] = new wxMenuItem(ParentMenu_Edit, idMenuRedo, _("&Wiederherstellen\tCTRL+Y"), _("Aktion wiederherstellen..."), wxITEM_NORMAL);
 	ParentMenu_Edit->Append(m_MenuItem[idMenuRedo]);
@@ -259,7 +259,7 @@ MainFrame::MainFrame(wxWindow* parent)
 	ParentMenu_Edit->Append(m_MenuItem[idMenuDeleteObject]);
 	m_MenuItem[idMenuCutObject] = new wxMenuItem(ParentMenu_Edit, idMenuCutObject, _("Objekte &ausschneiden\tCTRL+X"), _("Objekte ausschneiden..."), wxITEM_NORMAL);
 	ParentMenu_Edit->Append(m_MenuItem[idMenuCutObject]);
-	m_MenuItem[idMenuInsertObject] = new wxMenuItem(ParentMenu_Edit, idMenuInsertObject, _("Objekte &einfgen\tCTRL+V"), _("Objekte einfgen..."), wxITEM_NORMAL);
+	m_MenuItem[idMenuInsertObject] = new wxMenuItem(ParentMenu_Edit, idMenuInsertObject, _("Objekte &einf" uuml "gen\tCTRL+V"), _("Objekte einf" uuml "gen..."), wxITEM_NORMAL);
 	ParentMenu_Edit->Append(m_MenuItem[idMenuInsertObject]);
 	m_MenuItem[idMenuCopyObject] = new wxMenuItem(ParentMenu_Edit, idMenuCopyObject, _("Objekte k&opieren\tCTRL+C"), _("Objekte kopieren..."), wxITEM_NORMAL);
 	ParentMenu_Edit->Append(m_MenuItem[idMenuCopyObject]);
@@ -269,7 +269,7 @@ MainFrame::MainFrame(wxWindow* parent)
 	
 	m_MenuItem[idMenuHideObject] = new wxMenuItem(ParentMenu_Edit, idMenuHideObject, _("Objekte &verstecken\tCTRL+H"), _("Objekte verstecken..."), wxITEM_NORMAL);
 	ParentMenu_Edit->Append(m_MenuItem[idMenuHideObject]);
-	m_MenuItem[idMenuResetObject] = new wxMenuItem(ParentMenu_Edit, idMenuResetObject, _("Objekte &zurcksetzen\tCTRL+R"), _("Objekte zurcksetzen..."), wxITEM_NORMAL);
+	m_MenuItem[idMenuResetObject] = new wxMenuItem(ParentMenu_Edit, idMenuResetObject, _("Objekte &zur" uuml "cksetzen\tCTRL+R"), _("Objekte zur" uuml "cksetzen..."), wxITEM_NORMAL);
 	ParentMenu_Edit->Append(m_MenuItem[idMenuResetObject]);
 	MenuBar->Append(ParentMenu_Edit, _("&Bearbeiten"));
 	
@@ -277,7 +277,7 @@ MainFrame::MainFrame(wxWindow* parent)
 	ParentMenu_Export = new wxMenu();
 	m_MenuItem[idMenuObjExport] = new wxMenuItem(ParentMenu_Export, idMenuObjExport, _("OBJ E&xportieren\tALT+O"), _("Object-Datei exportieren..."), wxITEM_NORMAL);
 	ParentMenu_Export->Append(m_MenuItem[idMenuObjExport]);
-	m_MenuItem[idMenuOnScreenshot] = new wxMenuItem(ParentMenu_Export, idMenuOnScreenshot, _("&Screenshot erstellen\tF12"), _("Screenshot der 3D-Szene erstellen..."), wxITEM_NORMAL);
+	m_MenuItem[idMenuOnScreenshot] = new wxMenuItem(ParentMenu_Export, idMenuOnScreenshot, _("&Screenshot erstellen"), _("Screenshot der 3D-Szene erstellen..."), wxITEM_NORMAL);
 	ParentMenu_Export->Append(m_MenuItem[idMenuOnScreenshot]);
 	MenuBar->Append(ParentMenu_Export, _("E&xportieren"));
 	
@@ -297,7 +297,7 @@ MainFrame::MainFrame(wxWindow* parent)
 	ParentMenu_Camera->Append(m_MenuItem[idMenuZoomOut]);
 	ParentMenu_Camera->AppendSeparator();
 	
-	m_MenuItem[idMenuCameraReset] = new wxMenuItem(ParentMenu_Camera, idMenuCameraReset, _("Aus&ganszustand\tHOME"), _("Kamera in Ausganszustand zurcksetzen..."), wxITEM_NORMAL);
+	m_MenuItem[idMenuCameraReset] = new wxMenuItem(ParentMenu_Camera, idMenuCameraReset, _("Aus&ganszustand\tHOME"), _("Kamera in Ausganszustand zur" uuml "cksetzen..."), wxITEM_NORMAL);
 	ParentMenu_Camera->Append(m_MenuItem[idMenuCameraReset]);
 	MenuBar->Append(ParentMenu_Camera, _("&Kamera"));
 	
@@ -315,7 +315,7 @@ MainFrame::MainFrame(wxWindow* parent)
 	ParentMenu_Settings->Append(m_MenuItem[idMenuRotateXZ]);
 	m_MenuItem[idMenuRotateXY] = new wxMenuItem(ParentMenu_Settings, idMenuRotateXY, _("R&otieren XY\tF8"), _("Objekt rotieren an X- und Y-Achse..."), wxITEM_RADIO);
 	ParentMenu_Settings->Append(m_MenuItem[idMenuRotateXY]);
-	m_MenuItem[idMenuDrawWall] = new wxMenuItem(ParentMenu_Settings, idMenuDrawWall, _("&Wnde erstellen\tF9"), _("Wnde im 2D-Modus erstellen..."), wxITEM_RADIO);
+	m_MenuItem[idMenuDrawWall] = new wxMenuItem(ParentMenu_Settings, idMenuDrawWall, _("&W" auml "nde erstellen\tF9"), _("W" auml "nde im 2D-Modus erstellen..."), wxITEM_RADIO);
 	ParentMenu_Settings->Append(m_MenuItem[idMenuDrawWall]);
 	m_MenuItem[idMenuMeasure] = new wxMenuItem(ParentMenu_Settings, idMenuMeasure, _("&Messen\tF10"), _("Messen im 2D-Modus..."), wxITEM_RADIO);
 	ParentMenu_Settings->Append(m_MenuItem[idMenuMeasure]);
@@ -323,7 +323,7 @@ MainFrame::MainFrame(wxWindow* parent)
 	
 	m_MenuItem[idMenuShadows] = new wxMenuItem(ParentMenu_Settings, idMenuShadows, _("&Schatten aktivieren\tF11"), _("Schatten aktivieren..."), wxITEM_CHECK);
 	ParentMenu_Settings->Append(m_MenuItem[idMenuShadows]);
-	m_MenuItem[idMenuCanvas2DActive] = new wxMenuItem(ParentMenu_Settings, idMenuCanvas2DActive, _("&Draufsicht aktivieren"), _("Draufsicht aktivieren..."), wxITEM_CHECK);
+	m_MenuItem[idMenuCanvas2DActive] = new wxMenuItem(ParentMenu_Settings, idMenuCanvas2DActive, _("&Draufsicht aktivieren\tF12"), _("Draufsicht aktivieren..."), wxITEM_CHECK);
 	ParentMenu_Settings->Append(m_MenuItem[idMenuCanvas2DActive]);
 	
 	MenuBar->Append(ParentMenu_Settings, _("&Einstellungen"));
@@ -332,17 +332,17 @@ MainFrame::MainFrame(wxWindow* parent)
 	ParentMenu_Groups = new wxMenu();
 	m_MenuItem[idMenuGroup] = new wxMenuItem(ParentMenu_Groups, idMenuGroup, _("&Gruppe erstellen\tCTRL+G"), _("Neue Gruppe erstellen..."), wxITEM_NORMAL);
 	ParentMenu_Groups->Append(m_MenuItem[idMenuGroup]);
-	m_MenuItem[idMenuUngroup] = new wxMenuItem(ParentMenu_Groups, idMenuUngroup, _("Gruppe &auflsen\tCTRL+F"), _("Gruppe auflsen..."), wxITEM_NORMAL);
+	m_MenuItem[idMenuUngroup] = new wxMenuItem(ParentMenu_Groups, idMenuUngroup, _("Gruppe &aufl" ouml "sen\tCTRL+F"), _("Gruppe aufl" ouml "sen..."), wxITEM_NORMAL);
 	ParentMenu_Groups->Append(m_MenuItem[idMenuUngroup]);
 	MenuBar->Append(ParentMenu_Groups, _("Gr&uppen"));
 	
 	//build create menu
 	ParentMenu_Create = new wxMenu();
-	m_MenuItem[idMenuCreateCylinder] = new wxMenuItem(ParentMenu_Create, idMenuCreateCylinder, _("Zylinder erstellen\tCTRL+2"), _("Zylinder erstellen..."), wxITEM_NORMAL);
+	m_MenuItem[idMenuCreateCylinder] = new wxMenuItem(ParentMenu_Create, idMenuCreateCylinder, _("Zylinder erstellen\tCTRL+1"), _("Zylinder erstellen..."), wxITEM_NORMAL);
 	ParentMenu_Create->Append(m_MenuItem[idMenuCreateCylinder]);
-	m_MenuItem[idMenuCreateCuboid] = new wxMenuItem(ParentMenu_Create, idMenuCreateCuboid, _("Kubus erstellen\tCTRL+3"), _("Kubus erstellen..."), wxITEM_NORMAL);
+	m_MenuItem[idMenuCreateCuboid] = new wxMenuItem(ParentMenu_Create, idMenuCreateCuboid, _("Kubus erstellen\tCTRL+2"), _("Kubus erstellen..."), wxITEM_NORMAL);
 	ParentMenu_Create->Append(m_MenuItem[idMenuCreateCuboid]);
-	m_MenuItem[idMenuCreateSphere] = new wxMenuItem(ParentMenu_Create, idMenuCreateSphere, _("Kugel erstellen\tCTRL+5"), _("Kugel erstellen..."), wxITEM_NORMAL);
+	m_MenuItem[idMenuCreateSphere] = new wxMenuItem(ParentMenu_Create, idMenuCreateSphere, _("Kugel erstellen\tCTRL+3"), _("Kugel erstellen..."), wxITEM_NORMAL);
 	ParentMenu_Create->Append(m_MenuItem[idMenuCreateSphere]);
 	MenuBar->Append(ParentMenu_Create, _("&Primitive"));
 	
@@ -350,7 +350,7 @@ MainFrame::MainFrame(wxWindow* parent)
 	ParentMenu_Help = new wxMenu();
 	m_MenuItem[idMenuHelp] = new wxMenuItem(ParentMenu_Help, idMenuHelp, _("&Hilfe\tF1"), _("Hilfe zur Anwendung"), wxITEM_NORMAL);
 	ParentMenu_Help->Append(m_MenuItem[idMenuHelp]);
-	m_MenuItem[idMenuAbout] = new wxMenuItem(ParentMenu_Help, idMenuAbout, _("&ber\tALT+F1"), _("Informationen ber ..."), wxITEM_NORMAL);
+	m_MenuItem[idMenuAbout] = new wxMenuItem(ParentMenu_Help, idMenuAbout, _("&" Uuml "ber\tALT+F1"), _("Informationen " uuml "ber ..."), wxITEM_NORMAL);
 	ParentMenu_Help->Append(m_MenuItem[idMenuAbout]);
 	MenuBar->Append(ParentMenu_Help, _("&Hilfe"));
 	
@@ -383,19 +383,19 @@ MainFrame::MainFrame(wxWindow* parent)
 	
 	//build toolbar first 3 buttons
 	m_ToolBarItem[btn_room_new] = ToolBar1->AddTool(btn_room_new, _("Raum erstellen"), wxBitmap(wxIcon(button_room_new_xpm)), wxNullBitmap, wxITEM_NORMAL, _("Raum erstellen   [CTRL+N]"), _("Raum erstellen"));
-	m_ToolBarItem[btn_room_open] = ToolBar1->AddTool(btn_room_open, _("Raum ffnen"), wxBitmap(wxIcon(button_room_open_xpm)), wxNullBitmap, wxITEM_NORMAL, _("Raum ffnen"), _("Raum ffnen"));
+	m_ToolBarItem[btn_room_open] = ToolBar1->AddTool(btn_room_open, _("Raum " ouml "ffnen"), wxBitmap(wxIcon(button_room_open_xpm)), wxNullBitmap, wxITEM_NORMAL, _("Raum " ouml "ffnen"), _("Raum " ouml "ffnen"));
 	m_ToolBarItem[btn_room_save] = ToolBar1->AddTool(btn_room_save, _("Raum speichern"), wxBitmap(wxIcon(button_room_save_xpm)), wxNullBitmap, wxITEM_NORMAL, _("Raum speichern"), _("Raum speichern"));
 	ToolBar1->AddSeparator();
 	
 	//undo & redo buttons
-	m_ToolBarItem[btn_undo] = ToolBar1->AddTool(btn_undo, _("Rckgngig"), wxBitmap(wxIcon(button_undo_xpm)), wxNullBitmap, wxITEM_NORMAL, _("Rckgngig   [CTRL+Z]"), _("Rckgngig"));
+	m_ToolBarItem[btn_undo] = ToolBar1->AddTool(btn_undo, _("R" uuml "ckg" auml "ngig"), wxBitmap(wxIcon(button_undo_xpm)), wxNullBitmap, wxITEM_NORMAL, _("R" uuml "ckg" auml "ngig   [CTRL+Z]"), _("R" uuml "ckg" auml "ngig"));
 	m_ToolBarItem[btn_undo]->Enable(false);
 	m_ToolBarItem[btn_redo] = ToolBar1->AddTool(btn_redo, _("Wiederherstellen"), wxBitmap(wxIcon(button_redo_xpm)), wxNullBitmap, wxITEM_NORMAL, _("Wiederherstellen   [CTRL+Y]"), _("Wiederherstellen"));
 	m_ToolBarItem[btn_redo]->Enable(false);
 	ToolBar1->AddSeparator();
 	
 	//object reset
-	m_ToolBarItem[btn_reset_object] = ToolBar1->AddTool(btn_reset_object, _("Selektierte Objekte wieder zurcksetzen"), wxBitmap(wxIcon(button_reset_object_xpm)), wxNullBitmap, wxITEM_NORMAL, _("Selektierte Objekte wieder zurcksetzen   [CTRL+R]"), _("Selektierte Objekte wieder zurcksetzen"));
+	m_ToolBarItem[btn_reset_object] = ToolBar1->AddTool(btn_reset_object, _("Selektierte Objekte wieder zur" uuml "cksetzen"), wxBitmap(wxIcon(button_reset_object_xpm)), wxNullBitmap, wxITEM_NORMAL, _("Selektierte Objekte wieder zur" uuml "cksetzen   [CTRL+R]"), _("Selektierte Objekte wieder zur" uuml "cksetzen"));
 	ToolBar1->AddSeparator();
 	
 	//move, rotate and wall drawing mode buttons
@@ -403,7 +403,7 @@ MainFrame::MainFrame(wxWindow* parent)
 	m_ToolBarItem[btn_move_xy]      = ToolBar1->AddTool(btn_move_xy, _("Verschieben in X-Y-Richtung"), wxBitmap(wxIcon(button_move_xy_xpm)), wxNullBitmap, wxITEM_RADIO, _("Verschieben in X-Y-Richtung   [F6]"), _("Verschieben in X-Y-Richtung"));
 	m_ToolBarItem[btn_rotate_xz]    = ToolBar1->AddTool(btn_rotate_xz, _("Rotieren auf X-Z-Achsen"), wxBitmap(wxIcon(button_world_rotate_xz_xpm)), wxNullBitmap, wxITEM_RADIO, _("Rotieren auf X-Z-Achsen   [F7]"), _("Rotieren auf X-Z-Achsen"));
 	m_ToolBarItem[btn_rotate_xy]    = ToolBar1->AddTool(btn_rotate_xy, _("Rotieren auf X-Y-Achsen"), wxBitmap(wxIcon(button_world_rotate_xy_xpm)), wxNullBitmap, wxITEM_RADIO, _("Rotieren auf X-Y-Achsen   [F8]"), _("Rotieren auf X-Y-Achsen"));
-	m_ToolBarItem[btn_draw_walls]   = ToolBar1->AddTool(btn_draw_walls, _("Wnde zeichnen"), wxBitmap(wxIcon(button_draw_walls_xpm)), wxNullBitmap, wxITEM_RADIO, _("Wnde zeichnen   [F9]"), _("Wnde zeichnen"));
+	m_ToolBarItem[btn_draw_walls]   = ToolBar1->AddTool(btn_draw_walls, _("W" auml "nde zeichnen"), wxBitmap(wxIcon(button_draw_walls_xpm)), wxNullBitmap, wxITEM_RADIO, _("W" auml "nde zeichnen   [F9]"), _("Wnde zeichnen"));
 	m_ToolBarItem[btn_measure]      = ToolBar1->AddTool(btn_measure, _("Messen"), wxBitmap(wxIcon(button_ruler_xpm)), wxNullBitmap, wxITEM_RADIO, _("Messen [F10]"), _("Messen"));
 	ToolBar1->AddSeparator();
 	

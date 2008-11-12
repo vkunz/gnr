@@ -436,7 +436,7 @@ void App::OnGLEvent(GLNotifyEvent& event)
 			//show warning to ungroup
 			else
 			{
-				wxMessageBox(wxT("Bitte degruppieren Sie die Objekte zuerst!"),wxT("Aktion nicht möglich"),wxOK);
+				wxMessageBox(wxT("Bitte degruppieren Sie die Objekte zuerst!"),wxT("Aktion nicht m" ouml "glich"),wxOK);
 			}
 		}
 	}

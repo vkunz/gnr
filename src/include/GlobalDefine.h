@@ -43,4 +43,12 @@
 #define SHADOWS_DEFAULT      false
 #define SNAP_TO_GRID_DEFAULT  true
 
+#define     Auml      "\u00C4"
+#define     Ouml      "\u00D6"
+#define     Uuml      "\u00DC"
+#define     auml      "\u00E4"
+#define     ouml      "\u00F6"
+#define     uuml      "\u00FC"
+#define     szlig     "\u00DF"
+
 #endif // ENUM_H

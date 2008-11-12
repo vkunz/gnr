@@ -111,7 +111,9 @@
 		<Unit filename="src\CommandTransform.cpp" />
 		<Unit filename="src\CreateCuboidFrame.cpp" />
 		<Unit filename="src\CreatePrimitiveEvent.cpp" />
-		<Unit filename="src\DebugFrame.cpp" />
+		<Unit filename="src\DebugFrame.cpp">
+			<Option target="Debug" />
+		</Unit>
 		<Unit filename="src\Face.cpp" />
 		<Unit filename="src\GLCamera.cpp" />
 		<Unit filename="src\GLCameraMediator.cpp" />
@@ -172,7 +174,9 @@
 		<Unit filename="src\include\CommandTransform.h" />
 		<Unit filename="src\include\CreateCuboidFrame.h" />
 		<Unit filename="src\include\CreatePrimitiveEvent.h" />
-		<Unit filename="src\include\DebugFrame.h" />
+		<Unit filename="src\include\DebugFrame.h">
+			<Option target="Debug" />
+		</Unit>
 		<Unit filename="src\include\Enum.h" />
 		<Unit filename="src\include\ExportFile.h" />
 		<Unit filename="src\include\Face.h" />

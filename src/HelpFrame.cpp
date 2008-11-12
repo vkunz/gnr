@@ -18,6 +18,7 @@
 #include "wx/wxhtml.h"
 #include "wx/statline.h"
 
+#include "GlobalDefine.h"
 
 #if defined(__ATHOS_DEBUG__)
 #include <wx/log.h>
@@ -70,7 +71,7 @@ HelpFrame::HelpFrame()
 	}
 	else
 	{
-		wxMessageBox(wxT("Die Hilfe scheint wohl gelöscht worden zu sein!"),wxT("Keine Hilfe verfügbar..."));
+		wxMessageBox(wxT("Die Hilfe scheint wohl gel" ouml "scht worden zu sein!"),wxT("Keine Hilfe verf" uuml "gbar..."));
 	}
 }
 

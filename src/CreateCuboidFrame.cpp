@@ -78,7 +78,7 @@ CreateCuboidFrame::CreateCuboidFrame(wxWindow* parent,wxWindowID id,const wxPoin
 	StaticText1 = new wxStaticText(m_panel, ID_STATICTEXT1, _("Breite"), wxPoint(56,30), wxDefaultSize, 0, _T("ID_STATICTEXT1"));
 	m_spcWidth = new wxSpinCtrl(m_panel, idSpcWidth, minSize, wxPoint(128,25), wxSize(168,24), 0, SIZE_MINIMUM_VALUE, SIZE_MAXIMUM_VALUE, SIZE_MINIMUM_VALUE, _T("idSpcWidth"));
 	
-	StaticText2 = new wxStaticText(m_panel, ID_STATICTEXT2, _("Höhe"), wxPoint(56,65), wxDefaultSize, 0, _T("ID_STATICTEXT2"));
+	StaticText2 = new wxStaticText(m_panel, ID_STATICTEXT2, _("H" ouml "he"), wxPoint(56,65), wxDefaultSize, 0, _T("ID_STATICTEXT2"));
 	m_spcHeight = new wxSpinCtrl(m_panel, idSpcHeight, minSize, wxPoint(128,60), wxSize(168,21), 0, 0, 100, 0, _T("idSpcHeight"));
 	
 	StaticText3 = new wxStaticText(m_panel, ID_STATICTEXT3, _("Tiefe"), wxPoint(56,100), wxDefaultSize, 0, _T("ID_STATICTEXT3"));

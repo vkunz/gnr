@@ -23,6 +23,7 @@
 #include "Scene.h"
 #include "TreeLibraryController.h"
 #include "TreeLibraryItemData.h"
+#include "GlobalDefine.h"
 #include "md5.h"
 
 #include "resources/icon_library_folder.xpm"
@@ -243,7 +244,7 @@ bool TreeLibraryController::addCategory(const unsigned int& parent_id, const wxS
 void TreeLibraryController::deleteCategory(const unsigned int& cat_id)
 {
 	// new message dialog
-	int answer = wxMessageBox(wxT("Alle Unterobjekte werden mitgelöscht. Möchten Sie fortfahren?"), wxT("Frage"), wxYES_NO);
+	int answer = wxMessageBox(wxT("Alle Unterobjekte werden mitgel" ouml "scht. M" ouml "chten Sie fortfahren?"), wxT("Frage"), wxYES_NO);
 	if (answer == wxID_YES)
 	{
 	}

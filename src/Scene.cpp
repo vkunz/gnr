@@ -637,7 +637,7 @@ void Scene::drawLine(LineDrawEvent& event)
 	
 	//create string for statusbar
 	wxString str;
-	str << wxT("Länge: ") << length << wxT(" mm");
+	str << wxT("L" auml "nge: ") << length << wxT(" mm");
 	
 	// send event to display length
 	NotifyEvent gnrevent(wxEVT_COMMAND_GNR_NOTIFY);

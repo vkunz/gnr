@@ -66,7 +66,7 @@ AssemblyDataFrame::AssemblyDataFrame(wxWindow* parent,wxWindowID id)
 	//m_txcWidth = new wxTextCtrl(this, idtxcWidth, wxT(""), wxPoint(120,80), wxSize(150,22), 0, wxTextValidator(wxFILTER_NUMERIC));
 	m_txcWidth = new wxSpinCtrl(m_panel, idSpcWidth, wxT(""), wxPoint(120,80), wxSize(150,22), wxTE_PROCESS_ENTER, SIZE_MINIMUM_VALUE, SIZE_MAXIMUM_VALUE, SIZE_MINIMUM_VALUE);
 	
-	m_stxHeight = new wxStaticText(m_panel, -1, wxT("Höhe (mm):"), wxPoint(30,114), wxSize(80,22), 0);
+	m_stxHeight = new wxStaticText(m_panel, -1, wxT("H" ouml "he (mm):"), wxPoint(30,114), wxSize(80,22), 0);
 	//m_txcHeight = new wxTextCtrl(this, idtxcHeight, wxT(""), wxPoint(120,110), wxSize(150,22), 0, wxTextValidator(wxFILTER_NUMERIC));
 	m_txcHeight = new wxSpinCtrl(m_panel, idSpcHeight, wxT(""), wxPoint(120,110), wxSize(150,22), wxTE_PROCESS_ENTER, SIZE_MINIMUM_VALUE, SIZE_MAXIMUM_VALUE, SIZE_MINIMUM_VALUE);
 	
@@ -80,7 +80,7 @@ AssemblyDataFrame::AssemblyDataFrame(wxWindow* parent,wxWindowID id)
 	m_stxVisible = new wxStaticText(m_panel, -1, wxT("Sichtbar:"), wxPoint(30,212), wxSize(80,22), 0);
 	m_cbxVisible = new wxCheckBox(m_panel, idcbxVisible, wxEmptyString, wxPoint(120, 210), wxSize(80, 22));
 	
-	m_btnChange  = new wxButton(m_panel, idBtnChange, wxT("Ändern"), wxPoint(70,255), wxDefaultSize, 0);
+	m_btnChange  = new wxButton(m_panel, idBtnChange, wxT("" Auml "ndern"), wxPoint(70,255), wxDefaultSize, 0);
 	m_btnCancel  = new wxButton(m_panel, idBtnCancel, wxT("Abbrechen"), wxPoint(190,255), wxDefaultSize, 0);
 	
 	// connects m_spcWidth with OnSpcWidthChange
