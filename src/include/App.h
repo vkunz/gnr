@@ -55,9 +55,6 @@ private:
 	void OnCreatePrimitiveEvent(CreatePrimitiveEvent& event);
 	
 	//functions
-	void glRefresh();
-	void glRefresh2D();
-	void glRefresh3D();
 	void initFrames();
 	void updateSplitters();
 	void updateSize();
@@ -75,6 +72,8 @@ private:
 	
 	void cancelConvertion();
 	void ObjOaxConversion(AssemblyData* data);
+	
+	void setCanvas2DActive(bool status);
 	
 	//attributes
 	//treectrl

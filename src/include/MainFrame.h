@@ -83,6 +83,7 @@ private:
 	void OnSnapToGridCtrl(wxSpinEvent& WXUNUSED(event));
 	void OnSnapToGridMenu(wxCommandEvent& WXUNUSED(event));
 	void OnShadowsMenu(wxCommandEvent& WXUNUSED(event));
+	void OnMenuCanvas2DActive(wxCommandEvent& WXUNUSED(event));
 	void OnGroupCreate(wxCommandEvent& WXUNUSED(event));
 	void OnGroupModify(wxCommandEvent& WXUNUSED(event));
 	void OnDeleteSelected(wxCommandEvent& WXUNUSED(event));
@@ -131,6 +132,7 @@ private:
 	static const long idMenuDrawWall;
 	static const long idMenuMeasure;
 	static const long idMenuShadows;
+	static const long idMenuCanvas2DActive;
 	static const long idMenuGroup;
 	static const long idMenuUngroup;
 	static const long idMenuHelp;

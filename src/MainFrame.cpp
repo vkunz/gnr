@@ -97,6 +97,7 @@ const long MainFrame::idMenuRotateXY = wxNewId();
 const long MainFrame::idMenuDrawWall = wxNewId();
 const long MainFrame::idMenuMeasure = wxNewId();
 const long MainFrame::idMenuShadows = wxNewId();
+const long MainFrame::idMenuCanvas2DActive = wxNewId();
 const long MainFrame::idMenuGroup = wxNewId();
 const long MainFrame::idMenuUngroup = wxNewId();
 const long MainFrame::idMenuHelp = wxNewId();
@@ -170,6 +171,7 @@ BEGIN_EVENT_TABLE(MainFrame,wxFrame)
 	EVT_MENU(idMenuCopyObject, MainFrame::OnCopySelected)
 	EVT_MENU(idMenuCloneObject, MainFrame::OnCloneSelected)
 	EVT_MENU(idMenuHideObject, MainFrame::OnHideSelected)
+	EVT_MENU(idMenuResetObject, MainFrame::OnResetObject)
 	//menu export
 	EVT_MENU(idMenuObjExport, MainFrame::OnMenuObjExport)
 	EVT_MENU(idMenuOaxExport, MainFrame::OnMenuOaxExport)
@@ -190,7 +192,8 @@ BEGIN_EVENT_TABLE(MainFrame,wxFrame)
 	EVT_MENU(idMenuDrawWall, MainFrame::OnToolbarDrawWall)
 	EVT_MENU(idMenuMeasure, MainFrame::OnToolbarMeasure)
 	EVT_MENU(idMenuShadows, MainFrame::OnShadowsMenu)
-	EVT_MENU(idMenuResetObject, MainFrame::OnResetObject)
+	EVT_MENU(idMenuCanvas2DActive, MainFrame::OnMenuCanvas2DActive)
+	
 	//create primitves
 	EVT_MENU(idMenuCreateCuboid, MainFrame::OnMenuCreateCuboid)
 	EVT_MENU(idMenuCreateSphere, MainFrame::OnMenuCreateSphere)
@@ -324,6 +327,9 @@ MainFrame::MainFrame(wxWindow* parent)
 	
 	m_MenuItem[idMenuShadows] = new wxMenuItem(ParentMenu_Settings, idMenuShadows, _("&Schatten aktivieren\tF11"), _("Schatten aktivieren..."), wxITEM_CHECK);
 	ParentMenu_Settings->Append(m_MenuItem[idMenuShadows]);
+	m_MenuItem[idMenuCanvas2DActive] = new wxMenuItem(ParentMenu_Settings, idMenuCanvas2DActive, _("&Draufsicht aktivieren"), _("Draufsicht aktivieren..."), wxITEM_CHECK);
+	ParentMenu_Settings->Append(m_MenuItem[idMenuCanvas2DActive]);
+	
 	MenuBar->Append(ParentMenu_Settings, _("&Einstellungen"));
 	
 	//build groups menu
@@ -447,6 +453,8 @@ MainFrame::MainFrame(wxWindow* parent)
 	
 	//shadows checked?
 	m_MenuItem[idMenuShadows]->Check(SHADOWS_DEFAULT);
+	
+	m_MenuItem[idMenuCanvas2DActive]->Check(true);
 }
 
 /**
@@ -1104,4 +1112,12 @@ void MainFrame::setTranslationXY()
 {
 	m_MenuItem[idMenuMoveXY]->Check(true);
 	ToolBar1->ToggleTool(btn_move_xy, true);
+}
+
+void MainFrame::OnMenuCanvas2DActive(wxCommandEvent& WXUNUSED(event))
+{
+	NotifyEvent gnrevent(wxEVT_COMMAND_GNR_NOTIFY);
+	gnrevent.setGNREventType(TOGGLECANVAS2DACTIVE);
+	gnrevent.setBoolean(m_MenuItem[idMenuCanvas2DActive]->IsChecked());
+	GetEventHandler()->ProcessEvent(gnrevent);
 }

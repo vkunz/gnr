@@ -29,6 +29,8 @@ Scene::Scene()
 	m_GLCamera2D    = new GLCamera();
 	m_GLCamera3D    = new GLCamera();
 	
+	m_canvas2DActive = true;
+	
 	resetCamera();
 }
 
@@ -202,7 +204,10 @@ GLCanvas3D* Scene::getCanvas3D()
 void Scene::glRefresh()
 {
 	glRefresh3D();
-	glRefresh2D();
+	if (m_canvas2DActive == true)
+	{
+		glRefresh2D();
+	}
 }
 
 /**
@@ -890,4 +895,13 @@ void Scene::refreshTreeAndCanvas()
 Assembly* Scene::getTrash()
 {
 	return m_Trash;
+}
+
+/**
+ * sets the canvas 2d active or not
+ * @param[in]       bool            bool-status
+ */
+void Scene::setCanvas2DActive(bool status)
+{
+	m_canvas2DActive = status;
 }

@@ -43,6 +43,8 @@ private:
 	GLCanvas2D*  m_Canvas2D;
 	GLCanvas3D*  m_Canvas3D;
 	
+	bool        m_canvas2DActive;
+	
 	GLCanvas*    m_GLOUT;
 	GLCamera*    m_GLCAM;
 	
@@ -74,6 +76,7 @@ public:
 	void setAssembly(Assembly* assembly);
 	void setCanvas2D(GLCanvas2D* p);
 	void setCanvas3D(GLCanvas3D* p);
+	void setCanvas2DActive(bool status);
 	GLCanvas2D* getCanvas2D();
 	GLCanvas3D* getCanvas3D();
 	
