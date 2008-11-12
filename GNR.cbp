@@ -123,6 +123,7 @@
 		<Unit filename="src\GLCanvas2D.cpp" />
 		<Unit filename="src\GLCanvas3D.cpp" />
 		<Unit filename="src\GLCanvasPreview.cpp" />
+		<Unit filename="src\GLKeyEvent.cpp" />
 		<Unit filename="src\GLNotifyEvent.cpp" />
 		<Unit filename="src\GLScreenshot.cpp" />
 		<Unit filename="src\HelpFrame.cpp" />
@@ -188,6 +189,7 @@
 		<Unit filename="src\include\GLCanvas2D.h" />
 		<Unit filename="src\include\GLCanvas3D.h" />
 		<Unit filename="src\include\GLCanvasPreview.h" />
+		<Unit filename="src\include\GLKeyEvent.h" />
 		<Unit filename="src\include\GLNotifyEvent.h" />
 		<Unit filename="src\include\GLScreenshot.h" />
 		<Unit filename="src\include\GlobalDefine.h" />
