@@ -315,25 +315,25 @@ void TreeLibraryController::renameCategory(const unsigned int& cat_id, const wxS
  */
 void TreeLibraryController::renameEntry(const wxString& reference, const wxString& new_name)
 {
-//	// iterator
-//	std::vector<LibraryEntry>::iterator it;
-//
-//	// walk through all entries
-//	for (it = m_ptrEntries->begin(); it != m_ptrEntries->end(); it++)
-//	{
-//		// look if correct entry
-//		if ((it)->getReference() == reference)
-//		{
-//			// set new name
-//			(it)->setName(newName);
-//		}
-//	}
-//
-//	// change name in xml
-//	m_library->renameEntry(reference, newName);
-//
-//	// rebuild tree
-//	buildTreeCtrl();
+	// iterator
+	std::vector<LibraryEntry>::iterator it;
+	
+	// walk through all entries
+	for (it = m_ptrEntries->begin(); it != m_ptrEntries->end(); it++)
+	{
+		// look if correct entry
+		if ((it)->getReference() == reference)
+		{
+			// set new name
+			(it)->setName(new_name);
+		}
+	}
+	
+	// change name in xml
+	m_library->renameEntry(reference, new_name);
+	
+	// rebuild tree
+	buildTreeCtrl();
 }
 
 /**
@@ -343,10 +343,30 @@ void TreeLibraryController::renameEntry(const wxString& reference, const wxStrin
  */
 void TreeLibraryController::moveEntry(const wxString& reference, const unsigned int& new_parent_id)
 {
-
+	// iterator
+	std::vector<LibraryEntry>::iterator it;
+	
+	// walk through all entries
+	for (it = m_ptrEntries->begin(); it != m_ptrEntries->end(); it++)
+	{
+		// look if correct entry
+		if ((it)->getReference() == reference)
+		{
 #if defined(__ATHOS_DEBUG__)
-	wxLogMessage(wxT("moveEntry"));
+			wxLogDebug((it)->toString());
 #endif
+			// set new name
+			(it)->setCategoryId(new_parent_id);
+		}
+	}
+	
+	// change id of entry in xml
+	//m_library->changeEntry(reference, new_parent_id);
+	
+#warning "entry has to be changed in xml..."
+	
+	// rebuild tree
+	buildTreeCtrl();
 }
 
 /**
@@ -356,10 +376,38 @@ void TreeLibraryController::moveEntry(const wxString& reference, const unsigned 
  */
 void TreeLibraryController::moveCategory(const unsigned int& cat_id, const unsigned int& new_parent_id)
 {
-
 #if defined(__ATHOS_DEBUG__)
-	wxLogMessage(wxT("moveCategory"));
+	wxString str;
+	str << cat_id << wxT("\n");
+	str << new_parent_id << wxT("\n");
+	wxLogDebug(str);
 #endif
+	
+	// iterator
+	std::vector<LibraryCategory>::iterator it;
+	
+	// walk through all entries
+	for (it = m_ptrCategories->begin(); it != m_ptrCategories->end(); it++)
+	{
+		// look if correct entry
+		if ((it)->getCatId() == cat_id)
+		{
+#if defined(__ATHOS_DEBUG__)
+			wxLogDebug((it)->toString());
+#endif
+			// set new name
+			(it)->setParentId(new_parent_id);
+		}
+	}
+	
+	// change id of entry in xml
+	//m_library->changeCategory(cat_id, new_parent_id);
+	
+#warning "category has to be changed in xml..."
+	
+	// rebuild tree
+	buildTreeCtrl();
+	
 }
 
 /**
@@ -542,6 +590,9 @@ void TreeLibraryController::buildTreeCtrl()
 	// set category
 	itemData->setCat(true);
 	
+	// set id
+	itemData->setCatId(0);
+	
 	// set root
 	root = tiid = m_treeCtrl->AddRoot(wxT("Bibliothek"), -1, -1, itemData);
 	
@@ -562,6 +613,9 @@ void TreeLibraryController::buildTreeCtrl()
 		
 		// set cat id
 		itemData->setCatId(catit->getCatId());
+		
+		// set parent id
+		itemData->setParentId(catit->getParentId());
 		
 		// append to treectrl
 		tiid = m_treeCtrl->AppendItem(catId[catit->getParentId()], catit->getName(), -1, -1, itemData);
@@ -584,6 +638,9 @@ void TreeLibraryController::buildTreeCtrl()
 		
 		// set hash
 		itemData->setHash(entit->getReference());
+		
+		// set cat id
+		itemData->setCatId(entit->getCategoryId());
 		
 		// append to treectrl
 		tiid = m_treeCtrl->AppendItem(catId[entit->getCategoryId()], entit->getName(), -1, -1, itemData);
