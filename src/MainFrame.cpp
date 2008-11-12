@@ -103,10 +103,8 @@ const long MainFrame::idMenuUngroup = wxNewId();
 const long MainFrame::idMenuHelp = wxNewId();
 const long MainFrame::idMenuAbout = wxNewId();
 const long MainFrame::idMenuCreateCylinder = wxNewId();
-const long MainFrame::idMenuCreateCone = wxNewId();
 const long MainFrame::idMenuCreateCuboid = wxNewId();
 const long MainFrame::idMenuCreateSphere = wxNewId();
-const long MainFrame::idMenuCreatePyramide = wxNewId();
 const long MainFrame::idMenuResetObject = wxNewId();
 const long MainFrame::ID_STATUSBAR = wxNewId();
 const long MainFrame::btn_room_new = wxNewId();
@@ -197,9 +195,7 @@ BEGIN_EVENT_TABLE(MainFrame,wxFrame)
 	//create primitves
 	EVT_MENU(idMenuCreateCuboid, MainFrame::OnMenuCreateCuboid)
 	EVT_MENU(idMenuCreateSphere, MainFrame::OnMenuCreateSphere)
-	EVT_MENU(idMenuCreateCone, MainFrame::OnMenuCreateCone)
 	EVT_MENU(idMenuCreateCylinder, MainFrame::OnMenuCreateCylinder)
-	EVT_MENU(idMenuCreatePyramide, MainFrame::OnMenuCreatePyramide)
 	//menu group
 	EVT_MENU(idMenuGroup, MainFrame::OnGroupCreate)
 	EVT_MENU(idMenuUngroup, MainFrame::OnGroupModify)
@@ -342,14 +338,10 @@ MainFrame::MainFrame(wxWindow* parent)
 	
 	//build create menu
 	ParentMenu_Create = new wxMenu();
-	m_MenuItem[idMenuCreateCone] = new wxMenuItem(ParentMenu_Create, idMenuCreateCone, _("Kegel erstellen\tCTRL+1"), _("Kegel erstellen..."), wxITEM_NORMAL);
-	ParentMenu_Create->Append(m_MenuItem[idMenuCreateCone]);
 	m_MenuItem[idMenuCreateCylinder] = new wxMenuItem(ParentMenu_Create, idMenuCreateCylinder, _("Zylinder erstellen\tCTRL+2"), _("Zylinder erstellen..."), wxITEM_NORMAL);
 	ParentMenu_Create->Append(m_MenuItem[idMenuCreateCylinder]);
 	m_MenuItem[idMenuCreateCuboid] = new wxMenuItem(ParentMenu_Create, idMenuCreateCuboid, _("Kubus erstellen\tCTRL+3"), _("Kubus erstellen..."), wxITEM_NORMAL);
 	ParentMenu_Create->Append(m_MenuItem[idMenuCreateCuboid]);
-	m_MenuItem[idMenuCreatePyramide] = new wxMenuItem(ParentMenu_Create, idMenuCreatePyramide, _("Pyramide erstellen\tCTRL+4"), _("Pyramide erstellen..."), wxITEM_NORMAL);
-	ParentMenu_Create->Append(m_MenuItem[idMenuCreatePyramide]);
 	m_MenuItem[idMenuCreateSphere] = new wxMenuItem(ParentMenu_Create, idMenuCreateSphere, _("Kugel erstellen\tCTRL+5"), _("Kugel erstellen..."), wxITEM_NORMAL);
 	ParentMenu_Create->Append(m_MenuItem[idMenuCreateSphere]);
 	MenuBar->Append(ParentMenu_Create, _("&Primitive"));
@@ -698,19 +690,6 @@ void MainFrame::OnMenuCreateCuboid(wxCommandEvent& WXUNUSED(event))
 }
 
 /**
- * catches the button/menu klick for cone-creation
- * @param[in]       WXUNUSED        unused event of button/menu
- */
-void MainFrame::OnMenuCreateCone(wxCommandEvent& WXUNUSED(event))
-{
-#warning: "TODO OnMenuCreateCone, event ready!"
-	NotifyEvent myevent(wxEVT_COMMAND_GNR_NOTIFY);
-	myevent.SetEventObject(this);
-	myevent.SetInt(CREATECONE);
-	GetEventHandler()->ProcessEvent(myevent);
-}
-
-/**
  * catches the button/menu klick for sphere-creation
  * @param[in]       WXUNUSED        unused event of button/menu
  */
@@ -719,7 +698,7 @@ void MainFrame::OnMenuCreateSphere(wxCommandEvent& WXUNUSED(event))
 #warning: "TODO OnMenuCreateSphere, event ready!"
 	NotifyEvent myevent(wxEVT_COMMAND_GNR_NOTIFY);
 	myevent.SetEventObject(this);
-	myevent.SetInt(CREATESPHERE);
+	myevent.setGNREventType(CREATESPHERE);
 	GetEventHandler()->ProcessEvent(myevent);
 }
 
@@ -732,20 +711,7 @@ void MainFrame::OnMenuCreateCylinder(wxCommandEvent& WXUNUSED(event))
 #warning: "TODO OnMenuCreateCylinder, event ready!"
 	NotifyEvent myevent(wxEVT_COMMAND_GNR_NOTIFY);
 	myevent.SetEventObject(this);
-	myevent.SetInt(CREATECYLINDER);
-	GetEventHandler()->ProcessEvent(myevent);
-}
-
-/**
- * catches the button/menu klick for pyramide-creation
- * @param[in]       WXUNUSED        unused event of button/menu
- */
-void MainFrame::OnMenuCreatePyramide(wxCommandEvent& WXUNUSED(event))
-{
-#warning: "TODO OnMenuCreatePyramide, event ready!"
-	NotifyEvent myevent(wxEVT_COMMAND_GNR_NOTIFY);
-	myevent.SetEventObject(this);
-	myevent.SetInt(CREATEPYRAMIDE);
+	myevent.setGNREventType(CREATECYLINDER);
 	GetEventHandler()->ProcessEvent(myevent);
 }
 

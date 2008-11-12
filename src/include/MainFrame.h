@@ -93,11 +93,9 @@ private:
 	void OnHideSelected(wxCommandEvent& WXUNUSED(event));
 	void OnInsertCopy(wxCommandEvent& WXUNUSED(event));
 	void OnCutSelected(wxCommandEvent& WXUNUSED(event));
-	void OnMenuCreateCone(wxCommandEvent& WXUNUSED(event));
 	void OnMenuCreateSphere(wxCommandEvent& WXUNUSED(event));
 	void OnMenuCreateCuboid(wxCommandEvent& WXUNUSED(event));
 	void OnMenuCreateCylinder(wxCommandEvent& WXUNUSED(event));
-	void OnMenuCreatePyramide(wxCommandEvent& WXUNUSED(event));
 	
 	//global set snap to grid
 	void OnSnapToGrid();
@@ -140,8 +138,6 @@ private:
 	static const long idMenuAbout;
 	static const long idMenuCreateCuboid;
 	static const long idMenuCreateSphere;
-	static const long idMenuCreatePyramide;
-	static const long idMenuCreateCone;
 	static const long idMenuCreateCylinder;
 	static const long idMenuResetObject;
 	//ToolBar Buttons

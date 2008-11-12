@@ -131,7 +131,7 @@ void App::initFrames()
 	
 	//create splitter for right panel with two canvas
 	m_HorizontalSplitter_right = new wxSplitterWindow(m_VerticalSplitter, -1, wxPoint(0,0), wxDefaultSize, wxSP_3D|wxSP_NO_XP_THEME|wxSP_LIVE_UPDATE);
-	//m_HorizontalSplitter_right->SetMinimumPaneSize(100);
+	m_HorizontalSplitter_right->SetMinimumPaneSize(100);
 	
 	//create tree and models panel
 	m_TreePanelLibrary = new TreePanelLibrary(m_HorizontalSplitter_left, wxID_ANY);
@@ -679,13 +679,10 @@ void App::setCanvas2DActive(bool status)
 	
 	if (status == true)
 	{
-		//m_HorizontalSplitter_right->SetSashPosition(225, true);
 		m_HorizontalSplitter_right->SplitHorizontally(m_Canvas2D, m_Canvas3D, 225);
 	}
 	else
 	{
-		//m_HorizontalSplitter_right->SetSashPosition(1, true);
-		//m_HorizontalSplitter_right->AdjustSashPosition(0);
 		m_HorizontalSplitter_right->Unsplit(m_Canvas2D);
 	}
 }

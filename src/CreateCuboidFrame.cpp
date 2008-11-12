@@ -65,6 +65,7 @@ CreateCuboidFrame::CreateCuboidFrame(wxWindow* parent,wxWindowID id,const wxPoin
 {
 	Create(parent, wxID_ANY, wxT("Kubus erstellen"), wxDefaultPosition, wxDefaultSize, wxDEFAULT_FRAME_STYLE, _T("wxID_ANY"));
 	SetClientSize(wxSize(382,260));
+	CenterOnParent();
 	SetBackgroundColour(wxNullColour);
 	SetIcon(wxICON(gnr_icon));
 	//MakeModal();
