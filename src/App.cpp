@@ -431,7 +431,7 @@ void App::OnGLEvent(GLNotifyEvent& event)
 		if (hit != NULL)
 		{
 			//hit an assembly, show edit frame
-			if (hit->isType(IS_OBJECT))
+			if (hit->isType(IS_OBJECT) || hit->isType(IS_PRIMITIVE))
 			{
 				AssemblyDataFrame* data = new AssemblyDataFrame;
 				data->Show();

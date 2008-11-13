@@ -47,7 +47,7 @@ Assembly* PrimitiveCreator::getPrimitive()
 void PrimitiveCreator::createCuboid(const Vertex& position, const Vertex& angles, const Vertex& dimension, const string& matname)
 {
 	//create main primitive container
-	m_primitive = new Assembly(wxT("primitive"));
+	m_primitive = new Assembly(wxT("Cuboid"));
 	
 	//set specific tags on assembly
 	m_primitive->setType(IS_PRIMITIVE);

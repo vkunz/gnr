@@ -98,12 +98,12 @@ enum assemblyType { IS_ROOT = 0,
                     IS_TRASH,
                     IS_DUPLICATOR,
                     IS_SELECTED,
-                    IS_ATOMIC,
-                    IS_WALL,
                     IS_PRIMITIVE,
                     IS_GROUP,
                     IS_OBJECT,
                     IS_WRAPPER,
+                    IS_ATOMIC,
+                    IS_WALL,
                     IS_ORIGINAL
                   };
 
