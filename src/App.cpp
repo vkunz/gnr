@@ -668,7 +668,7 @@ void App::createScreenshot(wxString filename)
  */
 void App::createPrimitive(NotifyEvent& event)
 {
-	if (event.GetEventType() == CREATECUBOID)
+	if (event.getGNREventType() == CREATECUBOID)
 	{
 		CreateCuboidFrame* cubFrame = new CreateCuboidFrame(m_MainFrame);
 		cubFrame->Show();

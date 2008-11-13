@@ -31,6 +31,8 @@ const long CreateCuboidFrame::idColourPicker = wxNewId();
 
 
 BEGIN_EVENT_TABLE(CreateCuboidFrame,wxFrame)
+	EVT_BUTTON(idBuCreate, CreateCuboidFrame::OnCreate)
+	EVT_BUTTON(idBuCancel, CreateCuboidFrame::OnCancel)
 END_EVENT_TABLE()
 
 CreateCuboidFrame::CreateCuboidFrame(wxWindow* parent,wxWindowID id,const wxPoint& pos,const wxSize& size)
