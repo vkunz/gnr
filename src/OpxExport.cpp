@@ -319,7 +319,7 @@ void OpxExport::createAssembly(wxXmlNode* node, Assembly* assembly)
 	tmp.Empty();
 	
 	// add ref
-	node->AddProperty(wxT("ref"), (assembly->getHash() + wxT(".oax")));
+	node->AddProperty(wxT("ref"), (wxT("assemblies/") + assembly->getHash() + wxT(".oax")));
 	
 	// node to scene
 	node = node->GetParent();
@@ -335,6 +335,12 @@ void OpxExport::createGroup(wxXmlNode* node, Assembly* assembly)
 	
 	// local list
 	std::list<Assembly*> list = assembly->getPartList();
+	
+	// if group is empty, do not export
+	if (list.size() == 0)
+	{
+		return;
+	}
 	
 	// iterator
 	std::list<Assembly*>::iterator it;
