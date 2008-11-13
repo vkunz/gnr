@@ -1,9 +1,11 @@
 #include "Color.h"
 
-#include <sstream>
 #include <iostream>
+#include <iomanip>
+#include <sstream>
 
 using std::stringstream;
+using std::hex;
 using std::endl;
 
 Color::Color():
@@ -14,6 +16,11 @@ Color::Color():
 
 Color::Color(float r, float g, float b, float a):
 		m_r(r), m_g(g), m_b(b), m_a(a)
+{
+}
+
+Color::Color(const Color& other):
+    m_r(other.m_r), m_g(other.m_g), m_b(other.m_b), m_a(other.m_a)
 {
 }
 
@@ -90,6 +97,17 @@ float& Color::B()
 float& Color::A()
 {
 	return m_a;
+}
+
+string Color::getHex() const
+{
+    stringstream ss;
+
+    ss << std::hex << (int)m_r;
+    ss << std::hex << (int)m_g;
+    ss << std::hex << (int)m_b;
+
+    return ss.str();
 }
 
 ostream& operator<< (ostream& out, const Color& c)

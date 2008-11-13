@@ -85,7 +85,7 @@ void CreatePrimitiveEvent::setPrimitiveType(primitiveType type)
  * sets the color, the primitive should have
  * @param[in]       color       color of primitive
  */
-void CreatePrimitiveEvent::setColor(Vertex color)
+void CreatePrimitiveEvent::setColor(const Color& color)
 {
 	m_color = color;
 }
@@ -140,7 +140,7 @@ primitiveType CreatePrimitiveEvent::getPrimitiveType()
  * returns the color, the primitive should have
  * @return          Vertex      color of primitive
  */
-Vertex CreatePrimitiveEvent::getColor()
+const Color& CreatePrimitiveEvent::getColor()
 {
 	return m_color;
 }

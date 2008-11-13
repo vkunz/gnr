@@ -58,9 +58,9 @@
 #include "ObjOaxConverter.h"
 #include "TreeControlEvent.h"
 
-#if defined(__ATHOS_DEBUG__)
+//#if defined(__ATHOS_DEBUG__)
 #include <wx/log.h>
-#endif
+//#endif
 
 BEGIN_EVENT_TABLE(App, wxApp)
 	EVT_GNR_TREE_CONTROL(0, App::OnGNRTreeEvent)                 // tree events
@@ -79,14 +79,14 @@ IMPLEMENT_APP(App);
 bool App::OnInit()
 {
 	bool wxsOK = true;
-	
+
 	wxInitAllImageHandlers();
-	
+
 	if (wxsOK)
 	{
 		//build gui
 		initFrames();
-		
+
 #if defined(__ATHOS_DEBUG__)
 		//create DebugFrame
 		m_DebugFrame = new DebugFrame(m_MainFrame);
@@ -96,22 +96,22 @@ bool App::OnInit()
 		//build test models
 		m_Tests         = new Tests();
 #endif
-		
+
 		m_Scene         = Scene::getInstance();
 		m_MouseCtrl     = new MouseController();
 		m_KeyCtrl       = new KeyController();
-		
+
 		m_TreeLibCtrl   = new TreeLibraryController(m_TreeCtrlLib);
 		m_TreeSceneCtrl = new TreeSceneController(m_TreeCtrlScene);
 		m_UndoRedo      = UndoRedo::getInstance();
-		
+
 		m_Scene->setCanvas2D(m_Canvas2D);
 		m_Scene->setCanvas3D(m_Canvas3D);
-		
+
 		//initialize whole menus
 		initialSetup();
 	}
-	
+
 	return wxsOK;
 }
 
@@ -122,57 +122,57 @@ void App::initFrames()
 {
 	//create main frame
 	m_MainFrame = new MainFrame(0);
-	
+
 	//main splitter window
 	m_VerticalSplitter = new wxSplitterWindow(m_MainFrame, -1, wxPoint(0,0), wxDefaultSize, wxSP_3D|wxSP_NO_XP_THEME|wxSP_LIVE_UPDATE);
 	m_VerticalSplitter->SetMinimumPaneSize(200);
-	
+
 	//create splitter for left panel with tree and models
 	m_HorizontalSplitter_left = new wxSplitterWindow(m_VerticalSplitter, -1, wxPoint(0,0), wxDefaultSize, wxSP_3D|wxSP_NO_XP_THEME|wxSP_LIVE_UPDATE);
 	m_HorizontalSplitter_left->SetMinimumPaneSize(100);
-	
+
 	//create splitter for right panel with two canvas
 	m_HorizontalSplitter_right = new wxSplitterWindow(m_VerticalSplitter, -1, wxPoint(0,0), wxDefaultSize, wxSP_3D|wxSP_NO_XP_THEME|wxSP_LIVE_UPDATE);
 	m_HorizontalSplitter_right->SetMinimumPaneSize(100);
-	
+
 	//create tree and models panel
 	m_TreePanelLibrary = new TreePanelLibrary(m_HorizontalSplitter_left, wxID_ANY);
 	m_TreePanelMyScene = new TreePanelMyScene(m_HorizontalSplitter_left, wxID_ANY);
-	
+
 	//create TreeCntr
 	m_TreeCtrlLib = new TreeLibraryCtrl(m_TreePanelLibrary, wxID_ANY);
 	m_TreeCtrlScene = new TreeSceneCtrl(m_TreePanelMyScene, wxNewId(), wxPoint(0, 0), m_TreePanelMyScene->GetSize(), wxTR_DEFAULT_STYLE, wxDefaultValidator, wxT("TreePanelMyScene"));
-	
+
 	//create two canvas panels
 	m_Canvas2D = new GLCanvas2D(m_HorizontalSplitter_right, -1);
 	commonCtxt = m_Canvas2D->GetContext();
 	m_Canvas3D = new GLCanvas3D(m_HorizontalSplitter_right, commonCtxt, -1);
-	
+
 	//initialize left and right splitter
 	m_VerticalSplitter->Initialize(m_HorizontalSplitter_left);
 	m_VerticalSplitter->Initialize(m_HorizontalSplitter_right);
-	
+
 	//initialize both treepanels
 	m_HorizontalSplitter_left->Initialize(m_TreePanelLibrary);
 	m_HorizontalSplitter_left->Initialize(m_TreePanelMyScene);
-	
+
 	//initialize both canvases
 	m_HorizontalSplitter_right->Initialize(m_Canvas2D);
 	m_HorizontalSplitter_right->Initialize(m_Canvas3D);
-	
+
 	//split right splitter in upper (2D) and lower (3D) canvas
 	m_HorizontalSplitter_right->SplitHorizontally(m_Canvas2D, m_Canvas3D);
-	
+
 	//split left splitter in upper (library) and lower (myscene) treeview
 	m_HorizontalSplitter_left->SplitHorizontally(m_TreePanelLibrary, m_TreePanelMyScene);
-	
+
 	//split vertical (main) splitter in left and right splitter
 	m_VerticalSplitter->SplitVertically(m_HorizontalSplitter_left, m_HorizontalSplitter_right);
-	
+
 	m_VerticalSplitter->SetSashPosition(225,true);
 	m_HorizontalSplitter_left->SetSashPosition(300,true);
 	m_HorizontalSplitter_right->SetSashPosition(225,true);
-	
+
 	//show mainframe now, its ready
 	m_MainFrame->Show(true);
 }
@@ -195,7 +195,7 @@ void App::updateSize()
 {
 	// update size of m_TreeCtrlLib
 	m_TreeCtrlLib->SetSize(m_TreePanelLibrary->GetSize());
-	
+
 	// update size of m_TreeCtrlScene
 	m_TreeCtrlScene->SetSize(m_TreePanelMyScene->GetSize());
 }
@@ -335,7 +335,7 @@ void App::OnGNREvent(NotifyEvent& event)
 	case CREATECUBOID:
 		createPrimitive(event);
 		break;
-		
+
 #if defined(__ATHOS_DEBUG__)
 	case DEBUG1:
 		m_Tests->sizeXsizeLoopsLoadClean(m_Scene,10,10);
@@ -423,10 +423,10 @@ void App::OnGLEvent(GLNotifyEvent& event)
 	{
 		//set assembly mediator for ident object
 		m_MouseCtrl->setAssemblyMediator(event);
-		
+
 		//get clicked assembly
 		Assembly* hit = m_MouseCtrl->getAssembly();
-		
+
 		//is assembly hit, build edit frame
 		if (hit != NULL)
 		{
@@ -444,31 +444,31 @@ void App::OnGLEvent(GLNotifyEvent& event)
 			}
 		}
 	}
-	
+
 	//if any mouse down set mediator and on right down, select assembly
 	else if (event.getMouseEvent().ButtonDown(-1))
 	{
 		m_MouseCtrl->setMediator(event);
-		
+
 		if (event.getMouseEvent().ButtonDown(RIGHT_BUTTON))
 		{
 			//select assembly
 			m_MouseCtrl->setSelected(event);
 		}
 	}
-	
+
 	//if left or middle mouse button is down, translate event to mediator
 	else if (event.getMouseEvent().ButtonIsDown(-1))
 	{
 		m_MouseCtrl->activateMediator(event);
 	}
-	
+
 	//if left or middle mouse button goes up, create command-object for undo
 	else if (event.getMouseEvent().ButtonUp(LEFT_BUTTON) || event.getMouseEvent().ButtonUp(MIDDLE_BUTTON))
 	{
 		m_MouseCtrl->deactivateMediator();
 	}
-	
+
 	//if event is scroll-event, translate event to mediator
 	else if (event.getMouseEvent().GetWheelRotation())
 	{
@@ -494,45 +494,19 @@ void App::OnCreatePrimitiveEvent(CreatePrimitiveEvent& event)
 {
 	if (event.getPrimitiveType() == CUBOID)
 	{
-//		Vertex origin(0.0f, 0.0f, 0.0f);
-//		Assembly* atomic;
-//
-//
-//		//create new parent assembly (group of primitives)
-//		Assembly* primitive = new Assembly(wxT("Wandteil"));
-//
-//		//put information of whole group in parent
-//		primitive->setType(IS_PRIMITIVE);
-//		primitive->setPrimitiveType(CUBOID);
-//		primitive->position() = event.getPosition();
-//		primitive->rotation() = event.getAngles();
-//
-//		primitive->cuboid_dimension() = event.getDimensions();
-//
-//		//create smallest part of primitive
-//		creator.createCuboid(origin, origin, event.getDimensions());
-//
-//		//set color to default
-//		primitive->setMaterial(DEFAULT_IMPORT_COLOR);
-//
-//		//get the primitive
-//		atomic = creator.getPrimitive();
-//
-//		//insert 'small' cuboid in parent
-//		primitive->addPart(atomic);
-//
-//		//put whole in the world
-//		m_Scene->insertAssembly(primitive);
-
 		//get creator instance
 		PrimitiveCreator creator;
-		
+
+        const Color& color = event.getColor();
+        MaterialLibrary::getInstance()->insert(color);
+        wxLogDebug(wxString(color.getHex().c_str(), wxConvUTF8));
+
 		//create smallest part of primitive
-		creator.createCuboid(event.getPosition(), event.getAngles(), event.getDimensions());
-		
+		creator.createCuboid(event.getPosition(), event.getAngles(), event.getDimensions(), color.getHex());
+
 		m_Scene->insertAssembly(creator.getPrimitive());
 	}
-	
+
 	m_Scene->glRefresh();
 }
 
@@ -544,14 +518,14 @@ void App::OPXOpen(wxString filename)
 {
 	// clean up the actual room
 	m_Scene->newRoom();
-	
+
 	// create dialog for showing process
 	m_progFrame = new ProgressFrame(m_MainFrame);
 	m_progFrame->Show();
-	
+
 	// create importer-thread
 	OpxImport* import = new OpxImport(m_TreeLibCtrl, filename);
-	
+
 	// start thread
 	import->Create();
 	import->Run();
@@ -575,25 +549,25 @@ void App::OAXImport(wxString filename)
 {
 	// new filename
 	wxFileName file;
-	
+
 	// asign filename
 	file.Assign(filename);
-	
+
 	// create wxFFileInputStream
 	wxFFileInputStream inFile(filename);
-	
+
 	// create wxMemoryoutputStream
 	wxMemoryOutputStream outMem;
-	
+
 	// copy data
 	inFile.Read(outMem);
-	
+
 	// dreate wxMemoryInputStream
 	wxMemoryInputStream inMem(outMem);
-	
+
 	// wxInputStream pointer
 	wxInputStream* input = &inMem;
-	
+
 	// add into lib
 	m_TreeLibCtrl->addEntry(*input, file.GetName(), 0);
 }
@@ -606,28 +580,28 @@ void App::OAXExport(wxString reference)
 {
 	// filename
 	const wxString& filename = wxFileSelector(wxT("Object als OAX exportieren..."), wxT(""), wxT(""), wxT(""), wxT("OaxDatei (*.oax)|*.oax"), wxFD_SAVE);
-	
+
 	if (filename.IsEmpty())
 	{
 		// user canceled, do nothing
 		return;
 	}
-	
+
 	// wxFFileOutputStream
 	wxFFileOutputStream outFile(filename);
-	
+
 	// wxMemoryOutputStream to store oax data
 	wxMemoryOutputStream* memOut;
-	
+
 	// get data
 	memOut = m_TreeLibCtrl->exportEntry(reference);
-	
+
 	// wxMemoryInputStream
 	wxMemoryInputStream inMem(*memOut);
-	
+
 	// copy data
 	inMem.Read(outFile);
-	
+
 	// delete memOut
 	delete memOut;
 }
@@ -701,22 +675,22 @@ void App::ObjOaxConversion(AssemblyData* data)
 {
 	// create new memory output stream
 	wxMemoryOutputStream memOut;
-	
+
 	// pointer to wxOutputStream
 	wxOutputStream* outStream = &memOut;
-	
+
 	// create new OaxExport - object
 	OaxExport out(data, outStream);
-	
+
 	// create new memory input stream
 	wxMemoryInputStream memIn(memOut);
-	
+
 	// pointer to wxInputStream
 	wxInputStream* inStream = &memIn;
-	
+
 	// add new entry
 	m_TreeLibCtrl->addEntry(*inStream, data->m_name, 0);
-	
+
 	// successfull
 	delete m_ObjOaxConv;
 }
@@ -728,7 +702,7 @@ void App::ObjOaxConversion(AssemblyData* data)
 void App::setCanvas2DActive(bool status)
 {
 	m_Scene->setCanvas2DActive(status);
-	
+
 	if (status == true)
 	{
 		m_HorizontalSplitter_right->SplitHorizontally(m_Canvas2D, m_Canvas3D, 225);
@@ -749,17 +723,17 @@ void App::initialSetup()
 	setup_snap.setGNREventType(SNAPTOGRID);
 	setup_snap.setSnapToGrid(SNAP_IN_DEFAULT_GRID);
 	setup_snap.setSnapToAngle(SNAP_IN_DEFAULT_ANGLE);
-	
+
 	//activate snap function on start
 	m_MouseCtrl->setSnapfunction(setup_snap);
-	
+
 	//send event to refresh Scene-Tree
 	NotifyEvent setup_tree(wxEVT_COMMAND_GNR_NOTIFY);
 	setup_tree.setGNREventType(REFRESHSCENETREE);
-	
+
 	//process event for tree
 	ProcessEvent(setup_tree);
-	
+
 	//refresh canvas
 	m_Scene->glRefresh();
 }

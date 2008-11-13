@@ -15,6 +15,7 @@
 #include <wx/string.h>
 #include "Enum.h"
 #include "Vertex.h"
+#include "Color.h"
 
 class CreatePrimitiveEvent : public wxNotifyEvent
 {
@@ -23,31 +24,31 @@ private:
 	Vertex m_position;
 	Vertex m_angles;
 	Vertex m_dimensions;
-	Vertex m_color;
+	Color m_color;
 	wxString m_name;
-	
+
 public:
 	CreatePrimitiveEvent(wxEventType commandType = wxEVT_NULL, int id = 0);
 	CreatePrimitiveEvent(const CreatePrimitiveEvent& event);
 	virtual wxEvent* Clone() const;
 	virtual ~CreatePrimitiveEvent();
-	
+
 	void setPrimitiveType(primitiveType type);
-	
+
 	void setPosition(Vertex pos);
 	void setAngles(Vertex angles);
 	void setDimensions(Vertex dim);
-	void setColor(Vertex color);
+	void setColor(const Color& color);
 	void setName(wxString name);
-	
+
 	primitiveType getPrimitiveType();
-	
+
 	Vertex getPosition();
 	Vertex getAngles();
 	Vertex getDimensions();
-	Vertex getColor();
+	const Color& getColor();
 	wxString getName();
-	
+
 	DECLARE_DYNAMIC_CLASS(CreatePrimitiveEvent);
 };
 
