@@ -111,9 +111,7 @@ enum assemblyType { IS_ROOT = 0,
 enum primitiveType { OTHER = 0,
                      CUBOID,
                      CYLINDER,
-                     CONE,
-                     SPHERE,
-                     PYRAMIDE
+                     SPHERE
                    };
 
 //defined for better reading formulas

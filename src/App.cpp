@@ -664,9 +664,9 @@ void App::createScreenshot(wxString filename)
 
 /**
  * handle primitive-creation
- * @param[in]       event        event send on menu-klick
+ * @param[in]       WXUNUSED        unused event send on menu-klick
  */
-void App::createPrimitve(NotifyEvent& event)
+void App::createPrimitve(NotifyEvent& WXUNUSED(event))
 {
 	CreateCuboidFrame* cubFrame = new CreateCuboidFrame(m_MainFrame);
 	cubFrame->Show();

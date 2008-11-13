@@ -606,24 +606,25 @@ Assembly* Assembly::clone()
 		m_clone->m_origin = m_origin;
 	}
 	
-	m_clone->m_position = m_position;
-	m_clone->m_rotation = m_rotation;
-	m_clone->m_scale = m_scale;
+	m_clone->m_position     = m_position;
+	m_clone->m_dimension    = m_dimension;
+	m_clone->m_rotation     = m_rotation;
+	m_clone->m_scale        = m_scale;
 	
-	m_clone->m_type = m_type;
-	m_clone->m_name = m_name;
-	m_clone->m_parent = m_parent;
+	m_clone->m_type         = m_type;
+	m_clone->m_name         = m_name;
+	m_clone->m_ptype        = m_ptype;
+	m_clone->m_parent       = m_parent;
 	
-	m_clone->m_dl_object = m_dl_object;
-	m_clone->m_dl_shadow = m_dl_shadow;
-	m_clone->m_md5_obj_xml = m_md5_obj_xml;
-	m_clone->m_ptype = m_ptype;
+	m_clone->m_dl_object    = m_dl_object;
+	m_clone->m_dl_shadow    = m_dl_shadow;
+	m_clone->m_md5_obj_xml  = m_md5_obj_xml;
 	
-	m_clone->m_cuboid = m_cuboid;
-	m_clone->m_cylinder = m_cylinder;
-	m_clone->m_radius = m_radius;
+	m_clone->m_cuboid       = m_cuboid;
+	m_clone->m_cylinder     = m_cylinder;
+	m_clone->m_radius       = m_radius;
 	
-	m_clone->m_matname = m_matname;
+	m_clone->m_matname      = m_matname;
 	
 	// copy the children
 	for (list<Assembly*>::const_iterator it = m_part.begin(); it != m_part.end(); ++it)

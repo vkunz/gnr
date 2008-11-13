@@ -152,7 +152,6 @@
 		<Unit filename="src\PrimitiveCreator.cpp" />
 		<Unit filename="src\ProgressFrame.cpp" />
 		<Unit filename="src\Scene.cpp" />
-		<Unit filename="src\TCoord.cpp" />
 		<Unit filename="src\Tests.cpp" />
 		<Unit filename="src\TreeControlEvent.cpp" />
 		<Unit filename="src\TreeLibraryController.cpp" />
@@ -164,7 +163,6 @@
 		<Unit filename="src\TreeSceneCtrl.cpp" />
 		<Unit filename="src\TreeSceneItemData.cpp" />
 		<Unit filename="src\UndoRedo.cpp" />
-		<Unit filename="src\VNT.cpp" />
 		<Unit filename="src\Vertex.cpp" />
 		<Unit filename="src\WallMediator.cpp" />
 		<Unit filename="src\include\App.h" />
@@ -225,7 +223,6 @@
 		<Unit filename="src\include\PrimitiveCreator.h" />
 		<Unit filename="src\include\ProgressFrame.h" />
 		<Unit filename="src\include\Scene.h" />
-		<Unit filename="src\include\TCoord.h" />
 		<Unit filename="src\include\Tests.h" />
 		<Unit filename="src\include\TreeControlEvent.h" />
 		<Unit filename="src\include\TreeLibraryController.h" />
@@ -237,7 +234,6 @@
 		<Unit filename="src\include\TreeSceneCtrl.h" />
 		<Unit filename="src\include\TreeSceneItemData.h" />
 		<Unit filename="src\include\UndoRedo.h" />
-		<Unit filename="src\include\VNT.h" />
 		<Unit filename="src\include\Vertex.h" />
 		<Unit filename="src\include\WallMediator.h" />
 		<Unit filename="src\include\md5.h" />
