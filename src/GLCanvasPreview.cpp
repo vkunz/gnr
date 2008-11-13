@@ -93,9 +93,7 @@ void GLCanvasPreview::InitGL()
 	glEnable(GL_DEPTH_TEST);
 	
 	glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);
-//	glHint(GL_LINE_SMOOTH_HINT, GL_NICEST);
-//	glHint(GL_POLYGON_SMOOTH_HINT, GL_NICEST);
-
+	
 	glClearDepth(1.0f);
 	
 	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
@@ -169,8 +167,8 @@ void GLCanvasPreview::draw()
 		glLoadIdentity();
 		
 		glShadeModel(GL_SMOOTH);
-		//glDisable(GL_BLEND);
-		//glDisable(GL_STENCIL_TEST);
+		glEnable(GL_BLEND);
+		glDisable(GL_STENCIL_TEST);
 		glEnable(GL_DEPTH_TEST);
 		glEnable(GL_LIGHTING);
 		

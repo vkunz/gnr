@@ -31,13 +31,8 @@ CommandTransform::~CommandTransform() {}
  */
 void CommandTransform::execute()
 {
-	m_usedAssembly->setX(new_x);
-	m_usedAssembly->setY(new_y);
-	m_usedAssembly->setZ(new_z);
-	
-	m_usedAssembly->setPhi(new_phi);
-	m_usedAssembly->setTheta(new_theta);
-	m_usedAssembly->setRho(new_rho);
+	m_usedAssembly->position().setAll(new_x, new_y, new_z);
+	m_usedAssembly->rotation().setAll(new_phi, new_theta, new_rho);
 }
 
 /**
@@ -45,13 +40,8 @@ void CommandTransform::execute()
  */
 void CommandTransform::unexecute()
 {
-	m_usedAssembly->setX(old_x);
-	m_usedAssembly->setY(old_y);
-	m_usedAssembly->setZ(old_z);
-	
-	m_usedAssembly->setPhi(old_phi);
-	m_usedAssembly->setTheta(old_theta);
-	m_usedAssembly->setRho(old_rho);
+	m_usedAssembly->position().setAll(old_x, old_y, old_z);
+	m_usedAssembly->rotation().setAll(old_phi, old_theta, old_rho);
 }
 
 /**

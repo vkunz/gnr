@@ -47,6 +47,8 @@ public:
 	float getY() const;
 	float getZ() const;
 	float getW() const;
+	float getXY(float& x, float& y) const;
+	float getXZ(float& x, float& z) const;
 	void getAll(float& x, float& y, float& z) const;
 	void getAll(float& x, float& y, float& z, float& w) const;
 	
@@ -55,6 +57,8 @@ public:
 	void setY(float y);
 	void setZ(float z);
 	void setW(float w);
+	void setXY(float x, float y);
+	void setXZ(float x, float y);
 	void setAll(float x, float y, float z);
 	void setAll(float x, float y, float z, float w);
 	
@@ -66,7 +70,7 @@ public:
 	// length of the vector
 	float length() const;
 	// scale the vector to have the length 1.0
-	bool normalize();
+	Vertex& normalize();
 	// rotate the vector respective the
 	// X-Axis with an angle a,
 	// Y-Axis with an angle b,

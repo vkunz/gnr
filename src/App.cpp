@@ -66,7 +66,6 @@ BEGIN_EVENT_TABLE(App, wxApp)
 	EVT_GNR_TREE_CONTROL(0, App::OnGNRTreeEvent)                 // tree events
 	EVT_GNR_NOTIFY(0, App::OnGNREvent)                           //global event for redraw...
 	EVT_GL_NOTIFY(0, App::OnGLEvent)                             //event for mouse and move in GL...
-	EVT_GL_KEY(0, App::OnKeyPressed)                             //key event from canvas
 	EVT_GNR_LINE_DRAW(0, App::OnLineDrawEvent)                   //event to draw a line in gl
 	EVT_GNR_CREATE_PRIMITIVE(0, App::OnCreatePrimitiveEvent)     //event to draw a line in gl
 END_EVENT_TABLE()
@@ -98,8 +97,7 @@ bool App::OnInit()
 #endif
 		
 		m_Scene         = Scene::getInstance();
-		m_MouseCtrl     = new MouseController();
-		m_KeyCtrl       = new KeyController();
+		m_MouseCtrl     = new MouseController(m_Scene);
 		
 		m_TreeLibCtrl   = new TreeLibraryController(m_TreeCtrlLib);
 		m_TreeSceneCtrl = new TreeSceneController(m_TreeCtrlScene);
@@ -223,10 +221,15 @@ void App::OnGNREvent(NotifyEvent& event)
 		OPXOpen(event.GetString());
 		break;
 	case OPXIMPORTFINISHED:
+	{
 		m_progFrame->close();
 		m_TreeSceneCtrl->createSceneTree();
-		sashRefresh();
-		break;
+		// quick and dirty
+		int pos = m_VerticalSplitter->GetSashPosition();
+		m_VerticalSplitter->SetSashPosition(pos+1,true);
+		m_VerticalSplitter->SetSashPosition(pos,true);
+	}
+	break;
 	case OPXSAVE:
 		OPXSave(event.GetString());
 		m_Scene->glRefresh();
@@ -237,6 +240,7 @@ void App::OnGNREvent(NotifyEvent& event)
 		break;
 	case OAXEXPORT:
 		OAXExport(event.GetString());
+		//m_Scene->glRefresh();
 		break;
 	case OBJOAXCONVERSION:
 		ObjOaxConversion(event.getAssemblyDataPointer());
@@ -251,7 +255,6 @@ void App::OnGNREvent(NotifyEvent& event)
 		break;
 	case TOOLBARCHANGE:
 		m_MouseCtrl->setTranslation(event);
-		m_MainFrame->setTranslation(event);
 		break;
 	case RESETCAMERA:
 		m_Scene->resetCamera();
@@ -321,10 +324,8 @@ void App::OnGNREvent(NotifyEvent& event)
 		break;
 	case TOGGLESHADOWS:
 		m_Scene->toggleShadows(event.getBoolean());
-		sashRefresh();
-		break;
-	case TOGGLECANVAS2DACTIVE:
-		setCanvas2DActive(event.getBoolean());
+		m_Scene->glRefresh();
+		m_Scene->glRefresh();
 		break;
 	case DISPLAYLENGTH:
 		m_MainFrame->getStatusbar()->SetStatusText(event.GetString());
@@ -333,9 +334,12 @@ void App::OnGNREvent(NotifyEvent& event)
 		m_Scene->deleteTrashAssemblies();
 		break;
 	case CREATECUBOID:
-		createPrimitve(event);
+	{
+		CreateCuboidFrame* cubFrame = new CreateCuboidFrame(m_MainFrame);
+		cubFrame->Show();
 		break;
-		
+	}
+	
 #if defined(__ATHOS_DEBUG__)
 	case DEBUG1:
 		m_Tests->sizeXsizeLoopsLoadClean(m_Scene,10,10);
@@ -366,9 +370,6 @@ void App::OnGNRTreeEvent(TreeControlEvent& event)
 		break;
 	case LIBRARYPASTE:
 		m_TreeLibCtrl->pasteEntry(event.getHash());
-		break;
-	case LIBRARYMOVE:
-		m_TreeLibCtrl->dragNdrop(event);
 		break;
 	case LIBRARYEXPORT:
 		OAXExport(event.getHash());
@@ -404,15 +405,6 @@ void App::OnGNRTreeEvent(TreeControlEvent& event)
 }
 
 /**
- * redirect GL Key-Event to specific operations
- * @param[in]       event           GL key event
- */
-void App::OnKeyPressed(GLKeyEvent& event)
-{
-	m_KeyCtrl->KeyPressed(event);
-}
-
-/**
  * redirect GL -Notify-Event to specific operations
  * @param[in]       event           GLNotifyEvent with information from canvases
  */
@@ -421,39 +413,19 @@ void App::OnGLEvent(GLNotifyEvent& event)
 	//on double click select assembly
 	if (event.getMouseEvent().ButtonDClick(LEFT_BUTTON))
 	{
-		//set assembly mediator for ident object
-		m_MouseCtrl->setAssemblyMediator(event);
-		
-		//get clicked assembly
-		Assembly* hit = m_MouseCtrl->getAssembly();
-		
-		//is assembly hit, build edit frame
-		if (hit != NULL)
-		{
-			//hit an assembly, show edit frame
-			if (hit->isType(IS_OBJECT))
-			{
-				AssemblyDataFrame* data = new AssemblyDataFrame;
-				data->Show();
-				data->fillFields(m_MouseCtrl->getAssembly());
-			}
-			//show warning to ungroup
-			else
-			{
-				wxMessageBox(wxT("Bitte degruppieren Sie die Objekte zuerst!"),wxT("Aktion nicht m" ouml "glich"),wxOK);
-			}
-		}
+		m_MouseCtrl->setSelected(event);
 	}
 	
-	//if any mouse down set mediator and on right down, select assembly
+	//if any mouse down set mediator and on right down, select too
 	else if (event.getMouseEvent().ButtonDown(-1))
 	{
 		m_MouseCtrl->setMediator(event);
 		
 		if (event.getMouseEvent().ButtonDown(RIGHT_BUTTON))
 		{
-			//select assembly
+			//m_MouseCtrl->setMediator(event);
 			m_MouseCtrl->setSelected(event);
+			//m_MainFrame->setTranslationXZ(); try to change toolbar here!
 		}
 	}
 	
@@ -494,7 +466,7 @@ void App::OnCreatePrimitiveEvent(CreatePrimitiveEvent& event)
 {
 	if (event.getPrimitiveType() == CUBOID)
 	{
-		Vertex origin(0.0,0.0,0.0);
+		Vertex origin(0.0f, 0.0f, 0.0f);
 		Assembly* atomic;
 		
 		//get creator instance
@@ -506,11 +478,10 @@ void App::OnCreatePrimitiveEvent(CreatePrimitiveEvent& event)
 		//put information of whole group in parent
 		primitive->setType(IS_PRIMITIVE);
 		primitive->setPrimitiveType(CUBOID);
-		primitive->setCenterVertex(event.getPosition());
-		primitive->setRotateVertex(event.getAngles());
-		primitive->setWidth(event.getDimensions().getX());
-		primitive->setHeight(event.getDimensions().getY());
-		primitive->setDepth(event.getDimensions().getZ());
+		primitive->position() = event.getPosition();
+		primitive->rotation() = event.getAngles();
+		
+		primitive->cuboid_dimension() = event.getDimensions();
 		
 		//create smallest part of primitive
 		creator.createCuboid(origin, origin, event.getDimensions());
@@ -658,26 +629,6 @@ void App::createScreenshot(wxString filename)
 }
 
 /**
- * handle primitive-creation
- * @param[in]       event        event send on menu-klick
- */
-void App::createPrimitve(NotifyEvent& event)
-{
-	CreateCuboidFrame* cubFrame = new CreateCuboidFrame(m_MainFrame);
-	cubFrame->Show();
-}
-
-/**
- * refresh sash position
- */
-void App::sashRefresh()
-{
-	int pos = m_VerticalSplitter->GetSashPosition();
-	m_VerticalSplitter->SetSashPosition(pos+1,true);
-	m_VerticalSplitter->SetSashPosition(pos,true);
-}
-
-/**
  * conververtion canceled
  */
 void App::cancelConvertion()
@@ -711,24 +662,6 @@ void App::ObjOaxConversion(AssemblyData* data)
 	
 	// successfull
 	delete m_ObjOaxConv;
-}
-
-/**
- * activates/deactivates Canvas 2D and adapts splitters
- * @param[in]       status      active or not
- */
-void App::setCanvas2DActive(bool status)
-{
-	m_Scene->setCanvas2DActive(status);
-	
-	if (status == true)
-	{
-		m_HorizontalSplitter_right->SplitHorizontally(m_Canvas2D, m_Canvas3D, 225);
-	}
-	else
-	{
-		m_HorizontalSplitter_right->Unsplit(m_Canvas2D);
-	}
 }
 
 /**

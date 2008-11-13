@@ -49,13 +49,6 @@ OpxImport::OpxImport(TreeLibraryController* controller, wxString filename)
 }
 
 /**
- * Virtual Destructor.
- */
-OpxImport::~OpxImport()
-{
-}
-
-/**
  * Is called on thread-start
  */
 void* OpxImport::Entry()
@@ -69,8 +62,14 @@ void* OpxImport::Entry()
 	// load
 	Load(stream);
 	
-	// return
 	return NULL;
+}
+
+/**
+ * Virtual Destructor.
+ */
+OpxImport::~OpxImport()
+{
 }
 
 /**
@@ -285,13 +284,13 @@ void OpxImport::loadXml(wxZipInputStream& stream)
 				tok.SetString(value, wxT(" "));
 				
 				// set x
-				newGroup->setX(wxAtof(tok.GetNextToken()));
+				newGroup->position().setX(wxAtof(tok.GetNextToken()));
 				
 				// set y
-				newGroup->setY(wxAtof(tok.GetNextToken()));
+				newGroup->position().setY(wxAtof(tok.GetNextToken()));
 				
 				// set z
-				newGroup->setZ(wxAtof(tok.GetNextToken()));
+				newGroup->position().setZ(wxAtof(tok.GetNextToken()));
 				
 				// prop to orientation
 				prop = prop->GetNext();
@@ -303,13 +302,13 @@ void OpxImport::loadXml(wxZipInputStream& stream)
 				tok.SetString(value, wxT(" "));
 				
 				// set phi
-				newGroup->setPhi(wxAtof(tok.GetNextToken()));
+				newGroup->rotation().setX(wxAtof(tok.GetNextToken()));
 				
 				// set theta
-				newGroup->setTheta(wxAtof(tok.GetNextToken()));
+				newGroup->rotation().setY(wxAtof(tok.GetNextToken()));
 				
 				// set rho
-				newGroup->setRho(wxAtof(tok.GetNextToken()));
+				newGroup->rotation().setZ(wxAtof(tok.GetNextToken()));
 				
 				// add new Assembly
 				m_actual->addPart(newGroup);
@@ -347,7 +346,7 @@ void OpxImport::loadXml(wxZipInputStream& stream)
 				prop = prop->GetNext();
 				
 				// get value of name
-				m_objName = prop->GetValue();
+				wxString name = prop->GetValue();
 				
 				// prop to location
 				prop = prop->GetNext();
@@ -395,7 +394,7 @@ void OpxImport::loadXml(wxZipInputStream& stream)
 				stream.CloseEntry();
 				
 				// create assembly and ask if already exist
-				assembly = m_scene->getOrigialFromHash(value.AfterFirst('/').BeforeFirst('.'));
+				assembly = m_scene->getOrigialFromHash(value.BeforeFirst('.'));
 				
 				// check if already known
 				if (assembly != NULL)
@@ -413,16 +412,13 @@ void OpxImport::loadXml(wxZipInputStream& stream)
 				assembly->setVisible(isVisible);
 				
 				// set name
-				assembly->setName(m_objName);
+				assembly->setName(name);
 				
 				// set x, y, z
-				assembly->setXYZ(x, y, z);
+				assembly->position().setAll(x, y, z);
 				
 				// set x- and y - orientation
-				assembly->setPhiTheta(orientationX, orientationY);
-				
-				// set z-orientation
-				assembly->setRho(orientationZ);
+				assembly->rotation().setAll(orientationX, orientationY, orientationZ);
 				
 				// set object
 				assembly->setType(IS_OBJECT);
@@ -480,9 +476,6 @@ void OpxImport::loadXml(wxZipInputStream& stream)
  */
 Assembly* OpxImport::loadOax(wxZipInputStream& stream, wxString reference)
 {
-	// assembly pointer
-	Assembly* assembly;
-	
 	// wxZipEntry pointer
 	wxZipEntry* entry;
 	
@@ -499,7 +492,7 @@ Assembly* OpxImport::loadOax(wxZipInputStream& stream, wxString reference)
 		entry = *it;
 		
 		// check if right entry
-		if (entry->GetName().AfterFirst('\\') == reference.AfterFirst('/'))
+		if (entry->GetName().AfterFirst('\\') == reference)
 		{
 			// open entry
 			stream.OpenEntry(*entry);
@@ -522,18 +515,12 @@ Assembly* OpxImport::loadOax(wxZipInputStream& stream, wxString reference)
 			// load oax
 			import.Load(inZip);
 			
-			// get assembly
-			assembly = import.getAssembly();
-			
-			// add category
-			unsigned int catId = m_libctrl->addCategory(m_filename.AfterLast('\\').BeforeFirst('.'));
-			
-			// add oax to library and set hash
-			assembly->setHash(m_libctrl->addEntry(inMem, m_objName, catId));
+			// add oax to lib (default base cat = 0)
+			import.getAssembly()->setHash(m_libctrl->addEntry(inMem, m_filename.BeforeFirst('.'),0));
 		}
 	}
 	
-	return assembly;
+	return import.getAssembly();
 }
 
 /**

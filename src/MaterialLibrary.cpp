@@ -1,30 +1,18 @@
-/**
- * MaterialLibrary
- *
- * @name        MaterialLibrary.cpp
- * @date        2008-10-09
- * @author		Konstantin Balabin  <k.balabin@googlemail.com>
- * @author		Patrick Kracht      <patrick.kracht@googlemail.com>
- * @author		Thorsten Moll       <thorsten.moll@googlemail.com>
- * @author		Valentin Kunz       <athostr@googlemail.com>
- */
-
-#include "GlobalDefine.h"
 #include "MaterialLibrary.h"
 
-#include <fstream>
 #include <sstream>
+#include <iostream>
 
-using std::string;
-using std::ifstream;
-using std::istream;
 using std::istringstream;
 using std::stringstream;
-using std::pair;
+using std::endl;
 
-/**
- * constructor of MaterialLibrary is initializing default materials
- */
+MaterialLibrary* MaterialLibrary::instance = 0;
+
+MaterialLibrary::~MaterialLibrary()
+{
+}
+
 MaterialLibrary::MaterialLibrary()
 {
 	istringstream defaults(
@@ -165,38 +153,39 @@ MaterialLibrary::MaterialLibrary()
 	import(defaults);
 }
 
-/**
- * get material from name
- * @param[in]           matname          string of material name
- * @return              Material&        material for opengl
- */
-const Material& MaterialLibrary::getMaterial(const string& matname) const
+MaterialLibrary* MaterialLibrary::getInstance()
 {
-	//check, if material name in data map
-	if (m_data.count(matname)>0)
+	if (!instance)
 	{
-		//if found, return material
-		return m_data.find(matname)->second;
+		instance = new MaterialLibrary();
 	}
-	//else use default color
-	return m_data.find(DEFAULT_IMPORT_COLOR)->second;
+	
+	return instance;
 }
 
-/**
- * import mtl file
- * @param[in]       fname           filename of mtl
- */
-void MaterialLibrary::importFile(const string& fname)
+void MaterialLibrary::destroy()
+{
+	delete instance;
+	instance = 0;
+}
+
+MaterialLibrary::mat_citer MaterialLibrary::get(const string& name) const
+{
+	return m_lib.find(name);
+}
+
+void MaterialLibrary::insert(const string& name, const Material& mat)
+{
+	m_lib[name] = mat;
+}
+
+void MaterialLibrary::import(const string& fname)
 {
 	ifstream ifs(fname.c_str());
 	import(ifs);
 	ifs.close();
 }
 
-/**
- * import mtl data
- * @param[in]       is           istream from filename
- */
 void MaterialLibrary::import(istream& is)
 {
 	m_is = &is;
@@ -207,15 +196,12 @@ void MaterialLibrary::import(istream& is)
 		{
 			while (getData() && m_is->good());
 		}
-		m_data.insert(pair<string, Material>(m_matname, *m_material));
+		m_lib[m_matname] = *m_material;
 		delete m_material;
+		m_material = NULL;
 	}
 }
 
-/**
- * return true, if name was found
- * @return      bool        material found or not
- */
 bool MaterialLibrary::getName()
 {
 	bool found = m_buf.substr(0, 7) == "newmtl ";
@@ -233,10 +219,6 @@ bool MaterialLibrary::getName()
 	return found;
 }
 
-/**
- * get material data
- * @return      bool        return if data found or not
- */
 bool MaterialLibrary::getData()
 {
 	bool gotData = true;
@@ -255,16 +237,14 @@ bool MaterialLibrary::getData()
 	return gotData;
 }
 
-/**
- * parse data for ambient, diffuse, specular... values
- */
 void MaterialLibrary::parseData()
 {
 	if (m_buf.size() < 2)
 		return;
 		
-	float r = 0, g = 0, b = 0, a = 0;
-	int s = 0;
+	float r, g, b, a;
+	r = g = b = a = 0.0f;
+	
 	stringstream ss(m_buf.substr(2, string::npos));
 	
 	switch (m_buf[0])
@@ -274,25 +254,44 @@ void MaterialLibrary::parseData()
 		switch (m_buf[1])
 		{
 		case 'a':
-			m_material->setAmbient(r, g, b);
+			m_material->Ambient().setAll(r, g, b);
 			break;
 		case 'd':
-			m_material->setDiffuse(r, g, b);
+			m_material->Diffuse().setAll(r, g, b);
 			break;
 		case 's':
-			m_material->setSpecular(r, g, b);
+			m_material->Specular().setAll(r, g, b);
 		default:
 			break;
 		}
 	case 'd':
-		ss >> a;
-		m_material->setAlpha(a);
+		ss >> m_material->Alpha();
 		break;
 	case 'N':
-		ss >> s;
-		m_material->setShininess(s);
-		break;
+	{
+		char c;
+		ss >> c;
+		ss >> c;
+		ss >> m_material->Shininess();
+	}
+	break;
 	default:
 		break;
 	}
 }
+
+MaterialLibrary::mat_citer MaterialLibrary::end() const
+{
+	return m_lib.end();
+}
+
+ostream& operator<< (ostream& out, const MaterialLibrary& m)
+{
+	for (MaterialLibrary::mat_citer it = m.m_lib.begin(); it != m.m_lib.end(); ++it)
+	{
+		out << "newmtl " << it->first << endl;
+		out << it->second << endl;
+	}
+	return out;
+}
+

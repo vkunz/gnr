@@ -159,7 +159,7 @@ void TreeSceneCtrl::buildMenu(const wxPoint& pt)
 			menu.Append(idMenuVisible, wxT("&Anzeigen"));
 		}
 		
-		menu.Append(idMenuDelete, wxT("&L" ouml "schen"));
+		menu.Append(idMenuDelete, wxT("&Löschen"));
 	}
 	
 	PopupMenu(&menu, pt);

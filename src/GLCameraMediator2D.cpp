@@ -22,7 +22,7 @@
 void GLCameraMediator2D::MoveXY(GLNotifyEvent& event)
 {
 	//calculate scale factor and distance moved in x and y direction
-	float factor = m_GLCamera->getDistance()*0.8/(float)(window_h);
+	float factor = m_GLCamera->getDistance()*0.5/(float)(window_h);
 	float distX  = (float)(m_mouse_x - event.getMouseEvent().GetX())*factor;
 	float distY  = (float)(event.getMouseEvent().GetY() - m_mouse_y)*factor;
 	

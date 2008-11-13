@@ -54,7 +54,10 @@ private:
 	TreeLibraryController* m_libctrl;
 	
 	// string to store obj-filename
-	wxString m_objName;
+	wxString m_objFilename;
+	
+	// pointer to progress-frame
+	
 	
 	// pointer to Assembly
 	Assembly* m_actual;

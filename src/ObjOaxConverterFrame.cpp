@@ -41,7 +41,7 @@ const long ObjOaxConverterFrame::idTxcName       = wxNewId();
 ObjOaxConverterFrame::ObjOaxConverterFrame(wxWindow* parent, wxWindowID id)
 {
 	// create Frame
-	Create(parent, id, wxT("OBJ importieren"), wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL|wxCAPTION|wxSYSTEM_MENU|wxCLOSE_BOX|wxMINIMIZE_BOX|wxSTATIC_BORDER, wxT("ObjOaxConverter"));
+	Create(parent, id, wxT("OBJ importieren"), wxDefaultPosition, wxDefaultSize, wxCAPTION|wxSYSTEM_MENU|wxCLOSE_BOX|wxMINIMIZE_BOX|wxSTATIC_BORDER, wxT("ObjOaxConverter"));
 	
 	// set size
 	SetClientSize(wxSize(550, 350));
@@ -55,36 +55,39 @@ ObjOaxConverterFrame::ObjOaxConverterFrame(wxWindow* parent, wxWindowID id)
 	//set icon of frame
 	SetIcon(wxICON(gnr_icon));
 	
-	m_panel = new wxPanel(this, wxID_ANY, wxPoint(0, 0), wxSize(550, 350), wxTAB_TRAVERSAL);
+	// Button create
+	m_btnCreate     = new wxButton(this, idBtnCreate, wxT("Erstellen"), wxPoint(328,304), wxDefaultSize, 0);
 	
-	// StaticText name
-	m_stxName       = new wxStaticText(m_panel, idStxName, wxT("Name:"), wxPoint(280,54), wxSize(100,24), 0);
-	// TextCtrl name
-	m_txcName       = new wxTextCtrl(m_panel, idTxcName, wxT(""), wxPoint(384,50), wxSize(130,24), wxTE_PROCESS_ENTER);
-	
-	// StaticText width
-	m_stxWidth      = new wxStaticText(m_panel, idStxWidth, wxT("Breite (mm):"), wxPoint(280,134), wxSize(100 ,24), 0);
-	// SpinCtrl width
-	m_spcWidth      = new wxSpinCtrl(m_panel, idSpcWidth, wxT("1"), wxPoint(384,130), wxSize(130,24), wxTE_PROCESS_ENTER, SIZE_MINIMUM_VALUE, SIZE_MAXIMUM_VALUE, SIZE_MINIMUM_VALUE);
-	
-	// StaticText depth
-	m_stxDepth      = new wxStaticText(m_panel, idStxDepth, wxT("Tiefe (mm):"), wxPoint(280,174), wxSize(100,24), 0);
-	// SpinCtrl depth
-	m_spcDepth      = new wxSpinCtrl(m_panel, idSpcDepth, wxT("1"), wxPoint(384,170), wxSize(130,24), wxTE_PROCESS_ENTER, SIZE_MINIMUM_VALUE, SIZE_MAXIMUM_VALUE, SIZE_MINIMUM_VALUE);
-	
-	// StaticText height
-	m_stxHeight     = new wxStaticText(m_panel, idStxHeight, wxT("H\u00F6he (mm):"), wxPoint(280,214), wxSize(100,24), 0);
-	// SpinCtrl height
-	m_spcHeight     = new wxSpinCtrl(m_panel, idSpcHeight, wxT("1"), wxPoint(384,210), wxSize(130,24), wxTE_PROCESS_ENTER, SIZE_MINIMUM_VALUE, SIZE_MAXIMUM_VALUE, SIZE_MINIMUM_VALUE);
+	// Button cancel
+	m_btnCancel     = new wxButton(this, idBtnCancel, wxT("Abbrechen"), wxPoint(432,304), wxDefaultSize, 0);
 	
 	// Checkbox proportion
-	m_ckbProportion = new wxCheckBox(m_panel, idCkbProportion, wxT("Proportionen behalten"), wxPoint(312,248), wxSize(130,24), 0);
+	m_ckbProportion = new wxCheckBox(this, idCkbProportion, wxT("Proportionen behalten"), wxPoint(312,248), wxSize(130,24), 0);
 	m_ckbProportion->SetValue(true);
 	
-	// Button create
-	m_btnCreate     = new wxButton(m_panel, idBtnCreate, wxT("Erstellen"), wxPoint(328,304), wxDefaultSize, 0);
-	// Button cancel
-	m_btnCancel     = new wxButton(m_panel, idBtnCancel, wxT("Abbrechen"), wxPoint(432,304), wxDefaultSize, 0);
+	// SpinCtrl width
+	m_spcWidth      = new wxSpinCtrl(this, idSpcWidth, wxT("1"), wxPoint(384,130), wxSize(130,24), wxTE_PROCESS_ENTER, SIZE_MINIMUM_VALUE, SIZE_MAXIMUM_VALUE, SIZE_MINIMUM_VALUE);
+	
+	// SpinCtrl depth
+	m_spcDepth      = new wxSpinCtrl(this, idSpcDepth, wxT("1"), wxPoint(384,170), wxSize(130,24), wxTE_PROCESS_ENTER, SIZE_MINIMUM_VALUE, SIZE_MAXIMUM_VALUE, SIZE_MINIMUM_VALUE);
+	
+	// SpinCtrl height
+	m_spcHeight     = new wxSpinCtrl(this, idSpcHeight, wxT("1"), wxPoint(384,210), wxSize(130,24), wxTE_PROCESS_ENTER, SIZE_MINIMUM_VALUE, SIZE_MAXIMUM_VALUE, SIZE_MINIMUM_VALUE);
+	
+	// StaticText name
+	m_stxName       = new wxStaticText(this, idStxName, wxT("Name:"), wxPoint(280,54), wxSize(100,24), 0);
+	
+	// StaticText width
+	m_stxWidth      = new wxStaticText(this, idStxWidth, wxT("Breite (mm):"), wxPoint(280,134), wxSize(100 ,24), 0);
+	
+	// StaticText depth
+	m_stxDepth      = new wxStaticText(this, idStxDepth, wxT("Tiefe (mm):"), wxPoint(280,174), wxSize(100,24), 0);
+	
+	// StaticText height
+	m_stxHeight     = new wxStaticText(this, idStxHeight, wxT("H\u00F6he (mm):"), wxPoint(280,214), wxSize(100,24), 0);
+	
+	// TextCtrl name
+	m_txcName       = new wxTextCtrl(this, idTxcName, wxT(""), wxPoint(384,50), wxSize(130,24), wxTE_PROCESS_ENTER);
 	
 	// connects m_btnCreate with OnBtnCreate()
 	Connect(idBtnCreate,wxEVT_COMMAND_BUTTON_CLICKED,(wxObjectEventFunction)&ObjOaxConverterFrame::OnBtnCreate);
@@ -117,7 +120,7 @@ ObjOaxConverterFrame::ObjOaxConverterFrame(wxWindow* parent, wxWindowID id)
 	Connect(idTxcName,wxEVT_COMMAND_TEXT_ENTER,(wxObjectEventFunction)&ObjOaxConverterFrame::OnTxcNameChanged);
 	
 	// create canvas
-	m_canvas = new GLCanvasPreview(m_panel, wxID_ANY, wxPoint(50, 50), wxSize(200, 200), wxNO_BORDER);
+	m_canvas = new GLCanvasPreview(this, wxID_ANY, wxPoint(50, 50), wxSize(200, 200), wxNO_BORDER);
 	
 	// connects m_txcName with OnTxcNameChanged
 	Connect(idTxcName,wxEVT_COMMAND_TEXT_UPDATED,(wxObjectEventFunction)&ObjOaxConverterFrame::OnTxcNameChanged);

@@ -23,7 +23,6 @@
 #include "Scene.h"
 #include "TreeLibraryController.h"
 #include "TreeLibraryItemData.h"
-#include "GlobalDefine.h"
 #include "md5.h"
 
 #include "resources/icon_library_folder.xpm"
@@ -170,48 +169,12 @@ wxString TreeLibraryController::addEntry(wxInputStream& instream, wxString entry
 
 /**
  * new id of cat set by name
- * @param[in]   newName         string to store name of new category
- * @return      unsigned int    new cat id
- */
-unsigned int TreeLibraryController::addCategory(wxString newName)
-{
-	// iterator
-	std::vector<LibraryCategory>::iterator it;
-	
-	// walk through all categories
-	for (it = m_ptrCategories->begin(); it != m_ptrCategories->end(); it++)
-	{
-		// category found
-		if (it->getName() == newName)
-		{
-			// return cat id of found category
-			return it->getCatId();
-		}
-	}
-	
-	// not found, create new one
-	Library::m_categoryId += 1;
-	
-	// new category, parent always 0
-	m_ptrCategories->push_back(LibraryCategory(newName, Library::m_categoryId, 0));
-	
-	// add new physical category
-	m_library->addCategory(newName);
-	
-	// return
-	return Library::m_categoryId;
-}
-
-/**
- * new id of cat set by name
  * @param[in]   parent_id       int ID of parant category
  * @param[in]   name            wxString& name of cat
  * @return      int             new cat id
  */
-bool TreeLibraryController::addCategory(const unsigned int parent_id, const wxString& newName)
+bool TreeLibraryController::addCategory(const unsigned int& parent_id, const wxString& name)
 {
-	wxLogDebug(wxString() << parent_id);
-	
 	// iterator
 	std::vector<LibraryCategory>::iterator it;
 	
@@ -219,9 +182,9 @@ bool TreeLibraryController::addCategory(const unsigned int parent_id, const wxSt
 	for (it = m_ptrCategories->begin(); it != m_ptrCategories->end(); it++)
 	{
 		// category found
-		if (it->getParentId() == parent_id && it->getName() == newName)
+		if (it->getName() == name && it->getParentId() == parent_id)
 		{
-			// same name in same category not allowed
+			//same name in same category not allowed
 			return false;
 		}
 	}
@@ -230,15 +193,12 @@ bool TreeLibraryController::addCategory(const unsigned int parent_id, const wxSt
 	Library::m_categoryId += 1;
 	
 	// new category
-	m_ptrCategories->push_back(LibraryCategory(newName, Library::m_categoryId, parent_id));
-	
-	// new physically category
-	m_library->addNewCategory(newName, parent_id);
+	m_ptrCategories->push_back(LibraryCategory(name, Library::m_categoryId, parent_id));
 	
 	// rebuild tree
 	buildTreeCtrl();
 	
-	// everything ok
+	//all done ok
 	return true;
 }
 
@@ -249,7 +209,7 @@ bool TreeLibraryController::addCategory(const unsigned int parent_id, const wxSt
 void TreeLibraryController::deleteCategory(const unsigned int& cat_id)
 {
 	// new message dialog
-	int answer = wxMessageBox(wxT("Alle Unterobjekte werden mitgel" ouml "scht. M" ouml "chten Sie fortfahren?"), wxT("Frage"), wxYES_NO);
+	int answer = wxMessageBox(wxT("Alle Unterobjekte werden mitgelöscht. Möchten Sie fortfahren?"), wxT("Frage"), wxYES_NO);
 	if (answer == wxID_YES)
 	{
 	}
@@ -320,25 +280,25 @@ void TreeLibraryController::renameCategory(const unsigned int& cat_id, const wxS
  */
 void TreeLibraryController::renameEntry(const wxString& reference, const wxString& new_name)
 {
-	// iterator
-	std::vector<LibraryEntry>::iterator it;
-	
-	// walk through all entries
-	for (it = m_ptrEntries->begin(); it != m_ptrEntries->end(); it++)
-	{
-		// look if correct entry
-		if ((it)->getReference() == reference)
-		{
-			// set new name
-			(it)->setName(new_name);
-		}
-	}
-	
-	// change name in xml
-	m_library->renameEntry(reference, new_name);
-	
-	// rebuild tree
-	buildTreeCtrl();
+//	// iterator
+//	std::vector<LibraryEntry>::iterator it;
+//
+//	// walk through all entries
+//	for (it = m_ptrEntries->begin(); it != m_ptrEntries->end(); it++)
+//	{
+//		// look if correct entry
+//		if ((it)->getReference() == reference)
+//		{
+//			// set new name
+//			(it)->setName(newName);
+//		}
+//	}
+//
+//	// change name in xml
+//	m_library->renameEntry(reference, newName);
+//
+//	// rebuild tree
+//	buildTreeCtrl();
 }
 
 /**
@@ -348,25 +308,7 @@ void TreeLibraryController::renameEntry(const wxString& reference, const wxStrin
  */
 void TreeLibraryController::moveEntry(const wxString& reference, const unsigned int& new_parent_id)
 {
-	// iterator
-	std::vector<LibraryEntry>::iterator it;
-	
-	// walk through all entries
-	for (it = m_ptrEntries->begin(); it != m_ptrEntries->end(); it++)
-	{
-		// look if correct entry
-		if ((it)->getReference() == reference)
-		{
-			// set new name
-			(it)->setCategoryId(new_parent_id);
-		}
-	}
-	
-	// change id of entry in xml
-	m_library->moveEntry(reference, new_parent_id);
-	
-	// rebuild tree
-	buildTreeCtrl();
+
 }
 
 /**
@@ -376,61 +318,8 @@ void TreeLibraryController::moveEntry(const wxString& reference, const unsigned 
  */
 void TreeLibraryController::moveCategory(const unsigned int& cat_id, const unsigned int& new_parent_id)
 {
-#if defined(__ATHOS_DEBUG__)
-	wxString str;
-	str << cat_id << wxT("\n");
-	str << new_parent_id << wxT("\n");
-	wxLogDebug(str);
-#endif
-	
-	// iterator
-	std::vector<LibraryCategory>::iterator it;
-	
-	// walk through all entries
-	for (it = m_ptrCategories->begin(); it != m_ptrCategories->end(); it++)
-	{
-		// look if correct entry
-		if ((it)->getCatId() == cat_id)
-		{
-#if defined(__ATHOS_DEBUG__)
-			wxLogDebug((it)->toString());
-#endif
-			// set new name
-			(it)->setParentId(new_parent_id);
-		}
-	}
-	
-	// change id of entry in xml
-	//m_library->changeCategory(cat_id, new_parent_id);
-	
-#warning "category has to be changed in xml..."
-	
-	// rebuild tree
-	buildTreeCtrl();
-	
-}
 
-/**
- * on dragging decide what to drag to where
- * @param[in]       event                      TreeControlEvent of drag
- */
-void TreeLibraryController::dragNdrop(TreeControlEvent& event)
-{
-	TreeLibraryItemData* src = event.getTreeItemSrc();
-	TreeLibraryItemData* dst = event.getTreeItemDst();
-	
-	//if source was cat, move cat
-	if (src->getCat())
-	{
-		moveCategory(src->getCatId(), dst->getCatId());
-	}
-	//else move entry
-	else
-	{
-		moveEntry(src->getHash(), dst->getCatId());
-	}
 }
-
 
 /**
  * merge two cats together
@@ -474,10 +363,8 @@ void TreeLibraryController::pasteEntry(const wxString& reference)
 		assembly = assembly->clone();
 		
 		//reset clone
-		assembly->setXYZ(0.0,0.0,0.0);
-		assembly->setPhi(0.0);
-		assembly->setRho(0.0);
-		assembly->setTheta(0.0);
+		assembly->position().setAll(0.0f, 0.0f, 0.0f);
+		assembly->rotation().setAll(0.0f, 0.0f, 0.0f);
 	}
 	//or load from library container
 	else
@@ -590,9 +477,6 @@ void TreeLibraryController::buildTreeCtrl()
 	// set category
 	itemData->setCat(true);
 	
-	// set root as 0
-	itemData->setCatId(0);
-	
 	// set root
 	root = tiid = m_treeCtrl->AddRoot(wxT("Bibliothek"), -1, -1, itemData);
 	
@@ -613,9 +497,6 @@ void TreeLibraryController::buildTreeCtrl()
 		
 		// set cat id
 		itemData->setCatId(catit->getCatId());
-		
-		// set parent id
-		itemData->setParentId(catit->getParentId());
 		
 		// append to treectrl
 		tiid = m_treeCtrl->AppendItem(catId[catit->getParentId()], catit->getName(), -1, -1, itemData);
@@ -638,9 +519,6 @@ void TreeLibraryController::buildTreeCtrl()
 		
 		// set hash
 		itemData->setHash(entit->getReference());
-		
-		// set cat id
-		itemData->setCatId(entit->getCategoryId());
 		
 		// append to treectrl
 		tiid = m_treeCtrl->AppendItem(catId[entit->getCategoryId()], entit->getName(), -1, -1, itemData);

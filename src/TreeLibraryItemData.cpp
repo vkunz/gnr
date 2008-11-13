@@ -51,24 +51,6 @@ unsigned int TreeLibraryItemData::getCatId()
 }
 
 /**
- * set parent category id
- * @param[in]       parent_id      id of cat
- */
-void TreeLibraryItemData::setParentId(unsigned int parent_id)
-{
-	m_parent_id = parent_id;
-}
-
-/**
- * get parent category id
- * @return       unsigned int     if cat or not
- */
-unsigned int TreeLibraryItemData::getParentId()
-{
-	return m_parent_id;
-}
-
-/**
  * set name of cat
  * @param[in]       name     wxString name of item
  */

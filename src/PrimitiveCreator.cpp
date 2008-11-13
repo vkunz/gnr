@@ -19,7 +19,6 @@
  */
 PrimitiveCreator::PrimitiveCreator():m_primitive(NULL)
 {
-	MaterialLibrary m_matlib = MaterialLibrary();
 }
 
 /**
@@ -53,12 +52,10 @@ void PrimitiveCreator::createCuboid(const Vertex& position, const Vertex& angles
 	m_primitive->setType(IS_ATOMIC);
 	
 	// set position of the cuboid
-	m_primitive->setCuboid(position.getX(),position.getY(),position.getZ(),dimension.getX(),dimension.getY(),dimension.getZ());
+	m_primitive->setCuboid(position.getX(), position.getY(), position.getZ(), dimension.getX(), dimension.getY(), dimension.getZ());
 	
 	// set rotation of the cuboid
-	m_primitive->setPhi(angles.getX());
-	m_primitive->setTheta(angles.getY());
-	m_primitive->setRho(angles.getZ());
+	m_primitive->rotation() = angles;
 	
 	// prepare points
 	float x = dimension.getX() / 2.0;
@@ -71,7 +68,7 @@ void PrimitiveCreator::createCuboid(const Vertex& position, const Vertex& angles
 	Vertex bottomRight(x, -y, z);
 	Vertex topRight(x, y, z);
 	Vertex normal(0, 0, 1);
-	m_primitive->addFace(*createFace(topLeft, bottomLeft, bottomRight, topRight, normal));
+	m_primitive->addFace(createFace(topLeft, bottomLeft, bottomRight, topRight, normal));
 	
 	// create right face
 	topLeft.setAll(x, y, z);
@@ -79,7 +76,7 @@ void PrimitiveCreator::createCuboid(const Vertex& position, const Vertex& angles
 	bottomRight.setAll(x, -y, -z);
 	topRight.setAll(x, y, -z);
 	normal.setAll(1, 0, 0);
-	m_primitive->addFace(*createFace(topLeft, bottomLeft, bottomRight, topRight, normal));
+	m_primitive->addFace(createFace(topLeft, bottomLeft, bottomRight, topRight, normal));
 	
 	// create back face
 	topLeft.setAll(x, y, -z);
@@ -87,7 +84,7 @@ void PrimitiveCreator::createCuboid(const Vertex& position, const Vertex& angles
 	bottomRight.setAll(-x, -y, -z);
 	topRight.setAll(-x, y, -z);
 	normal.setAll(0, 0, -1);
-	m_primitive->addFace(*createFace(topLeft, bottomLeft, bottomRight, topRight, normal));
+	m_primitive->addFace(createFace(topLeft, bottomLeft, bottomRight, topRight, normal));
 	
 	// create left face
 	topLeft.setAll(-x, y, -z);
@@ -95,7 +92,7 @@ void PrimitiveCreator::createCuboid(const Vertex& position, const Vertex& angles
 	bottomRight.setAll(-x, -y, z);
 	topRight.setAll(-x, y, z);
 	normal.setAll(-1, 0, 0);
-	m_primitive->addFace(*createFace(topLeft, bottomLeft, bottomRight, topRight, normal));
+	m_primitive->addFace(createFace(topLeft, bottomLeft, bottomRight, topRight, normal));
 	
 	// create upper face
 	topLeft.setAll(-x, y, -z);
@@ -103,7 +100,7 @@ void PrimitiveCreator::createCuboid(const Vertex& position, const Vertex& angles
 	bottomRight.setAll(x, y, z);
 	topRight.setAll(x, y, -z);
 	normal.setAll(0, 1, 0);
-	m_primitive->addFace(*createFace(topLeft, bottomLeft, bottomRight, topRight, normal));
+	m_primitive->addFace(createFace(topLeft, bottomLeft, bottomRight, topRight, normal));
 	
 	// create bottom face
 	bottomLeft.setAll(-x, -y, -z);
@@ -112,13 +109,13 @@ void PrimitiveCreator::createCuboid(const Vertex& position, const Vertex& angles
 	bottomRight.setAll(x, -y, -z);
 	
 	normal.setAll(0, -1, 0);
-	m_primitive->addFace(*createFace(topLeft, bottomLeft, bottomRight, topRight, normal));
+	m_primitive->addFace(createFace(topLeft, bottomLeft, bottomRight, topRight, normal));
 }
 
 void PrimitiveCreator::setMaterial(Assembly* parent, const string& name)
 {
 	//tell the parent what color his child has got
-	parent->setChildMaterial(m_primitive, m_matlib.getMaterial(name));
+//	parent->setChildMaterial(m_primitive, m_matlib.getMaterial(name));
 }
 
 /**
@@ -132,32 +129,6 @@ void PrimitiveCreator::setMaterial(Assembly* parent, const string& name)
 Face* PrimitiveCreator::createFace(Vertex& topLeft, Vertex& bottomLeft, Vertex& bottomRight,
                                    Vertex& topRight, Vertex& normale)
 {
-
-	Face* face = new Face();
-	
-	Vertex* vector = new Vertex(topLeft);
-	Vertex* normal = new Vertex(normale);
-	TCoord* tcoord = new TCoord(0, 1);
-	VNT vnt(vector, normal ,tcoord);
-	face->addVNT(vnt);
-	
-	vector = new Vertex(bottomLeft);
-	normal = new Vertex(normale);
-	tcoord = new TCoord(0, 0);
-	VNT vnt2(vector, normal, tcoord);
-	face->addVNT(vnt2);
-	
-	vector = new Vertex(bottomRight);
-	normal = new Vertex(normale);
-	tcoord = new TCoord(1, 0);
-	VNT vnt3(vector, normal,tcoord);
-	face->addVNT(vnt3);
-	
-	vector = new Vertex(topRight);
-	normal = new Vertex(normale);
-	tcoord = new TCoord(1, 1);
-	VNT vnt4(vector, normal, tcoord);
-	face->addVNT(vnt4);
-	
+	Face* face;
 	return face;
 }

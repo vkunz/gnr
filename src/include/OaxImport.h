@@ -38,6 +38,9 @@ public:
 	// load file case: library
 	OaxImport(wxString filename);
 	
+	// load stream case: opx-import
+	OaxImport(wxInputStream& instream);
+	
 	// dtor
 	virtual ~OaxImport();
 	

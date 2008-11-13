@@ -1,3 +1,6 @@
+#ifndef _GNRASSEMBLY_H_
+#define _GNRASSEMBLY_H_
+
 /**
  * Assembly
  * @name                Assembly.h
@@ -8,12 +11,7 @@
  * @author		Valentin Kunz       <athostr@googlemail.com>
  */
 
-#ifndef _GNRASSEMBLY_H_
-#define _GNRASSEMBLY_H_
-
-#ifdef _WIN32
-#include <gl/glu.h>
-#endif
+#include <GL/glu.h>
 
 #include <list>
 #include <vector>
@@ -23,8 +21,12 @@
 #include "Enum.h"
 #include "Face.h"
 #include "Vertex.h"
-#include "Material.h"
+#include "MaterialLibrary.h"
 
+
+using std::cout;
+using std::endl;
+using std::fstream;
 using std::list;
 using std::vector;
 using std::map;
@@ -33,7 +35,8 @@ using std::pair;
 class Assembly
 {
 public:
-
+	friend class ObjectImport;
+	
 	Assembly(const wxString& name);
 	Assembly(Assembly* parent, const wxString& name);
 	Assembly(const assemblyType& type, const wxString& name);
@@ -41,75 +44,58 @@ public:
 	
 	virtual ~Assembly();
 	
+	void Assembly::dump2stream(ostream& os, int depth) const;
+	
 	bool findCloneOf(const Assembly* origin) const;
 	bool findHash(const wxString& hash) const;
 	bool isOriginal() const;
 	bool isSelected() const;
 	bool isVisible() const;
-	float getX() const;
-	float getY() const;
-	float getZ() const;
 	
-	float getRadiusTop() const;
-	float getRadiusMiddle() const;
-	float getRadiusBottom() const;
+	// getter and setter for the position of the Assembly
+	const Vertex& position() const;
+	Vertex& position();
 	
-	float getHeight() const;
-	float getWidth() const;
-	float getDepth() const;
+	// getter and setter for the rotation angles of the Assembly
+	const Vertex& rotation() const;
+	Vertex& rotation();
+	
+	// getter and setter for the scaling factors of the Assembly
+	const Vertex& scale() const;
+	Vertex& scale();
+	
+	// getter for the dimensions of the Assembly surrounding cube
+	const Vertex& dimension() const;
+	Vertex& dimension();
+	
+	// getter for the world-dimensions of the Assembly surrounding cube
+	Vertex world_dimension() const;
+	
+	// getter and setter for dimensions of the Cuboid
+	const Vertex& cuboid_dimension() const;
+	Vertex& cuboid_dimension();
+	
+	// getter and setter for the dimensions of the Cylinder
+	// height, r_top, r_bottom
+	const Vertex& cylinder_dimension() const;
+	Vertex& cylinder_dimension();
+	
+	// getter and setter for the radius of the Sphere
+	float sphere_radius() const;
+	float& sphere_radius();
+	
 	float getMaximumSize() const;
-	Vertex getCenterVertex() const;
-	Vertex getRotateVertex() const;
 	
 	void setVisible(bool status);
-	void setX(const float x);
-	void setY(const float y);
-	void setZ(const float z);
-	void setXY(const float x,const float y);
-	void setXZ(const float x,const float z);
-	void setXYZ(const float x, const float y, const float z);
-	void setCenterVertex(const Vertex& center);
-	void setRotateVertex(const Vertex& rotation);
-	void move(const Vertex& center);
 	
-	void setRadiusBottom(const float r);
-	void setRadiusMiddle(const float r);
-	void setRadiusTop(const float r);
+	// move the Assembly with the offset
+	void move(const Vertex& offset);
 	
-	void setCone(const float x,const float y,const float z, const float height, const float r_top, const float r_bottom);
-	void setCylinder(const float x,const float y,const float z, const float height, const float radius);
-	void setSphere(const float x,const float y,const float z, const float radius);
-	void setCuboid(const float x,const float y,const float z, const float width,const float height,const float depth);
+	void setCylinder(float x, float y, float z, float height, float r_top, float r_bottom);
+	void setSphere(float x, float y, float z, float radius);
+	void setCuboid(float x, float y, float z, float width, float height, float depth);
 	
-	void setHeight(const float height);
-	void setWidth(const float width);
-	void setDepth(const float depth);
-	void setSize(const float width,const float height,const float depth);
-	
-	float getPhi() const;
-	float getRho() const;
-	float getTheta() const;
-	
-	void setPhi(const float phi);
-	void setRho(const float rho);
-	void setTheta(const float theta);
-	void setPhiTheta(const float phi,const float theta);
-	void setPhiRho(const float phi,const float rho);
-	
-	float getScaleX() const;
-	float getScaleY() const;
-	float getScaleZ() const;
-	
-	float getWidthMeters() const;
-	float getHeightMeters() const;
-	float getDepthMeters() const;
-	
-	void setScaleX(const float x);
-	void setScaleY(const float y);
-	void setScaleZ(const float z);
-	void setScale(const float x,const float y,const float z);
-	
-	void addFace(const Face& newface);
+	void addFace(Face* newface);
 	void addPart(Assembly* part);
 	void delPart(Assembly* part);
 	
@@ -156,19 +142,17 @@ public:
 	list<wxString> getTagList();
 	
 private:
-	float m_x, m_y, m_z;
+	// position, rotation and scale of the Assembly
+	Vertex m_position, m_rotation, m_scale;
+	// dimensions of the cube surrounding the assembly
+	Vertex m_dimension;
 	
-	//Rotation along X-, Y-, and Z-Axis
-	float m_phi, m_theta, m_rho;
-	
-	//scale factor for dimension correction
-	float m_scale_x, m_scale_y, m_scale_z;
-	
-	//whole size of assembly surrounding cube
-	float m_width, m_height, m_depth;
-	
-	//radius (middle = sphere, bottom & top = cone, cylinder)
-	float m_radius_bottom, m_radius_middle, m_radius_top;
+	// dimensions of the Cuboid
+	Vertex m_cuboid;
+	// dimensions of the Cylinder
+	Vertex m_cylinder;
+	// radius of the Sphere
+	float m_radius;
 	
 	assemblyType m_type;
 	wxString m_name;
@@ -179,21 +163,19 @@ private:
 	//kill display lists
 	bool m_kill_dl;
 	
-	
 	Assembly* m_parent;
 	Assembly* m_origin;
 	
-	//my display list and shadows
+	//my display list and one for the shadow
 	GLuint m_dl_object;
 	GLuint m_dl_shadow;
 	
 	wxString m_md5_obj_xml;
 	
-	list<Face>      m_face;
 	list<Assembly*> m_part;
-	
-	//ChildPtr ==> Material
-	map<const Assembly* const, Material> m_child_mat;
+	list<Face*> m_face;
+	vector<Vertex*> m_vertex;
+	vector<Vertex*> m_normal;
 	
 	//ChildPtr ==> display list
 	map<const Assembly* const, GLuint> m_child_dl;
@@ -203,6 +185,7 @@ private:
 	
 	//type of primitive
 	primitiveType m_ptype;
+	string m_matname;
 };
 
 #endif // _GNRASSEMBLY_H_

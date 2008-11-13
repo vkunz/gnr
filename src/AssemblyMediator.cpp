@@ -46,17 +46,9 @@ void AssemblyMediator::initialize(GLNotifyEvent& event)
 	{
 		m_initialized = true;
 		
-		old_x = m_Assembly->getX();
-		old_y = m_Assembly->getY();
-		old_z = m_Assembly->getZ();
-		
-		scale_x = m_Assembly->getScaleX();
-		scale_y = m_Assembly->getScaleY();
-		scale_z = m_Assembly->getScaleZ();
-		
-		phi_old   = m_Assembly->getPhi();
-		theta_old = m_Assembly->getTheta();
-		rho_old   = m_Assembly->getRho();
+		m_Assembly->position().getAll(old_x, old_y, old_z);
+		m_Assembly->scale().getAll(scale_x, scale_y, scale_z);
+		m_Assembly->rotation().getAll(phi_old, theta_old, rho_old);
 		
 		window_w = event.getWinX();
 		window_h = event.getWinY();
@@ -73,7 +65,7 @@ void AssemblyMediator::initialize(GLNotifyEvent& event)
 		cam_rot_x = event.getCamRotatedX();
 		cam_rot_y = event.getCamRotatedY();
 		cam_pos   = event.getCamPosition();
-		obj_pos   = m_Assembly->getCenterVertex();
+		obj_pos   = m_Assembly->position();
 		
 		m_mouse_x = event.getMouseEvent().GetX();
 		m_mouse_y = event.getMouseEvent().GetY();
@@ -143,9 +135,9 @@ void AssemblyMediator::finalize()
 		command->setOldPosition(old_pos);
 		Vertex old_angles(phi_old, theta_old, rho_old);
 		command->setOldAngles(old_angles);
-		Vertex new_pos(m_Assembly->getX(), m_Assembly->getY(), m_Assembly->getZ());
+		Vertex new_pos(m_Assembly->position());
 		command->setNewPosition(new_pos);
-		Vertex new_angles(m_Assembly->getPhi(), m_Assembly->getTheta(), m_Assembly->getRho());
+		Vertex new_angles(m_Assembly->rotation());
 		command->setNewAngles(new_angles);
 		
 		UndoRedo* undo = UndoRedo::getInstance();

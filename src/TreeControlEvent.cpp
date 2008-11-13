@@ -160,39 +160,3 @@ void TreeControlEvent::setAssembly(Assembly* assembly)
 {
 	m_assembly = assembly;
 }
-
-/**
- * get TreeLibraryItemData source
- * @return        TreeLibraryItemData*          source of drag
- */
-TreeLibraryItemData* TreeControlEvent::getTreeItemSrc()
-{
-	return m_itemSrc;
-}
-
-/**
- * set TreeLibraryItemData source
- * @param[in]        item          TreeLibraryItemData source
- */
-void TreeControlEvent::setTreeItemSrc(TreeLibraryItemData* item)
-{
-	m_itemSrc = item;
-}
-
-/**
- * get TreeLibraryItemData destination
- * @return        TreeLibraryItemData*          destination of drag
- */
-TreeLibraryItemData* TreeControlEvent::getTreeItemDst()
-{
-	return m_itemDst;
-}
-
-/**
- * set TreeLibraryItemData destination
- * @param[in]        item          wxTreeItemId source
- */
-void TreeControlEvent::setTreeItemDst(TreeLibraryItemData* item)
-{
-	m_itemDst = item;
-}

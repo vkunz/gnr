@@ -30,10 +30,7 @@ public:
 	// returns m_ptrEntries
 	std::vector<LibraryEntry>* getEntries();
 	
-	// add new category to library
-	void addCategory(wxString& name, unsigned int parentId = 0);
-	
-	// add new oax to library
+	// add ne oax to library
 	void addEntry(wxString reference, wxInputStream& inStream);
 	
 	// delete entry
@@ -47,12 +44,6 @@ public:
 	
 	// rename entry
 	void renameEntry(wxString reference, wxString newName);
-	
-	// add new category
-	void addNewCategory(const wxString& name, const unsigned int parentId);
-	
-	// move entry from one category to an other
-	void moveEntry(const wxString reference, const unsigned int new_parent_id);
 	
 protected:
 
@@ -89,26 +80,17 @@ private:
 	// add new entry from xml
 	void addEntry(wxString& name, wxString& reference, unsigned int& categoryId);
 	
-	// add new category to xml
-	void addXmlCategory(wxXmlDocument& xml, wxZipOutputStream& out, wxString& newName);
-	
-	// add new entry to xml
+	// add new entry to XML
 	void addXmlEntry(wxXmlDocument& xml, wxZipOutputStream& out);
 	
-	// delete xml entry
+	// delete XML entry
 	void deleteXmlEntry(wxXmlDocument& xml, wxZipOutputStream& out, wxString& reference);
 	
-	// rename xml category
+	// rename XML category
 	void renameXmlCategory(wxXmlDocument& xml, wxZipOutputStream& out, unsigned int cat_id, wxString& newName);
 	
-	// rename xml entry
+	// rename XML entry
 	void renameXmlEntry(wxXmlDocument& xml, wxZipOutputStream& out, wxString& reference, wxString& newName);
-	
-	// add new category to xml
-	void addNewXmlCategory(wxXmlDocument& xml, wxZipOutputStream& out, const wxString& newName);
-	
-	// move entry in xml
-	void moveXmlEntry(wxXmlDocument& xml, wxZipOutputStream& out, const wxString& reference, const unsigned int new_parent_id);
 };
 
 #endif // _GNRLIBRARY_H_

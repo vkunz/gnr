@@ -21,13 +21,11 @@ void GLCameraMediator3D::MoveXY(GLNotifyEvent& event)
 	Vertex up(0.0,1.0,0.0);
 	
 	//remember distance of cam for speed up
-	float distance = m_GLCamera->getDistance() + old_viewPoint.getY();
-	float delta_mx = m_mouse_x - event.getMouseEvent().GetX();
-	float delta_my = event.getMouseEvent().GetY() - m_mouse_y;
+	float distance = m_GLCamera->getDistance();
 	
 	//calculate translation scale on 2D screen
-	float distX = (float)delta_mx/(float)window_w*distance;
-	float distY = (float)delta_my/(float)window_h*distance;
+	float distX = (float)(m_mouse_x - event.getMouseEvent().GetX())/(float)(window_w)*distance;
+	float distY = (float)(event.getMouseEvent().GetY() - m_mouse_y)/(float)(window_h)*distance;
 	
 	//move viewpoint by right vector and up vector with scale
 	Vertex viewPoint = old_viewPoint + (old_rightVector*distX);
@@ -48,12 +46,10 @@ void GLCameraMediator3D::MoveXZ(GLNotifyEvent& event)
 	
 	//remember distance of cam for speed up
 	float distance = m_GLCamera->getDistance();
-	float delta_mx = m_mouse_x - event.getMouseEvent().GetX();
-	float delta_my = m_mouse_y - event.getMouseEvent().GetY();
 	
 	//calculate translation scale on 2D screen
-	float distX = (float)delta_mx/(float)window_w*distance;
-	float distZ = (float)delta_my/(float)window_h*distance;
+	float distX = (float)(m_mouse_x - event.getMouseEvent().GetX())/(float)(window_w)*distance;
+	float distZ = (float)(m_mouse_y - event.getMouseEvent().GetY())/(float)(window_h)*distance;
 	
 	//set y-direction to zero
 	front.setY(0.0);

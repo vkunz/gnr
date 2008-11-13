@@ -29,8 +29,6 @@ Scene::Scene()
 	m_GLCamera2D    = new GLCamera();
 	m_GLCamera3D    = new GLCamera();
 	
-	m_canvas2DActive = true;
-	
 	resetCamera();
 }
 
@@ -204,10 +202,7 @@ GLCanvas3D* Scene::getCanvas3D()
 void Scene::glRefresh()
 {
 	glRefresh3D();
-	if (m_canvas2DActive == true)
-	{
-		glRefresh2D();
-	}
+	glRefresh2D();
 }
 
 /**
@@ -430,7 +425,7 @@ void Scene::cloneSelectedAssemblies()
 		//copy clone in selected
 		m_Selected->addPart(a_copy);
 		//move assembly one width right
-		a_copy->move(Vertex(a_copy->getWidthMeters(),0.0,0.0));
+		a_copy->move(Vertex(a_copy->world_dimension().getX(), 0.0f, 0.0f));
 	}
 	
 	// send event to refresh Scene-Tree
@@ -553,61 +548,21 @@ void Scene::drawLine(LineDrawEvent& event)
 	{
 		glPushMatrix();
 		{
+			//draw line from start- to end-point
+			float lineColor[4] = {1.0, 0.0, 0.0, 0.0};
+			glMaterialfv(GL_FRONT, GL_EMISSION, lineColor);
+			glMaterialfv(GL_FRONT, GL_AMBIENT_AND_DIFFUSE, lineColor);
+			
 			//should be like the default wallsize
-			float line_width = 100.0/(float)m_GLCamera2D->getDistance();
+			glLineWidth(70.0/(float)m_GLCamera2D->getDistance());
 			
-			//set line width in gl
-			glLineWidth(line_width);
-			
-			//draw wall with lines
-			if (event.GetInt() == 1)
+			//draw line from start to end
+			glBegin(GL_LINES);
 			{
-				//draw wall from start- to end-point 2 colored
-				float lineColor1[4] = {0.3, 0.0, 0.0, 0.0};
-				float lineColor2[4] = {1.0, 0.0, 0.0, 0.0};
-				
-				glMaterialfv(GL_FRONT, GL_EMISSION, lineColor1);
-				glMaterialfv(GL_FRONT, GL_AMBIENT_AND_DIFFUSE, lineColor1);
-				glBegin(GL_LINES);
-				{
-					glVertex3f(event.getStartPoint().getX(), event.getStartPoint().getY(), event.getStartPoint().getZ());
-					glVertex3f(event.getEndPoint().getX(), event.getEndPoint().getY(), event.getEndPoint().getZ());
-					glVertex3f(event.getEndPoint().getX(), event.getEndPoint().getY(), event.getEndPoint().getZ());
-					glMaterialfv(GL_FRONT, GL_EMISSION, lineColor2);
-					glMaterialfv(GL_FRONT, GL_AMBIENT_AND_DIFFUSE, lineColor2);
-					glVertex3f(event.getEndPoint().getX(), event.getEndPoint().getY()+WALLHEIGHT, event.getEndPoint().getZ());
-				}
-				glEnd();
-				
-				//draw line from start to end
-				glMaterialfv(GL_FRONT, GL_EMISSION, lineColor2);
-				glMaterialfv(GL_FRONT, GL_AMBIENT_AND_DIFFUSE, lineColor2);
-				glBegin(GL_LINES);
-				{
-					glVertex3f(event.getEndPoint().getX(), event.getEndPoint().getY()+WALLHEIGHT, event.getEndPoint().getZ());
-					glVertex3f(event.getStartPoint().getX(), event.getStartPoint().getY()+WALLHEIGHT, event.getStartPoint().getZ());
-					glVertex3f(event.getStartPoint().getX(), event.getStartPoint().getY()+WALLHEIGHT, event.getStartPoint().getZ());
-					glMaterialfv(GL_FRONT, GL_EMISSION, lineColor1);
-					glMaterialfv(GL_FRONT, GL_AMBIENT_AND_DIFFUSE, lineColor1);
-					glVertex3f(event.getStartPoint().getX(), event.getStartPoint().getY(), event.getStartPoint().getZ());
-				}
-				glEnd();
+				glVertex3f(event.getStartPoint().getX(), event.getStartPoint().getY(), event.getStartPoint().getZ());
+				glVertex3f(event.getEndPoint().getX(), event.getEndPoint().getY(), event.getEndPoint().getZ());
 			}
-			//draw line only (measure)
-			else
-			{
-				//draw wall from start- to end-point 2 colored
-				float lineColor1[4] = {0.0, 1.0, 0.0, 0.0};
-				
-				glMaterialfv(GL_FRONT, GL_EMISSION, lineColor1);
-				glMaterialfv(GL_FRONT, GL_AMBIENT_AND_DIFFUSE, lineColor1);
-				glBegin(GL_LINES);
-				{
-					glVertex3f(event.getStartPoint().getX(), event.getStartPoint().getY(), event.getStartPoint().getZ());
-					glVertex3f(event.getEndPoint().getX(), event.getEndPoint().getY(), event.getEndPoint().getZ());
-				}
-				glEnd();
-			}
+			glEnd();
 			
 			//turn on lights
 			m_GLOUT->initLights();
@@ -637,7 +592,7 @@ void Scene::drawLine(LineDrawEvent& event)
 	
 	//create string for statusbar
 	wxString str;
-	str << wxT("L" auml "nge: ") << length << wxT(" mm");
+	str << wxT("Länge: ") << length << wxT(" mm");
 	
 	// send event to display length
 	NotifyEvent gnrevent(wxEVT_COMMAND_GNR_NOTIFY);
@@ -693,17 +648,17 @@ void Scene::groupSelectedAssemblies()
 			m_Selected->delPart(*it);
 			continue;
 		}
-		minmax(min[0], max[0], (*it)->getX());
-		minmax(min[1], max[1], (*it)->getY());
-		minmax(min[2], max[2], (*it)->getZ());
+		minmax(min[0], max[0], (*it)->position().getX());
+		minmax(min[1], max[1], (*it)->position().getY());
+		minmax(min[2], max[2], (*it)->position().getZ());
 	}
 	
 	//build new center as vertex for better calculation
 	Vertex new_center((max[0]+min[0])/2.0, (max[1]+min[1])/2.0, (max[2]+min[2])/2.0);
 	
 	//move group center to new center
-	group->setCenterVertex(new_center);
-	group->setHeight((max[1]+min[1]));
+	group->position() = new_center;
+	group->dimension().setY(max[1]+min[1]);
 	//store obj center as vertex
 	Vertex obj_center;
 	
@@ -711,7 +666,7 @@ void Scene::groupSelectedAssemblies()
 	for (list<Assembly*>::iterator it = parts.begin(); it != parts.end(); ++it)
 	{
 		//store old center
-		obj_center = (*it)->getCenterVertex();
+		obj_center = (*it)->position();
 		
 		//add part to new group and remove from selection
 		group->addPart((*it));
@@ -719,7 +674,7 @@ void Scene::groupSelectedAssemblies()
 		
 		//modify center relative to new center
 		obj_center = obj_center - new_center;
-		(*it)->setCenterVertex(obj_center);
+		(*it)->position() = obj_center;
 	}
 	
 	//put new group in the world
@@ -756,9 +711,9 @@ void Scene::ungroupSelectedAssemblies()
 			//get partlist iterator
 			grp_parts  = (*it)->getPartList();
 			//save center of group
-			grp_center = (*it)->getCenterVertex();
+			grp_center = (*it)->position();
 			//save old rotation of whole group
-			grp_rotate = (*it)->getRotateVertex();
+			grp_rotate = (*it)->rotation();
 			
 			//correct position of all group members
 			for (list<Assembly*>::iterator child_it = grp_parts.begin(); child_it != grp_parts.end(); ++child_it)
@@ -768,8 +723,8 @@ void Scene::ungroupSelectedAssemblies()
 				(*it)->delPart((*child_it));
 				
 				//save old relative position of child from group center
-				ptr_object = (*child_it)->getCenterVertex();
-				ptr_rotate = (*child_it)->getRotateVertex();
+				ptr_object = (*child_it)->position();
+				ptr_rotate = (*child_it)->rotation();
 				
 				//restore rotation from group to child around center
 				ptr_object.rotate(grp_rotate);
@@ -778,8 +733,8 @@ void Scene::ungroupSelectedAssemblies()
 				obj_center = ptr_object + grp_center;
 				
 				//rotate child in same way as group and set new center
-				(*child_it)->setRotateVertex(grp_rotate + ptr_rotate);
-				(*child_it)->setCenterVertex(obj_center);
+				(*child_it)->rotation() = grp_rotate + ptr_rotate;
+				(*child_it)->position() = obj_center;
 			}
 			//remove group container from his parent
 			m_Selected->delPart(*it);
@@ -935,13 +890,4 @@ void Scene::refreshTreeAndCanvas()
 Assembly* Scene::getTrash()
 {
 	return m_Trash;
-}
-
-/**
- * sets the canvas 2d active or not
- * @param[in]       bool            bool-status
- */
-void Scene::setCanvas2DActive(bool status)
-{
-	m_canvas2DActive = status;
 }

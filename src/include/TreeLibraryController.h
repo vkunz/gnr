@@ -13,7 +13,6 @@
 
 #include <map>
 #include <vector>
-#include <wx/treectrl.h>
 #include <wx/wfstream.h>
 #include <wx/zipstrm.h>
 
@@ -21,7 +20,6 @@
 #include "LibraryCategory.h"
 #include "LibraryEntry.h"
 #include "TreeLibraryCtrl.h"
-#include "TreeControlEvent.h"
 
 /**
  * @class TreeLibraryController
@@ -44,12 +42,8 @@ public:
 	// dtor
 	virtual ~TreeLibraryController();
 	
-	// add new category
-	unsigned int addCategory(wxString newName);
-	
 	// adds a new category
-	bool addCategory(const unsigned int parent_id, const wxString& newName);
-	
+	bool addCategory(const unsigned int& parent_id, const wxString& name);
 	// adds a new entry from import
 	wxString addEntry(wxInputStream& instream, wxString entry_name, unsigned int cat_id = 0);
 	
@@ -67,8 +61,6 @@ public:
 	void moveCategory(const unsigned int& cat_id, const unsigned int& new_parent_id);
 	// move an entry
 	void moveEntry(const wxString& reference, const unsigned int& new_parent_id);
-	// drag and drop
-	void dragNdrop(TreeControlEvent& event);
 	
 	// merge both cats into new_cat
 	void mergeCategories(const unsigned int& cat_id, const unsigned int& new_cat_id);

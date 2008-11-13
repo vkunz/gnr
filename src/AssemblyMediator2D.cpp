@@ -32,8 +32,8 @@ void AssemblyMediator2D::MoveXY(GLNotifyEvent& event)
 		new_y = m_Assembly->getOverGround();
 	}
 	
-	m_Assembly->setX(new_x);
-	m_Assembly->setY(new_y);
+	m_Assembly->position().setX(new_x);
+	m_Assembly->position().setY(new_y);
 }
 
 /**
@@ -48,8 +48,7 @@ void AssemblyMediator2D::MoveXZ(GLNotifyEvent& event)
 	doSnapMove(new_x);
 	doSnapMove(new_z);
 	
-	m_Assembly->setX(new_x);
-	m_Assembly->setZ(new_z);
+	m_Assembly->position().setXZ(new_x, new_z);
 }
 
 /**
@@ -64,8 +63,7 @@ void AssemblyMediator2D::RotateXY(GLNotifyEvent& event)
 	doSnapRotate(new_phi);
 	doSnapRotate(new_theta);
 	
-	m_Assembly->setPhi(new_phi);
-	m_Assembly->setTheta(new_theta);
+	m_Assembly->rotation().setXY(new_phi, new_theta);
 }
 
 /**
@@ -76,7 +74,7 @@ void AssemblyMediator2D::RotateY(GLNotifyEvent& event)
 {
 	float new_theta = theta_old + 720.0f*(event.getMouseEvent().GetX() - m_mouse_x)/window_w;
 	doSnapRotate(new_theta);
-	m_Assembly->setTheta(new_theta);
+	m_Assembly->rotation().setY(new_theta);
 }
 
 /**
@@ -91,6 +89,5 @@ void AssemblyMediator2D::RotateXZ(GLNotifyEvent& event)
 	doSnapRotate(new_phi);
 	doSnapRotate(new_rho);
 	
-	m_Assembly->setPhi(new_phi);
-	m_Assembly->setRho(new_rho);
+	m_Assembly->rotation().setXZ(new_phi, new_rho);
 }

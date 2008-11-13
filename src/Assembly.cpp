@@ -23,11 +23,7 @@
  * @param[in]      name         name of assembly
  */
 Assembly::Assembly(const wxString& name):
-		m_x(0.0), m_y(0.0), m_z(0.0),
-		m_phi(0.0), m_theta(0.0), m_rho(0.0),
-		m_scale_x(1.0), m_scale_y(1.0), m_scale_z(1.0),
-		m_width(1.0), m_height(1.0), m_depth(1.0),
-		m_radius_bottom(0.0), m_radius_middle(0.0), m_radius_top(0.0),
+		m_scale(1.0f, 1.0f, 1.0f),
 		m_type(IS_ROOT), m_name(name),
 		m_visible(true), m_kill_dl(false),
 		m_parent(NULL), m_origin(NULL),
@@ -38,43 +34,25 @@ Assembly::Assembly(const wxString& name):
 
 /**
  * copy constructor of generic assembly
- * @param[in]       assembly         Assembly
+ * @param[in]       Assembly& a         Assembly
  */
-Assembly::Assembly(Assembly& assembly)
+Assembly::Assembly(Assembly& a):
+		m_position(a.m_position), m_rotation(a.m_rotation), m_scale(a.m_scale),
+		m_cuboid(a.m_cuboid), m_cylinder(a.m_cylinder), m_radius(a.m_radius),
+		m_type(a.m_type), m_name(a.m_name), m_parent(a.m_parent),
+		m_dl_object(a.m_dl_object), m_dl_shadow(a.m_dl_shadow),
+		m_md5_obj_xml(a.m_md5_obj_xml), m_ptype(a.m_ptype)
 {
-	if (assembly.m_origin == NULL)
+	if (a.m_origin == NULL)
 	{
-		//if assembly is original, set origin pointer
-		m_origin = &assembly;
+		//if a is original, set origin pointer
+		m_origin = &a;
 	}
 	else
 	{
 		//else set same origin, is clone from clone
-		m_origin = assembly.m_origin;
+		m_origin = a.m_origin;
 	}
-	
-	m_x       = assembly.m_x;
-	m_y       = assembly.m_y;
-	m_z       = assembly.m_z;
-	m_phi     = assembly.m_phi;
-	m_theta   = assembly.m_theta;
-	m_rho     = assembly.m_rho;
-	m_scale_x = assembly.m_scale_x;
-	m_scale_y = assembly.m_scale_y;
-	m_scale_z = assembly.m_scale_z;
-	m_width   = assembly.m_width;
-	m_height  = assembly.m_height;
-	m_depth   = assembly.m_depth;
-	m_type    = assembly.m_type;
-	m_name    = assembly.m_name;
-	m_parent  = assembly.m_parent;
-	m_radius_bottom = assembly.m_radius_bottom;
-	m_radius_middle = assembly.m_radius_middle;
-	m_radius_top    = assembly.m_radius_top;
-	m_dl_object     = assembly.m_dl_object;
-	m_dl_shadow     = assembly.m_dl_shadow;
-	m_md5_obj_xml   = assembly.m_md5_obj_xml;
-	m_ptype         = assembly.m_ptype;
 	
 	// copy the children
 	for (list<Assembly*>::const_iterator it = m_part.begin(); it != m_part.end(); ++it)
@@ -83,14 +61,6 @@ Assembly::Assembly(Assembly& assembly)
 		Assembly* a_copy = new Assembly(wxT("Kopie"));
 		(*a_copy) = (**it);
 		addPart(a_copy);
-		
-		// set Child-Material
-		map<const Assembly* const, Material>::const_iterator it_mat = m_child_mat.find(*it);
-		if (it_mat != m_child_mat.end())
-		{
-			Material a_mat = it_mat->second;
-			setChildMaterial(a_copy, a_mat);
-		}
 	}
 	
 	// copy the tags
@@ -102,101 +72,12 @@ Assembly::Assembly(Assembly& assembly)
 }
 
 /**
- * clone only display lists
- * @return      GNRAssembly*         pointer to assembly
- */
-void Assembly::cloneDisplayListFrom(Assembly* assembly)
-{
-	//copy display list ids
-	m_dl_object = assembly->m_dl_object;
-	m_dl_shadow = assembly->m_dl_shadow;
-	
-	//point to origin (faces backup)
-	m_origin = assembly;
-	
-	//free memory
-	m_face.clear();
-}
-
-/**
- * clone of generic assembly
- * @return      Assembly*         pointer to assembly
- */
-Assembly* Assembly::clone()
-{
-	Assembly* m_clone = new Assembly(wxT("Kopie"));
-	
-	if (m_origin == NULL)
-	{
-		//if assembly is original, set origin pointer
-		m_clone->m_origin = this;
-	}
-	else
-	{
-		//else set same origin, is clone from clone
-		m_clone->m_origin = m_origin;
-	}
-	
-	m_clone->m_x             = m_x;
-	m_clone->m_y             = m_y;
-	m_clone->m_z             = m_z;
-	m_clone->m_phi           = m_phi;
-	m_clone->m_theta         = m_theta;
-	m_clone->m_rho           = m_rho;
-	m_clone->m_scale_x       = m_scale_x;
-	m_clone->m_scale_y       = m_scale_y;
-	m_clone->m_scale_z       = m_scale_z;
-	m_clone->m_width         = m_width;
-	m_clone->m_height        = m_height;
-	m_clone->m_depth         = m_depth;
-	m_clone->m_type          = m_type;
-	m_clone->m_name          = m_name;
-	m_clone->m_parent        = m_parent;
-	m_clone->m_radius_bottom = m_radius_bottom;
-	m_clone->m_radius_middle = m_radius_middle;
-	m_clone->m_radius_top    = m_radius_top;
-	m_clone->m_dl_object     = m_dl_object;
-	m_clone->m_dl_shadow     = m_dl_shadow;
-	m_clone->m_md5_obj_xml   = m_md5_obj_xml;
-	m_clone->m_ptype         = m_ptype;
-	
-	// copy the children
-	for (list<Assembly*>::const_iterator it = m_part.begin(); it != m_part.end(); ++it)
-	{
-		// draw the Child
-		Assembly* a_copy = (*it)->clone();
-		m_clone->addPart(a_copy);
-		
-		// set Child-Material
-		map<const Assembly* const, Material>::const_iterator it_mat = m_child_mat.find(*it);
-		if (it_mat != m_child_mat.end())
-		{
-			Material a_mat = it_mat->second;
-			m_clone->setChildMaterial(a_copy, a_mat);
-		}
-	}
-	
-	// copy the tags
-	for (list<wxString>::const_iterator it_tags = m_tags.begin(); it_tags != m_tags.end(); ++it_tags)
-	{
-		wxString a_tag = (*it_tags);
-		m_clone->addTag(a_tag);
-	}
-	
-	return m_clone;
-}
-
-/**
  * constructor of generic assembly with parent
  * @param[in]        parent   	    pointer to parent Assembly*
  * @param[in]        name         	wxString name of assembly
  */
 Assembly::Assembly(Assembly* parent, const wxString& name):
-		m_x(0.0), m_y(0.0), m_z(0.0),
-		m_phi(0.0), m_theta(0.0), m_rho(0.0),
-		m_scale_x(1.0), m_scale_y(1.0), m_scale_z(1.0),
-		m_width(1.0), m_height(1.0), m_depth(1.0),
-		m_radius_bottom(0.0), m_radius_middle(0.0), m_radius_top(0.0),
+		m_scale(1.0f, 1.0f, 1.0f),
 		m_type(IS_ROOT), m_name(name),
 		m_visible(true), m_kill_dl(false),
 		m_parent(parent), m_origin(NULL),
@@ -211,11 +92,7 @@ Assembly::Assembly(Assembly* parent, const wxString& name):
  * @param       name   		wxString name of assembly
  */
 Assembly::Assembly(const assemblyType& type, const wxString& name):
-		m_x(0.0), m_y(0.0), m_z(0.0),
-		m_phi(0.0), m_theta(0.0), m_rho(0.0),
-		m_scale_x(1.0), m_scale_y(1.0), m_scale_z(1.0),
-		m_width(1.0), m_height(1.0), m_depth(1.0),
-		m_radius_bottom(0.0), m_radius_middle(0.0), m_radius_top(0.0),
+		m_scale(1.0f, 1.0f, 1.0f),
 		m_type(type), m_name(name),
 		m_visible(true), m_kill_dl(false),
 		m_parent(NULL), m_origin(NULL),
@@ -248,12 +125,103 @@ Assembly::~Assembly()
 	}
 	
 	//kill partlist and childlists
-	m_part.clear();
-	m_child_dl.clear();
-	m_child_mat.clear();
+	//m_part.clear();
+	//m_child_dl.clear();
 }
 
-/* ******* GETTER METHODS FOLLOWING ***** */
+/* GETTER - SETTER */
+
+/**
+ * get position
+ * @return 		const Vertex&	position in meters
+ */
+const Vertex& Assembly::position() const
+{
+	return m_position;
+}
+
+/**
+ * set position
+ * @return 		Vertex&	position in meters
+ */
+Vertex& Assembly::position()
+{
+	return m_position;
+}
+
+/**
+ * get rotation
+ * @return 		const Vertex&	rotation in degrees
+ */
+const Vertex& Assembly::rotation() const
+{
+	return m_rotation;
+}
+
+/**
+ * set rotation
+ * @return 		Vertex&	rotation in degrees
+ */
+Vertex& Assembly::rotation()
+{
+	return m_rotation;
+}
+
+/**
+ * get scale
+ * @return 		const Vertex&	scale
+ */
+const Vertex& Assembly::scale() const
+{
+	return m_scale;
+}
+
+/**
+ * set scale
+ * @return 		Vertex&	rotation in degrees
+ */
+Vertex& Assembly::scale()
+{
+	return m_scale;
+}
+
+/**
+ * get dimension of the surrounding cube
+ * @return 		const Vertex&	dimension
+ */
+const Vertex& Assembly::dimension() const
+{
+	return m_dimension;
+}
+
+/**
+ * set dimension of the surrounding cube
+ * @return 		const Vertex&	dimension
+ */
+Vertex& Assembly::dimension()
+{
+	return m_dimension;
+}
+
+/**
+ * get the world dimension of the surrounding cube
+ * @return 		Vertex	dimension
+ */
+Vertex Assembly::world_dimension() const
+{
+	Vertex tmp(
+	    m_scale.getX() * m_dimension.getX(),
+	    m_scale.getY() * m_dimension.getY(),
+	    m_scale.getZ() * m_dimension.getZ()
+	);
+	
+	return tmp;
+}
+
+void Assembly::move(const Vertex& dir)
+{
+	m_position += dir;
+}
 
 /**
  * get visibility
@@ -262,6 +230,15 @@ Assembly::~Assembly()
 bool Assembly::isVisible() const
 {
 	return m_visible;
+}
+
+/**
+ * set visibility
+ * @param        status 		visible  (true|false)
+ */
+void Assembly::setVisible(bool status)
+{
+	m_visible = status;
 }
 
 /**
@@ -274,44 +251,8 @@ bool Assembly::isOriginal() const
 }
 
 /**
- * get primitive type
- * @return 		primitiveType		type of primitive or 0
- */
-primitiveType Assembly::getPrimitiveType() const
-{
-	return m_ptype;
-}
-
-/**
- * get position value x
- * @return 		float		center x in meters
- */
-float Assembly::getX() const
-{
-	return m_x;
-}
-
-/**
- * get position value y
- * @return 		float		center y in meters
- */
-float Assembly::getY() const
-{
-	return m_y;
-}
-
-/**
- * get position value z
- * @return 		float		center y in meters
- */
-float Assembly::getZ() const
-{
-	return m_z;
-}
-
-/**
- * get position value z
- * @return 		float		center z
+ * get hash
+ * @return 		const wxString&		hash value
  */
 const wxString& Assembly::getHash() const
 {
@@ -319,111 +260,12 @@ const wxString& Assembly::getHash() const
 }
 
 /**
- * get top radius of cylinder (maybe for cone if zero)
- * @return 		float		radius top (cone, cylinder)
+ * set hash
+ * @param[in] 		hash	hash to set
  */
-float Assembly::getRadiusTop() const
+void Assembly::setHash(const wxString& hash)
 {
-	return m_radius_top;
-}
-
-/**
- * get middle radius of sphere
- * @return 		float		radius middle (sphere)
- */
-float Assembly::getRadiusMiddle() const
-{
-	return m_radius_middle;
-}
-
-/**
- * get bottom radius of cylinder (maybe for cone if zero)
- * @return 		float		radius bottom (cone, cylinder)
- */
-float Assembly::getRadiusBottom() const
-{
-	return m_radius_bottom;
-}
-
-/**
- * get height of whole assembly
- * @return 		float		height in meters
- */
-float Assembly::getHeight() const
-{
-	return m_height;
-}
-
-/**
- * get width of whole assembly
- * @return 		float		width in meters
- */
-float Assembly::getWidth() const
-{
-	return m_width;
-}
-
-/**
- * get depth of whole assembly
- * @return 		float		depth in meters
- */
-float Assembly::getDepth() const
-{
-	return m_depth;
-}
-
-/**
- * get degree value of rotation in x
- * @return 		float		angle rotation in x-axis
- */
-float Assembly::getPhi() const
-{
-	return m_phi;
-}
-
-/**
- * get degree value of rotation in y
- * @return 		float		angle rotation in y-axis
- */
-float Assembly::getRho() const
-{
-	return m_rho;
-}
-
-/**
- * get degree value of rotation in z
- * @return 		float		angle rotation in z-axis
- */
-float Assembly::getTheta() const
-{
-	return m_theta;
-}
-
-/**
- * get scale factor in dimension x
- * @return      float       x scale
- */
-float Assembly::getScaleX() const
-{
-	return m_scale_x;
-}
-
-/**
- * get scale factor in dimension y
- * @return      float       y scale
- */
-float Assembly::getScaleY() const
-{
-	return m_scale_y;
-}
-
-/**
- * get scale factor in dimension z
- * @return      float       z scale
- */
-float Assembly::getScaleZ() const
-{
-	return m_scale_z;
+	m_md5_obj_xml = hash;
 }
 
 /**
@@ -435,49 +277,9 @@ const wxString& Assembly::getName() const
 	return m_name;
 }
 
-/**
- * get real width in meters
- * @return      float      original width in meters with scale
- */
-float Assembly::getWidthMeters() const
-{
-	return m_scale_x*m_width;
-}
-
-/**
- * get real height in meters
- * @return      float      original height in meters with scale
- */
-float Assembly::getHeightMeters() const
-{
-	return m_scale_y*m_height;
-}
-
-/**
- * get real depth in meters
- * @return      float      original depth in meters with scale
- */
-float Assembly::getDepthMeters() const
-{
-	return m_scale_z*m_depth;
-}
-
-/**
- * get pointer to parent assembly
- * @return      Assembly*      pointer to parent assembly
- */
 Assembly* Assembly::getParent() const
 {
 	return m_parent;
-}
-
-/**
- * get assembly type
- * @return      assemblyType      type of assembly
- */
-assemblyType Assembly::getType() const
-{
-	return m_type;
 }
 
 /**
@@ -486,7 +288,7 @@ assemblyType Assembly::getType() const
  */
 float Assembly::getOverGround() const
 {
-	return (m_height*m_scale_y)/2.0;
+	return (m_dimension.getY()  * m_scale.getY()) / 2.0f;
 }
 
 /**
@@ -538,346 +340,26 @@ Assembly* Assembly::getOrigin() const
 }
 
 /**
- * get maximum size of object
+ * get the maximum dimension of object
  * @return      float         maximum size in meter
  */
 float Assembly::getMaximumSize() const
 {
-	float max = m_height;
-	if (m_width > max)
+	float x, y, z;
+	m_dimension.getAll(x, y, z);
+	
+	float max = x;
+	if (y > max)
 	{
-		max = m_width;
+		max = y;
 	}
-	if (m_depth > max)
+	if (z > max)
 	{
-		max = m_depth;
+		max = z;
 	}
 	return max;
 }
 
-/**
- * compare type of assembly
- * @param[in]       type 		    type of assembly (assemblyType)
- * @return          boolean         is of type
- */
-bool Assembly::isType(const assemblyType& type)
-{
-	return (m_type == type);
-}
-
-/* ******* SETTER METHODS FOLLOWING ***** */
-/**
- * set top radius for cylinder or cone
- * @param        r 		float radius top
- */
-void Assembly::setRadiusTop(const float r)
-{
-	m_radius_top = r;
-}
-
-/**
- * set middle radius for sphere
- * @param        r 		float radius middle
- */
-void Assembly::setRadiusMiddle(const float r)
-{
-	m_radius_middle = r;
-}
-
-/**
- * set bottom radius for cylinder or cone
- * @param        r 		float radius bottom
- */
-void Assembly::setRadiusBottom(const float r)
-{
-	m_radius_bottom = r;
-}
-
-/**
- * set visibility
- * @param        status 		visible  (true|false)
- */
-void Assembly::setVisible(bool status)
-{
-	m_visible = status;
-}
-
-/**
- * set primitive type
- * @param[in] 		ptype       primitiveType of primitive
- */
-void Assembly::setPrimitiveType(const primitiveType ptype)
-{
-	m_ptype = ptype;
-}
-
-/**
- * set position value x
- * @param       x       float value for x
- */
-void Assembly::setX(const float x)
-{
-	m_x = x;
-}
-
-/**
- * set position value y
- * @param       y       float value for y
- */
-void Assembly::setY(const float y)
-{
-	m_y = y;
-}
-
-/**
- * set position value z
- * @param       z       float value for z
- */
-void Assembly::setZ(const float z)
-{
-	m_z = z;
-}
-
-/**
- * get position value z
- */
-void Assembly::setHash(const wxString& hash)
-{
-	m_md5_obj_xml = hash;
-}
-
-/**
- * set position value x and y
- * @param       x       float value for x
- * @param       y       float value for y
- */
-void Assembly::setXY(const float x, const float y)
-{
-	m_x = x;
-	m_y = y;
-}
-
-/**
- * set position value x and z
- * @param       x       float value for x
- * @param       z       float value for z
- */
-void Assembly::setXZ(const float x, const float z)
-{
-	m_x = x;
-	m_z = z;
-}
-
-/**
- * set position value x, y and z
- * @param       x       float value for x
- * @param       y       float value for y
- * @param       z       float value for z
- */
-void Assembly::setXYZ(const float x, const float y, const float z)
-{
-	m_x = x;
-	m_y = y;
-	m_z = z;
-}
-
-void Assembly::setCone(const float x,const float y,const float z, const float height, const float r_top, const float r_bottom)
-{
-	m_x = x;
-	m_y = y;
-	m_z = z;
-	
-	m_radius_top    = r_top;
-	m_radius_middle = (r_top+r_bottom)/2.0;
-	m_radius_bottom = r_bottom;
-	
-	if (r_top > r_bottom)
-	{
-		m_width = r_top*2.0;
-	}
-	else
-	{
-		m_width = r_bottom*2.0;
-	}
-	
-	m_height = height;
-	m_depth  = m_width;
-}
-
-void Assembly::setCylinder(const float x,const float y,const float z, const float height, const float radius)
-{
-	m_x = x;
-	m_y = y;
-	m_z = z;
-	
-	m_radius_top    = radius;
-	m_radius_middle = radius;
-	m_radius_bottom = radius;
-	
-	m_height = height;
-	m_depth  = radius*2.0;
-	m_width  = m_depth;
-}
-
-void Assembly::setSphere(const float x,const float y,const float z, const float radius)
-{
-	m_x = x;
-	m_y = y;
-	m_z = z;
-	
-	m_radius_top    = 0.0;
-	m_radius_middle = radius;
-	m_radius_bottom = 0.0;
-	
-	m_height = radius*2.0;
-	m_depth  = m_height;
-	m_width  = m_height;
-}
-
-void Assembly::setCuboid(const float x,const float y,const float z, const float width,const float height,const float depth)
-{
-	m_x = x;
-	m_y = y;
-	m_z = z;
-	
-	m_width  = width;
-	m_height = height;
-	m_depth  = depth;
-}
-
-/**
- * set degree value of rotation in x
- * @param       phi        rotation degree in x
- */
-void Assembly::setPhi(const float phi)
-{
-	m_phi = phi;
-}
-
-/**
- * set degree value of rotation in y
- * @param       rho        rotation degree in y
- */
-void Assembly::setRho(const float rho)
-{
-	m_rho = rho;
-}
-
-/**
- * set degree value of rotation in z
- * @param       theta        rotation degree in z
- */
-void Assembly::setTheta(const float theta)
-{
-	m_theta = theta;
-}
-
-/**
- * set degree value of rotation in x
- * @param       phi             rotation degree in x
- * @param       theta           rotation degree in y
- */
-void Assembly::setPhiTheta(const float phi, const float theta)
-{
-	m_phi   = phi;
-	m_theta = theta;
-}
-
-/**
- * set degree value of rotation in x
- * @param       phi        rotation degree in x
- * @param       rho        rotation degree in z
- */
-void Assembly::setPhiRho(const float phi, const float rho)
-{
-	m_phi = phi;
-	m_rho = rho;
-}
-
-/**
- * set scale factor in x dimension
- * @param       x        float scale factor for x
- */
-void Assembly::setScaleX(const float x)
-{
-	m_scale_x = x;
-}
-
-/**
- * set scale factor in y dimension
- * @param       y        float scale factor for y
- */
-void Assembly::setScaleY(const float y)
-{
-	m_scale_y = y;
-}
-
-/**
- * set scale factor in z dimension
- * @param       z        float scale factor for z
- */
-void Assembly::setScaleZ(const float z)
-{
-	m_scale_z = z;
-}
-
-/**
- * set height of assembly
- * @param       height       float height of assembly
- */
-void Assembly::setHeight(const float height)
-{
-	m_height = height;
-}
-
-/**
- * set width of assembly
- * @param       width       float width of assembly
- */
-void Assembly::setWidth(const float width)
-{
-	m_width = width;
-}
-
-/**
- * set depth of assembly
- * @param       depth       float depth of assembly
- */
-void Assembly::setDepth(const float depth)
-{
-	m_depth = depth;
-}
-
-/**
- * set depth of assembly
- * @param       width           width  (x)
- * @param       height          height (y)
- * @param       depth           depth  (z)
- */
-void Assembly::setSize(const float width,const float height,const float depth)
-{
-	m_width  = width;
-	m_height = height;
-	m_depth  = depth;
-}
-
-/**
- * set scale factor s for x, y and z
- * @param       x        factor for x
- * @param       y        factor for y
- * @param       z        factor for z
- */
-void Assembly::setScale(const float x,const float y,const float z)
-{
-	m_scale_x = x;
-	m_scale_y = y;
-	m_scale_z = z;
-}
-
-/**
- * set name of assembly
- * @param       name        string name of assembly
- */
 void Assembly::setName(const wxString& name)
 {
 	m_name = name;
@@ -902,53 +384,12 @@ void Assembly::setParent(Assembly* p)
 	m_parent = p;
 }
 
-/**
- * set type of assembly
- * @param       type       boolean is obj
- */
-void Assembly::setType(const assemblyType& type)
-{
-	m_type = type;
-}
-
-/**
- * move assembly by vertex
- * @param       center      vertex to center
- */
-void Assembly::move(const Vertex& center)
-{
-	m_x = m_x + center.getX();
-	m_y = m_y + center.getY();
-	m_z = m_z + center.getZ();
-}
-
-/**
- * set vertex position
- * @param       center      vertex to center
- */
-void Assembly::setCenterVertex(const Vertex& center)
-{
-	m_x = center.getX();
-	m_y = center.getY();
-	m_z = center.getZ();
-}
-
-/**
- * set vertex rotation
- * @param       rotation      vertex to rotate
- */
-void Assembly::setRotateVertex(const Vertex& rotation)
-{
-	m_phi   = rotation.getX();
-	m_theta = rotation.getY();
-	m_rho   = rotation.getZ();
-}
 
 /**
  * add face to assembly
  * @param       face      face to add
  */
-void Assembly::addFace(const Face& face)
+void Assembly::addFace(Face* face)
 {
 	m_face.push_back(face);
 }
@@ -970,26 +411,6 @@ void Assembly::addPart(Assembly* part)
 void Assembly::delPart(Assembly* part)
 {
 	m_part.remove(part);
-}
-
-/**
- * get vertex position
- * @return      Vertex      vertex to center of object
- */
-Vertex Assembly::getCenterVertex() const
-{
-	Vertex position(m_x, m_y, m_z);
-	return position;
-}
-
-/**
- * get vertex rotation
- * @return      Vertex      vertex rotation of object
- */
-Vertex Assembly::getRotateVertex() const
-{
-	Vertex rotation(m_phi, m_theta, m_rho);
-	return rotation;
 }
 
 /**
@@ -1020,34 +441,6 @@ list<wxString> Assembly::getTagList()
 }
 
 /**
- * calculate normals for all faces (incl. parts)
- */
-void Assembly::setNormals()
-{
-	// set normals on own faces
-	for (list<Face>::iterator it = m_face.begin(); it != m_face.end(); ++it)
-	{
-		it->setNormal();
-	}
-	
-	// let children set their normals
-	for (list<Assembly*>::iterator it = m_part.begin(); it != m_part.end(); ++it)
-	{
-		(*it)->setNormals();
-	}
-}
-
-/**
- * setChildMaterial
- * @param[in]       child           Assembly* to child
- * @param[in]       mat             Material to set for child
- */
-void Assembly::setChildMaterial(const Assembly* child, const Material& mat)
-{
-	m_child_mat[child] = mat;
-}
-
-/**
  * setChildDisplayList
  * @param[in]       child           Assembly* to child
  * @param[in]       dl              gluint display list for child
@@ -1066,6 +459,14 @@ void Assembly::draw()
 	if (!m_visible)
 	{
 		return;
+	}
+	string act_matname = m_matname;
+	
+	// set object's material
+	MaterialLibrary::mat_citer tmp = MaterialLibrary::getInstance()->get(m_matname);
+	if (tmp != MaterialLibrary::getInstance()->end())
+	{
+		tmp->second.set();
 	}
 	
 	//start drawing glow colors on selection
@@ -1117,15 +518,19 @@ void Assembly::draw()
 	glPushMatrix();
 	{
 		//first translate to position
-		glTranslatef(m_x, m_y, m_z);
+		float x, y, z;
+		m_position.getAll(x, y, z);
+		glTranslatef(x, y, z);
 		
 		//rotate in object center
-		glRotatef(m_phi, 1, 0, 0);
-		glRotatef(m_theta, 0, 1, 0);
-		glRotatef(m_rho, 0, 0, 1);
+		m_rotation.getAll(x, y, z);
+		glRotatef(x, 1, 0, 0);
+		glRotatef(y, 0, 1, 0);
+		glRotatef(z, 0, 0, 1);
 		
 		//finally scale on place
-		glScalef(m_scale_x, m_scale_y, m_scale_z);
+		m_scale.getAll(x, y, z);
+		glScalef(x, y, z);
 		
 		if (glIsList(m_dl_object) || !isOriginal())
 		{
@@ -1146,10 +551,22 @@ void Assembly::draw()
 			//setup new display list
 			glNewList(m_dl_object,GL_COMPILE);
 			{
+			
 				// draw myself to display list
-				for (list<Face>::const_iterator it = m_face.begin(); it != m_face.end(); ++it)
+				for (list<Face*>::const_iterator it = m_face.begin(); it != m_face.end(); ++it)
 				{
-					it->draw();
+					const string& face_mat = (*it)->material();
+					if (face_mat != act_matname)
+					{
+						MaterialLibrary::mat_citer tmp = MaterialLibrary::getInstance()->get(m_matname);
+						if (tmp != MaterialLibrary::getInstance()->end())
+						{
+							// if face's material is different, set it
+							tmp->second.set();
+						}
+					}
+					
+					(*it)->draw();
 				}
 			}
 			glEndList();
@@ -1158,18 +575,67 @@ void Assembly::draw()
 		// draw the children
 		for (list<Assembly*>::const_iterator it = m_part.begin(); it != m_part.end(); ++it)
 		{
-			// set Child-Material
-			map<const Assembly* const, Material>::iterator it_mat = m_child_mat.find(*it);
-			if (it_mat != m_child_mat.end())
-			{
-				it_mat->second.set();
-			}
-			
 			// draw the Child
 			(*it)->draw();
 		}
 	}
 	glPopMatrix();
+}
+
+/**
+ * clone of generic assembly
+ * @return      Assembly*         pointer to assembly
+ */
+Assembly* Assembly::clone()
+{
+	Assembly* m_clone = new Assembly(wxT("Kopie"));
+	
+	if (m_origin == NULL)
+	{
+		//if assembly is original, set origin pointer
+		m_clone->m_origin = this;
+	}
+	else
+	{
+		//else set same origin, is clone from clone
+		m_clone->m_origin = m_origin;
+	}
+	
+	m_clone->m_position = m_position;
+	m_clone->m_rotation = m_rotation;
+	m_clone->m_scale = m_scale;
+	
+	m_clone->m_type = m_type;
+	m_clone->m_name = m_name;
+	m_clone->m_parent = m_parent;
+	
+	m_clone->m_dl_object = m_dl_object;
+	m_clone->m_dl_shadow = m_dl_shadow;
+	m_clone->m_md5_obj_xml = m_md5_obj_xml;
+	m_clone->m_ptype = m_ptype;
+	
+	m_clone->m_cuboid = m_cuboid;
+	m_clone->m_cylinder = m_cylinder;
+	m_clone->m_radius = m_radius;
+	
+	//m_clone->m_matname = m_matname;
+	
+	// copy the children
+	for (list<Assembly*>::const_iterator it = m_part.begin(); it != m_part.end(); ++it)
+	{
+		// draw the Child
+		Assembly* a_copy = (*it)->clone();
+		m_clone->addPart(a_copy);
+	}
+	
+	// copy the tags
+	for (list<wxString>::const_iterator it_tags = m_tags.begin(); it_tags != m_tags.end(); ++it_tags)
+	{
+		wxString a_tag = (*it_tags);
+		m_clone->addTag(a_tag);
+	}
+	
+	return m_clone;
 }
 
 /**
@@ -1266,15 +732,19 @@ void Assembly::drawShadow()
 	glPushMatrix();
 	{
 		//first translate to position
-		glTranslatef(m_x, m_y, m_z);
+		float x, y, z;
+		m_position.getAll(x, y, z);
+		glTranslatef(x, y, z);
 		
 		//rotate in object center
-		glRotatef(m_phi, 1, 0, 0);
-		glRotatef(m_theta, 0, 1, 0);
-		glRotatef(m_rho, 0, 0, 1);
+		m_rotation.getAll(x, y, z);
+		glRotatef(x, 1, 0, 0);
+		glRotatef(y, 0, 1, 0);
+		glRotatef(z, 0, 0, 1);
 		
 		//finally scale on place
-		glScalef(m_scale_x, m_scale_y, m_scale_z);
+		m_scale.getAll(x, y, z);
+		glScalef(x, y, z);
 		
 		if (glIsList(m_dl_shadow) || !isOriginal())
 		{
@@ -1296,9 +766,9 @@ void Assembly::drawShadow()
 			glNewList(m_dl_shadow,GL_COMPILE);
 			{
 				// draw my shadows to display list
-				for (list<Face>::const_iterator it = m_face.begin(); it != m_face.end(); ++it)
+				for (list<Face*>::const_iterator it = m_face.begin(); it != m_face.end(); ++it)
 				{
-					it->draw();
+					(*it)->draw();
 				}
 			}
 			glEndList();
@@ -1319,7 +789,7 @@ void Assembly::drawShadow()
  */
 void Assembly::putOnGround()
 {
-	m_y = (m_height*m_scale_y)/2.0;
+	m_position.setY(world_dimension().getY() / 2.0f);
 }
 
 /**
@@ -1327,10 +797,8 @@ void Assembly::putOnGround()
  */
 void Assembly::resetOnGround()
 {
-	m_y     = (m_height*m_scale_y)/2.0;
-	m_phi   = 0.0;
-	m_theta = 0.0;
-	m_rho   = 0.0;
+	putOnGround();
+	m_rotation.setAll(0.0f, 0.0f, 0.0f);
 }
 
 #if defined(__ATHOS_DEBUG__)
@@ -1340,19 +808,19 @@ void Assembly::resetOnGround()
 void Assembly::debugInfo() const
 {
 	wxString msg;
-	msg << wxT(" x=") << m_x;
-	msg << wxT(" y=") << m_y;
-	msg << wxT(" z=") << m_z;
-	msg << wxT("\nphi=") << m_phi;
-	msg << wxT(" the=") << m_theta;
-	msg << wxT(" rho=") << m_rho;
-	msg << wxT("\nh=") << m_height;
-	msg << wxT(" w=") << m_width;
-	msg << wxT(" d=") << m_depth;
-	msg << wxT("\nsx=") << m_scale_x;
-	msg << wxT(" sy=") << m_scale_y;
-	msg << wxT(" sz=") << m_scale_z;
-	msg << wxT("\noG=") << (m_height * m_scale_y) / 2.0;
+	msg << wxT(" x=") << m_position.getX();
+	msg << wxT(" y=") << m_position.getY();
+	msg << wxT(" z=") << m_position.getZ();
+	msg << wxT("\nrx=") << m_rotation.getX();
+	msg << wxT(" ry=") << m_rotation.getY();
+	msg << wxT(" rz=") << m_rotation.getZ();
+	msg << wxT("\nw=") << m_dimension.getX();
+	msg << wxT(" h=") << m_dimension.getY();
+	msg << wxT(" d=") << m_dimension.getZ();
+	msg << wxT("\nsx=") << m_scale.getX();
+	msg << wxT(" sy=") << m_scale.getY();
+	msg << wxT(" sz=") << m_scale.getZ();
+	msg << wxT("\noG=") << (m_dimension.getY() * m_scale.getY()) / 2.0f;
 	wxLogDebug(msg);
 }
 
@@ -1383,4 +851,175 @@ void Assembly::dump(wxString str)
 		(*it)->dump(str);
 	}
 }
+
+void Assembly::dump2stream(ostream& os, int depth) const
+{
+	string placeholder(depth, '\t');
+	os << placeholder << "o " << this << endl;
+	os << placeholder << m_position << " " << m_rotation << endl;
+	os << placeholder << "material:" << m_matname << endl;
+	os << placeholder << "faces:" << endl;
+	for (list<Face*>::const_iterator it = m_face.begin(); it != m_face.end(); ++it)
+	{
+		os << placeholder << (*it)->material() << " " << *it  << endl;
+	}
+	os << placeholder << "children: " << endl;
+	for (list<Assembly*>::const_iterator it = m_part.begin(); it != m_part.end(); ++it)
+	{
+		os << placeholder << *it << " " << endl;
+	}
+	
+	for (list<Assembly*>::const_iterator it = m_part.begin(); it != m_part.end(); ++it)
+	{
+		(*it)->dump2stream(os, depth+1);
+	}
+	os << placeholder << this << " done" << endl;
+}
+
+
+
+
 #endif
+
+// TODO
+// TODO
+// TODO
+// TODO
+// the really dirty stuff comes (OOP, OOA, OOD, Polymorphysm -- WHAT IS THAT?!)
+
+/**
+ * get radius of the Sphere
+ * @return 		float		radius
+ */
+float Assembly::sphere_radius() const
+{
+	return m_radius;
+}
+
+/**
+ * set radius of the Sphere
+ * @return 		float		radius
+ */
+float& Assembly::sphere_radius()
+{
+	return m_radius;
+}
+
+/**
+ * get dimension of the Cuboid
+ * @return 		const Vertex&	dimension
+ */
+const Vertex& Assembly::cuboid_dimension() const
+{
+	return m_cuboid;
+}
+
+/**
+ * set dimension of the Cuboid
+ * @return 		Vertex&		dimension
+ */
+Vertex& Assembly::cuboid_dimension()
+{
+	return m_cuboid;
+}
+
+/**
+ * get primitive type
+ * @return 		primitiveType		type of primitive or 0
+ */
+primitiveType Assembly::getPrimitiveType() const
+{
+	return m_ptype;
+}
+
+/**
+ * get assembly type
+ * @return      assemblyType      type of assembly
+ */
+assemblyType Assembly::getType() const
+{
+	return m_type;
+}
+
+/**
+ * compare type of assembly
+ * @param[in]       type 		    type of assembly (assemblyType)
+ * @return          boolean         is of type
+ */
+bool Assembly::isType(const assemblyType& type)
+{
+	return (m_type == type);
+}
+
+/**
+ * set primitive type
+ * @param[in] 		ptype       primitiveType of primitive
+ */
+void Assembly::setPrimitiveType(const primitiveType ptype)
+{
+	m_ptype = ptype;
+}
+
+void Assembly::setCylinder(float x, float y, float z, float height, float r_top, float r_bottom)
+{
+	m_position.setAll(x, y, z);
+	m_cylinder.setAll(height, r_top, r_bottom);
+	
+	float r_max = r_top;
+	if (r_bottom > r_max)
+	{
+		r_max = r_bottom;
+	}
+	float d = 2 * r_max;
+	m_dimension.setAll(d, height, d);
+}
+
+void Assembly::setSphere(const float x,const float y,const float z, const float radius)
+{
+	m_position.setAll(x, y, z);
+	m_radius = radius;
+	
+	float d = 2 * radius;
+	m_dimension.setAll(d, d, d);
+}
+
+void Assembly::setCuboid(const float x,const float y,const float z, const float width,const float height,const float depth)
+{
+	m_position.setAll(x, y, z);
+	m_cuboid.setAll(width, height, depth);
+	m_dimension = m_cuboid;
+}
+
+/**
+ * set type of assembly
+ * @param       type       boolean is obj
+ */
+void Assembly::setType(const assemblyType& type)
+{
+	m_type = type;
+}
+
+
+/* rest methods */
+
+/**
+ * clone only display lists
+ * @return      GNRAssembly*         pointer to assembly
+ */
+void Assembly::cloneDisplayListFrom(Assembly* assembly)
+{
+	//copy display list ids
+	m_dl_object = assembly->m_dl_object;
+	m_dl_shadow = assembly->m_dl_shadow;
+	
+	//point to origin (faces backup)
+	m_origin = assembly;
+	
+	//free memory
+	//m_face.clear();
+}
+
+
+
+
+

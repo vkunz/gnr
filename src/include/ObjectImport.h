@@ -14,6 +14,7 @@
 #include <map>
 #include <wx/txtstrm.h>
 #include <wx/wfstream.h>
+#include <wx/filename.h>
 
 #include "Assembly.h"
 #include "ImportFile.h"
@@ -31,7 +32,10 @@ class ObjectImport : public ImportFile
 public:
 	// ctor
 	ObjectImport();
+	// parse the file filename,
+	// I have to fill the datastructure with the mtl's and textures read
 	ObjectImport(const wxString& filename);
+	// parse the stream inStream, all the mtl's and textures are in the map
 	ObjectImport(wxInputStream* inStream, std::map<wxString, wxString>* mtl);
 	
 	// dtor
@@ -43,26 +47,28 @@ public:
 	// return assembly
 	Assembly* getAssembly();
 	
-	// return x - offset
-	float getOffsetX();
-	
-	// return y - offset
-	float getOffsetY();
-	
-	// return z - offset
-	float getOffsetZ();
+	const Vertex& offset() const;
 	
 	// return wrapper
 	Assembly* getWrapper();
 	
 private:
-
-	//access to default values
-	MaterialLibrary m_matlib;
+	// pointer to the new Assembly, its wrapper and an actual Assembly
+	Assembly *m_root, *m_wrapper, *m_act_part;
 	
-	// attributes
-	// set if load from filesystem, else load as wxinputstream
-	bool m_AsString;
+	// offset needed to put the midpoint of the Obj to the Origin
+	// (makes rotation more meaningfull)
+	Vertex m_offset;
+	
+	// min-max ranges for X-, Y-, and Z- dimension.
+	Vertex m_min, m_max;
+	
+	// set if parsing an existing file from FS,
+	// else parse wxinputstream
+	bool m_from_FS;
+	
+	// get filepath
+	wxFileName file;
 	
 	// wxString to store the filepath
 	wxString m_path;
@@ -73,53 +79,27 @@ private:
 	// pointer to map, where mtl and textures are stored in
 	std::map<wxString, wxString>* m_mtl;
 	
-	// pointer to Assembly
-	Assembly* m_root;
+	// parse content and create assembly
+	void parse(const wxString& content);
 	
-	// pointer to actual Assembly
-	Assembly* m_act;
-	
-	// pointer to Assembly - wrapper
-	Assembly* m_wrapper;
-	
-	// double to store the x - offfset
-	float m_offsetX;
-	
-	// double to store the x - offfset
-	float m_offsetY;
-	
-	// double to store the x - offfset
-	float m_offsetZ;
-	
-	// functions
-	// LoadMtl
-	void LoadMtl();
-	
-	// parse material
-	void ParseMtl(wxString& mtl);
-	
-	// read content and create assembly
-	void read(const wxString& content);
-	
-	void getF();
 	void getO();
+	void getF();
 	void getU();
 	void getVs();
 	void getV();
 	void getVN();
-	void getVT();
+	void getM();
 	
-	void minmax(float& min,float& max,float value);
+	Face* getFace(istream& is);
+	
+	void minmax(float x, float y, float z);
 	void addAtomic(const string& name);
 	
-	vector<Vertex> m_vertex, m_normal;
-	vector<TCoord> m_tcoord;
-	string m_matname;
+	string m_act_material;
 	
 	ifstream m_ifs;
 	string m_buf;
 	
-	float m_xmin, m_xmax, m_ymin, m_ymax, m_zmin, m_zmax;
 };
 
 #endif // _GNROBJECTIMPORT_H_

@@ -7,7 +7,6 @@
 #include <wx/button.h>
 #include <wx/frame.h>
 #include <wx/spinctrl.h>
-#include <wx/panel.h>
 #include "Assembly.h"
 
 class AssemblyDataFrame: public wxFrame
@@ -26,8 +25,6 @@ private:
 	float m_assemblyWidth, m_assemblyHeight, m_assemblyDepth;
 	
 	Assembly* m_assembly;
-	
-	wxPanel* m_panel;
 	
 	// text boxes
 	wxTextCtrl* m_txcName;

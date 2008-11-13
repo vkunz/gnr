@@ -2,7 +2,6 @@
 #define _GNRTREECONTROLEVENT_H_
 
 #include <wx/event.h>
-#include "TreeLibraryItemData.h"
 #include "Assembly.h"
 #include "Enum.h"
 
@@ -36,12 +35,6 @@ public:
 	Assembly* getAssembly();
 	void setAssembly(Assembly* assembly);
 	
-	TreeLibraryItemData* getTreeItemDst();
-	void setTreeItemDst(TreeLibraryItemData* item);
-	
-	TreeLibraryItemData* getTreeItemSrc();
-	void setTreeItemSrc(TreeLibraryItemData* item);
-	
 protected:
 private:
 	treeEventType m_eventType;
@@ -53,9 +46,6 @@ private:
 	wxString m_hash;
 	wxString m_newName;
 	Assembly* m_assembly;
-	
-	TreeLibraryItemData* m_itemSrc;
-	TreeLibraryItemData* m_itemDst;
 	
 	DECLARE_DYNAMIC_CLASS(TreeControlEvent);
 };

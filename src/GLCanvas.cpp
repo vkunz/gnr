@@ -17,7 +17,6 @@
 #include <wx/image.h>
 
 #include "GLCanvas.h"
-#include "GLKeyEvent.h"
 #include "NotifyEvent.h"
 #include "GLNotifyEvent.h"
 #include "GlobalDefine.h"
@@ -29,7 +28,7 @@
 #endif
 
 BEGIN_EVENT_TABLE(GLCanvas, wxGLCanvas)
-	EVT_KEY_DOWN(GLCanvas::OnKeyDown)
+	
 END_EVENT_TABLE()
 
 //static display list for floor
@@ -150,10 +149,11 @@ void GLCanvas::initLights()
 	glLightModeli(GL_LIGHT_MODEL_TWO_SIDE,0);
 	glLightModeli(GL_LIGHT_MODEL_LOCAL_VIEWER,1);
 	
+	
 	glEnable(GL_LIGHTING);
 	glEnable(GL_LIGHT0);
 	
-	glClearColor(0.3, 0.3, 0.3, 1.0);
+	glClearColor(0.2, 0.2, 0.2, 1.0);
 }
 
 /**
@@ -205,18 +205,13 @@ void GLCanvas::initGL()
 	
 	glEnable(GL_BLEND);
 	glEnable(GL_DEPTH_TEST);
-	glEnable(GL_CULL_FACE);
-	
-	glCullFace(GL_BACK);
 	
 	glDepthFunc(GL_LEQUAL);
 	
 	glBlendFunc(GL_ONE_MINUS_SRC_ALPHA,GL_SRC_ALPHA);
 	
 	glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);
-//	glHint(GL_LINE_SMOOTH_HINT, GL_NICEST);
-//	glHint(GL_POLYGON_SMOOTH_HINT, GL_NICEST);
-
+	
 	loadFloorTexture();
 	
 	glLineWidth(10.0f);
@@ -336,16 +331,13 @@ void GLCanvas::shadowColorOn()
 	glDisable(GL_DEPTH_TEST);
 	glEnable(GL_BLEND);
 	glStencilOp(GL_KEEP, GL_KEEP, GL_INCR);
-	glCullFace(GL_FRONT);
 }
 
 void GLCanvas::shadowColorOff()
 {
-	//glDisable(GL_BLEND);
 	glDisable(GL_STENCIL_TEST);
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_LIGHTING);
-	glCullFace(GL_BACK);
 }
 
 void GLCanvas::endPixelBuffer()
@@ -766,23 +758,6 @@ void GLCanvas::getGLDim(int x, int y, Vertex* glcoords)
 void GLCanvas::setActive()
 {
 	SetCurrent();
-}
-
-/**
- * fetches key event from canvas
- * @param[in]       event       key event
- */
-void GLCanvas::OnKeyDown(wxKeyEvent& event)
-{
-	if (event.GetKeyCode() == 'W' || event.GetKeyCode() == 'A' || event.GetKeyCode() == 'S' || event.GetKeyCode() == 'D')
-	{
-		// Event to handle keys
-		GLKeyEvent myevent(wxEVT_COMMAND_GL_KEY);
-		myevent.setCanvasID(getCanvasID());
-		myevent.setKey(event.GetKeyCode());
-		myevent.SetEventObject(this);
-		GetEventHandler()->ProcessEvent(myevent);
-	}
 }
 
 /**
