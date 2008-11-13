@@ -48,6 +48,9 @@ public:
 	// rename entry
 	void renameEntry(wxString reference, wxString newName);
 	
+	// add new category
+	void addNewCategory(const wxString& name, const unsigned int parentId);
+	
 protected:
 
 private:
@@ -97,6 +100,9 @@ private:
 	
 	// rename xml entry
 	void renameXmlEntry(wxXmlDocument& xml, wxZipOutputStream& out, wxString& reference, wxString& newName);
+	
+	// add new category to xml
+	void addNewXmlCategory(wxXmlDocument& xml, wxZipOutputStream& out, const wxString& newName);
 };
 
 #endif // _GNRLIBRARY_H_

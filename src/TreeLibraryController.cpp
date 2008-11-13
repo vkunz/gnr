@@ -208,8 +208,10 @@ unsigned int TreeLibraryController::addCategory(wxString newName)
  * @param[in]   name            wxString& name of cat
  * @return      int             new cat id
  */
-bool TreeLibraryController::addCategory(const unsigned int& parent_id, const wxString& name)
+bool TreeLibraryController::addCategory(const unsigned int parent_id, const wxString& newName)
 {
+	wxLogDebug(wxString() << parent_id);
+	
 	// iterator
 	std::vector<LibraryCategory>::iterator it;
 	
@@ -217,9 +219,9 @@ bool TreeLibraryController::addCategory(const unsigned int& parent_id, const wxS
 	for (it = m_ptrCategories->begin(); it != m_ptrCategories->end(); it++)
 	{
 		// category found
-		if (it->getName() == name && it->getParentId() == parent_id)
+		if (it->getParentId() == parent_id && it->getName() == newName)
 		{
-			//same name in same category not allowed
+			// same name in same category not allowed
 			return false;
 		}
 	}
@@ -228,7 +230,10 @@ bool TreeLibraryController::addCategory(const unsigned int& parent_id, const wxS
 	Library::m_categoryId += 1;
 	
 	// new category
-	m_ptrCategories->push_back(LibraryCategory(name, Library::m_categoryId, parent_id));
+	m_ptrCategories->push_back(LibraryCategory(newName, Library::m_categoryId, parent_id));
+	
+	// new physically category
+	m_library->addNewCategory(newName, parent_id);
 	
 	// rebuild tree
 	buildTreeCtrl();
@@ -590,7 +595,7 @@ void TreeLibraryController::buildTreeCtrl()
 	// set category
 	itemData->setCat(true);
 	
-	// set id
+	// set root as 0
 	itemData->setCatId(0);
 	
 	// set root

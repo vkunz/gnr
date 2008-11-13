@@ -448,6 +448,80 @@ void Library::renameEntry(wxString reference, wxString newName)
 	outFile.Commit();
 }
 
+void Library::addNewCategory(const wxString& newName, const unsigned int parentId)
+{
+	// set parentId
+	m_parentId = parentId;
+	
+	// empty xml document
+	wxXmlDocument xml;
+	
+	// pointer to wxZipEntry
+	wxZipEntry* entry;
+	
+	// input file to open library
+	std::auto_ptr<wxFFileInputStream> inFile(new wxFFileInputStream(m_fileName.GetFullPath()));
+	
+	// temp output file to store new lib
+	wxTempFileOutputStream outFile(m_fileName.GetFullPath());
+	
+	// zip input stream
+	wxZipInputStream inzip(*inFile);
+	
+	// zip output stream
+	wxZipOutputStream outzip(outFile);
+	
+	// copy meta data
+	outzip.CopyArchiveMetaData(inzip);
+	
+	// get first entry of inzip
+	entry = inzip.GetNextEntry();
+	
+	// copy all entries
+	while (entry)
+	{
+		// copy all entries except the old xml
+		if (entry->GetName().Matches(wxT("*.xml")))
+		{
+			//open entry
+			inzip.OpenEntry(*entry);
+			
+			// new xml
+			xml.Load(inzip);
+			
+			// close entry
+			inzip.CloseEntry();
+			
+			// do not copy entry, set next entry
+			entry = inzip.GetNextEntry();
+			
+			// delete entry in xml
+			addNewXmlCategory(xml, outzip, newName);
+		}
+		
+		// if empty, leave
+		if (inzip.Eof())
+		{
+			break;
+		}
+		
+		// copy entry
+		outzip.CopyEntry(entry, inzip);
+		
+		// get next entry
+		entry = inzip.GetNextEntry();
+	}
+	
+	// close outzip
+	outzip.Close();
+	
+	// close file
+	inFile.reset();
+	
+	// generate new file
+	outFile.Commit();
+}
+
 unsigned int Library::getParentId(unsigned int cat_id)
 {
 	// tmp int
@@ -1035,6 +1109,138 @@ void Library::renameXmlEntry(wxXmlDocument& xml, wxZipOutputStream& out, wxStrin
 		{
 			break;
 		}
+	}
+	
+	// new zipEntry
+	out.PutNextEntry(wxT("library.xml"));
+	
+	// copy data into entry
+	xml.Save(out);
+	
+	// close entry
+	out.CloseEntry();
+}
+
+void Library::addNewXmlCategory(wxXmlDocument& xml, wxZipOutputStream& out, const wxString& newName)
+{
+	// node pointer
+	wxXmlNode* node;
+	
+	// property pointer
+	wxXmlProperty* prop;
+	
+	// node to root
+	node = xml.GetRoot();
+	
+	// node to categories
+	node = node->GetChildren();
+	
+	if (m_parentId > 0)
+	{
+		// node to first category
+		node = node->GetChildren();
+		
+		// walk through all next nodes
+		while (node)
+		{
+			// walk throught all children
+			while (node)
+			{
+				// prop to name
+				prop = node->GetProperties();
+				
+				// prop to cat id
+				prop = prop->GetNext();
+				
+				if ((unsigned int)wxAtoi(prop->GetValue()) == m_parentId)
+				{
+					// new node
+					wxXmlNode* newChild = new wxXmlNode(wxXML_ELEMENT_NODE, wxT("category"));
+					
+					// add name
+					newChild->AddProperty(wxT("name"), newName);
+					
+					// add category id
+					newChild->AddProperty(wxT("categoryId"), wxString() << m_categoryId);
+					
+					// add parent id
+					newChild->AddProperty(wxT("parentId"), wxString() << m_parentId);
+					
+					// add new child
+					node->AddChild(newChild);
+				}
+				
+				// check if there are children
+				if (node->GetChildren() != NULL)
+				{
+					// set to next children
+					node = node->GetChildren();
+				}
+				// another children
+				else if (node->GetNext() != NULL)
+				{
+					// node to next
+					node = node->GetNext();
+				}
+				// no children anymore
+				else
+				{
+					// set node to parent
+					node = node->GetParent();
+					
+					// leave loop
+					break;
+				}
+			}
+			
+			// check if next exist
+			if (node->GetNext() != NULL)
+			{
+				// exist, set node to next
+				node = node->GetNext();
+				
+				// check if finisched with categories
+				if (node->GetName() == wxT("entries"))
+				{
+					// leave loop
+					break;
+				}
+			}
+			
+			// next does not exist
+			else
+			{
+				// set node to parent
+				node = node->GetParent();
+				
+				if (node->GetNext() == NULL)
+				{
+					// set node to next
+					node = node->GetNext();
+				}
+				else
+				{
+					break;
+				}
+			}
+		}
+	}
+	else
+	{
+		// new node
+		wxXmlNode* newChild = new wxXmlNode(wxXML_ELEMENT_NODE, wxT("category"));
+		
+		// add name
+		newChild->AddProperty(wxT("name"), newName);
+		
+		// add category id
+		newChild->AddProperty(wxT("categoryId"), wxString() << m_categoryId);
+		
+		// add parent id
+		newChild->AddProperty(wxT("parentId"), wxString() << m_parentId);
+		
+		// add new child
+		node->AddChild(newChild);
 	}
 	
 	// new zipEntry

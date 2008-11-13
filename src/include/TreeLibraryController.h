@@ -48,7 +48,7 @@ public:
 	unsigned int addCategory(wxString newName);
 	
 	// adds a new category
-	bool addCategory(const unsigned int& parent_id, const wxString& name);
+	bool addCategory(const unsigned int parent_id, const wxString& newName);
 	
 	// adds a new entry from import
 	wxString addEntry(wxInputStream& instream, wxString entry_name, unsigned int cat_id = 0);

@@ -165,9 +165,11 @@ void TreeLibraryCtrl::OnNewCategory(wxTreeEvent& WXUNUSED(event))
 	// set event type
 	gnr.setEventType(LIBRARYNEWCAT);
 	
-	// set name
+	// get item data
 	TreeLibraryItemData* item = (TreeLibraryItemData*)GetItemData(m_currentTreeID);
-	gnr.SetString(item->getName());
+	
+	// set parentId
+	gnr.setParentId(item->getCatId());
 	
 	// set name of new category
 	gnr.setNewName(ted.GetValue());
