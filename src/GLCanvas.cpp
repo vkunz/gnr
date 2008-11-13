@@ -150,11 +150,10 @@ void GLCanvas::initLights()
 	glLightModeli(GL_LIGHT_MODEL_TWO_SIDE,0);
 	glLightModeli(GL_LIGHT_MODEL_LOCAL_VIEWER,1);
 	
-	
 	glEnable(GL_LIGHTING);
 	glEnable(GL_LIGHT0);
 	
-	glClearColor(0.2, 0.2, 0.2, 1.0);
+	glClearColor(0.3, 0.3, 0.3, 1.0);
 }
 
 /**
@@ -215,9 +214,9 @@ void GLCanvas::initGL()
 	glBlendFunc(GL_ONE_MINUS_SRC_ALPHA,GL_SRC_ALPHA);
 	
 	glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);
-	glHint(GL_LINE_SMOOTH_HINT, GL_NICEST);
-	glHint(GL_POLYGON_SMOOTH_HINT, GL_NICEST);
-	
+//	glHint(GL_LINE_SMOOTH_HINT, GL_NICEST);
+//	glHint(GL_POLYGON_SMOOTH_HINT, GL_NICEST);
+
 	loadFloorTexture();
 	
 	glLineWidth(10.0f);
