@@ -52,6 +52,7 @@ void PrimitiveCreator::createCuboid(const Vertex& position, const Vertex& angles
 	//set specific tags on assembly
 	m_primitive->setType(IS_PRIMITIVE);
 	m_primitive->setPrimitiveType(CUBOID);
+	m_primitive->setMaterial(matname);
 	
 	// set position of the cuboid
 	m_primitive->position() = position;
