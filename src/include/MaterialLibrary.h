@@ -1,56 +1,45 @@
-#ifndef __MATERIAL_LIB__H__
-#define __MATERIAL_LIB__H__
+/**
+ * MaterialLibrary
+ * @name        MaterialLibrary.h
+ * @date        2008-10-05
+ * @author		Konstantin Balabin  <k.balabin@googlemail.com>
+ * @author		Patrick Kracht      <patrick.kracht@googlemail.com>
+ * @author		Thorsten Moll       <thorsten.moll@googlemail.com>
+ * @author		Valentin Kunz       <athostr@googlemail.com>
+ */
+
+#ifndef __GNRMATERIALLIBRARY_H__
+#define __GNRMATERIALLIBRARY_H__
 
 #include "Material.h"
 
-#include <iostream>
-#include <fstream>
-#include <string>
 #include <map>
+#include <string>
+#include <iostream>
 
-using std::istream;
-using std::iostream;
-using std::ifstream;
-using std::string;
 using std::map;
-using std::pair;
+using std::string;
+using std::istream;
 
 class MaterialLibrary
 {
 public:
-	friend ostream& operator<< (ostream& out, const MaterialLibrary& m);
+	MaterialLibrary();
 	
-	typedef map<string, Material> matlib_type;
-	typedef matlib_type::const_iterator mat_citer;
-	
-	static MaterialLibrary* getInstance();
-	static void destroy();
-	
-	mat_citer get(const string& name) const;
-	void insert(const string& name, const Material& mat);
-	
-	void import(const string& fname);
+	void importFile(const string& fname);
 	void import(istream& is);
-	mat_citer end() const;
+	const Material& getMaterial(const string& matname) const;
 	
 private:
-	matlib_type m_lib;
-	
-	// avoid unwanted things
-	MaterialLibrary();
-	MaterialLibrary(const MaterialLibrary& other);
-	~MaterialLibrary();
-	
-	static MaterialLibrary* instance;
-	
 	bool getName();
 	bool getData();
 	void parseData();
 	
-	string m_buf, m_matname;
+	map<string, Material> m_data;
+	
 	Material* m_material;
+	string m_buf, m_matname;
 	istream* m_is;
 };
 
 #endif
-

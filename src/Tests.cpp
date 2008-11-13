@@ -55,7 +55,8 @@ void Tests::sizeXsizeLoopsLoadClean(Scene* scene, const int loops = 10, const in
 				//get assembly
 				Assembly* dummy = in.getAssembly();
 				//move dummy around
-				dummy->position().setXZ(i, j);
+				dummy->setX(i*1.0);
+				dummy->setZ(j*1.0);
 				//insert in scene
 				scene->insertAssembly(dummy);
 			}

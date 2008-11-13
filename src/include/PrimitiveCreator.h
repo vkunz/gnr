@@ -30,6 +30,7 @@ protected:
 private:
 	Assembly* m_primitive;
 	Face* createFace(Vertex& topLeft, Vertex& bottomLeft, Vertex& bottomRight, Vertex& topRight, Vertex& normal);
+	MaterialLibrary m_matlib;
 };
 
 #endif // _GNRPRIMITIVECREATOR_H_

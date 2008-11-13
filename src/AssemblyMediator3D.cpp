@@ -24,7 +24,7 @@ void AssemblyMediator3D::MoveXY(GLNotifyEvent& event)
 	Vertex to_obj = cam_pos - obj_pos;
 	
 	float mouse_dx = to_obj.length()*(m_mouse_x - event.getMouseEvent().GetX())/window_w;
-	float mouse_dy = to_obj.length()*(m_mouse_y - event.getMouseEvent().GetY())/window_h*0.9;
+	float mouse_dy = to_obj.length()*(m_mouse_y - event.getMouseEvent().GetY())/window_h;
 	
 	Vertex direction(mouse_dx,mouse_dy,0.0);
 	direction.rotate(0.0,cam_rot_y,0.0);
@@ -40,9 +40,11 @@ void AssemblyMediator3D::MoveXY(GLNotifyEvent& event)
 		new_y = m_Assembly->getOverGround();
 	}
 	
-	m_Assembly->position().setXY(new_x, new_y);
+	m_Assembly->setX(new_x);
+	m_Assembly->setY(new_y);
 	
-	obj_pos.setXY(new_x, new_y);
+	obj_pos.setX(new_x);
+	obj_pos.setY(new_y);
 }
 
 /**
@@ -53,8 +55,8 @@ void AssemblyMediator3D::MoveXZ(GLNotifyEvent& event)
 {
 	Vertex to_obj = cam_pos - obj_pos;
 	
-	float mouse_dx = to_obj.length()*(m_mouse_x - event.getMouseEvent().GetX())/window_w*0.99;
-	float mouse_dy = to_obj.length()*(m_mouse_y - event.getMouseEvent().GetY())/window_h*0.99;
+	float mouse_dx = to_obj.length()*(m_mouse_x - event.getMouseEvent().GetX())/window_w;
+	float mouse_dy = to_obj.length()*(m_mouse_y - event.getMouseEvent().GetY())/window_h*1.1;
 	
 	Vertex direction(mouse_dx,0.0,mouse_dy);
 	direction.rotate(0.0,cam_rot_y,0.0);
@@ -65,9 +67,11 @@ void AssemblyMediator3D::MoveXZ(GLNotifyEvent& event)
 	doSnapMove(new_x);
 	doSnapMove(new_z);
 	
-	m_Assembly->position().setXZ(new_x, new_z);
+	m_Assembly->setX(new_x);
+	m_Assembly->setZ(new_z);
 	
-	obj_pos.setXZ(new_x, new_z);
+	obj_pos.setX(new_x);
+	obj_pos.setZ(new_z);
 }
 
 /**
@@ -82,7 +86,8 @@ void AssemblyMediator3D::RotateXY(GLNotifyEvent& event)
 	doSnapRotate(new_phi);
 	doSnapRotate(new_theta);
 	
-	m_Assembly->rotation().setXY(new_phi, new_theta);
+	m_Assembly->setPhi(new_phi);
+	m_Assembly->setTheta(new_theta);
 }
 
 /**
@@ -93,7 +98,7 @@ void AssemblyMediator3D::RotateY(GLNotifyEvent& event)
 {
 	float new_theta = theta_old + 720.0f*(event.getMouseEvent().GetX() - m_mouse_x)/window_w;
 	doSnapRotate(new_theta);
-	m_Assembly->rotation().setY(new_theta);
+	m_Assembly->setTheta(new_theta);
 }
 
 /**
@@ -108,5 +113,6 @@ void AssemblyMediator3D::RotateXZ(GLNotifyEvent& event)
 	doSnapRotate(new_phi);
 	doSnapRotate(new_rho);
 	
-	m_Assembly->rotation().setXZ(new_phi, new_rho);
+	m_Assembly->setPhi(new_phi);
+	m_Assembly->setRho(new_rho);
 }

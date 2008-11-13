@@ -64,7 +64,7 @@ void OpxExport::createXmlEntry()
 	wxXmlNode* root = new wxXmlNode(wxXML_ELEMENT_NODE, wxT("opxml"));
 	
 	// add property "standard="oaxml.hs-ulm.de""
-	root->AddProperty(wxT("standard"), wxT("oaxml.hs-ulm.de"));
+	root->AddProperty(wxT("standard"), wxT("opxml.hs-ulm.de"));
 	
 	// add property "version="0.1.0""
 	root->AddProperty(wxT("version"), wxT("0.1.0"));
@@ -275,7 +275,7 @@ void OpxExport::createScene(wxXmlNode* node, std::list<Assembly*> list)
 			break;
 		case IS_PRIMITIVE:
 		
-//#warning "next line can be used when we have primitives support!!!"
+#warning "next line can be used when we have primitives support!!!"
 			//we can use primitiveType getPrimitiveType() to ask assembly for type!!!
 			
 			break;
@@ -309,17 +309,17 @@ void OpxExport::createAssembly(wxXmlNode* node, Assembly* assembly)
 	node->AddProperty(wxT("name"), assembly->getName());
 	
 	// add location
-	tmp << assembly->position().getX() << wxT(" ") << assembly->position().getY() << wxT(" ") << assembly->position().getZ();
+	tmp << assembly->getX() << wxT(" ") << assembly->getY() << wxT(" ") << assembly->getZ();
 	node->AddProperty(wxT("location"), tmp);
 	tmp.Empty();
 	
 	// add orientation
-	tmp << assembly->rotation().getX() << wxT(" ") << assembly->rotation().getY() << wxT(" ") << assembly->rotation().getZ();
+	tmp << assembly->getPhi() << wxT(" ") << assembly->getTheta() << wxT(" ") << assembly->getRho();
 	node->AddProperty(wxT("orientation"), tmp);
 	tmp.Empty();
 	
 	// add ref
-	node->AddProperty(wxT("ref"), (assembly->getHash() + wxT(".oax")));
+	node->AddProperty(wxT("ref"), (wxT("assemblies/") + assembly->getHash() + wxT(".oax")));
 	
 	// node to scene
 	node = node->GetParent();
@@ -335,6 +335,12 @@ void OpxExport::createGroup(wxXmlNode* node, Assembly* assembly)
 	
 	// local list
 	std::list<Assembly*> list = assembly->getPartList();
+	
+	// if group is empty, do not export
+	if (list.size() == 0)
+	{
+		return;
+	}
 	
 	// iterator
 	std::list<Assembly*>::iterator it;
@@ -359,19 +365,19 @@ void OpxExport::createGroup(wxXmlNode* node, Assembly* assembly)
 	node->AddProperty(wxT("name"), assembly->getName());
 	
 	// add location
-	tmp << assembly->position().getX() << wxT(" ") << assembly->position().getY() << wxT(" ") << assembly->position().getZ();
+	tmp << assembly->getX() << wxT(" ") << assembly->getY() << wxT(" ") << assembly->getZ();
 	node->AddProperty(wxT("location"), tmp);
 	tmp.Empty();
 	
 	// add orientation
-	tmp << assembly->rotation().getX() << wxT(" ") << assembly->rotation().getY() << wxT(" ") << assembly->rotation().getZ();
+	tmp << assembly->getPhi() << wxT(" ") << assembly->getTheta() << wxT(" ") << assembly->getRho();
 	node->AddProperty(wxT("orientation"), tmp);
 	tmp.Empty();
 	
 	// walk through part list
 	for (it = list.begin(); it != list.end(); it++)
 	{
-//#warning "next line has to be changed when primitive-support"
+#warning "next line has to be changed when primitive-support"
 		if ((*it)->getType() == IS_OBJECT)
 			//if ((*it)->getType() == IS_OBJECT || (*it)->getType()== IS_PRIMITIVE)
 		{

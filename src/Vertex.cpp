@@ -152,28 +152,6 @@ void Vertex::setW(float w)
 	m_w = w;
 }
 
-/**
- * set x and y of vertex
- * @param[in]		x	float x-position of vertex
- * @param[in]		y	float y-position of vertex
- */
-void Vertex::setXY(float x, float y)
-{
-	m_x = x;
-	m_y = y;
-}
-
-/**
- * set x and z of vertex
- * @param[in]		x	float x-position of vertex
- * @param[in]		y	float z-position of vertex
- */
-void Vertex::setXZ(float x, float z)
-{
-	m_x = x;
-	m_z = z;
-}
-
 
 /**
  * set x, y and z of vertex
@@ -349,19 +327,20 @@ float Vertex::length() const
 
 /**
  * normalize a vertex
- * @return		Vertex& 	Vertex with the same direction, scaled to the norm 1.0
+ * @return		bool	if normalized, return true
  */
-Vertex& Vertex::normalize()
+bool Vertex::normalize()
 {
 	float len = length();
-	
-	if (fabs(len) > 2.0f * std::numeric_limits<float>::epsilon())
+	if (fabs(len) < 2.0f * std::numeric_limits<float>::epsilon())
 	{
-		m_x = m_x / len;
-		m_y = m_y / len;
-		m_z = m_z / len;
+		return false;
 	}
-	return *this;
+	m_x = m_x / len;
+	m_y = m_y / len;
+	m_z = m_z / len;
+	
+	return true;
 }
 
 /**

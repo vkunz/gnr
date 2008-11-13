@@ -25,6 +25,7 @@
 #include "ObjOaxConverter.h"
 #include "MainFrame.h"
 #include "MouseController.h"
+#include "KeyController.h"
 #include "NotifyEvent.h"
 #include "ProgressFrame.h"
 #include "Scene.h"
@@ -53,15 +54,14 @@ private:
 	void OnGLEvent(GLNotifyEvent& event);
 	void OnLineDrawEvent(LineDrawEvent& event);
 	void OnCreatePrimitiveEvent(CreatePrimitiveEvent& event);
+	void OnKeyPressed(GLKeyEvent& event);
 	
 	//functions
-	void glRefresh();
-	void glRefresh2D();
-	void glRefresh3D();
 	void initFrames();
 	void updateSplitters();
 	void updateSize();
 	void initialSetup();
+	void sashRefresh();
 	
 	// MainFrame Menu-functions
 	void OPXOpen(wxString filename);
@@ -72,9 +72,12 @@ private:
 	void OBJExport(wxString filename);
 	
 	void createScreenshot(wxString filename);
+	void createPrimitve(NotifyEvent& event);
 	
 	void cancelConvertion();
 	void ObjOaxConversion(AssemblyData* data);
+	
+	void setCanvas2DActive(bool status);
 	
 	//attributes
 	//treectrl
@@ -98,6 +101,7 @@ private:
 	
 	Scene* m_Scene;
 	MouseController* m_MouseCtrl;
+	KeyController*   m_KeyCtrl;
 	MainFrame* m_MainFrame;
 	
 	GLCanvas2D* m_Canvas2D;

@@ -715,8 +715,14 @@ void OaxImport::LoadObj(wxInputStream& stream)
 	// placeholder for ObjectImport-call
 	m_ptrAssembly = import.getAssembly();
 	
-	// set scale
-	m_ptrAssembly->scale().setAll(m_scaleX,m_scaleY,m_scaleZ);
+	// set x-scale
+	m_ptrAssembly->setScaleX(m_scaleX);
+	
+	// set y-scale
+	m_ptrAssembly->setScaleY(m_scaleY);
+	
+	// set z-scale
+	m_ptrAssembly->setScaleZ(m_scaleZ);
 	
 	// set assemly-name
 	m_ptrAssembly->setName(m_name);
@@ -725,8 +731,20 @@ void OaxImport::LoadObj(wxInputStream& stream)
 	Assembly* wrapper = import.getWrapper();
 	
 	// set x-offset
-	wrapper->position().setAll(m_locationOffsetX,m_locationOffsetY,m_locationOffsetZ);
+	wrapper->setX(m_locationOffsetX);
+	
+	// set y-offset
+	wrapper->setY(m_locationOffsetY);
+	
+	// set z-offset
+	wrapper->setZ(m_locationOffsetZ);
 	
 	// set x-orientation
-	wrapper->rotation().setAll(m_orientationOffsetX,m_orientationOffsetY,m_orientationOffsetZ);
+	wrapper->setPhi(m_orientationOffsetX);
+	
+	// set y-orientation
+	wrapper->setRho(m_orientationOffsetY);
+	
+	// set z-orientation
+	wrapper->setTheta(m_orientationOffsetZ);
 }

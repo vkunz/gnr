@@ -21,6 +21,8 @@
 #include <wx/statusbr.h>
 #include <wx/toolbar.h>
 
+#include "NotifyEvent.h"
+
 using std::map;
 
 class MainFrame: public wxFrame
@@ -31,8 +33,7 @@ public:
 	virtual ~MainFrame();
 	void setUndoEnabled(bool enabled);
 	void setRedoEnabled(bool enabled);
-	void setTranslationXZ();
-	void setTranslationXY();
+	void setTranslation(NotifyEvent& event);
 	
 	wxStatusBar* getStatusbar();
 	
@@ -83,6 +84,7 @@ private:
 	void OnSnapToGridCtrl(wxSpinEvent& WXUNUSED(event));
 	void OnSnapToGridMenu(wxCommandEvent& WXUNUSED(event));
 	void OnShadowsMenu(wxCommandEvent& WXUNUSED(event));
+	void OnMenuCanvas2DActive(wxCommandEvent& WXUNUSED(event));
 	void OnGroupCreate(wxCommandEvent& WXUNUSED(event));
 	void OnGroupModify(wxCommandEvent& WXUNUSED(event));
 	void OnDeleteSelected(wxCommandEvent& WXUNUSED(event));
@@ -91,11 +93,9 @@ private:
 	void OnHideSelected(wxCommandEvent& WXUNUSED(event));
 	void OnInsertCopy(wxCommandEvent& WXUNUSED(event));
 	void OnCutSelected(wxCommandEvent& WXUNUSED(event));
-	void OnMenuCreateCone(wxCommandEvent& WXUNUSED(event));
 	void OnMenuCreateSphere(wxCommandEvent& WXUNUSED(event));
 	void OnMenuCreateCuboid(wxCommandEvent& WXUNUSED(event));
 	void OnMenuCreateCylinder(wxCommandEvent& WXUNUSED(event));
-	void OnMenuCreatePyramide(wxCommandEvent& WXUNUSED(event));
 	
 	//global set snap to grid
 	void OnSnapToGrid();
@@ -131,14 +131,13 @@ private:
 	static const long idMenuDrawWall;
 	static const long idMenuMeasure;
 	static const long idMenuShadows;
+	static const long idMenuCanvas2DActive;
 	static const long idMenuGroup;
 	static const long idMenuUngroup;
 	static const long idMenuHelp;
 	static const long idMenuAbout;
 	static const long idMenuCreateCuboid;
 	static const long idMenuCreateSphere;
-	static const long idMenuCreatePyramide;
-	static const long idMenuCreateCone;
 	static const long idMenuCreateCylinder;
 	static const long idMenuResetObject;
 	//ToolBar Buttons

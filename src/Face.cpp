@@ -12,120 +12,86 @@
 #include "Face.h"
 
 #include <GL/gl.h>
-
 #include <iostream>
-#include <sstream>
 
 using std::cout;
 using std::endl;
-using std::stringstream;
 
-Face::Face(bool share_norm):
-		m_share_norm(share_norm)
+/**
+ * constructor
+ */
+Face::Face()
 {
 }
 
-Face::~Face()
+/**
+ * copy constructor
+ * @param[in]       other        face that has to be copied
+ */
+Face::Face(const Face& other)
 {
+	for (list<VNT>::const_iterator it = other.m_vnt.begin(); it != other.m_vnt.end(); ++it)
+	{
+		m_vnt.push_back(*it);
+	}
 }
 
-void Face::push_back(const Vertex* const v, const Vertex* const n)
+/**
+ * TODO:DESCRIPTION
+ */
+int Face::size() const
 {
-	m_data.push_back(m_type(v, n));
+	return m_vnt.size();
 }
 
-void Face::push_front(const Vertex* const v, const Vertex* const n)
+/**
+ * TODO:DESCRIPTION
+ */
+void Face::addVNT(VNT& vnt)
 {
-	m_data.push_front(m_type(v, n));
+	m_vnt.push_back(vnt);
 }
 
+/**
+ * TODO:DESCRIPTION
+ */
+void Face::setNormal()
+{
+	list<VNT>::iterator it = m_vnt.begin();
+	VNT vp1(*it);
+	++it;
+	
+	if (vp1.getN() == NULL)
+	{
+		VNT vp2(*it);
+		++it;
+		
+		VNT vp3(*it);
+		
+		Vertex p1 = *vp1.getV(), p2 = *vp2.getV(), p3 = *vp3.getV();
+		
+		Vertex face_normal = ((p2-p1) * (p3-p1));
+		face_normal.normalize();
+		
+		for (it = m_vnt.begin(); it != m_vnt.end(); ++it)
+		{
+			Vertex* tmp = new Vertex(face_normal);
+			it->setN(tmp);
+		}
+	}
+}
 
+/**
+ * TODO:DESCRIPTION
+ */
 void Face::draw() const
 {
-	// choose the primitive type
-	switch (m_data.size())
+	glBegin(GL_POLYGON);
 	{
-	case 0:
-	case 1:
-		glBegin(GL_POINTS);
-		break;
-	case 2:
-		glBegin(GL_LINES);
-		break;
-	case 3:
-		glBegin(GL_TRIANGLES);
-		break;
-	case 4:
-		glBegin(GL_QUADS);
-		break;
-	default:
-		glBegin(GL_POLYGON);
-	}
-	// draw the whole stuff
-	{
-		if (m_share_norm)
+		for (list<VNT>::const_iterator it = m_vnt.begin(); it != m_vnt.end(); ++it)
 		{
-			(m_data.begin()->second)->draw_n();
-		}
-		
-		for (list<m_type>::const_iterator it = m_data.begin(); it != m_data.end(); ++it)
-		{
-			if (!m_share_norm)
-			{
-				(it->second)->draw_n();
-			}
-			(it->first)->draw_v();
+			it->draw();
 		}
 	}
 	glEnd();
 }
-
-const string& Face::material() const
-{
-	return m_matname;
-}
-
-string& Face::material()
-{
-	return m_matname;
-}
-
-string Face::toString(const Matrix4D& tsr, map<const Vertex*, int>& vmap, map<const Vertex*, int>& nmap, int& vc, int &nc) const
-{
-	stringstream ss;
-	ss << "#face " << this << endl;
-	if (m_data.size() > 0)
-	{
-		// set normal-ids and vertex-ids
-		for (list<m_type>::const_iterator it = m_data.begin(); it != m_data.end(); ++it)
-		{
-			const Vertex* const& vert = it->first;
-			const Vertex* const& norm = it->second;
-			if (nmap.end() == nmap.find(norm))
-			{
-				// the normal wasn't used till now
-				ss << "vn " << (tsr * *norm).normalize() << endl;
-				nmap[norm] = nc++;
-			}
-			if (vmap.end() == vmap.find(vert))
-			{
-				// the vertex wasn't used till now
-				ss << "v " << tsr * (*vert) << endl;
-				vmap[vert] = vc++;
-			}
-		}
-		
-		// face has all the ids it needs, print it out
-		ss << "f";
-		for (list<m_type>::const_iterator it = m_data.begin(); it != m_data.end(); ++it)
-		{
-			const Vertex* const& vert = it->first;
-			const Vertex* const& norm = it->second;
-			ss << " " << vmap[vert] << "//" << nmap[norm];
-		}
-		ss << endl;
-	}
-	
-	return ss.str();
-}
-

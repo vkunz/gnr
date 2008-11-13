@@ -74,7 +74,7 @@ int WallMediator::translate(GLNotifyEvent& event)
 	doSnapMove(z);
 	
 	endPoint.setX(x);
-	endPoint.setY(0.01);
+	endPoint.setY(0.15); //draw 15cm over ground
 	endPoint.setZ(z);
 	
 	// send event to draw current scene
@@ -82,6 +82,7 @@ int WallMediator::translate(GLNotifyEvent& event)
 	myevent.SetEventObject(this);
 	myevent.setStartPoint(startPoint);
 	myevent.setEndPoint(endPoint);
+	myevent.SetInt(1);
 	ProcessEvent(myevent);
 	
 	return 1;
@@ -99,12 +100,12 @@ void WallMediator::finalize()
 	// set middle point of the wall
 	Vertex middlePoint;
 	middlePoint.setX((endPoint.getX() + startPoint.getX()) / 2.0);
-	middlePoint.setY(WALLHIGHT / 2.0);
+	middlePoint.setY(WALLHEIGHT / 2.0);
 	middlePoint.setZ((endPoint.getZ() + startPoint.getZ()) / 2.0);
 	
 	double beta = atan2(deltaZ, deltaX) * -180 / M_PI;
 	Vertex orientation(0, beta, 0);
-	Vertex dimension(length, WALLHIGHT, WALLDEPTH);
+	Vertex dimension(length, WALLHEIGHT, WALLDEPTH);
 	
 	// send event to create cuboid
 	CreatePrimitiveEvent myevent(wxEVT_COMMAND_GNR_CREATE_PRIMITIVE);

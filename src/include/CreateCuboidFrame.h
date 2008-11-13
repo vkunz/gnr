@@ -1,8 +1,9 @@
 #ifndef CREATECUBOIDFRAME_H
 #define CREATECUBOIDFRAME_H
 
-#include <wx/stattext.h>
+#include <wx/clrpicker.h>
 #include <wx/spinctrl.h>
+#include <wx/stattext.h>
 #include <wx/panel.h>
 #include <wx/button.h>
 #include <wx/frame.h>
@@ -14,27 +15,6 @@ public:
 	CreateCuboidFrame(wxWindow* parent,wxWindowID id=wxID_ANY,const wxPoint& pos=wxDefaultPosition,const wxSize& size=wxDefaultSize);
 	virtual ~CreateCuboidFrame();
 	
-	wxSpinCtrl* m_spcWidth;
-	wxSpinCtrl* m_spcHeight;
-	wxSpinCtrl* m_spcDepth;
-	
-	wxPanel* m_panColor;
-	
-	wxSpinCtrl* m_spcRed;
-	wxSpinCtrl* m_spcGreen;
-	wxSpinCtrl* m_spcBlue;
-	
-	wxButton* m_buCreate;
-	wxButton* m_buCancel;
-	
-	wxStaticText* StaticText1;
-	wxStaticText* StaticText2;
-	wxStaticText* StaticText3;
-	wxStaticText* StaticText4;
-	wxStaticText* StaticText5;
-	wxStaticText* StaticText6;
-	wxStaticText* StaticText7;
-	
 protected:
 
 	static const long idSpcWidth;
@@ -43,19 +23,31 @@ protected:
 	static const long ID_STATICTEXT1;
 	static const long ID_STATICTEXT2;
 	static const long ID_STATICTEXT3;
-	static const long idBuCreate;
-	static const long idBuCancel;
+	static const long idBtnCreate;
+	static const long idBtnCancel;
 	static const long ID_STATICTEXT4;
-	static const long idPanColor;
-	static const long idSpcRed;
-	static const long idSpcGreen;
-	static const long idSpcBlue;
-	static const long ID_STATICTEXT5;
-	static const long ID_STATICTEXT6;
-	static const long ID_STATICTEXT7;
+	static const long idColourPicker;
 	
 private:
-	void OnSpcColorChange(wxSpinEvent& WXUNUSED(event));
+	void OnColorChange(wxColourPickerEvent& event);
+	void OnCreate(wxCommandEvent& WXUNUSED(event));
+	void OnCancel(wxCommandEvent& WXUNUSED(event));
+	
+	wxPanel* m_panel;
+	
+	wxSpinCtrl* m_spcWidth;
+	wxSpinCtrl* m_spcHeight;
+	wxSpinCtrl* m_spcDepth;
+	
+	wxColourPickerCtrl* m_colourPicker;
+	
+	wxButton* m_buCreate;
+	wxButton* m_buCancel;
+	
+	wxStaticText* StaticText1;
+	wxStaticText* StaticText2;
+	wxStaticText* StaticText3;
+	wxStaticText* StaticText4;
 	
 	DECLARE_EVENT_TABLE()
 };
