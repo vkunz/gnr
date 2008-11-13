@@ -119,15 +119,21 @@ void AssemblyDataFrame::fillFields(Assembly* assembly)
 	
 	m_txcName->ChangeValue(assembly->getName());
 	
-	m_txcWidth->SetValue((int)(assembly->getWidthMeters()*1000));
-	m_txcHeight->SetValue((int)(assembly->getHeightMeters()*1000));
-	m_txcDepth->SetValue((int)(assembly->getDepthMeters()*1000));
+	float x, y, z;
+	
+	assembly->world_dimension().getAll(x, y, z);
+	m_txcWidth->SetValue((int)(x * 1000.0f));
+	m_txcHeight->SetValue((int)(y * 1000.0f));
+	m_txcDepth->SetValue((int)(z * 1000.0f));
+	
+	assembly->dimension().getAll(x, y, z);
+	m_assemblyWidth  = (int)(x  * 1000);
+	m_assemblyHeight = (int)(y * 1000);
+	m_assemblyDepth  = (int)(z  * 1000);
+	
 	
 	m_cbxVisible->SetValue(m_assembly->isVisible());
 	
-	m_assemblyWidth  = (int)(assembly->getWidth()  * 1000);
-	m_assemblyHeight = (int)(assembly->getHeight() * 1000);
-	m_assemblyDepth  = (int)(assembly->getDepth()  * 1000);
 }
 
 /**
@@ -140,21 +146,21 @@ void AssemblyDataFrame::OnChange(wxCommandEvent& WXUNUSED(event))
 	m_assembly->setName(m_txcName->GetValue());
 	
 	float factor = (float)m_txcWidth->GetValue() / m_assemblyWidth;
-	m_assembly->setScaleX(factor);
+	m_assembly->scale().setX((factor));
 	
 	//fix for keeping bottom of object on same level
-	float old_h = m_assembly->getHeightMeters();
-	float old_y = m_assembly->getY();
+	float old_h = m_assembly->world_dimension().getY();
+	float old_y = m_assembly->position().getY();
 	
 	//calculate new scale
 	factor = (float)m_txcHeight->GetValue() / m_assemblyHeight;
-	m_assembly->setScaleY(factor);
+	m_assembly->scale().setY((factor));
 	
 	//now correct y-level of center
-	m_assembly->setY(old_y+(m_assembly->getHeightMeters()-old_h)/2.0);
+	m_assembly->position().setY(old_y + (m_assembly->world_dimension().getY() - old_h) / 2.0f);
 	
 	factor = (float)m_txcDepth->GetValue() / m_assemblyDepth;
-	m_assembly->setScaleZ(factor);
+	m_assembly->scale().setZ(factor);
 	
 	m_assembly->setVisible(m_cbxVisible->IsChecked());
 	

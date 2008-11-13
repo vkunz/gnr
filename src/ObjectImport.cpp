@@ -16,7 +16,6 @@
 #include "MaterialLibrary.h"
 #include "ObjectImport.h"
 #include "GlobalDefine.h"
-#include "VNT.h"
 #include "Enum.h"
 #include "Face.h"
 
@@ -33,14 +32,11 @@ using std::ifstream;
 using std::stringstream;
 using std::string;
 
-extern MaterialLibrary mtllib;
-
 /**
  * generic constructor of ObjectImport initializes library
  */
 ObjectImport::ObjectImport()
 {
-	MaterialLibrary m_matlib = MaterialLibrary();
 }
 
 /**
@@ -49,16 +45,16 @@ ObjectImport::ObjectImport()
  */
 ObjectImport::ObjectImport(const wxString& filename)
 {
-	MaterialLibrary m_matlib = MaterialLibrary();
-	
 	// set true -> file from filesystem
-	m_AsString = true;
+	m_from_FS = true;
+	
+	file.Assign(filename);
 	
 	//set act pointer to null
-	m_act = NULL;
+	m_act_part = NULL;
 	
-	// asign filepath
-	m_path = filename;
+	// assign filepath
+	m_path = file.GetPath();
 	
 	// add filename to m_listFiles
 	m_listFiles.push_back(filename);
@@ -75,8 +71,8 @@ ObjectImport::ObjectImport(const wxString& filename)
 	// read inputstream and store data into outputstream
 	inFile.Read(outStream);
 	
-	// read
-	read(content);
+	// parse
+	parse(content);
 }
 
 /**
@@ -86,15 +82,13 @@ ObjectImport::ObjectImport(const wxString& filename)
  */
 ObjectImport::ObjectImport(wxInputStream* inStream, std::map<wxString, wxString>* mtl)
 {
-	MaterialLibrary m_matlib = MaterialLibrary();
-	
 	// set false -> file from wxInputStream
-	m_AsString = false;
+	m_from_FS = false;
 	
 	//set act pointer to null
-	m_act = NULL;
+	m_act_part = NULL;
 	
-	// asign map-pointer
+	// assign map-pointer
 	m_mtl = mtl;
 	
 	// string to store filecontent
@@ -107,7 +101,7 @@ ObjectImport::ObjectImport(wxInputStream* inStream, std::map<wxString, wxString>
 	inStream->Read(outStringStream);
 	
 	// read
-	read(content);
+	parse(content);
 }
 
 /**
@@ -115,16 +109,6 @@ ObjectImport::ObjectImport(wxInputStream* inStream, std::map<wxString, wxString>
  */
 ObjectImport::~ObjectImport()
 {
-}
-
-void ObjectImport::LoadMtl()
-{
-
-}
-
-void ObjectImport::ParseMtl(wxString& mtl)
-{
-
 }
 
 /**
@@ -137,8 +121,8 @@ std::list<wxString> ObjectImport::getFileList()
 }
 
 /**
- * get build assembly (root)
- * @return       Assembly*         get pointer to build assembly
+ * get the built assembly (root)
+ * @return       Assembly*         get pointer to the built assembly
  */
 Assembly* ObjectImport::getAssembly()
 {
@@ -146,30 +130,12 @@ Assembly* ObjectImport::getAssembly()
 }
 
 /**
- * get offset in x-direction
- * @return       float         x-offset
+ * get offset
+ * @return       float
  */
-float ObjectImport::getOffsetX()
+const Vertex& ObjectImport::offset() const
 {
-	return m_offsetX;
-}
-
-/**
- * get offset in y-direction
- * @return       float         y-offset
- */
-float ObjectImport::getOffsetY()
-{
-	return m_offsetY;
-}
-
-/**
- * get offset in z-direction
- * @return       float         z-offset
- */
-float ObjectImport::getOffsetZ()
-{
-	return m_offsetZ;
+	return m_offset;
 }
 
 /**
@@ -182,16 +148,17 @@ Assembly* ObjectImport::getWrapper()
 }
 
 /**
- * read content an create assembly (IS_OBJECT) from
+ * parse content and create assembly (IS_OBJECT) from
  * @param[in]       content         wxString content of file
  */
-void ObjectImport::read(const wxString& content)
+void ObjectImport::parse(const wxString& content)
 {
-	m_xmin = m_ymin = m_zmin = std::numeric_limits<float>::max();
-	m_xmax = m_ymax = m_zmax = -m_xmin;
+	float maxf = std::numeric_limits<float>::max();
+	m_min = Vertex(maxf, maxf, maxf);
+	m_max = Vertex(-maxf, -maxf, -maxf);
 	
 	//build base wrapper assembly
-	m_root = new Assembly(wxString(m_path.AfterLast('\\').BeforeFirst('.')));
+	m_root = new Assembly(wxString(file.GetName()));
 	m_root->setType(IS_OBJECT);
 	
 	//create root assembly for object
@@ -200,7 +167,7 @@ void ObjectImport::read(const wxString& content)
 	
 	//appen root assembly for object
 	m_root->addPart(m_wrapper);
-	m_matname = DEFAULT_IMPORT_COLOR;
+	m_act_material = DEFAULT_IMPORT_COLOR;
 	
 	//add minimum one assembly, if no g or o occurs
 	addAtomic("noname");
@@ -208,26 +175,6 @@ void ObjectImport::read(const wxString& content)
 	// tokenize string
 	wxStringTokenizer tok(content, wxT("\n"));
 	
-	// 1st pass, gather v, vt and vn
-	while (tok.HasMoreTokens())
-	{
-		m_buf = string(tok.GetNextToken().mb_str());
-		if (m_buf.size() < 2)
-		{
-			continue;
-		}
-		
-		switch (m_buf[0])
-		{
-		case 'v':
-			getVs();
-			break;
-		default:
-			break;
-		}
-	}
-	
-	// 2nd pass, gather f, o, g and all the rest
 	tok.SetString(content, wxT("\n"));
 	while (tok.HasMoreTokens())
 	{
@@ -239,62 +186,92 @@ void ObjectImport::read(const wxString& content)
 		
 		switch (m_buf[0])
 		{
+		case 'v':
+		case 'V':
+			// v or vn  ...
+			getVs();
+			break;
 		case 'f':
+		case 'F':
+			// f ...
 			getF();
 			break;
 		case 'g':
-			getO();
-			break;
 		case 'o':
+		case 'G':
+		case 'O':
+			// o ...
 			getO();
 			break;
 		case 'u':
+		case 'U':
+			// usemtl ...
 			getU();
+			break;
+		case 'm':
+		case 'M':
+			// mtllib ...
+			getM();
+			break;
 		default:
 			break;
 		}
 	}
 	
-	//scale factor 1.0 instead of scale, if glScalef before glTranslatef in assembly->draw
-	
-	// calc x, y, z offsets
-	m_offsetX = (-1.0*(m_xmax + m_xmin)/2.0);
-	m_offsetY = (-1.0*(m_ymax + m_ymin)/2.0);
-	m_offsetZ = (-1.0*(m_zmax + m_zmin)/2.0);
-	
-	m_wrapper->setX(-1.0*(m_xmax + m_xmin)/2.0);
-	m_wrapper->setY(-1.0*(m_ymax + m_ymin)/2.0);
-	m_wrapper->setZ(-1.0*(m_zmax + m_zmin)/2.0);
-	
-	// set normals
-	m_wrapper->setNormals();
+	m_offset = (m_max + m_min) * -0.5f;
+	m_wrapper->position() = m_offset;
 	
 	//set real size and scale of object
-	m_root->setSize((m_xmax - m_xmin),(m_ymax - m_ymin),(m_zmax - m_zmin));
-	m_root->setScale(1.0,1.0,1.0);
+	m_root->dimension() = m_max - m_min;
+	m_root->scale().setAll(1.0f, 1.0f, 1.0f);
 }
 
 /**
- * get a vertex (vertex, normal or texture) in obj file
+ * get a vertex or a normal from the obj
  */
 void ObjectImport::getVs()
 {
-	char c = m_buf[1];
-	m_buf = m_buf.substr(2, string::npos);
-	switch (c)
+	stringstream ss(m_buf);
+	string tmp;
+	
+	ss >> tmp;
+	m_buf.erase(0, 2);
+	if (tmp == "v" || tmp == "V")
 	{
-	case ' ':
 		getV();
-		break;
-	case 'n':
-		getVN();
-		break;
-	case 't':
-		getVT();
-		break;
-	default:
-		break;
 	}
+	else if (tmp == "vn" || tmp == "VN")
+	{
+		getVN();
+	}
+}
+
+/**
+ * get a vertex
+ */
+void ObjectImport::getV()
+{
+	float x, y, z;
+	stringstream ss(m_buf);
+	ss >> x >> y >> z;
+	
+	minmax(x, y, z);
+	
+	m_wrapper->m_vertex.push_back(new Vertex(x, y, z));
+}
+
+/**
+ * get a normal
+ */
+void ObjectImport::getVN()
+{
+	m_buf.erase(0, 1);
+	stringstream ss(m_buf);
+	
+	float x, y, z;
+	ss >> x >> y >> z;
+	
+	m_wrapper->m_normal.push_back(new Vertex(x, y, z, 0.0f));
 }
 
 /**
@@ -302,10 +279,16 @@ void ObjectImport::getVs()
  */
 void ObjectImport::getO()
 {
-	string objname;
-	stringstream ss(m_buf.substr(2, string::npos));
-	ss >> objname;
-	addAtomic(objname);
+	stringstream ss(m_buf);
+	string tmp;
+	
+	ss >> tmp;
+	if (tmp == "g" || tmp == "o" || tmp == "G" || tmp == "G")
+	{
+		tmp.erase();
+		ss >> tmp;
+		addAtomic(tmp);
+	}
 }
 
 /**
@@ -314,99 +297,147 @@ void ObjectImport::getO()
  */
 void ObjectImport::addAtomic(const string& name)
 {
-	m_act = new Assembly(IS_ATOMIC,wxT("part"));
-	m_act->setName(name);
-	m_wrapper->addPart(m_act);
-	m_wrapper->setChildMaterial(m_act, m_matlib.getMaterial(m_matname));
+	m_act_part = new Assembly(IS_ATOMIC, wxT("part"));
+	m_act_part->setName(name);
+	m_wrapper->addPart(m_act_part);
+	m_act_part->m_matname = m_act_material;
+//	m_wrapper->setChildMaterial(m_act, m_matlib.getMaterial(m_matname));
 }
 
 /**
- * get min and max from value
- * @param           min         float old min value
- * @param           max         float old max value
- * @param[in]       value       float new value to compare
+ * update min- and max- ranges
+ * @param[in]       x		float new x to compare
+ * @param[in]       y		float new y to compare
+ * @param[in]       z		float new z to compare
  */
-void ObjectImport::minmax(float& min, float& max, float value)
+void ObjectImport::minmax(float x, float y, float z)
 {
-	if (max < value)
+	if (x > m_max.getX())
 	{
-		max = value;
+		m_max.setX(x);
+	}
+	if (x < m_min.getX())
+	{
+		m_min.setX(x);
 	}
 	
-	if (min > value)
+	if (y > m_max.getY())
 	{
-		min = value;
+		m_max.setY(y);
+	}
+	if (y < m_min.getY())
+	{
+		m_min.setY(y);
+	}
+	
+	if (z > m_max.getZ())
+	{
+		m_max.setZ(z);
+	}
+	if (z < m_min.getZ())
+	{
+		m_min.setZ(z);
 	}
 }
 
 /**
- * get a vertex in obj file
- */
-void ObjectImport::getV()
-{
-	float x, y, z;
-	stringstream ss(m_buf);
-	ss >> x >> y >> z;
-	
-	minmax(m_xmin, m_xmax, x);
-	minmax(m_ymin, m_ymax, y);
-	minmax(m_zmin, m_zmax, z);
-	
-	Vertex tmp(x, y, z);
-	m_vertex.push_back(tmp);
-}
-
-/**
- * get a normal vertex in obj file
- */
-void ObjectImport::getVN()
-{
-	float x, y, z;
-	stringstream ss(m_buf);
-	ss >> x >> y >> z;
-	
-	Vertex tmp(x, y, z);
-	m_normal.push_back(tmp);
-}
-
-/**
- * get a texture vertex in obj file
- */
-void ObjectImport::getVT()
-{
-	float x, y;
-	stringstream ss(m_buf);
-	ss >> x >> y;
-	TCoord tmp(x, y);
-	m_tcoord.push_back(tmp);
-}
-
-/**
- * get a face in obj file
+ * get a face
  */
 void ObjectImport::getF()
 {
-	Face face;
+	stringstream ss(m_buf);
+	string tmp;
 	
-	stringstream ss(m_buf.substr(2, string::npos));
+	ss >> tmp;
+	if (tmp == "f" || tmp == "F")
+	{
+		Face* face = getFace(ss);
+		if (face != NULL)
+		{
+			face->material() = m_act_material;
+			m_act_part->m_face.push_back(face);
+		}
+	}
+}
+
+/**
+ * get a use material from obj file
+ */
+void ObjectImport::getU()
+{
+	stringstream ss(m_buf);
+	string tmp;
+	
+	ss >> tmp;
+	if (tmp == "usemtl" || tmp == "USEMTL")
+	{
+		ss >> m_act_material;
+		m_act_part->m_matname = m_act_material;
+	}
+}
+
+void ObjectImport::getM()
+{
+	stringstream ss(m_buf);
+	string tmp;
+	
+	ss >> tmp;
+	if (tmp == "mtllib" || tmp == "MTLLIB")
+	{
+		ss >> tmp;
+		wxString tmp_buf(wxString(tmp.c_str(),wxConvUTF8));
+		
+		if (m_from_FS)
+		{
+			MaterialLibrary::getInstance()->import(tmp);
+			m_path << wxFileName::GetPathSeparators() << tmp_buf;
+			m_listFiles.push_back(m_path);
+		}
+		else
+		{
+			std::map<wxString, wxString>::const_iterator it =  m_mtl->find(tmp_buf);
+			if (it != m_mtl->end())
+			{
+				string tmp2(it->second.mb_str());
+				MaterialLibrary::getInstance()->import(tmp2);
+			}
+			else
+			{
+				// named mtl not found
+			}
+		}
+	}
+}
+
+Face* ObjectImport::getFace(istream& is)
+{
+	Face *face = NULL;
+	
+	bool normals_given = true;
+	
+	vector<pair<int, int> > vn;
+	
 	string token;
-	while (ss >> token)
+	while (is >> token)
 	{
 		stringstream tmp(token);
-		int v[3] = {0, 0, 0};
 		
+		int v[3] = {0, 0, 0};
 		int i = 0;
-		while (!tmp.eof())
+		while (!tmp.eof() && i < 3)
 		{
+			// try to get the next int
 			tmp >> v[i];
+			// if failed, check if it was a '/'
 			if (tmp.fail() && !(tmp.bad() || tmp.eof()))
 			{
+				// unset fail-bit
 				tmp.clear();
 				char c;
 				tmp >> c;
 				if (c == '/' && i < 3)
 				{
-					i++;
+					++i;
 				}
 			}
 		}
@@ -414,36 +445,70 @@ void ObjectImport::getF()
 		v[1]--;
 		v[2]--;
 		
-		Vertex *pv = NULL, *pn = NULL;
-		TCoord *pt = NULL;
-		if (v[0] != -1)
+		if (v[2] == -1)
 		{
-			pv = new Vertex(m_vertex[v[0]]);
+			normals_given = false;
 		}
-		if (v[1] != -1)
-		{
-			pt = new TCoord(m_tcoord[v[1]]);
-		}
-		if (v[2] != -1)
-		{
-			pn = new Vertex(m_normal[v[2]]);
-		}
-		VNT vnt(pv, pn ,pt);
-		face.addVNT(vnt);
+		vn.push_back(pair<int, int>(v[0], v[2]));
 	}
 	
-	if (face.size() >= 3)
+	if (vn.size() > 2)
 	{
-		m_act->addFace(face);
+		bool shared_normal = !normals_given;
+		if (normals_given)
+		{
+			int normal_id = vn.begin()->second;
+			if (normal_id == -1)
+			{
+				shared_normal = false;
+			}
+			for (vector<pair<int, int> >::iterator it = vn.begin()+1; it != vn.end() && shared_normal; ++it)
+			{
+				if (normal_id != it->second)
+				{
+					shared_normal = false;
+				}
+			}
+		}
+		
+		face = new Face(shared_normal);
+		
+		if (!normals_given)
+		{
+			Vertex* norm = new Vertex;
+			// its a normal => 0.0f
+			norm->setW(0.0f);
+			
+			Vertex v0 = *m_wrapper->m_vertex[vn[0].first];
+			Vertex v1 = *m_wrapper->m_vertex[vn[1].first];
+			Vertex v2 = *m_wrapper->m_vertex[vn[2].first];
+			
+			*norm = ((v1-v0)*(v2-v1)).normalize();
+			m_wrapper->m_normal.push_back(norm);
+			
+			for (unsigned i = 0; i < vn.size(); ++i)
+			{
+				const pair<int, int>& ref = vn[i];
+				face->push_back(m_wrapper->m_vertex[ref.first], norm);
+			}
+		}
+		else
+		{
+			for (unsigned i = 0; i < vn.size(); ++i)
+			{
+				const pair<int, int>& ref = vn[i];
+				if (!shared_normal)
+				{
+					face->push_back(m_wrapper->m_vertex[ref.first], m_wrapper->m_normal[ref.second]);
+				}
+				else
+				{
+					face->push_back(m_wrapper->m_vertex[ref.first], m_wrapper->m_normal[vn[0].second]);
+				}
+			}
+		}
 	}
+	
+	return face;
 }
 
-/**
- * get a use material in obj file
- */
-void ObjectImport::getU()
-{
-	stringstream ss(m_buf.substr(6, string::npos));
-	ss >> m_matname;
-	m_wrapper->setChildMaterial(m_act, m_matlib.getMaterial(m_matname));
-}

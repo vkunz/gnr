@@ -275,7 +275,7 @@ void OpxExport::createScene(wxXmlNode* node, std::list<Assembly*> list)
 			break;
 		case IS_PRIMITIVE:
 		
-#warning "next line can be used when we have primitives support!!!"
+//#warning "next line can be used when we have primitives support!!!"
 			//we can use primitiveType getPrimitiveType() to ask assembly for type!!!
 			
 			break;
@@ -309,12 +309,12 @@ void OpxExport::createAssembly(wxXmlNode* node, Assembly* assembly)
 	node->AddProperty(wxT("name"), assembly->getName());
 	
 	// add location
-	tmp << assembly->getX() << wxT(" ") << assembly->getY() << wxT(" ") << assembly->getZ();
+	tmp << assembly->position().getX() << wxT(" ") << assembly->position().getY() << wxT(" ") << assembly->position().getZ();
 	node->AddProperty(wxT("location"), tmp);
 	tmp.Empty();
 	
 	// add orientation
-	tmp << assembly->getPhi() << wxT(" ") << assembly->getTheta() << wxT(" ") << assembly->getRho();
+	tmp << assembly->rotation().getX() << wxT(" ") << assembly->rotation().getY() << wxT(" ") << assembly->rotation().getZ();
 	node->AddProperty(wxT("orientation"), tmp);
 	tmp.Empty();
 	
@@ -365,19 +365,19 @@ void OpxExport::createGroup(wxXmlNode* node, Assembly* assembly)
 	node->AddProperty(wxT("name"), assembly->getName());
 	
 	// add location
-	tmp << assembly->getX() << wxT(" ") << assembly->getY() << wxT(" ") << assembly->getZ();
+	tmp << assembly->position().getX() << wxT(" ") << assembly->position().getY() << wxT(" ") << assembly->position().getZ();
 	node->AddProperty(wxT("location"), tmp);
 	tmp.Empty();
 	
 	// add orientation
-	tmp << assembly->getPhi() << wxT(" ") << assembly->getTheta() << wxT(" ") << assembly->getRho();
+	tmp << assembly->rotation().getX() << wxT(" ") << assembly->rotation().getY() << wxT(" ") << assembly->rotation().getZ();
 	node->AddProperty(wxT("orientation"), tmp);
 	tmp.Empty();
 	
 	// walk through part list
 	for (it = list.begin(); it != list.end(); it++)
 	{
-#warning "next line has to be changed when primitive-support"
+//#warning "next line has to be changed when primitive-support"
 		if ((*it)->getType() == IS_OBJECT)
 			//if ((*it)->getType() == IS_OBJECT || (*it)->getType()== IS_PRIMITIVE)
 		{

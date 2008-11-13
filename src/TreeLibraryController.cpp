@@ -500,10 +500,8 @@ void TreeLibraryController::pasteEntry(const wxString& reference)
 		assembly = assembly->clone();
 		
 		//reset clone
-		assembly->setXYZ(0.0,0.0,0.0);
-		assembly->setPhi(0.0);
-		assembly->setRho(0.0);
-		assembly->setTheta(0.0);
+		assembly->position().setAll(0.0f, 0.0f, 0.0f);
+		assembly->rotation().setAll(0.0f, 0.0f, 0.0f);
 	}
 	//or load from library container
 	else

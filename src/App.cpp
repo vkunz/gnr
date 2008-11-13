@@ -494,38 +494,43 @@ void App::OnCreatePrimitiveEvent(CreatePrimitiveEvent& event)
 {
 	if (event.getPrimitiveType() == CUBOID)
 	{
-		Vertex origin(0.0,0.0,0.0);
-		Assembly* atomic;
-		
+//		Vertex origin(0.0f, 0.0f, 0.0f);
+//		Assembly* atomic;
+//
+//
+//		//create new parent assembly (group of primitives)
+//		Assembly* primitive = new Assembly(wxT("Wandteil"));
+//
+//		//put information of whole group in parent
+//		primitive->setType(IS_PRIMITIVE);
+//		primitive->setPrimitiveType(CUBOID);
+//		primitive->position() = event.getPosition();
+//		primitive->rotation() = event.getAngles();
+//
+//		primitive->cuboid_dimension() = event.getDimensions();
+//
+//		//create smallest part of primitive
+//		creator.createCuboid(origin, origin, event.getDimensions());
+//
+//		//set color to default
+//		primitive->setMaterial(DEFAULT_IMPORT_COLOR);
+//
+//		//get the primitive
+//		atomic = creator.getPrimitive();
+//
+//		//insert 'small' cuboid in parent
+//		primitive->addPart(atomic);
+//
+//		//put whole in the world
+//		m_Scene->insertAssembly(primitive);
+
 		//get creator instance
 		PrimitiveCreator creator;
 		
-		//create new parent assembly (group of primitives)
-		Assembly* primitive = new Assembly(wxT("Wandteil"));
-		
-		//put information of whole group in parent
-		primitive->setType(IS_PRIMITIVE);
-		primitive->setPrimitiveType(CUBOID);
-		primitive->setCenterVertex(event.getPosition());
-		primitive->setRotateVertex(event.getAngles());
-		primitive->setWidth(event.getDimensions().getX());
-		primitive->setHeight(event.getDimensions().getY());
-		primitive->setDepth(event.getDimensions().getZ());
-		
 		//create smallest part of primitive
-		creator.createCuboid(origin, origin, event.getDimensions());
+		creator.createCuboid(event.getPosition(), event.getAngles(), event.getDimensions());
 		
-		//set color to default
-		creator.setMaterial(primitive, DEFAULT_IMPORT_COLOR);
-		
-		//get the primitive
-		atomic = creator.getPrimitive();
-		
-		//insert 'small' cuboid in parent
-		primitive->addPart(atomic);
-		
-		//put whole in the world
-		m_Scene->insertAssembly(primitive);
+		m_Scene->insertAssembly(creator.getPrimitive());
 	}
 	
 	m_Scene->glRefresh();

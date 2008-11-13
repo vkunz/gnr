@@ -285,13 +285,13 @@ void OpxImport::loadXml(wxZipInputStream& stream)
 				tok.SetString(value, wxT(" "));
 				
 				// set x
-				newGroup->setX(wxAtof(tok.GetNextToken()));
+				newGroup->position().setX(wxAtof(tok.GetNextToken()));
 				
 				// set y
-				newGroup->setY(wxAtof(tok.GetNextToken()));
+				newGroup->position().setY(wxAtof(tok.GetNextToken()));
 				
 				// set z
-				newGroup->setZ(wxAtof(tok.GetNextToken()));
+				newGroup->position().setZ(wxAtof(tok.GetNextToken()));
 				
 				// prop to orientation
 				prop = prop->GetNext();
@@ -303,13 +303,13 @@ void OpxImport::loadXml(wxZipInputStream& stream)
 				tok.SetString(value, wxT(" "));
 				
 				// set phi
-				newGroup->setPhi(wxAtof(tok.GetNextToken()));
+				newGroup->rotation().setX(wxAtof(tok.GetNextToken()));
 				
 				// set theta
-				newGroup->setTheta(wxAtof(tok.GetNextToken()));
+				newGroup->rotation().setY(wxAtof(tok.GetNextToken()));
 				
 				// set rho
-				newGroup->setRho(wxAtof(tok.GetNextToken()));
+				newGroup->rotation().setZ(wxAtof(tok.GetNextToken()));
 				
 				// add new Assembly
 				m_actual->addPart(newGroup);
@@ -416,13 +416,10 @@ void OpxImport::loadXml(wxZipInputStream& stream)
 				assembly->setName(m_objName);
 				
 				// set x, y, z
-				assembly->setXYZ(x, y, z);
+				assembly->position().setAll(x, y, z);
 				
 				// set x- and y - orientation
-				assembly->setPhiTheta(orientationX, orientationY);
-				
-				// set z-orientation
-				assembly->setRho(orientationZ);
+				assembly->rotation().setAll(orientationX, orientationY, orientationZ);
 				
 				// set object
 				assembly->setType(IS_OBJECT);

@@ -108,6 +108,7 @@
 		<Unit filename="src\AssemblyMediator.cpp" />
 		<Unit filename="src\AssemblyMediator2D.cpp" />
 		<Unit filename="src\AssemblyMediator3D.cpp" />
+		<Unit filename="src\Color.cpp" />
 		<Unit filename="src\CommandTransform.cpp" />
 		<Unit filename="src\CreateCuboidFrame.cpp" />
 		<Unit filename="src\CreatePrimitiveEvent.cpp" />
@@ -136,6 +137,7 @@
 		<Unit filename="src\MainFrame.cpp" />
 		<Unit filename="src\Material.cpp" />
 		<Unit filename="src\MaterialLibrary.cpp" />
+		<Unit filename="src\Matrix4D.cpp" />
 		<Unit filename="src\MeasureMediator.cpp" />
 		<Unit filename="src\Mediator.cpp" />
 		<Unit filename="src\MouseController.cpp" />
@@ -172,6 +174,7 @@
 		<Unit filename="src\include\AssemblyMediator.h" />
 		<Unit filename="src\include\AssemblyMediator2D.h" />
 		<Unit filename="src\include\AssemblyMediator3D.h" />
+		<Unit filename="src\include\Color.h" />
 		<Unit filename="src\include\Command.h" />
 		<Unit filename="src\include\CommandTransform.h" />
 		<Unit filename="src\include\CreateCuboidFrame.h" />
@@ -207,6 +210,7 @@
 		<Unit filename="src\include\MainFrame.h" />
 		<Unit filename="src\include\Material.h" />
 		<Unit filename="src\include\MaterialLibrary.h" />
+		<Unit filename="src\include\Matrix4D.h" />
 		<Unit filename="src\include\MeasureMediator.h" />
 		<Unit filename="src\include\Mediator.h" />
 		<Unit filename="src\include\MouseController.h" />

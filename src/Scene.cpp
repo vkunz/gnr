@@ -430,7 +430,7 @@ void Scene::cloneSelectedAssemblies()
 		//copy clone in selected
 		m_Selected->addPart(a_copy);
 		//move assembly one width right
-		a_copy->move(Vertex(a_copy->getWidthMeters(),0.0,0.0));
+		a_copy->move(Vertex(a_copy->world_dimension().getX(), 0.0f, 0.0f));
 	}
 	
 	// send event to refresh Scene-Tree
@@ -693,17 +693,17 @@ void Scene::groupSelectedAssemblies()
 			m_Selected->delPart(*it);
 			continue;
 		}
-		minmax(min[0], max[0], (*it)->getX());
-		minmax(min[1], max[1], (*it)->getY());
-		minmax(min[2], max[2], (*it)->getZ());
+		minmax(min[0], max[0], (*it)->position().getX());
+		minmax(min[1], max[1], (*it)->position().getY());
+		minmax(min[2], max[2], (*it)->position().getZ());
 	}
 	
 	//build new center as vertex for better calculation
 	Vertex new_center((max[0]+min[0])/2.0, (max[1]+min[1])/2.0, (max[2]+min[2])/2.0);
 	
 	//move group center to new center
-	group->setCenterVertex(new_center);
-	group->setHeight((max[1]+min[1]));
+	group->position() = new_center;
+	group->dimension().setY(max[1]+min[1]);
 	//store obj center as vertex
 	Vertex obj_center;
 	
@@ -711,7 +711,7 @@ void Scene::groupSelectedAssemblies()
 	for (list<Assembly*>::iterator it = parts.begin(); it != parts.end(); ++it)
 	{
 		//store old center
-		obj_center = (*it)->getCenterVertex();
+		obj_center = (*it)->position();
 		
 		//add part to new group and remove from selection
 		group->addPart((*it));
@@ -719,7 +719,7 @@ void Scene::groupSelectedAssemblies()
 		
 		//modify center relative to new center
 		obj_center = obj_center - new_center;
-		(*it)->setCenterVertex(obj_center);
+		(*it)->position() = obj_center;
 	}
 	
 	//put new group in the world
@@ -756,9 +756,9 @@ void Scene::ungroupSelectedAssemblies()
 			//get partlist iterator
 			grp_parts  = (*it)->getPartList();
 			//save center of group
-			grp_center = (*it)->getCenterVertex();
+			grp_center = (*it)->position();
 			//save old rotation of whole group
-			grp_rotate = (*it)->getRotateVertex();
+			grp_rotate = (*it)->rotation();
 			
 			//correct position of all group members
 			for (list<Assembly*>::iterator child_it = grp_parts.begin(); child_it != grp_parts.end(); ++child_it)
@@ -768,8 +768,8 @@ void Scene::ungroupSelectedAssemblies()
 				(*it)->delPart((*child_it));
 				
 				//save old relative position of child from group center
-				ptr_object = (*child_it)->getCenterVertex();
-				ptr_rotate = (*child_it)->getRotateVertex();
+				ptr_object = (*child_it)->position();
+				ptr_rotate = (*child_it)->rotation();
 				
 				//restore rotation from group to child around center
 				ptr_object.rotate(grp_rotate);
@@ -778,8 +778,8 @@ void Scene::ungroupSelectedAssemblies()
 				obj_center = ptr_object + grp_center;
 				
 				//rotate child in same way as group and set new center
-				(*child_it)->setRotateVertex(grp_rotate + ptr_rotate);
-				(*child_it)->setCenterVertex(obj_center);
+				(*child_it)->rotation() = grp_rotate + ptr_rotate;
+				(*child_it)->position() = obj_center;
 			}
 			//remove group container from his parent
 			m_Selected->delPart(*it);

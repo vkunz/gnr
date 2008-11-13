@@ -73,13 +73,11 @@ void ObjOaxConverter::Load(wxString filename)
 	m_assemblyData = new AssemblyData();
 	
 	// get x - offset and store into frameData
-	m_assemblyData->m_offsetX = import.getOffsetX();
-	
+	m_assemblyData->m_offsetX = import.offset().getX();
 	// get y - offset and store into frameData
-	m_assemblyData->m_offsetY = import.getOffsetY();
-	
+	m_assemblyData->m_offsetY = import.offset().getY();
 	// get z - offset and store into frameData
-	m_assemblyData->m_offsetZ = import.getOffsetZ();
+	m_assemblyData->m_offsetZ = import.offset().getZ();
 	
 	// tmp list
 	std::list<wxString> list;
@@ -103,11 +101,12 @@ void ObjOaxConverter::Load(wxString filename)
 	m_assemblyData->m_name = wxString(m_assembly->getName().c_str(), wxConvUTF8);
 	
 	// set width
-	m_assemblyData->m_width = (int)(m_assembly->getWidth() * 1000.0);
+	m_assemblyData->m_width = (int)(m_assembly->dimension().getX() * 1000.0);
 	
 	// set depth
-	m_assemblyData->m_depth = (int)(m_assembly->getDepth() * 1000.0);
+	m_assemblyData->m_depth = (int)(m_assembly->dimension().getZ() * 1000.0);
 	
-	// set heigh
-	m_assemblyData->m_height = (int)(m_assembly->getHeight() * 1000.0);
+	// set height
+	m_assemblyData->m_height = (int)(m_assembly->dimension().getY() * 1000.0);
 }
+

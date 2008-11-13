@@ -15,6 +15,7 @@
 #include "Vertex.h"
 #include "Face.h"
 #include "MaterialLibrary.h"
+#include "GlobalDefine.h"
 
 #include <string>
 
@@ -23,14 +24,11 @@ class PrimitiveCreator
 public:
 	PrimitiveCreator();
 	virtual ~PrimitiveCreator();
-	void createCuboid(const Vertex& position, const Vertex& angles, const Vertex& dimension);
-	void setMaterial(Assembly* parent, const string& name);
+	void createCuboid(const Vertex& position, const Vertex& angles, const Vertex& dimension,const string& matname = DEFAULT_IMPORT_COLOR);
 	Assembly* getPrimitive();
 protected:
 private:
 	Assembly* m_primitive;
-	Face* createFace(Vertex& topLeft, Vertex& bottomLeft, Vertex& bottomRight, Vertex& topRight, Vertex& normal);
-	MaterialLibrary m_matlib;
 };
 
 #endif // _GNRPRIMITIVECREATOR_H_

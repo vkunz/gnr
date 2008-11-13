@@ -23,15 +23,13 @@ protected:
 	static const long ID_STATICTEXT1;
 	static const long ID_STATICTEXT2;
 	static const long ID_STATICTEXT3;
-	static const long idBtnCreate;
-	static const long idBtnCancel;
+	static const long idBuCreate;
+	static const long idBuCancel;
 	static const long ID_STATICTEXT4;
 	static const long idColourPicker;
 	
 private:
 	void OnColorChange(wxColourPickerEvent& event);
-	void OnCreate(wxCommandEvent& WXUNUSED(event));
-	void OnCancel(wxCommandEvent& WXUNUSED(event));
 	
 	wxPanel* m_panel;
 	
@@ -48,6 +46,10 @@ private:
 	wxStaticText* StaticText2;
 	wxStaticText* StaticText3;
 	wxStaticText* StaticText4;
+	
+	void OnCreate(wxCommandEvent& event);
+	void OnCancel(wxCommandEvent& event);
+	
 	
 	DECLARE_EVENT_TABLE()
 };

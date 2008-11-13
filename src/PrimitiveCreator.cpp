@@ -19,7 +19,6 @@
  */
 PrimitiveCreator::PrimitiveCreator():m_primitive(NULL)
 {
-	MaterialLibrary m_matlib = MaterialLibrary();
 }
 
 /**
@@ -45,119 +44,111 @@ Assembly* PrimitiveCreator::getPrimitive()
  * @param   	angles  		rotation of the assembly
  * @param   	dimension  		dimensions of the assembly
  */
-void PrimitiveCreator::createCuboid(const Vertex& position, const Vertex& angles, const Vertex& dimension)
+void PrimitiveCreator::createCuboid(const Vertex& position, const Vertex& angles, const Vertex& dimension, const string& matname)
 {
-	m_primitive = new Assembly(wxT("noname"));
+	//create main primitive container
+	m_primitive = new Assembly(wxT("primitive"));
 	
-	//set it to atomic, is smallest part i'll produce
-	m_primitive->setType(IS_ATOMIC);
+	//set specific tags on assembly
+	m_primitive->setType(IS_PRIMITIVE);
+	m_primitive->setPrimitiveType(CUBOID);
 	
 	// set position of the cuboid
-	m_primitive->setCuboid(position.getX(),position.getY(),position.getZ(),dimension.getX(),dimension.getY(),dimension.getZ());
+	m_primitive->position() = position;
+	
+	//put cuboid on ground
+	m_primitive->dimension() = dimension;
 	
 	// set rotation of the cuboid
-	m_primitive->setPhi(angles.getX());
-	m_primitive->setTheta(angles.getY());
-	m_primitive->setRho(angles.getZ());
+	m_primitive->rotation() = angles;
 	
-	// prepare points
-	float x = dimension.getX() / 2.0;
-	float y = dimension.getY() / 2.0;
-	float z = dimension.getZ() / 2.0;
+	//create small part in primitive container
+	Assembly* atomic = new Assembly(wxT("atomic"));
 	
-	// create front face
-	Vertex topLeft(-x, y, z);
-	Vertex bottomLeft(-x, -y, z);
-	Vertex bottomRight(x, -y, z);
-	Vertex topRight(x, y, z);
-	Vertex normal(0, 0, 1);
-	m_primitive->addFace(*createFace(topLeft, bottomLeft, bottomRight, topRight, normal));
+	//set it to atomic, is smallest part i'll produce
+	atomic->setType(IS_ATOMIC);
 	
-	// create right face
-	topLeft.setAll(x, y, z);
-	bottomLeft.setAll(x, -y, z);
-	bottomRight.setAll(x, -y, -z);
-	topRight.setAll(x, y, -z);
-	normal.setAll(1, 0, 0);
-	m_primitive->addFace(*createFace(topLeft, bottomLeft, bottomRight, topRight, normal));
+	//add part to container
+	m_primitive->addPart(atomic);
 	
-	// create back face
-	topLeft.setAll(x, y, -z);
-	bottomLeft.setAll(x, -y, -z);
-	bottomRight.setAll(-x, -y, -z);
-	topRight.setAll(-x, y, -z);
-	normal.setAll(0, 0, -1);
-	m_primitive->addFace(*createFace(topLeft, bottomLeft, bottomRight, topRight, normal));
 	
-	// create left face
-	topLeft.setAll(-x, y, -z);
-	bottomLeft.setAll(-x, -y, -z);
-	bottomRight.setAll(-x, -y, z);
-	topRight.setAll(-x, y, z);
-	normal.setAll(-1, 0, 0);
-	m_primitive->addFace(*createFace(topLeft, bottomLeft, bottomRight, topRight, normal));
+	float x, y, z;
 	
-	// create upper face
-	topLeft.setAll(-x, y, -z);
-	bottomLeft.setAll(-x, y, z);
-	bottomRight.setAll(x, y, z);
-	topRight.setAll(x, y, -z);
-	normal.setAll(0, 1, 0);
-	m_primitive->addFace(*createFace(topLeft, bottomLeft, bottomRight, topRight, normal));
+	dimension.getAll(x,y,z);
 	
-	// create bottom face
-	bottomLeft.setAll(-x, -y, -z);
-	topLeft.setAll(-x, -y, z);
-	topRight.setAll(x, -y, z);
-	bottomRight.setAll(x, -y, -z);
+	x /= 2.0f;
+	y /= 2.0f;
+	z /= 2.0f;
 	
-	normal.setAll(0, -1, 0);
-	m_primitive->addFace(*createFace(topLeft, bottomLeft, bottomRight, topRight, normal));
-}
-
-void PrimitiveCreator::setMaterial(Assembly* parent, const string& name)
-{
-	//tell the parent what color his child has got
-	parent->setChildMaterial(m_primitive, m_matlib.getMaterial(name));
-}
-
-/**
- * creates quadratic faces, out of vertices and normals
- * @param   	topLeft  		top-left point of the quad
- * @param   	bottomLeft  	bottom-left point of the quad
- * @param   	bottomRight  	bottom-right point of the quad
- * @param   	topRight  		top-right point of the quad
- * @param   	normale	  	normal of the quad
- */
-Face* PrimitiveCreator::createFace(Vertex& topLeft, Vertex& bottomLeft, Vertex& bottomRight,
-                                   Vertex& topRight, Vertex& normale)
-{
-
-	Face* face = new Face();
+	atomic->m_vertex.resize(8);
+	atomic->m_vertex[0] = new Vertex(-x, y, z);
+	atomic->m_vertex[1] = new Vertex(-x, -y, z);
+	atomic->m_vertex[2] = new Vertex(x, -y, z);
+	atomic->m_vertex[3] = new Vertex(x, y, z);
+	atomic->m_vertex[4] = new Vertex(x, -y, -z);
+	atomic->m_vertex[5] = new Vertex(x, y, -z);
+	atomic->m_vertex[6] = new Vertex(-x, -y, -z);
+	atomic->m_vertex[7] = new Vertex(-x, y, -z);
 	
-	Vertex* vector = new Vertex(topLeft);
-	Vertex* normal = new Vertex(normale);
-	TCoord* tcoord = new TCoord(0, 1);
-	VNT vnt(vector, normal ,tcoord);
-	face->addVNT(vnt);
+	atomic->m_normal.resize(6);
+	atomic->m_normal[0] = new Vertex(0.0f, 0.0f, 1.0f, 0.0f);
+	atomic->m_normal[1] = new Vertex(1.0f, 0.0f, 0.0f, 0.0f);
+	atomic->m_normal[2] = new Vertex(0.0f, 0.0f, -1.0f, 0.0f);
+	atomic->m_normal[3] = new Vertex(-1.0f, 0.0f, 0.0f, 0.0f);
+	atomic->m_normal[4] = new Vertex(0.0f, 1.0f, 0.0f, 0.0f);
+	atomic->m_normal[5] = new Vertex(0.0f, -1.0f, 0.0f, 0.0f);
 	
-	vector = new Vertex(bottomLeft);
-	normal = new Vertex(normale);
-	tcoord = new TCoord(0, 0);
-	VNT vnt2(vector, normal, tcoord);
-	face->addVNT(vnt2);
+	// front
+	Face* face = new Face(true);
+	face->material() = matname;
+	face->push_back(atomic->m_vertex[0], atomic->m_normal[0]);
+	face->push_back(atomic->m_vertex[1], atomic->m_normal[0]);
+	face->push_back(atomic->m_vertex[2], atomic->m_normal[0]);
+	face->push_back(atomic->m_vertex[3], atomic->m_normal[0]);
+	atomic->m_face.push_back(face);
 	
-	vector = new Vertex(bottomRight);
-	normal = new Vertex(normale);
-	tcoord = new TCoord(1, 0);
-	VNT vnt3(vector, normal,tcoord);
-	face->addVNT(vnt3);
+	// right
+	face = new Face(true);
+	face->material() = matname;
+	face->push_back(atomic->m_vertex[3], atomic->m_normal[1]);
+	face->push_back(atomic->m_vertex[2], atomic->m_normal[1]);
+	face->push_back(atomic->m_vertex[4], atomic->m_normal[1]);
+	face->push_back(atomic->m_vertex[5], atomic->m_normal[1]);
+	atomic->m_face.push_back(face);
 	
-	vector = new Vertex(topRight);
-	normal = new Vertex(normale);
-	tcoord = new TCoord(1, 1);
-	VNT vnt4(vector, normal, tcoord);
-	face->addVNT(vnt4);
+	// back
+	face = new Face(true);
+	face->material() = matname;
+	face->push_back(atomic->m_vertex[5], atomic->m_normal[2]);
+	face->push_back(atomic->m_vertex[4], atomic->m_normal[2]);
+	face->push_back(atomic->m_vertex[6], atomic->m_normal[2]);
+	face->push_back(atomic->m_vertex[7], atomic->m_normal[2]);
+	atomic->m_face.push_back(face);
 	
-	return face;
+	// left
+	face = new Face(true);
+	face->material() = matname;
+	face->push_back(atomic->m_vertex[7], atomic->m_normal[3]);
+	face->push_back(atomic->m_vertex[6], atomic->m_normal[3]);
+	face->push_back(atomic->m_vertex[1], atomic->m_normal[3]);
+	face->push_back(atomic->m_vertex[0], atomic->m_normal[3]);
+	atomic->m_face.push_back(face);
+	
+	// top
+	face = new Face(true);
+	face->material() = matname;
+	face->push_back(atomic->m_vertex[7], atomic->m_normal[4]);
+	face->push_back(atomic->m_vertex[0], atomic->m_normal[4]);
+	face->push_back(atomic->m_vertex[3], atomic->m_normal[4]);
+	face->push_back(atomic->m_vertex[5], atomic->m_normal[4]);
+	atomic->m_face.push_back(face);
+	
+	// bottom
+	face = new Face(true);
+	face->material() = matname;
+	face->push_back(atomic->m_vertex[1], atomic->m_normal[5]);
+	face->push_back(atomic->m_vertex[6], atomic->m_normal[5]);
+	face->push_back(atomic->m_vertex[4], atomic->m_normal[5]);
+	face->push_back(atomic->m_vertex[2], atomic->m_normal[5]);
+	atomic->m_face.push_back(face);
 }

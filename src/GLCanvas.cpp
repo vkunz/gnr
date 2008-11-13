@@ -205,18 +205,13 @@ void GLCanvas::initGL()
 	
 	glEnable(GL_BLEND);
 	glEnable(GL_DEPTH_TEST);
-	glEnable(GL_CULL_FACE);
-	
-	glCullFace(GL_BACK);
 	
 	glDepthFunc(GL_LEQUAL);
 	
 	glBlendFunc(GL_ONE_MINUS_SRC_ALPHA,GL_SRC_ALPHA);
 	
 	glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);
-//	glHint(GL_LINE_SMOOTH_HINT, GL_NICEST);
-//	glHint(GL_POLYGON_SMOOTH_HINT, GL_NICEST);
-
+	
 	loadFloorTexture();
 	
 	glLineWidth(10.0f);
@@ -336,16 +331,13 @@ void GLCanvas::shadowColorOn()
 	glDisable(GL_DEPTH_TEST);
 	glEnable(GL_BLEND);
 	glStencilOp(GL_KEEP, GL_KEEP, GL_INCR);
-	glCullFace(GL_FRONT);
 }
 
 void GLCanvas::shadowColorOff()
 {
-	//glDisable(GL_BLEND);
 	glDisable(GL_STENCIL_TEST);
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_LIGHTING);
-	glCullFace(GL_BACK);
 }
 
 void GLCanvas::endPixelBuffer()

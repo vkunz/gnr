@@ -1,14 +1,3 @@
-/**
- * This frame is used to allow the user to create a new cuboid-primitive
- * @note        [DONE]
- * @name        CreateCuboidFrame.cpp
- * @date        2008-11-11
- * @author		Konstantin Balabin  <k.balabin@googlemail.com>
- * @author		Patrick Kracht      <patrick.kracht@googlemail.com>
- * @author		Thorsten Moll       <thorsten.moll@googlemail.com>
- * @author		Valentin Kunz       <athostr@googlemail.com>
- */
-
 #include "include/CreateCuboidFrame.h"
 
 #include <wx/colour.h>
@@ -16,8 +5,6 @@
 #include <wx/intl.h>
 #include <wx/settings.h>
 #include <wx/string.h>
-#include <wx/textctrl.h>
-
 #include "GlobalDefine.h"
 
 #if defined(__ATHOS_DEBUG__)
@@ -34,24 +21,15 @@ const long CreateCuboidFrame::idSpcDepth = wxNewId();
 const long CreateCuboidFrame::ID_STATICTEXT1 = wxNewId();
 const long CreateCuboidFrame::ID_STATICTEXT2 = wxNewId();
 const long CreateCuboidFrame::ID_STATICTEXT3 = wxNewId();
-const long CreateCuboidFrame::idBtnCreate = wxNewId();
-const long CreateCuboidFrame::idBtnCancel = wxNewId();
+const long CreateCuboidFrame::idBuCreate = wxNewId();
+const long CreateCuboidFrame::idBuCancel = wxNewId();
 const long CreateCuboidFrame::ID_STATICTEXT4 = wxNewId();
 const long CreateCuboidFrame::idColourPicker = wxNewId();
 
 
 BEGIN_EVENT_TABLE(CreateCuboidFrame,wxFrame)
-	EVT_BUTTON(idBtnCreate, CreateCuboidFrame::OnCreate)
-	EVT_BUTTON(idBtnCancel, CreateCuboidFrame::OnCancel)
 END_EVENT_TABLE()
 
-/**
- * constructor of AssemblyDataFrame; creates the frame with its controls and connects needed events
- * @param[in]       parent          parent of this frame
- * @param[in]       id              id of this frame
- * @param[in]       pos             position of this frame
- * @param[in]       size            size of this frame
- */
 CreateCuboidFrame::CreateCuboidFrame(wxWindow* parent,wxWindowID id,const wxPoint& pos,const wxSize& size)
 {
 	Create(parent, wxID_ANY, wxT("Kubus erstellen"), wxDefaultPosition, wxDefaultSize, wxDEFAULT_FRAME_STYLE|wxTAB_TRAVERSAL, _T("wxID_ANY"));
@@ -59,7 +37,6 @@ CreateCuboidFrame::CreateCuboidFrame(wxWindow* parent,wxWindowID id,const wxPoin
 	CenterOnParent();
 	SetBackgroundColour(wxNullColour);
 	SetIcon(wxICON(gnr_icon));
-	//MakeModal();
 	
 	m_panel = new wxPanel(this, wxID_ANY, wxPoint(0, 0), wxSize(382,260), wxTAB_TRAVERSAL);
 	
@@ -78,19 +55,12 @@ CreateCuboidFrame::CreateCuboidFrame(wxWindow* parent,wxWindowID id,const wxPoin
 	StaticText4 = new wxStaticText(m_panel, ID_STATICTEXT4, _("Farbe"), wxPoint(56,147), wxDefaultSize, 0, _T("ID_STATICTEXT4"));
 	m_colourPicker = new wxColourPickerCtrl(m_panel, idColourPicker, wxColour(107,122,254), wxPoint(128, 142), wxSize(24,24));
 	
-	m_buCreate = new wxButton(m_panel, idBtnCreate, _("Erstellen"), wxPoint(56,188), wxSize(88,23), 0, wxDefaultValidator, _T("idBuCreate"));
-	m_buCancel = new wxButton(m_panel, idBtnCancel, _("Abbrechen"), wxPoint(232,188), wxSize(88,23), 0, wxDefaultValidator, _T("idBuCancel"));
+	m_buCreate = new wxButton(m_panel, idBuCreate, _("Erstellen"), wxPoint(56,188), wxSize(88,23), 0, wxDefaultValidator, _T("idBuCreate"));
+	m_buCancel = new wxButton(m_panel, idBuCancel, _("Abbrechen"), wxPoint(232,188), wxSize(88,23), 0, wxDefaultValidator, _T("idBuCancel"));
 }
 
-/**
- * destructor of CreateCuboidFrame
- */
 CreateCuboidFrame::~CreateCuboidFrame() {}
 
-/**
- * changes the color of the preview-panel to setted color
- * @param[in]       WXUNUSED        unused event of spinctrl
- */
 void CreateCuboidFrame::OnColorChange(wxColourPickerEvent& event)
 {
 

@@ -686,7 +686,7 @@ void MainFrame::OnMenuCreateCuboid(wxCommandEvent& WXUNUSED(event))
 	myevent.SetEventObject(this);
 	myevent.setGNREventType(CREATECUBOID);
 	GetEventHandler()->ProcessEvent(myevent);
-#warning: "TODO OnMenuCreateCuboid, event ready!"
+//#warning: "TODO OnMenuCreateCuboid, event ready!"
 }
 
 /**
@@ -695,7 +695,7 @@ void MainFrame::OnMenuCreateCuboid(wxCommandEvent& WXUNUSED(event))
  */
 void MainFrame::OnMenuCreateSphere(wxCommandEvent& WXUNUSED(event))
 {
-#warning: "TODO OnMenuCreateSphere, event ready!"
+//#warning: "TODO OnMenuCreateSphere, event ready!"
 	NotifyEvent myevent(wxEVT_COMMAND_GNR_NOTIFY);
 	myevent.SetEventObject(this);
 	myevent.setGNREventType(CREATESPHERE);
@@ -708,7 +708,7 @@ void MainFrame::OnMenuCreateSphere(wxCommandEvent& WXUNUSED(event))
  */
 void MainFrame::OnMenuCreateCylinder(wxCommandEvent& WXUNUSED(event))
 {
-#warning: "TODO OnMenuCreateCylinder, event ready!"
+//#warning: "TODO OnMenuCreateCylinder, event ready!"
 	NotifyEvent myevent(wxEVT_COMMAND_GNR_NOTIFY);
 	myevent.SetEventObject(this);
 	myevent.setGNREventType(CREATECYLINDER);
