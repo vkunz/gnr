@@ -522,6 +522,77 @@ void Library::addNewCategory(const wxString& newName, const unsigned int parentI
 	outFile.Commit();
 }
 
+void Library::moveEntry(const wxString reference, const unsigned int new_parent_id)
+{
+	// empty xml document
+	wxXmlDocument xml;
+	
+	// pointer to wxZipEntry
+	wxZipEntry* entry;
+	
+	// input file to open library
+	std::auto_ptr<wxFFileInputStream> inFile(new wxFFileInputStream(m_fileName.GetFullPath()));
+	
+	// temp output file to store new lib
+	wxTempFileOutputStream outFile(m_fileName.GetFullPath());
+	
+	// zip input stream
+	wxZipInputStream inzip(*inFile);
+	
+	// zip output stream
+	wxZipOutputStream outzip(outFile);
+	
+	// copy meta data
+	outzip.CopyArchiveMetaData(inzip);
+	
+	// get first entry of inzip
+	entry = inzip.GetNextEntry();
+	
+	// copy all entries
+	while (entry)
+	{
+		// copy all entries except the old xml
+		if (entry->GetName().Matches(wxT("*.xml")))
+		{
+			//open entry
+			inzip.OpenEntry(*entry);
+			
+			// new xml
+			xml.Load(inzip);
+			
+			// close entry
+			inzip.CloseEntry();
+			
+			// do not copy entry, set next entry
+			entry = inzip.GetNextEntry();
+			
+			// delete entry in xml
+			moveXmlEntry(xml, outzip, reference, new_parent_id);
+		}
+		
+		// if empty, leave
+		if (inzip.Eof())
+		{
+			break;
+		}
+		
+		// copy entry
+		outzip.CopyEntry(entry, inzip);
+		
+		// get next entry
+		entry = inzip.GetNextEntry();
+	}
+	
+	// close outzip
+	outzip.Close();
+	
+	// close file
+	inFile.reset();
+	
+	// generate new file
+	outFile.Commit();
+}
+
 unsigned int Library::getParentId(unsigned int cat_id)
 {
 	// tmp int
@@ -1241,6 +1312,72 @@ void Library::addNewXmlCategory(wxXmlDocument& xml, wxZipOutputStream& out, cons
 		
 		// add new child
 		node->AddChild(newChild);
+	}
+	
+	// new zipEntry
+	out.PutNextEntry(wxT("library.xml"));
+	
+	// copy data into entry
+	xml.Save(out);
+	
+	// close entry
+	out.CloseEntry();
+}
+
+void Library::moveXmlEntry(wxXmlDocument& xml, wxZipOutputStream& out, const wxString& reference, const unsigned int new_parent_id)
+{
+	// node pointer
+	wxXmlNode* node;
+	
+	// property pointer
+	wxXmlProperty* prop;
+	
+	// node to root
+	node = xml.GetRoot();
+	
+	// node to categories
+	node = node->GetChildren();
+	
+	// node to entries
+	node = node->GetNext();
+	
+	// node to first entry
+	node = node->GetChildren();
+	
+	while (node)
+	{
+		// prop to name
+		prop = node->GetProperties();
+		
+		// prop to ref
+		prop = prop->GetNext();
+		
+		// check if proper entry
+		if (prop->GetValue() == reference)
+		{
+			// prop to name
+			prop = node->GetProperties();
+			
+			// prop to reference
+			prop = prop->GetNext();
+			
+			// prop to cat id
+			prop = prop->GetNext();
+			
+			// set new cat id
+			prop->SetValue(wxString() << new_parent_id);
+		}
+		
+		// check if there are children
+		if (node->GetChildren() != NULL)
+		{
+			// set to next children
+			node = node->GetNext();
+		}
+		else
+		{
+			break;
+		}
 	}
 	
 	// new zipEntry

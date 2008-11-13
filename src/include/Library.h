@@ -51,6 +51,9 @@ public:
 	// add new category
 	void addNewCategory(const wxString& name, const unsigned int parentId);
 	
+	// move entry from one category to an other
+	void moveEntry(const wxString reference, const unsigned int new_parent_id);
+	
 protected:
 
 private:
@@ -103,6 +106,9 @@ private:
 	
 	// add new category to xml
 	void addNewXmlCategory(wxXmlDocument& xml, wxZipOutputStream& out, const wxString& newName);
+	
+	// move entry in xml
+	void moveXmlEntry(wxXmlDocument& xml, wxZipOutputStream& out, const wxString& reference, const unsigned int new_parent_id);
 };
 
 #endif // _GNRLIBRARY_H_

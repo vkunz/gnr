@@ -357,18 +357,13 @@ void TreeLibraryController::moveEntry(const wxString& reference, const unsigned 
 		// look if correct entry
 		if ((it)->getReference() == reference)
 		{
-#if defined(__ATHOS_DEBUG__)
-			wxLogDebug((it)->toString());
-#endif
 			// set new name
 			(it)->setCategoryId(new_parent_id);
 		}
 	}
 	
 	// change id of entry in xml
-	//m_library->changeEntry(reference, new_parent_id);
-	
-#warning "entry has to be changed in xml..."
+	m_library->moveEntry(reference, new_parent_id);
 	
 	// rebuild tree
 	buildTreeCtrl();
