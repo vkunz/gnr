@@ -366,6 +366,12 @@ void Library::renameCategory(unsigned int cat_id, wxString new_name)
 			renameXmlCategory(xml, outzip, cat_id, new_name);
 		}
 		
+		// if not available
+		if (inzip.Eof())
+		{
+			break;
+		}
+		
 		// copy entry
 		outzip.CopyEntry(entry, inzip);
 		
@@ -450,9 +456,6 @@ void Library::renameEntry(wxString reference, wxString newName)
 
 void Library::addNewCategory(const wxString& newName, const unsigned int parentId)
 {
-	// set parentId
-	m_parentId = parentId;
-	
 	// empty xml document
 	wxXmlDocument xml;
 	
@@ -496,7 +499,7 @@ void Library::addNewCategory(const wxString& newName, const unsigned int parentI
 			entry = inzip.GetNextEntry();
 			
 			// delete entry in xml
-			addNewXmlCategory(xml, outzip, newName);
+			addNewXmlCategory(xml, outzip, parentId, newName);
 		}
 		
 		// if empty, leave
@@ -593,24 +596,76 @@ void Library::moveEntry(const wxString reference, const unsigned int new_parent_
 	outFile.Commit();
 }
 
-unsigned int Library::getParentId(unsigned int cat_id)
+void Library::moveCategory(const unsigned int catId, const unsigned int newParentId)
 {
-	// tmp int
-	unsigned int parentId = 0;
+	// empty xml document
+	wxXmlDocument xml;
 	
-	// iterator
-	std::vector<LibraryCategory>::iterator it;
+	// pointer to wxZipEntry
+	wxZipEntry* entry;
 	
-	// walk through all entrys, look for name
-	for (it = m_ptrCategories->begin(); it != m_ptrCategories->end(); it++)
+	// input file to open library
+	std::auto_ptr<wxFFileInputStream> inFile(new wxFFileInputStream(m_fileName.GetFullPath()));
+	
+	// temp output file to store new lib
+	wxTempFileOutputStream outFile(m_fileName.GetFullPath());
+	
+	// zip input stream
+	wxZipInputStream inzip(*inFile);
+	
+	// zip output stream
+	wxZipOutputStream outzip(outFile);
+	
+	// copy meta data
+	outzip.CopyArchiveMetaData(inzip);
+	
+	// get first entry of inzip
+	entry = inzip.GetNextEntry();
+	
+	// copy all entries
+	while (entry)
 	{
-		if (it->getCatId() == cat_id)
+		// copy all entries except the old xml
+		if (entry->GetName().Matches(wxT("*.xml")))
 		{
-			parentId = it->getParentId();
+			//open entry
+			inzip.OpenEntry(*entry);
+			
+			// new xml
+			xml.Load(inzip);
+			
+			// close entry
+			inzip.CloseEntry();
+			
+			// do not copy entry, set next entry
+			entry = inzip.GetNextEntry();
+			
+			// delete entry in xml
+			moveXmlCategory(xml, outzip, catId, newParentId);
 		}
+		
+		// if empty, leave
+		if (inzip.Eof())
+		{
+			break;
+		}
+		
+		// copy entry
+		outzip.CopyEntry(entry, inzip);
+		
+		// get next entry
+		entry = inzip.GetNextEntry();
 	}
 	
-	return parentId;
+	// close outzip
+	outzip.Close();
+	
+	// close file
+	inFile.reset();
+	
+	// generate new file
+	outFile.Commit();
+	
 }
 
 void Library::openLibrary()
@@ -705,17 +760,17 @@ void Library::createEmptyLibrary()
 
 void Library::LoadXml(wxInputStream& inStream)
 {
-	// store cat id
-	unsigned int cat_id;
-	
 	// store name
 	wxString name;
 	
+	// store cat id
+	unsigned int catId;
+	
+	// store parent id
+	unsigned int parentId;
+	
 	// store reference
 	wxString reference;
-	
-	// store id
-	unsigned int categoryId = 1;
 	
 	// create xml document of m_inZip
 	wxXmlDocument xml(inStream);
@@ -737,155 +792,92 @@ void Library::LoadXml(wxInputStream& inStream)
 		// node to first category
 		node = node->GetChildren();
 		
-		// set parentId to 0
-		m_parentId = 0;
-		
-		// walk through all next nodes
+		// walk through all categories
 		while (node)
 		{
-			// walk through all children
+			// prop to name
+			prop = node->GetProperties();
+			
+			// get name
+			name = prop->GetValue();
+			
+			// prop to cat id
+			prop = prop->GetNext();
+			
+			// get cat id
+			catId = (unsigned int)wxAtoi(prop->GetValue());
+			
+			// prop to parent id
+			prop = prop->GetNext();
+			
+			// get parent id
+			parentId = (unsigned int)wxAtoi(prop->GetValue());
+			
+			// add category
+			addCategory(name, catId, parentId);
+			
+			// check if next node exist
+			if (node->GetNext())
+			{
+				// everything ok, next exist
+				node = node->GetNext();
+			}
+			// no next node
+			else
+			{
+				// no next node, jump out
+				break;
+			}
+		}
+		
+		// set node to categories
+		node = node->GetParent();
+		
+		// set node to entries
+		node = node->GetNext();
+		
+		if (node->GetChildren() != NULL)
+		{
+			// node to first entry
+			node = node->GetChildren();
+			
+			// walk through all entries
 			while (node)
 			{
 				// prop to name
 				prop = node->GetProperties();
 				
-				// get value of name
+				// get name
 				name = prop->GetValue();
+				
+				// prop to reference
+				prop = prop->GetNext();
+				
+				// get reference
+				reference = prop->GetValue();
 				
 				// prop to categoryid
 				prop = prop->GetNext();
 				
-				// get value of categoryId
-				categoryId = wxAtoi(prop->GetValue());
+				// get categoryid
+				catId = (unsigned int)wxAtoi(prop->GetValue());
 				
-				// add new category
-				addCategory(name, categoryId, m_parentId);
+				// add new entry
+				addEntry(name, reference, catId);
 				
-				// check if there are children
-				if (node->GetChildren() != NULL)
+				// check if next node exist
+				if (node->GetNext())
 				{
-					// set new parentId
-					m_parentId = categoryId;
-					
-					// set to next children
-					node = node->GetChildren();
-				}
-				
-				// another children
-				else if (node->GetNext() != NULL)
-				{
-					// node to next
+					// everything ok, next exist
 					node = node->GetNext();
 				}
-				// no children anymore
+				// no next node
 				else
 				{
-					// set node to parent
-					node = node->GetParent();
-					
-					// check if categories
-					if (node->GetProperties())
-					{
-						// get first property
-						prop = node->GetProperties();
-						
-						// get next
-						prop = prop->GetNext();
-						
-						// get cat id
-						cat_id = wxAtoi(prop->GetValue());
-						
-						// get parentId
-						m_parentId = getParentId(cat_id);
-					}
-					// if not possible, parent => 0
-					else
-					{
-						m_parentId = 0;
-					}
-					
-					// leave loop
+					// no next node, jump out
 					break;
 				}
 			}
-			
-			// check if next exist
-			if (node->GetNext() != NULL)
-			{
-				// exist, set node to next
-				node = node->GetNext();
-				
-				// check if finisched with categories
-				if (node->GetName() == wxT("entries"))
-				{
-					// leave loop
-					break;
-				}
-			}
-			// next does not exist
-			else
-			{
-				// set node to parent
-				node = node->GetParent();
-				
-				// get first property
-				prop = node->GetProperties();
-				
-				// prop to cat id
-				prop = prop->GetNext();
-				
-				// get parentId
-				m_parentId = getParentId(wxAtoi(prop->GetValue()));
-				
-				// set node to next
-				node = node->GetNext();
-			}
-		}
-	}
-	else
-	{
-		// set node to entries
-		node = node->GetNext();
-	}
-	
-	// node to first entry
-	node = node->GetChildren();
-	
-	// walk through all entries
-	while (node)
-	{
-		// prop to name
-		prop = node->GetProperties();
-		
-		// get name
-		name = prop->GetValue();
-		
-		// prop to reference
-		prop = prop->GetNext();
-		
-		// get reference
-		reference = prop->GetValue();
-		
-		// prop to categoryid
-		prop = prop->GetNext();
-		
-		// get categoryid
-		categoryId = wxAtoi(prop->GetValue());
-		
-		// add new entry
-		addEntry(name, reference, categoryId);
-		
-		// check if next node exist
-		if (node->GetNext())
-		{
-			// everything ok, next exist
-			node = node->GetNext();
-		}
-		// no next node
-		else
-		{
-			// no next node, jump out
-			break;
 		}
 	}
 }
@@ -955,11 +947,14 @@ void Library::addXmlEntry(wxXmlDocument& xml, wxZipOutputStream& out)
 	wxXmlNode* newChild = new wxXmlNode(wxXML_ELEMENT_NODE, wxT("entry"));
 	
 	// add attributes
+	// add name
 	newChild->AddProperty(wxT("name"), m_ptrEntries->back().getName());
+	
+	// add reference
 	newChild->AddProperty(wxT("reference"), m_ptrEntries->back().getReference());
-	wxString tmp;
-	tmp << m_ptrEntries->back().getCategoryId();
-	newChild->AddProperty(wxT("categoryId"), tmp);
+	
+	// add cat id
+	newChild->AddProperty(wxT("categoryId"), wxString() << m_ptrEntries->back().getCategoryId());
 	
 	// add child
 	node->AddChild(newChild);
@@ -1053,72 +1048,36 @@ void Library::renameXmlCategory(wxXmlDocument& xml, wxZipOutputStream& out, unsi
 	// node to first category
 	node = node->GetChildren();
 	
-	// walk through all next nodes
+	// walk through all children
 	while (node)
 	{
-		// walk through all children
-		while (node)
+		// prop to name
+		prop = node->GetProperties();
+		
+		// prop to cat id
+		prop = prop->GetNext();
+		
+		// look if proper cat
+		if ((unsigned int)wxAtoi(prop->GetValue()) == cat_id)
 		{
 			// prop to name
 			prop = node->GetProperties();
 			
-			// prop to cat id
-			prop = prop->GetNext();
-			
-			// look if proper cat
-			if ((unsigned int)wxAtoi(prop->GetValue()) == cat_id)
-			{
-				prop = node->GetProperties();
-				
-				// set new name
-				prop->SetValue(newName);
-			}
-			
-			// check if there are children
-			if (node->GetChildren() != NULL)
-			{
-				// set to next children
-				node = node->GetChildren();
-			}
-			
-			// another children
-			else if (node->GetNext() != NULL)
-			{
-				// node to next
-				node = node->GetNext();
-			}
-			// no children anymore
-			else
-			{
-				// set node to parent
-				node = node->GetParent();
-				
-				// leave loop
-				break;
-			}
+			// set new name
+			prop->SetValue(newName);
 		}
 		
-		// check if next exist
+		// another children
 		if (node->GetNext() != NULL)
 		{
-			// exist, set node to next
+			// node to next
 			node = node->GetNext();
-			
-			// check if finisched with categories
-			if (node->GetName() == wxT("entries"))
-			{
-				// leave loop
-				break;
-			}
 		}
-		// next does not exist
+		// no children anymore
 		else
 		{
-			// set node to parent
-			node = node->GetParent();
-			
-			// set node to next
-			node = node->GetNext();
+			// leave loop
+			break;
 		}
 	}
 	
@@ -1192,13 +1151,10 @@ void Library::renameXmlEntry(wxXmlDocument& xml, wxZipOutputStream& out, wxStrin
 	out.CloseEntry();
 }
 
-void Library::addNewXmlCategory(wxXmlDocument& xml, wxZipOutputStream& out, const wxString& newName)
+void Library::addNewXmlCategory(wxXmlDocument& xml, wxZipOutputStream& out, const unsigned int parentId, const wxString& newName)
 {
 	// node pointer
 	wxXmlNode* node;
-	
-	// property pointer
-	wxXmlProperty* prop;
 	
 	// node to root
 	node = xml.GetRoot();
@@ -1206,113 +1162,20 @@ void Library::addNewXmlCategory(wxXmlDocument& xml, wxZipOutputStream& out, cons
 	// node to categories
 	node = node->GetChildren();
 	
-	if (m_parentId > 0)
-	{
-		// node to first category
-		node = node->GetChildren();
-		
-		// walk through all next nodes
-		while (node)
-		{
-			// walk throught all children
-			while (node)
-			{
-				// prop to name
-				prop = node->GetProperties();
-				
-				// prop to cat id
-				prop = prop->GetNext();
-				
-				if ((unsigned int)wxAtoi(prop->GetValue()) == m_parentId)
-				{
-					// new node
-					wxXmlNode* newChild = new wxXmlNode(wxXML_ELEMENT_NODE, wxT("category"));
-					
-					// add name
-					newChild->AddProperty(wxT("name"), newName);
-					
-					// add category id
-					newChild->AddProperty(wxT("categoryId"), wxString() << m_categoryId);
-					
-					// add parent id
-					newChild->AddProperty(wxT("parentId"), wxString() << m_parentId);
-					
-					// add new child
-					node->AddChild(newChild);
-				}
-				
-				// check if there are children
-				if (node->GetChildren() != NULL)
-				{
-					// set to next children
-					node = node->GetChildren();
-				}
-				// another children
-				else if (node->GetNext() != NULL)
-				{
-					// node to next
-					node = node->GetNext();
-				}
-				// no children anymore
-				else
-				{
-					// set node to parent
-					node = node->GetParent();
-					
-					// leave loop
-					break;
-				}
-			}
-			
-			// check if next exist
-			if (node->GetNext() != NULL)
-			{
-				// exist, set node to next
-				node = node->GetNext();
-				
-				// check if finisched with categories
-				if (node->GetName() == wxT("entries"))
-				{
-					// leave loop
-					break;
-				}
-			}
-			
-			// next does not exist
-			else
-			{
-				// set node to parent
-				node = node->GetParent();
-				
-				if (node->GetNext() == NULL)
-				{
-					// set node to next
-					node = node->GetNext();
-				}
-				else
-				{
-					break;
-				}
-			}
-		}
-	}
-	else
-	{
-		// new node
-		wxXmlNode* newChild = new wxXmlNode(wxXML_ELEMENT_NODE, wxT("category"));
-		
-		// add name
-		newChild->AddProperty(wxT("name"), newName);
-		
-		// add category id
-		newChild->AddProperty(wxT("categoryId"), wxString() << m_categoryId);
-		
-		// add parent id
-		newChild->AddProperty(wxT("parentId"), wxString() << m_parentId);
-		
-		// add new child
-		node->AddChild(newChild);
-	}
+	// new node
+	wxXmlNode* newChild = new wxXmlNode(wxXML_ELEMENT_NODE, wxT("category"));
+	
+	// add name
+	newChild->AddProperty(wxT("name"), newName);
+	
+	// add category id
+	newChild->AddProperty(wxT("categoryId"), wxString() << m_categoryId);
+	
+	// add parent id
+	newChild->AddProperty(wxT("parentId"), wxString() << parentId);
+	
+	// add new child
+	node->AddChild(newChild);
 	
 	// new zipEntry
 	out.PutNextEntry(wxT("library.xml"));
@@ -1380,6 +1243,304 @@ void Library::moveXmlEntry(wxXmlDocument& xml, wxZipOutputStream& out, const wxS
 		}
 	}
 	
+	// new zipEntry
+	out.PutNextEntry(wxT("library.xml"));
+	
+	// copy data into entry
+	xml.Save(out);
+	
+	// close entry
+	out.CloseEntry();
+}
+
+void Library::moveXmlCategory(wxXmlDocument& xml, wxZipOutputStream& out, const unsigned int catId, const unsigned int new_parent_id)
+{
+	// node pointer
+	wxXmlNode* node;
+	
+	// node pointer
+	wxXmlNode* storeNode;
+	
+	// property pointer
+	wxXmlProperty* prop;
+	
+	// node to root
+	node = xml.GetRoot();
+	
+	// node to categories
+	node = node->GetChildren();
+	
+	// node to first category
+	node = node->GetChildren();
+	
+	// walk through all categories
+	while (node)
+	{
+		// prop to name
+		prop = node->GetProperties();
+		
+		// prop to catId
+		prop = prop->GetNext();
+		
+		// check if proper property
+		if ((unsigned int)wxAtoi(prop->GetValue()) == catId)
+		{
+			// store node to delete
+			storeNode = node;
+			
+			// node to parent
+			node = node->GetParent();
+			
+			// delete node
+			node->RemoveChild(storeNode);
+		}
+		
+		// check if there are children
+		if (node->GetChildren() != NULL)
+		{
+			// set to next children
+			node = node->GetNext();
+		}
+		else
+		{
+			break;
+		}
+	}
+	
+	wxLogDebug(node->GetName());
+	
+	// walk through all categories
+	while (node)
+	{
+		// prop to name
+		prop = node->GetProperties();
+		
+		// prop to catId
+		prop = prop->GetNext();
+		
+		// check if proper property
+		if ((unsigned int)wxAtoi(prop->GetValue()) == catId)
+		{
+			// store node to delete
+			storeNode = node;
+			
+			// node to parent
+			node = node->GetParent();
+			
+			// delete node
+			node->RemoveChild(storeNode);
+		}
+		
+		// check if there are children
+		if (node->GetChildren() != NULL)
+		{
+			// set to next children
+			node = node->GetNext();
+		}
+		else
+		{
+			break;
+		}
+	}
+//    // walk through all next nodes
+//    while (node)
+//    {
+//        // walk through all children
+//        while (node)
+//        {
+//            wxLogDebug(node->GetName());
+//
+//            // prop to name
+//            prop = node->GetProperties();
+//
+//
+//            // check if there are children
+//            if (node->GetChildren() != NULL)
+//            {
+//                // set to next children
+//                node = node->GetChildren();
+//            }
+//            // another children
+//            else if (node->GetNext() != NULL)
+//            {
+//                // node to next
+//                node = node->GetNext();
+//            }
+//            // no children anymore
+//            else
+//            {
+//                // set node to parent
+//                node = node->GetParent();
+//
+//                // leave loop
+//                break;
+//            }
+//        }
+//
+//        // check if next exist
+//        if (node->GetNext() != NULL)
+//        {
+//            // exist, set node to next
+//            node = node->GetNext();
+//
+//            // check if finisched with categories
+//            if (node->GetName() == wxT("entries"))
+//            {
+//                // leave loop
+//                break;
+//            }
+//        }
+//        // next does not exist
+//        else
+//        {
+//            // set node to parent
+//            node = node->GetParent();
+//
+//            // set node to next
+//            node = node->GetNext();
+//
+//            // check if finisched with categories
+//            if (node->GetName() == wxT("entries"))
+//            {
+//                // leave loop
+//                break;
+//            }
+//        }
+//    }
+//
+//    // check if new parent > 0
+//    if(new_parent_id > 0)
+//    {
+//        // node to root
+//        node = xml.GetRoot();
+//
+//        // node to categories
+//        node = node->GetChildren();
+//
+//        // node to first category
+//        node = node->GetChildren();
+//
+//        // walk through all next nodes
+//        while (node)
+//        {
+//            // walk through all children
+//            while (node)
+//            {
+//                // prop to name
+//                prop = node->GetProperties();
+//
+//                // prop to catId
+//                prop = prop->GetNext();
+//
+//                // check if proper property
+//                if((unsigned int)wxAtoi(prop->GetValue()) == new_parent_id)
+//                {
+//                    // prop to name of storenode
+//                    prop = storeNode->GetProperties();
+//
+//                    // prop to cat id
+//                    prop = prop->GetNext();
+//
+//                    // prop to parent id
+//                    prop = prop->GetNext();
+//
+//                    // set new parent id
+//                    prop->SetValue(wxString() << new_parent_id);
+//
+//                    wxLogDebug(node->GetName());
+//
+//                    // add child
+//                    node->AddChild(storeNode);
+//
+//                    // reset prop
+//                    prop = node->GetProperties();
+//                }
+//
+//                // check if there are children
+//                if (node->GetChildren() != NULL)
+//                {
+//                    // set to next children
+//                    node = node->GetChildren();
+//                }
+//                // another children
+//                else if (node->GetNext() != NULL)
+//                {
+//                    // node to next
+//                    node = node->GetNext();
+//                }
+//                // no children anymore
+//                else
+//                {
+//                    // set node to parent
+//                    node = node->GetParent();
+//
+//                    // leave loop
+//                    break;
+//                }
+//            }
+//
+//            // check if next exist
+//            if(node->GetNext() != NULL)
+//            {
+//                // exist, set node to next
+//                node = node->GetNext();
+//
+//                // check if finisched with categories
+//                if (node->GetName() == wxT("entries"))
+//                {
+//                    // leave loop
+//                    break;
+//                }
+//            }
+//            // next does not exist
+//            else
+//            {
+//                // set node to parent
+//                node = node->GetParent();
+//
+//                if(node->GetNext() != NULL)
+//                {
+//                    // set node to next
+//                    node = node->GetNext();
+//
+//                    // check if finisched with categories
+//                    if (node->GetName() == wxT("entries"))
+//                    {
+//                        // leave loop
+//                        break;
+//                    }
+//                }
+//                else
+//                {
+//                    break;
+//                }
+//            }
+//        }
+//    }
+//    else
+//    {
+//        // node to root
+//        node = xml.GetRoot();
+//
+//        // node to categories
+//        node = node->GetChildren();
+//
+//        // prop to name of storenode
+//        prop = storeNode->GetProperties();
+//
+//        // prop to cat id
+//        prop = prop->GetNext();
+//
+//        // prop to parent id
+//        prop = prop->GetNext();
+//
+//        // set new parent id
+//        prop->SetValue(wxString() << new_parent_id);
+//
+//        // add child
+//        node->AddChild(storeNode);
+//    }
+
 	// new zipEntry
 	out.PutNextEntry(wxT("library.xml"));
 	

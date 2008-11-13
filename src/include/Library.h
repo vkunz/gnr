@@ -54,6 +54,9 @@ public:
 	// move entry from one category to an other
 	void moveEntry(const wxString reference, const unsigned int new_parent_id);
 	
+	// move category to an other parent
+	void moveCategory(const unsigned int catId, const unsigned int newParentId);
+	
 protected:
 
 private:
@@ -71,9 +74,6 @@ private:
 	unsigned int m_parentId;
 	
 	// functions
-	// return parentId of entry with name
-	unsigned int getParentId(unsigned int cat_id);
-	
 	// open library and procceed xml
 	void openLibrary();
 	
@@ -105,10 +105,13 @@ private:
 	void renameXmlEntry(wxXmlDocument& xml, wxZipOutputStream& out, wxString& reference, wxString& newName);
 	
 	// add new category to xml
-	void addNewXmlCategory(wxXmlDocument& xml, wxZipOutputStream& out, const wxString& newName);
+	void addNewXmlCategory(wxXmlDocument& xml, wxZipOutputStream& out, const unsigned int parentId, const wxString& newName);
 	
 	// move entry in xml
 	void moveXmlEntry(wxXmlDocument& xml, wxZipOutputStream& out, const wxString& reference, const unsigned int new_parent_id);
+	
+	// move entry in xml
+	void moveXmlCategory(wxXmlDocument& xml, wxZipOutputStream& out, const unsigned int catId, const unsigned int new_parent_id);
 };
 
 #endif // _GNRLIBRARY_H_

@@ -314,15 +314,18 @@ void TreeLibraryCtrl::OnBeginDrag(wxTreeEvent& event)
  */
 void TreeLibraryCtrl::OnEndDrag(wxTreeEvent& event)
 {
-	wxTreeItemId itemSrc = m_draggedItem, itemDst = event.GetItem();
-	m_draggedItem = (wxTreeItemId)0l;
-	
 	// get data from tree item
-	TreeLibraryItemData* dst = (TreeLibraryItemData*)GetItemData(itemDst);
-	TreeLibraryItemData* src = (TreeLibraryItemData*)GetItemData(itemSrc);
+	TreeLibraryItemData* src = (TreeLibraryItemData*)GetItemData(m_draggedItem);
+	TreeLibraryItemData* dst = (TreeLibraryItemData*)GetItemData(event.GetItem());
 	
 	// if null, cancel
 	if (dst == NULL || src == NULL)
+	{
+		return;
+	}
+	
+	// if same cat, do nothing
+	if (src->getParentId() == dst->getCatId())
 	{
 		return;
 	}
