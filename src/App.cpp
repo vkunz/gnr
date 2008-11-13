@@ -333,7 +333,7 @@ void App::OnGNREvent(NotifyEvent& event)
 		m_Scene->deleteTrashAssemblies();
 		break;
 	case CREATECUBOID:
-		createPrimitve(event);
+		createPrimitive(event);
 		break;
 		
 #if defined(__ATHOS_DEBUG__)
@@ -666,10 +666,13 @@ void App::createScreenshot(wxString filename)
  * handle primitive-creation
  * @param[in]       WXUNUSED        unused event send on menu-klick
  */
-void App::createPrimitve(NotifyEvent& WXUNUSED(event))
+void App::createPrimitive(NotifyEvent& event)
 {
-	CreateCuboidFrame* cubFrame = new CreateCuboidFrame(m_MainFrame);
-	cubFrame->Show();
+	if (event.GetEventType() == CREATECUBOID)
+	{
+		CreateCuboidFrame* cubFrame = new CreateCuboidFrame(m_MainFrame);
+		cubFrame->Show();
+	}
 }
 
 /**

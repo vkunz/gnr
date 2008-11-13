@@ -1,11 +1,14 @@
 #include "include/CreateCuboidFrame.h"
 
+
 #include <wx/colour.h>
 #include <wx/icon.h>
 #include <wx/intl.h>
 #include <wx/settings.h>
 #include <wx/string.h>
+#include "CreatePrimitiveEvent.h"
 #include "GlobalDefine.h"
+#include "Vertex.h"
 
 #if defined(__ATHOS_DEBUG__)
 #include <wx/log.h>
@@ -72,7 +75,19 @@ void CreateCuboidFrame::OnColorChange(wxColourPickerEvent& event)
  */
 void CreateCuboidFrame::OnCreate(wxCommandEvent& WXUNUSED(event))
 {
-	//m_colourPicker->GetColour().Red();
+	Vertex middlePoint(0.0, 0.0, 0.0);
+	Vertex orientation(0.0, 0.0, 0.0);
+	Vertex dimension((float)m_spcWidth->GetValue(), (float)m_spcHeight->GetValue(), (float)m_spcDepth->GetValue());
+	Vertex color(m_colourPicker->GetColour().Red(), m_colourPicker->GetColour().Green(), m_colourPicker->GetColour().Blue());
+	CreatePrimitiveEvent myevent(wxEVT_COMMAND_GNR_CREATE_PRIMITIVE);
+	myevent.SetEventObject(this);
+	myevent.setPrimitiveType(CUBOID);
+	myevent.setPosition(middlePoint);
+	myevent.setAngles(orientation);
+	myevent.setDimensions(dimension);
+	myevent.setColor(color);
+	ProcessEvent(myevent);
+	Destroy();
 }
 
 /**

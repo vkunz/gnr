@@ -686,7 +686,6 @@ void MainFrame::OnMenuCreateCuboid(wxCommandEvent& WXUNUSED(event))
 	myevent.SetEventObject(this);
 	myevent.setGNREventType(CREATECUBOID);
 	GetEventHandler()->ProcessEvent(myevent);
-//#warning: "TODO OnMenuCreateCuboid, event ready!"
 }
 
 /**

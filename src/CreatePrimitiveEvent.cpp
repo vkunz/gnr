@@ -82,6 +82,24 @@ void CreatePrimitiveEvent::setPrimitiveType(primitiveType type)
 }
 
 /**
+ * sets the color, the primitive should have
+ * @param[in]       color       color of primitive
+ */
+void CreatePrimitiveEvent::setColor(Vertex color)
+{
+	m_color = color;
+}
+
+/**
+ * sets the name, the primitive should have
+ * @param[in]       name       name of primitive
+ */
+void CreatePrimitiveEvent::setName(wxString name)
+{
+	m_name = name;
+}
+
+/**
  * returns the position, the primitive should be drawn at
  * @return          Vertex          position
  */
@@ -117,3 +135,23 @@ primitiveType CreatePrimitiveEvent::getPrimitiveType()
 {
 	return m_type;
 }
+
+/**
+ * returns the color, the primitive should have
+ * @return          Vertex      color of primitive
+ */
+Vertex CreatePrimitiveEvent::getColor()
+{
+	return m_color;
+}
+
+/**
+ * returns the name, the primitive should have
+ * @return          wxString     name of primitive
+ */
+wxString CreatePrimitiveEvent::getName()
+{
+	return m_name;
+}
+
+
