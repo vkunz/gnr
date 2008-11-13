@@ -1,4 +1,25 @@
-Y:/PROJECTS/GNR/src/Vertex.cpp:216: Warning: documented function `Vertex Vertex::operator^' was not declared or defined.
+Y:/PROJECTS/GNR/src/Vertex.cpp:273: Warning: documented function `float Vertex::operator^' was not declared or defined.
 Error: USE_HTAGS is YES but htags(1) failed. 
 Error: htags(1) ended normally but failed to load the filemap. 
+Y:/PROJECTS/GNR/src/MainFrame.cpp:210: Warning: argument 'parent' of command @param is not found in the argument list of EVT_MENU(btn_quit, MainFrame::OnMenuQuit)
+Y:/PROJECTS/GNR/src/CreateCuboidFrame.cpp:90: Warning: argument 'WXUNUSED' of command @param is not found in the argument list of CreateCuboidFrame::OnColorChange(wxColourPickerEvent &event)
+Y:/PROJECTS/GNR/src/CreateCuboidFrame.cpp:90: Warning: The following parameters of CreateCuboidFrame::OnColorChange(wxColourPickerEvent &event) are not documented:
+  parameter 'event'
+Y:/PROJECTS/GNR/src/MouseController.cpp:18: Warning: argument 'scene' of command @param is not found in the argument list of MouseController::MouseController()
+Y:/PROJECTS/GNR/src/Scene.cpp:940: Warning: argument 'bool' of command @param is not found in the argument list of Scene::setCanvas2DActive(bool status)
+Y:/PROJECTS/GNR/src/Scene.cpp:940: Warning: The following parameters of Scene::setCanvas2DActive(bool status) are not documented:
+  parameter 'status'
+Y:/PROJECTS/GNR/src/TreeControlEvent.cpp:137: Warning: argument 'name' of command @param is not found in the argument list of TreeControlEvent::setHash(const wxString &hash)
+Y:/PROJECTS/GNR/src/TreeControlEvent.cpp:137: Warning: The following parameters of TreeControlEvent::setHash(const wxString &hash) are not documented:
+  parameter 'hash'
+Y:/PROJECTS/GNR/src/Vertex.cpp:346: Warning: argument 'float' of command @param is not found in the argument list of Vertex::rotate(float alpha, float beta, float gamma)
+Y:/PROJECTS/GNR/src/Vertex.cpp:346: Warning: argument 'float' of command @param is not found in the argument list of Vertex::rotate(float alpha, float beta, float gamma)
+Y:/PROJECTS/GNR/src/Vertex.cpp:346: Warning: argument 'float' of command @param is not found in the argument list of Vertex::rotate(float alpha, float beta, float gamma)
+Y:/PROJECTS/GNR/src/Vertex.cpp:346: Warning: The following parameters of Vertex::rotate(float alpha, float beta, float gamma) are not documented:
+  parameter 'alpha'
+  parameter 'beta'
+  parameter 'gamma'
+Y:/PROJECTS/GNR/src/Vertex.cpp:377: Warning: argument 'Vertex' of command @param is not found in the argument list of Vertex::rotate(const Vertex &angles)
+Y:/PROJECTS/GNR/src/Vertex.cpp:377: Warning: The following parameters of Vertex::rotate(const Vertex &angles) are not documented:
+  parameter 'angles'
 *** Doxygen has finished
