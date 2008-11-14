@@ -375,7 +375,9 @@ void ObjectImport::getU()
 		m_act_part->m_matname = m_act_material;
 	}
 }
-
+/**
+ * get the name of the materiallib
+ */
 void ObjectImport::getM()
 {
 	stringstream ss(m_buf);
@@ -413,6 +415,11 @@ void ObjectImport::getM()
 	}
 }
 
+/**
+ * create a face from a stream
+ * @param[in]		is	inputstream
+ * @return		Face*	pointer to the new face
+ */
 Face* ObjectImport::getFace(istream& is)
 {
 	Face *face = NULL;
