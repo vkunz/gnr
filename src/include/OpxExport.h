@@ -12,11 +12,14 @@
 #define _GNROPXEXPORT_H_
 
 #include <set>
+#include <wx/mstream.h>
+#include <wx/sstream.h>
 #include <wx/string.h>
 #include <wx/wfstream.h>
 #include <wx/xml/xml.h>
 #include <wx/zipstrm.h>
 
+#include "md5.h"
 #include "Scene.h"
 
 class OpxExport
@@ -34,6 +37,9 @@ protected:
 
 private:
 	// attributes
+	// bool to store information if primitives are used
+	bool m_incPrim;
+	
 	// set to store filenames
 	std::set<wxString> m_set;
 	
@@ -48,6 +54,9 @@ private:
 	
 	// create pointer to xmlproperty
 	wxXmlProperty* m_prop;
+	
+	// container to store pointer to primitive oax and ref
+	std::map<wxString, wxMemoryOutputStream*> m_primitives;
 	
 	// pointer to wxZipOutputStream
 	wxZipOutputStream* m_outZip;
@@ -70,6 +79,9 @@ private:
 	
 	// create group and write to xml
 	void createGroup(wxXmlNode* node, Assembly* assembly);
+	
+	// create primitive and write to xml
+	void createPrimitive(wxXmlNode* node, Assembly* assembly);
 };
 
 #endif // _GNROPXEXPORT_H_
