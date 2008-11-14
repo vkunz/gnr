@@ -371,7 +371,7 @@ void App::OnGNRTreeEvent(TreeControlEvent& event)
 		m_TreeLibCtrl->dragNdrop(event);
 		break;
 	case LIBRARYEXPORT:
-		OAXExport(event.getHash());
+		OAXExport(event.GetString());
 		break;
 	case LIBRARYNEWCAT:
 		m_TreeLibCtrl->addCategory(event.getParentId(), event.getNewName());

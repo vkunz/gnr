@@ -210,9 +210,9 @@ void TreeLibraryCtrl::OnExport(wxTreeEvent& WXUNUSED(event))
 	// set event type
 	gnr.setEventType(LIBRARYEXPORT);
 	
-	// set name
+	// set hash
 	TreeLibraryItemData* item = (TreeLibraryItemData*)GetItemData(m_currentTreeID);
-	gnr.SetString(item->getName());
+	gnr.SetString(item->getHash());
 	
 	// fire event
 	ProcessEvent(gnr);
