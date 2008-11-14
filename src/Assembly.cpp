@@ -1079,19 +1079,41 @@ void Assembly::dump_me(ostream& ss, const Matrix4D& parent_tsr, int& vc, int& nc
 {
 	map<const Vertex*, int> vmap, nmap;
 
-    string act_matname = m_matname;
-    if (m_face.begin() != m_face.end())
-    {
-		ss << "usemtl " << m_matname << endl;
-	}
-    for (list<Face*>::const_iterator it = m_face.begin(); it != m_face.end(); ++it)
-    {
-		const string& face_mat = (*it)->material();
-        if (face_mat != act_matname)
-        {
-			act_matname = face_mat;
-            ss << "usemtl " << act_matname << endl;
+	if (isOriginal())
+	{
+		string act_matname = m_matname;
+		if (m_face.begin() != m_face.end())
+		{
+			ss << "usemtl " << m_matname << endl;
 		}
-        ss << (*it)->toString(parent_tsr, vmap, nmap, vc, nc);
+		for (list<Face*>::const_iterator it = m_face.begin(); it != m_face.end(); ++it)
+		{
+			const string& face_mat = (*it)->material();
+			if (face_mat != act_matname)
+			{
+				act_matname = face_mat;
+				ss << "usemtl " << act_matname << endl;
+			}
+			ss << (*it)->toString(parent_tsr, vmap, nmap, vc, nc);
+		}
+	}
+	else
+	{
+		Assembly* orig = getOrigin();
+		string act_matname = m_matname;
+		if (orig->m_face.begin() != orig->m_face.end())
+		{
+			ss << "usemtl " << m_matname << endl;
+		}
+		for (list<Face*>::const_iterator it = orig->m_face.begin(); it != orig->m_face.end(); ++it)
+		{
+			const string& face_mat = (*it)->material();
+			if (face_mat != act_matname)
+			{
+				act_matname = face_mat;
+				ss << "usemtl " << act_matname << endl;
+			}
+			ss << (*it)->toString(parent_tsr, vmap, nmap, vc, nc);
+		}
 	}
 }
