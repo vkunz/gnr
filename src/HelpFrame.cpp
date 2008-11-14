@@ -35,7 +35,7 @@
  */
 HelpFrame::HelpFrame()
 {
-	if (wxFileExists(wxT("help/help.html")))
+	if (wxFileExists(wxT("hilfe/hilfe.html")))
 	{
 		wxBoxSizer *topsizer;
 		wxHtmlWindow *html;
