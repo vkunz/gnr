@@ -281,7 +281,10 @@ const wxString& Assembly::getName() const
 {
 	return m_name;
 }
-
+/**
+ * get the parent of assembly
+ * @return      Assembly*	name of assembly
+ */
 Assembly* Assembly::getParent() const
 {
 	return m_parent;
@@ -296,6 +299,11 @@ float Assembly::getOverGround() const
 	return (m_dimension.getY()  * m_scale.getY()) / 2.0f;
 }
 
+/**
+ * sets the material name of the assembly
+ * @param[in]	mat	material name to set
+ * @return      void
+ */
 void Assembly::setMaterial(const string& mat)
 {
 	m_matname = mat;
@@ -370,6 +378,10 @@ float Assembly::getMaximumSize() const
 	return max;
 }
 
+/**
+ * set name of assembly
+ * @param[in]       name        wxString name of assembly
+ */
 void Assembly::setName(const wxString& name)
 {
 	m_name = name;
@@ -863,6 +875,11 @@ void Assembly::dump(wxString str)
 	}
 }
 
+/**
+ * dump the assembly structure into a std::stream recursively
+ * @param[in]	os	outputstream
+ * @param[in]	depth	depth of the current assembly
+ */
 void Assembly::dump2stream(ostream& os, int depth) const
 {
 	string placeholder(depth, '\t');
@@ -1030,7 +1047,10 @@ void Assembly::cloneDisplayListFrom(Assembly* assembly)
 	//m_face.clear();
 }
 
-
+/**
+ * Export the Assembly-structure as Wavefront Obj into a file
+ * @param[in]	fname	obj-filename
+ */
 void Assembly::ObjExport(const string& fname)
 {
 	string mat_fn(fname.substr(0, fname.find_last_of('.')) + ".mtl");
@@ -1055,6 +1075,13 @@ void Assembly::ObjExport(const string& fname)
 	}
 }
 
+/**
+ * dumps the Assembly-structure as Wavefront Obj into a stream
+ * @param[in]	ss		outputstream
+ * @param[in]	parent_tsr	ModelView-Matrix of the parent
+ * @param	vc		current vertex counter
+ * @param	nc		current normal counter
+ */
 void Assembly::ObjExport(ostream& ss, const Matrix4D& parent_tsr, int& vc, int& nc)
 {
 	Matrix4D tsr(parent_tsr), my_translation(m_position, m_scale, m_rotation);
@@ -1075,6 +1102,13 @@ void Assembly::ObjExport(ostream& ss, const Matrix4D& parent_tsr, int& vc, int& 
 	}
 }
 
+/**
+ * dumps only the Assembly as Wavefront Obj into a stream
+ * @param[in]	ss		outputstream
+ * @param[in]	parent_tsr	ModelView-Matrix of the parent
+ * @param	vc		current vertex counter
+ * @param	nc		current normal counter
+ */
 void Assembly::dump_me(ostream& ss, const Matrix4D& parent_tsr, int& vc, int& nc)
 {
 	map<const Vertex*, int> vmap, nmap;
@@ -1117,3 +1151,4 @@ void Assembly::dump_me(ostream& ss, const Matrix4D& parent_tsr, int& vc, int& nc
 		}
 	}
 }
+
