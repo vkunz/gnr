@@ -11,12 +11,17 @@
 #include <wx/string.h>
 #include "Assembly.h"
 #include "Material.h"
+#include "MaterialLibrary.h"
+#include <iostream>
+#include <fstream>
 
 #include <GL/gl.h>
 
 #if defined(__ATHOS_DEBUG__)
 #include <wx/log.h>
 #endif
+
+using std::ofstream;
 
 /**
  * constructor of generic assembly
@@ -53,7 +58,7 @@ Assembly::Assembly(Assembly& a):
 		//else set same origin, is clone from clone
 		m_origin = a.m_origin;
 	}
-	
+
 	// copy the children
 	for (list<Assembly*>::const_iterator it = m_part.begin(); it != m_part.end(); ++it)
 	{
@@ -62,7 +67,7 @@ Assembly::Assembly(Assembly& a):
 		(*a_copy) = (**it);
 		addPart(a_copy);
 	}
-	
+
 	// copy the tags
 	for (list<wxString>::const_iterator it_tags = m_tags.begin(); it_tags != m_tags.end(); ++it_tags)
 	{
@@ -112,18 +117,18 @@ Assembly::~Assembly()
 		{
 			(*it)->m_kill_dl = true;
 		}
-		
+
 		//delete child
 		delete *it;
 	}
-	
+
 	//if it should kill his DL
 	if (m_kill_dl)
 	{
 		glDeleteLists(m_dl_object, 1);
 		glDeleteLists(m_dl_shadow, 1);
 	}
-	
+
 	//kill partlist and childlists
 	//m_part.clear();
 	//m_child_dl.clear();
@@ -214,7 +219,7 @@ Vertex Assembly::world_dimension() const
 	    m_scale.getY() * m_dimension.getY(),
 	    m_scale.getZ() * m_dimension.getZ()
 	);
-	
+
 	return tmp;
 }
 
@@ -303,14 +308,14 @@ void Assembly::setMaterial(const string& mat)
 Assembly* Assembly::getMaster() const
 {
 	Assembly* master = m_parent;
-	
+
 	//while parent exists and type is not ROOT,
 	// SELECTED, HIDDEN or TRASH, move upwards
 	while (master->m_parent != NULL && master->m_parent->m_type > IS_SELECTED)
 	{
 		master = master->m_parent;
 	}
-	
+
 	//return master pointer
 	return master;
 }
@@ -322,14 +327,14 @@ Assembly* Assembly::getMaster() const
 bool Assembly::isSelected() const
 {
 	Assembly* parent = m_parent;
-	
+
 	//while parent exists and type is not ROOT,
 	// move upwards and head for selected container
 	while (parent->m_parent != NULL && parent->m_parent->m_type != IS_SELECTED)
 	{
 		parent = parent->m_parent;
 	}
-	
+
 	//return true, if parent type = selected
 	return (parent->m_parent != NULL && parent->m_parent->m_type == IS_SELECTED);
 }
@@ -352,7 +357,7 @@ float Assembly::getMaximumSize() const
 {
 	float x, y, z;
 	m_dimension.getAll(x, y, z);
-	
+
 	float max = x;
 	if (y > max)
 	{
@@ -466,14 +471,14 @@ void Assembly::draw()
 		return;
 	}
 	string act_matname = m_matname;
-	
+
 	// set object's material
 	MaterialLibrary::mat_citer tmp = MaterialLibrary::getInstance()->get(m_matname);
 	if (tmp != MaterialLibrary::getInstance()->end())
 	{
 		tmp->second.set();
 	}
-	
+
 	//start drawing glow colors on selection
 	if (m_type == IS_ATOMIC)
 	{
@@ -483,7 +488,7 @@ void Assembly::draw()
 	else if (m_parent != NULL)
 	{
 		float glowcolor[4] = {0.0,0.0,0.0,0.0};
-		
+
 		//if selected paint in different colors
 		if (m_parent->m_type == IS_SELECTED)
 		{
@@ -495,7 +500,7 @@ void Assembly::draw()
 				glowcolor[2] = 1.0;
 				glowcolor[3] = 1.0;
 			}
-			
+
 			if (m_type == IS_GROUP)
 			{
 				//paint blue glowing
@@ -504,7 +509,7 @@ void Assembly::draw()
 				glowcolor[2] = 0.0;
 				glowcolor[3] = 1.0;
 			}
-			
+
 			//if parent type group or selected, draw square on floor
 			if (glowcolor[3] > 0.0)
 			{
@@ -519,24 +524,24 @@ void Assembly::draw()
 			glMaterialfv(GL_FRONT, GL_AMBIENT, glowcolor);
 		}
 	}
-	
+
 	glPushMatrix();
 	{
 		//first translate to position
 		float x, y, z;
 		m_position.getAll(x, y, z);
 		glTranslatef(x, y, z);
-		
+
 		//rotate in object center
 		m_rotation.getAll(x, y, z);
 		glRotatef(x, 1, 0, 0);
 		glRotatef(y, 0, 1, 0);
 		glRotatef(z, 0, 0, 1);
-		
+
 		//finally scale on place
 		m_scale.getAll(x, y, z);
 		glScalef(x, y, z);
-		
+
 		if (glIsList(m_dl_object) || !isOriginal())
 		{
 			//if no valid display list...
@@ -552,11 +557,11 @@ void Assembly::draw()
 		{
 			//create new display list for myself
 			m_dl_object = glGenLists(1);
-			
+
 			//setup new display list
 			glNewList(m_dl_object,GL_COMPILE);
 			{
-			
+
 				// draw myself to display list
 				for (list<Face*>::const_iterator it = m_face.begin(); it != m_face.end(); ++it)
 				{
@@ -570,13 +575,13 @@ void Assembly::draw()
 							tmp->second.set();
 						}
 					}
-					
+
 					(*it)->draw();
 				}
 			}
 			glEndList();
 		}
-		
+
 		// draw the children
 		for (list<Assembly*>::const_iterator it = m_part.begin(); it != m_part.end(); ++it)
 		{
@@ -594,7 +599,7 @@ void Assembly::draw()
 Assembly* Assembly::clone()
 {
 	Assembly* m_clone = new Assembly(wxT("Kopie"));
-	
+
 	if (m_origin == NULL)
 	{
 		//if assembly is original, set origin pointer
@@ -605,27 +610,27 @@ Assembly* Assembly::clone()
 		//else set same origin, is clone from clone
 		m_clone->m_origin = m_origin;
 	}
-	
+
 	m_clone->m_position     = m_position;
 	m_clone->m_dimension    = m_dimension;
 	m_clone->m_rotation     = m_rotation;
 	m_clone->m_scale        = m_scale;
-	
+
 	m_clone->m_type         = m_type;
 	m_clone->m_name         = m_name;
 	m_clone->m_ptype        = m_ptype;
 	m_clone->m_parent       = m_parent;
-	
+
 	m_clone->m_dl_object    = m_dl_object;
 	m_clone->m_dl_shadow    = m_dl_shadow;
 	m_clone->m_md5_obj_xml  = m_md5_obj_xml;
-	
+
 	m_clone->m_cuboid       = m_cuboid;
 	m_clone->m_cylinder     = m_cylinder;
 	m_clone->m_radius       = m_radius;
-	
+
 	m_clone->m_matname      = m_matname;
-	
+
 	// copy the children
 	for (list<Assembly*>::const_iterator it = m_part.begin(); it != m_part.end(); ++it)
 	{
@@ -633,14 +638,14 @@ Assembly* Assembly::clone()
 		Assembly* a_copy = (*it)->clone();
 		m_clone->addPart(a_copy);
 	}
-	
+
 	// copy the tags
 	for (list<wxString>::const_iterator it_tags = m_tags.begin(); it_tags != m_tags.end(); ++it_tags)
 	{
 		wxString a_tag = (*it_tags);
 		m_clone->addTag(a_tag);
 	}
-	
+
 	return m_clone;
 }
 
@@ -699,26 +704,26 @@ Assembly* Assembly::getHashOriginal(const wxString& hash) const
 				return sub;
 			}
 		}
-		
+
 		//found a copy? continue
 		if (!(*it)->isOriginal())
 		{
 			continue;
 		}
-		
+
 		//found a non-object? again...
 		if (!(*it)->isType(IS_OBJECT))
 		{
 			continue;
 		}
-		
+
 		//finally check hash, and get pointer
 		if (hash == (*it)->getHash())
 		{
 			return (*it);
 		}
 	}
-	
+
 	//nothing found
 	return NULL;
 }
@@ -733,7 +738,7 @@ void Assembly::drawShadow()
 	{
 		return;
 	}
-	
+
 	//draw shadows, if object visible
 	glPushMatrix();
 	{
@@ -741,17 +746,17 @@ void Assembly::drawShadow()
 		float x, y, z;
 		m_position.getAll(x, y, z);
 		glTranslatef(x, y, z);
-		
+
 		//rotate in object center
 		m_rotation.getAll(x, y, z);
 		glRotatef(x, 1, 0, 0);
 		glRotatef(y, 0, 1, 0);
 		glRotatef(z, 0, 0, 1);
-		
+
 		//finally scale on place
 		m_scale.getAll(x, y, z);
 		glScalef(x, y, z);
-		
+
 		if (glIsList(m_dl_shadow) || !isOriginal())
 		{
 			//if no valid display list...
@@ -767,7 +772,7 @@ void Assembly::drawShadow()
 		{
 			//create new display list for my shadows
 			m_dl_shadow = glGenLists(1);
-			
+
 			//setup new display list
 			glNewList(m_dl_shadow,GL_COMPILE);
 			{
@@ -779,7 +784,7 @@ void Assembly::drawShadow()
 			}
 			glEndList();
 		}
-		
+
 		// draw the children
 		for (list<Assembly*>::const_iterator it = m_part.begin(); it != m_part.end(); ++it)
 		{
@@ -838,19 +843,19 @@ void Assembly::dump(wxString str)
 {
 	wxString out(wxEmptyString);
 	out << str << wxT("-<") << (int)this << wxT("> TYP=") << m_type << wxT(" NAME=") << m_name;
-	
+
 	//dont print smallest parts
 	if (isType(IS_ATOMIC) || isType(IS_WRAPPER))
 	{
 		return;
 	}
-	
+
 	//output to debug window
 	wxLogDebug(out);
-	
+
 	//increase level prefix
 	str << wxT("-");
-	
+
 	//print ever lower level with +
 	for (list<Assembly*>::iterator it = m_part.begin(); it != m_part.end(); ++it)
 	{
@@ -874,7 +879,7 @@ void Assembly::dump2stream(ostream& os, int depth) const
 	{
 		os << placeholder << *it << " " << endl;
 	}
-	
+
 	for (list<Assembly*>::const_iterator it = m_part.begin(); it != m_part.end(); ++it)
 	{
 		(*it)->dump2stream(os, depth+1);
@@ -970,7 +975,7 @@ void Assembly::setCylinder(float x, float y, float z, float height, float r_top,
 {
 	m_position.setAll(x, y, z);
 	m_cylinder.setAll(height, r_top, r_bottom);
-	
+
 	float r_max = r_top;
 	if (r_bottom > r_max)
 	{
@@ -984,7 +989,7 @@ void Assembly::setSphere(const float x,const float y,const float z, const float 
 {
 	m_position.setAll(x, y, z);
 	m_radius = radius;
-	
+
 	float d = 2 * radius;
 	m_dimension.setAll(d, d, d);
 }
@@ -1017,10 +1022,76 @@ void Assembly::cloneDisplayListFrom(Assembly* assembly)
 	//copy display list ids
 	m_dl_object = assembly->m_dl_object;
 	m_dl_shadow = assembly->m_dl_shadow;
-	
+
 	//point to origin (faces backup)
 	m_origin = assembly;
-	
+
 	//free memory
 	//m_face.clear();
+}
+
+
+void Assembly::ObjExport(const string& fname)
+{
+	string mat_fn(fname.substr(0, fname.find_last_of('.')) + ".mtl");
+	ofstream ss_mat(mat_fn.c_str());
+	ss_mat << *MaterialLibrary::getInstance() << endl;
+	ss_mat.close();
+
+	ofstream os(fname.c_str());
+	Matrix4D tsr(m_position, m_scale, m_rotation);
+
+    // vertex and normal counters
+    int vc = 1, nc = 1;
+
+    os << "o " << m_name << endl;
+    dump_me(os, tsr, vc, nc);
+
+    for (list<Assembly*>::const_iterator it = m_part.begin(); it != m_part.end(); ++it)
+    {
+		os << endl << "o " << (*it)->m_name << endl;
+        (*it)->ObjExport(os, tsr, vc, nc);
+        os << endl;
+	}
+}
+
+void Assembly::ObjExport(ostream& ss, const Matrix4D& parent_tsr, int& vc, int& nc)
+{
+        Matrix4D tsr(parent_tsr), my_translation(m_position, m_scale, m_rotation);
+//      cout << "I'm " << m_name << ", parent has tsr:" << endl;
+//      parent_tsr.print();
+//      cout << "my tsr: " << endl;
+//      my_translation.print();
+        tsr *= my_translation;
+//      cout << "result tsr:" << endl;
+//      tsr.print();
+
+        dump_me(ss, tsr, vc, nc);
+
+        for (list<Assembly*>::const_iterator it = m_part.begin(); it != m_part.end(); ++it)
+        {
+                ss << endl << "o " << (*it)->m_name << endl;
+                (*it)->ObjExport(ss, tsr, vc, nc);
+        }
+}
+
+void Assembly::dump_me(ostream& ss, const Matrix4D& parent_tsr, int& vc, int& nc)
+{
+	map<const Vertex*, int> vmap, nmap;
+
+    string act_matname = m_matname;
+    if (m_face.begin() != m_face.end())
+    {
+		ss << "usemtl " << m_matname << endl;
+	}
+    for (list<Face*>::const_iterator it = m_face.begin(); it != m_face.end(); ++it)
+    {
+		const string& face_mat = (*it)->material();
+        if (face_mat != act_matname)
+        {
+			act_matname = face_mat;
+            ss << "usemtl " << act_matname << endl;
+		}
+        ss << (*it)->toString(parent_tsr, vmap, nmap, vc, nc);
+	}
 }
