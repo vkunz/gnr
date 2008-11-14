@@ -15,6 +15,7 @@
 
 #include "OaxImport.h"
 #include "ObjectImport.h"
+#include "PrimitiveCreator.h"
 
 #if defined(__ATHOS_DEBUG__)
 #include <wx/log.h>
@@ -334,8 +335,6 @@ void OaxImport::LoadAssemblyXml(wxInputStream& stream)
  */
 void OaxImport::LoadPrimitivesXml(wxInputStream& stream)
 {
-#warning "INFO: Need to create an primitive-assmbly here"
-
 	// temporary attributes
 	double x, y, z;
 	
@@ -372,30 +371,33 @@ void OaxImport::LoadPrimitivesXml(wxInputStream& stream)
 	// node to Tags
 	node = node->GetNext();
 	
-	// node to first Tag
-	node = node->GetChildren();
-	
-	// walk through all tags
-	while (node)
+	if (node->GetChildren() != NULL)
 	{
-		// get content of tag and store in m_vecTags
-		m_vecTags.push_back(node->GetNodeContent());
+		// node to first Tag
+		node = node->GetChildren();
 		
-		// check if next exist, if not, leave
-		if (node->GetNext() == NULL)
+		// walk through all tags
+		while (node)
 		{
-			break;
+			// get content of tag and store in m_vecTags
+			m_vecTags.push_back(node->GetNodeContent());
+			
+			// check if next exist, if not, leave
+			if (node->GetNext() == NULL)
+			{
+				break;
+			}
+			// everything ok, set next node
+			else
+			{
+				// set node to next group
+				node = node->GetNext();
+			}
 		}
-		// everything ok, set next node
-		else
-		{
-			// set node to next group
-			node = node->GetNext();
-		}
+		
+		// node to tags
+		node = node->GetParent();
 	}
-	
-	// node to tags
-	node = node->GetParent();
 	
 	// node to assemblyInformation
 	node = node->GetParent();
@@ -495,6 +497,18 @@ void OaxImport::LoadPrimitivesXml(wxInputStream& stream)
 			// node to parent
 			node = node->GetParent();
 			
+			// primitive creator
+			PrimitiveCreator creator;
+			
+			// new cuboid
+			creator.createCuboid(Vertex(m_locationOffsetX, m_locationOffsetY, m_locationOffsetZ),
+			                     Vertex(m_orientationOffsetX, m_orientationOffsetY, m_orientationOffsetZ),
+			                     Vertex(m_width, m_height, m_depth));
+			                     
+			// asign primitive
+			m_ptrAssembly = creator.getPrimitive();
+			break;
+			
 			// check if next exist, if not, leave
 			if (node->GetNext() == NULL)
 			{
@@ -507,7 +521,6 @@ void OaxImport::LoadPrimitivesXml(wxInputStream& stream)
 				node = node->GetNext();
 			}
 			
-#warning "INFO: Need to create an cuboid here, waiting for api."
 			// primitive found
 			continue;
 		}
@@ -723,6 +736,9 @@ void OaxImport::LoadObj(wxInputStream& stream)
 	
 	// set assemly-name
 	m_ptrAssembly->setName(m_name);
+	
+	// set assembly type
+	m_ptrAssembly->setType(IS_OBJECT);
 	
 	// temporary pointer to get access to wrapper
 	Assembly* wrapper = import.getWrapper();

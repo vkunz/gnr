@@ -252,14 +252,14 @@ void Library::deleteEntry(wxString reference)
 		}
 		
 		// copy all entries except the one, to be deleted
-		if (!entry->GetName() == reference)
+		if (entry->GetName() == reference)
 		{
-			// copy entry
-			outzip.CopyEntry(entry, inzip);
-			
 			// get next entry
 			entry = inzip.GetNextEntry();
 		}
+		
+		// copy entry
+		outzip.CopyEntry(entry, inzip);
 		
 		// get next entry
 		entry = inzip.GetNextEntry();

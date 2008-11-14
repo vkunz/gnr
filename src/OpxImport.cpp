@@ -421,9 +421,6 @@ void OpxImport::loadXml(wxZipInputStream& stream)
 				// set x- and y - orientation
 				assembly->rotation().setAll(orientationX, orientationY, orientationZ);
 				
-				// set object
-				assembly->setType(IS_OBJECT);
-				
 				// add part
 				m_actual->addPart(assembly);
 				
@@ -522,11 +519,14 @@ Assembly* OpxImport::loadOax(wxZipInputStream& stream, wxString reference)
 			// get assembly
 			assembly = import.getAssembly();
 			
-			// add category
-			unsigned int catId = m_libctrl->addCategory(m_filename.AfterLast('\\').BeforeFirst('.'));
-			
-			// add oax to library and set hash
-			assembly->setHash(m_libctrl->addEntry(inMem, m_objName, catId));
+			if (assembly->getType() == IS_OBJECT)
+			{
+				// add category
+				unsigned int catId = m_libctrl->addCategory(m_filename.AfterLast('\\').BeforeFirst('.'));
+				
+				// add oax to library and set hash
+				assembly->setHash(m_libctrl->addEntry(inMem, m_objName, catId));
+			}
 		}
 	}
 	
