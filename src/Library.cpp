@@ -817,7 +817,7 @@ void Library::LoadXml(wxInputStream& inStream)
 			addCategory(name, catId, parentId);
 			
 			// check if next node exist
-			if (node->GetNext())
+			if (node->GetNext() != NULL)
 			{
 				// everything ok, next exist
 				node = node->GetNext();
@@ -866,7 +866,7 @@ void Library::LoadXml(wxInputStream& inStream)
 				addEntry(name, reference, catId);
 				
 				// check if next node exist
-				if (node->GetNext())
+				if (node->GetNext() != NULL)
 				{
 					// everything ok, next exist
 					node = node->GetNext();
@@ -1008,6 +1008,19 @@ void Library::deleteXmlEntry(wxXmlDocument& xml, wxZipOutputStream& out, wxStrin
 			delNode = node;
 			
 			// found
+			break;
+		}
+		
+		// check if next node exist
+		if (node->GetNext() != NULL)
+		{
+			// everything ok, next exist
+			node = node->GetNext();
+		}
+		// no next node
+		else
+		{
+			// no next node, jump out
 			break;
 		}
 	}
