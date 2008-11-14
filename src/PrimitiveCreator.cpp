@@ -9,9 +9,6 @@
  */
 
 #include "PrimitiveCreator.h"
-
-#include "VNT.h"
-#include "TCoord.h"
 #include "MaterialLibrary.h"
 
 /**
