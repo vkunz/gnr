@@ -521,11 +521,8 @@ Assembly* OpxImport::loadOax(wxZipInputStream& stream, wxString reference)
 			
 			if (assembly->getType() == IS_OBJECT)
 			{
-				// add category
-				unsigned int catId = m_libctrl->addCategory(m_filename.AfterLast('\\').BeforeFirst('.'));
-				
 				// add oax to library and set hash
-				assembly->setHash(m_libctrl->addEntry(inMem, m_objName, catId));
+				assembly->setHash(m_libctrl->addEntry(inMem, m_objName));
 			}
 		}
 	}

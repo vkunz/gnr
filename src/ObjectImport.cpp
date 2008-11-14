@@ -391,7 +391,11 @@ void ObjectImport::getM()
 		{
 			MaterialLibrary::getInstance()->import(tmp);
 			m_path << wxFileName::GetPathSeparator() << tmp_buf;
-			m_listFiles.push_back(m_path);
+			
+			if (wxFileExists(m_path))
+			{
+				m_listFiles.push_back(m_path);
+			}
 		}
 		else
 		{

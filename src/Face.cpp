@@ -67,7 +67,7 @@ void Face::draw() const
 		{
 			(m_data.begin()->second)->draw_n();
 		}
-
+		
 		for (list<m_type>::const_iterator it = m_data.begin(); it != m_data.end(); ++it)
 		{
 			if (!m_share_norm)
@@ -78,7 +78,7 @@ void Face::draw() const
 		}
 	}
 	glEnd();
-
+	
 // quads to trianglestrip -- dangerous!!!
 //	// get the number of vertices
 //	const unsigned& vcnt = m_data.size();
@@ -216,7 +216,7 @@ string Face::toString(const Matrix4D& tsr, map<const Vertex*, int>& vmap, map<co
 				vmap[vert] = vc++;
 			}
 		}
-
+		
 		// face has all the ids it needs, print it out
 		ss << "f";
 		for (list<m_type>::const_iterator it = m_data.begin(); it != m_data.end(); ++it)
@@ -227,7 +227,7 @@ string Face::toString(const Matrix4D& tsr, map<const Vertex*, int>& vmap, map<co
 		}
 		ss << endl;
 	}
-
+	
 	return ss.str();
 }
 

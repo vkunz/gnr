@@ -36,16 +36,29 @@ Library::~Library()
 {
 }
 
+/**
+ * returns pointer to vector of LibraryCategories
+ * @return          Vector<LibraryCategory>     stores categories
+ */
 std::vector<LibraryCategory>* Library::getCategories()
 {
 	return m_ptrCategories;
 }
 
+/**
+ * returns pointer to vector of LibraryEntries
+ * @return          Vector<LibraryEntry>        stores entries
+ */
 std::vector<LibraryEntry>* Library::getEntries()
 {
 	return m_ptrEntries;
 }
 
+/**
+ * adds a new category with given name and parentId
+ * @param[in]      name         name of category
+ * @param[in]      parentId     parent id
+ */
 void Library::addCategory(wxString& name, unsigned int parentId)
 {
 	// empty xml document
@@ -123,6 +136,11 @@ void Library::addCategory(wxString& name, unsigned int parentId)
 	outFile.Commit();
 }
 
+/**
+ * constructor of generic assembly
+ * @param[in]       reference           name of entry
+ * @param[in]       inStream            inputstream to read from
+ */
 void Library::addEntry(wxString reference, wxInputStream& inStream)
 {
 	// empty xml document
@@ -203,6 +221,10 @@ void Library::addEntry(wxString reference, wxInputStream& inStream)
 	outFile.Commit();
 }
 
+/**
+ * constructor of generic assembly
+ * @param[in]      name         name of assembly
+ */
 void Library::deleteEntry(wxString reference)
 {
 	// empty xml document
@@ -275,6 +297,10 @@ void Library::deleteEntry(wxString reference)
 	outFile.Commit();
 }
 
+/**
+ * constructor of generic assembly
+ * @param[in]      name         name of assembly
+ */
 wxMemoryOutputStream* Library::getEntryData(wxString reference)
 {
 	// wxZipEntry pointer
@@ -287,7 +313,7 @@ wxMemoryOutputStream* Library::getEntryData(wxString reference)
 	wxZipInputStream inZip(inFile);
 	
 	// memoryoutputstream to return
-	wxMemoryOutputStream* memOut = new wxMemoryOutputStream;
+	wxMemoryOutputStream* memOut = new wxMemoryOutputStream();
 	
 	// get first entry
 	entry = inZip.GetNextEntry();
@@ -318,6 +344,10 @@ wxMemoryOutputStream* Library::getEntryData(wxString reference)
 	return memOut;
 }
 
+/**
+ * constructor of generic assembly
+ * @param[in]      name         name of assembly
+ */
 void Library::renameCategory(unsigned int cat_id, wxString new_name)
 {
 	// empty xml document
@@ -389,6 +419,10 @@ void Library::renameCategory(unsigned int cat_id, wxString new_name)
 	outFile.Commit();
 }
 
+/**
+ * constructor of generic assembly
+ * @param[in]      name         name of assembly
+ */
 void Library::renameEntry(wxString reference, wxString newName)
 {
 	// empty xml document
@@ -454,6 +488,10 @@ void Library::renameEntry(wxString reference, wxString newName)
 	outFile.Commit();
 }
 
+/**
+ * constructor of generic assembly
+ * @param[in]      name         name of assembly
+ */
 void Library::addNewCategory(const wxString& newName, const unsigned int parentId)
 {
 	// empty xml document
@@ -525,6 +563,10 @@ void Library::addNewCategory(const wxString& newName, const unsigned int parentI
 	outFile.Commit();
 }
 
+/**
+ * constructor of generic assembly
+ * @param[in]      name         name of assembly
+ */
 void Library::moveEntry(const wxString reference, const unsigned int new_parent_id)
 {
 	// empty xml document
@@ -596,6 +638,10 @@ void Library::moveEntry(const wxString reference, const unsigned int new_parent_
 	outFile.Commit();
 }
 
+/**
+ * constructor of generic assembly
+ * @param[in]      name         name of assembly
+ */
 void Library::moveCategory(const unsigned int catId, const unsigned int newParentId)
 {
 	// empty xml document
@@ -668,6 +714,10 @@ void Library::moveCategory(const unsigned int catId, const unsigned int newParen
 	
 }
 
+/**
+ * constructor of generic assembly
+ * @param[in]      name         name of assembly
+ */
 void Library::openLibrary()
 {
 	// string to store groupname
@@ -713,6 +763,10 @@ void Library::openLibrary()
 	}
 }
 
+/**
+ * constructor of generic assembly
+ * @param[in]      name         name of assembly
+ */
 void Library::createEmptyLibrary()
 {
 	// create outputstream
@@ -758,6 +812,10 @@ void Library::createEmptyLibrary()
 	outFile.Close();
 }
 
+/**
+ * constructor of generic assembly
+ * @param[in]      name         name of assembly
+ */
 void Library::LoadXml(wxInputStream& inStream)
 {
 	// store name
@@ -829,70 +887,85 @@ void Library::LoadXml(wxInputStream& inStream)
 				break;
 			}
 		}
+	}
+	
+	// set node to root
+	node = xml.GetRoot();
+	
+	// node to categories
+	node = node->GetChildren();
+	
+	// set node to entries
+	node = node->GetNext();
+	
+	if (node->GetChildren() != NULL)
+	{
+		// node to first entry
+		node = node->GetChildren();
 		
-		// set node to categories
-		node = node->GetParent();
-		
-		// set node to entries
-		node = node->GetNext();
-		
-		if (node->GetChildren() != NULL)
+		// walk through all entries
+		while (node)
 		{
-			// node to first entry
-			node = node->GetChildren();
+			// prop to name
+			prop = node->GetProperties();
 			
-			// walk through all entries
-			while (node)
+			// get name
+			name = prop->GetValue();
+			
+			// prop to reference
+			prop = prop->GetNext();
+			
+			// get reference
+			reference = prop->GetValue();
+			
+			// prop to categoryid
+			prop = prop->GetNext();
+			
+			// get categoryid
+			catId = (unsigned int)wxAtoi(prop->GetValue());
+			
+			// add new entry
+			addEntry(name, reference, catId);
+			
+			// check if next node exist
+			if (node->GetNext() != NULL)
 			{
-				// prop to name
-				prop = node->GetProperties();
-				
-				// get name
-				name = prop->GetValue();
-				
-				// prop to reference
-				prop = prop->GetNext();
-				
-				// get reference
-				reference = prop->GetValue();
-				
-				// prop to categoryid
-				prop = prop->GetNext();
-				
-				// get categoryid
-				catId = (unsigned int)wxAtoi(prop->GetValue());
-				
-				// add new entry
-				addEntry(name, reference, catId);
-				
-				// check if next node exist
-				if (node->GetNext() != NULL)
-				{
-					// everything ok, next exist
-					node = node->GetNext();
-				}
-				// no next node
-				else
-				{
-					// no next node, jump out
-					break;
-				}
+				// everything ok, next exist
+				node = node->GetNext();
+			}
+			// no next node
+			else
+			{
+				// no next node, jump out
+				break;
 			}
 		}
 	}
 }
 
+/**
+ * constructor of generic assembly
+ * @param[in]      name         name of assembly
+ */
 void Library::addCategory(wxString& name, unsigned int& categoryId, unsigned int& parentId)
 {
 	m_ptrCategories->push_back(LibraryCategory(name, categoryId, parentId));
 	m_categoryId = categoryId;
 }
 
+/**
+ * constructor of generic assembly
+ * @param[in]      name         name of assembly
+ */
 void Library::addEntry(wxString& name, wxString& reference, unsigned int& categoryId)
 {
 	m_ptrEntries->push_back(LibraryEntry(name, reference, categoryId));
 }
 
+/**
+ * constructor of generic assembly
+ * @param[in]      name         name of assembly
+ */
 void Library::addXmlCategory(wxXmlDocument& xml, wxZipOutputStream& out, wxString& newName)
 {
 	// node pointer
@@ -929,6 +1002,10 @@ void Library::addXmlCategory(wxXmlDocument& xml, wxZipOutputStream& out, wxStrin
 	out.CloseEntry();
 }
 
+/**
+ * constructor of generic assembly
+ * @param[in]      name         name of assembly
+ */
 void Library::addXmlEntry(wxXmlDocument& xml, wxZipOutputStream& out)
 {
 	// node pointer
@@ -969,6 +1046,10 @@ void Library::addXmlEntry(wxXmlDocument& xml, wxZipOutputStream& out)
 	out.CloseEntry();
 }
 
+/**
+ * constructor of generic assembly
+ * @param[in]      name         name of assembly
+ */
 void Library::deleteXmlEntry(wxXmlDocument& xml, wxZipOutputStream& out, wxString& reference)
 {
 	// node pointer
@@ -1044,6 +1125,10 @@ void Library::deleteXmlEntry(wxXmlDocument& xml, wxZipOutputStream& out, wxStrin
 	delete delNode;
 }
 
+/**
+ * constructor of generic assembly
+ * @param[in]      name         name of assembly
+ */
 void Library::renameXmlCategory(wxXmlDocument& xml, wxZipOutputStream& out, unsigned int cat_id, wxString& newName)
 {
 	// node pointer
@@ -1104,6 +1189,10 @@ void Library::renameXmlCategory(wxXmlDocument& xml, wxZipOutputStream& out, unsi
 	out.CloseEntry();
 }
 
+/**
+ * constructor of generic assembly
+ * @param[in]      name         name of assembly
+ */
 void Library::renameXmlEntry(wxXmlDocument& xml, wxZipOutputStream& out, wxString& reference, wxString& newName)
 {
 	// node pointer
@@ -1164,6 +1253,10 @@ void Library::renameXmlEntry(wxXmlDocument& xml, wxZipOutputStream& out, wxStrin
 	out.CloseEntry();
 }
 
+/**
+ * constructor of generic assembly
+ * @param[in]      name         name of assembly
+ */
 void Library::addNewXmlCategory(wxXmlDocument& xml, wxZipOutputStream& out, const unsigned int parentId, const wxString& newName)
 {
 	// node pointer
@@ -1200,6 +1293,10 @@ void Library::addNewXmlCategory(wxXmlDocument& xml, wxZipOutputStream& out, cons
 	out.CloseEntry();
 }
 
+/**
+ * constructor of generic assembly
+ * @param[in]      name         name of assembly
+ */
 void Library::moveXmlEntry(wxXmlDocument& xml, wxZipOutputStream& out, const wxString& reference, const unsigned int new_parent_id)
 {
 	// node pointer
@@ -1266,6 +1363,10 @@ void Library::moveXmlEntry(wxXmlDocument& xml, wxZipOutputStream& out, const wxS
 	out.CloseEntry();
 }
 
+/**
+ * constructor of generic assembly
+ * @param[in]      name         name of assembly
+ */
 void Library::moveXmlCategory(wxXmlDocument& xml, wxZipOutputStream& out, const unsigned int catId, const unsigned int new_parent_id)
 {
 	// node pointer
