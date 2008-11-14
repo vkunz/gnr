@@ -390,7 +390,7 @@ void ObjectImport::getM()
 		if (m_from_FS)
 		{
 			MaterialLibrary::getInstance()->import(tmp);
-			m_path << wxFileName::GetPathSeparators() << tmp_buf;
+			m_path << wxFileName::GetPathSeparator() << tmp_buf;
 			m_listFiles.push_back(m_path);
 		}
 		else

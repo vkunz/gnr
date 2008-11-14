@@ -1,25 +1,68 @@
-Y:/PROJECTS/GNR/src/Vertex.cpp:273: Warning: documented function `float Vertex::operator^' was not declared or defined.
+Y:/PROJECTS/GNR/src/CreateCuboidFrame.cpp:79: Warning: no matching class member found for
+  void CreateCuboidFrame::OnCreate(wxCommandEvent &WXUNUSEDevent)
+Possible candidates:
+  void CreateCuboidFrame::OnCreate(wxCommandEvent &event)
+Y:/PROJECTS/GNR/src/CreateCuboidFrame.cpp:100: Warning: no matching class member found for
+  void CreateCuboidFrame::OnCancel(wxCommandEvent &WXUNUSEDevent)
+Possible candidates:
+  void CreateCuboidFrame::OnCancel(wxCommandEvent &event)
+Y:/PROJECTS/GNR/src/Face.cpp:94: Warning: no uniquely matching class member found for
+  string Face::toString(const Matrix4D &tsr, const map< Vertex *, int > &vmap, map< const Vertex *, int > &nmap, int &vc, int &nc) const
+Possible candidates:
+  string Face::toString(const Matrix4D &tsr, map< const Vertex *, int > &vmap, map< const Vertex *, int > &nmap, int &vc, int &nc) const  at line 48 of file Y:/PROJECTS/GNR/src/include/Face.h
+Y:/PROJECTS/GNR/src/MaterialLibrary.cpp:174: Warning: no matching class member found for
+  MaterialLibrary::mat_citer MaterialLibrary::get(const string &name) const
+Possible candidates:
+  mat_citer MaterialLibrary::get(const string &name) const 
+Y:/PROJECTS/GNR/src/MaterialLibrary.cpp:179: Warning: no matching class member found for
+  void MaterialLibrary::insert(const string &name, const Material &mat)
+Possible candidates:
+  void MaterialLibrary::insert(const string &name, const Material &mat)
+  void MaterialLibrary::insert(const Color color)
+Y:/PROJECTS/GNR/src/MaterialLibrary.cpp:194: Warning: no matching class member found for
+  void MaterialLibrary::import(const string &fname)
+Possible candidates:
+  void MaterialLibrary::import(const string &fname)
+  void MaterialLibrary::import(istream &is)
+Y:/PROJECTS/GNR/src/MaterialLibrary.cpp:201: Warning: no matching class member found for
+  void MaterialLibrary::import(istream &is)
+Possible candidates:
+  void MaterialLibrary::import(const string &fname)
+  void MaterialLibrary::import(istream &is)
+Y:/PROJECTS/GNR/src/Vertex.cpp:295: Warning: documented function `float Vertex::operator^' was not declared or defined.
 Error: USE_HTAGS is YES but htags(1) failed. 
 Error: htags(1) ended normally but failed to load the filemap. 
 Y:/PROJECTS/GNR/src/MainFrame.cpp:210: Warning: argument 'parent' of command @param is not found in the argument list of EVT_MENU(btn_quit, MainFrame::OnMenuQuit)
-Y:/PROJECTS/GNR/src/CreateCuboidFrame.cpp:90: Warning: argument 'WXUNUSED' of command @param is not found in the argument list of CreateCuboidFrame::OnColorChange(wxColourPickerEvent &event)
-Y:/PROJECTS/GNR/src/CreateCuboidFrame.cpp:90: Warning: The following parameters of CreateCuboidFrame::OnColorChange(wxColourPickerEvent &event) are not documented:
+Y:/PROJECTS/GNR/src/App.cpp:639: Warning: argument 'WXUNUSED' of command @param is not found in the argument list of App::createPrimitive(NotifyEvent &event)
+Y:/PROJECTS/GNR/src/App.cpp:639: Warning: The following parameters of App::createPrimitive(NotifyEvent &event) are not documented:
   parameter 'event'
+Y:/PROJECTS/GNR/src/Assembly.cpp:35: Warning: argument 'Assembly' of command @param is not found in the argument list of Assembly::Assembly(Assembly &a)
+Y:/PROJECTS/GNR/src/Assembly.cpp:35: Warning: The following parameters of Assembly::Assembly(Assembly &a) are not documented:
+  parameter 'a'
 Y:/PROJECTS/GNR/src/MouseController.cpp:18: Warning: argument 'scene' of command @param is not found in the argument list of MouseController::MouseController()
+Y:/PROJECTS/GNR/src/PrimitiveCreator.cpp:41: Warning: The following parameters of PrimitiveCreator::createCuboid(const Vertex &position, const Vertex &angles, const Vertex &dimension, const string &matname=DEFAULT_IMPORT_COLOR) are not documented:
+  parameter 'matname'
 Y:/PROJECTS/GNR/src/Scene.cpp:940: Warning: argument 'bool' of command @param is not found in the argument list of Scene::setCanvas2DActive(bool status)
 Y:/PROJECTS/GNR/src/Scene.cpp:940: Warning: The following parameters of Scene::setCanvas2DActive(bool status) are not documented:
   parameter 'status'
 Y:/PROJECTS/GNR/src/TreeControlEvent.cpp:137: Warning: argument 'name' of command @param is not found in the argument list of TreeControlEvent::setHash(const wxString &hash)
 Y:/PROJECTS/GNR/src/TreeControlEvent.cpp:137: Warning: The following parameters of TreeControlEvent::setHash(const wxString &hash) are not documented:
   parameter 'hash'
-Y:/PROJECTS/GNR/src/Vertex.cpp:346: Warning: argument 'float' of command @param is not found in the argument list of Vertex::rotate(float alpha, float beta, float gamma)
-Y:/PROJECTS/GNR/src/Vertex.cpp:346: Warning: argument 'float' of command @param is not found in the argument list of Vertex::rotate(float alpha, float beta, float gamma)
-Y:/PROJECTS/GNR/src/Vertex.cpp:346: Warning: argument 'float' of command @param is not found in the argument list of Vertex::rotate(float alpha, float beta, float gamma)
-Y:/PROJECTS/GNR/src/Vertex.cpp:346: Warning: The following parameters of Vertex::rotate(float alpha, float beta, float gamma) are not documented:
+Y:/PROJECTS/GNR/src/TreeLibraryController.cpp:205: Warni
+ng: argument 'name' of command @param is not found in the argument list of TreeLibraryController::addCategory(const unsigned int parent_id, const wxString &newName)
+Y:/PROJECTS/GNR/src/TreeLibraryController.cpp:205: Warning: The following parameters of TreeLibraryController::addCategory(const unsigned int parent_id, const wxString &newName) are not documented:
+  parameter 'newName'
+Y:/PROJECTS/GNR/src/Vertex.cpp:166: Warning: argument 'y' of command @param is not found in the argument list of Vertex::setXZ(float x, float z)
+Y:/PROJECTS/GNR/src/Vertex.cpp:166: Warning: The following parameters of Vertex::setXZ(float x, float z) are not documented:
+  parameter 'z'
+Y:/PROJECTS/GNR/src/Vertex.cpp:367: Warning: argument 'float' of command @param is not found in the argument list of Vertex::rotate(float alpha, float beta, float gamma)
+Y:/PROJECTS/GNR/src/Vertex.cpp:367: Warning: argument 'float' of command @param is not found in the argument list of Vertex::rotate(float alpha, float beta, float gamma)
+Y:/PROJECTS/GNR/src/Vertex.cpp:367: Warning: argument 'float' of command @param is not found in the argument list of Vertex::rotate(float alpha, float beta, float gamma)
+Y:/PROJECTS/GNR/src/Vertex.cpp:367: Warning: The following parameters of Vertex::rotate(float alpha, float beta, float gamma) are not documented:
   parameter 'alpha'
   parameter 'beta'
   parameter 'gamma'
-Y:/PROJECTS/GNR/src/Vertex.cpp:377: Warning: argument 'Vertex' of command @param is not found in the argument list of Vertex::rotate(const Vertex &angles)
-Y:/PROJECTS/GNR/src/Vertex.cpp:377: Warning: The following parameters of Vertex::rotate(const Vertex &angles) are not documented:
+Y:/PROJECTS/GNR/src/Vertex.cpp:398: Warning: argument 'Vertex' of command @param is not found in the argument list of Vertex::rotate(const Vertex &angles)
+Y:/PROJECTS/GNR/src/Vertex.cpp:398: Warning: The following parameters of Vertex::rotate(const Vertex &angles) are not documented:
   parameter 'angles'
 *** Doxygen has finished
