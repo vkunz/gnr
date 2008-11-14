@@ -67,7 +67,7 @@ void Face::draw() const
 		{
 			(m_data.begin()->second)->draw_n();
 		}
-		
+
 		for (list<m_type>::const_iterator it = m_data.begin(); it != m_data.end(); ++it)
 		{
 			if (!m_share_norm)
@@ -78,6 +78,108 @@ void Face::draw() const
 		}
 	}
 	glEnd();
+
+// quads to trianglestrip -- dangerous!!!
+//	// get the number of vertices
+//	const unsigned& vcnt = m_data.size();
+//
+//	// faces with less than 3 vertices will be not drawn at all
+//	if (vcnt < 3)
+//	{
+//		return;
+//	}
+//	// draw only trinagles (is fast)
+//	if (!(vcnt % 3))
+//	{
+//		glBegin(GL_TRIANGLES);
+//		{
+//			if (m_share_norm)
+//			{
+//				(m_data.begin()->second)->draw_n();
+//			}
+//
+//			for (list<m_type>::const_iterator it = m_data.begin(); it != m_data.end(); ++it)
+//			{
+//				if (!m_share_norm)
+//				{
+//					(it->second)->draw_n();
+//				}
+//				(it->first)->draw_v();
+//			}
+//		}
+//		glEnd();
+//	}
+//	// draw quads as triangle strips (is faster, but we have to swap the 3nd and the 4th vertex
+//	// works even if the 4 vertices are not on the same plane
+//	else if (!(vcnt % 4))
+//	{
+//		glBegin(GL_TRIANGLE_STRIP);
+//		{
+//			if (m_share_norm)
+//			{
+//				(m_data.begin()->second)->draw_n();
+//			}
+//			list<m_type>::const_iterator it = m_data.begin();
+//			while (it != m_data.end())
+//			{
+//				if (!m_share_norm)
+//				{
+//					(it->second)->draw_n();
+//				}
+//				(it->first)->draw_v();
+//				++it;
+//
+//				if (!m_share_norm)
+//				{
+//					(it->second)->draw_n();
+//				}
+//				(it->first)->draw_v();
+//				++it;
+//
+//
+//				const Vertex* v1 = it->first;
+//				const Vertex* n1 = it->second;
+//				++it;
+//
+//				const Vertex* v2 = it->first;
+//				const Vertex* n2 = it->second;
+//				++it;
+//
+//				if (!m_share_norm)
+//				{
+//					n2->draw_n();
+//				}
+//				v2->draw_v();
+//
+//				if (!m_share_norm)
+//				{
+//					n1->draw_n();
+//				}
+//				v1->draw_v();
+//			}
+//		}
+//		glEnd();
+//	}
+//	else
+//	// just draw the polygon
+//	{
+//		glBegin(GL_POLYGON);
+//		{
+//			if (m_share_norm)
+//			{
+//				(m_data.begin()->second)->draw_n();
+//			}
+//			for (list<m_type>::const_iterator it = m_data.begin(); it != m_data.end(); ++it)
+//			{
+//				if (!m_share_norm)
+//				{
+//					(it->second)->draw_n();
+//				}
+//				(it->first)->draw_v();
+//			}
+//		}
+//		glEnd();
+//	}
 }
 
 const string& Face::material() const
@@ -114,7 +216,7 @@ string Face::toString(const Matrix4D& tsr, map<const Vertex*, int>& vmap, map<co
 				vmap[vert] = vc++;
 			}
 		}
-		
+
 		// face has all the ids it needs, print it out
 		ss << "f";
 		for (list<m_type>::const_iterator it = m_data.begin(); it != m_data.end(); ++it)
@@ -125,7 +227,7 @@ string Face::toString(const Matrix4D& tsr, map<const Vertex*, int>& vmap, map<co
 		}
 		ss << endl;
 	}
-	
+
 	return ss.str();
 }
 
