@@ -152,7 +152,7 @@ void PrimitiveCreator::createCuboid(const Vertex& position, const Vertex& angles
 	atomic->m_face.push_back(face);
 }
 
-void PrimitiveCreator::createSphere(float radius, const string& matname);
+void PrimitiveCreator::createSphere(float radius, const string& matname)
 {
 	//create main primitive container
 	m_primitive = new Assembly(wxT("Sphere"));

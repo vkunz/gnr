@@ -14,6 +14,7 @@
 #include <wx/intl.h>
 #include <wx/filedlg.h>
 #include <wx/msgdlg.h>
+#include <wx/textdlg.h>
 #include <wx/string.h>
 
 #if defined(__ATHOS_DEBUG__)
@@ -694,9 +695,17 @@ void MainFrame::OnMenuCreateCuboid(wxCommandEvent& WXUNUSED(event))
  */
 void MainFrame::OnMenuCreateSphere(wxCommandEvent& WXUNUSED(event))
 {
-//#warning: "TODO OnMenuCreateSphere, event ready!"
+	wxTextEntryDialog ted(this, wxT("Radius"));
+	if (ted.ShowModal() == wxID_CANCEL)
+	{
+		// if pressed cancel, do nothing
+		return;
+	}
+	float radius = wxAtof(ted.GetValue());
+	
 	NotifyEvent myevent(wxEVT_COMMAND_GNR_NOTIFY);
 	myevent.SetEventObject(this);
+	myevent.setFloat(radius);
 	myevent.setGNREventType(CREATESPHERE);
 	GetEventHandler()->ProcessEvent(myevent);
 }

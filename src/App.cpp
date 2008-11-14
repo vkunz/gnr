@@ -499,7 +499,6 @@ void App::OnCreatePrimitiveEvent(CreatePrimitiveEvent& event)
 		
 		const Color& color = event.getColor();
 		MaterialLibrary::getInstance()->insert(color);
-		wxLogDebug(wxString(color.getHex().c_str(), wxConvUTF8));
 		
 		//create smallest part of primitive
 		creator.createCuboid(event.getPosition(), event.getAngles(), event.getDimensions(), color.getHex());
@@ -647,6 +646,18 @@ void App::createPrimitive(NotifyEvent& event)
 		CreateCuboidFrame* cubFrame = new CreateCuboidFrame(m_MainFrame);
 		cubFrame->Show();
 	}
+	else if (event.getGNREventType() == CREATESPHERE)
+	{
+		//get creator instance
+		PrimitiveCreator creator;
+		
+		//create smallest part of primitive
+		creator.createSphere(event.getFloat());
+		
+//		m_Scene->insertAssembly(creator.getPrimitive());
+		m_Scene->refreshTreeAndCanvas();
+	}
+	
 }
 
 /**
