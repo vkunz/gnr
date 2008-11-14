@@ -421,6 +421,15 @@ void OpxExport::createGroup(wxXmlNode* node, Assembly* assembly)
 			// group found
 			continue;
 		}
+		
+		if ((*it)->getType() == IS_PRIMITIVE)
+		{
+			// create a primitive and add into node
+			createPrimitive(node, (*it));
+			
+			// primitive found
+			continue;
+		}
 	}
 	
 	// node to parent
