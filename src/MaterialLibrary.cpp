@@ -160,7 +160,7 @@ MaterialLibrary* MaterialLibrary::getInstance()
 	{
 		instance = new MaterialLibrary();
 	}
-
+	
 	return instance;
 }
 
@@ -182,12 +182,12 @@ void MaterialLibrary::insert(const string& name, const Material& mat)
 
 void MaterialLibrary::insert(Color color)
 {
-    Material mat;
-    mat.Ambient() = color;
-    mat.Diffuse() = color;
-    mat.Alpha() = 1.0f;
-
-    insert(color.getHex(), mat);
+	Material mat;
+	mat.Ambient() = color;
+	mat.Diffuse() = color;
+	mat.Alpha() = 1.0f;
+	
+	insert(color.getHex(), mat);
 }
 
 void MaterialLibrary::import(const string& fname)
@@ -221,12 +221,12 @@ bool MaterialLibrary::getName()
 		getline(*m_is, m_buf);
 		found = m_buf.substr(0, 7) == "newmtl ";
 	}
-
+	
 	if (found)
 	{
 		m_matname = m_buf.substr(7, string::npos);
 	}
-
+	
 	return found;
 }
 
@@ -239,12 +239,12 @@ bool MaterialLibrary::getData()
 		getline(*m_is, m_buf);
 		gotData = m_buf.substr(0, 7) != "newmtl ";
 	}
-
+	
 	if (gotData)
 	{
 		parseData();
 	}
-
+	
 	return gotData;
 }
 
@@ -252,12 +252,12 @@ void MaterialLibrary::parseData()
 {
 	if (m_buf.size() < 2)
 		return;
-
+		
 	float r, g, b, a;
 	r = g = b = a = 0.0f;
-
+	
 	stringstream ss(m_buf.substr(2, string::npos));
-
+	
 	switch (m_buf[0])
 	{
 	case 'K':

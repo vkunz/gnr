@@ -20,7 +20,7 @@ Color::Color(float r, float g, float b, float a):
 }
 
 Color::Color(const Color& other):
-    m_r(other.m_r), m_g(other.m_g), m_b(other.m_b), m_a(other.m_a)
+		m_r(other.m_r), m_g(other.m_g), m_b(other.m_b), m_a(other.m_a)
 {
 }
 
@@ -101,13 +101,13 @@ float& Color::A()
 
 string Color::getHex() const
 {
-    stringstream ss;
-
-    ss << std::hex << (int)m_r;
-    ss << std::hex << (int)m_g;
-    ss << std::hex << (int)m_b;
-
-    return ss.str();
+	stringstream ss;
+	
+	ss << std::hex << (int)m_r;
+	ss << std::hex << (int)m_g;
+	ss << std::hex << (int)m_b;
+	
+	return ss.str();
 }
 
 ostream& operator<< (ostream& out, const Color& c)

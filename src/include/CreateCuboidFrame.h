@@ -29,8 +29,6 @@ protected:
 	static const long idColourPicker;
 	
 private:
-	void OnColorChange(wxColourPickerEvent& event);
-	
 	wxPanel* m_panel;
 	
 	wxSpinCtrl* m_spcWidth;

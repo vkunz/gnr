@@ -26,29 +26,29 @@ private:
 	Vertex m_dimensions;
 	Color m_color;
 	wxString m_name;
-
+	
 public:
 	CreatePrimitiveEvent(wxEventType commandType = wxEVT_NULL, int id = 0);
 	CreatePrimitiveEvent(const CreatePrimitiveEvent& event);
 	virtual wxEvent* Clone() const;
 	virtual ~CreatePrimitiveEvent();
-
+	
 	void setPrimitiveType(primitiveType type);
-
+	
 	void setPosition(Vertex pos);
 	void setAngles(Vertex angles);
 	void setDimensions(Vertex dim);
 	void setColor(const Color& color);
 	void setName(wxString name);
-
+	
 	primitiveType getPrimitiveType();
-
+	
 	Vertex getPosition();
 	Vertex getAngles();
 	Vertex getDimensions();
 	const Color& getColor();
 	wxString getName();
-
+	
 	DECLARE_DYNAMIC_CLASS(CreatePrimitiveEvent);
 };
 
