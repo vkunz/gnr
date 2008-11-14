@@ -1245,7 +1245,7 @@ void Library::moveXmlEntry(wxXmlDocument& xml, wxZipOutputStream& out, const wxS
 		}
 		
 		// check if there are children
-		if (node->GetChildren() != NULL)
+		if (node->GetNext() != NULL)
 		{
 			// set to next children
 			node = node->GetNext();
