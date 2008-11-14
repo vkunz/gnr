@@ -1135,17 +1135,17 @@ void Library::renameXmlEntry(wxXmlDocument& xml, wxZipOutputStream& out, wxStrin
 		// check if proper entry
 		if (prop->GetValue() == reference)
 		{
-			// prop toname
+			// prop to name
 			prop = node->GetProperties();
 			
 			// set name
 			prop->SetValue(newName);
 		}
 		
-		// check if there are children
-		if (node->GetChildren() != NULL)
+		// check if next exist
+		if (node->GetNext() != NULL)
 		{
-			// set to next children
+			// get next
 			node = node->GetNext();
 		}
 		else
