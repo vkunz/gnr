@@ -48,7 +48,7 @@ HelpFrame::HelpFrame()
 		//create new html window without borders and help.html (content)
 		html = new wxHtmlWindow(&dlg, wxID_ANY, wxDefaultPosition, wxSize(600, 400), wxCAPTION|wxSYSTEM_MENU|wxCLOSE_BOX|wxMINIMIZE_BOX|wxSTATIC_BORDER);
 		html->SetBorders(0);
-		html->LoadPage(wxT("help/help.html"));
+		html->LoadPage(wxT("hilfe/hilfe.html"));
 		
 		//add topsizer
 		topsizer->Add(html, 1, wxALL, 10);
