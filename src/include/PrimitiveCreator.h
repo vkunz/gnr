@@ -25,6 +25,7 @@ public:
 	PrimitiveCreator();
 	virtual ~PrimitiveCreator();
 	void createCuboid(const Vertex& position, const Vertex& angles, const Vertex& dimension,const string& matname = DEFAULT_IMPORT_COLOR);
+	void createSphere(float radius, const string& matname = DEFAULT_IMPORT_COLOR);
 	Assembly* getPrimitive();
 protected:
 private:
