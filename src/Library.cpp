@@ -19,7 +19,7 @@ unsigned int Library::m_categoryId = 0;
 Library::Library()
 {
 	// set filename to standard lib
-	m_fileName = (wxFileName::GetCwd() + wxT("library.gnr"));
+	m_fileName = ((wxFileName::GetCwd() + wxFileName::GetPathSeparator() + wxT("library.gnr")));
 	
 	// new categories vector
 	m_ptrCategories = new std::vector<LibraryCategory>;

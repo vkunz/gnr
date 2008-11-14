@@ -285,6 +285,19 @@
 		nur etwas über 980 Stunden Arbeit in das Prjekt geflossen.
 		</para>
 		
+		<para>
+		<mediaobject>
+			<imageobject>
+				<imagedata fileref="_images/prototyp_9_small.img?s=200" align="left" />
+			</imageobject>
+			<caption>
+				<para>Abb.11: Finale Version</para>
+			</caption>
+		</mediaobject>
+		Es ist geschafft! Die erste Finale Version läuft, wenn auch noch einige Features nicht so spielen, wie
+		sie sollen. Die Nacht ist noch jung...
+		</para>
+		
 	</section>
 
 	<section>
@@ -480,6 +493,25 @@
 			implementiert, wenn auch noch etwas buggy. Wände zeichnen funktioniert jetzt ebenfalls
 			bestens. Am Meterial-Import muss noch gearbeitet werden, solange steht den extern
 			beschriebenen Objekt-Files nur die Standardfarbe zu.</para>
+			<title>14.11.2008</title>
+			<para>Die nächtlichen Exzesse in den letzten Tagen haben sehr an Verstand und Nerven gezerrt, aber
+			wir stehen kurz vor dem Ziel! Es wurden noch fast alle gewünschten Features eingebaut, wenn auch unter
+			großen Verränkungen. Wir arbeiten noch fieberhaft an den letzten Feinheiten und der Dokumentation.</para>
+			<para>Projekt-Abschluss:</para>
+			<itemizedlist>
+				<listitem>
+					<para>Unterstützung der Schnittstelle zum Austausch von Modellen und Ansichtsinformationen 
+					funktioniert leider nur bedingt, da die Zip-Formate scheinbar unterschiedliche CRC Werte liefern</para>
+				</listitem>
+				<listitem>
+					<para>Fertigstellung der Bibliothek für die importierten Objekte, wird in den nächsten zwei Stunden
+					beendet sein</para>
+				</listitem>
+				<listitem>
+					<para>Raummodellierung muss noch etwas warten, bis die Bibliothek mit den Standard-Modellen 
+					in originalgetreuem Maßstab bestückt ist</para>
+				</listitem>
+			</itemizedlist>
 		</section>
 	</section>
 
