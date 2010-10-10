@@ -1,5 +1,14 @@
-#include "TreeControlEvent.h"
+/**
+ * TreeControlEvent
+ * @name        TreeControlEvent.cpp
+ * @date        2008-11-08
+ * @author		Konstantin Balabin  <k.balabin@googlemail.com>
+ * @author		Patrick Kracht      <patrick.kracht@googlemail.com>
+ * @author		Thorsten Moll       <thorsten.moll@googlemail.com>
+ * @author		Valentin Kunz       <athostr@googlemail.com>
+ */
 
+#include "TreeControlEvent.h"
 
 DEFINE_EVENT_TYPE(wxEVT_COMMAND_GNR_TREE_CONTROL)
 IMPLEMENT_DYNAMIC_CLASS(TreeControlEvent, wxNotifyEvent)
