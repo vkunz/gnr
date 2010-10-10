@@ -1,3 +1,13 @@
+/**
+ * LibraryCategory
+ * @name        LibraryCategory.h
+ * @date        2008-11-12
+ * @author		Konstantin Balabin  <k.balabin@googlemail.com>
+ * @author		Patrick Kracht      <patrick.kracht@googlemail.com>
+ * @author		Thorsten Moll       <thorsten.moll@googlemail.com>
+ * @author		Valentin Kunz       <athostr@googlemail.com>
+ */
+
 #include "LibraryCategory.h"
 
 /**
@@ -17,10 +27,10 @@ LibraryCategory::LibraryCategory(wxString name, unsigned int cat_id, unsigned in
 {
 	// asign name
 	m_name = name;
-	
+
 	// asign gropuId
 	m_categoryId = cat_id;
-	
+
 	// asign parentId
 	m_parentId = parent_id;
 }
@@ -93,8 +103,8 @@ void LibraryCategory::setParentId(unsigned int parent_id)
 wxString LibraryCategory::toString()
 {
 	wxString tmp;
-	
+
 	tmp << wxT("Name: ") << m_name << wxT("\tCategoryId: ") << m_categoryId << wxT("\tParentId: ") << m_parentId;
-	
+
 	return tmp;
 }
