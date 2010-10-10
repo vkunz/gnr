@@ -8,11 +8,10 @@
  * @author		Valentin Kunz       <athostr@googlemail.com>
  */
 
-#ifndef MainFrame_H
-#define MainFrame_H
+#ifndef _MAINFRAME_H_
+#define _MAINFRAME_H_
 
 #include <map>
-
 #include <wx/menu.h>
 #include <wx/frame.h>
 #include <wx/panel.h>
@@ -21,9 +20,7 @@
 #include <wx/statusbr.h>
 #include <wx/toolbar.h>
 
-#include "NotifyEvent.h"
-
-using std::map;
+class NotifyEvent;
 
 class MainFrame: public wxFrame
 {
@@ -34,27 +31,27 @@ public:
 	void setUndoEnabled(bool enabled);
 	void setRedoEnabled(bool enabled);
 	void setTranslation(NotifyEvent& event);
-	
+
 	wxStatusBar* getStatusbar();
-	
+
 private:
 
 #if defined(__ATHOS_DEBUG__)
 	static const long idMenuItemDebug1;
 	static const long idMenuItemDebug2;
 	static const long idMenuItemDebug3;
-	
+
 	void OnMenuItemDebug1(wxCommandEvent& WXUNUSED(event));
 	void OnMenuItemDebug2(wxCommandEvent& WXUNUSED(event));
 	void OnMenuItemDebug3(wxCommandEvent& WXUNUSED(event));
-	
+
 	wxMenu* ParentMenu_Debug;
 	wxMenuItem* MenuItemDebug1;
 	wxMenuItem* MenuItemDebug2;
 	wxMenuItem* MenuItemDebug3;
 #endif
 	void OnPaint(wxPaintEvent& event);
-	
+
 	void OnMenuNewRoom(wxCommandEvent& WXUNUSED(event));
 	void OnMenuOaxImport(wxCommandEvent& WXUNUSED(event));
 	void OnMenuOaxExport(wxCommandEvent& WXUNUSED(event));
@@ -65,7 +62,7 @@ private:
 	void OnMenuQuit(wxCommandEvent& WXUNUSED(event));
 	void OnMenuAbout(wxCommandEvent& WXUNUSED(event));
 	void OnMenuHelp(wxCommandEvent& WXUNUSED(event));
-	
+
 	//ToolBar Button Events
 	void OnToolbarUndo(wxCommandEvent& WXUNUSED(event));
 	void OnToolbarRedo(wxCommandEvent& WXUNUSED(event));
@@ -96,13 +93,13 @@ private:
 	void OnMenuCreateSphere(wxCommandEvent& WXUNUSED(event));
 	void OnMenuCreateCuboid(wxCommandEvent& WXUNUSED(event));
 	void OnMenuCreateCylinder(wxCommandEvent& WXUNUSED(event));
-	
+
 	//global set snap to grid
 	void OnSnapToGrid();
-	
+
 	//global wheel simulation
 	void simulateMouseWheel(int direction);
-	
+
 	static const long idMenuNewRoom;
 	static const long idMenuOpxOpen;
 	static const long idMenuOpxSave;
@@ -165,7 +162,7 @@ private:
 	static const long ID_STATICTEXT1;
 	static const long ID_STATICTEXT2;
 	static const long ID_STATUSBAR;
-	
+
 	wxMenu* ParentMenu_File;
 	wxMenu* ParentMenu_Help;
 	wxMenu* ParentMenu_Settings;
@@ -175,22 +172,22 @@ private:
 	wxMenu* ParentMenu_Groups;
 	wxMenu* ParentMenu_Camera;
 	wxMenu* ParentMenu_Create;
-	
+
 	wxToolBar*   ToolBar1;
 	wxMenuBar*   MenuBar;
 	wxStatusBar* StatusBar;
-	
+
 	wxSpinCtrl* SpinCtrlTranslate;
 	wxSpinCtrl* SpinCtrlRotate;
-	
+
 	wxStaticText* StaticText1;
 	wxStaticText* StaticText2;
-	
-	
-	map<long, wxToolBarToolBase*> m_ToolBarItem;
-	map<long, wxMenuItem*> m_MenuItem;
-	
+
+
+	std::map<long, wxToolBarToolBase*> m_ToolBarItem;
+	std::map<long, wxMenuItem*> m_MenuItem;
+
 	DECLARE_EVENT_TABLE()
 };
 
-#endif // MainFrame_H
+#endif // _MAINFRAME_H_
