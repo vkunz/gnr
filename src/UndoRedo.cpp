@@ -10,13 +10,14 @@
  * @author		Valentin Kunz       <athostr@googlemail.com>
  */
 
-#include "UndoRedo.h"
-#include "NotifyEvent.h"
-#include "Enum.h"
-
 #if defined(__ATHOS_DEBUG__)
 #include <wx/log.h>
 #endif
+
+#include "Command.h"
+#include "Enum.h"
+#include "NotifyEvent.h"
+#include "UndoRedo.h"
 
 // initialize pointer
 UndoRedo* UndoRedo::pinstance = 0;
@@ -54,7 +55,7 @@ void UndoRedo::enqueue(Command* command)
 {
 	emptyRedoStack();
 	m_undo.push(command);
-	
+
 	// send event to enable undo button
 	NotifyEvent gnrevent(wxEVT_COMMAND_GNR_NOTIFY);
 	gnrevent.setGNREventType(SETUNDOENABLED);
@@ -75,13 +76,13 @@ void UndoRedo::undo()
 		m_redo.push(command);
 		m_undo.pop();
 	}
-	
+
 	// send event to enable redo button
 	NotifyEvent gnrevent(wxEVT_COMMAND_GNR_NOTIFY);
 	gnrevent.setGNREventType(SETREDOENABLED);
 	gnrevent.SetInt(1);
 	ProcessEvent(gnrevent);
-	
+
 	// send event to diable undo button if undo-stack is empty
 	if (m_undo.empty())
 	{
@@ -104,13 +105,13 @@ void UndoRedo::redo()
 		m_undo.push(command);
 		m_redo.pop();
 	}
-	
+
 	// send event to enable undo button
 	NotifyEvent gnrevent(wxEVT_COMMAND_GNR_NOTIFY);
 	gnrevent.setGNREventType(SETUNDOENABLED);
 	gnrevent.SetInt(1);
 	ProcessEvent(gnrevent);
-	
+
 	// send event to disable redo button if redo-stack is empty
 	if (m_redo.empty())
 	{
@@ -133,11 +134,11 @@ void UndoRedo::emptyRedoStack()
 		delete command;
 		m_redo.pop();
 	}
-	
+
 	// send event to disable redo button
 	NotifyEvent gnrevent(wxEVT_COMMAND_GNR_NOTIFY);
 	gnrevent.setGNREventType(SETREDOENABLED);
 	gnrevent.SetInt(0);
 	ProcessEvent(gnrevent);
-	
+
 }

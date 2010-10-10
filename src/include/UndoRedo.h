@@ -8,12 +8,13 @@
  * @author		Valentin Kunz       <athostr@googlemail.com>
  */
 
-#ifndef UNDOREDO_H
-#define UNDOREDO_H
+#ifndef _UNDOREDO_H_
+#define _UNDOREDO_H_
 
 #include <stack>
-#include "Command.h"
 #include <wx/event.h>
+
+class Command;
 
 class UndoRedo: public wxEvtHandler
 {
@@ -29,12 +30,12 @@ protected:
 	UndoRedo& operator= (const UndoRedo&);
 private:
 	static UndoRedo* pinstance;
-	
+
 	std::stack<Command*> m_undo;
 	std::stack<Command*> m_redo;
-	
+
 	void emptyRedoStack();
-	
+
 };
 
-#endif // UNDOREDO_H
+#endif // _UNDOREDO_H_
