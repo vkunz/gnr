@@ -1,6 +1,17 @@
-#include "Matrix4D.h"
+/**
+ * Matrix4D
+ * @name        Matrix4D.cpp
+ * @date        2008-09-30
+ * @author		Konstantin Balabin  <k.balabin@googlemail.com>
+ * @author		Patrick Kracht      <patrick.kracht@googlemail.com>
+ * @author		Thorsten Moll       <thorsten.moll@googlemail.com>
+ * @author		Valentin Kunz       <athostr@googlemail.com>
+ */
 
 #include <cmath>
+
+#include "Matrix4D.h"
+#include "Vertex.h"
 
 Matrix4D::Matrix4D()
 {
@@ -77,7 +88,7 @@ Matrix4D& Matrix4D::operator *= (const Matrix4D& other)
 		}
 	}
 	*this = result;
-	
+
 	return *this;
 }
 
@@ -85,7 +96,7 @@ Vertex Matrix4D::operator *(const Vertex& vec) const
 {
 	float tmp[4], res[4];
 	vec.getAll(tmp[0], tmp[1], tmp[2], tmp[3]);
-	
+
 	for (int i = 0; i < 4; i++)
 	{
 		float s = 0.0f;
@@ -95,9 +106,9 @@ Vertex Matrix4D::operator *(const Vertex& vec) const
 		}
 		res[i] = s;
 	}
-	
+
 	Vertex result(res[0], res[1], res[2], res[3]);
-	
+
 	return result;
 }
 
@@ -131,11 +142,11 @@ void Matrix4D::moveto(const Vertex& pos)
 	Matrix4D tmp;
 	float x, y, z;
 	pos.getAll(x, y, z);
-	
+
 	tmp.m_data[3][0] = x;
 	tmp.m_data[3][1] = y;
 	tmp.m_data[3][2] = z;
-	
+
 	(*this) *= tmp;
 }
 
@@ -144,7 +155,7 @@ void Matrix4D::scale(const Vertex& s)
 	Matrix4D tmp;
 	float x, y, z;
 	s.getAll(x, y, z);
-	
+
 	tmp.m_data[0][0] = x;
 	tmp.m_data[1][1] = y;
 	tmp.m_data[2][2] = z;
@@ -155,7 +166,7 @@ void Matrix4D::rotate(const Vertex& rot)
 {
 	float x, y, z;
 	rot.getAll(x, y, z);
-	
+
 	rotateX(x);
 	rotateY(y);
 	rotateZ(z);
@@ -167,12 +178,12 @@ void Matrix4D::rotateX(float alpha)
 	alpha *= M_PI / 180.0f;
 	float sa = sin(alpha), ca = cos(alpha);
 	tmp.m_data[1][1] = ca;
-	
+
 	tmp.m_data[2][1] = -sa;
 	tmp.m_data[1][2] = sa;
-	
+
 	tmp.m_data[2][2] = ca;
-	
+
 	(*this) *= tmp;
 }
 
@@ -182,12 +193,12 @@ void Matrix4D::rotateY(float beta)
 	beta *= M_PI / 180.0f;
 	float sb = sin(beta), cb = cos(beta);
 	tmp.m_data[0][0] = cb;
-	
+
 	tmp.m_data[2][0] = sb;
 	tmp.m_data[0][2] = -sb;
-	
+
 	tmp.m_data[2][2] = cb;
-	
+
 	(*this) *= tmp;
 }
 
@@ -200,7 +211,7 @@ void Matrix4D::rotateZ(float gamma)
 	tmp.m_data[1][0] = -sg;
 	tmp.m_data[0][1] = sg;
 	tmp.m_data[1][1] = cg;
-	
+
 	(*this) *= tmp;
 }
 
