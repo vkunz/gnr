@@ -8,11 +8,12 @@
  * @author		Valentin Kunz       <athostr@googlemail.com>
  */
 
-#ifndef LINEDRAWEVENT_H
-#define LINEDRAWEVENT_H
+#ifndef _LINEDRAWEVENT_H_
+#define _LINEDRAWEVENT_H_
+
+#include <wx/event.h>
 
 #include "Vertex.h"
-#include <wx/event.h>
 
 class LineDrawEvent : public wxNotifyEvent
 {
@@ -24,13 +25,13 @@ public:
 	LineDrawEvent(const LineDrawEvent& event);
 	virtual wxEvent* Clone() const;
 	virtual ~LineDrawEvent();
-	
+
 	void setStartPoint(Vertex& startPoint);
 	void setEndPoint(Vertex& endPoint);
-	
+
 	Vertex getStartPoint();
 	Vertex getEndPoint();
-	
+
 	DECLARE_DYNAMIC_CLASS(NotifyEvent);
 };
 
@@ -46,4 +47,4 @@ wxEVT_COMMAND_GNR_LINE_DRAW, id, -1, (wxObjectEventFunction) \
 (wxEventFunction) (LineDrawEventFunction) & fn, \
 (wxObject *) NULL ),
 
-#endif // LINEDRAWEVENT_H
+#endif // _LINEDRAWEVENT_H_
