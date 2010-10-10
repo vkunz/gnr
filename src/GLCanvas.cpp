@@ -10,23 +10,22 @@
  * @author		Valentin Kunz       <athostr@googlemail.com>
  */
 
-#ifdef _WIN32
-#include <gl/glu.h>
-#endif
-
+#include <GL/glu.h>
 #include <wx/image.h>
-
-#include "GLCanvas.h"
-#include "GLKeyEvent.h"
-#include "NotifyEvent.h"
-#include "GLNotifyEvent.h"
-#include "GlobalDefine.h"
-
-#include "resources/grid_24bit_rgb.xpm"
 
 #if defined(__ATHOS_DEBUG__)
 #include <wx/log.h>
 #endif
+
+#include "Assembly.h"
+#include "GLCamera.h"
+#include "GLCanvas.h"
+#include "GLKeyEvent.h"
+#include "GLNotifyEvent.h"
+#include "GlobalDefine.h"
+#include "NotifyEvent.h"
+#include "resources/grid_24bit_rgb.xpm"
+
 
 BEGIN_EVENT_TABLE(GLCanvas, wxGLCanvas)
 	EVT_KEY_DOWN(GLCanvas::OnKeyDown)
@@ -127,13 +126,13 @@ void GLCanvas::setMatrix()
 {
 	GetClientSize(&m_window_x, &m_window_y);
 	float aspect = (float)m_window_x/(float)m_window_y;
-	
+
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
-	
+
 	gluPerspective(GLU_PERSPECTIVE, aspect, ZNEAR, ZFAR);
 	glViewport(0, 0, m_window_x, m_window_y);
-	
+
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 }
@@ -144,15 +143,15 @@ void GLCanvas::initLights()
 	glLightfv(GL_LIGHT0, GL_AMBIENT, light_ambient);
 	glLightfv(GL_LIGHT0, GL_SPECULAR, light_specular);
 	glLightfv(GL_LIGHT0, GL_POSITION, light_position);
-	
+
 	glLightModelfv(GL_LIGHT_MODEL_AMBIENT, light_ambient);
-	
+
 	glLightModeli(GL_LIGHT_MODEL_TWO_SIDE,0);
 	glLightModeli(GL_LIGHT_MODEL_LOCAL_VIEWER,1);
-	
+
 	glEnable(GL_LIGHTING);
 	glEnable(GL_LIGHT0);
-	
+
 	glClearColor(0.3, 0.3, 0.3, 1.0);
 }
 
@@ -166,59 +165,59 @@ void GLCanvas::initGL()
 	light_ambient[1] = 0.2;
 	light_ambient[2] = 0.2;
 	light_ambient[3] = 0.0;
-	
+
 	light_diffuse[0] = 1.0;
 	light_diffuse[1] = 1.0;
 	light_diffuse[2] = 1.0;
 	light_diffuse[3] = 0.0;
-	
+
 	light_specular[0] = 0.1;
 	light_specular[1] = 0.1;
 	light_specular[2] = 0.1;
 	light_specular[3] = 0.0;
-	
+
 	//define light position 1
 	light_position[0] = 30.0;
 	light_position[1] = 60.0;
 	light_position[2] = 20.0;
 	light_position[3] = 1.0;
-	
+
 	//define shadow color
 	shadow_color[0] = 0.2;
 	shadow_color[1] = 0.2;
 	shadow_color[2] = 0.2;
 	shadow_color[3] = 0.6;
-	
+
 	//normal of floor
 	floor_plane[0] = 0.0;
 	floor_plane[1] = 1.0;
 	floor_plane[2] = 0.0;
 	floor_plane[3] = 0.0;
-	
+
 	//calculate shadow matrix on init
 	SetShadowMatrix(floor_shadow,floor_plane,light_position);
-	
+
 	//set active canvas
 	SetCurrent();
-	
+
 	glShadeModel(GL_SMOOTH);
-	
+
 	glEnable(GL_BLEND);
 	glEnable(GL_DEPTH_TEST);
-	
+
 	glDepthFunc(GL_LEQUAL);
-	
+
 	glBlendFunc(GL_ONE_MINUS_SRC_ALPHA,GL_SRC_ALPHA);
-	
+
 	glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);
-	
+
 	loadFloorTexture();
-	
+
 	glLineWidth(10.0f);
 	glClearDepth(1.0f);
-	
+
 	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-	
+
 	glEnable(GL_NORMALIZE);
 }
 
@@ -230,36 +229,36 @@ void GLCanvas::drawBaseFloor(float fCenterX, float fCenterY, float fCenterZ, int
 		glCallList(m_floor_DL);
 		return;
 	}
-	
+
 	float FloorColor[4] = { 0.9f, 0.9f, 0.9f, 0.0f };
-	
+
 	//create new display list for floor
 	m_floor_DL = glGenLists(1);
-	
+
 	glNewList(m_floor_DL,GL_COMPILE);
 	{
 		glEnable(GL_TEXTURE_2D);
 		glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
-		
+
 		glMaterialfv(GL_FRONT, GL_SPECULAR, FloorColor);
 		glMaterialfv(GL_FRONT, GL_AMBIENT_AND_DIFFUSE, FloorColor);
 		glMaterialfv(GL_FRONT, GL_EMISSION, FloorColor);
 		glMaterialf(GL_FRONT, GL_SHININESS, 50.0);
-		
+
 		glBindTexture(GL_TEXTURE_2D, FloorTexture);
-		
+
 		glBegin(GL_QUADS);
-		
+
 		//set normal
 		glNormal3f(0.0, 1.0, 0.0);
-		
+
 		//set starting edge half of size from center
 		float s = fSize/2;
-		
+
 		//calculate start and end
 		int start = -(int)s;
 		int end   = (int)s;
-		
+
 		//draw fSize quads in x-axis
 		for (GLint i = start; i < end; i++)
 		{
@@ -277,7 +276,7 @@ void GLCanvas::drawBaseFloor(float fCenterX, float fCenterY, float fCenterZ, int
 			}
 		}
 		glEnd();
-		
+
 		glDisable(GL_TEXTURE_2D);
 	}
 	glEndList();
@@ -315,7 +314,7 @@ void GLCanvas::SetShadowMatrix(float shadowMat[4][4], float groundplane[4], floa
 	shadowMat[Y][3] = 0.f - lightpos[W] * groundplane[Y];
 	shadowMat[Z][3] = 0.f - lightpos[W] * groundplane[Z];
 	shadowMat[W][3] = dot - lightpos[W] * groundplane[W];
-	
+
 }
 
 void GLCanvas::loadShadowMatrix()
@@ -391,43 +390,43 @@ Assembly* GLCanvas::selection(Assembly* rootAssembly, GLCamera* camera, int mous
 	GLuint	buffer[512];
 	// The Number Of Objects That We Selected
 	GLint	hits;
-	
+
 	// The Size Of The Viewport. [0] Is <x>, [1] Is <y>, [2] Is <length>, [3] Is <width>
 	GLint	viewport[4];
-	
+
 	// This Sets The Array <viewport> To The Size And Location Of The Screen Relative To The Window
 	glGetIntegerv(GL_VIEWPORT, viewport);
 	// Tell OpenGL To Use Our Array For Selection
 	glSelectBuffer(512, buffer);
-	
+
 	// Puts OpenGL In Selection Mode. Nothing Will Be Drawn.  Object ID's and Extents Are Stored In The Buffer.
 	glRenderMode(GL_SELECT);
-	
+
 	// Initializes The Name Stack
 	glInitNames();
 	// Push 0 (At Least One Entry) Onto The Stack
 	glPushName(0);
-	
+
 	glMatrixMode(GL_PROJECTION);
 	glPushMatrix();
 	{
 		glLoadIdentity();
-		
+
 		// This Creates A Matrix That Will Zoom Up To A Small Portion Of The Screen, Where The Mouse Is.
 		gluPickMatrix((GLdouble) mouse_x, (GLdouble)(viewport[3]-mouse_y), 1.0f, 1.0f, viewport);
-		
+
 		// Apply The Perspective Matrix
 		setPerspective();
 		glMatrixMode(GL_MODELVIEW);
-		
+
 		// Reset The Modelview Matrix
 		glLoadIdentity();
-		
+
 		//prepareDraw();
 		camera->render();
-		
+
 		rootAssembly->draw();
-		
+
 		// Select The Projection Matrix
 		glMatrixMode(GL_PROJECTION);
 	}
@@ -436,14 +435,14 @@ Assembly* GLCanvas::selection(Assembly* rootAssembly, GLCamera* camera, int mous
 	glMatrixMode(GL_MODELVIEW);
 	// Switch To Render Mode, Find Out How Many Objects Were Drawn Where The Mouse Was
 	hits=glRenderMode(GL_RENDER);
-	
+
 	if (hits > 0)
 	{
 		// Make Our Selection The First Object
 		int	choose = buffer[3];
 		// Store How Far Away It Is
 		int depth = buffer[1];
-		
+
 		// Loop Through All The Detected Hits
 		for (int loop = 1; loop < hits; loop++)
 		{
@@ -456,7 +455,7 @@ Assembly* GLCanvas::selection(Assembly* rootAssembly, GLCamera* camera, int mous
 				depth = buffer[loop*4+1];
 			}
 		}
-		
+
 		//if choose > 0, an object was hit
 		if (choose > 0)
 		{
@@ -475,10 +474,10 @@ Assembly* GLCanvas::selection(Assembly* rootAssembly, GLCamera* camera, int mous
 void GLCanvas::OnLMouseDown(wxMouseEvent& event)
 {
 	Connect(wxEVT_MOTION, (wxObjectEventFunction)&GLCanvas::OnMouseMove);
-	
+
 	Vertex* glcoords = new Vertex[2];
 	getGLDim(event.GetX(), event.GetY(), glcoords);
-	
+
 	// send Event to handle Mouse
 	GLNotifyEvent myevent(wxEVT_COMMAND_GL_NOTIFY);
 	myevent.setMouseEvent(event);
@@ -488,7 +487,7 @@ void GLCanvas::OnLMouseDown(wxMouseEvent& event)
 	myevent.setWindowSize(m_window_x, m_window_y);
 	myevent.setWorldSize(glcoords);
 	GetEventHandler()->ProcessEvent(myevent);
-	
+
 	delete[] glcoords;
 }
 
@@ -499,10 +498,10 @@ void GLCanvas::OnLMouseDown(wxMouseEvent& event)
 void GLCanvas::OnLMouseDblClick(wxMouseEvent& event)
 {
 	Connect(wxEVT_MOTION, (wxObjectEventFunction)&GLCanvas::OnMouseMove);
-	
+
 	Vertex* glcoords = new Vertex[2];
 	getGLDim(event.GetX(), event.GetY(), glcoords);
-	
+
 	// send Event to handle Mouse
 	GLNotifyEvent myevent(wxEVT_COMMAND_GL_NOTIFY);
 	myevent.setMouseEvent(event);
@@ -512,7 +511,7 @@ void GLCanvas::OnLMouseDblClick(wxMouseEvent& event)
 	myevent.setWindowSize(m_window_x, m_window_y);
 	myevent.setWorldSize(glcoords);
 	GetEventHandler()->ProcessEvent(myevent);
-	
+
 	delete[] glcoords;
 }
 
@@ -523,7 +522,7 @@ void GLCanvas::OnLMouseDblClick(wxMouseEvent& event)
 void GLCanvas::OnLMouseUp(wxMouseEvent& event)
 {
 	Disconnect(wxEVT_MOTION, (wxObjectEventFunction)&GLCanvas::OnMouseMove);
-	
+
 	// send Event to handle Mouse
 	GLNotifyEvent myevent(wxEVT_COMMAND_GL_NOTIFY);
 	myevent.setMouseEvent(event);
@@ -540,10 +539,10 @@ void GLCanvas::OnLMouseUp(wxMouseEvent& event)
 void GLCanvas::OnMMouseDown(wxMouseEvent& event)
 {
 	Connect(wxEVT_MOTION, (wxObjectEventFunction)&GLCanvas::OnMouseMove);
-	
+
 	Vertex* glcoords = new Vertex[2];
 	getGLDim(event.GetX(), event.GetY(), glcoords);
-	
+
 	// send Event to handle Mouse
 	GLNotifyEvent myevent(wxEVT_COMMAND_GL_NOTIFY);
 	myevent.setMouseEvent(event);
@@ -553,7 +552,7 @@ void GLCanvas::OnMMouseDown(wxMouseEvent& event)
 	myevent.setWindowSize(m_window_x, m_window_y);
 	myevent.setWorldSize(glcoords);
 	GetEventHandler()->ProcessEvent(myevent);
-	
+
 	delete[] glcoords;
 }
 
@@ -579,7 +578,7 @@ void GLCanvas::OnRMouseDown(wxMouseEvent& event)
 {
 	Vertex* glcoords = new Vertex[2];
 	getGLDim(event.GetX(), event.GetY(), glcoords);
-	
+
 	// send Event to handle Mouse
 	GLNotifyEvent myevent(wxEVT_COMMAND_GL_NOTIFY);
 	myevent.setMouseEvent(event);
@@ -589,7 +588,7 @@ void GLCanvas::OnRMouseDown(wxMouseEvent& event)
 	myevent.setWindowSize(m_window_x, m_window_y);
 	myevent.setWorldSize(glcoords);
 	GetEventHandler()->ProcessEvent(myevent);
-	
+
 	Connect(wxEVT_MOTION, (wxObjectEventFunction)&GLCanvas::OnMouseMove);
 	delete[] glcoords;
 }
@@ -637,7 +636,7 @@ void GLCanvas::OnMouseWheel(wxMouseEvent& event)
 void GLCanvas::OnLeaveWindow(wxMouseEvent& event)
 {
 	disconnectEvents();
-	
+
 	// send Event to handle Mouse
 	GLNotifyEvent myevent(wxEVT_COMMAND_GL_NOTIFY);
 	myevent.setMouseEvent(event);
@@ -654,7 +653,7 @@ void GLCanvas::OnEnterWindow(wxMouseEvent& event)
 {
 	SetCurrent();
 	reconnectEvents();
-	
+
 	// send Event to handle Mouse
 	GLNotifyEvent myevent(wxEVT_COMMAND_GL_NOTIFY);
 	myevent.setMouseEvent(event);
@@ -671,7 +670,7 @@ void GLCanvas::OnResize(wxSizeEvent& WXUNUSED(event))
 {
 	//get canvas-size
 	GetClientSize(&m_window_x, &m_window_y);
-	
+
 	// Adjust Viewport, ...
 	reshape();
 }
@@ -683,15 +682,15 @@ void GLCanvas::reshape()
 {
 	// set current GL-Frame
 	SetCurrent();
-	
+
 	// set viewport with resolution
 	glViewport(0, 0, (GLint) m_window_x, (GLint) m_window_y);
-	
+
 	// Load and Reset Modelview
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 	setPerspective();
-	
+
 	// Load and Reset Modelview
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
@@ -722,33 +721,33 @@ void GLCanvas::getGLDim(int x, int y, Vertex* glcoords)
 	SetFocus();
 	SetCurrent();
 	glPushMatrix();
-	
+
 	GLdouble modelview[16], projection[16];
 	GLint viewport[4];
 	float z;
 	double xpos, ypos, zpos;
-	
+
 	glGetDoublev(GL_MODELVIEW_MATRIX, modelview);       //get the modelview matrix
 	glGetDoublev(GL_PROJECTION_MATRIX, projection);     //get the projection matrix
 	glGetIntegerv(GL_VIEWPORT, viewport);               //get the viewport
-	
+
 	//Read the window z co-ordinate (the z value on that point in unit cube)
 	glReadPixels((int)x, (int)(viewport[3]-y), 1, 1, GL_DEPTH_COMPONENT, GL_FLOAT, &z);
-	
+
 	//Unproject the window co-ordinates to find the world co-ordinates.
 	gluUnProject(0, 0, z, modelview, projection, viewport, &xpos, &ypos, &zpos);
-	
+
 	glcoords[0].setX(xpos);
 	glcoords[0].setY(ypos);
 	glcoords[0].setZ(zpos);
-	
+
 	//Unproject the window co-ordinates to find the world co-ordinates.
 	gluUnProject(m_window_x, m_window_y, z, modelview, projection, viewport, &xpos, &ypos, &zpos);
-	
+
 	glcoords[1].setX(xpos);
 	glcoords[1].setY(ypos);
 	glcoords[1].setZ(zpos);
-	
+
 	glPopMatrix();
 }
 
