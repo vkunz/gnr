@@ -8,8 +8,8 @@
  * @author		Valentin Kunz       <athostr@googlemail.com>
  */
 
-#ifndef TreePanelLibrary_H
-#define TreePanelLibrary_H
+#ifndef _TREEPANELLIBRARY_H_
+#define _TREEPANELLIBRARY_H_
 
 #include <wx/panel.h>
 
@@ -19,14 +19,14 @@ public:
 
 	TreePanelLibrary(wxWindow* parent,wxWindowID id=wxID_ANY);
 	virtual ~TreePanelLibrary();
-	
+
 protected:
 
 private:
 
 	void OnResize(wxSizeEvent& WXUNUSED(event));
-	
+
 	DECLARE_EVENT_TABLE()
 };
 
-#endif
+#endif // _TREEPANELLIBRARY_H_

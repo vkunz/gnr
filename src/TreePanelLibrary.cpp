@@ -12,7 +12,7 @@
 #include "NotifyEvent.h"
 #include "TreePanelLibrary.h"
 
-BEGIN_EVENT_TABLE(TreePanelLibrary,wxPanel)
+BEGIN_EVENT_TABLE(TreePanelLibrary, wxPanel)
 END_EVENT_TABLE()
 
 /**
@@ -23,7 +23,7 @@ END_EVENT_TABLE()
 TreePanelLibrary::TreePanelLibrary(wxWindow* parent,wxWindowID id)
 {
 	Create(parent, id, wxDefaultPosition, wxSize(640,480), wxTAB_TRAVERSAL, _T("TreePanelLibrary"));
-	
+
 	Connect(wxEVT_SIZE, (wxObjectEventFunction)&TreePanelLibrary::OnResize);
 }
 
@@ -42,6 +42,6 @@ void TreePanelLibrary::OnResize(wxSizeEvent& WXUNUSED(event))
 {
 	NotifyEvent gnrevent(wxEVT_COMMAND_GNR_NOTIFY);
 	gnrevent.setGNREventType(PANELSIZE);
-	
+
 	GetEventHandler()->ProcessEvent(gnrevent);
 }
