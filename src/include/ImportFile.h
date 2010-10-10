@@ -8,13 +8,15 @@
  * @author		Valentin Kunz       <athostr@googlemail.com>
  */
 
-#include "Assembly.h"
+#include <string>
+
+class Assembly;
 
 class ImportFile
 {
 public:
 	ImportFile();
 	virtual ~ImportFile();
-	
-	Assembly* read(const string& fname);
+
+	Assembly* read(const std::string& fname);
 };
