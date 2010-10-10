@@ -9,16 +9,12 @@
  * @author		Valentin Kunz       <athostr@googlemail.com>
  */
 
-#include "Face.h"
-
-#include <GL/gl.h>
-
 #include <iostream>
 #include <sstream>
+#include <GL/gl.h>
 
-using std::cout;
-using std::endl;
-using std::stringstream;
+#include "Face.h"
+#include "Vertex.h"
 
 Face::Face(bool share_norm):
 		m_share_norm(share_norm)
@@ -67,8 +63,8 @@ void Face::draw() const
 		{
 			(m_data.begin()->second)->draw_n();
 		}
-		
-		for (list<m_type>::const_iterator it = m_data.begin(); it != m_data.end(); ++it)
+
+		for (std::list<m_type>::const_iterator it = m_data.begin(); it != m_data.end(); ++it)
 		{
 			if (!m_share_norm)
 			{
@@ -78,7 +74,7 @@ void Face::draw() const
 		}
 	}
 	glEnd();
-	
+
 // quads to trianglestrip -- dangerous!!!
 //	// get the number of vertices
 //	const unsigned& vcnt = m_data.size();
@@ -182,52 +178,52 @@ void Face::draw() const
 //	}
 }
 
-const string& Face::material() const
+const std::string& Face::material() const
 {
 	return m_matname;
 }
 
-string& Face::material()
+std::string& Face::material()
 {
 	return m_matname;
 }
 
-string Face::toString(const Matrix4D& tsr, map<const Vertex*, int>& vmap, map<const Vertex*, int>& nmap, int& vc, int &nc) const
+std::string Face::toString(const Matrix4D& tsr, std::map<const Vertex*, int>& vmap, std::map<const Vertex*, int>& nmap, int& vc, int &nc) const
 {
-	stringstream ss;
-	ss << "#face " << this << endl;
+	std::stringstream ss;
+	ss << "#face " << this << std::endl;
 	if (m_data.size() > 0)
 	{
 		// set normal-ids and vertex-ids
-		for (list<m_type>::const_iterator it = m_data.begin(); it != m_data.end(); ++it)
+		for (std::list<m_type>::const_iterator it = m_data.begin(); it != m_data.end(); ++it)
 		{
-			const Vertex* const& vert = it->first;
-			const Vertex* const& norm = it->second;
+			const Vertex* const vert = it->first;
+			const Vertex* const norm = it->second;
 			if (nmap.end() == nmap.find(norm))
 			{
 				// the normal wasn't used till now
-				ss << "vn " << (tsr * *norm).normalize() << endl;
+//				ss << "vn " << (tsr * *norm).normalize() << std::endl;
 				nmap[norm] = nc++;
 			}
 			if (vmap.end() == vmap.find(vert))
 			{
 				// the vertex wasn't used till now
-				ss << "v " << tsr * (*vert) << endl;
+				//ss << "v " << tsr * (*vert) << std::endl;
 				vmap[vert] = vc++;
 			}
 		}
-		
+
 		// face has all the ids it needs, print it out
 		ss << "f";
-		for (list<m_type>::const_iterator it = m_data.begin(); it != m_data.end(); ++it)
+		for (std::list<m_type>::const_iterator it = m_data.begin(); it != m_data.end(); ++it)
 		{
 			const Vertex* const& vert = it->first;
 			const Vertex* const& norm = it->second;
 			ss << " " << vmap[vert] << "//" << nmap[norm];
 		}
-		ss << endl;
+		ss << std::endl;
 	}
-	
+
 	return ss.str();
 }
 
