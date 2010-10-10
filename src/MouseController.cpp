@@ -8,12 +8,24 @@
  * @author		Valentin Kunz       <athostr@googlemail.com>
  */
 
-#include "MouseController.h"
-#include "NotifyEvent.h"
-
 #if defined(__ATHOS_DEBUG__)
 #include <wx/log.h>
 #endif
+
+#include "AssemblyMediator2D.h"
+#include "AssemblyMediator3D.h"
+#include "GLCamera.h"
+#include "GLCameraMediator2D.h"
+#include "GLCameraMediator3D.h"
+#include "GLCanvas2D.h"
+#include "GLCanvas3D.h"
+#include "GLNotifyEvent.h"
+#include "MeasureMediator.h"
+#include "Mediator.h"
+#include "MouseController.h"
+#include "NotifyEvent.h"
+#include "Scene.h"
+#include "WallMediator.h"
 
 /**
  * constructor of mousecontroller sets scene to modify and
@@ -54,7 +66,7 @@ void MouseController::setMediator(GLNotifyEvent& event)
 {
 	//get mouse coords from event
 	updateMouse(event);
-	
+
 	//connect the matching mediator
 	switch ((buttonType)event.getMouseEvent().GetButton())
 	{
@@ -82,7 +94,7 @@ void MouseController::setMediator(GLNotifyEvent& event)
 				event.setCamRotatedY(m_Scene->getGLCamera3D()->getRotatedY());
 				event.setCamPosition(m_Scene->getGLCamera3D()->getPosition());
 				setAssemblyMediator(event);
-				
+
 				//if in wall mode and moving in 3D switch to moveXZ
 				NotifyEvent myevent(wxEVT_COMMAND_GNR_NOTIFY);
 				myevent.setGNREventType(TOOLBARCHANGE);
@@ -139,7 +151,7 @@ void MouseController::setMediator(GLNotifyEvent& event)
 		}
 		break;
 	}
-	
+
 	if (event.getMouseEvent().GetWheelRotation())
 	{
 		if (event.getCanvasID() == CANVAS2D)
@@ -153,7 +165,7 @@ void MouseController::setMediator(GLNotifyEvent& event)
 			m_Mediator->setGLCamera(m_Scene->getGLCamera3D());
 		}
 	}
-	
+
 	//setup mediator starting position
 	m_Mediator->initialize(event);
 }
@@ -216,7 +228,7 @@ void MouseController::updateMouse(GLNotifyEvent& event)
 void MouseController::setAssemblyMediator(GLNotifyEvent& event)
 {
 	m_Assembly = NULL;
-	
+
 	if (event.getCanvasID() == CANVAS2D)
 	{
 		//point to 2D mediator if event from canvas 2D
@@ -231,7 +243,7 @@ void MouseController::setAssemblyMediator(GLNotifyEvent& event)
 		//check for assembly id from click
 		m_Assembly = (m_Scene->getCanvas3D())->selection(m_Scene->getRootAssembly(), m_Scene->getGLCamera3D(), mouse_x, mouse_y);
 	}
-	
+
 	//set assembly mediator target to selected object
 	m_Mediator->setAssembly(m_Assembly);
 }
@@ -243,7 +255,7 @@ void MouseController::setAssemblyMediator(GLNotifyEvent& event)
 void MouseController::setSelected(GLNotifyEvent& event)
 {
 	m_Assembly = NULL;
-	
+
 	if (event.getCanvasID() == CANVAS2D)
 	{
 		m_Assembly = (m_Scene->getCanvas2D())->selection(m_Scene->getRootAssembly(), m_Scene->getGLCamera2D(), mouse_x, mouse_y);
@@ -252,7 +264,7 @@ void MouseController::setSelected(GLNotifyEvent& event)
 	{
 		m_Assembly = (m_Scene->getCanvas3D())->selection(m_Scene->getRootAssembly(), m_Scene->getGLCamera3D(), mouse_x, mouse_y);
 	}
-	
+
 	//select assembly (move to IS_SELECTED group)
 	m_Scene->selectAssembly(m_Assembly);
 }

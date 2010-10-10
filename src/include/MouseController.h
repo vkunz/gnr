@@ -8,22 +8,25 @@
  * @author		Valentin Kunz       <athostr@googlemail.com>
  */
 
-#ifndef MOUSECONTROLLER_H
-#define MOUSECONTROLLER_H
+#ifndef _MOUSECONTROLLER_H_
+#define _MOUSECONTROLLER_H_
 
 #include <wx/event.h>
 
-#include "Assembly.h"
-#include "AssemblyMediator2D.h"
-#include "AssemblyMediator3D.h"
-#include "GLCamera.h"
-#include "GLCameraMediator2D.h"
-#include "GLCameraMediator3D.h"
-#include "GLNotifyEvent.h"
-#include "Mediator.h"
-#include "WallMediator.h"
-#include "MeasureMediator.h"
-#include "Scene.h"
+#include "Enum.h"
+
+class Assembly;
+class AssemblyMediator2D;
+class AssemblyMediator3D;
+class GLCamera;
+class GLCameraMediator2D;
+class GLCameraMediator3D;
+class GLNotifyEvent;
+class MeasureMediator;
+class Mediator;
+class NotifyEvent;
+class Scene;
+class WallMediator;
 
 class MouseController : public wxEvtHandler
 {
@@ -31,11 +34,11 @@ private:
 
 	//pointer to access the scene
 	Scene* m_Scene;
-	
+
 	//pointer to objects for modification
 	Assembly* m_Assembly;
 	GLCamera* m_GLCamera;
-	
+
 	//mediators for specific objects
 	Mediator* m_Mediator;
 	AssemblyMediator2D* m_AssemblyMediator2D;
@@ -44,20 +47,20 @@ private:
 	GLCameraMediator3D* m_GLCameraMediator3D;
 	WallMediator*       m_WallMediator;
 	MeasureMediator*    m_MeasureMediator;
-	
+
 	int mouse_x;
 	int mouse_y;
-	
+
 	transType m_act_trans;
-	
+
 	void updateMouse(GLNotifyEvent& event);
-	
+
 protected:
 
 public:
 	MouseController();
 	virtual ~MouseController();
-	
+
 	void setTranslation(NotifyEvent& event);
 	void setSnapfunction(NotifyEvent& event);
 	void setSelected(GLNotifyEvent& event);
@@ -68,4 +71,4 @@ public:
 	Assembly* getAssembly();
 };
 
-#endif // MOUSECONTROLLER_H
+#endif // _MOUSECONTROLLER_H_
