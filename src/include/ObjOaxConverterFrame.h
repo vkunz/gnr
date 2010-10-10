@@ -8,8 +8,8 @@
  * @author		Valentin Kunz       <athostr@googlemail.com>
  */
 
-#ifndef _GNROBJOAXCONVERTERFRAME_H_
-#define _GNROBJOAXCONVERTERFRAME_H_
+#ifndef _OBJOAXCONVERTERFRAME_H_
+#define _OBJOAXCONVERTERFRAME_H_
 
 #include <map>
 #include <vector>
@@ -22,33 +22,31 @@
 #include <wx/string.h>
 #include <wx/panel.h>
 
-#include "AssemblyData.h"
-#include "GLCanvasPreview.h"
-#include "GlobalDefine.h"
+class GLCanvasPreview;
 
 class ObjOaxConverterFrame : public wxFrame
 {
 public:
 	// ctor
 	ObjOaxConverterFrame(wxWindow* parent = 0, wxWindowID id = wxID_ANY);
-	
+
 	// ctor
 	virtual ~ObjOaxConverterFrame();
-	
+
 	// functions
-	
+
 	// set categories to ComboBox
 	void setAllCategories(std::vector<wxString>* ptrCat);
-	
+
 	// set Data to fill the frame
 	void setAssemblyData(AssemblyData* data);
-	
+
 	// set Data into internal attributes
 	void setData();
-	
+
 	// get canvas
 	GLCanvasPreview* getCanvasPointer();
-	
+
 protected:
 
 private:
@@ -65,45 +63,45 @@ private:
 	static const long idStxDepth;
 	static const long idStxHeight;
 	static const long idTxcName;
-	
+
 	// width, depth, height
 	double m_width, m_depth, m_height;
-	
+
 	// scale width, depth, height
 	double m_scaleWidth, m_scaleDepth, m_scaleHeight;
-	
+
 	// object-name
 	wxString m_name;
-	
+
 	// Canvas
 	GLCanvasPreview* m_canvas;
-	
+
 	// Button
 	wxButton* m_btnCreate;
 	wxButton* m_btnCancel;
-	
+
 	wxPanel* m_panel;
-	
+
 	// Checkbox
 	wxCheckBox* m_ckbProportion;
-	
+
 	// SpinCtrl
 	wxSpinCtrl* m_spcWidth;
 	wxSpinCtrl* m_spcDepth;
 	wxSpinCtrl* m_spcHeight;
-	
+
 	// StaticText
 	wxStaticText* m_stxName;
 	wxStaticText* m_stxWidth;
 	wxStaticText* m_stxDepth;
 	wxStaticText* m_stxHeight;
-	
+
 	// TextCtrl
 	wxTextCtrl* m_txcName;
-	
+
 	// pointer to struc which contain all data needed by frame
 	AssemblyData* m_assemblyData;
-	
+
 	// functions
 	// handler
 	void OnBtnCancel(wxCommandEvent& WXUNUSED(event));
@@ -113,12 +111,12 @@ private:
 	void OnSpcDepthChanged(wxSpinEvent& event);
 	void OnSpcHeightChanged(wxSpinEvent& event);
 	void OnTxcNameChanged(wxCommandEvent& WXUNUSED(event));
-	
+
 	// update frame
 	void updateFrame();
-	
+
 	// maxfunction, return scale
 	double max(double width, double depth, double height);
 };
 
-#endif // _GNROBJOAXCONVERTERFRAME_H_
+#endif // _OBJOAXCONVERTERFRAME_H_
