@@ -1,12 +1,18 @@
-#include "Color.h"
+/**
+ * Color
+ * @name        Color.cpp
+ * @date        2008-10-29
+ * @author		Konstantin Balabin  <k.balabin@googlemail.com>
+ * @author		Patrick Kracht      <patrick.kracht@googlemail.com>
+ * @author		Thorsten Moll       <thorsten.moll@googlemail.com>
+ * @author		Valentin Kunz       <athostr@googlemail.com>
+ */
 
 #include <iostream>
 #include <iomanip>
 #include <sstream>
 
-using std::stringstream;
-using std::hex;
-using std::endl;
+#include "Color.h"
 
 Color::Color():
 		// alpha == 1.0 => opaque, 0.0 => completely transparent
@@ -99,18 +105,18 @@ float& Color::A()
 	return m_a;
 }
 
-string Color::getHex() const
+std::string Color::getHex() const
 {
-	stringstream ss;
-	
+	std::stringstream ss;
+
 	ss << std::hex << (int)m_r;
 	ss << std::hex << (int)m_g;
 	ss << std::hex << (int)m_b;
-	
+
 	return ss.str();
 }
 
-ostream& operator<< (ostream& out, const Color& c)
+std::ostream& operator<<(std::ostream& out, const Color& c)
 {
 	out << c.m_r << " " << c.m_g << " " << c.m_b;
 	return out;
