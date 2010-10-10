@@ -8,13 +8,13 @@
  * @author		Valentin Kunz       <athostr@googlemail.com>
  */
 
-#ifndef _GNRCommandTransform_H
-#define _GNRCommandTransform_H
+#ifndef _COMMANDTRANSFORM_H_
+#define _COMMANDTRANSFORM_H_
 
 #include "Command.h"
-#include "Assembly.h"
-#include "Vertex.h"
 
+class Assembly;
+class Vertex;
 
 class CommandTransform: public Command
 {
@@ -28,7 +28,7 @@ public:
 	void setOldAngles(Vertex& old_angles);
 	void setNewPosition(Vertex& new_pos);
 	void setNewAngles(Vertex& new_angles);
-	
+
 protected:
 private:
 	Assembly* m_usedAssembly;
@@ -38,7 +38,7 @@ private:
 	float old_phi;
 	float old_theta;
 	float old_rho;
-	
+
 	float new_x;
 	float new_y;
 	float new_z;
@@ -47,4 +47,4 @@ private:
 	float new_rho;
 };
 
-#endif // _GNRCommandTransform_H
+#endif // _COMMANDTRANSFORM_H_

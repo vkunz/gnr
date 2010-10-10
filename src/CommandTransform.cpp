@@ -10,11 +10,12 @@
  * @author		Valentin Kunz       <athostr@googlemail.com>
  */
 
-#include "CommandTransform.h"
-
 #if defined(__ATHOS_DEBUG__)
 #include <wx/log.h>
 #endif
+
+#include "Assembly.h"
+#include "CommandTransform.h"
 
 /**
  * constructor of CommandTransform
