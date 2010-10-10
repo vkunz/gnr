@@ -1,13 +1,18 @@
-#include "Material.h"
-
-#include <GL/gl.h>
+/**
+ * Material
+ * @name        Material.cpp
+ * @date        2008-09-30
+ * @author		Konstantin Balabin  <k.balabin@googlemail.com>
+ * @author		Patrick Kracht      <patrick.kracht@googlemail.com>
+ * @author		Thorsten Moll       <thorsten.moll@googlemail.com>
+ * @author		Valentin Kunz       <athostr@googlemail.com>
+ */
 
 #include <sstream>
 #include <iostream>
+#include <GL/gl.h>
 
-using std::stringstream;
-using std::endl;
-
+#include "Material.h"
 
 Material::Material():
 		m_shininess(80), m_alpha(1.0f)
@@ -81,26 +86,26 @@ void Material::set() const
 {
 	float val[4];
 	val[3] = 1.0-m_alpha;
-	
+
 	m_ambient.getAll(val[0], val[1], val[2]);
 	glMaterialfv(GL_FRONT, GL_AMBIENT, val);
-	
+
 	m_diffuse.getAll(val[0], val[1], val[2]);
 	glMaterialfv(GL_FRONT, GL_DIFFUSE, val);
-	
+
 	m_specular.getAll(val[0], val[1], val[2]);
 	glMaterialfv(GL_FRONT, GL_SPECULAR, val);
-	
+
 	glMateriali(GL_FRONT, GL_SHININESS, m_shininess);
 }
 
-ostream& operator<< (ostream& out, const Material &m)
+std::ostream& operator<<(std::ostream& out, const Material &m)
 {
-	out << "Ka " << m.m_ambient << endl;
-	out << "Kd " << m.m_diffuse << endl;
-	out << "Ks " << m.m_specular << endl;
-	out << "d " << m.m_alpha << endl;
-	out << "Ns " << m.m_shininess << endl;
-	
+	out << "Ka " << m.m_ambient << std::endl;
+	out << "Kd " << m.m_diffuse << std::endl;
+	out << "Ks " << m.m_specular << std::endl;
+	out << "d " << m.m_alpha << std::endl;
+	out << "Ns " << m.m_shininess << std::endl;
+
 	return out;
 }
