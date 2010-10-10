@@ -10,7 +10,6 @@
  * @author		Valentin Kunz       <athostr@googlemail.com>
  */
 
-#include "GLScreenshot.h"
 #include <GL/gl.h>
 #include <wx/filedlg.h>
 #include <wx/image.h>
@@ -18,6 +17,8 @@
 #if defined(__ATHOS_DEBUG__)
 #include <wx/log.h>
 #endif
+
+#include "GLScreenshot.h"
 
 /**
  * constructor of GLScreenshot
@@ -38,22 +39,22 @@ void GLScreenshot::create()
 {
 	int viewport[4];
 	glGetIntegerv(GL_VIEWPORT, viewport);
-	
+
 	// read out viewport-size
 	m_width = viewport[2];
 	m_height = viewport[3];
-	
+
 	const size_t imageSizeInBytes = m_bytesPerPixel * size_t(m_width) * size_t(m_height);
-	
+
 	// Allocate with malloc, because the data will be managed by wxImage
 	unsigned char* pPicData = static_cast<unsigned char*>(malloc(imageSizeInBytes));
-	
+
 	// read pixels from GL
 	glPixelStorei(GL_PACK_ALIGNMENT, 1);
 	glReadPixels(0, 0, m_width, m_height, GL_RGB, GL_UNSIGNED_BYTE, pPicData);
-	
+
 	swapPixels(pPicData);
-	
+
 	// create an image and save it
 	wxImage mypic(m_width, m_height, pPicData);
 	mypic.SaveFile(m_filename);
@@ -72,7 +73,7 @@ void GLScreenshot::swapPixels(unsigned char* pPicData)
 		{
 			const int offset = int(m_bytesPerPixel) * (x + y * m_width);
 			const int swapOffset = int(m_bytesPerPixel) * (x + swapY * m_width);
-			
+
 			// Swap R, G and B of the 2 pixels
 			std::swap(pPicData[offset + 0], pPicData[swapOffset + 0]);
 			std::swap(pPicData[offset + 1], pPicData[swapOffset + 1]);
