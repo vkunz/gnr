@@ -9,12 +9,14 @@
  * @author		Valentin Kunz       <athostr@googlemail.com>
  */
 
-#include "GlobalDefine.h"
-#include "Mediator.h"
-
 #if defined(__ATHOS_DEBUG__)
 #include <wx/log.h>
 #endif
+
+#include "Enum.h"
+#include "GlobalDefine.h"
+#include "Mediator.h"
+#include "NotifyEvent.h"
 
 //global static storage for all mediators
 canvasType Mediator::m_CanvasID;
