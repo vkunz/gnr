@@ -8,12 +8,12 @@
  * @author		Valentin Kunz       <athostr@googlemail.com>
  */
 
-#ifndef KEYCONTROLLER_H
-#define KEYCONTROLLER_H
+#ifndef _KEYCONTROLLER_H_
+#define _KEYCONTROLLER_H_
 
-#include "GLCamera.h"
-#include "GLKeyEvent.h"
-#include "Scene.h"
+class GLCamera;
+class GLKeyEvent;
+class Scene;
 
 class KeyController
 {
@@ -26,8 +26,8 @@ private:
 	void MoveCamera(GLKeyEvent& event);
 	Scene*    m_Scene;
 	GLCamera* m_Camera;
-	
+
 	float m_fx, m_fz, m_rx, m_rz;
 };
 
-#endif // KEYCONTROLLER_H
+#endif // _KEYCONTROLLER_H_

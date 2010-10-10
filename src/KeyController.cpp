@@ -8,7 +8,12 @@
  * @author		Valentin Kunz       <athostr@googlemail.com>
  */
 
+#include <string>
+
+#include "GLCamera.h"
+#include "GLKeyEvent.h"
 #include "KeyController.h"
+#include "Scene.h"
 
 /**
  * constructor of key controller
@@ -36,10 +41,10 @@ void KeyController::KeyPressed(GLKeyEvent& event)
 	{
 		//set actual camera
 		m_Camera = m_Scene->getGLCamera2D();
-		
+
 		//get cam height for more speed
 		float cam_height = m_Camera->getPosition().getY();
-		
+
 		//set fix direction values
 		m_fx = 0.0;
 		m_fz = -cam_height*0.07368;
@@ -50,17 +55,17 @@ void KeyController::KeyPressed(GLKeyEvent& event)
 	{
 		//set actual camera
 		m_Camera = m_Scene->getGLCamera3D();
-		
+
 		//get cam height for more speed
 		float cam_height = m_Camera->getPosition().getY();
-		
+
 		//get specific direction values
 		m_fx = 0.1368*cam_height*m_Camera->getViewDir().getX();
 		m_fz = 0.1368*cam_height*m_Camera->getViewDir().getZ();
 		m_rx = 0.1368*cam_height*m_Camera->getRightVector().getX();
 		m_rz = 0.1368*cam_height*m_Camera->getRightVector().getZ();
 	}
-	
+
 	if (m_Camera != NULL)
 	{
 		//move cam
@@ -94,7 +99,7 @@ void KeyController::MoveCamera(GLKeyEvent& event)
 		m_Camera->move(-m_rx,0.0,-m_rz);
 		break;
 	}
-	
+
 	//refresh canvas
 	m_Scene->glRefresh();
 }
