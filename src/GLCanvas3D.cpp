@@ -9,9 +9,7 @@
  * @author		Valentin Kunz       <athostr@googlemail.com>
  */
 
-#ifdef _WIN32
-#include <gl/glu.h>
-#endif
+#include <GL/glu.h>
 
 #include "GLCanvas3D.h"
 #include "GlobalDefine.h"

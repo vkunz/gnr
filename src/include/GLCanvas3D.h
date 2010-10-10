@@ -8,8 +8,8 @@
  * @author		Valentin Kunz       <athostr@googlemail.com>
  */
 
-#ifndef _GNRGL3DCANVAS_H_
-#define _GNRGL3DCANVAS_H_
+#ifndef _GL3DCANVAS_H_
+#define _GL3DCANVAS_H_
 
 #include "GLCanvas.h"
 
@@ -19,7 +19,7 @@ private:
 
 	void setPerspective();
 	canvasType getCanvasID();
-	
+
 public:
 	GLCanvas3D(wxWindow* parent,
 	           wxWindowID id = wxID_ANY,
@@ -34,9 +34,9 @@ public:
 	           const wxSize& size = wxDefaultSize,
 	           long style = 0,
 	           const wxString& name = _("GLCanvas3D"));
-	           
+
 	~GLCanvas3D() {}
-	
+
 };
 
-#endif // _GNRGL3DCANVAS_H_
+#endif // _GL3DCANVAS_H_
