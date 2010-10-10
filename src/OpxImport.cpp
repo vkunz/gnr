@@ -14,12 +14,17 @@
 #include <wx/wfstream.h>
 #include <wx/xml/xml.h>
 
-#include "NotifyEvent.h"
-#include "OpxImport.h"
-
 #if defined(__ATHOS_DEBUG__)
 #include <wx/log.h>
 #endif
+
+#include "Assembly.h"
+#include "GLCamera.h"
+#include "NotifyEvent.h"
+#include "OaxImport.h"
+#include "OpxImport.h"
+#include "Scene.h"
+#include "TreeLibraryController.h"
 
 /**
  * Default Constructor.
@@ -37,13 +42,13 @@ OpxImport::OpxImport(TreeLibraryController* controller, wxString filename)
 {
 	// assign librarycontroller
 	m_libctrl = controller;
-	
+
 	// asign scene
 	m_scene = Scene::getInstance();
-	
+
 	// set camera pointer
 	m_camera = m_scene->getGLCamera3D();
-	
+
 	// store filename
 	m_filename = filename;
 }
@@ -62,13 +67,13 @@ void* OpxImport::Entry()
 {
 	// create stream of filename
 	wxFFileInputStream inFile(m_filename);
-	
+
 	// create zipstream
 	wxZipInputStream stream(inFile);
-	
+
 	// load
 	Load(stream);
-	
+
 	// return
 	return NULL;
 }
@@ -81,38 +86,38 @@ void OpxImport::Load(wxZipInputStream& stream)
 {
 	// wxZipEntry pointer
 	wxZipEntry* entry;
-	
+
 	// iterator
 	std::vector<wxZipEntry*>::iterator it;
-	
+
 	// get first entry
 	entry = stream.GetNextEntry();
-	
+
 	// walk through all entrys and push them into vector
 	while (entry)
 	{
 		// push pointer to vector
 		m_vector.push_back(entry);
-		
+
 		// get next Entry
 		entry = stream.GetNextEntry();
 	}
-	
+
 	// walk through all vector-entrys, find *.xml
 	for (it = m_vector.begin(); it != m_vector.end(); it++)
 	{
 		// assign entry
 		entry = *it;
-		
+
 		// search entryname matches "*.xml"
 		if (entry->GetName().Matches(wxT("*.xml")))
 		{
 			// openEntry
 			stream.OpenEntry(*entry);
-			
+
 			// load xmlstream
 			loadXml(stream);
-			
+
 			// entry found
 			continue;
 		}
@@ -128,115 +133,115 @@ void OpxImport::loadXml(wxZipInputStream& stream)
 	// temporary attributes
 	double x, y, z, p, t, r;
 	bool isVisible;
-	
+
 	// assembly pointer
 	Assembly* assembly;
-	
+
 	// xml node pointer
 	wxXmlNode* node;
-	
+
 	// xml property pointer
 	wxXmlProperty* prop;
-	
+
 	// create wxString to store propertyvalues
 	wxString value;
-	
+
 	// temporary attribute tokenizer
 	wxStringTokenizer tok;
-	
+
 	// create xmldocument of inpustream
 	wxXmlDocument xml(stream);
-	
+
 	// node to root
 	node = xml.GetRoot();
-	
+
 	// node to assemblyInformation
 	node = node->GetChildren();
-	
+
 	// node to name
 	node = node->GetChildren();
-	
+
 	// get name
 	m_name = node->GetNodeContent();
-	
+
 	// node to author
 	node = node->GetNext();
-	
+
 	// get author
 	m_author = node->GetNodeContent();
-	
+
 	// node to projectInformation
 	node = node->GetParent();
-	
+
 	// node to data
 	node = node->GetNext();
-	
+
 	// node to camera
 	node = node->GetChildren();
-	
+
 	// node to type
 	node = node->GetChildren();
-	
+
 	// node to position
 	node = node->GetNext();
-	
+
 	// prop to location
 	prop = node->GetProperties();
-	
+
 	// get value of location
 	value = prop->GetValue();
-	
+
 	// tokenize value
 	tok.SetString(value, wxT(" "));
-	
+
 	// get camera x-position
 	tok.GetNextToken().ToDouble(&x);
-	
+
 	// get camera y-position
 	tok.GetNextToken().ToDouble(&y);
-	
+
 	// get camera z-position
 	tok.GetNextToken().ToDouble(&z);
-	
+
 	// prop to orientation
 	prop = prop->GetNext();
-	
+
 	// get value of orientation
 	value = prop->GetValue();
-	
+
 	// tokenize value
 	tok.SetString(value, wxT(" "));
-	
+
 	// get camera x-orientation
 	tok.GetNextToken().ToDouble(&p);
-	
+
 	// get camera y-orientation
 	tok.GetNextToken().ToDouble(&t);
-	
+
 	// get camera z-orientation
 	tok.GetNextToken().ToDouble(&r);
-	
+
 	// set camera position
 	m_camera->setCamera(x, y, z, p, t, r);
-	
+
 	// node to camera
 	node = node->GetParent();
-	
+
 	// node to lightsources
 	node = node->GetNext();
-	
+
 	// node to scene
 	node = node->GetNext();
-	
+
 	// check if scene has childs
 	if (node->GetChildren() != NULL)
 	{
 		// node to first scene-object
 		node = node->GetChildren();
-		
+
 		// set m_actual to m_scene->rootAssembly
 		m_actual = m_scene->getRootAssembly();
-		
+
 		// walk through all next nodes
 		while (node)
 		{
@@ -244,10 +249,10 @@ void OpxImport::loadXml(wxZipInputStream& stream)
 			{
 				// get visible
 				prop = node->GetProperties();
-				
+
 				// get value of visible
 				value = prop->GetValue();
-				
+
 				// check if visible or not
 				if (value == wxT("true"))
 				{
@@ -259,67 +264,67 @@ void OpxImport::loadXml(wxZipInputStream& stream)
 					// set false
 					isVisible = false;
 				}
-				
+
 				// prop to name
 				prop = prop->GetNext();
-				
+
 				// get value of name
 				value = prop->GetValue();
-				
+
 				// new group
 				Assembly* newGroup = new Assembly(value);
-				
+
 				// set group
 				newGroup->setType(IS_GROUP);
-				
+
 				// set visible
 				newGroup->setVisible(isVisible);
-				
+
 				// prop to location
 				prop = prop->GetNext();
-				
+
 				// get value of location
 				value = prop->GetValue();
-				
+
 				// tokenize value
 				tok.SetString(value, wxT(" "));
-				
+
 				// set x
 				newGroup->position().setX(wxAtof(tok.GetNextToken()));
-				
+
 				// set y
 				newGroup->position().setY(wxAtof(tok.GetNextToken()));
-				
+
 				// set z
 				newGroup->position().setZ(wxAtof(tok.GetNextToken()));
-				
+
 				// prop to orientation
 				prop = prop->GetNext();
-				
+
 				// get value of orientation
 				value = prop->GetValue();
-				
+
 				// tokenize value
 				tok.SetString(value, wxT(" "));
-				
+
 				// set phi
 				newGroup->rotation().setX(wxAtof(tok.GetNextToken()));
-				
+
 				// set theta
 				newGroup->rotation().setY(wxAtof(tok.GetNextToken()));
-				
+
 				// set rho
 				newGroup->rotation().setZ(wxAtof(tok.GetNextToken()));
-				
+
 				// add new Assembly
 				m_actual->addPart(newGroup);
-				
+
 				// set m_actual to new Group
 				m_actual = newGroup;
-				
+
 				// get children
 				node = node->GetChildren();
-				
+
 				// found group, begin loop again
 				continue;
 			}
@@ -327,10 +332,10 @@ void OpxImport::loadXml(wxZipInputStream& stream)
 			{
 				// prop to visible
 				prop = node->GetProperties();
-				
+
 				// get value of visible
 				value = prop->GetValue();
-				
+
 				// check if visible or not
 				if (value == wxT("true"))
 				{
@@ -342,61 +347,61 @@ void OpxImport::loadXml(wxZipInputStream& stream)
 					// set false
 					isVisible = false;
 				}
-				
+
 				// prop to name
 				prop = prop->GetNext();
-				
+
 				// get value of name
 				m_objName = prop->GetValue();
-				
+
 				// prop to location
 				prop = prop->GetNext();
-				
+
 				// get value of location
 				value = prop->GetValue();
-				
+
 				// tokenize value
 				tok.SetString(value, wxT(" "));
-				
+
 				// get x
 				float x = wxAtof(tok.GetNextToken());
-				
+
 				// get y
 				float y = wxAtof(tok.GetNextToken());
-				
+
 				// get z
 				float z = wxAtof(tok.GetNextToken());
-				
+
 				// prop to orientation
 				prop = prop->GetNext();
-				
+
 				// get value of orientation
 				value = prop->GetValue();
-				
+
 				// tokenize value
 				tok.SetString(value, wxT(" "));
-				
+
 				// get orientationX
 				float orientationX = wxAtof(tok.GetNextToken());
-				
+
 				// get orientationY
 				float orientationY = wxAtof(tok.GetNextToken());
-				
+
 				// get orientationZ
 				float orientationZ = wxAtof(tok.GetNextToken());
-				
+
 				// prop to ref
 				prop = prop->GetNext();
-				
+
 				// get value of ref
 				value = prop->GetValue();
-				
+
 				// close entry
 				stream.CloseEntry();
-				
+
 				// create assembly and ask if already exist
 				assembly = m_scene->getOrigialFromHash(value.AfterFirst('/').BeforeFirst('.'));
-				
+
 				// check if already known
 				if (assembly != NULL)
 				{
@@ -408,22 +413,22 @@ void OpxImport::loadXml(wxZipInputStream& stream)
 					// get oax
 					assembly = loadOax(stream, value);
 				}
-				
+
 				// set visible
 				assembly->setVisible(isVisible);
-				
+
 				// set name
 				assembly->setName(m_objName);
-				
+
 				// set x, y, z
 				assembly->position().setAll(x, y, z);
-				
+
 				// set x- and y - orientation
 				assembly->rotation().setAll(orientationX, orientationY, orientationZ);
-				
+
 				// add part
 				m_actual->addPart(assembly);
-				
+
 				// check if next exist
 				if (node->GetNext() != NULL)
 				{
@@ -435,30 +440,30 @@ void OpxImport::loadXml(wxZipInputStream& stream)
 				{
 					// node to parent
 					node = node->GetParent();
-					
+
 					// if parent is scene, break
 					if (node->GetName() == wxT("scene"))
 					{
 						// leave loop
 						break;
 					}
-					
+
 					// set actual
 					m_actual = m_actual->getParent();
-					
+
 					// while no next
 					while (node->GetNext() == NULL && !m_actual->isType(IS_ROOT))
 					{
 						// set m_node to next
 						node = node->GetParent();
-						
+
 						// set actual
 						m_actual = m_actual->getParent();
 					}
-					
+
 					// get next node
 					node = node->GetNext();
-					
+
 					// start loop from beginning
 					continue;
 				}
@@ -476,49 +481,49 @@ Assembly* OpxImport::loadOax(wxZipInputStream& stream, wxString reference)
 {
 	// assembly pointer
 	Assembly* assembly;
-	
+
 	// wxZipEntry pointer
 	wxZipEntry* entry;
-	
+
 	// iterator
 	std::vector<wxZipEntry*>::iterator it;
-	
+
 	// oax importer
 	OaxImport import;
-	
+
 	// walk through all entrys
 	for (it = m_vector.begin(); it != m_vector.end(); it++)
 	{
 		// get actual entry
 		entry = *it;
-		
+
 		// check if right entry
 		if (entry->GetName().AfterFirst('\\') == reference.AfterFirst('/'))
 		{
 			// open entry
 			stream.OpenEntry(*entry);
-			
+
 			// wxMemoryOutputStream to cache oax
 			wxMemoryOutputStream outMem;
-			
+
 			// copy data
 			stream.Read(outMem);
-			
+
 			// wxMemoryInputStream
 			wxMemoryInputStream inMem(outMem);
-			
+
 			// wxZipInputStream to read content
 			wxZipInputStream inZip(inMem);
-			
+
 			// reset Stream
 			inMem.SeekI(0);
-			
+
 			// load oax
 			import.Load(inZip);
-			
+
 			// get assembly
 			assembly = import.getAssembly();
-			
+
 			if (assembly->getType() == IS_OBJECT)
 			{
 				// add oax to library and set hash
@@ -526,7 +531,7 @@ Assembly* OpxImport::loadOax(wxZipInputStream& stream, wxString reference)
 			}
 		}
 	}
-	
+
 	return assembly;
 }
 
