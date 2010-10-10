@@ -8,14 +8,16 @@
  * @author		Valentin Kunz       <athostr@googlemail.com>
  */
 
-#ifndef _GNRGLCANVAS_H_
-#define _GNRGLCANVAS_H_
+#ifndef _GLCANVAS_H_
+#define _GLCANVAS_H_
 
 #include <wx/glcanvas.h>
 
-#include "Assembly.h"
 #include "Enum.h"
-#include "GLCamera.h"
+
+class Assembly;
+class GLCamera;
+class Vertex;
 
 class GLCanvas : public wxGLCanvas
 {
@@ -34,13 +36,13 @@ private:
 	void OnResize(wxSizeEvent& WXUNUSED(event));
 	void OnPaint(wxPaintEvent& event);
 	void OnLMouseDblClick(wxMouseEvent& event);
-	DECLARE_EVENT_TABLE()
-	
+	DECLARE_EVENT_TABLE();
+
 protected:
 	int m_window_x, m_window_y;
 	static GLuint m_floor_DL;
 	unsigned int FloorTexture;
-	
+
 	GLfloat light_ambient[4];
 	GLfloat light_diffuse[4];
 	GLfloat light_specular[4];
@@ -48,7 +50,7 @@ protected:
 	GLfloat shadow_color[4];
 	GLfloat floor_shadow[4][4];
 	GLfloat floor_plane[4];
-	
+
 	void initGL();
 	void connectEvents();
 	void disconnectEvents();
@@ -58,13 +60,13 @@ protected:
 	void setMatrix();
 	void getGLPos(int x, int y, Vertex* glcoords);
 	void getGLDim(int x, int y, Vertex* glcoords);
-	
+
 	//shadow specific function for shadow projection
 	void SetShadowMatrix(float shadowMat[4][4], float groundplane[4], float lightpos[4]);
-	
+
 	virtual void setPerspective() = 0;
 	virtual canvasType getCanvasID() = 0;
-	
+
 public:
 	// constructor
 	GLCanvas(wxWindow* parent,
@@ -80,24 +82,24 @@ public:
 	         const wxSize& size = wxDefaultSize,
 	         long style = 0,
 	         const wxString& name = _("GLCanvas"));
-	         
+
 	virtual ~GLCanvas();
-	
+
 	// Drawing the GL-Scene
 	void initLights();
-	
+
 	void prepareDraw();
 	void endDraw();
-	
+
 	void loadShadowMatrix();
 	void shadowColorOn();
 	void shadowColorOff();
 	void preparePixelBuffer();
 	void endPixelBuffer();
-	
+
 	Assembly* selection(Assembly* rootAssembly, GLCamera* camera, int mouse_x, int mouse_y);
 	void drawBaseFloor(float fCenterX, float fCenterY, float fCenterZ, int fSize);
 	void setActive();
 };
 
-#endif // _GNRGLCANVAS_H_
+#endif // _GLCANVAS_H_
