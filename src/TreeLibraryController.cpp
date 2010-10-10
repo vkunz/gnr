@@ -19,20 +19,25 @@
 #include <wx/wfstream.h>
 #include <wx/xml/xml.h>
 
-#include "OaxImport.h"
-#include "Scene.h"
-#include "TreeLibraryController.h"
-#include "TreeLibraryItemData.h"
-#include "GlobalDefine.h"
-#include "md5.h"
-
-#include "resources/icon_library_folder.xpm"
-#include "resources/icon_library_assembly.xpm"
-#include "resources/icon_library_container.xpm"
-
 #if defined(__ATHOS_DEBUG__)
 #include <wx/log.h>
 #endif
+
+#include "Assembly.h"
+#include "GlobalDefine.h"
+#include "Library.h"
+#include "LibraryCategory.h"
+#include "LibraryEntry.h"
+#include "md5.h"
+#include "OaxImport.h"
+#include "Scene.h"
+#include "TreeControlEvent.h"
+#include "TreeLibraryController.h"
+#include "TreeLibraryCtrl.h"
+#include "TreeLibraryItemData.h"
+#include "resources/icon_library_folder.xpm"
+#include "resources/icon_library_assembly.xpm"
+#include "resources/icon_library_container.xpm"
 
 /**
  * Constructor.
@@ -42,19 +47,19 @@ TreeLibraryController::TreeLibraryController(TreeLibraryCtrl* treectrl)
 {
 	// store Pointer to TreeCtrl
 	m_treeCtrl = treectrl;
-	
+
 	// create image list
 	createImageList();
-	
+
 	// create library
 	m_library = new Library();
-	
+
 	// get pointer to Categories
 	m_ptrCategories = m_library->getCategories();
-	
+
 	// get pointer to Entries
 	m_ptrEntries = m_library->getEntries();
-	
+
 	// build treeCtrl
 	buildTreeCtrl();
 }
@@ -77,20 +82,20 @@ wxString TreeLibraryController::addEntry(wxInputStream& instream, wxString entry
 {
 	// if found
 	bool found = false;
-	
+
 	// strings to store md5-hash
 	wxString objHash;
 	wxString xmlHash;
-	
+
 	// pointer to wxZipEntry
 	wxZipEntry* entry;
-	
+
 	// make zip of inputStream
 	wxZipInputStream inZip(instream);
-	
+
 	// entry to first inZip entry
 	entry = inZip.GetNextEntry();
-	
+
 	// walk through all entries and look for xml and obj
 	while (entry)
 	{
@@ -99,51 +104,51 @@ wxString TreeLibraryController::addEntry(wxInputStream& instream, wxString entry
 		{
 			// make string of inputstream
 			wxStringOutputStream strout(&xmlHash);
-			
+
 			// open zip stream
 			inZip.OpenEntry(*entry);
-			
+
 			// read and write to strout
 			inZip.Read(strout);
-			
+
 			// close zip entry
 			inZip.CloseEntry();
-			
+
 			// get hash
 			xmlHash = MD5wxString(xmlHash);
 		}
-		
+
 		if (entry->GetName().Matches(wxT("*.obj")))
 		{
 			// make string of inputstream
 			wxStringOutputStream strout(&objHash);
-			
+
 			// open zip entry
 			inZip.OpenEntry(*entry);
-			
+
 			// read and write to strout
 			inZip.Read(strout);
-			
+
 			// close zip entry
 			inZip.CloseEntry();
-			
+
 			// get hash
 			objHash = MD5wxString(objHash);
 		}
-		
+
 		// get next Entry
 		entry = inZip.GetNextEntry();
 	}
-	
+
 	// reset stream
 	instream.SeekI(0);
-	
+
 	// reference
 	wxString ref = objHash + xmlHash + wxT(".oax");
-	
+
 	// iterator
 	std::vector<LibraryEntry>::iterator it;
-	
+
 	for (it = m_ptrEntries->begin(); it != m_ptrEntries->end(); it++)
 	{
 		if (it->getReference() == ref)
@@ -152,19 +157,19 @@ wxString TreeLibraryController::addEntry(wxInputStream& instream, wxString entry
 			found = true;
 		}
 	}
-	
+
 	if (!found)
 	{
 		// new entry
 		m_ptrEntries->push_back(LibraryEntry(entry_name, ref, cat_id));
-		
+
 		// add physical to library
 		m_library->addEntry(ref, instream);
-		
+
 		// rebuild
 		buildTreeCtrl();
 	}
-	
+
 	return objHash + xmlHash;
 }
 
@@ -177,7 +182,7 @@ unsigned int TreeLibraryController::addCategory(wxString newName)
 {
 	// iterator
 	std::vector<LibraryCategory>::iterator it;
-	
+
 	// walk through all categories
 	for (it = m_ptrCategories->begin(); it != m_ptrCategories->end(); it++)
 	{
@@ -188,16 +193,16 @@ unsigned int TreeLibraryController::addCategory(wxString newName)
 			return it->getCatId();
 		}
 	}
-	
+
 	// not found, create new one
 	Library::m_categoryId += 1;
-	
+
 	// new category, parent always 0
 	m_ptrCategories->push_back(LibraryCategory(newName, Library::m_categoryId, 0));
-	
+
 	// add new physical category
 	m_library->addCategory(newName);
-	
+
 	// return
 	return Library::m_categoryId;
 }
@@ -212,7 +217,7 @@ bool TreeLibraryController::addCategory(const unsigned int parent_id, const wxSt
 {
 	// iterator
 	std::vector<LibraryCategory>::iterator it;
-	
+
 	// walk through all categories
 	for (it = m_ptrCategories->begin(); it != m_ptrCategories->end(); it++)
 	{
@@ -223,19 +228,19 @@ bool TreeLibraryController::addCategory(const unsigned int parent_id, const wxSt
 			return false;
 		}
 	}
-	
+
 	// not found, create new one
 	Library::m_categoryId += 1;
-	
+
 	// new category
 	m_ptrCategories->push_back(LibraryCategory(newName, Library::m_categoryId, parent_id));
-	
+
 	// new physically category
 	m_library->addNewCategory(newName, parent_id);
-	
+
 	// rebuild tree
 	buildTreeCtrl();
-	
+
 	// everything ok
 	return true;
 }
@@ -261,7 +266,7 @@ void TreeLibraryController::deleteEntry(const wxString& reference)
 {
 	// iterator
 	std::vector<LibraryEntry>::iterator it;
-	
+
 	// walk through all entries
 	for (it = m_ptrEntries->begin(); it != m_ptrEntries->end(); it++)
 	{
@@ -272,13 +277,13 @@ void TreeLibraryController::deleteEntry(const wxString& reference)
 			break;
 		}
 	}
-	
+
 	// erase entry
 	m_ptrEntries->erase(it);
-	
+
 	// delete physically
 	m_library->deleteEntry(reference);
-	
+
 	// rebuild tree
 	buildTreeCtrl();
 }
@@ -292,13 +297,13 @@ void TreeLibraryController::renameCategory(const unsigned int& cat_id, const wxS
 {
 	// bool if already exist
 	bool exist = false;
-	
+
 	// parent id
 	unsigned int parentId;
-	
+
 	// iterator
 	std::vector<LibraryCategory>::iterator it;
-	
+
 	// walk through all categories
 	for (it = m_ptrCategories->begin(); it != m_ptrCategories->end(); it++)
 	{
@@ -309,7 +314,7 @@ void TreeLibraryController::renameCategory(const unsigned int& cat_id, const wxS
 			parentId = it->getParentId();
 		}
 	}
-	
+
 	// walk through all categories
 	for (it = m_ptrCategories->begin(); it != m_ptrCategories->end(); it++)
 	{
@@ -320,7 +325,7 @@ void TreeLibraryController::renameCategory(const unsigned int& cat_id, const wxS
 			exist = true;
 		}
 	}
-	
+
 	if (!exist)
 	{
 		// walk through all categories
@@ -333,11 +338,11 @@ void TreeLibraryController::renameCategory(const unsigned int& cat_id, const wxS
 				it->setName(new_name);
 			}
 		}
-		
+
 		// change name in xml
 		m_library->renameCategory(cat_id, new_name);
 	}
-	
+
 	// rebuild tree
 	buildTreeCtrl();
 }
@@ -351,7 +356,7 @@ void TreeLibraryController::renameEntry(const wxString& reference, const wxStrin
 {
 	// iterator
 	std::vector<LibraryEntry>::iterator it;
-	
+
 	// walk through all entries
 	for (it = m_ptrEntries->begin(); it != m_ptrEntries->end(); it++)
 	{
@@ -362,10 +367,10 @@ void TreeLibraryController::renameEntry(const wxString& reference, const wxStrin
 			(it)->setName(new_name);
 		}
 	}
-	
+
 	// change name in xml
 	m_library->renameEntry(reference, new_name);
-	
+
 	// rebuild tree
 	buildTreeCtrl();
 }
@@ -379,7 +384,7 @@ void TreeLibraryController::moveEntry(const wxString& reference, const unsigned 
 {
 	// iterator
 	std::vector<LibraryEntry>::iterator it;
-	
+
 	// walk through all entries
 	for (it = m_ptrEntries->begin(); it != m_ptrEntries->end(); it++)
 	{
@@ -390,10 +395,10 @@ void TreeLibraryController::moveEntry(const wxString& reference, const unsigned 
 			(it)->setCategoryId(new_parent_id);
 		}
 	}
-	
+
 	// change id of entry in xml
 	m_library->moveEntry(reference, new_parent_id);
-	
+
 	// rebuild tree
 	buildTreeCtrl();
 }
@@ -407,10 +412,10 @@ void TreeLibraryController::moveCategory(const unsigned int& cat_id, const unsig
 {
 	// local cat
 	LibraryCategory libcat;
-	
+
 	// iterator
 	std::vector<LibraryCategory>::iterator it;
-	
+
 	// walk through all entries
 	for (it = m_ptrCategories->begin(); it != m_ptrCategories->end(); it++)
 	{
@@ -420,27 +425,27 @@ void TreeLibraryController::moveCategory(const unsigned int& cat_id, const unsig
 			// copy category
 			// copy cat id
 			libcat.setCatId(cat_id);
-			
+
 			// copy name
 			libcat.setName((it)->getName());
-			
+
 			// set parent id
 			libcat.setParentId(new_parent_id);
-			
+
 			// erase cat
 			m_ptrCategories->erase(it);
-			
+
 			// leave loop
 			break;
 		}
 	}
-	
+
 	// add changed cat
 	m_ptrCategories->push_back(libcat);
-	
+
 	// change id of entry in xml
 	m_library->moveCategory(cat_id, new_parent_id);
-	
+
 	// rebuild tree
 	buildTreeCtrl();
 }
@@ -453,7 +458,7 @@ void TreeLibraryController::dragNdrop(TreeControlEvent& event)
 {
 	TreeLibraryItemData* src = event.getTreeItemSrc();
 	TreeLibraryItemData* dst = event.getTreeItemDst();
-	
+
 	//if source was cat, move cat
 	if (src->getCat())
 	{
@@ -485,20 +490,20 @@ void TreeLibraryController::pasteEntry(const wxString& reference)
 {
 	// oax import
 	OaxImport import;
-	
+
 	// get scene and prepare assembly
 	Scene* scene = Scene::getInstance();
 	Assembly* assembly;
-	
+
 	//query scene for assembly from hash or load from file
 	assembly = scene->getOrigialFromHash(reference.BeforeFirst('.'));
-	
+
 	//found one, just clone from
 	if (assembly != NULL)
 	{
 		//overwrite pointer here
 		assembly = assembly->clone();
-		
+
 		//reset clone
 		assembly->position().setAll(0.0f, 0.0f, 0.0f);
 		assembly->rotation().setAll(0.0f, 0.0f, 0.0f);
@@ -508,32 +513,32 @@ void TreeLibraryController::pasteEntry(const wxString& reference)
 	{
 		// wxMemoryOutputStream to store oax data
 		wxMemoryOutputStream* memOut;
-		
+
 		// get data
 		memOut = m_library->getEntryData(reference);
-		
+
 		// wxMemoryInputStream to store oax data
 		wxMemoryInputStream memIn(*memOut);
-		
+
 		// wxZipInputStream
 		wxZipInputStream inZip(memIn);
-		
+
 		// import
 		import.Load(inZip);
-		
+
 		// assembly pointer
 		assembly = import.getAssembly();
-		
+
 		// set hash
 		assembly->setHash(reference.BeforeFirst('.'));
-		
+
 		// delete memOut
 		delete memOut;
 	}
-	
+
 	// insert assembly
 	scene->insertAssembly(assembly);
-	
+
 	// update gl
 	scene->glRefresh();
 }
@@ -556,18 +561,18 @@ void TreeLibraryController::createImageList(const int& size)
 {
 	// Make an image list containing small icons
 	wxImageList *images = new wxImageList(size, size, true);
-	
+
 	// should correspond to TreeCtrlIcon_xxx enum
 	wxBusyCursor wait;
-	
+
 	// 3 icons
 	wxIcon icons[3];
 	icons[0] = wxIcon(icon_library_container_xpm);
 	icons[1] = wxIcon(icon_library_folder_xpm);
 	icons[2] = wxIcon(icon_library_assembly_xpm);
-	
+
 	int sizeOrig = icons[0].GetWidth();
-	
+
 	for (size_t i = 0; i < WXSIZEOF(icons); i++)
 	{
 		if (size == sizeOrig)
@@ -579,7 +584,7 @@ void TreeLibraryController::createImageList(const int& size)
 			images->Add(wxBitmap(wxBitmap(icons[i]).ConvertToImage().Rescale(size, size)));
 		}
 	}
-	
+
 	// asign images
 	m_treeCtrl->AssignImageList(images);
 }
@@ -591,94 +596,94 @@ void TreeLibraryController::buildTreeCtrl()
 {
 	// delete old tree
 	m_treeCtrl->DeleteAllItems();
-	
+
 	// local map to store categoryid and wxTreeItemId
 	std::map<unsigned int, wxTreeItemId> catId;
-	
+
 	// category iterator
 	std::vector<LibraryCategory>::iterator catit;
-	
+
 	// entry iterator
 	std::vector<LibraryEntry>::iterator entit;
-	
+
 	// category-id iterator
 	std::map<unsigned int, wxTreeItemId>::iterator catIdit;
-	
+
 	// local wxTreeItemId
 	wxTreeItemId tiid;
 	wxTreeItemId root;
-	
+
 	// new itemdata
 	TreeLibraryItemData* itemData = new TreeLibraryItemData();
-	
+
 	// set category
 	itemData->setCat(true);
-	
+
 	// set root as 0
 	itemData->setCatId(0);
-	
+
 	// set root
 	root = tiid = m_treeCtrl->AddRoot(wxT("Bibliothek"), -1, -1, itemData);
-	
+
 	// set root image
 	m_treeCtrl->SetItemImage(tiid, (int)TreeCtrlIcon_Root);
-	
+
 	// store root tiid
 	catId.insert(std::pair<unsigned int, wxTreeItemId>(0, tiid));
-	
+
 	// walk through all categories and append to tree control
 	for (catit = m_ptrCategories->begin(); catit != m_ptrCategories->end(); catit++)
 	{
 		// new itemdata
 		TreeLibraryItemData* itemData = new TreeLibraryItemData();
-		
+
 		// set category
 		itemData->setCat(true);
-		
+
 		// set cat id
 		itemData->setCatId(catit->getCatId());
-		
+
 		// set parent id
 		itemData->setParentId(catit->getParentId());
-		
+
 		// append to treectrl
 		tiid = m_treeCtrl->AppendItem(catId[catit->getParentId()], catit->getName(), -1, -1, itemData);
-		
+
 		// set image
 		m_treeCtrl->SetItemImage(tiid, (int)TreeCtrlIcon_Folder);
-		
+
 		// store tiid into map
 		catId.insert(std::pair<unsigned int, wxTreeItemId>(catit->getCatId(), tiid));
 	}
-	
+
 	// walk through all entrys and append to tree control
 	for (entit = m_ptrEntries->begin(); entit != m_ptrEntries->end(); entit++)
 	{
 		// new itemdata
 		TreeLibraryItemData* itemData = new TreeLibraryItemData();
-		
+
 		// set assembly
 		itemData->setCat(false);
-		
+
 		// set hash
 		itemData->setHash(entit->getReference());
-		
+
 		// set cat id
 		itemData->setCatId(entit->getCategoryId());
-		
+
 		// append to treectrl
 		tiid = m_treeCtrl->AppendItem(catId[entit->getCategoryId()], entit->getName(), -1, -1, itemData);
-		
+
 		// set image
 		m_treeCtrl->SetItemImage(tiid, (int)TreeCtrlIcon_Assembly);
 	}
-	
+
 	// sort
 	for (catIdit = catId.begin(); catIdit != catId.end(); catIdit++)
 	{
 		m_treeCtrl->SortChildren(catIdit->second);
 	}
-	
+
 	// expand root
 	m_treeCtrl->Expand(root);
 }
