@@ -8,11 +8,14 @@
  * @author		Valentin Kunz       <athostr@googlemail.com>
  */
 
-#ifndef ASSEMBLYMEDIATOR_H
-#define ASSEMBLYMEDIATOR_H
+#ifndef _ASSEMBLYMEDIATOR_H_
+#define _ASSEMBLYMEDIATOR_H_
 
 #include "Mediator.h"
-#include "Assembly.h"
+#include "Vertex.h"
+
+class Assembly;
+class GLCamera;
 
 class AssemblyMediator: public Mediator
 {
@@ -24,7 +27,7 @@ public:
 	void initialize(GLNotifyEvent& event);           //initialize assembly mediator
 	int  translate(GLNotifyEvent& event);            //perform translation to assembly
 	void finalize();
-	
+
 protected:
 
 	virtual void MoveXY(GLNotifyEvent& event) = 0;
@@ -32,10 +35,10 @@ protected:
 	virtual void RotateXY(GLNotifyEvent& event) = 0;
 	virtual void RotateY(GLNotifyEvent& event) = 0;
 	virtual void RotateXZ(GLNotifyEvent& event) = 0;
-	
+
 	Assembly* m_Assembly;
 	Vertex cam_pos, obj_pos;
-	
+
 	//storage on mouse down
 	float old_x, old_y, old_z;
 	float scale_x, scale_y, scale_z;
@@ -46,9 +49,9 @@ protected:
 	int window_w, window_h;
 	int m_mouse_x, m_mouse_y;
 	bool m_initialized;
-	
+
 private:
 
 };
 
-#endif // ASSEMBLYMEDIATOR_H
+#endif // _ASSEMBLYMEDIATOR_H_

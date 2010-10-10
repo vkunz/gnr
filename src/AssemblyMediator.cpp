@@ -9,13 +9,15 @@
  * @author      Valentin Kunz       <athostr@googlemail.com>
  */
 
-#include "AssemblyMediator.h"
-#include "UndoRedo.h"
-#include "CommandTransform.h"
-
 #if defined(__ATHOS_DEBUG__)
 #include <wx/log.h>
 #endif
+
+#include "Assembly.h"
+#include "AssemblyMediator.h"
+#include "CommandTransform.h"
+#include "GLNotifyEvent.h"
+#include "UndoRedo.h"
 
 /**
  * constructor of AssemblyMediator
@@ -45,28 +47,28 @@ void AssemblyMediator::initialize(GLNotifyEvent& event)
 	if (m_Assembly != NULL)
 	{
 		m_initialized = true;
-		
+
 		m_Assembly->position().getAll(old_x, old_y, old_z);
 		m_Assembly->scale().getAll(scale_x, scale_y, scale_z);
 		m_Assembly->rotation().getAll(phi_old, theta_old, rho_old);
-		
+
 		window_w = event.getWinX();
 		window_h = event.getWinY();
-		
+
 		gl_xmax = event.getWorldXmax();
 		gl_xmin = event.getWorldXmin();
-		
+
 		gl_ymax = event.getWorldYmax();
 		gl_ymin = event.getWorldYmin();
-		
+
 		gl_zmax = event.getWorldZmax();
 		gl_zmin = event.getWorldZmin();
-		
+
 		cam_rot_x = event.getCamRotatedX();
 		cam_rot_y = event.getCamRotatedY();
 		cam_pos   = event.getCamPosition();
 		obj_pos   = m_Assembly->position();
-		
+
 		m_mouse_x = event.getMouseEvent().GetX();
 		m_mouse_y = event.getMouseEvent().GetY();
 	}
@@ -113,10 +115,10 @@ int AssemblyMediator::translate(GLNotifyEvent& event)
 			MoveXZ(event);
 			break;
 		}
-		
+
 		return 0;
 	}
-	
+
 	return 1;
 }
 
@@ -139,10 +141,10 @@ void AssemblyMediator::finalize()
 		command->setNewPosition(new_pos);
 		Vertex new_angles(m_Assembly->rotation());
 		command->setNewAngles(new_angles);
-		
+
 		UndoRedo* undo = UndoRedo::getInstance();
 		undo->enqueue(command);
-		
+
 		m_Assembly = NULL;
 	}
 }
