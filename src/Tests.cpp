@@ -11,6 +11,8 @@
 #if defined(__ATHOS_DEBUG__)
 
 #include <wx/msgdlg.h>
+
+#include "Assembly.h"
 #include "OaxImport.h"
 #include "Tests.h"
 
@@ -42,7 +44,7 @@ void Tests::sizeXsizeLoopsLoadClean(Scene* scene, const int loops = 10, const in
 	str << wxT("DO NOT CLICK OVER COVER THE APP!\n\n");
 	str << loops << wxT(" loops, cubes ") << size << wxT(" x ") << size;
 	wxMessageBox(str);
-	
+
 	for (int h = -loops/2; h<loops/2+1; ++h)
 	{
 		for (int i = -size/2; i<size/2+1; ++i)
@@ -62,7 +64,7 @@ void Tests::sizeXsizeLoopsLoadClean(Scene* scene, const int loops = 10, const in
 		}
 		scene->newRoom();
 	}
-	
+
 	wxMessageBox(wxT("FERTIG!"));
 	scene->newRoom();
 }
@@ -80,7 +82,7 @@ void Tests::loadTieFighter(Scene* scene, const int loops = 10)
 	str << wxT("DO NOT CLICK OVER COVER THE APP!\n\n");
 	str << loops << wxT(" loops, tie fighters ");
 	wxMessageBox(str);
-	
+
 	for (int h = 0; h<loops; ++h)
 	{
 		OaxImport in(wxT("data\\Tie Fighter.oax"));
@@ -91,7 +93,7 @@ void Tests::loadTieFighter(Scene* scene, const int loops = 10)
 		//clean now
 		scene->newRoom();
 	}
-	
+
 	wxMessageBox(wxT("FERTIG!"));
 	scene->newRoom();
 }
@@ -105,7 +107,7 @@ void Tests::dumpWorldStructure(Scene* scene)
 	wxLogDebug(wxT(""));
 	wxLogDebug(wxT("|ROOT"));
 	scene->getRootAssembly()->dump(wxT("+"));
-	
+
 	wxLogDebug(wxT(""));
 	wxLogDebug(wxT("|TRASH"));
 	scene->getTrash()->dump(wxT("+"));
