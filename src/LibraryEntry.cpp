@@ -1,3 +1,13 @@
+/**
+ * LibraryEntry
+ * @name        LibraryEntry.h
+ * @date        2008-11-12
+ * @author		Konstantin Balabin  <k.balabin@googlemail.com>
+ * @author		Patrick Kracht      <patrick.kracht@googlemail.com>
+ * @author		Thorsten Moll       <thorsten.moll@googlemail.com>
+ * @author		Valentin Kunz       <athostr@googlemail.com>
+ */
+
 #include "LibraryEntry.h"
 
 /**
@@ -17,10 +27,10 @@ LibraryEntry::LibraryEntry(wxString name, wxString reference, unsigned int cat_i
 {
 	// asign name
 	m_name = name;
-	
+
 	// asign reference
 	m_reference = reference;
-	
+
 	// asign groupId
 	m_categoryId = cat_id;
 }
@@ -39,9 +49,9 @@ LibraryEntry::~LibraryEntry()
 wxString LibraryEntry::toString()
 {
 	wxString tmp;
-	
+
 	tmp << wxT("Name: ") << m_name << wxT("\tReference: ") << m_reference << wxT("\tCategoryId: ") << m_categoryId;
-	
+
 	return tmp;
 }
 
