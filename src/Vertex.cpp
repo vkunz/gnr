@@ -1,4 +1,3 @@
-#include "Vertex.h"
 /**
  * Vertex
  * @name		Vertex.cpp
@@ -11,8 +10,9 @@
 
 #include <limits>
 #include <iomanip>
-
 #include <GL/gl.h>
+
+#include "Vertex.h"
 
 /**
  * constructor of Vertex
@@ -265,7 +265,7 @@ Vertex Vertex::operator * (float r) const
 	temp.m_x *= r;
 	temp.m_y *= r;
 	temp.m_z *= r;
-	
+
 	return temp;
 }
 
@@ -282,7 +282,7 @@ Vertex Vertex::operator * (const Vertex& v) const
 	    m_z * v.m_x  -  m_x * v.m_z,
 	    m_x * v.m_y  -  m_y * v.m_x
 	);
-	
+
 	return tmp;
 }
 
@@ -319,7 +319,7 @@ Vertex& Vertex::operator += (const Vertex& v)
 	m_x += v.m_x;
 	m_y += v.m_y;
 	m_z += v.m_z;
-	
+
 	return *this;
 }
 
@@ -334,7 +334,7 @@ Vertex& Vertex::operator = (const Vertex& v)
 	m_y = v.m_y;
 	m_z = v.m_z;
 	m_w = v.m_w;
-	
+
 	return *this;
 }
 
@@ -354,7 +354,7 @@ float Vertex::length() const
 Vertex& Vertex::normalize()
 {
 	float len = length();
-	
+
 	if (fabs(len) > 2.0f * std::numeric_limits<float>::epsilon())
 	{
 		m_x = m_x / len;
@@ -377,18 +377,18 @@ void Vertex::rotate(float alpha, float beta, float gamma)
 	alpha_rad = alpha * DEG2RAD,
 	            beta_rad = beta * DEG2RAD,
 	                       gamma_rad = gamma * DEG2RAD;
-	                       
+
 	double
 	sa = sin(alpha_rad), ca = cos(alpha_rad),
 	                          sb = sin(beta_rad),  cb = cos(beta_rad),
 	                                                    sg = sin(gamma_rad), cg = cos(gamma_rad);
-	                                                    
+
 	// calculate the new values
 	float
 	newx = m_x * ca * cb + m_y * (ca * sb * sg  -  sa * cg)  +  m_z * (ca * sb * cg  +  sa * sg),
 	       newy =   m_x * sa * cb + m_y * (sa * sb * sg  +  ca * cg)  +  m_z * (sa * sb * cg - ca * sg),
 	                newz =  -m_x * sb  +  m_y * cb * sg  +  m_z * cb * cg;
-	                
+
 	// write back the new values
 	m_x = newx;
 	m_y = newy;
@@ -411,14 +411,14 @@ void Vertex::rotate(const Vertex& angles)
 wxString Vertex::ToString()
 {
 	wxString tmp;
-	
+
 	tmp << wxT("x: ");
 	tmp << this->m_x;
 	tmp << wxT("\ty: ");
 	tmp << this->m_y;
 	tmp << wxT("\tz: ");
 	tmp << this->m_z;
-	
+
 	return tmp;
 }
 
@@ -442,7 +442,7 @@ void Vertex::draw_n() const
  * dump the vertex into the output stream
  * @return		ostream		text dump of vertex
  */
-ostream& operator<< (ostream& out, const Vertex& v)
+std::ostream& operator<<(std::ostream& out, const Vertex& v)
 {
 	out << std::setprecision(8) << std::fixed << v.m_x << " " << v.m_y << " " << v.m_z;
 	return out;
