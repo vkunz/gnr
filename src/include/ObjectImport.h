@@ -8,24 +8,20 @@
  * @author		Valentin Kunz       <athostr@googlemail.com>
  */
 
-#ifndef _GNROBJECTIMPORT_H_
-#define _GNROBJECTIMPORT_H_
+#ifndef _OBJECTIMPORT_H_
+#define _OBJECTIMPORT_H_
 
+#include <fstream>
 #include <map>
+#include <string>
 #include <wx/txtstrm.h>
 #include <wx/wfstream.h>
 #include <wx/filename.h>
 
-#include "Assembly.h"
 #include "ImportFile.h"
 #include "Vertex.h"
-#include "MaterialLibrary.h"
 
-#include <string>
-#include <fstream>
-
-using std::ifstream;
-using std::string;
+class Face;
 
 class ObjectImport : public ImportFile
 {
@@ -37,51 +33,51 @@ public:
 	ObjectImport(const wxString& filename);
 	// parse the stream inStream, all the mtl's and textures are in the map
 	ObjectImport(wxInputStream* inStream, std::map<wxString, wxString>* mtl);
-	
+
 	// dtor
 	virtual ~ObjectImport();
-	
+
 	// return filelist
 	std::list<wxString> getFileList();
-	
+
 	// return assembly
 	Assembly* getAssembly();
-	
+
 	const Vertex& offset() const;
-	
+
 	// return wrapper
 	Assembly* getWrapper();
-	
+
 private:
 	// pointer to the new Assembly, its wrapper and an actual Assembly
 	Assembly *m_root, *m_wrapper, *m_act_part;
-	
+
 	// offset needed to put the midpoint of the Obj to the Origin
 	// (makes rotation more meaningfull)
 	Vertex m_offset;
-	
+
 	// min-max ranges for X-, Y-, and Z- dimension.
 	Vertex m_min, m_max;
-	
+
 	// set if parsing an existing file from FS,
 	// else parse wxinputstream
 	bool m_from_FS;
-	
+
 	// get filepath
 	wxFileName file;
-	
+
 	// wxString to store the filepath
 	wxString m_path;
-	
+
 	// list of files which are needed by .obj-file
 	std::list<wxString> m_listFiles;
-	
+
 	// pointer to map, where mtl and textures are stored in
 	std::map<wxString, wxString>* m_mtl;
-	
+
 	// parse content and create assembly
 	void parse(const wxString& content);
-	
+
 	void getO();
 	void getF();
 	void getU();
@@ -89,17 +85,16 @@ private:
 	void getV();
 	void getVN();
 	void getM();
-	
-	Face* getFace(istream& is);
-	
+
+	Face* getFace(std::istream& is);
+
 	void minmax(float x, float y, float z);
-	void addAtomic(const string& name);
-	
-	string m_act_material;
-	
-	ifstream m_ifs;
-	string m_buf;
-	
+	void addAtomic(const std::string& name);
+
+	std::string m_act_material;
+
+	std::ifstream m_ifs;
+	std::string m_buf;
 };
 
-#endif // _GNROBJECTIMPORT_H_
+#endif // _OBJECTIMPORT_H_
