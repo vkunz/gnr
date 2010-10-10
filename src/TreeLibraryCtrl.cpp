@@ -1,11 +1,20 @@
-#if defined(__ATHOS_DEBUG__)
-#include <wx/log.h>
-#endif
+/**
+ * TreeLibraryCtrl
+ * @name        TreeLibraryCtrl.cpp
+ * @date        2008-10-26
+ * @author		Konstantin Balabin  <k.balabin@googlemail.com>
+ * @author		Patrick Kracht      <patrick.kracht@googlemail.com>
+ * @author		Thorsten Moll       <thorsten.moll@googlemail.com>
+ * @author		Valentin Kunz       <athostr@googlemail.com>
+ */
 
 #include <wx/menu.h>
 #include <wx/textdlg.h>
 
-#include "Enum.h"
+#if defined(__ATHOS_DEBUG__)
+#include <wx/log.h>
+#endif
+
 #include "TreeControlEvent.h"
 #include "TreeLibraryCtrl.h"
 #include "TreeLibraryItemData.h"
@@ -24,33 +33,33 @@ const long TreeLibraryCtrl::idMenuRename     = wxNewId();
 TreeLibraryCtrl::TreeLibraryCtrl(wxWindow* parent, wxWindowID id)
 {
 	Create(parent, id, wxDefaultPosition, wxDefaultSize, wxTR_DEFAULT_STYLE, wxDefaultValidator, wxT("TreeControl"));
-	
+
 	m_currentTreeID = 0;
-	
+
 	// connects menu with OnMenu
 	Connect(wxID_ANY, wxEVT_COMMAND_TREE_ITEM_MENU,(wxObjectEventFunction)&TreeLibraryCtrl::OnItemMenu);
-	
+
 	// connects double-click with OnItemActivated
 	Connect(wxID_ANY, wxEVT_COMMAND_TREE_ITEM_ACTIVATED, (wxObjectEventFunction)&TreeLibraryCtrl::OnItemActivated);
-	
+
 	// connects delete with OnDelete
 	Connect(idMenuDelete,wxEVT_COMMAND_MENU_SELECTED,(wxObjectEventFunction)&TreeLibraryCtrl::OnDelete);
-	
+
 	// connects newCat with OnNewCategory
 	Connect(idMenuCreateCat,wxEVT_COMMAND_MENU_SELECTED,(wxObjectEventFunction)&TreeLibraryCtrl::OnNewCategory);
-	
+
 	// connects export with OnExport
 	Connect(idMenuExport,wxEVT_COMMAND_MENU_SELECTED,(wxObjectEventFunction)&TreeLibraryCtrl::OnExport);
-	
+
 	// connects pase with OnPaste
 	Connect(idMenuPaste,wxEVT_COMMAND_MENU_SELECTED,(wxObjectEventFunction)&TreeLibraryCtrl::OnPaste);
-	
+
 	// connects rename with OnMenuRename
 	Connect(idMenuRename,wxEVT_COMMAND_MENU_SELECTED,(wxObjectEventFunction)&TreeLibraryCtrl::OnMenuRename);
-	
+
 	// connects begin-drag with OnBeginDrag
 	Connect(wxID_ANY, wxEVT_COMMAND_TREE_BEGIN_DRAG, (wxObjectEventFunction)&TreeLibraryCtrl::OnBeginDrag);
-	
+
 	// connects end-drag with OnEndDrag
 	Connect(wxID_ANY, wxEVT_COMMAND_TREE_END_DRAG, (wxObjectEventFunction)&TreeLibraryCtrl::OnEndDrag);
 }
@@ -72,7 +81,7 @@ void TreeLibraryCtrl::showMenu(wxTreeItemId id, const wxPoint& pt, bool cat)
 {
 	// create dropdown-menu
 	wxMenu menu(GetItemText(id));
-	
+
 	// check if category or assembly
 	if (cat)
 	{
@@ -90,7 +99,7 @@ void TreeLibraryCtrl::showMenu(wxTreeItemId id, const wxPoint& pt, bool cat)
 		menu.AppendSeparator();
 		menu.Append(idMenuExport, wxT("E&xportieren"));
 	}
-	
+
 	// show menu
 	PopupMenu(&menu, pt);
 }
@@ -102,9 +111,9 @@ void TreeLibraryCtrl::showMenu(wxTreeItemId id, const wxPoint& pt, bool cat)
 void TreeLibraryCtrl::OnItemMenu(wxTreeEvent& event)
 {
 	m_currentTreeID = event.GetItem();
-	
+
 	TreeLibraryItemData* item = (TreeLibraryItemData*)GetItemData(m_currentTreeID);
-	
+
 	if (item != NULL)
 	{
 		wxPoint clientpt = event.GetPoint();
@@ -120,15 +129,15 @@ void TreeLibraryCtrl::OnDelete(wxTreeEvent& WXUNUSED(event))
 {
 	// create event
 	TreeControlEvent gnr(wxEVT_COMMAND_GNR_TREE_CONTROL);
-	
+
 	// get item data
 	TreeLibraryItemData* item = (TreeLibraryItemData*)GetItemData(m_currentTreeID);
-	
+
 	if (item->getCat())
 	{
 		// set event type
 		gnr.setEventType(LIBRARYDELETECAT);
-		
+
 		// set cat id
 		gnr.setCatId(item->getCatId());
 	}
@@ -136,11 +145,11 @@ void TreeLibraryCtrl::OnDelete(wxTreeEvent& WXUNUSED(event))
 	{
 		// set event type
 		gnr.setEventType(LIBRARYDELETEENTRY);
-		
+
 		// set hash
 		gnr.setHash(item->getHash());
 	}
-	
+
 	// fire event
 	ProcessEvent(gnr);
 }
@@ -152,28 +161,28 @@ void TreeLibraryCtrl::OnDelete(wxTreeEvent& WXUNUSED(event))
 void TreeLibraryCtrl::OnNewCategory(wxTreeEvent& WXUNUSED(event))
 {
 	wxTextEntryDialog ted(this, wxT("Name der neuen Kategorie."));
-	
+
 	if (ted.ShowModal() == wxID_CANCEL)
 	{
 		// if pressed cancel, do nothing
 		return;
 	}
-	
+
 	// create event
 	TreeControlEvent gnr(wxEVT_COMMAND_GNR_TREE_CONTROL);
-	
+
 	// set event type
 	gnr.setEventType(LIBRARYNEWCAT);
-	
+
 	// get item data
 	TreeLibraryItemData* item = (TreeLibraryItemData*)GetItemData(m_currentTreeID);
-	
+
 	// set parentId
 	gnr.setParentId(item->getCatId());
-	
+
 	// set name of new category
 	gnr.setNewName(ted.GetValue());
-	
+
 	// fire event
 	ProcessEvent(gnr);
 }
@@ -186,14 +195,14 @@ void TreeLibraryCtrl::OnPaste(wxTreeEvent& WXUNUSED(event))
 {
 	// create event
 	TreeControlEvent gnr(wxEVT_COMMAND_GNR_TREE_CONTROL);
-	
+
 	// set event type
 	gnr.setEventType(LIBRARYPASTE);
-	
+
 	// set name
 	TreeLibraryItemData* item = (TreeLibraryItemData*)GetItemData(m_currentTreeID);
 	gnr.setHash(item->getHash());
-	
+
 	// fire event
 	ProcessEvent(gnr);
 }
@@ -206,14 +215,14 @@ void TreeLibraryCtrl::OnExport(wxTreeEvent& WXUNUSED(event))
 {
 	// create event
 	TreeControlEvent gnr(wxEVT_COMMAND_GNR_TREE_CONTROL);
-	
+
 	// set event type
 	gnr.setEventType(LIBRARYEXPORT);
-	
+
 	// set hash
 	TreeLibraryItemData* item = (TreeLibraryItemData*)GetItemData(m_currentTreeID);
 	gnr.SetString(item->getHash());
-	
+
 	// fire event
 	ProcessEvent(gnr);
 }
@@ -226,25 +235,25 @@ void TreeLibraryCtrl::OnMenuRename(wxTreeEvent& WXUNUSED(event))
 {
 	// create event
 	TreeControlEvent gnr(wxEVT_COMMAND_GNR_TREE_CONTROL);
-	
+
 	// set name
 	TreeLibraryItemData* item = (TreeLibraryItemData*)GetItemData(m_currentTreeID);
-	
+
 	// entry dialog
 	wxTextEntryDialog ted(this, wxT("Neuer Name:"));
-	
+
 	if (ted.ShowModal() == wxID_CANCEL)
 	{
 		// if pressed cancel, do nothing
 		return;
 	}
-	
+
 	if (item->getCat())
 	{
 		// set event type
 		gnr.setEventType(LIBRARYMENURENAMECAT);
 		gnr.setCatId(item->getCatId());
-		
+
 		if (ted.GetValue().IsEmpty())
 		{
 			// set new name
@@ -261,7 +270,7 @@ void TreeLibraryCtrl::OnMenuRename(wxTreeEvent& WXUNUSED(event))
 		// set event type
 		gnr.setEventType(LIBRARYMENURENAMEENTRY);
 		gnr.setHash(item->getHash());
-		
+
 		if (ted.GetValue().IsEmpty())
 		{
 			// set new name
@@ -273,7 +282,7 @@ void TreeLibraryCtrl::OnMenuRename(wxTreeEvent& WXUNUSED(event))
 			gnr.setNewName(ted.GetValue());
 		}
 	}
-	
+
 	// fire event
 	ProcessEvent(gnr);
 }
@@ -285,9 +294,9 @@ void TreeLibraryCtrl::OnMenuRename(wxTreeEvent& WXUNUSED(event))
 void TreeLibraryCtrl::OnItemActivated(wxTreeEvent& event)
 {
 	m_currentTreeID = event.GetItem();
-	
+
 	TreeLibraryItemData* treeItemData = (TreeLibraryItemData*)GetItemData(m_currentTreeID);
-	
+
 	if (treeItemData != NULL && treeItemData->getCat() == false)
 	{
 		OnPaste(event);
@@ -317,29 +326,29 @@ void TreeLibraryCtrl::OnEndDrag(wxTreeEvent& event)
 	// get data from tree item
 	TreeLibraryItemData* src = (TreeLibraryItemData*)GetItemData(m_draggedItem);
 	TreeLibraryItemData* dst = (TreeLibraryItemData*)GetItemData(event.GetItem());
-	
+
 	// if null, cancel
 	if (dst == NULL || src == NULL)
 	{
 		return;
 	}
-	
+
 	// if same cat, do nothing
 	if (src->getParentId() == dst->getCatId())
 	{
 		return;
 	}
-	
+
 	// create event
 	TreeControlEvent gnr(wxEVT_COMMAND_GNR_TREE_CONTROL);
-	
+
 	// set event type
 	gnr.setEventType(LIBRARYMOVE);
-	
+
 	// set source and destination of drag
 	gnr.setTreeItemDst(dst);
 	gnr.setTreeItemSrc(src);
-	
+
 	// fire event
 	ProcessEvent(gnr);
 }
