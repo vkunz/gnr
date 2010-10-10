@@ -8,8 +8,8 @@
  * @author		Valentin Kunz       <athostr@googlemail.com>
  */
 
-#ifndef ENUM_H
-#define ENUM_H
+#ifndef _ENUM_H_
+#define _ENUM_H_
 
 //defined event types
 enum eventType    { GLREFRESH = 0,
@@ -119,4 +119,4 @@ enum { X, Y, Z, W };
 enum { A, B, C, D };
 enum { RED, GREEN, BLUE, ALPHA };
 
-#endif // ENUM_H
+#endif // _ENUM_H_
