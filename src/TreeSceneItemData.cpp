@@ -8,6 +8,7 @@
  * @author		Valentin Kunz       <athostr@googlemail.com>
  */
 
+#include "Assembly.h"
 #include "TreeSceneItemData.h"
 
 /**
