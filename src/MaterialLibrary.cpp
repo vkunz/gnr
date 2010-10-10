@@ -1,12 +1,19 @@
+/**
+ * MaterialLibrary
+ * @name        MaterialLibrary.cpp
+ * @date        2008-09-30
+ * @author		Konstantin Balabin  <k.balabin@googlemail.com>
+ * @author		Patrick Kracht      <patrick.kracht@googlemail.com>
+ * @author		Thorsten Moll       <thorsten.moll@googlemail.com>
+ * @author		Valentin Kunz       <athostr@googlemail.com>
+ */
+
+#include <iostream>
+#include <fstream>
+#include <sstream>
+
 #include "MaterialLibrary.h"
 #include "Material.h"
-
-#include <sstream>
-#include <iostream>
-
-using std::istringstream;
-using std::stringstream;
-using std::endl;
 
 MaterialLibrary* MaterialLibrary::instance = 0;
 
@@ -16,7 +23,7 @@ MaterialLibrary::~MaterialLibrary()
 
 MaterialLibrary::MaterialLibrary()
 {
-	istringstream defaults(
+	std::istringstream defaults(
 	    "newmtl amber\nKa0.0531 0.0531 0.0531\nKd 0.5755 0.2678 0.0000\nKs 0.3000 0.3000 0.3000\nillum 2\nNs 60.0000\
 		\nnewmtl amber_trans\nKa 0.0531 0.0531 0.0531\nKd 0.5755 0.2678 0.0000\nKs 0.3000 0.3000 0.3000\nillum 2\nd 0.8400\nNs 60.0000\n\
 		\nnewmtl charcoal\nKa 0.0082 0.0082 0.0082\nKd 0.0041 0.0041 0.0041\nKs 0.3000 0.3000 0.3000\nillum 2\nNs 60.0000\n\
@@ -160,7 +167,7 @@ MaterialLibrary* MaterialLibrary::getInstance()
 	{
 		instance = new MaterialLibrary();
 	}
-	
+
 	return instance;
 }
 
@@ -170,12 +177,12 @@ void MaterialLibrary::destroy()
 	instance = 0;
 }
 
-MaterialLibrary::mat_citer MaterialLibrary::get(const string& name) const
+MaterialLibrary::mat_citer MaterialLibrary::get(const std::string& name) const
 {
 	return m_lib.find(name);
 }
 
-void MaterialLibrary::insert(const string& name, const Material& mat)
+void MaterialLibrary::insert(const std::string& name, const Material& mat)
 {
 	m_lib[name] = mat;
 }
@@ -186,18 +193,18 @@ void MaterialLibrary::insert(Color color)
 	mat.Ambient() = color;
 	mat.Diffuse() = color;
 	mat.Alpha() = 1.0f;
-	
+
 	insert(color.getHex(), mat);
 }
 
-void MaterialLibrary::import(const string& fname)
+void MaterialLibrary::import(const std::string& fname)
 {
-	ifstream ifs(fname.c_str());
+	std::ifstream ifs(fname.c_str());
 	import(ifs);
 	ifs.close();
 }
 
-void MaterialLibrary::import(istream& is)
+void MaterialLibrary::import(std::istream& is)
 {
 	m_is = &is;
 	while (m_is->good())
@@ -221,12 +228,12 @@ bool MaterialLibrary::getName()
 		getline(*m_is, m_buf);
 		found = m_buf.substr(0, 7) == "newmtl ";
 	}
-	
+
 	if (found)
 	{
-		m_matname = m_buf.substr(7, string::npos);
+		m_matname = m_buf.substr(7, std::string::npos);
 	}
-	
+
 	return found;
 }
 
@@ -239,12 +246,12 @@ bool MaterialLibrary::getData()
 		getline(*m_is, m_buf);
 		gotData = m_buf.substr(0, 7) != "newmtl ";
 	}
-	
+
 	if (gotData)
 	{
 		parseData();
 	}
-	
+
 	return gotData;
 }
 
@@ -252,12 +259,12 @@ void MaterialLibrary::parseData()
 {
 	if (m_buf.size() < 2)
 		return;
-		
+
 	float r, g, b, a;
 	r = g = b = a = 0.0f;
-	
-	stringstream ss(m_buf.substr(2, string::npos));
-	
+
+	std::stringstream ss(m_buf.substr(2, std::string::npos));
+
 	switch (m_buf[0])
 	{
 	case 'K':
@@ -296,12 +303,12 @@ MaterialLibrary::mat_citer MaterialLibrary::end() const
 	return m_lib.end();
 }
 
-ostream& operator<< (ostream& out, const MaterialLibrary& m)
+std::ostream& operator<<(std::ostream& out, const MaterialLibrary& m)
 {
 	for (MaterialLibrary::mat_citer it = m.m_lib.begin(); it != m.m_lib.end(); ++it)
 	{
-		out << "newmtl " << it->first << endl;
-		out << it->second << endl;
+		out << "newmtl " << it->first << std::endl;
+		out << it->second << std::endl;
 	}
 	return out;
 }
