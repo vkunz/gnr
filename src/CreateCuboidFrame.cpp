@@ -1,22 +1,31 @@
-#include "include/CreateCuboidFrame.h"
-
+/**
+ * [TODO]
+ *
+ * @note        [DONE]
+ * @name        CreateCuboidFrame.cpp
+ * @date        2008-10-29
+ * @author		Konstantin Balabin  <k.balabin@googlemail.com>
+ * @author		Patrick Kracht      <patrick.kracht@googlemail.com>
+ * @author		Thorsten Moll       <thorsten.moll@googlemail.com>
+ * @author		Valentin Kunz       <athostr@googlemail.com>
+ */
 
 #include <wx/colour.h>
 #include <wx/icon.h>
 #include <wx/intl.h>
 #include <wx/settings.h>
 #include <wx/string.h>
-#include "CreatePrimitiveEvent.h"
-#include "GlobalDefine.h"
-#include "Vertex.h"
 
 #if defined(__ATHOS_DEBUG__)
 #include <wx/log.h>
 #endif
 
-#if !defined(__WXMSW__) && !defined(__WXPM__)
+#include "Color.h"
+#include "CreateCuboidFrame.h"
+#include "CreatePrimitiveEvent.h"
+#include "GlobalDefine.h"
+#include "Vertex.h"
 #include "resources/gnr_icon.xpm"
-#endif
 
 const long CreateCuboidFrame::idSpcWidth = wxNewId();
 const long CreateCuboidFrame::idSpcHeight = wxNewId();
@@ -42,21 +51,21 @@ CreateCuboidFrame::CreateCuboidFrame(wxWindow* parent,wxWindowID id,const wxPoin
 	CenterOnParent();
 	SetBackgroundColour(wxNullColour);
 	SetIcon(wxICON(gnr_icon));
-	
+
 	m_panel = new wxPanel(this, wxID_ANY, wxPoint(0, 0), wxSize(382,260), wxTAB_TRAVERSAL);
-	
+
 	StaticText1 = new wxStaticText(m_panel, ID_STATICTEXT1, _("Breite (mm)"), wxPoint(56,30), wxDefaultSize, 0, _T("ID_STATICTEXT1"));
 	m_spcWidth = new wxSpinCtrl(m_panel, idSpcWidth, wxT("1000"), wxPoint(128,25), wxSize(168,24), 0, SIZE_MINIMUM_VALUE, SIZE_MAXIMUM_VALUE, SIZE_MINIMUM_VALUE, _T("idSpcWidth"));
-	
+
 	StaticText2 = new wxStaticText(m_panel, ID_STATICTEXT2, _("H" ouml "he (mm)"), wxPoint(56,65), wxDefaultSize, 0, _T("ID_STATICTEXT2"));
 	m_spcHeight = new wxSpinCtrl(m_panel, idSpcHeight, wxT("1000"), wxPoint(128,60), wxSize(168,21), 0, SIZE_MINIMUM_VALUE, SIZE_MAXIMUM_VALUE, SIZE_MINIMUM_VALUE, _T("idSpcHeight"));
-	
+
 	StaticText3 = new wxStaticText(m_panel, ID_STATICTEXT3, _("Tiefe (mm)"), wxPoint(56,100), wxDefaultSize, 0, _T("ID_STATICTEXT3"));
 	m_spcDepth = new wxSpinCtrl(m_panel, idSpcDepth, wxT("1000"), wxPoint(128,95), wxSize(168,21), 0, SIZE_MINIMUM_VALUE, SIZE_MAXIMUM_VALUE, SIZE_MINIMUM_VALUE, _T("idSpcDepth"));
-	
+
 	StaticText4 = new wxStaticText(m_panel, ID_STATICTEXT4, _("Farbe"), wxPoint(56,147), wxDefaultSize, 0, _T("ID_STATICTEXT4"));
 	m_colourPicker = new wxColourPickerCtrl(m_panel, idColourPicker, wxColour(255,255,255), wxPoint(128, 142), wxSize(24,24));
-	
+
 	m_buCreate = new wxButton(m_panel, idBuCreate, _("Erstellen"), wxPoint(56,188), wxSize(88,23), 0, wxDefaultValidator, _T("idBuCreate"));
 	m_buCancel = new wxButton(m_panel, idBuCancel, _("Abbrechen"), wxPoint(232,188), wxSize(88,23), 0, wxDefaultValidator, _T("idBuCancel"));
 }
