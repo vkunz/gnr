@@ -13,17 +13,17 @@
 				<Option compiler="gcc" />
 				<Option projectLinkerOptionsRelation="2" />
 				<Compiler>
+					<Add option="-Wextra" />
 					<Add option="-Wall" />
+					<Add option="-pg" />
 					<Add option="-g" />
 					<Add option="-D__WXDEBUG__" />
 					<Add option="-D__ATHOS_DEBUG__" />
 					<Add option="-DDETECT_LEAKS" />
 					<Add directory="$(#wx)\lib\gcc_lib\mswud" />
 				</Compiler>
-				<ResourceCompiler>
-					<Add directory="$(#wx)\lib\gcc_lib\mswud" />
-				</ResourceCompiler>
 				<Linker>
+					<Add option="-pg -lgmon" />
 					<Add library="libwxmsw28ud_html.a" />
 					<Add library="libwxmsw28ud_core.a" />
 					<Add library="libwxbase28ud.a" />
@@ -46,12 +46,10 @@
 				<Option projectLinkerOptionsRelation="2" />
 				<Compiler>
 					<Add option="-O2" />
+					<Add option="-Wextra" />
 					<Add option="-Wall" />
 					<Add directory="$(#wx)\lib\gcc_lib\mswu" />
 				</Compiler>
-				<ResourceCompiler>
-					<Add directory="$(#wx)\lib\gcc_lib\mswu" />
-				</ResourceCompiler>
 				<Linker>
 					<Add option="-s" />
 					<Add library="libwxmsw28u_html.a" />
@@ -68,6 +66,66 @@
 					<Add directory="$(#wx)\lib\gcc_lib" />
 				</Linker>
 			</Target>
+			<Target title="Debug|Dynamic">
+				<Option output="bin\Debug\GNR" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj\Debug\" />
+				<Option type="0" />
+				<Option compiler="gcc" />
+				<Option projectLinkerOptionsRelation="2" />
+				<Compiler>
+					<Add option="-Wextra" />
+					<Add option="-Wall" />
+					<Add option="-pg" />
+					<Add option="-g" />
+					<Add option="-D__WXDEBUG__" />
+					<Add option="-D__ATHOS_DEBUG__" />
+					<Add option="-DDETECT_LEAKS" />
+					<Add directory="$(#wx)\lib\gcc_dll\mswud" />
+				</Compiler>
+				<Linker>
+					<Add option="-pg -lgmon" />
+					<Add library="libwxmsw28ud_html.a" />
+					<Add library="libwxmsw28ud_core.a" />
+					<Add library="libwxbase28ud.a" />
+					<Add library="libwxpngd.a" />
+					<Add library="libwxzlibd.a" />
+					<Add library="libwxjpegd.a" />
+					<Add library="libwxtiffd.a" />
+					<Add library="libwxmsw28ud_gl.a" />
+					<Add library="libwxbase28ud_xml.a" />
+					<Add library="libwxexpatd.a" />
+					<Add library="libwxmsw28ud_adv.a" />
+					<Add directory="$(#wx)\lib\gcc_dll" />
+				</Linker>
+			</Target>
+			<Target title="Release|Dynamic">
+				<Option output="bin\Release\GNR" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj\Release\" />
+				<Option type="0" />
+				<Option compiler="gcc" />
+				<Option projectLinkerOptionsRelation="2" />
+				<Compiler>
+					<Add option="-O2" />
+					<Add option="-Wextra" />
+					<Add option="-Wall" />
+					<Add directory="$(#wx)\lib\gcc_dll\mswu" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+					<Add library="libwxmsw28u_html.a" />
+					<Add library="libwxmsw28u_core.a" />
+					<Add library="libwxbase28u.a" />
+					<Add library="libwxpng.a" />
+					<Add library="libwxzlib.a" />
+					<Add library="libwxtiff.a" />
+					<Add library="libwxjpeg.a" />
+					<Add library="libwxmsw28u_gl.a" />
+					<Add library="libwxbase28u_xml.a" />
+					<Add library="libwxexpat.a" />
+					<Add library="libwxmsw28u_adv.a" />
+					<Add directory="$(#wx)\lib\gcc_dll" />
+				</Linker>
+			</Target>
 		</Build>
 		<Compiler>
 			<Add option="-Wall" />
@@ -79,12 +137,8 @@
 			<Add option="-D__WXMSW__" />
 			<Add option="-DwxUSE_UNICODE" />
 			<Add directory="$(#wx)\include" />
-			<Add directory="$(#wx)\contrib\include" />
 			<Add directory="src\include" />
 		</Compiler>
-		<ResourceCompiler>
-			<Add directory="$(#wx)\include" />
-		</ResourceCompiler>
 		<Linker>
 			<Add library="libkernel32.a" />
 			<Add library="libuser32.a" />
@@ -114,6 +168,7 @@
 		<Unit filename="src\CreatePrimitiveEvent.cpp" />
 		<Unit filename="src\DebugFrame.cpp">
 			<Option target="Debug" />
+			<Option target="Debug|Dynamic" />
 		</Unit>
 		<Unit filename="src\Face.cpp" />
 		<Unit filename="src\GLCamera.cpp" />
@@ -179,6 +234,7 @@
 		<Unit filename="src\include\CreatePrimitiveEvent.h" />
 		<Unit filename="src\include\DebugFrame.h">
 			<Option target="Debug" />
+			<Option target="Debug|Dynamic" />
 		</Unit>
 		<Unit filename="src\include\Enum.h" />
 		<Unit filename="src\include\ExportFile.h" />
