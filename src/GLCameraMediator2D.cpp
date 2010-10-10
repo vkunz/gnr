@@ -9,11 +9,13 @@
  * @author      Valentin Kunz       <athostr@googlemail.com>
  */
 
-#include "GLCameraMediator2D.h"
-
 #if defined(__ATHOS_DEBUG__)
 #include <wx/log.h>
 #endif
+
+#include "GLCamera.h"
+#include "GLCameraMediator2D.h"
+#include "GLNotifyEvent.h"
 
 /**
  * move the camera in XY dimension
@@ -25,11 +27,11 @@ void GLCameraMediator2D::MoveXY(GLNotifyEvent& event)
 	float factor = m_GLCamera->getDistance()*0.8/(float)(window_h);
 	float distX  = (float)(m_mouse_x - event.getMouseEvent().GetX())*factor;
 	float distY  = (float)(event.getMouseEvent().GetY() - m_mouse_y)*factor;
-	
+
 	//move to new viewpoint
 	Vertex viewPoint = old_viewPoint + (old_rightVector*distX);
 	viewPoint = viewPoint + (old_upVector*distY);
-	
+
 	//set new camera viewpoint
 	m_GLCamera->setViewPoint(viewPoint);
 }
@@ -69,7 +71,7 @@ void GLCameraMediator2D::ZoomIn(GLNotifyEvent& event)
 {
 	//get delta distance for zoom
 	float distance = event.getMouseEvent().GetWheelRotation() / 200.0;
-	
+
 	//change distance of cam
 	m_GLCamera->changeDistance(distance);
 }
