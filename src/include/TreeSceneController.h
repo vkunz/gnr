@@ -12,7 +12,9 @@
 #define _GNRTreeSceneController_H_
 
 #include <wx/treectrl.h>
-#include "Assembly.h"
+
+class Assembly;
+class TreeSceneCtrl;
 
 /**
  * @class TreeSceneController
@@ -23,24 +25,24 @@ class TreeSceneController
 {
 public:
 	// ctor
-	TreeSceneController(wxTreeCtrl* treectrl);
-	
+	TreeSceneController(TreeSceneCtrl* treectrl);
+
 	// dtor
 	virtual ~TreeSceneController();
-	
+
 	void createSceneTree();
-	
+
 protected:
 
 private:
 	// attributes
 	wxTreeCtrl* m_treeCtrl;
-	
+
 	void createSceneTree(wxTreeItemId id, Assembly* assembly);
 	void createImageList(int size);
-	
+
 	enum { TreeCtrlIcon_Root = 0, TreeCtrlIcon_Scene, TreeCtrlIcon_Trash, TreeCtrlIcon_Assembly, TreeCtrlIcon_Folder };
-	
+
 };
 
 #endif // _GNRTreeSceneController_H_
