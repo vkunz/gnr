@@ -8,13 +8,12 @@
  * @author		Valentin Kunz       <athostr@googlemail.com>
  */
 
-#ifndef _GNRWALL_H_
-#define _GNRWALL_H_
+#ifndef _WALLMEDIATOR_H_
+#define _WALLMEDIATOR_H_
+
+#include <wx/event.h>
 
 #include "Mediator.h"
-#include "GLNotifyEvent.h"
-#include "Assembly.h"
-#include "GLCamera.h"
 #include "Vertex.h"
 
 class WallMediator: public Mediator, wxEvtHandler
@@ -31,7 +30,7 @@ protected:
 private:
 	Vertex startPoint;
 	Vertex endPoint;
-	
+
 	bool moved;
 	float gl_xmax;
 	float gl_xmin;
@@ -43,4 +42,4 @@ private:
 	int m_mouse_y;
 };
 
-#endif // _GNRWALL_H_
+#endif // _WALLMEDIATOR_H_
