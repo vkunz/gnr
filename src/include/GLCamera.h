@@ -24,34 +24,34 @@ private:
 	Vertex viewDir;
 	Vertex rightVector;
 	Vertex upVector;
-	
+
 	float m_distance;
 	GLfloat rotatedX, rotatedY, rotatedZ;
 	void fixAngleRange(GLfloat& angle);
-	
+
 public:
 	GLCamera();
 	virtual ~GLCamera();
-	
+
 	void changeDistance(float distance);
 	float getDistance();
-	
+
 	void reset();
-	
+
 	void render();
-	
+
 	void rotateX(GLfloat angle);
 	void rotateY(GLfloat angle);
 	void rotateZ(GLfloat angle);
-	
+
 	void move(Vertex direction);
 	void move(const float x, const float y, const float z);
 	void moveForward(GLfloat distance);
 	void moveUpward(GLfloat distance);
 	void strafeRight(GLfloat distance);
-	
+
 	Vertex getPosition();
-	
+
 	Vertex getViewPoint();
 	Vertex getViewDir();
 	Vertex getRightVector();
@@ -59,7 +59,7 @@ public:
 	GLfloat getRotatedX();
 	GLfloat getRotatedY();
 	GLfloat getRotatedZ();
-	
+
 	void setViewPoint(Vertex point);
 	void setViewDir(Vertex dir);
 	void setRightVector(Vertex right);
@@ -69,7 +69,7 @@ public:
 	void setRotatedZ(GLfloat rho);
 	void setDistance(float distance);
 	void setCamera(const float& x, const float& y, const float& z, const float& phi, const float& theta, const float& rho);
-	
+
 };
 
 #endif // _GNRGLCAMERA_H_
