@@ -16,76 +16,74 @@
 #include <wx/grid.h>
 #include <wx/string.h>
 
-#include "GridRowData.h"
-
 class GridTable : public wxGridTableBase
 {
 public:
 	// ctor
 	GridTable();
-	
+
 	GridTable(int numRows, int numCols);
-	
+
 	// dtor
 	virtual ~GridTable();
-	
+
 	// functions
 	// return number of rows
 	int GetNumberRows();
-	
+
 	// return number of cols
 	int GetNumberCols();
-	
+
 	// get value of choosen cell
 	wxString GetValue(int row, int col);
-	
+
 	// set value to choosen cell
 	void SetValue(int row, int col, const wxString& s);
-	
+
 	// check if choosen cell is empty
 	bool IsEmptyCell(int row, int col);
-	
+
 	// clear table
 	void Clear();
-	
+
 	// insert rows at position pos
 	bool InsertRows(size_t pos = 0, size_t numRows = 1);
-	
+
 	// insert rows at the end of the table
 	bool AppendRows(size_t numRows = 1);
-	
+
 	// delete rows at position pos
 	bool DeleteRows(size_t pos = 0, size_t numRows = 1);
-	
+
 //    bool InsertCols( size_t pos = 0, size_t numCols = 1 );
 //    bool AppendCols( size_t numCols = 1 );
 //    bool DeleteCols( size_t pos = 0, size_t numCols = 1 );
 
 	// set row labels
 	void SetRowLabelValue(int row, const wxString&);
-	
+
 	// set headers
 	void SetColLabelValue(int col, const wxString&);
-	
+
 	// get row labels
 	wxString GetRowLabelValue(int row);
-	
+
 	// get headers
 	wxString GetColLabelValue(int col);
-	
+
 protected:
 
 private:
 	// attributes
 	// vector of GridRowData
 	std::vector<GridRowData> m_vector;
-	
+
 	// random access iterator
 	std::vector<GridRowData>::iterator m_vectorit;
-	
+
 	// row labels
 	wxArrayString m_rowLabels;
-	
+
 	// col labels
 	wxArrayString m_colLabels;
 };
