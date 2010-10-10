@@ -9,11 +9,10 @@
  * @author		Valentin Kunz       <athostr@googlemail.com>
  */
 
-#ifndef GLCAMERAMEDIATOR_H
-#define GLCAMERAMEDIATOR_H
+#ifndef _GLCAMERAMEDIATOR_H_
+#define _GLCAMERAMEDIATOR_H_
 
 #include "Mediator.h"
-#include "GLCamera.h"
 #include "Vertex.h"
 
 class GLCameraMediator: public Mediator
@@ -25,7 +24,7 @@ public:
 	void initialize(GLNotifyEvent& event);                //initialize camera mediator
 	int  translate(GLNotifyEvent& event);                 //perform translation to camera
 	void finalize();
-	
+
 protected:
 
 	virtual void MoveXY(GLNotifyEvent& event) = 0;
@@ -33,9 +32,9 @@ protected:
 	virtual void RotateXY(GLNotifyEvent& event) = 0;
 	virtual void RotateXZ(GLNotifyEvent& event) = 0;
 	virtual void ZoomIn(GLNotifyEvent& event) = 0;
-	
+
 	GLCamera* m_GLCamera;
-	
+
 	//storage on mouse down
 	int m_mouse_x;
 	int m_mouse_y;
@@ -47,9 +46,9 @@ protected:
 	Vertex old_rightVector;
 	Vertex old_upVector;
 	float old_rotatedX, old_rotatedY, old_rotatedZ;
-	
+
 private:
 
 };
 
-#endif // GLCAMERAMEDIATOR_H
+#endif // _GLCAMERAMEDIATOR_H_

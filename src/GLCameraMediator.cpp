@@ -9,7 +9,9 @@
  * @author      Valentin Kunz       <athostr@googlemail.com>
  */
 
+#include "GLCamera.h"
 #include "GLCameraMediator.h"
+#include "GLNotifyEvent.h"
 
 /**
  * set camera pointer
@@ -29,7 +31,7 @@ void GLCameraMediator::initialize(GLNotifyEvent& event)
 	//do initialize stuff here
 	m_mouse_x = event.getMouseEvent().GetX();
 	m_mouse_y = event.getMouseEvent().GetY();
-	
+
 	//store cam data
 	old_viewPoint   = m_GLCamera->getViewPoint();
 	old_viewDir     = m_GLCamera->getViewDir();
@@ -39,7 +41,7 @@ void GLCameraMediator::initialize(GLNotifyEvent& event)
 	old_rotatedY    = m_GLCamera->getRotatedY();
 	old_rotatedZ    = m_GLCamera->getRotatedZ();
 	m_distance      = m_GLCamera->getDistance();
-	
+
 	//window size (2D screen)
 	window_w = event.getWinX();
 	window_h = event.getWinY();
@@ -57,7 +59,7 @@ int GLCameraMediator::translate(GLNotifyEvent& event)
 		ZoomIn(event);
 		return 0;
 	}
-	
+
 	//call translation dependend methods
 	switch (m_Translation)
 	{
@@ -77,7 +79,7 @@ int GLCameraMediator::translate(GLNotifyEvent& event)
 		MoveXZ(event);
 		break;
 	}
-	
+
 	return 0;
 }
 
