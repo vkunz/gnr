@@ -8,8 +8,8 @@
  * @author		Valentin Kunz       <athostr@googlemail.com>
  */
 
-#ifndef _GNRGL2DCANVAS_H_
-#define _GNRGL2DCANVAS_H_
+#ifndef _GL2DCANVAS_H_
+#define _GL2DCANVAS_H_
 
 #include "GLCanvas.h"
 
@@ -19,7 +19,7 @@ private:
 
 	void setPerspective();
 	canvasType getCanvasID();
-	
+
 public:
 	GLCanvas2D(wxWindow* parent,
 	           wxWindowID id = wxID_ANY,
@@ -34,10 +34,10 @@ public:
 	           const wxSize& size = wxDefaultSize,
 	           long style = 0,
 	           const wxString& name = _("GLCanvas2D"));
-	           
+
 	~GLCanvas2D() {}
-	
-	
+
+
 };
 
-#endif // _GNRGL2DCANVAS_H_
+#endif // _GL2DCANVAS_H_
