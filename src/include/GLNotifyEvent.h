@@ -8,8 +8,8 @@
  * @author		Valentin Kunz       <athostr@googlemail.com>
  */
 
-#ifndef _GNRGLNOTIFYEVENT_H_
-#define _GNRGLNOTIFYEVENT_H_
+#ifndef _GLNOTIFYEVENT_H_
+#define _GLNOTIFYEVENT_H_
 
 #include <wx/event.h>
 
@@ -72,4 +72,4 @@ wxEVT_COMMAND_GL_NOTIFY, id, -1, (wxObjectEventFunction) \
 (wxEventFunction) (GLNotifyEventFunction) & fn, \
 (wxObject *) NULL ),
 
-#endif // _GNRGLNOTIFYEVENT_H_
+#endif // _GLNOTIFYEVENT_H_
