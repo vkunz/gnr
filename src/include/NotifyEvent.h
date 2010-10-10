@@ -8,13 +8,13 @@
  * @author		Valentin Kunz       <athostr@googlemail.com>
  */
 
-#ifndef _GNRNOTIFYEVENT_H_
-#define _GNRNOTIFYEVENT_H_
+#ifndef _NOTIFYEVENT_H_
+#define _NOTIFYEVENT_H_
 
 #include <wx/event.h>
-#include "Assembly.h"
 
-#include "ObjOaxConverterFrame.h"
+class Assembly;
+class AssemblyData;
 
 class NotifyEvent : public wxNotifyEvent
 {
@@ -27,34 +27,34 @@ private:
 	AssemblyData* m_data;
 	float m_float;
 	bool eventBoolean;
-	
+
 public:
 
 	NotifyEvent(wxEventType commandType = wxEVT_NULL, int id = 0);
 	NotifyEvent(const NotifyEvent& event);
 	virtual wxEvent* Clone() const;
-	
+
 	void setGNREventType(int type);
 	int getGNREventType();
-	
+
 	void setAssemblyPtr(Assembly* a);
 	Assembly* getAssemblyPtr();
-	
+
 	void setSnapToGrid(int value);
 	int getSnapToGrid();
-	
+
 	void setSnapToAngle(int value);
 	int getSnapToAngle();
-	
+
 	void setBoolean(bool status);
 	bool getBoolean();
-	
+
 	void setAssemblyDataPointer(AssemblyData* data);
 	AssemblyData* getAssemblyDataPointer();
-	
+
 	void setFloat(float value);
 	float getFloat();
-	
+
 	DECLARE_DYNAMIC_CLASS(NotifyEvent);
 };
 
@@ -71,4 +71,4 @@ wxEVT_COMMAND_GNR_NOTIFY, id, -1, (wxObjectEventFunction) \
 (wxObject *) NULL ),
 
 
-#endif // _GNRNOTIFYEVENT_H_
+#endif // _NOTIFYEVENT_H_
