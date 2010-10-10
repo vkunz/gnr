@@ -10,13 +10,15 @@
  * @author		Valentin Kunz       <athostr@googlemail.com>
  */
 
-#include "DebugFrame.h"
+
 
 #include <wx/intl.h>
 #include <wx/string.h>
 #include <wx/artprov.h>
 
 #include <wx/log.h>
+
+#include "DebugFrame.h"
 
 #if !defined(__WXMSW__) && !defined(__WXPM__)
 #include "resources/gnr_icon.xpm"
