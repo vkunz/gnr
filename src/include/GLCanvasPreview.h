@@ -8,12 +8,12 @@
  * @author		Valentin Kunz       <athostr@googlemail.com>
  */
 
-#ifndef GLCANVASPREVIEW_H
-#define GLCANVASPREVIEW_H
+#ifndef _GLCANVASPREVIEW_H_
+#define _GLCANVASPREVIEW_H_
 
-#include "Enum.h"
-#include "GLCanvas.h"
-#include "Assembly.h"
+#include <wx/glcanvas.h>
+
+class Assembly;
 
 class GLCanvasPreview : public wxGLCanvas
 {
@@ -25,14 +25,14 @@ public:
 	                const wxSize& size = wxDefaultSize,
 	                long style = 0,
 	                const wxString& name = wxT("GLCanvasPreview"));
-	                
+
 	// dtor
 	virtual ~GLCanvasPreview();
-	
+
 	void setAssembly(Assembly* assembly);
 	void draw();
 	void reshape();
-	
+
 protected:
 
 private:
@@ -40,18 +40,18 @@ private:
 	float roty;
 	float m_mouse_x;
 	Assembly* m_assembly;
-	
+
 	void InitGL();
 	void InitLights();
-	
+
 	void OnLMouseDown(wxMouseEvent& event);
 	void OnMouseMove(wxMouseEvent& event);
 	void OnPaint(wxPaintEvent& event);
 	void OnLMouseUp(wxMouseEvent& WXUNUSED(event));
 	void OnSize(wxSizeEvent& WXUNUSED(event));
 	void OnLeaveWindow(wxMouseEvent& WXUNUSED(event));
-	
+
 	DECLARE_EVENT_TABLE()
 };
 
-#endif // GLCANVASPREVIEW_H
+#endif // _GLCANVASPREVIEW_H_

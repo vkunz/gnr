@@ -15,6 +15,7 @@
 #include <wx/log.h>
 #endif
 
+#include "Assembly.h"
 #include "GLCanvasPreview.h"
 #include "GlobalDefine.h"
 
@@ -59,20 +60,20 @@ void GLCanvasPreview::InitLights()
 	float light_diffuse[4]  = {0.5,0.5,0.5,0.0};
 	float light_specular[4] = {0.1,0.1,0.1,0.0};
 	float light_position[4] = {6.0,15.0,-20.0,1.0};
-	
+
 	glLightfv(GL_LIGHT0, GL_DIFFUSE, light_diffuse);
 	glLightfv(GL_LIGHT0, GL_AMBIENT, light_ambient);
 	glLightfv(GL_LIGHT0, GL_SPECULAR, light_specular);
 	glLightfv(GL_LIGHT0, GL_POSITION, light_position);
-	
+
 	glLightModelfv(GL_LIGHT_MODEL_AMBIENT, light_ambient);
-	
+
 	glLightModeli(GL_LIGHT_MODEL_TWO_SIDE,0);
 	glLightModeli(GL_LIGHT_MODEL_LOCAL_VIEWER,0);
-	
+
 	glEnable(GL_LIGHTING);
 	glEnable(GL_LIGHT0);
-	
+
 	glClearColor(0.5, 0.5, 0.5, 1.0);
 }
 
@@ -83,21 +84,21 @@ void GLCanvasPreview::InitGL()
 {
 	glShadeModel(GL_SMOOTH);
 	glDepthFunc(GL_LEQUAL);
-	
+
 	glBlendFunc(GL_ONE_MINUS_SRC_ALPHA,GL_SRC_ALPHA);
-	
+
 	glDisable(GL_STENCIL_TEST);
 	glDisable(GL_CULL_FACE);
-	
+
 	glEnable(GL_BLEND);
 	glEnable(GL_DEPTH_TEST);
-	
+
 	glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);
-	
+
 	glClearDepth(1.0f);
-	
+
 	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-	
+
 	glEnable(GL_NORMALIZE);
 }
 
@@ -128,19 +129,19 @@ void GLCanvasPreview::reshape()
 {
 	// set current GL-Frame
 	SetCurrent();
-	
+
 	// get size of current canvas
 	int w, h;
 	GetClientSize(&w, &h);
-	
+
 	// set viewport with resolution
 	glViewport(0, 0, (GLint) w, (GLint) h);
-	
+
 	// Load and Reset Modelview
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 	gluPerspective(GLU_PERSPECTIVE, (float)w / (float)h, ZNEAR, ZFAR);
-	
+
 	// Load and Reset Modelview
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
@@ -165,30 +166,30 @@ void GLCanvasPreview::draw()
 		SetCurrent();
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		glLoadIdentity();
-		
+
 		glShadeModel(GL_SMOOTH);
 		glEnable(GL_BLEND);
 		glDisable(GL_STENCIL_TEST);
 		glEnable(GL_DEPTH_TEST);
 		glEnable(GL_LIGHTING);
-		
+
 		// scale image to fit in preview
 		float max_size = m_assembly->getMaximumSize();
-		
+
 		gluLookAt(2.0,2.0,2.0,0.0,0.0,0.0,0.0,1.0,0.0);
-		
+
 		InitLights();
-		
+
 		// rotate as user determines
 		glRotatef(roty, 0.0f, 1.0f, 0.0f);
 		glScalef(1.0/max_size, 1.0/max_size, 1.0/max_size);
-		
+
 		glPushMatrix();
 		{
 			m_assembly->draw();
 		}
 		glPopMatrix();
-		
+
 		glFlush();
 		SwapBuffers();
 	}
