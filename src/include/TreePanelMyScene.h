@@ -8,8 +8,8 @@
  * @author		Valentin Kunz       <athostr@googlemail.com>
  */
 
-#ifndef TreePanelMyScene_H
-#define TreePanelMyScene_H
+#ifndef _TREEPANELMYSCENE_H_
+#define _TREEPANELMYSCENE_H_
 
 #include <wx/panel.h>
 
@@ -19,14 +19,14 @@ public:
 
 	TreePanelMyScene(wxWindow* parent,wxWindowID id=wxID_ANY);
 	virtual ~TreePanelMyScene();
-	
+
 protected:
 
 private:
 
 	void OnResize(wxSizeEvent& WXUNUSED(event));
-	
+
 	DECLARE_EVENT_TABLE()
 };
 
-#endif
+#endif // _TREEPANELMYSCENE_H_

@@ -23,7 +23,7 @@ END_EVENT_TABLE()
 TreePanelMyScene::TreePanelMyScene(wxWindow* parent,wxWindowID id)
 {
 	Create(parent, id, wxDefaultPosition, wxSize(640,480), wxTAB_TRAVERSAL, _T("TreePanelMyScene"));
-	
+
 	Connect(wxEVT_SIZE, (wxObjectEventFunction)&TreePanelMyScene::OnResize);
 }
 
@@ -42,6 +42,6 @@ void TreePanelMyScene::OnResize(wxSizeEvent& WXUNUSED(event))
 {
 	NotifyEvent gnrevent(wxEVT_COMMAND_GNR_NOTIFY);
 	gnrevent.setGNREventType(PANELSIZE);
-	
+
 	GetEventHandler()->ProcessEvent(gnrevent);
 }
