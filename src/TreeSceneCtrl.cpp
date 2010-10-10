@@ -8,18 +8,21 @@
  * @author		Valentin Kunz       <athostr@googlemail.com>
  */
 
-#include "TreeSceneCtrl.h"
-
 #include <wx/menu.h>
 #include <wx/textdlg.h>
 #include <wx/defs.h>
 
-#include "NotifyEvent.h"
-#include "TreeControlEvent.h"
-
 #if defined(__ATHOS_DEBUG__)
 #include <wx/log.h>
 #endif
+
+#include "Assembly.h"
+#include "AssemblyDataFrame.h"
+#include "GlobalDefine.h"
+#include "NotifyEvent.h"
+#include "TreeControlEvent.h"
+#include "TreeSceneCtrl.h"
+#include "TreeSceneItemData.h"
 
 const long TreeSceneCtrl::idMenuEdit     = wxNewId();
 const long TreeSceneCtrl::idMenuRename   = wxNewId();
@@ -74,9 +77,9 @@ TreeSceneCtrl::~TreeSceneCtrl() {}
 void TreeSceneCtrl::OnItemMenu(wxTreeEvent& event)
 {
 	m_currentTreeID = event.GetItem();
-	
+
 	m_treeItemData = (TreeSceneItemData *)GetItemData(m_currentTreeID);
-	
+
 	if (m_treeItemData != NULL)
 	{
 		// build menu for item-operation
@@ -99,9 +102,9 @@ void TreeSceneCtrl::OnItemMenu(wxTreeEvent& event)
 void TreeSceneCtrl::OnItemActivated(wxTreeEvent& event)
 {
 	m_currentTreeID = event.GetItem();
-	
+
 	m_treeItemData = (TreeSceneItemData *)GetItemData(m_currentTreeID);
-	
+
 	if (m_treeItemData != NULL && m_treeItemData->getAssembly()->getType() != IS_GROUP)
 	{
 		createAssemblyDataFrame();
@@ -116,7 +119,7 @@ void TreeSceneCtrl::buildMenu(const wxPoint& pt)
 {
 	// create dropdown-menu
 	wxMenu menu;
-	
+
 	if (m_treeItemData->getAssembly()->getMaster()->getType() == IS_TRASH)
 	{
 		menu.Append(idMenuUndelete, wxT("&Wiederherstellen"));
@@ -126,7 +129,7 @@ void TreeSceneCtrl::buildMenu(const wxPoint& pt)
 	         m_treeItemData->getAssembly()->getMaster()->getParent()->getType() == IS_SELECTED)
 	{
 		// no trash; add other options
-		
+
 		// group or item?
 		if (m_treeItemData->getAssembly()->getType() != IS_GROUP)
 		{
@@ -136,9 +139,9 @@ void TreeSceneCtrl::buildMenu(const wxPoint& pt)
 		{
 			menu.Append(idMenuRename, wxT("&Umbennenen"));
 		}
-		
+
 		menu.AppendSeparator();
-		
+
 		// selected?
 		if (m_treeItemData->getAssembly()->getMaster()->getType() == IS_SELECTED)
 		{
@@ -148,7 +151,7 @@ void TreeSceneCtrl::buildMenu(const wxPoint& pt)
 		{
 			menu.Append(idMenuSelect, wxT("&Selektieren"));
 		}
-		
+
 		// visible?
 		if (m_treeItemData->getAssembly()->isVisible())
 		{
@@ -158,10 +161,10 @@ void TreeSceneCtrl::buildMenu(const wxPoint& pt)
 		{
 			menu.Append(idMenuVisible, wxT("&Anzeigen"));
 		}
-		
+
 		menu.Append(idMenuDelete, wxT("&L" ouml "schen"));
 	}
-	
+
 	PopupMenu(&menu, pt);
 }
 
@@ -191,9 +194,9 @@ void TreeSceneCtrl::OnKeyDown(wxKeyEvent& event)
 	if (event.GetKeyCode() == WXK_F2)
 	{
 		m_currentTreeID = GetSelection();
-		
+
 		m_treeItemData = (TreeSceneItemData *)GetItemData(m_currentTreeID);
-		
+
 		if (m_treeItemData != NULL)
 		{
 			renameItem();
@@ -214,7 +217,7 @@ void TreeSceneCtrl::renameItem()
 		return;
 	}
 	m_treeItemData->getAssembly()->setName(ted.GetValue());
-	
+
 	// send event to refresh Scene-Tree
 	NotifyEvent gnrevent(wxEVT_COMMAND_GNR_NOTIFY);
 	gnrevent.setGNREventType(REFRESHSCENETREE);
