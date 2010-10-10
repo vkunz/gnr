@@ -8,14 +8,15 @@
  * @author		Valentin Kunz       <athostr@googlemail.com>
  */
 
-#ifndef CREATEPRIMITIVEEVENT_H
-#define CREATEPRIMITIVEEVENT_H
+#ifndef _CREATEPRIMITIVEEVENT_H_
+#define _CREATEPRIMITIVEEVENT_H_
 
 #include <wx/event.h>
 #include <wx/string.h>
+
+#include "Color.h"
 #include "Enum.h"
 #include "Vertex.h"
-#include "Color.h"
 
 class CreatePrimitiveEvent : public wxNotifyEvent
 {
@@ -26,29 +27,29 @@ private:
 	Vertex m_dimensions;
 	Color m_color;
 	wxString m_name;
-	
+
 public:
 	CreatePrimitiveEvent(wxEventType commandType = wxEVT_NULL, int id = 0);
 	CreatePrimitiveEvent(const CreatePrimitiveEvent& event);
 	virtual wxEvent* Clone() const;
 	virtual ~CreatePrimitiveEvent();
-	
+
 	void setPrimitiveType(primitiveType type);
-	
+
 	void setPosition(Vertex pos);
 	void setAngles(Vertex angles);
 	void setDimensions(Vertex dim);
 	void setColor(const Color& color);
 	void setName(wxString name);
-	
+
 	primitiveType getPrimitiveType();
-	
+
 	Vertex getPosition();
 	Vertex getAngles();
 	Vertex getDimensions();
 	const Color& getColor();
 	wxString getName();
-	
+
 	DECLARE_DYNAMIC_CLASS(CreatePrimitiveEvent);
 };
 
@@ -64,4 +65,4 @@ wxEVT_COMMAND_GNR_CREATE_PRIMITIVE, id, -1, (wxObjectEventFunction) \
 (wxEventFunction) (CreatePrimitiveEventFunction) & fn, \
 (wxObject *) NULL ),
 
-#endif // CREATEPRIMITIVEEVENT_H
+#endif // _CREATEPRIMITIVEEVENT_H_
