@@ -8,8 +8,8 @@
  * @author		Valentin Kunz       <athostr@googlemail.com>
  */
 
-#ifndef ASSEMBLYMEDIATOR3D_H
-#define ASSEMBLYMEDIATOR3D_H
+#ifndef _ASSEMBLYMEDIATOR3D_H_
+#define _ASSEMBLYMEDIATOR3D_H_
 
 #include "AssemblyMediator.h"
 
@@ -23,7 +23,7 @@ private:
 	void RotateXY(GLNotifyEvent& event);
 	void RotateY(GLNotifyEvent& event);
 	void RotateXZ(GLNotifyEvent& event);
-	
+
 };
 
-#endif // AssemblyMediator3D_H
+#endif // _ASSEMBLYMEDIATOR3D_H_

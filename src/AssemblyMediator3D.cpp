@@ -9,11 +9,14 @@
  * @author      Valentin Kunz       <athostr@googlemail.com>
  */
 
-#include "AssemblyMediator3D.h"
-
 #if defined(__ATHOS_DEBUG__)
 #include <wx/log.h>
 #endif
+
+#include "Assembly.h"
+#include "AssemblyMediator3D.h"
+#include "GLNotifyEvent.h"
+#include "Vertex.h"
 
 /**
  * move the object in XY dimension and limit height over ground
@@ -22,26 +25,26 @@
 void AssemblyMediator3D::MoveXY(GLNotifyEvent& event)
 {
 	Vertex to_obj = cam_pos - obj_pos;
-	
+
 	float mouse_dx = to_obj.length()*(m_mouse_x - event.getMouseEvent().GetX())/window_w;
 	float mouse_dy = to_obj.length()*(m_mouse_y - event.getMouseEvent().GetY())/window_h;
-	
+
 	Vertex direction(mouse_dx,mouse_dy,0.0);
 	direction.rotate(0.0,cam_rot_y,0.0);
-	
+
 	float new_x = old_x - direction.getX();
 	float new_y = old_y + direction.getY();
-	
+
 	doSnapMove(new_x);
 	doSnapMove(new_y);
-	
+
 	if (new_y <= (m_Assembly->getOverGround()*1.1))
 	{
 		new_y = m_Assembly->getOverGround();
 	}
-	
+
 	m_Assembly->position().setXY(new_x, new_y);
-	
+
 	obj_pos.setXY(new_x, new_y);
 }
 
@@ -52,21 +55,21 @@ void AssemblyMediator3D::MoveXY(GLNotifyEvent& event)
 void AssemblyMediator3D::MoveXZ(GLNotifyEvent& event)
 {
 	Vertex to_obj = cam_pos - obj_pos;
-	
+
 	float mouse_dx = to_obj.length()*(m_mouse_x - event.getMouseEvent().GetX())/window_w;
 	float mouse_dy = to_obj.length()*(m_mouse_y - event.getMouseEvent().GetY())/window_h*1.1;
-	
+
 	Vertex direction(mouse_dx,0.0,mouse_dy);
 	direction.rotate(0.0,cam_rot_y,0.0);
-	
+
 	float new_x = old_x - direction.getX();
 	float new_z = old_z - direction.getZ();
-	
+
 	doSnapMove(new_x);
 	doSnapMove(new_z);
-	
+
 	m_Assembly->position().setXZ(new_x, new_z);
-	
+
 	obj_pos.setXZ(new_x, new_z);
 }
 
@@ -78,10 +81,10 @@ void AssemblyMediator3D::RotateXY(GLNotifyEvent& event)
 {
 	float new_phi   = phi_old + 720.0f*(event.getMouseEvent().GetY() - m_mouse_y)/window_h;
 	float new_theta = theta_old + 720.0f*(event.getMouseEvent().GetX() - m_mouse_x)/window_w;
-	
+
 	doSnapRotate(new_phi);
 	doSnapRotate(new_theta);
-	
+
 	m_Assembly->rotation().setXY(new_phi, new_theta);
 }
 
@@ -104,9 +107,9 @@ void AssemblyMediator3D::RotateXZ(GLNotifyEvent& event)
 {
 	float new_phi = phi_old + 720.0f*(event.getMouseEvent().GetY() - m_mouse_y)/window_h;
 	float new_rho = rho_old + 720.0f*(m_mouse_x - event.getMouseEvent().GetX())/window_w;
-	
+
 	doSnapRotate(new_phi);
 	doSnapRotate(new_rho);
-	
+
 	m_Assembly->rotation().setXZ(new_phi, new_rho);
 }
