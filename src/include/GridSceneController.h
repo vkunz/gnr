@@ -14,9 +14,6 @@
 #include <vector>
 #include <wx/grid.h>
 
-#include "Assembly.h"
-#include "GridRowData.h"
-
 /**
  * @class GridSceneController
  *
@@ -27,26 +24,26 @@ class GridSceneController
 public:
 	// ctor
 	GridSceneController(wxGrid* grid);
-	
+
 	// dtor
 	virtual ~GridSceneController();
-	
+
 	void addEntry(Assembly* assembly);
 	void removeEntry(int assemblyId);
-	
+
 protected:
 
 private:
 	// attributes
 	// pointer to grid
 	wxGrid* m_grid;
-	
+
 	// vector of name, height, weight, depth, isvisible, id
 	std::vector<GridRowData> m_vector;
-	
+
 	// random access iterator
 	std::vector<GridRowData>::iterator m_vectorit;
-	
+
 	// functions
 	void buildGrid();
 };
