@@ -136,6 +136,8 @@
 			<Add option="-D__GNUWIN32__" />
 			<Add option="-D__WXMSW__" />
 			<Add option="-DwxUSE_UNICODE" />
+			<Add option="-D_UNICODE" />
+			<Add option="-DUNICODE" />
 			<Add directory="$(#wx)\include" />
 			<Add directory="src\include" />
 		</Compiler>
